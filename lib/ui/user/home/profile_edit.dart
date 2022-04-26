@@ -17,7 +17,9 @@ import '../../../model/gender_list.dart';
 import '../../../model/visa_type_list.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
+import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/login_button.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
@@ -76,15 +78,45 @@ class _CreateShiftState extends State<ProfileEditScreen> {
     observerResponse();
   }
 
-  Future getData() async {
+  Future  getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
-      profileBloc.getUserInfo(token);
+
+
+      if (await isNetworkAvailable()) {
+        setState(() {
+          visibility = true;
+        });
+        profileBloc.getUserInfo(token);
+      }else {
+
+        showInternetNotAvailable();
+      }
     }
   }
+
+
+
+  Future<void> showInternetNotAvailable() async {
+    int respo = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
+    );
+
+    if (respo == 1) {
+      getData();
+    }
+  }
+
+  // Future getData() async {
+  //   token = await TokenProvider().getToken();
+  //   if (null != token) {
+  //     setState(() {
+  //       visibility = true;
+  //     });
+  //     profileBloc.getUserInfo(token);
+  //   }
+  // }
   void observe() {
     profileBloc.getProfileStream.listen((event) {
       setState(() {
