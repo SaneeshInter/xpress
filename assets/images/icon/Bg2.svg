@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 431.5 388" style="enable-background:new 0 0 431.5 388;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#F4FBFA;}
+	.st1{fill:url(#Rectangle_61_1_);}
+	.st2{opacity:0.1;}
+	.st3{fill:#FFFFFF;}
+</style>
+<g id="Group_251" transform="translate(1 109.863)">
+	<rect id="Rectangle_3" y="-109.9" class="st0" width="428" height="1114"/>
+	
+		<linearGradient id="Rectangle_61_1_" gradientUnits="userSpaceOnUse" x1="-97.2798" y1="-168.3912" x2="-97.2798" y2="-167.3912" gradientTransform="matrix(436 0 0 388 42631 65225.8789)">
+		<stop  offset="0" style="stop-color:#04B450"/>
+		<stop  offset="1" style="stop-color:#0585D3"/>
+	</linearGradient>
+	<rect id="Rectangle_61" x="-1" y="-109.9" class="st1" width="436" height="388"/>
+	<g id="Group_187" transform="translate(-1775.235 -416.499)" class="st2">
+		<g id="Group_184" transform="translate(1823.864 306.636)">
+			<g id="Group_6" transform="translate(0)">
+				<path id="Path_16" class="st3" d="M285.8,220.9C198.9,220.9,128,150,128,63.1c0-34,10.9-67.2,31.2-94.5
+					C117.3-0.9,90.6,48.6,90.6,105c0,93.7,76.2,169.2,169.2,169.2c84.6,0,154.7-62.5,167.7-143.3
+					C401.7,185.9,346.5,220.9,285.8,220.9z"/>
+				<path id="Path_17" class="st3" d="M255.3,312.4c-112.8,0-205-91.5-205-205c-0.2-113,91.2-204.8,204.2-205c0.3,0,0.6,0,0.8,0
+					c20.7-0.1,41.2,3,61,9.1c-29.5-14-61.8-21.3-94.5-21.3C99.8-109.1,0-9.3,0,113.5S99.8,336,222.5,336c60,0,117.4-24.2,159.3-67.1
+					C345.8,297.3,301.2,312.6,255.3,312.4z"/>
+				<path id="Path_18" class="st3" d="M381.1-39c12.9,17.7,19.8,39.1,19.8,61c0,57.2-46.5,104.4-104.4,104.4
+					c-57.2,0-104.4-46.5-104.4-104.4c-0.1-28.5,11.5-55.7,32-75.5C191.3-31.4,170,6.8,170,49.4c0,68.6,55.6,124.2,124.3,124.2
+					c68.6,0,124.2-55.6,124.2-124.2C417.7,14.4,403.9-16.9,381.1-39z"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,12 @@
+<svg id="moon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.773" height="25.616" viewBox="0 0 25.773 25.616">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#4abbff"/>
+      <stop offset="1" stop-color="#0081cf"/>
+    </linearGradient>
+  </defs>
+  <circle id="Ellipse_26" data-name="Ellipse 26" cx="1.184" cy="1.184" r="1.184" transform="translate(22.222 0.967)" fill="url(#linear-gradient)"/>
+  <path id="Path_339" data-name="Path 339" d="M12.858,25.616a12.792,12.792,0,0,0,12.078-8.723.75.75,0,0,0-1.182-.825,8.9,8.9,0,0,1-5.643,1.993A9.041,9.041,0,0,1,9.056,9.056a9.153,9.153,0,0,1,4.268-7.667A.75.75,0,0,0,12.946,0c-.018,0-.049,0-.088,0A12.878,12.878,0,0,0,0,12.808,12.878,12.878,0,0,0,12.858,25.616ZM10.535,1.739A10.517,10.517,0,0,0,22.514,18.591,11.3,11.3,0,1,1,10.535,1.739Z" fill="url(#linear-gradient)"/>
+  <path id="Path_340" data-name="Path 340" d="M272.75,34.5A2.307,2.307,0,0,1,275,36.8a.75.75,0,0,0,1.5,0,2.307,2.307,0,0,1,2.251-2.3.75.75,0,0,0,0-1.5A2.254,2.254,0,0,1,276.5,30.75a.75.75,0,0,0-1.5,0A2.254,2.254,0,0,1,272.75,33a.75.75,0,0,0,0,1.5Zm3-1.5a3.786,3.786,0,0,0,.763.761,3.864,3.864,0,0,0-.763.774,3.865,3.865,0,0,0-.763-.774A3.785,3.785,0,0,0,275.752,33Z" transform="translate(-258.391 -28.499)" fill="url(#linear-gradient)"/>
+  <ellipse id="Ellipse_27" data-name="Ellipse 27" cx="0.592" cy="1.184" rx="0.592" ry="1.184" transform="translate(24.59 6.886)" fill="url(#linear-gradient)"/>
+</svg>
