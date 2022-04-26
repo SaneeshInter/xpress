@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/Users/intersmart/Documents/FlutterWorks/xpress/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
                     "source": "/Users/intersmart/.gradle/caches/transforms-2/files-2.1/1a700d90560db5b83be244a9e0368578/jetified-startup-runtime-1.0.0/res/values/values.xml",
@@ -35,25 +35,6 @@
                         "startOffsets": "17119",
                         "endColumns": "42",
                         "endOffsets": "17157"
-                    }
-                },
-                {
-                    "source": "/Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/res/values/styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "173,807",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "465,971"
-                    },
-                    "to": {
-                        "startLines": "1396,1401",
-                        "startColumns": "4,4",
-                        "startOffsets": "90421,90718",
-                        "endLines": "1400,1403",
-                        "endColumns": "12,12",
-                        "endOffsets": "90713,90882"
                     }
                 },
                 {
@@ -183,6 +164,25 @@
                         "startOffsets": "17162",
                         "endColumns": "53",
                         "endOffsets": "17211"
+                    }
+                },
+                {
+                    "source": "/Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "173,807",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "465,971"
+                    },
+                    "to": {
+                        "startLines": "1396,1401",
+                        "startColumns": "4,4",
+                        "startOffsets": "90421,90718",
+                        "endLines": "1400,1403",
+                        "endColumns": "12,12",
+                        "endOffsets": "90713,90882"
                     }
                 }
             ]

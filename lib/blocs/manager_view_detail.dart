@@ -29,6 +29,5 @@ class ManagerViewRequestBloc {
 }
 
 final managerviewrequestBloc = ManagerViewRequestBloc();
-final acceptjobrequestBloc = ManagerViewRequestBloc();
 
 

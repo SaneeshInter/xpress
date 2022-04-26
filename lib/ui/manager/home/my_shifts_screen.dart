@@ -174,14 +174,12 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
         showAlertDialoge(context, title: "Failed", message: message!);
       }
     });
-
     viewbookingBloc.allShift.listen((event) {
       setState(() {
         visible = false;
       });
     });
   }
-
   Future deleteShift(rowId) async {
     String? token = await TokenProvider().getToken();
     viewbookingBloc.fetchRemoveManager(token!, rowId.toString());
@@ -203,7 +201,6 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
               onTapItem: () {},
               onTapEdit: (item) {
                 print(item);
-
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -213,7 +210,6 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
               },
               onTapDelete: (row_id) {
                 print(row_id);
-
                 setState(() {
                   visible = true;
                 });

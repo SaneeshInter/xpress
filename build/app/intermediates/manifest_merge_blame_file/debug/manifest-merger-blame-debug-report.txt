@@ -12,17 +12,17 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml:6:5-66
-14-->/Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml:6:22-64
+14-->/Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml:6:5-66
+14-->/Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml:6:22-64
 15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-15-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
-15-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+15-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
+15-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
 16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-16-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
-16-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
+16-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
+16-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
 17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-17-->[:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
-17-->[:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
+17-->[:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/xpress/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+17-->[:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/xpress/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
 18
 19    <application
 20        android:name="android.app.Application"
@@ -65,48 +65,48 @@
 56            android:value="2" />
 57
 58        <provider
-58-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
+58-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
 59            android:name="com.sidlatau.flutteremailsender.FlutterEmailSenderFileProvider"
-59-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-90
+59-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-90
 60            android:authorities="com.intersmart.xpresshealthdev.file_provider"
-60-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-65
+60-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-65
 61            android:exported="false"
-61-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
+61-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
 62            android:grantUriPermissions="true" >
-62-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
+62-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
 63            <meta-data
-63-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-15:61
+63-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-15:61
 64                android:name="android.support.FILE_PROVIDER_PATHS"
-64-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:14:17-67
+64-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:14:17-67
 65                android:resource="@xml/shared_file_paths" />
-65-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-58
+65-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-58
 66        </provider>
 67        <provider
-67-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+67-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
 68            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-68-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+68-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
 69            android:authorities="com.intersmart.xpresshealthdev.flutter.image_provider"
-69-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+69-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
 70            android:exported="false"
-70-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+70-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
 71            android:grantUriPermissions="true" >
-71-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+71-->[:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
 72            <meta-data
-72-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-15:61
+72-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-15:61
 73                android:name="android.support.FILE_PROVIDER_PATHS"
-73-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:14:17-67
+73-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:14:17-67
 74                android:resource="@xml/flutter_image_picker_file_paths" />
-74-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-58
+74-->[:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-58
 75        </provider>
 76
 77        <activity
-77-->[:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
+77-->[:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
 78            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-78-->[:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
+78-->[:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
 79            android:exported="false"
-79-->[:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
+79-->[:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
 80            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-80-->[:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
+80-->[:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
 81
 82        <uses-library
 82-->[androidx.window:window:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40

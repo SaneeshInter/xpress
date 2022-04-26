@@ -439,7 +439,6 @@ class ApiProvider {
   ) async {
     var response;
     var uri = Uri.parse(BASE_URL + '/manager/add-schedule');
-
     if (row_id != -1) {
       uri = Uri.parse(BASE_URL + '/manager/edit-schedule');
       response = await client.post(uri,

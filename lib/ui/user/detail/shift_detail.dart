@@ -16,14 +16,13 @@ import '../common/side_menu.dart';
 import 'drawable_custom_row.dart';
 
 class ShiftDetailScreen extends StatefulWidget {
-
   final String shift_id;
+
   const ShiftDetailScreen({Key? key, required this.shift_id}) : super(key: key);
 
   @override
   State<ShiftDetailScreen> createState() => _ShiftDetailScreenState();
 }
-
 
 class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
   String? token;
@@ -49,7 +48,6 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    getDataz();
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
@@ -70,23 +68,18 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                 var hospitalDetail = data?.hospitalDetails![0];
                 var shiftDetails = data?.shiftDetails![0];
 
-
-
-
-
-
                 return Column(
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
                       padding:
-                      const EdgeInsets.only(left: 5, right: 5, top: 10),
+                          const EdgeInsets.only(left: 5, right: 5, top: 10),
                       child: Column(
                         children: [
                           if (null != hospitalDetail)
                             Padding(
                               padding:
-                              const EdgeInsets.only(left: 10, right: 10),
+                                  const EdgeInsets.only(left: 10, right: 10),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(10),
@@ -106,7 +99,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                           if (null != hospitalDetail)
                             Padding(
                               padding:
-                              const EdgeInsets.only(left: 10, right: 10),
+                                  const EdgeInsets.only(left: 10, right: 10),
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -123,7 +116,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                         children: [
                                           Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(
@@ -138,7 +131,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                       fontSize: 16.sp,
                                                       fontFamily: "SFProMedium",
                                                       fontWeight:
-                                                      FontWeight.w700),
+                                                          FontWeight.w700),
                                                 ),
                                               ),
                                               CustomRow(
@@ -147,7 +140,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     hospitalDetail.address
                                                         .toString(),
                                                 asset:
-                                                "assets/images/icon/location.svg",
+                                                    "assets/images/icon/location.svg",
                                                 textColors: Colors.black,
                                                 size: 9.sp,
                                               ),
@@ -162,7 +155,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                           .toString() +
                                                       " PM",
                                                   asset:
-                                                  "assets/images/icon/time.svg",
+                                                      "assets/images/icon/time.svg",
                                                   textColors: Colors.black,
                                                   size: 9.sp,
                                                 ),
@@ -172,7 +165,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     .hospitalName
                                                     .toString(),
                                                 asset:
-                                                "assets/images/icon/ward.svg",
+                                                    "assets/images/icon/ward.svg",
                                                 textColors: Colors.black,
                                                 size: 9.sp,
                                               ),
@@ -181,7 +174,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 label: hospitalDetail.email
                                                     .toString(),
                                                 asset:
-                                                "assets/images/icon/email.svg",
+                                                    "assets/images/icon/email.svg",
                                                 textColors: Colors.black,
                                                 size: 9.sp,
                                               ),
@@ -190,13 +183,13 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 label: hospitalDetail.phone
                                                     .toString(),
                                                 asset:
-                                                "assets/images/icon/price-tag.svg",
+                                                    "assets/images/icon/price-tag.svg",
                                                 textColors: Colors.black,
                                                 size: 9.sp,
                                               ),
                                               Padding(
                                                 padding:
-                                                const EdgeInsets.all(12.0),
+                                                    const EdgeInsets.all(12.0),
                                                 child: Divider(
                                                   thickness: 1,
                                                   indent: 12,
@@ -210,7 +203,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                       shiftDetails.jobDetails
                                                           .toString(),
                                                   asset:
-                                                  "assets/images/icon/check.svg",
+                                                      "assets/images/icon/check.svg",
                                                   textColors: Colors.black,
                                                 ),
 
@@ -290,8 +283,6 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                               SizedBox(
                                                 height: 3.h,
                                               ),
-
-
                                             ],
                                           ),
                                         ],
@@ -323,5 +314,3 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     );
   }
 }
-
-

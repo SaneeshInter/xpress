@@ -4,6 +4,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
 import '../ui/Widgets/booking_alert_box.dart';
+import '../ui/widgets/action_alert_dialoge.dart';
 import '../ui/widgets/add_time_sheet_alert_box.dart';
 import '../ui/widgets/login_invalid_alert.dart';
 
@@ -195,34 +196,34 @@ selectTime(BuildContext context, TextEditingController anycontroller) async {
 // }
 //
 //
-// void showActionAlert(
-//     context, {
-//       required String tittle,
-//       required String message,
-//     }) {
-//   showDialog(
-//     context: context,
-//     barrierColor: Colors.transparent,
-//     builder: (BuildContext context) {
-//       Future.delayed(Duration(seconds: 2), () {
-//         // Navigator.of(context).pop(true);
-//       });
-//       return Center(
-//         child: AlertDialog(
-//             elevation: 0,
-//             backgroundColor: Colors.transparent,
-//             insetPadding: EdgeInsets.symmetric(
-//               horizontal: screenWidth(context, dividedBy: 30),
-//             ),
-//             shape:
-//             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-//             content: ActionAlertBox(
-//                 tittle: tittle,
-//                 message: message,
-//                 positiveText: "DELETE",
-//                 onPositvieClick: () {},
-//                 onNegativeClick: () {})),
-//       );
-//     },
-//   );
-// }
+void showActionAlert(
+    context, {
+      required String tittle,
+      required String message,
+    }) {
+  showDialog(
+    context: context,
+    barrierColor: Colors.transparent,
+    builder: (BuildContext context) {
+      Future.delayed(Duration(seconds: 2), () {
+        // Navigator.of(context).pop(true);
+      });
+      return Center(
+        child: AlertDialog(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: screenWidth(context, dividedBy: 30),
+            ),
+            shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            content: ActionAlertBox(
+                tittle: tittle,
+                message: message,
+                positiveText: "DELETE",
+                onPositvieClick: () {},
+                onNegativeClick: () {})),
+      );
+    },
+  );
+}

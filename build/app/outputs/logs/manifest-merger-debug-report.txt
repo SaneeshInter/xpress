@@ -1,12 +1,12 @@
 -- Merging decision tree log ---
 application
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:3:4-34:19
-MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-17:19
-MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-17:19
-MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
-MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
-MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-12:19
-MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-12:19
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:3:4-34:19
+MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-17:19
+MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-17:19
+MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
+MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
+MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-12:19
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
 MERGED from [androidx.emoji2:emoji2:1.0.0] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/8d120aa649c2aed370574c7028952cac/jetified-emoji2-1.0.0/AndroidManifest.xml:25:5-35:19
@@ -22,22 +22,22 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/inte
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.7.0] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/b9a960218f5163997c0fdfa3d3078c0e/core-1.7.0/AndroidManifest.xml:24:18-86
 	android:name
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml
 manifest
-ADDED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:1:1-35:12
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:1:1-35:12
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:1:1-35:12
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:1:1-35:12
-MERGED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:1:1-35:12
-MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
-MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
-MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-19:12
-MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-22:12
-MERGED from [:flutter_plugin_android_lifecycle] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
-MERGED from [:sqflite] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
-MERGED from [:fluttertoast] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
-MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-14:12
-MERGED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+ADDED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:1-35:12
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:1-35:12
+MERGED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:1-35:12
+MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/xpress/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-19:12
+MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-22:12
+MERGED from [:flutter_plugin_android_lifecycle] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:sqflite] /Users/intersmart/Documents/FlutterWorks/xpress/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:fluttertoast] /Users/intersmart/Documents/FlutterWorks/xpress/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-14:12
+MERGED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/xpress/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/ad201fac15a88598107ec645f351f5b4/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.appcompat:appcompat:1.4.1] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/7ed8866a153ba11c73fe6ed707b862b7/appcompat-1.4.1/AndroidManifest.xml:17:1-24:12
@@ -68,45 +68,45 @@ MERGED from [androidx.lifecycle:lifecycle-runtime:2.4.0] /Users/intersmart/.grad
 MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/16e110bf603f94cf61f970a18f3907e3/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/9ed314abc3df537a2d48c1cb6d65998e/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/5bfc0955e244073bdc8cc139cda5e092/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:17:1-24:12
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml:1:1-7:12
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml:1:1-7:12
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml:1:1-7:12
 	package
-		ADDED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:2:5-45
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml
+		ADDED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:2:5-45
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:1:1-35:12
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:1-35:12
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:1:1-35:12
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:1-35:12
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml:1:11-69
+		ADDED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:11-69
 uses-sdk
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml
-MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:flutter_plugin_android_lifecycle] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:flutter_plugin_android_lifecycle] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:fluttertoast] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:fluttertoast] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml
+MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/xpress/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/xpress/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /Users/intersmart/Documents/FlutterWorks/xpress/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /Users/intersmart/Documents/FlutterWorks/xpress/build/sqflite/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /Users/intersmart/Documents/FlutterWorks/xpress/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /Users/intersmart/Documents/FlutterWorks/xpress/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/xpress/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/xpress/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/ad201fac15a88598107ec645f351f5b4/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/ad201fac15a88598107ec645f351f5b4/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
@@ -167,64 +167,64 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/intersmart/.gradle
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/9ed314abc3df537a2d48c1cb6d65998e/interpolator-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/5bfc0955e244073bdc8cc139cda5e092/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/5bfc0955e244073bdc8cc139cda5e092/jetified-annotation-experimental-1.1.0/AndroidManifest.xml:20:5-22:41
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml
-INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml
+INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml
 uses-permission#android.permission.INTERNET
-ADDED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml:6:5-66
+ADDED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml:6:5-66
 	android:name
-		ADDED from /Users/intersmart/Documents/FlutterWorks/SaneeshInter/android/app/src/debug/AndroidManifest.xml:6:22-64
+		ADDED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/debug/AndroidManifest.xml:6:22-64
 provider#com.sidlatau.flutteremailsender.FlutterEmailSenderFileProvider
-ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
+ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-16:20
 	android:grantUriPermissions
-		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
+		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-47
 	android:authorities
-		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-65
+		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-65
 	android:exported
-		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
+		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-37
 	android:name
-		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-90
+		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-90
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-15:61
+ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-15:61
 	android:resource
-		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-58
+		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:15:17-58
 	android:name
-		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:14:17-67
+		ADDED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:14:17-67
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
+ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
 	android:name
-		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
+ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
 	android:name
-		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
+		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
 provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
-ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
 	android:grantUriPermissions
-		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
 	android:authorities
-		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
 	android:exported
-		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
 	android:name
-		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+		ADDED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
 activity#io.flutter.plugins.urllauncher.WebViewActivity
-ADDED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
+ADDED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
 	android:exported
-		ADDED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
+		ADDED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
 	android:theme
-		ADDED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
+		ADDED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
 	android:name
-		ADDED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
+		ADDED from [:url_launcher_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/url_launcher_android/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+ADDED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/xpress/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
 	android:name
-		ADDED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/SaneeshInter/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
+		ADDED from [:connectivity_plus] /Users/intersmart/Documents/FlutterWorks/xpress/build/connectivity_plus/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
 uses-library#androidx.window.extensions
 ADDED from [androidx.window:window:1.0.0-beta04] /Users/intersmart/.gradle/caches/transforms-2/files-2.1/03c633e46d75bfb21f082f0417f55161/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
 	android:required

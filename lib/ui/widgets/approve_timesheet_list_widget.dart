@@ -74,7 +74,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   ViewButton(
-                    label: "HCA",
+                    label: widget.items.userType!,
                     onPressed: () {},
                     key: null,
                   )

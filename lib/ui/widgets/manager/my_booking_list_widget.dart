@@ -137,7 +137,10 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
                   DeleteButton(
                     label: "Delete",
                     onPressed: () {
+
                       widget.onTapDelete(widget.items.rowId);
+
+
                     },
                     key: null,
                   ),
