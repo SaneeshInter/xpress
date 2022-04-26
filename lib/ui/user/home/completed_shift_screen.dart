@@ -12,8 +12,10 @@ import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
 import '../../../model/user_complted_shift.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../Widgets/buttons/build_button.dart';
+import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_list_item.dart';
 import '../common/app_bar.dart';
@@ -42,15 +44,38 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
+  
+
   Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
-      completeBloc.fetchcomplete(token);
+
+
+      if (await isNetworkAvailable()) {
+        setState(() {
+          visibility = true;
+        });
+        completeBloc.fetchcomplete(token);
+      }else {
+
+        showInternetNotAvailable();
+      }
     }
   }
+
+
+  Future<void> showInternetNotAvailable() async {
+    int respo = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
+    );
+
+    if (respo == 1) {
+      getData();
+    }
+  }
+
+
 
   Future getImage(ImgSource source) async {
     var image = await ImagePickerGC.pickImage(
