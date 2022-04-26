@@ -7,6 +7,8 @@ import '../../../blocs/profile_update_bloc.dart';
 import '../../../model/user_get_response.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
+import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/profile_detail.dart';
@@ -34,15 +36,37 @@ class _ProfileState extends State<ProfileScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
-  Future getData() async {
+
+  Future  getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
-      profileBloc.getUserInfo(token);
+
+
+      if (await isNetworkAvailable()) {
+        setState(() {
+          visibility = true;
+        });
+        profileBloc.getUserInfo(token);
+      }else {
+
+        showInternetNotAvailable();
+      }
     }
   }
+
+
+
+  Future<void> showInternetNotAvailable() async {
+    int respo = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
+    );
+
+    if (respo == 1) {
+      getData();
+    }
+  }
+
 
   Future getImage(ImgSource source) async {
     var image = await ImagePickerGC.pickImage(
