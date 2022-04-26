@@ -203,7 +203,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
   Widget horizontalList() {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: 13.h,
+        maxHeight: 35.w,
       ),
       child: StreamBuilder(
           stream: managerhomeBloc.managerhomeStream,
@@ -254,12 +254,12 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                       child: Container(
                           width: screenHeight(context, dividedBy: 2.2),
                           child: AutoSizeText(
                             description,
-                            maxLines: 1,
+                            maxLines: 2,
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 8.sp,
@@ -267,7 +267,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                           )),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                       child: SizedBox(
                           width: screenHeight(context, dividedBy: 2.2),
                           child: AutoSizeText(
