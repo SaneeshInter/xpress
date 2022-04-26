@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/filter_booking_list.dart';
@@ -59,46 +60,36 @@ class _HomeScreentate extends State<MyBookingScreen> {
 
   @override
   void initState() {
+    super.initState();
     getDataitems();
     observe();
-
     pageController = PageController(initialPage: 0);
     pageCount = 3;
-    super.initState();
   }
-
 
   Future getDataitems() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-
-
       if (await isNetworkAvailable()) {
         setState(() {
           visibility = true;
         });
         confirmBloc.fetchUserViewRequest(token);
-      }else {
-
+      } else {
         showInternetNotAvailable();
       }
     }
   }
-
-
 
   Future<void> showInternetNotAvailable() async {
     int respo = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
     );
-
     if (respo == 1) {
       getDataitems();
     }
   }
-
-
 
   void observe() {
     confirmBloc.usercanceljobrequest.listen((event) {
@@ -206,103 +197,102 @@ class _HomeScreentate extends State<MyBookingScreen> {
               ),
             ),
           ),
-          body: RefreshIndicator(
-            onRefresh: () async {},
-            color: Colors.white,
-            backgroundColor: Colors.purple,
-            strokeWidth: 5,
-            child: Container(
-                child: StreamBuilder(
-                    stream: confirmBloc.viewrequest,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<UserViewRequestResponse> snapshot) {
-                      if (snapshot.hasData) {
-                        return TabBarView(children: [
-                          bookingList(0, snapshot),
-                          bookingList(1, snapshot),
-                          bookingList(2, snapshot),
-                          bookingList(3, snapshot)
-                        ]);
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
-                      return Center(
-                        child: Visibility(
-                          child: Container(
-                            width: 100.w,
-                            height: 80.h,
-                            child: const Center(
-                              child: LoadingWidget(),
-                            ),
+          body: Container(
+              child: StreamBuilder(
+                  stream: confirmBloc.viewrequest,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                    if (snapshot.hasData) {
+                      return TabBarView(children: [
+                        bookingList(0, snapshot),
+                        bookingList(1, snapshot),
+                        bookingList(2, snapshot),
+                        bookingList(3, snapshot)
+                      ]);
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
+                    return Center(
+                      child: Visibility(
+                        child: Container(
+                          width: 100.w,
+                          height: 80.h,
+                          child: const Center(
+                            child: LoadingWidget(),
                           ),
                         ),
-                      );
-                    })),
-          )),
+                      ),
+                    );
+                  }))),
     );
   }
-}
 
-Widget bookingList(
-    int position, AsyncSnapshot<UserViewRequestResponse> snapshot) {
-  return SingleChildScrollView(
-    child: Column(children: [buildList(snapshot, position)]),
-  );
-}
-
-Widget buildList(
-    AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
-  var allList = getFilterList(snapshot, position);
-  var list = [];
-  if (position == 0) {
-    list = allList.requested;
+  Widget bookingList(
+      int position, AsyncSnapshot<UserViewRequestResponse> snapshot) {
+    return LiquidPullToRefresh(
+      onRefresh: () async {
+        getDataitems();
+      },
+      child: SingleChildScrollView(
+        child: Column(children: [buildList(snapshot, position)]),
+      ),
+    );
   }
 
-  if (position == 1) {
-    list = allList.confirmed;
-  }
+  Widget buildList(
+      AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
+    var allList = getFilterList(snapshot, position);
+    var list = [];
+    if (position == 0) {
+      list = allList.requested;
+    }
 
-  if (position == 2) {
-    list = allList.reject;
-  }
+    if (position == 1) {
+      list = allList.confirmed;
+    }
 
-  if (position == 3) {
-    list = allList.completed;
-  }
+    if (position == 2) {
+      list = allList.reject;
+    }
 
-  return ListView.builder(
-    itemCount: list.length,
-    shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
-    itemBuilder: (BuildContext context, int index) {
-      var items = list[index];
-      return Column(
-        children: [
-          MyBookingListWidget(
-            items: items!,
-            position: 12,
-            onTapView: (item) {
-              showTimeUpdateAlert(context, item);
-            },
-            onTapCancel: (item) {
-              print("Tapped");
-              //confirmBloc.fetchGetUserCancelJobResponse(token, job_request_row_id)
-              // showTimeUpdateAlert(context, item);
-              canceljob(items);
-            },
-            onTapCall: () {},
-            onTapMap: () {
-              // showFeactureAlert(context, date: "");
-            },
-            onTapBooking: () {
-              print("Tapped");
-            },
-            key: null,
-          ),
-        ],
-      );
-    },
-  );
+    if (position == 3) {
+      list = allList.completed;
+    }
+
+    return ListView.builder(
+      itemCount: list.length,
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        var items = list[index];
+        return Column(
+          children: [
+            MyBookingListWidget(
+              items: items!,
+              position: 12,
+              onTapView: (item) {
+                showTimeUpdateAlert(context, item);
+              },
+              onTapCancel: (item) {
+                print("Tapped");
+                //confirmBloc.fetchGetUserCancelJobResponse(token, job_request_row_id)
+                // showTimeUpdateAlert(context, item);
+                canceljob(items);
+              },
+              onTapCall: () {},
+              onTapMap: () {
+                // showFeactureAlert(context, date: "");
+              },
+              onTapBooking: () {
+                print("Tapped");
+              },
+              key: null,
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {

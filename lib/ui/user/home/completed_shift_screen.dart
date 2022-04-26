@@ -44,25 +44,19 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
-  
-
   Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-
-
       if (await isNetworkAvailable()) {
         setState(() {
           visibility = true;
         });
         completeBloc.fetchcomplete(token);
-      }else {
-
+      } else {
         showInternetNotAvailable();
       }
     }
   }
-
 
   Future<void> showInternetNotAvailable() async {
     int respo = await Navigator.push(
@@ -74,8 +68,6 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
       getData();
     }
   }
-
-
 
   Future getImage(ImgSource source) async {
     var image = await ImagePickerGC.pickImage(

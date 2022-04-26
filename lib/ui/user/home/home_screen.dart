@@ -430,7 +430,7 @@ class _HomeScreentate extends State<HomeScreen> {
         Container(
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxHeight: 110,
+              maxHeight: 13.h,
             ),
             child: buildList(snapshot),
           ),
@@ -446,7 +446,6 @@ class _HomeScreentate extends State<HomeScreen> {
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) {
         var list = snapshot.data?.response?.data?.importantUpdates![index];
-
         if (null != list) {
           var name = list.title!;
           var date = list.date!;
@@ -485,7 +484,7 @@ class _HomeScreentate extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      child: Container(
+                      child: SizedBox(
                           width: screenHeight(context, dividedBy: 2.2),
                           child: AutoSizeText(
                             date,

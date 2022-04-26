@@ -214,7 +214,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
   Widget signUpBtn() {
     return Column(
       children: <Widget>[

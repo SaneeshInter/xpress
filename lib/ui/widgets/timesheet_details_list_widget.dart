@@ -13,7 +13,6 @@ class TimeSheetDetailsListWidget extends StatefulWidget {
   final Function onTapCall;
   final Function onTapView;
   final Function onCheckBoxClicked;
-
   const TimeSheetDetailsListWidget({
     Key? key,
     required this.items,
@@ -23,7 +22,6 @@ class TimeSheetDetailsListWidget extends StatefulWidget {
     required this.onTapMap,
     required this.onCheckBoxClicked,
   }) : super(key: key);
-
   @override
   _NotificationState createState() => _NotificationState();
 }

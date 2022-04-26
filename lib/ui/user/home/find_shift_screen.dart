@@ -12,6 +12,7 @@ import '../../datepicker/date_picker_widget.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/shift_list_widget.dart';
 import '../common/side_menu.dart';
+import '../detail/shift_detail.dart';
 
 class FindShiftScreen extends StatefulWidget {
   @override
@@ -147,13 +148,22 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                   token: token,
                   onTapDelete: () {},
                   onTapViewMap: () {},
-                  onTapView: () {},
+                  onTapView: (item) {
+
+
+                    if (items is Items) {
+                      Items data = items;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: data.rowId.toString(),)),
+                      );
+
+                    }
+
+
+                  },
                   onTapBook: (item) {
-
-
                     requestShift(items);
-
-
                   },
                   onTapEdit: () {
                     print("Tapped");

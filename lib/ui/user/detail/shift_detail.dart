@@ -214,82 +214,83 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                   textColors: Colors.black,
                                                 ),
 
-                                              if (null != shiftDetails)
-                                                CustomRowz(
-                                                  onPressed: () {},
-                                                  label: "Date : " +
-                                                      shiftDetails.date
-                                                          .toString(),
-                                                  asset:
-                                                  "assets/images/icon/check.svg",
-                                                  textColors: Colors.black,
-                                                ),
-                                              if (null != shiftDetails)
-                                                CustomRow(
-                                                  onPressed: () {},
-                                                  label: "From : " +
-                                                      shiftDetails.timeFrom
-                                                          .toString() +
-                                                      "AM To : " +
-                                                      shiftDetails.timeFrom
-                                                          .toString() +
-                                                      " PM",
-                                                  asset:
-                                                  "assets/images/icon/check.svg",
-                                                  textColors: Colors.black,
-                                                  size: 9.sp,
-                                                ),
-                                              if (null != shiftDetails)
-                                                CustomRowz(
-                                                  onPressed: () {},
-                                                  label: "Price : " +
-                                                      shiftDetails.price
-                                                          .toString(),
-                                                  asset:
-                                                  "assets/images/icon/check.svg",
-                                                  textColors: Colors.black,
-                                                ),
-                                              if (null != shiftDetails)
-                                                CustomRowz(
-                                                  onPressed: () {},
-                                                  label: "Category : " +
-                                                      shiftDetails.category
-                                                          .toString(),
-                                                  asset:
-                                                  "assets/images/icon/check.svg",
-                                                  textColors: Colors.black,
-                                                ),
-                                              if (null != shiftDetails)
-                                                CustomRowz(
-                                                  onPressed: () {},
-                                                  label: "UserType : " +
-                                                      shiftDetails.userType
-                                                          .toString(),
-                                                  asset:
-                                                  "assets/images/icon/check.svg",
-                                                  textColors: Colors.black,
-                                                ),
-                                              if (null != shiftDetails)
-                                                CustomRowz(
-                                                  onPressed: () {},
-                                                  label: "Shift ype : " +
-                                                      shiftDetails.type
-                                                          .toString(),
-                                                  asset:
-                                                  "assets/images/icon/check.svg",
-                                                  textColors: Colors.black,
-                                                ),
+                                              // if (null != shiftDetails)
+                                              //   CustomRowz(
+                                              //     onPressed: () {},
+                                              //     label: "Date : " +
+                                              //         shiftDetails.date
+                                              //             .toString(),
+                                              //     asset:
+                                              //     "assets/images/icon/check.svg",
+                                              //     textColors: Colors.black,
+                                              //   ),
+                                              // if (null != shiftDetails)
+                                              //   CustomRow(
+                                              //     onPressed: () {},
+                                              //     label: "From : " +
+                                              //         shiftDetails.timeFrom
+                                              //             .toString() +
+                                              //         "AM To : " +
+                                              //         shiftDetails.timeFrom
+                                              //             .toString() +
+                                              //         " PM",
+                                              //     asset:
+                                              //     "assets/images/icon/check.svg",
+                                              //     textColors: Colors.black,
+                                              //     size: 9.sp,
+                                              //   ),
+                                              // if (null != shiftDetails)
+                                              //   CustomRowz(
+                                              //     onPressed: () {},
+                                              //     label: "Price : " +
+                                              //         shiftDetails.price
+                                              //             .toString(),
+                                              //     asset:
+                                              //     "assets/images/icon/check.svg",
+                                              //     textColors: Colors.black,
+                                              //   ),
+                                              // if (null != shiftDetails)
+                                              //   CustomRowz(
+                                              //     onPressed: () {},
+                                              //     label: "Category : " +
+                                              //         shiftDetails.category
+                                              //             .toString(),
+                                              //     asset:
+                                              //     "assets/images/icon/check.svg",
+                                              //     textColors: Colors.black,
+                                              //   ),
+                                              // if (null != shiftDetails)
+                                              //   CustomRowz(
+                                              //     onPressed: () {},
+                                              //     label: "UserType : " +
+                                              //         shiftDetails.userType
+                                              //             .toString(),
+                                              //     asset:
+                                              //     "assets/images/icon/check.svg",
+                                              //     textColors: Colors.black,
+                                              //   ),
+                                              // if (null != shiftDetails)
+                                              //   CustomRowz(
+                                              //     onPressed: () {},
+                                              //     label: "Shift ype : " +
+                                              //         shiftDetails.type
+                                              //             .toString(),
+                                              //     asset:
+                                              //     "assets/images/icon/check.svg",
+                                              //     textColors: Colors.black,
+                                              //   ),
+                                              // SizedBox(
+                                              //   height: 3.h,
+                                              // ),
+                                              // Padding(
+                                              //   padding: const EdgeInsets.only(
+                                              //       left: 8.0),
+                                              //
+                                              // ),
                                               SizedBox(
                                                 height: 3.h,
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
 
-                                              ),
-                                              SizedBox(
-                                                height: 3.h,
-                                              ),
 
                                             ],
                                           ),

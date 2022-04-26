@@ -41,12 +41,11 @@ class _HomePageCardState extends State<ShiftListWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // widget.onTapMap;
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: widget.items.rowId.toString(),)),
-        );
+        widget.onTapView(widget.items);
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: widget.items.rowId.toString(),)),
+        // );
       },
       child: Container(
         width: screenWidth(context, dividedBy: 1),
@@ -102,7 +101,6 @@ class _HomePageCardState extends State<ShiftListWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       SizedBox(
                         width: screenWidth(context, dividedBy: 40),
                       ),
@@ -131,7 +129,7 @@ class _HomePageCardState extends State<ShiftListWidget> {
                 BuildButton(
                   label: "View Shift",
                   onPressed: () {
-                    widget.onTapViewMap();
+                    widget.onTapView(widget.items);
                   },
                   key: null,
                 ),

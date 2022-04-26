@@ -9,7 +9,6 @@ import 'buttons/build_button.dart';
 import 'buttons/view_button.dart';
 
 class TimeSheetApproveListWidget extends StatefulWidget {
-
   final TimeSheetInfo items;
   final Function onTapBooking;
   final Function onTapMap;
@@ -18,7 +17,6 @@ class TimeSheetApproveListWidget extends StatefulWidget {
 
   const TimeSheetApproveListWidget({
     Key? key,
-
     required this.items,
     required this.onTapView,
     required this.onTapBooking,
@@ -76,16 +74,8 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   ViewButton(
-                    label: "HCA", onPressed: () {
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ManagerTimeSheetDetails(item: widget.items,)),
-                    );
-                    widget.onTapView();
-                    print("Cards booking");
-                  },
-
+                    label: "HCA",
+                    onPressed: () {},
                     key: null,
                   )
                 ],
@@ -103,8 +93,14 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 DeleteButton(
                   label: "View Timesheets",
                   onPressed: () {
-                    widget.onTapBooking();
-                    print("Cards booking");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ManagerTimeSheetDetails(
+                                item: widget.items,
+                              )),
+                    );
+                    widget.onTapView(widget.items);
                   },
                   key: null,
                 ),

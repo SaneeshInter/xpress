@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/user_availability_bloc.dart';
 import 'package:xpresshealthdev/ui/widgets/availability_list.dart';
@@ -58,20 +59,16 @@ class _AvailabilityState extends State<AvailabilityScreen> {
   Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-
-
       if (await isNetworkAvailable()) {
         setState(() {
           visibility = true;
         });
         availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
-      }else {
-
+      } else {
         showInternetNotAvailable();
       }
     }
   }
-
 
   Future<void> showInternetNotAvailable() async {
     int respo = await Navigator.push(
@@ -112,7 +109,6 @@ class _AvailabilityState extends State<AvailabilityScreen> {
 
   @override
   Widget build(BuildContext context) {
-    getData();
     double width = MediaQuery.of(context).size.width;
     final PageController ctrl = PageController(
       viewportFraction: .612,
@@ -121,7 +117,6 @@ class _AvailabilityState extends State<AvailabilityScreen> {
         FixedExtentScrollController();
     DatePicker date;
     return Scaffold(
-
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
       drawer: Drawer(
@@ -131,117 +126,126 @@ class _AvailabilityState extends State<AvailabilityScreen> {
         _scaffoldKey,
         scaffoldKey: _scaffoldKey,
       ),
-
-      body: SingleChildScrollView(
-
-        child: Stack(
+      body: LiquidPullToRefresh(
+        onRefresh: () async {},
+        child: ListView(
           children: [
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, dividedBy: 40)),
-                child: Column(children: [
-                  SizedBox(height: screenHeight(context, dividedBy: 40)),
-                  DatePicker(
-                    DateTime.now(),
-                    initialSelectedDate: DateTime.now(),
-                    selectionColor: Constants.colors[3],
-                    selectedTextColor: Colors.white,
-                    width: 25.w,
-                    height: 25.w,
-                    deactivatedColor: Colors.blue,
-                    monthTextStyle: TextStyle(color: Colors.transparent),
-                    dateTextStyle: TextStyle(
-                        color: Constants.colors[7],
-                        fontWeight: FontWeight.w700,
-                        fontSize: 23.sp),
-                    dayTextStyle: TextStyle(
-                        color: Constants.colors[7],
-                        fontWeight: FontWeight.w600,
-                        fontSize: 8.sp),
-                    selectedDateStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 23.sp),
-                    selectedDayStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 8.sp),
-                    itemController: itemController,
-                    daysCount: 30,
-                    onDateChange: (date, x) {
-                      print(date);
-                      // New date selected
-                      ctrl.animateToPage(x,
-                          duration: Duration(milliseconds: 100),
-                          curve: Curves.ease);
-                      _selectedValue = date.toString();
-                    },
-                  ),
-                  SizedBox(height: 2.h),
+            SingleChildScrollView(
+              child: Stack(
+                children: [
+                  // LiquidPullToRefresh(onRefresh: () async{ getData(); },
+                  // child: ListView()),
                   Container(
-                    height: 60.w,
-                    child: StreamBuilder(
-                        stream: availabilitybloc.useravailabilitiydate,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<AvailabilityList>> snapshot) {
-                          print("stream");
-                          if (snapshot.hasData) {
-                            return PageView.builder(
-                              controller: ctrl,
-                              onPageChanged: (page) {
-                                print("page");
-                                print(page);
-                                itemController.animateToItem(page,
-                                    duration: Duration(milliseconds: 100),
-                                    curve: Curves.linear);
-                              },
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (context, index) {
-                                var item = snapshot.data![index];
-                                return Container(
-                                  padding: EdgeInsets.only(
-                                    right: 0,
-                                    left: 0,
-                                    top: 10,
-                                    bottom: 10,
-                                  ),
-                                  child: Stack(
-                                    children: <Widget>[
-                                      AvailabilityListWidget(
-                                        item: item,
-                                        onTapView: () {},
-                                        key: null,
-                                        value: 1,
-                                        onSumbmit: (selectedShfit) {
-                                          print("selectd shift");
-                                          print(selectedShfit);
-                                          updateShiftAvailabaity(selectedShfit);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          } else if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
-                          }
-                          return Container();
-                        }),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth(context, dividedBy: 40)),
+                      child: Column(children: [
+                        SizedBox(height: screenHeight(context, dividedBy: 40)),
+                        DatePicker(
+                          DateTime.now(),
+                          initialSelectedDate: DateTime.now(),
+                          selectionColor: Constants.colors[3],
+                          selectedTextColor: Colors.white,
+                          width: 25.w,
+                          height: 25.w,
+                          deactivatedColor: Colors.blue,
+                          monthTextStyle: TextStyle(color: Colors.transparent),
+                          dateTextStyle: TextStyle(
+                              color: Constants.colors[7],
+                              fontWeight: FontWeight.w700,
+                              fontSize: 23.sp),
+                          dayTextStyle: TextStyle(
+                              color: Constants.colors[7],
+                              fontWeight: FontWeight.w600,
+                              fontSize: 8.sp),
+                          selectedDateStyle: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 23.sp),
+                          selectedDayStyle: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 8.sp),
+                          itemController: itemController,
+                          daysCount: 30,
+                          onDateChange: (date, x) {
+                            print(date);
+                            // New date selected
+                            ctrl.animateToPage(x,
+                                duration: Duration(milliseconds: 100),
+                                curve: Curves.ease);
+                            _selectedValue = date.toString();
+                          },
+                        ),
+                        SizedBox(height: 2.h),
+                        Container(
+                          height: 60.w,
+                          child: StreamBuilder(
+                              stream: availabilitybloc.useravailabilitiydate,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<List<AvailabilityList>>
+                                      snapshot) {
+                                print("stream");
+                                if (snapshot.hasData) {
+                                  return PageView.builder(
+                                    controller: ctrl,
+                                    onPageChanged: (page) {
+                                      print("page");
+                                      print(page);
+                                      itemController.animateToItem(page,
+                                          duration: Duration(milliseconds: 100),
+                                          curve: Curves.linear);
+                                    },
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      var item = snapshot.data![index];
+                                      return Container(
+                                        padding: EdgeInsets.only(
+                                          right: 0,
+                                          left: 0,
+                                          top: 10,
+                                          bottom: 10,
+                                        ),
+                                        child: Stack(
+                                          children: <Widget>[
+                                            AvailabilityListWidget(
+                                              item: item,
+                                              onTapView: () {},
+                                              key: null,
+                                              value: 1,
+                                              onSumbmit: (selectedShfit) {
+                                                print("selectd shift");
+                                                print(selectedShfit);
+                                                updateShiftAvailabaity(
+                                                    selectedShfit);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text(snapshot.error.toString());
+                                }
+                                return Container();
+                              }),
+                        ),
+                      ])),
+                  Center(
+                    child: Visibility(
+                      visible: visibility,
+                      child: Container(
+                        width: 100.w,
+                        height: 80.h,
+                        child: const Center(
+                          child: LoadingWidget(),
+                        ),
+                      ),
+                    ),
                   ),
-                ])),
+                ],
+              ),
+            )
           ],
         ),
       ),

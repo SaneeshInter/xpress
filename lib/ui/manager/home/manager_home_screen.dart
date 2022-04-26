@@ -198,10 +198,12 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
     );
   }
 
+
+
   Widget horizontalList() {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: 110,
+        maxHeight: 13.h,
       ),
       child: StreamBuilder(
           stream: managerhomeBloc.managerhomeStream,
@@ -217,77 +219,169 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
     );
   }
 
+
+
+
+
   Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
     return ListView.builder(
       itemCount: snapshot.data?.response?.data?.importantUpdates!.length,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) {
-        var name = "Shift Reminder";
-        var date = "Your shift at Beneavin Manor is in  1 hour";
-        var description = "Your shift at Beneavin Manor is in  1 hour";
-
-        var manager = snapshot.data?.response?.data?.importantUpdates![index];
-        if (manager != null) {
-          name = manager.title!;
-          date = manager.date!;
-          description = manager.description!;
-        }
-
-        return Card(
-          elevation: 0.0,
-          child: Container(
-            width: 65.w,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AutoSizeText(
-                    name,
-                    maxLines: 3,
-                    style: TextStyle(
-                      color: Constants.colors[22],
-                      fontSize: 14.sp,
-                      fontFamily: "SFProMedium",
+        var list = snapshot.data?.response?.data?.importantUpdates![index];
+        if (null != list) {
+          var name = list.title!;
+          var date = list.date!;
+          var description = list.description!;
+          return Card(
+            elevation: 0.0,
+            child: Container(
+              width: 65.w,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AutoSizeText(
+                      name,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                        fontFamily: "SFProMedium",
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: Container(
-                        width: 65.w,
-                        child: AutoSizeText(
-                          description,
-                          maxLines: 3,
-                          style: TextStyle(
-                            color: Constants.colors[13],
-                            fontSize: 8.sp,
-                          ),
-                        )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: Container(
-                        width: screenHeight(context, dividedBy: 2.2),
-                        child: AutoSizeText(
-                          date,
-                          maxLines: 1,
-                          style: TextStyle(
-                            color: Constants.colors[13],
-                            fontSize: 8.sp,
-                          ),
-                        )),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      child: Container(
+                          width: screenHeight(context, dividedBy: 2.2),
+                          child: AutoSizeText(
+                            description,
+                            maxLines: 1,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 8.sp,
+                            ),
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      child: SizedBox(
+                          width: screenHeight(context, dividedBy: 2.2),
+                          child: AutoSizeText(
+                            date,
+                            maxLines: 1,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 8.sp,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
+          );
+        } else {
+          return Container();
+        }
       },
     );
   }
+
+
+  // Widget horizontalList() {
+  //   return ConstrainedBox(
+  //     constraints: BoxConstraints(
+  //       maxHeight: 110,
+  //     ),
+  //     child: StreamBuilder(
+  //         stream: managerhomeBloc.managerhomeStream,
+  //         builder: (BuildContext context,
+  //             AsyncSnapshot<ManagerHomeResponse> snapshot) {
+  //           if (snapshot.hasData) {
+  //             return buildList(snapshot);
+  //           } else if (snapshot.hasError) {
+  //             return Text(snapshot.error.toString());
+  //           }
+  //           return Container();
+  //         }),
+  //   );
+  // }
+
+  // Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
+  //   return ListView.builder(
+  //     itemCount: snapshot.data?.response?.data?.importantUpdates!.length,
+  //     shrinkWrap: true,
+  //     physics: NeverScrollableScrollPhysics(),
+  //     itemBuilder: (BuildContext context, int index) {
+  //       var name = "Shift Reminder";
+  //       var date = "Your shift at Beneavin Manor is in  1 hour";
+  //       var description = "Your shift at Beneavin Manor is in  1 hour";
+  //
+  //       var manager = snapshot.data?.response?.data?.importantUpdates![index];
+  //       if (manager != null) {
+  //         name = manager.title!;
+  //         date = manager.date!;
+  //         description = manager.description!;
+  //       }
+  //
+  //       return Card(
+  //         elevation: 0.0,
+  //         child: Container(
+  //           width: 65.w,
+  //           child: Padding(
+  //             padding: const EdgeInsets.all(15.0),
+  //             child: Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 AutoSizeText(
+  //                   name,
+  //                   maxLines: 3,
+  //                   style: TextStyle(
+  //                     color: Constants.colors[22],
+  //                     fontSize: 14.sp,
+  //                     fontFamily: "SFProMedium",
+  //                   ),
+  //                 ),
+  //                 Padding(
+  //                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+  //                   child: Container(
+  //                       width: 65.w,
+  //                       child: AutoSizeText(
+  //                         description,
+  //                         maxLines: 3,
+  //                         style: TextStyle(
+  //                           color: Constants.colors[13],
+  //                           fontSize: 8.sp,
+  //                         ),
+  //                       )),
+  //                 ),
+  //                 Padding(
+  //                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+  //                   child: Container(
+  //                       width: screenHeight(context, dividedBy: 2.2),
+  //                       child: AutoSizeText(
+  //                         date,
+  //                         maxLines: 1,
+  //                         style: TextStyle(
+  //                           color: Constants.colors[13],
+  //                           fontSize: 8.sp,
+  //                         ),
+  //                       )),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget horizontalIndiCator() {
     return Container(

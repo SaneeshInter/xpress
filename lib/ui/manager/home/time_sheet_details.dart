@@ -64,10 +64,10 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
       backgroundColor: Constants.colors[9],
       body: SingleChildScrollView(
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 170, top: 10),
+              padding: const EdgeInsets.only(left: 16, top: 10),
               child: Container(
                 width: MediaQuery.of(context).size.width * .4,
                 child: AutoSizeText(
@@ -75,7 +75,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                   maxLines: 1,
                   style: TextStyle(
                     color: Constants.colors[1],
-                    fontSize: 15.sp,
+                    fontSize: 13.sp,
                     fontFamily: "SFProMedium",
                   ),
                 ),
@@ -85,49 +85,17 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       child: imageUrl != null
                           ? Image.network(
-                imageUrl,
-                fit: BoxFit.fill,
-              )
+                              imageUrl,
+                              fit: BoxFit.fill,
+                            )
                           : Container()),
-
-                  // Padding(
-                  //   padding:
-                  //   const EdgeInsets.only(left: 10, right: 10),
-                  //   child: ClipRRect(
-                  //     borderRadius: BorderRadius.only(
-                  //         topLeft: Radius.circular(10),
-                  //         topRight: Radius.circular(10)),
-                  //     child: Container(
-                  //       width: MediaQuery.of(context).size.width,
-                  //       height: 30.h,
-                  //       child: SizedBox.fromSize(
-                  //           size: Size.fromRadius(10), // Image radius
-                  //           child: Image.network(
-                  //             imageUrl!,
-                  //             fit: BoxFit.cover,
-                  //           )),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 10, right: 10),
-                  //   child: Container(
-                  //     width: MediaQuery.of(context).size.width,
-                  //     child: SizedBox.fromSize(
-                  //       size: Size.fromRadius(50), // Image radius
-                  //       child: Image.network(
-                  //         imageUrl!,
-                  //         fit: BoxFit.cover,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 170, top: 10),
+                    padding: const EdgeInsets.only(left: 16, top: 10),
                     child: Container(
                       width: MediaQuery.of(context).size.width * .4,
                       child: AutoSizeText(
@@ -135,7 +103,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                         maxLines: 1,
                         style: TextStyle(
                           color: Constants.colors[1],
-                          fontSize: 15.sp,
+                          fontSize: 13.sp,
                           fontFamily: "SFProMedium",
                         ),
                       ),
@@ -159,23 +127,20 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
             SizedBox(
               height: 5.w,
             ),
-            Container(
-              child: BuildButton(
-                label: "Approve ",
-                onPressed: () {},
-                key: null,
+            Center(
+              child: Container(
+                child: BuildButton(
+                  label: "Approve ",
+                  onPressed: () {},
+                  key: null,
+                ),
               ),
             ),
+
             SizedBox(
               height: 10.w,
             ),
-            // Container(
-            //   width: 100.w,
-            //   height: 80.h,
-            //   child: const Center(
-            //     child: LoadingWidget(),
-            //   ),
-            // ),
+
           ],
         ),
       ),

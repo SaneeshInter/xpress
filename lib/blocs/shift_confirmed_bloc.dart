@@ -20,9 +20,6 @@ class ShiftConfirmedBloc{
 
   Stream<UserWorkingHoursResponse> get userworkinghours => _userworkinghours.stream;
 
-
-
-
   fetchUserViewRequest(String token) async {
     UserViewRequestResponse list = await _repo.fetchUserViewRequestResponse(token);
     _viewrequest.sink.add(list);
