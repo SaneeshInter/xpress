@@ -27,7 +27,6 @@ class _HomeCardState extends State<HomeCardItem> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0.0,
-
       child: Container(
         alignment: Alignment.center,
         child: Padding(

@@ -81,19 +81,18 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
 
   @override
   void initState() {
+    // TODO: implement initState
+    super.initState();
     observe();
     getData();
     pageController = PageController(initialPage: 0);
     pageCount = 3;
-    // TODO: implement initState
-    super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    managerhomeBloc.dispose();
     super.dispose();
+    managerhomeBloc.dispose();
   }
 
   @override
@@ -108,18 +107,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Stack(
               children: [
-                Center(
-                  child: Visibility(
-                    visible: visibility,
-                    child: Container(
-                      width: 100.w,
-                      height: 80.h,
-                      child: const Center(
-                        child: LoadingWidget(),
-                      ),
-                    ),
-                  ),
-                ),
                 Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,6 +131,18 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                       gridView(),
                       equalSizeButtons()
                     ],
+                  ),
+                ),
+                Center(
+                  child: Visibility(
+                    visible: visibility,
+                    child: Container(
+                      width: 100.w,
+                      height: 80.h,
+                      child: const Center(
+                        child: LoadingWidget(),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -242,12 +241,13 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AutoSizeText(
                     name,
-                    maxLines: 2,
+                    maxLines: 3,
                     style: TextStyle(
                       color: Constants.colors[22],
                       fontSize: 14.sp,
@@ -257,7 +257,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                     child: Container(
-                        width: 80.w,
+                        width: 65.w,
                         child: AutoSizeText(
                           description,
                           maxLines: 3,
