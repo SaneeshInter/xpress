@@ -97,6 +97,7 @@ class _HomeScreentate extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
@@ -430,7 +431,7 @@ class _HomeScreentate extends State<HomeScreen> {
         Container(
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxHeight: 13.h,
+              maxHeight: 35.w,
             ),
             child: buildList(snapshot),
           ),
@@ -453,7 +454,7 @@ class _HomeScreentate extends State<HomeScreen> {
           return Card(
             elevation: 0.0,
             child: Container(
-              width: 65.w,
+              //width: 65.w,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
@@ -475,7 +476,7 @@ class _HomeScreentate extends State<HomeScreen> {
                           width: screenHeight(context, dividedBy: 2.2),
                           child: AutoSizeText(
                             description,
-                            maxLines: 1,
+                            maxLines: 2,
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 8.sp,
@@ -488,7 +489,7 @@ class _HomeScreentate extends State<HomeScreen> {
                           width: screenHeight(context, dividedBy: 2.2),
                           child: AutoSizeText(
                             date,
-                            maxLines: 1,
+                            maxLines: 5,
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 8.sp,
