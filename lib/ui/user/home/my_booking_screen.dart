@@ -12,11 +12,13 @@ import '../../../Constants/strings.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../../utils/validator.dart';
 import '../../Widgets/buttons/submit_small.dart';
 import '../../Widgets/buttons/view_button.dart';
 import '../../Widgets/my_booking_list_widget.dart';
+import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
 
@@ -64,6 +66,39 @@ class _HomeScreentate extends State<MyBookingScreen> {
     pageCount = 3;
     super.initState();
   }
+
+
+  Future getDataitems() async {
+    token = await TokenProvider().getToken();
+    if (null != token) {
+
+
+      if (await isNetworkAvailable()) {
+        setState(() {
+          visibility = true;
+        });
+        confirmBloc.fetchUserViewRequest(token);
+      }else {
+
+        showInternetNotAvailable();
+      }
+    }
+  }
+
+
+
+  Future<void> showInternetNotAvailable() async {
+    int respo = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
+    );
+
+    if (respo == 1) {
+      getDataitems();
+    }
+  }
+
+
 
   void observe() {
     confirmBloc.usercanceljobrequest.listen((event) {
@@ -448,11 +483,6 @@ void canceljob(Items items) {
     Items data = items;
     confirmBloc.UserCancelJobResponse(token, data.rowId.toString());
   }
-}
-
-Future getDataitems() async {
-  token = await TokenProvider().getToken();
-  confirmBloc.fetchUserViewRequest(token);
 }
 
 FilterBookingList getFilterList(
