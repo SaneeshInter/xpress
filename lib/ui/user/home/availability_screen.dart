@@ -6,8 +6,10 @@ import 'package:xpresshealthdev/ui/widgets/availability_list.dart';
 import '../../../model/user_availability_btw_date.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../datepicker/date_picker_widget.dart';
+import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import '../common/app_bar.dart';
 import '../common/side_menu.dart';
@@ -53,17 +55,46 @@ class _AvailabilityState extends State<AvailabilityScreen> {
     pageController = PageController(initialPage: 0, viewportFraction: 0.8);
   }
 
-  Future<void> getData() async {
+  Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
-      availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
-    } else {
-      print("TOKEN NOT FOUND");
+
+
+      if (await isNetworkAvailable()) {
+        setState(() {
+          visibility = true;
+        });
+        availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
+      }else {
+
+        showInternetNotAvailable();
+      }
     }
   }
+
+
+  Future<void> showInternetNotAvailable() async {
+    int respo = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
+    );
+
+    if (respo == 1) {
+      getData();
+    }
+  }
+
+  // Future<void> getData() async {
+  //   token = await TokenProvider().getToken();
+  //   if (null != token) {
+  //     setState(() {
+  //       visibility = true;
+  //     });
+  //     availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
+  //   } else {
+  //     print("TOKEN NOT FOUND");
+  //   }
+  // }
 
   void observe() {
     availabilitybloc.useravailabilitiydate.listen((event) {
@@ -81,6 +112,7 @@ class _AvailabilityState extends State<AvailabilityScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getData();
     double width = MediaQuery.of(context).size.width;
     final PageController ctrl = PageController(
       viewportFraction: .612,
@@ -89,6 +121,7 @@ class _AvailabilityState extends State<AvailabilityScreen> {
         FixedExtentScrollController();
     DatePicker date;
     return Scaffold(
+
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
       drawer: Drawer(
@@ -98,7 +131,9 @@ class _AvailabilityState extends State<AvailabilityScreen> {
         _scaffoldKey,
         scaffoldKey: _scaffoldKey,
       ),
+
       body: SingleChildScrollView(
+
         child: Stack(
           children: [
             Center(
