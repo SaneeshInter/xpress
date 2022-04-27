@@ -37,38 +37,44 @@ class _CustomRowState extends State<ProfileDocRow> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Row(
+        child: Column(
           children: [
-            Expanded(
-              flex: 6,
-              child: AutoSizeText(
-                widget.label,
-                style: TextStyle(
-                  fontSize: 10.sp,
-                  color: Colors.black,
-                  fontFamily: "SFProMedium",
+            Row(
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: AutoSizeText(
+                    widget.label,
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.black,
+                      fontFamily: "SFProMedium",
+                    ),
+                    maxLines: 2,
+                  ),
                 ),
-                maxLines: 2,
-              ),
+
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                      height: 3.w,
+                      width: 3.w,
+                      child: SvgPicture.asset(
+                        widget.asset,
+                      )),
+                ),
+              ],
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                  height: 5.w,
-                  width: 5,
-                  child: widget.image != null
-                      ? Image.file(File(widget.image))
-                      : Container()),
+            SizedBox(
+              height: 3.w,
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                  height: 3.w,
-                  width: 3.w,
-                  child: SvgPicture.asset(
-                    widget.asset,
-                  )),
-            ),
+            if(widget.image.isNotEmpty)
+            Container(
+                height: 50.w,
+                width: 100.w,
+                child: widget.image.isNotEmpty
+                    ? Image.file(File(widget.image),fit: BoxFit.cover,)
+                    : Container()),
           ],
         ),
       ),
