@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:rxdart/rxdart.dart';
 import 'package:xpresshealthdev/model/user_documents_response.dart';
 import 'package:xpresshealthdev/model/user_get_response.dart';
@@ -94,8 +96,7 @@ class ProfileBloc {
   }
 
   fetchUserDocuments(
-    String token,
-    String files,
+    String token, File  files,
     String type,
     String expiry_date,
   ) async {

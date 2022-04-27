@@ -10,6 +10,7 @@ import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
 import '../../../Constants/app_defaults.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
+import '../home/profile_screen.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -99,6 +100,31 @@ class SideMenu extends StatelessWidget {
                 ),
               ],
             ),
+          ),  ListTile(
+            title: const Text(
+              'Profile Screen ',
+              style: TextStyle(color: Colors.white),
+            ),
+            leading: Container(
+              width: 5.w,
+              height: 5.w,
+              child: SvgPicture.asset(
+                'assets/images/icon/user.svg',
+                color: Colors.white,
+              ),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              pushNewScreen(
+                context,
+                screen: ProfileScreen(),
+                withNavBar: true, // OPTIONAL VALUE. True by default.
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+
+              // Update the state of the app.
+              // ...
+            },
           ),
           ListTile(
             title: const Text(

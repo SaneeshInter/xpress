@@ -125,9 +125,19 @@ class Repository {
       apiProvider.addUserWorkingHours( token,  shift_id, start_time,end_time);
 
 
+
+
+  Future<GetAvailableUserByDate> fetchGetAvailableUserByDate(
+      String token, String date, String shifttype) =>
+      apiProvider.fetchGetAvailableUserByDate(token, date, shifttype);
+
+  Future<TimeSheetUploadRespo> uplodTimeSheet(
+      String token, String ids, File file) =>
+      apiFileProvider.asyncFileUpload(token, ids, file);
+
   Future<UserDocumentsResponse> UserDocuments(
-      String token, String files, String type, String expiry_date) =>
-      apiProvider.uploadUserDocuments( token,  files, type,expiry_date);
+      String token, File files, String type, String expiry_date) =>
+      apiFileProvider.uploadUserDocuments(token,  files, type,expiry_date);
 
   Future<ProfileUpdateRespo> ProfileUser(
           String token,
@@ -193,11 +203,5 @@ class Repository {
           allowances
       );
 
-  Future<GetAvailableUserByDate> fetchGetAvailableUserByDate(
-          String token, String date, String shifttype) =>
-      apiProvider.fetchGetAvailableUserByDate(token, date, shifttype);
 
-  Future<TimeSheetUploadRespo> uplodTimeSheet(
-          String token, String ids, File file) =>
-      apiFileProvider.asyncFileUpload(token, ids, file);
 }
