@@ -9,6 +9,7 @@ import 'package:xpresshealthdev/resources/respository.dart';
 
 import '../dbmodel/allowance_mode.dart';
 import '../model/gender_list.dart';
+import '../model/get_available_user_by_date.dart';
 import '../model/manager_response.dart';
 import '../model/schedule_categegory_list.dart';
 import '../model/shift_type_list.dart';
@@ -17,7 +18,7 @@ import '../model/user_type_list.dart';
 class CreateShiftmanagerBloc {
   final _repo = Repository();
   final _db = Db();
-  final _manager = PublishSubject<void>();
+  final _manager = PublishSubject<GetAvailableUserByDate>();
   final _getmanager = PublishSubject<ManagerShift>();
   List<Allowances> allowanceList = [];
   final _allowancesList = PublishSubject<List<Allowances>>();
@@ -66,6 +67,7 @@ class CreateShiftmanagerBloc {
 
   Stream<List<ShiftTypeList>> get shifttypeStream => _shifttype.stream;
 
+
   getDropDownValues() async {
     var usertype = await _db.getUserTypeList();
     var category = await _db.getCategory();
@@ -106,7 +108,7 @@ class CreateShiftmanagerBloc {
     _typeAllowances.add(typeList);
   }
 
-  Stream<void> get managerStream => _manager.stream;
+
 
   Stream<ManagerShift> get getmanagerStream => _getmanager.stream;
 
@@ -152,13 +154,23 @@ class CreateShiftmanagerBloc {
     _getmanager.sink.add(respo);
   }
 
-  getUserListByDate(String token, String date, String shifttype) {
-    _repo.fetchGetAvailableUserByDate(token, date, shifttype);
+
+
+
+
+  Stream<GetAvailableUserByDate> get managerStream => _manager.stream;
+  getUserListByDate(
+      String token, String date, String shifttype
+      ) async {
+    GetAvailableUserByDate list =
+    await _repo.fetchGetAvailableUserByDate(token, date, shifttype);
+    _manager.sink.add(list);
   }
 
   dispose() {
     _manager.close();
   }
+
 
   void addAllowances(int allowanceId, int allowanceCategroyId, String allowance,
       String allowanceCategroy, String amount) {

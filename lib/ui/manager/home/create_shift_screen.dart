@@ -80,9 +80,13 @@ class _CreateShiftState extends State<CreateShiftScreen> {
   var buttonText = "Create Shift";
   var token;
 
+
+
   Future getData(String date, String shifttype) async {
     managerBloc.getUserListByDate(token!, date, shifttype);
   }
+
+
 
   Future getToken() async {
     token = await TokenProvider().getToken();
@@ -682,6 +686,8 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                     shiftType =
                                                                         value
                                                                             .rowId!;
+                                                                    print("PRINT THE RESPONSES");
+                                                                   getData(date.text , shiftType.toString());
                                                                   }
                                                                 },
                                                               );
@@ -847,6 +853,8 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                     usertypeId =
                                                                         value
                                                                             .rowId!;
+                                                                    print("PRINT THE RESPONSES");
+                                                                    getData(date.text , shiftType.toString());
                                                                   }
                                                                 },
                                                               );
@@ -972,7 +980,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                         fontSize: 13.sp,
                                                         color: Colors.black,
                                                         fontWeight:
-                                                            FontWeight.bold,
+                                                        FontWeight.w500,
                                                         fontFamily:
                                                             "SFProMedium",
                                                       ),
@@ -991,17 +999,17 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                           });
                                                     },
                                                     padding: EdgeInsets.only(
-                                                        left: 20,
-                                                        right: 20,
-                                                        top: 8,
-                                                        bottom: 8),
+                                                        left: 10,
+                                                        right: 10,
+                                                        top: 5,
+                                                        bottom: 5),
                                                     color: Colors.blueAccent,
                                                     child: Text(
                                                       'Add Allowances',
-                                                      style: TextStyle(
+                                                      style: TextStyle(fontSize: 10.sp,
                                                           color: Colors.white,
                                                           fontWeight:
-                                                              FontWeight.w600,
+                                                              FontWeight.w500,
                                                           letterSpacing: 0.6),
                                                     ),
                                                   ),
@@ -1081,9 +1089,9 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                       allowace!,
                       style: TextStyle(
                           color: Constants.colors[1],
-                          fontSize: 18,
+                          fontSize: 14,
                           fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w500),
                     )),
                 Expanded(
                     flex: 1,
@@ -1091,9 +1099,9 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                       category!,
                       style: TextStyle(
                           color: Constants.colors[1],
-                          fontSize: 18,
+                          fontSize: 14,
                           fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w500),
                     )),
                 Expanded(
                     flex: 1,
@@ -1101,9 +1109,9 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                       amount!,
                       style: TextStyle(
                           color: Constants.colors[1],
-                          fontSize: 18,
+                          fontSize: 14,
                           fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w500),
                     )),
                 GestureDetector(
                   onTap: ()
@@ -1113,8 +1121,8 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                   child: SvgPicture.asset(
                     'assets/images/icon/delete.svg',
                     fit: BoxFit.contain,
-                    height: 30,
-                    width: 40,
+                    height: 20,
+                    width: 30,
                   ),
                 )
               ],
@@ -1169,6 +1177,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                             } else {
                               print("TOKEN NULL");
                             }
+
                           }
                         }
                         // showFeactureAlert(context, date: "");
