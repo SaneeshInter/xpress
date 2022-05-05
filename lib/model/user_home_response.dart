@@ -113,7 +113,7 @@ class LatestShift {
   String? timeTo;
   String? jobDetails;
   int? price;
-  String? allowances;
+  List<Allowances>? allowances;
   String? createdDate;
 
   LatestShift(
@@ -149,7 +149,12 @@ class LatestShift {
     timeTo = json['time_to'];
     jobDetails = json['job_details'];
     price = json['price'];
-    allowances = json['allowances'];
+    if (json['allowances'] != null) {
+      allowances = <Allowances>[];
+      json['allowances'].forEach((v) {
+        allowances!.add(new Allowances.fromJson(v));
+      });
+    }
     createdDate = json['created_date'];
   }
 
@@ -169,8 +174,32 @@ class LatestShift {
     data['time_to'] = this.timeTo;
     data['job_details'] = this.jobDetails;
     data['price'] = this.price;
-    data['allowances'] = this.allowances;
+    if (this.allowances != null) {
+      data['allowances'] = this.allowances!.map((v) => v.toJson()).toList();
+    }
     data['created_date'] = this.createdDate;
+    return data;
+  }
+}
+
+class Allowances {
+  String? category;
+  String? allowance;
+  String? price;
+
+  Allowances({this.category, this.allowance, this.price});
+
+  Allowances.fromJson(Map<String, dynamic> json) {
+    category = json['category'];
+    allowance = json['allowance'];
+    price = json['price'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['category'] = this.category;
+    data['allowance'] = this.allowance;
+    data['price'] = this.price;
     return data;
   }
 }
