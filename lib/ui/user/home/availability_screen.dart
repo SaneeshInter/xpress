@@ -119,13 +119,13 @@ class _AvailabilityState extends State<AvailabilityScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
-      drawer: Drawer(
-        child: SideMenu(),
-      ),
-      appBar: AppBarCommon(
-        _scaffoldKey,
-        scaffoldKey: _scaffoldKey,
-      ),
+      // drawer: Drawer(
+      //   child: SideMenu(),
+      // ),
+      // appBar: AppBarCommon(
+      //   _scaffoldKey,
+      //   scaffoldKey: _scaffoldKey,
+      // ),
       body: LiquidPullToRefresh(
         onRefresh: () async {},
         child: ListView(

@@ -986,33 +986,33 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                  RaisedButton(
-                                                    onPressed: () {
-                                                      showModalBottomSheet(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return AllowanceBottomSheet(
-                                                              onSumbmit: () {},
-                                                              onTapView: () {},
-                                                              value: 1,
-                                                            );
-                                                          });
-                                                    },
-                                                    padding: EdgeInsets.only(
-                                                        left: 10,
-                                                        right: 10,
-                                                        top: 5,
-                                                        bottom: 5),
-                                                    color: Colors.blueAccent,
-                                                    child: Text(
-                                                      'Add Allowances',
-                                                      style: TextStyle(fontSize: 10.sp,
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          letterSpacing: 0.6),
-                                                    ),
-                                                  ),
+                                                  // RaisedButton(
+                                                  //   onPressed: () {
+                                                  //     showModalBottomSheet(
+                                                  //         context: context,
+                                                  //         builder: (context) {
+                                                  //           return AllowanceBottomSheet(
+                                                  //             onSumbmit: () {},
+                                                  //             onTapView: () {},
+                                                  //             value: 1,
+                                                  //           );
+                                                  //         });
+                                                  //   },
+                                                  //   padding: EdgeInsets.only(
+                                                  //       left: 10,
+                                                  //       right: 10,
+                                                  //       top: 5,
+                                                  //       bottom: 5),
+                                                  //   color: Colors.blueAccent,
+                                                  //   child: Text(
+                                                  //     'Add Allowances',
+                                                  //     style: TextStyle(fontSize: 10.sp,
+                                                  //         color: Colors.white,
+                                                  //         fontWeight:
+                                                  //             FontWeight.w500,
+                                                  //         letterSpacing: 0.6),
+                                                  //   ),
+                                                  // ),
                                                 ],
                                               ),
                                               const SizedBox(

@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:xpresshealthdev/model/login_response.dart';
 import 'package:xpresshealthdev/model/user_get_shift_details.dart';
 import 'package:xpresshealthdev/model/user_home_response.dart';
-
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
 import '../model/manager_get_time.dart';
@@ -28,7 +26,6 @@ import '../model/user_view_request_response.dart';
 import '../model/user_working_hours.dart';
 import '../model/utility_respo.dart';
 import '../model/viewbooking_response.dart';
-
 class ApiProvider {
   Client client = Client();
   String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
@@ -91,7 +88,6 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
-
   Future<SliftListRepso> fetchShiftList(String date) async {
     print("date");
     print(date);
@@ -104,7 +100,6 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
-
   Future<ProfileUpdateRespo> ProfileUser(
       String token,
       String first_name,
@@ -167,11 +162,7 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
-
   ///////////////////// MANAGER API
-
-
-
   Future<ManagerScheduleListResponse> fetchViewbooking(
       String token, String date) async {
     print("View Booking");

@@ -69,7 +69,7 @@ class Items {
   String? firstName;
   String? lastName;
   String? employeeNo;
-  Null? hourlyRate;
+  int? hourlyRate;
   String? dob;
   String? email;
   String? phoneNumber;

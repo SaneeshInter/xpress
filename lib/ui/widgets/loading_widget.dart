@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../Constants/AppColors.dart';
 
 class LoadingWidget extends StatefulWidget {
   const LoadingWidget({
@@ -16,19 +19,22 @@ class _LoadingState extends State<LoadingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          tapped = true;
-        });
-      },
-      child: Center(
-        child: Container(
-          color: Colors.white,
-          width: 30.w,
-          height: 30.w,
-          child: Lottie.asset('assets/images/icon/loading.json',
-              width: 30.h, height: 30.w),
+    return AlertDialog(
+      elevation: .1,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      contentPadding: EdgeInsets.all(0.0),
+      content: Padding(
+        padding: EdgeInsets.only(top: 20, bottom: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(color: appColorPrimary),
+            SizedBox(height: 16),
+            Text("Please wait....",
+                style: primaryTextStyle(color: cardBackgroundBlackDark)),
+          ],
         ),
       ),
     );

@@ -344,6 +344,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "maps_launcher",
+      "rootUri": "file:///Users/intersmart/Documents/flutterSdk/flutter/.pub-cache/hosted/pub.dartlang.org/maps_launcher-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///Users/intersmart/Documents/flutterSdk/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11",
       "packageUri": "lib/",
@@ -704,7 +710,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-04-26T04:29:28.551516Z",
+  "generated": "2022-05-05T10:53:39.035901Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

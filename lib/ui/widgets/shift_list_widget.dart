@@ -104,7 +104,7 @@ class _HomePageCardState extends State<ShiftListWidget> {
                       SizedBox(
                         width: screenWidth(context, dividedBy: 40),
                       ),
-                      if (null != widget.items.price)
+                      if (null != widget.items.price && widget.items.price!.isNotEmpty)
                         Text(
                           "\$" + widget.items.price!,
                           style: TextStyle(

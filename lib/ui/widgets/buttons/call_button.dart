@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 
-class CallButton extends StatefulWidget {
+class CallButtons extends StatefulWidget {
   final Function onPressed;
-  const CallButton({Key? key, required this.onPressed}) : super(key: key);
+  const CallButtons({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   _CallButtonState createState() => _CallButtonState();
 }
 
-class _CallButtonState extends State<CallButton> {
+class _CallButtonState extends State<CallButtons> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: (){
+       widget.onPressed();
+      },
       child: Container(
         width: screenWidth(context, dividedBy: 11),
         height: screenWidth(context, dividedBy: 11),

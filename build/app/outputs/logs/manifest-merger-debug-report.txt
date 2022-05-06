@@ -31,6 +31,7 @@ INJECTED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/ma
 MERGED from /Users/intersmart/Documents/FlutterWorks/xpress/android/app/src/main/AndroidManifest.xml:1:1-35:12
 MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/xpress/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:maps_launcher] /Users/intersmart/Documents/FlutterWorks/xpress/build/maps_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-19:12
 MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-22:12
 MERGED from [:flutter_plugin_android_lifecycle] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
@@ -93,6 +94,8 @@ MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWor
 MERGED from [:shared_preferences_android] /Users/intersmart/Documents/FlutterWorks/xpress/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/xpress/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:nb_utils] /Users/intersmart/Documents/FlutterWorks/xpress/build/nb_utils/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:maps_launcher] /Users/intersmart/Documents/FlutterWorks/xpress/build/maps_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:maps_launcher] /Users/intersmart/Documents/FlutterWorks/xpress/build/maps_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_email_sender] /Users/intersmart/Documents/FlutterWorks/xpress/build/flutter_email_sender/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:image_picker] /Users/intersmart/Documents/FlutterWorks/xpress/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44

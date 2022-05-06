@@ -61,6 +61,7 @@ dependencies:
   connectivity_plus: ^2.3.0
   nb_utils: ^4.4.8
   liquid_pull_to_refresh: ^3.0.1
+  maps_launcher: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -131,6 +132,7 @@ flutter:
     - assets/images/icon/price-tag.svg
     - assets/images/icon/time.svg
     - assets/images/icon/close.svg
+    - assets/images/icon/google_map.svg
     - assets/images/icon/edittool.png
     - assets/images/icon/background_icons.png
     - assets/images/icon/premium_home_icon.png

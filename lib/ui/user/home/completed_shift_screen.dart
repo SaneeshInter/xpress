@@ -144,13 +144,13 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: Drawer(
-          child: SideMenu(),
-        ),
-        appBar: AppBarCommon(
-          _scaffoldKey,
-          scaffoldKey: _scaffoldKey,
-        ),
+        // drawer: Drawer(
+        //   child: SideMenu(),
+        // ),
+        // appBar: AppBarCommon(
+        //   _scaffoldKey,
+        //   scaffoldKey: _scaffoldKey,
+        // ),
         backgroundColor: Constants.colors[9],
         body: SingleChildScrollView(
           child: Stack(

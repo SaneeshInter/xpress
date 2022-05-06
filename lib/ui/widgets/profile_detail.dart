@@ -21,7 +21,6 @@ ProfileDetailCard({Key? key, required this.items}) : super(key: key);
     String? firstName = items.firstName;
     String? lastName =items.lastName;
     String? employeeNo = items.employeeNo;
-    String? hourlyRate = items.hourlyRate;
     String? gender = items.gender;
     String? dob = items.dob;
     String? homeAddress = items.homeAddress;

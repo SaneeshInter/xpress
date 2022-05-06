@@ -9,6 +9,7 @@ import 'package:xpresshealthdev/ui/manager/home/approved_timesheet_screen.dart';
 import 'package:xpresshealthdev/ui/manager/home/create_shift_screen.dart';
 import 'package:xpresshealthdev/ui/manager/home/my_shifts_screen.dart';
 import 'package:xpresshealthdev/ui/widgets/loading_widget.dart';
+import 'package:xpresshealthdev/utils/network_utils.dart';
 
 import '../../../blocs/manager_home_bloc.dart';
 import '../../../model/manager_home_response.dart';
@@ -51,23 +52,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
     });
   }
 
-  Future<void> _dialCall() async {
-    String phoneNumber = "8606276916";
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launch(launchUri.toString());
-  }
 
-  _sendingMails() async {
-    const url = 'mailto:feedback@geeksforgeeks.org';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
   Future getData() async {
     token = await TokenProvider().getToken();
@@ -158,7 +143,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
       children: <Widget>[
         Expanded(
           child: HomeButton(
-              onPressed: _sendingMails,
+              onPressed: sendingMails("manager@xpress.in"),
               label: "Send Mail",
               asset: "assets/images/icon/email.svg",
               textColors: Constants.colors[0],
@@ -168,7 +153,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
         SizedBox(width: screenHeight(context, dividedBy: 100)),
         Expanded(
           child: HomeButton(
-              onPressed: () => _dialCall(),
+              onPressed: () => dialCall("8606276916"),
               label: "Contact",
               asset: "assets/images/icon/phone.svg",
               textColors: Constants.colors[0],

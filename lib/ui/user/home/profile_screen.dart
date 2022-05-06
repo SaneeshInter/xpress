@@ -36,25 +36,19 @@ class _ProfileState extends State<ProfileScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
-
-  Future  getData() async {
+  Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-
-
       if (await isNetworkAvailable()) {
         setState(() {
           visibility = true;
         });
         profileBloc.getUserInfo(token);
-      }else {
-
+      } else {
         showInternetNotAvailable();
       }
     }
   }
-
-
 
   Future<void> showInternetNotAvailable() async {
     int respo = await Navigator.push(
@@ -67,13 +61,12 @@ class _ProfileState extends State<ProfileScreen> {
     }
   }
 
-
   Future getImage(ImgSource source) async {
     var image = await ImagePickerGC.pickImage(
         enableCloseButton: true,
         closeIcon: Icon(
           Icons.close,
-          color: Colors.red,
+          color: Colors.black,
           size: 12,
         ),
         context: context,
@@ -81,12 +74,12 @@ class _ProfileState extends State<ProfileScreen> {
         barrierDismissible: true,
         cameraIcon: Icon(
           Icons.camera_alt,
-          color: Colors.red,
+          color: Colors.black,
         ),
         //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
         cameraText: Text(
           "From Camera",
-          style: TextStyle(color: Colors.red),
+          style: TextStyle(color: Colors.black),
         ),
         galleryText: Text(
           "From Gallery",
@@ -113,151 +106,155 @@ class _ProfileState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        child: SideMenu(),
-      ),
-      appBar: AppBarCommon(
-        _scaffoldKey,
-        scaffoldKey: _scaffoldKey,
-      ),
+      // drawer: Drawer(
+      //   child: SideMenu(),
+      // ),
+      // appBar: AppBarCommon(
+      //   _scaffoldKey,
+      //   scaffoldKey: _scaffoldKey,
+      // ),
       backgroundColor: Constants.colors[9],
       body: ScrollConfiguration(
         behavior: MyBehavior(),
         child: SingleChildScrollView(
           child: Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: StreamBuilder<UserGetResponse>(
-                    stream: profileBloc.getProfileStream,
-                    builder:
-                        (context, AsyncSnapshot<UserGetResponse> snapshot) {
-                      var data = snapshot.data?.userResponse?.data;
-                      String? firstName = data?.items?[0].firstName;
-                      String? lastName = data?.items?[0].lastName;
-                      String? employeeNo = data?.items?[0].employeeNo;
-                      String? hourlyRate = data?.items?[0].hourlyRate;
-                      Items? item = data?.items?[0];
-                      String fullName =
-                          firstName.toString() + " " + lastName.toString();
+              Visibility(
+                visible: !visibility,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: StreamBuilder<UserGetResponse>(
+                      stream: profileBloc.getProfileStream,
+                      builder:
+                          (context, AsyncSnapshot<UserGetResponse> snapshot) {
+                        var data = snapshot.data?.userResponse?.data;
+                        String? firstName = data?.items?[0].firstName;
+                        String? lastName = data?.items?[0].lastName;
+                        String? employeeNo = data?.items?[0].employeeNo;
+                        String? hourlyRate =
+                            data?.items?[0].hourlyRate.toString();
+                        Items? item = data?.items?[0];
+                        String fullName =
+                            firstName.toString() + " " + lastName.toString();
 
-                      return Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Constants.colors[4],
-                                        Constants.colors[3],
-                                      ]),
-                                  borderRadius: BorderRadius.circular(20)),
-                              padding: const EdgeInsets.all(
-                                AppDefaults.padding,
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.12,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          child: AspectRatio(
-                                            aspectRatio: 1 / 1,
-                                            child: Image.network(
-                                              'https://i.imgur.com/PJpPD6S.png',
-                                              fit: BoxFit.cover,
+                        return Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Constants.colors[4],
+                                          Constants.colors[3],
+                                        ]),
+                                    borderRadius: BorderRadius.circular(20)),
+                                padding: const EdgeInsets.all(
+                                  AppDefaults.padding,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width *
+                                                  0.12,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            child: AspectRatio(
+                                              aspectRatio: 1 / 1,
+                                              child: Image.network(
+                                                'https://i.imgur.com/PJpPD6S.png',
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(width: AppDefaults.margin),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          if (fullName != null)
+                                        const SizedBox(width: AppDefaults.margin),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            if (fullName != null)
+                                              Text(
+                                                fullName,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.sp,
+                                                    fontFamily: "SFProMedium",
+                                                    fontWeight: FontWeight.w700),
+                                              ),
+                                            const SizedBox(height: 5),
                                             Text(
-                                              fullName,
+                                              'Staff Nurses',
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 16.sp,
-                                                  fontFamily: "SFProMedium",
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                          const SizedBox(height: 5),
-                                          Text(
-                                            'Staff Nurses',
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 11.sp,
-                                                fontFamily: "S",
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          if (employeeNo != null)
-                                            Text(
-                                              employeeNo,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12.sp,
+                                                  fontSize: 11.sp,
                                                   fontFamily: "S",
                                                   fontWeight: FontWeight.w400),
                                             ),
-                                        ],
-                                      ),
-                                      const Spacer(),
-                                      Column(
-                                        children: [
-                                          if (hourlyRate != null)
-                                            Text(
-                                              hourlyRate,
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  color: Constants.colors[8],
-                                                  fontWeight: FontWeight.w700),
+                                            const SizedBox(height: 5),
+                                            if (employeeNo != null)
+                                              Text(
+                                                employeeNo,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12.sp,
+                                                    fontFamily: "S",
+                                                    fontWeight: FontWeight.w400),
+                                              ),
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        Column(
+                                          children: [
+                                            if (hourlyRate != null)
+                                              Text(
+                                                hourlyRate,
+                                                style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: Constants.colors[8],
+                                                    fontWeight: FontWeight.w700),
+                                              ),
+                                            SizedBox(
+                                              height: 2.h,
                                             ),
-                                          SizedBox(
-                                            height: 2.h,
-                                          ),
-                                          DrawableButton(
-                                            onPressed: () {},
-                                            label: "Edit",
-                                            asset:
-                                                "assets/images/icon/swipe-to-right.svg",
-                                            backgroundColor:
-                                                Constants.colors[4],
-                                            textColors: Constants.colors[0],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: AppDefaults.margin),
-                                  // Actions
-                                ],
+                                            DrawableButton(
+                                              onPressed: () {},
+                                              label: "Edit",
+                                              asset:
+                                                  "assets/images/icon/swipe-to-right.svg",
+                                              backgroundColor:
+                                                  Constants.colors[4],
+                                              textColors: Constants.colors[0],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: AppDefaults.margin),
+                                    // Actions
+                                  ],
+                                ),
                               ),
-                            ),
-                            if (null != item) ProfileDetailCard(items: item),
-                            GestureDetector(
-                                onTap: () => getImage(ImgSource.Both),
-                                child: ProfileDocumentsCard()),
-                          ],
-                        ),
-                      );
-                    }),
+                              if (null != item) ProfileDetailCard(items: item),
+                              GestureDetector(
+                                  onTap: () => getImage(ImgSource.Both),
+                                  child: ProfileDocumentsCard()),
+                            ],
+                          ),
+                        );
+                      }),
+                ),
               ),
               Center(
                 child: Visibility(

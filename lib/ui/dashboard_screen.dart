@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/user/common/app_bar.dart';
+import 'package:xpresshealthdev/ui/user/common/side_menu.dart';
 import 'package:xpresshealthdev/ui/user/home/availability_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/completed_shift_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/home_screen.dart';
@@ -57,13 +59,13 @@ class _DashBoardWidgetState extends State<DashBoard> {
 
     return Scaffold(
       key: _scaffoldKey,
-      // drawer: Drawer(
-      //   // Add a ListView to the drawer. This ensures the user can scroll
-      //   // through the options in the drawer if there isn't enough vertical
-      //   // space to fit everything.
-      //   child: SideMenu(),
-      // ),
-      // appBar: AppBarCommon(_scaffoldKey, scaffoldKey: _scaffoldKey,),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: SideMenu(),
+      ),
+      appBar: AppBarCommon(_scaffoldKey, scaffoldKey: _scaffoldKey,),
       body: PersistentTabView(
         context,
         controller: _controller,

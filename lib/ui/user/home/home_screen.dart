@@ -54,21 +54,16 @@ class _HomeScreentate extends State<HomeScreen> {
   Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-
-
       if (await isNetworkAvailable()) {
         setState(() {
           visibility = true;
         });
         homepageBloc.fetchUserHomepage(token);
-      }else {
-
+      } else {
         showInternetNotAvailable();
       }
     }
   }
-
-
 
   Future<void> showInternetNotAvailable() async {
     int respo = await Navigator.push(
@@ -81,11 +76,6 @@ class _HomeScreentate extends State<HomeScreen> {
     }
   }
 
-
-
-
-
-
   @override
   void initState() {
     super.initState();
@@ -97,20 +87,19 @@ class _HomeScreentate extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: SideMenu(),
-      ),
-      appBar: AppBarCommon(
-        _scaffoldKey,
-        scaffoldKey: _scaffoldKey,
-      ),
+      // drawer: Drawer(
+      //   // Add a ListView to the drawer. This ensures the user can scroll
+      //   // through the options in the drawer if there isn't enough vertical
+      //   // space to fit everything.
+      //   child: SideMenu(),
+      // ),
+      // appBar: AppBarCommon(
+      //   _scaffoldKey,
+      //   scaffoldKey: _scaffoldKey,
+      // ),
       backgroundColor: Constants.colors[9],
       body: ScrollConfiguration(
         behavior: MyBehavior(),
@@ -385,7 +374,10 @@ class _HomeScreentate extends State<HomeScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: '190',)),
+                  MaterialPageRoute(
+                      builder: (context) => ShiftDetailScreen(
+                            shift_id: '190',
+                          )),
                 );
               },
               label: "Shift Details",
@@ -416,9 +408,8 @@ class _HomeScreentate extends State<HomeScreen> {
         child: Row(
           children: [
             Container(
-              width: 93.w,
-                child:
-                    Image.asset('assets/images/icon/premium_home_icon.png')),
+                width: 93.w,
+                child: Image.asset('assets/images/icon/premium_home_icon.png')),
           ],
         ),
       ),
@@ -454,7 +445,7 @@ class _HomeScreentate extends State<HomeScreen> {
           return Card(
             elevation: 0.0,
             child: Container(
-              //width: 65.w,
+              width: 65.w,
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
@@ -557,45 +548,56 @@ class _HomeScreentate extends State<HomeScreen> {
 
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AvailabilityScreen(),),
+                MaterialPageRoute(
+                  builder: (context) => AvailabilityScreen(),
+                ),
               );
             },
             child: HomeCardItem(
                 label: "My\nAvailability ",
                 asset: "assets/images/icon/availability.svg"),
           ),
-          GestureDetector( onTap: () {
-            // widget.onTapMap;
+          GestureDetector(
+            onTap: () {
+              // widget.onTapMap;
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => CompletedShiftScreen(),),
-            );
-          },
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CompletedShiftScreen(),
+                ),
+              );
+            },
             child: HomeCardItem(
                 label: "Submit\nTimeSheets ",
                 asset: "assets/images/icon/availability.svg"),
           ),
-          GestureDetector(onTap: () {
-            // widget.onTapMap;
+          GestureDetector(
+            onTap: () {
+              // widget.onTapMap;
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => FindShiftScreen(),),
-            );
-          },
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FindShiftScreen(),
+                ),
+              );
+            },
             child: HomeCardItem(
                 label: "Find Shift",
                 asset: "assets/images/icon/availability.svg"),
           ),
-          GestureDetector(onTap: () {
-            // widget.onTapMap;
+          GestureDetector(
+            onTap: () {
+              // widget.onTapMap;
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyBookingScreen(),),
-            );
-          },
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyBookingScreen(),
+                ),
+              );
+            },
             child: HomeCardItem(
                 label: "My\nBooking",
                 asset: "assets/images/icon/availability.svg"),

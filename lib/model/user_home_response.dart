@@ -1,21 +1,25 @@
 class UserHomeResponse {
+
   Response? response;
-
   UserHomeResponse({this.response});
-
   UserHomeResponse.fromJson(Map<String, dynamic> json) {
+
     response = json['Response'] != null
         ? new Response.fromJson(json['Response'])
         : null;
+
   }
 
   Map<String, dynamic> toJson() {
+
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.response != null) {
       data['Response'] = this.response!.toJson();
     }
     return data;
+
   }
+
 }
 
 class Response {
@@ -43,9 +47,9 @@ class Response {
 }
 
 class Data {
+
   List<ImportantUpdates>? importantUpdates;
   List<LatestShift>? latestShift;
-
   Data({this.importantUpdates, this.latestShift});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -74,13 +78,13 @@ class Data {
     }
     return data;
   }
+
 }
 
 class ImportantUpdates {
   String? title;
   String? date;
   String? description;
-
   ImportantUpdates({this.title, this.date, this.description});
 
   ImportantUpdates.fromJson(Map<String, dynamic> json) {
@@ -208,15 +212,12 @@ class Status {
   int? count;
   int? statusCode;
   String? statusMessage;
-
   Status({this.count, this.statusCode, this.statusMessage});
-
   Status.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     statusCode = json['status_code'];
     statusMessage = json['status_message'];
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['count'] = this.count;

@@ -102,7 +102,7 @@ class SideMenu extends StatelessWidget {
             ),
           ),  ListTile(
             title: const Text(
-              'Profile Screen ',
+              'Profile ',
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -114,7 +114,6 @@ class SideMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pop(context);
               pushNewScreen(
                 context,
                 screen: ProfileScreen(),

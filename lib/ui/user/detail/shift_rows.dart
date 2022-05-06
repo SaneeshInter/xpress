@@ -61,7 +61,7 @@ class _CustomRowState extends State<CustomRowz> {
                       fontFamily: "SFProMedium",
                       fontWeight: FontWeight.w600),
                 ),
-                maxLines: 3,
+                maxLines: 50,
               ),
             ),
           ],
