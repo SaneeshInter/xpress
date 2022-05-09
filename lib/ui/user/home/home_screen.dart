@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -206,170 +207,189 @@ class _HomeScreentate extends State<HomeScreen> {
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       elevation: 0.0,
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            5, 22, 5, 22),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      5, 0, 10, 0.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                child: Container(
-                                                  height: 18.w,
-                                                  width: 18.w,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                        begin:
-                                                            Alignment.topCenter,
-                                                        end: Alignment
-                                                            .bottomCenter,
-                                                        colors: [
-                                                          Constants.colors[4],
-                                                          Constants.colors[3],
-                                                        ]),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            15.0),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        AutoSizeText(
-                                                          '18',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          minFontSize: 0,
-                                                          stepGranularity: 0.2,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 14.sp,
-                                                              fontFamily:
-                                                                  "SFProBold",
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800),
-                                                        ),
-                                                        AutoSizeText(
-                                                          'Jan,21',
-                                                          minFontSize: 2,
-                                                          stepGranularity: 1,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          maxLines: 2,
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 9.sp,
-                                                              fontFamily:
-                                                                  "SFProMedium",
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                        ),
-                                                      ],
+                                      child: GestureDetector(
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              5, 22, 5, 22),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        5, 0, 10, 0.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  child: Container(
+                                                    height: 18.w,
+                                                    width: 18.w,
+                                                    decoration: BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                          begin: Alignment
+                                                              .topCenter,
+                                                          end: Alignment
+                                                              .bottomCenter,
+                                                          colors: [
+                                                            Constants.colors[4],
+                                                            Constants.colors[3],
+                                                          ]),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              15.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          AutoSizeText(
+                                                            '18',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            minFontSize: 0,
+                                                            stepGranularity:
+                                                                0.2,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14.sp,
+                                                                fontFamily:
+                                                                    "SFProBold",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w800),
+                                                          ),
+                                                          AutoSizeText(
+                                                            'Jan,21',
+                                                            minFontSize: 2,
+                                                            stepGranularity: 1,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            maxLines: 2,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 9.sp,
+                                                                fontFamily:
+                                                                    "SFProMedium",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Container(
-                                              width: screenWidth(context,
-                                                  dividedBy: 2),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  AutoSizeText(
-                                                    shiftDetails!.hospital!,
-                                                    textAlign: TextAlign.left,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                        color: Constants
-                                                            .colors[11],
-                                                        fontSize: 16.sp,
-                                                        fontFamily:
-                                                            "SFProMedium",
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 1.w,
-                                                  ),
-                                                  AutoSizeText(
-                                                    "On  " +
-                                                        shiftDetails.date! +
-                                                        "  From " +
-                                                        shiftDetails.timeFrom! +
-                                                        " To " +
-                                                        shiftDetails.timeTo!,
-                                                    maxLines: 1,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: Colors.blueGrey,
-                                                        fontSize: 12.sp,
-                                                        fontFamily: "S",
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2.w,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      DrawableButton(
-                                                        onPressed: () {},
-                                                        label:
-                                                            shiftDetails!.type!,
-                                                        asset:
-                                                            "assets/images/icon/swipe-to-right.svg",
-                                                        backgroundColor:
-                                                            Constants.colors[2],
-                                                        textColors:
-                                                            Constants.colors[4],
-                                                      ),
-                                                      SizedBox(
-                                                        width: 2.w,
-                                                      ),
-                                                      DrawableButton(
-                                                        onPressed: () {},
-                                                        label: shiftDetails!
-                                                            .category!,
-                                                        asset:
-                                                            "assets/images/icon/ward.svg",
-                                                        backgroundColor:
-                                                            Constants.colors[2],
-                                                        textColors:
-                                                            Constants.colors[6],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                              Container(
+                                                width: screenWidth(context,
+                                                    dividedBy: 2),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    AutoSizeText(
+                                                      shiftDetails!.hospital!,
+                                                      textAlign: TextAlign.left,
+                                                      maxLines: 1,
+                                                      style: TextStyle(
+                                                          color: Constants
+                                                              .colors[11],
+                                                          fontSize: 16.sp,
+                                                          fontFamily:
+                                                              "SFProMedium",
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.w,
+                                                    ),
+                                                    AutoSizeText(
+                                                      "On  " +
+                                                          shiftDetails.date! +
+                                                          "  From " +
+                                                          shiftDetails
+                                                              .timeFrom! +
+                                                          " To " +
+                                                          shiftDetails.timeTo!,
+                                                      maxLines: 1,
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.blueGrey,
+                                                          fontSize: 12.sp,
+                                                          fontFamily: "S",
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 2.w,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        DrawableButton(
+                                                          onPressed: () {},
+                                                          label: shiftDetails!
+                                                              .type!,
+                                                          asset:
+                                                              "assets/images/icon/swipe-to-right.svg",
+                                                          backgroundColor:
+                                                              Constants
+                                                                  .colors[2],
+                                                          textColors: Constants
+                                                              .colors[4],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.w,
+                                                        ),
+                                                        DrawableButton(
+                                                          onPressed: () {},
+                                                          label: shiftDetails!
+                                                              .category!,
+                                                          asset:
+                                                              "assets/images/icon/ward.svg",
+                                                          backgroundColor:
+                                                              Constants
+                                                                  .colors[2],
+                                                          textColors: Constants
+                                                              .colors[6],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                transformAlignment:
-                                                    Alignment.centerRight,
-                                                child: SvgPicture.asset(
-                                                    'assets/images/icon/righarrow.svg')),
-                                            SizedBox(width: 5),
-                                          ],
+                                              const Spacer(),
+                                              Container(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  transformAlignment:
+                                                      Alignment.centerRight,
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/icon/righarrow.svg')),
+                                              SizedBox(width: 5),
+                                            ],
+                                          ),
                                         ),
+                                        onTap: () {
+                                          LatestShift late = shiftDetails;
+                                          var shiftId = late.rowId.toString();
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ShiftDetailScreen(
+                                                      shift_id: shiftId,
+                                                    )),
+                                          );
+                                        },
                                       ),
                                     ),
                                     SizedBox(
@@ -442,7 +462,28 @@ class _HomeScreentate extends State<HomeScreen> {
         SizedBox(width: screenHeight(context, dividedBy: 100)),
         Expanded(
           child: HomeButton(
-              onPressed: () {},
+              onPressed: () {
+
+                print("HomeButton");
+                LatestShift late = shiftDetails;
+                final Event event = Event(
+                  title: late.jobTitle!,
+                  description: late.jobDetails!,
+                  location: late.hospital!,
+                  startDate: DateTime.parse(late.date!),
+                  endDate: DateTime.parse(late.date!),
+                  iosParams: IOSParams(
+                    reminder: Duration(
+                        /* Ex. hours:1 */), // on iOS, you can set alarm notification after your event.
+                  ),
+                  androidParams: AndroidParams(
+                    emailInvites: [], // on Android, you can add invite emails to your event.
+                  ),
+                );
+                print(event.location);
+                print(event.endDate);
+                Add2Calendar.addEvent2Cal(event);
+              },
               label: "Add to Calender",
               asset: "assets/images/icon/availability.svg",
               textColors: Constants.colors[0],

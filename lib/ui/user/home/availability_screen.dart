@@ -135,6 +135,8 @@ class _AvailabilityState extends State<AvailabilityScreen> {
                 children: [
                   // LiquidPullToRefresh(onRefresh: () async{ getData(); },
                   // child: ListView()),
+
+
                   Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth(context, dividedBy: 40)),

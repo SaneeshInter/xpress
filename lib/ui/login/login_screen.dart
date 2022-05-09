@@ -286,6 +286,8 @@ class _LoginScreenState extends State<LoginScreen> {
         final prefs = await SharedPreferences.getInstance();
         var token = event.response?.data?.token;
         var role = event.response?.data?.role;
+
+
         if (token != null) {
           prefs.setString(SharedPrefKey.AUTH_TOKEN, token);
           if (null != role) {

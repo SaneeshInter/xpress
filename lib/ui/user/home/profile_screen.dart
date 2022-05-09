@@ -157,6 +157,10 @@ class _ProfileState extends State<ProfileScreen> {
                           String? firstName = data?.items?[0].firstName;
                           String? lastName = data?.items?[0].lastName;
                           String? employeeNo = data?.items?[0].employeeNo;
+                          String? profileImage = "";
+
+                          profileImage = data?.items?[0].profileSrc;
+                          String? categroy = data?.items?[0].userType;
                           String? hourlyRate =
                               data?.items?[0].hourlyRate.toString();
                           Items? item = data?.items?[0];
@@ -193,9 +197,21 @@ class _ProfileState extends State<ProfileScreen> {
                                                   BorderRadius.circular(16),
                                               child: AspectRatio(
                                                 aspectRatio: 1 / 1,
-                                                child: Image.network(
-                                                  'https://i.imgur.com/PJpPD6S.png',
-                                                  fit: BoxFit.cover,
+                                                child: Stack(
+                                                  children: [
+                                                    if (profileImage == "" ||
+                                                        null == profileImage)
+                                                      Image.asset(
+                                                        'assets/images/icon/man_ava.png',
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    if (profileImage != "" &&
+                                                        null != profileImage)
+                                                      Image.network(
+                                                        profileImage,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
@@ -220,24 +236,25 @@ class _ProfileState extends State<ProfileScreen> {
                                                           FontWeight.w700),
                                                 ),
                                               const SizedBox(height: 5),
-                                              Text(
-                                                'Staff Nurses',
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 11.sp,
-                                                    fontFamily: "S",
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              const SizedBox(height: 5),
-                                              if (employeeNo != null)
+                                              if (null != categroy)
                                                 Text(
-                                                  employeeNo,
+                                                  categroy,
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 12.sp,
+                                                      fontSize: 11.sp,
+                                                      fontFamily: "S",
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                              const SizedBox(height: 5),
+                                              if (employeeNo != null)
+                                                Text(
+                                                  "EMP NO :" + employeeNo,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 10.sp,
                                                       fontFamily: "S",
                                                       fontWeight:
                                                           FontWeight.w400),
@@ -288,12 +305,12 @@ class _ProfileState extends State<ProfileScreen> {
                                 ),
                                 if (null != item)
                                   ProfileDetailCard(items: item),
-                                  Column(
-                                    children: [
-                                      if (null != item)
+                                Column(
+                                  children: [
+                                    if (null != item)
                                       ProfileDocumentsCard(items: item),
-                                    ],
-                                  ),
+                                  ],
+                                ),
                               ],
                             ),
                           );

@@ -34,9 +34,9 @@ class _HomeButtonState extends State<HomeButton> {
     return GestureDetector(
       onTap: () {
         widget.onPressed();
-        setState(() {
-          tapped = true;
-        });
+        // setState(() {
+        //   tapped = true;
+        // });
       },
       child: Container(
         alignment: Alignment.center,

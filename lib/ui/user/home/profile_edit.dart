@@ -39,6 +39,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var token;
+  var profileImage = "";
   var genderId = 1;
   var nationalityId = 1;
   var visatypeId = 1;
@@ -207,7 +208,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                             //       const EdgeInsets.fromLTRB(
                                             //           16.0, 10, 0, 0),
                                             //   child: AutoSizeText(
-                                            //     'Update Profile ',
+                                            //     Update Profile ',
                                             //     style: TextStyle(
                                             //       fontSize: 18,
                                             //       color: Colors.black,
@@ -240,10 +241,23 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                       0.22),
                                                           child: AspectRatio(
                                                             aspectRatio: 1 / 1,
-                                                            child:
-                                                                Image.network(
-                                                              'https://i.imgur.com/PJpPD6S.png',
-                                                              fit: BoxFit.cover,
+                                                            child: Stack(
+                                                              children: [
+                                                                if (profileImage !=
+                                                                    "")
+                                                                  Image.network(
+                                                                    profileImage,
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  ),
+                                                                if (profileImage ==
+                                                                    "")
+                                                                  Image.asset(
+                                                                    'assets/images/icon/man_ava.png',
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  )
+                                                              ],
                                                             ),
                                                           ),
                                                         ),
@@ -877,9 +891,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
               genderId = item.genderId!;
             });
           }
-          if (null != item.visaTypeId && item.visaTypeId != 0) {
+          if (null != item.visaTypeId && item.visaTypeId != "") {
             setState(() {
-              visatypeId = item.visaTypeId!;
+              visatypeId = int.parse(item.visaTypeId!);
             });
           }
 
@@ -889,6 +903,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
             });
           }
 
+          profileImage = item.profileSrc!;
           first_name.text = item.firstName!;
           last_name.text = item.lastName!;
           date.text = item.dob!;

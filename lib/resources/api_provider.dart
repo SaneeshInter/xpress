@@ -26,6 +26,7 @@ import '../model/user_view_request_response.dart';
 import '../model/user_working_hours.dart';
 import '../model/utility_respo.dart';
 import '../model/viewbooking_response.dart';
+
 class ApiProvider {
   Client client = Client();
   String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
@@ -53,7 +54,6 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
-
   Future<UserGetResponse> getUserInfo(String token) async {
     print("token");
     print(token);
@@ -88,6 +88,7 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
+
   Future<SliftListRepso> fetchShiftList(String date) async {
     print("date");
     print(date);
@@ -100,6 +101,7 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
+
   Future<ProfileUpdateRespo> ProfileUser(
       String token,
       String first_name,
@@ -162,6 +164,7 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
+
   ///////////////////// MANAGER API
   Future<ManagerScheduleListResponse> fetchViewbooking(
       String token, String date) async {
@@ -315,8 +318,7 @@ class ApiProvider {
     }
   }
 
-  Future<ManagerTimeSheetResponse> managerTimeSheet(
-      String token) async {
+  Future<ManagerTimeSheetResponse> managerTimeSheet(String token) async {
     var uri = Uri.parse(BASE_URL + "/manager/get-time-sheet");
     final response = await client.post(uri,
         headers: <String, String>{
@@ -361,13 +363,6 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
-
-
-
-
-
-
-
 
   Future<UserShoiftCompletedResponse> fetchUserCompleteShift(
       String token) async {
@@ -765,10 +760,6 @@ class ApiProvider {
     }
   }
 
-
-
-
-
   Future<UserDocumentsResponse> uploadUserDocuments(
       String token, String files, String type, String expiry_date) async {
     var uri = Uri.parse(BASE_URL + "/account/upload-user-documents");
@@ -799,7 +790,7 @@ class ApiProvider {
     }
   }
 
-                                                               //////////////CATEGORIES
+  //////////////CATEGORIES
 
   Future<SliftListRepso> fetchConfirm() async {
     print("CONFIRMED");
@@ -828,6 +819,4 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
-
-
 }

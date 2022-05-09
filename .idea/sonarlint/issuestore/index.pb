@@ -189,12 +189,8 @@ P
  lib/model/manager_timesheet.dart,c/7/c7e8be2f32a252017f1c544d88e8159d133e3f6e
 L
 lib/model/loctions_list.dart,b/1/b19a1b00f910f002fff1d485d608e893e4db19d9
-M
-lib/model/login_response.dart,f/7/f740dd57e82184f356afca0bcfb54c01d46765ee
 S
 #lib/model/viewbooking_response.dart,8/0/80eddb0b4543784762972658dc013cea162f3a94
-R
-"lib/model/user_complted_shift.dart,0/2/0243abd4dd784132a6f88374c6d946dbe3456d8f
 V
 &lib/model/remove_manager_schedule.dart,5/f/5f8030a4c38e12e05f8975c3d285ca31e7b6250b
 V
@@ -239,18 +235,12 @@ R
 "lib/model/filter_booking_list.dart,e/d/ed8e833df020399f873e2b44affd85fdb1652d5f
 K
 lib/model/country_list.dart,b/9/b9a25d5e54df6779f172543b2e4916740d80e7e7
-Y
-)lib/model/user_availability_btw_date.dart,c/9/c96857e5ef31191a99cd04e22c2cf1b86055ebe1
 V
 &lib/model/time_sheet_upload_respo.dart,6/e/6edabd901c9c8bbef60502814da0b8a620ba3aca
 M
 lib/blocs/shift_dropdown.dart,2/2/2218b885ba85eb0e31ac5dcf5f3ec172c0999bf9
 N
 lib/blocs/shift_list_bloc.dart,4/7/47b53053a0795a65cfd44cdb85a1eb8b548da374
-U
-%lib/blocs/user_availability_bloc.dart,c/f/cffdedeebd39a9714390059d1084d2159a88298b
-V
-&lib/blocs/shift_notification_bloc.dart,6/5/65da4e6b697cb9858577d9b74a178cbfba1e66a7
 W
 'lib/blocs/createshift_manager_bloc.dart,2/8/284a6429fcaf87691fa03c71826456c14b79e5c5
 R
@@ -265,8 +255,6 @@ R
 "lib/ui/datepicker/extra/dimen.dart,5/d/5d49ae189eb6bfaf45c1fadf9607a0d218b08dfb
 V
 &lib/blocs/accept_job_request_bloc.dart,9/3/9347441e3a25759fcd29de049019fc123c1bcf68
-I
-lib/blocs/login_bloc.dart,f/3/f346b6fd5316090b97e5d5a0960775307410b857
 R
 "lib/ui/datepicker/date_widget.dart,2/8/2804b0e32765fe0d9cc28263d4102cf73a0aa969
 Y
@@ -275,8 +263,6 @@ Y
 )lib/ui/datepicker/date_picker_widget.dart,4/1/417e757df3ea859e9f923ed47a7f45d11fd40cd6
 J
 lib/ui/datepicker/tap.dart,3/a/3a40dab2f24059369b6fe1c28f7fa4f7afa1692f
-W
-'lib/ui/widgets/buttons/home_button.dart,8/8/881ae8c96659c6f8083af1da39e9f380a39f2d96
 X
 (lib/ui/widgets/buttons/login_button.dart,3/7/374e66d70973ae1c0a73a546af13d4c4288378c8
 X
@@ -293,8 +279,6 @@ W
 'lib/ui/widgets/buttons/view_button.dart,9/f/9fa880420c9ad22d7c7ef782a33447024929072a
 W
 'lib/ui/widgets/notification_widget.dart,c/0/c0ea9c4c25c4c33241385943c87a555b7124aac7
-U
-%lib/ui/widgets/availability_list.dart,2/c/2c8a76cb31b85d22bfec5c8a20aed002f67683a5
 X
 (lib/ui/widgets/delete_alert_dialoge.dart,e/c/ec1e240fe51753f91940d9fd36f791571d85c6a8
 W
@@ -313,8 +297,6 @@ M
 lib/ui/error/ErrorScreen.dart,9/5/958d79f0ff25f0df562871b7969adae5bfa8c12d
 X
 (lib/ui/error/ConnectionFailedScreen.dart,1/c/1cef3f681c80dc76c5212cb7bce9a13af746d138
-Y
-)lib/ui/user/detail/drawable _rowtext.dart,f/7/f76a2cd0f2553d3d107eadf4349c12dd95fecdbd
 S
 #lib/ui/user/underdev/event_tap.dart,0/b/0b33e0691c7444a76ab10086ea4c95905341f793
 T
@@ -333,8 +315,6 @@ C
 xpresshealthdev.iml,b/1/b11bcfb13392afe7e3e974091ceabad4a797c560
 L
 .idea/libraries/Dart_SDK.xml,a/9/a9cc79449f536988c9a3fd2c84e3dfda3be04f09
-V
-&lib/ui/user/detail/home_card_item.dart,1/f/1f4abe895af65598f2f677d816394b6af842f430
 K
 lib/blocs/utility_bloc.dart,a/9/a907bc84e210a198db30d5542972332ecce1748b
 S
@@ -371,8 +351,6 @@ W
 'lib/ui/widgets/login_invalid_alert.dart,5/e/5e5cf8772036433e487e72fd9c24484da82f0d4f
 W
 'lib/ui/widgets/buttons/book_button.dart,e/2/e2feaa243b48976ddf44280c0120d2265817bd90
-N
-lib/ui/login/login_screen.dart,0/f/0f34e6a62dd34516659e0d3f4693a34572014195
 W
 'lib/ui/user/home/my_shift_calendar.dart,f/5/f54a06ed09ff7ae94693034271a3c3e13e186c72
 Q
@@ -405,36 +383,24 @@ W
 'lib/ui/widgets/buttons/call_button.dart,5/f/5f60791126b8651a457cce07e43c3fddb1dd28f6
 Q
 !assets/images/icon/google_map.svg,3/1/3192cd2ebe65fa0d76076c251ccd52011df20e6c
-L
-lib/ui/dashboard_screen.dart,1/b/1bea7a0f1fb8bc90c037be491df23299dcfc9c34
 S
 #.idea/libraries/Flutter_Plugins.xml,e/8/e8bbc0fdfcefee9aa7b463c83a8a480b92333860
 Q
 !.idea/libraries/Dart_Packages.xml,f/c/fc67c2d2441e33af1dbd1e910281523d1ce74b4a
-Y
-)lib/ui/user/home/availability_screen.dart,0/7/07affc48b79fe626b513f9ad7785b1057a4c694c
 \
 ,lib/ui/manager/home/create_shift_screen.dart,5/3/5356adbb138abb8f86de8ab67d2ea7128c012251
 a
 1lib/ui/widgets/approve_timesheet_list_widget.dart,6/7/674015d9804c625f89bf182fba8cd78ddc6e3d9e
 \
 ,lib/ui/manager/home/manager_home_screen.dart,2/4/24563b032d17b04e8d2094009d77a2979183fd12
-X
-(android/app/src/main/AndroidManifest.xml,e/f/ef79bfd51db69a15dbf5807c05bb249bdccb0556
-Q
-!lib/model/user_home_response.dart,e/c/ec926b05b88120bd8307abdd83b144791c6f9cf6
 K
 assets/images/icon/bank.svg,2/1/21b2ce051a9252eba9e80602091f49b280f6fd17
 H
 lib/utils/constants.dart,a/2/a244082e3e5adfa8ce05639322885b3f9ed891f2
-S
-#lib/blocs/shift_completed_bloc.dart,4/4/440ec191586ae8b49069cc0876e6ebc536468a93
 [
 +lib/ui/manager/home/time_sheet_details.dart,7/5/75c2831a03082d4f09c5eb1f11e797d71e7087ea
 S
 #lib/blocs/shift_timesheet_bloc.dart,7/4/74f4f9f98fd6e26b3688ff83e1034a94b3d9eb16
-O
-lib/resources/api_provider.dart,9/b/9b3995585cb13836029a65950eb6614eed11d5fe
 [
 +lib/ui/user/detail/profile_details_row.dart,c/1/c1d5ee3f6c55e9cb36eb7cc5dd8e5dfb7c546a12
 M

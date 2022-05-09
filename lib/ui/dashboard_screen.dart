@@ -4,6 +4,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/user/common/app_bar.dart';
 import 'package:xpresshealthdev/ui/user/common/side_menu.dart';
+import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/availability_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/completed_shift_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/home_screen.dart';
@@ -41,7 +42,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
     // FindshiftCalendar(),
     // ShiftCalendarScreen(),
     MyBookingScreen(),
-    AvailabilityScreen(),
+    AvailabilityListScreen(),
     CompletedShiftScreen(),
     // ProfileScreen(),
   ];

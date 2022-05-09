@@ -157,33 +157,38 @@ class _HomeScreentate extends State<MyBookingScreen> {
               ),
             ),
           ),
-          body: Container(
-              child: StreamBuilder(
-                  stream: confirmBloc.viewrequest,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<UserViewRequestResponse> snapshot) {
-                    if (snapshot.hasData) {
-                      return TabBarView(children: [
-                        bookingList(0, snapshot),
-                        bookingList(1, snapshot),
-                        bookingList(2, snapshot),
-                        bookingList(3, snapshot)
-                      ]);
-                    } else if (snapshot.hasError) {
-                      return Text(snapshot.error.toString());
-                    }
-                    return Center(
-                      child: Visibility(
-                        child: Container(
-                          width: 100.w,
-                          height: 80.h,
-                          child: const Center(
-                            child: LoadingWidget(),
+          body: LiquidPullToRefresh(
+            onRefresh: () async {
+              getDataitems();
+            },
+            child: Container(
+                child: StreamBuilder(
+                    stream: confirmBloc.viewrequest,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                      if (snapshot.hasData) {
+                        return TabBarView(children: [
+                          bookingList(0, snapshot),
+                          bookingList(1, snapshot),
+                          bookingList(2, snapshot),
+                          bookingList(3, snapshot)
+                        ]);
+                      } else if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      }
+                      return Center(
+                        child: Visibility(
+                          child: Container(
+                            width: 100.w,
+                            height: 80.h,
+                            child: const Center(
+                              child: LoadingWidget(),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }))),
+                      );
+                    })),
+          )),
     );
   }
 

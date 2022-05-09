@@ -5,7 +5,7 @@ import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
 import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:xpresshealthdev/ui/user/home/profile_screen.dart';
-
+enum Availability { day, night ,off}
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(

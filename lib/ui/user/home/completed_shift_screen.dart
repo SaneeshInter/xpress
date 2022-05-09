@@ -112,7 +112,11 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
       });
 
       var data = event.response?.data;
+      print("data?.items?.length");
+      print(data?.items?.length);
       if (data?.items != null) {
+        print("data?.items?.length");
+        print(data?.items?.length);
         if (data?.items?.length != 0) {
           setState(() {
             buttonVisibility = true;
@@ -167,7 +171,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    if (buttonVisibility)
+                    // if (buttonVisibility)
                       DottedBorder(
                         borderType: BorderType.RRect,
                         dashPattern: [10, 10],
@@ -204,6 +208,8 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                                 snapshot) {
                           if (snapshot.hasData) {
                             var data = snapshot.data?.response?.data;
+                            print("data?.items?.length");
+                            print(data?.items?.length);
                             if (data?.items != null) {
                               if (data?.items?.length != 0) {
                                 return buildList(snapshot);
@@ -212,21 +218,27 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                                   children: [
                                     20.height,
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
-                                        Text('Completed Shift', style: boldTextStyle(size: 20)),
+                                        Text('Completed Shift',
+                                            style: boldTextStyle(size: 20)),
                                         85.width,
                                         16.height,
                                         Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 32),
-                                          child: Text('There are no  completed shift found.',
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 32),
+                                          child: Text(
+                                              'There are no  completed shift found.',
                                               style: primaryTextStyle(size: 15),
                                               textAlign: TextAlign.center),
                                         ),
                                       ],
                                     ),
                                     150.height,
-                                    Image.asset('assets/images/error/empty_task.png', height: 250),
+                                    Image.asset(
+                                        'assets/images/error/empty_task.png',
+                                        height: 250),
                                   ],
                                 );
                               }
@@ -239,7 +251,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    if (buttonVisibility)
+                    // if (buttonVisibility)
                       BuildButton(
                         label: "Upload Timesheets",
                         onPressed: () {
