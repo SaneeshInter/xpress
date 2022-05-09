@@ -1,30 +1,30 @@
 class UserGetResponse {
-  UserResponse? userResponse;
+  Response? response;
 
-  UserGetResponse({this.userResponse});
+  UserGetResponse({this.response});
 
   UserGetResponse.fromJson(Map<String, dynamic> json) {
-    userResponse = json['Response'] != null
-        ? new UserResponse.fromJson(json['Response'])
+    response = json['Response'] != null
+        ? new Response.fromJson(json['Response'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.userResponse != null) {
-      data['Response'] = this.userResponse!.toJson();
+    if (this.response != null) {
+      data['Response'] = this.response!.toJson();
     }
     return data;
   }
 }
 
-class UserResponse {
+class Response {
   Data? data;
   Status? status;
 
-  UserResponse({this.data, this.status});
+  Response({this.data, this.status});
 
-  UserResponse.fromJson(Map<String, dynamic> json) {
+  Response.fromJson(Map<String, dynamic> json) {
     data = json['Data'] != null ? new Data.fromJson(json['Data']) : null;
     status =
     json['status'] != null ? new Status.fromJson(json['status']) : null;
@@ -78,13 +78,24 @@ class Items {
   String? gender;
   int? genderId;
   String? visaType;
-  int? visaTypeId;
+  Null? visaTypeId;
   String? userType;
   int? userTypeId;
   String? homeAddress;
   String? ppsNumber;
   String? bankIban;
   String? bankBic;
+  String? profileSrc;
+  String? signatureSrc;
+  String? phdLink;
+  String? phdExpiry;
+  String? qqqiLink;
+  String? qqqiExpiry;
+  String? ipccLink;
+  String? ipccExpiry;
+  String? ecsLink;
+  String? ecsExpiry;
+  String? pidExpiry;
 
   Items(
       {this.firstName,
@@ -105,7 +116,18 @@ class Items {
         this.homeAddress,
         this.ppsNumber,
         this.bankIban,
-        this.bankBic});
+        this.bankBic,
+        this.profileSrc,
+        this.signatureSrc,
+        this.phdLink,
+        this.phdExpiry,
+        this.qqqiLink,
+        this.qqqiExpiry,
+        this.ipccLink,
+        this.ipccExpiry,
+        this.ecsLink,
+        this.ecsExpiry,
+        this.pidExpiry});
 
   Items.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
@@ -127,9 +149,18 @@ class Items {
     ppsNumber = json['pps_number'];
     bankIban = json['bank_iban'];
     bankBic = json['bank_bic'];
+    profileSrc = json['profile_src'];
+    signatureSrc = json['signature_src'];
+    phdLink = json['phd_link'];
+    phdExpiry = json['phd_expiry'];
+    qqqiLink = json['qqqi_link'];
+    qqqiExpiry = json['qqqi_expiry'];
+    ipccLink = json['ipcc_link'];
+    ipccExpiry = json['ipcc_expiry'];
+    ecsLink = json['ecs_link'];
+    ecsExpiry = json['ecs_expiry'];
+    pidExpiry = json['pid_expiry'];
   }
-
-
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -152,7 +183,17 @@ class Items {
     data['pps_number'] = this.ppsNumber;
     data['bank_iban'] = this.bankIban;
     data['bank_bic'] = this.bankBic;
-
+    data['profile_src'] = this.profileSrc;
+    data['signature_src'] = this.signatureSrc;
+    data['phd_link'] = this.phdLink;
+    data['phd_expiry'] = this.phdExpiry;
+    data['qqqi_link'] = this.qqqiLink;
+    data['qqqi_expiry'] = this.qqqiExpiry;
+    data['ipcc_link'] = this.ipccLink;
+    data['ipcc_expiry'] = this.ipccExpiry;
+    data['ecs_link'] = this.ecsLink;
+    data['ecs_expiry'] = this.ecsExpiry;
+    data['pid_expiry'] = this.pidExpiry;
     return data;
   }
 }

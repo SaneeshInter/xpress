@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/splash/user_or_manager.dart';
-import 'package:xpresshealthdev/ui/user/home/completed_shift_screen.dart';
-import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
-
+import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
 import '../../../Constants/app_defaults.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
-import '../home/profile_screen.dart';
+import '../sidenav/completed_shifts.dart';
+import '../sidenav/submit_timesheets.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -100,7 +98,8 @@ class SideMenu extends StatelessWidget {
                 ),
               ],
             ),
-          ),  ListTile(
+          ),
+          ListTile(
             title: const Text(
               'Profile ',
               style: TextStyle(color: Colors.white),
@@ -114,15 +113,10 @@ class SideMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              pushNewScreen(
-                context,
-                screen: ProfileScreen(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
-                pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              );
-
-              // Update the state of the app.
-              // ...
+              pop(context);
+              Navigator.pushNamed(context, '/profile').then((_) {
+                // This block runs when you have returned back to the 1st Page from 2nd.
+              });
             },
           ),
           ListTile(
@@ -139,37 +133,10 @@ class SideMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              // Update the state of the app.
-              // ...
-              Navigator.pop(context);
-
-              //
-              // pushNewScreen(
-              //   context,
-              //   screen: ProfileScreen(),
-              //   withNavBar: true, // OPTIONAL VALUE. True by default.
-              //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              // );
-            },
-          ),
-          ListTile(
-            title: const Text(
-              'Notification',
-              style: TextStyle(color: Colors.white),
-            ),
-            leading: Container(
-              width: 5.w,
-              height: 5.w,
-              child: SvgPicture.asset(
-                'assets/images/icon/notification.svg',
-                color: Colors.white,
-              ),
-            ),
-            onTap: () {
               Navigator.pop(context);
               pushNewScreen(
                 context,
-                screen: NotificationScreen(),
+                screen: SubmitTimeShift(),
                 withNavBar: true, // OPTIONAL VALUE. True by default.
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
@@ -192,13 +159,33 @@ class SideMenu extends StatelessWidget {
               Navigator.pop(context);
               pushNewScreen(
                 context,
-                screen: CompletedShiftScreen(),
+                screen: CompletedShift(),
                 withNavBar: true, // OPTIONAL VALUE. True by default.
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
-
-              // Update the state of the app.
-              // ...
+            },
+          ),
+          ListTile(
+            title: const Text(
+              'Notification',
+              style: TextStyle(color: Colors.white),
+            ),
+            leading: Container(
+              width: 5.w,
+              height: 5.w,
+              child: SvgPicture.asset(
+                'assets/images/icon/notification.svg',
+                color: Colors.white,
+              ),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              // pushNewScreen(
+              //   context,
+              //   screen: NotificationScreen(),
+              //   withNavBar: true, // OPTIONAL VALUE. True by default.
+              //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              // );
             },
           ),
           ListTile(
@@ -253,26 +240,14 @@ class SideMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pop(context);
-
               Navigator.pushAndRemoveUntil<dynamic>(
                 context,
                 MaterialPageRoute<dynamic>(
-                  builder: (BuildContext context) => UserOrManager(),
+                  builder: (BuildContext context) => SplashScreen(),
                 ),
                 (route) =>
                     false, //if you want to disable back feature set to false
               );
-
-              //
-              // pushNewScreen(
-              //   context,
-              //   screen: UserOrManager(),
-              //   withNavBar: false, // OPTIONAL VALUE. True by default.
-              //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              // );
-              // Update the state of the app.
-              // ...
             },
           ),
         ],

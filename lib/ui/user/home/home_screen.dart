@@ -3,14 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_home_response.dart';
 import 'package:xpresshealthdev/ui/user/detail/home_card_item.dart';
 
+import '../../../Constants/AppColors.dart';
 import '../../../blocs/shift_homepage_bloc.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
-import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/drawable_button.dart';
@@ -42,7 +43,7 @@ class _HomeScreentate extends State<HomeScreen> {
   int selectedIndex = 0;
   int lastPageItemLength = 0;
   var token;
-
+  var shiftDetails;
   late PageController pageController;
 
   @override
@@ -81,8 +82,8 @@ class _HomeScreentate extends State<HomeScreen> {
     super.initState();
     pageController = PageController(initialPage: 0);
     pageCount = 3;
-    getData();
     observe();
+    getData();
   }
 
   @override
@@ -90,16 +91,6 @@ class _HomeScreentate extends State<HomeScreen> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
-      // drawer: Drawer(
-      //   // Add a ListView to the drawer. This ensures the user can scroll
-      //   // through the options in the drawer if there isn't enough vertical
-      //   // space to fit everything.
-      //   child: SideMenu(),
-      // ),
-      // appBar: AppBarCommon(
-      //   _scaffoldKey,
-      //   scaffoldKey: _scaffoldKey,
-      // ),
       backgroundColor: Constants.colors[9],
       body: ScrollConfiguration(
         behavior: MyBehavior(),
@@ -126,27 +117,85 @@ class _HomeScreentate extends State<HomeScreen> {
                         (context, AsyncSnapshot<UserHomeResponse> snapshot) {
                       var data = snapshot.data?.response?.data;
                       if (data != null) {
-                        var shiftDetails = null;
                         if (data.latestShift!.length != 0) {
                           shiftDetails = data.latestShift![0];
                         }
-
                         return Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AutoSizeText(
-                                'Next Shift',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "SFProMedium",
+                              if (null != shiftDetails)
+                                AutoSizeText(
+                                  'Next Shift',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "SFProMedium",
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                  height:
-                                      screenHeight(context, dividedBy: 100)),
+                              if (null == shiftDetails)
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        ScaffoldMessenger.of(context)
+                                            .showMaterialBanner(MaterialBanner(
+                                          padding: EdgeInsets.all(20),
+                                          leading: Icon(Icons.info_outline,
+                                              color: Colors.white),
+                                          backgroundColor: appColorPrimary,
+                                          content: Text(
+                                              'You have no shifts booked , Please request the shift and wait for approval',
+                                              style: primaryTextStyle(
+                                                  color: Colors.white)),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: Text('Cancel',
+                                                  style: secondaryTextStyle(
+                                                      size: 16,
+                                                      color: Colors.white
+                                                          .withOpacity(0.5))),
+                                              onPressed: () {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentMaterialBanner();
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: Text('Done',
+                                                  style: primaryTextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentMaterialBanner();
+                                              },
+                                            ),
+                                          ],
+                                        ));
+                                      },
+                                      child: Container(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            AutoSizeText(
+                                              "There are no shift booked .Click to know more . ",
+                                              style: TextStyle(
+                                                color: Constants.colors[1],
+                                                fontSize: 12.sp,
+                                                fontFamily: "SFProMedium",
+                                              ),
+                                            ),
+                                            Icon(Icons.info_outline,
+                                                color: Colors.black)
+                                          ],
+                                        ),
+                                      )),
+                                ),
+                              if (null != shiftDetails)
+                                SizedBox(
+                                    height:
+                                        screenHeight(context, dividedBy: 100)),
                               if (null != shiftDetails)
                                 Column(
                                   children: [
@@ -170,8 +219,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(50),
                                                 child: Container(
-                                                  height: 20.w,
-                                                  width: 20.w,
+                                                  height: 18.w,
+                                                  width: 18.w,
                                                   decoration: BoxDecoration(
                                                     gradient: LinearGradient(
                                                         begin:
@@ -257,10 +306,10 @@ class _HomeScreentate extends State<HomeScreen> {
                                                             FontWeight.w600),
                                                   ),
                                                   SizedBox(
-                                                    height: 5,
+                                                    height: 1.w,
                                                   ),
                                                   AutoSizeText(
-                                                    "From " +
+                                                    "On  " +
                                                         shiftDetails.date! +
                                                         "  From " +
                                                         shiftDetails.timeFrom! +
@@ -276,7 +325,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                             FontWeight.w400),
                                                   ),
                                                   SizedBox(
-                                                    height: 2.h,
+                                                    height: 2.w,
                                                   ),
                                                   Row(
                                                     children: [
@@ -297,7 +346,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                       DrawableButton(
                                                         onPressed: () {},
                                                         label: shiftDetails!
-                                                            .hospital!,
+                                                            .category!,
                                                         asset:
                                                             "assets/images/icon/ward.svg",
                                                         backgroundColor:
@@ -367,6 +416,10 @@ class _HomeScreentate extends State<HomeScreen> {
   }
 
   Widget equalSizeButtons() {
+    LatestShift late = shiftDetails;
+    var shiftId = late.rowId.toString();
+    print("shiftId");
+    print(shiftId);
     return Row(
       children: <Widget>[
         Expanded(
@@ -376,7 +429,7 @@ class _HomeScreentate extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => ShiftDetailScreen(
-                            shift_id: '190',
+                            shift_id: shiftId,
                           )),
                 );
               },

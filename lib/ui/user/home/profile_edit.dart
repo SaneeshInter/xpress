@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -16,6 +17,7 @@ import '../../../model/country_list.dart';
 import '../../../model/gender_list.dart';
 import '../../../model/visa_type_list.dart';
 import '../../../resources/token_provider.dart';
+import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
@@ -38,7 +40,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var token;
   var genderId = 1;
-
   var nationalityId = 1;
   var visatypeId = 1;
   ToastMsg toastMsg = ToastMsg();
@@ -78,31 +79,25 @@ class _CreateShiftState extends State<ProfileEditScreen> {
     observerResponse();
   }
 
-  Future  getData() async {
+  Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-
-
       if (await isNetworkAvailable()) {
         setState(() {
           visibility = true;
         });
         profileBloc.getUserInfo(token);
-      }else {
-
+      } else {
         showInternetNotAvailable();
       }
     }
   }
-
-
 
   Future<void> showInternetNotAvailable() async {
     int respo = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
     );
-
     if (respo == 1) {
       getData();
     }
@@ -133,6 +128,33 @@ class _CreateShiftState extends State<ProfileEditScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/icon/arrow.svg',
+            width: 5.w,
+            height: 4.2.w,
+          ),
+          onPressed: () {
+            pop(context);
+          },
+        ),
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+          //change your color here
+        ),
+        backgroundColor: HexColor("#ffffff"),
+        title: AutoSizeText(
+          "Profile Update",
+          style: TextStyle(
+              fontSize: 17,
+              color: Constants.colors[1],
+              fontWeight: FontWeight.w700),
+        ),
+        centerTitle: true,
+      ),
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
       body: SingleChildScrollView(
@@ -177,23 +199,23 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            const SizedBox(
-                                              height: 25,
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      16.0, 10, 0, 0),
-                                              child: AutoSizeText(
-                                                'Update Profile ',
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: "SFProMedium",
-                                                ),
-                                              ),
-                                            ),
+                                            // const SizedBox(
+                                            //   height: 25,
+                                            // ),
+                                            // Padding(
+                                            //   padding:
+                                            //       const EdgeInsets.fromLTRB(
+                                            //           16.0, 10, 0, 0),
+                                            //   child: AutoSizeText(
+                                            //     'Update Profile ',
+                                            //     style: TextStyle(
+                                            //       fontSize: 18,
+                                            //       color: Colors.black,
+                                            //       fontWeight: FontWeight.bold,
+                                            //       fontFamily: "SFProMedium",
+                                            //     ),
+                                            //   ),
+                                            // ),
                                             const SizedBox(
                                               height: 20,
                                             ),
@@ -576,8 +598,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                       value) {
                                                                 if (value
                                                                     is VisaTypeList) {
-
-
                                                                   visatypeId =
                                                                       value
                                                                           .rowId!;
@@ -849,15 +869,15 @@ class _CreateShiftState extends State<ProfileEditScreen> {
   void listner() {
     profileBloc.getProfileStream.listen((event) {
       print("Profile Stream");
-      if (null != event.userResponse?.data?.items?[0]) {
-        var item = event.userResponse?.data?.items?[0];
+      if (null != event.response?.data?.items?[0]) {
+        var item = event.response?.data?.items?[0];
         if (null != item) {
           if (item.genderId != 0) {
             setState(() {
               genderId = item.genderId!;
             });
           }
-          if (item.visaTypeId != 0) {
+          if (null != item.visaTypeId && item.visaTypeId != 0) {
             setState(() {
               visatypeId = item.visaTypeId!;
             });

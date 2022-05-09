@@ -95,12 +95,12 @@ class ProfileBloc {
     _profileUser.sink.add(respo);
   }
 
-  fetchUserDocuments(
+  uploadUserDoc(
     String token, File  files,
     String type,
     String expiry_date,
   ) async {
-    UserDocumentsResponse respo = await _repo.UserDocuments(
+    UserDocumentsResponse respo = await _repo.uploadUserDoc(
       token,
       files,
       type,

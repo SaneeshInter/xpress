@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
 
 import '../../../utils/colors_util.dart';
 
@@ -46,10 +47,17 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NotificationScreen()),
+            );
+          },
           icon: SvgPicture.asset(
-            'assets/images/icon/searchicon.svg',
+            'assets/images/icon/notification.svg',
+
             width: 5.w,
+            color: Colors.black,
             height: 5.w,
           ), //Image.asset('assets/images/icon/searchicon.svg',width: 20,height: 20,fit: BoxFit.contain,),
         ),

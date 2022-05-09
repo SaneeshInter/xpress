@@ -19,7 +19,7 @@ class ApiFileProvider {
     //create multipart request for POST or PATCH method
     var request = http.MultipartRequest("POST", uri);
     var headers = <String, String>{
-      'Token': token,
+      'token': token,
     };
     //add text fields
     request.fields["shift_id"] = ids;
@@ -50,13 +50,21 @@ class ApiFileProvider {
     //create multipart request for POST or PATCH method
     var request = http.MultipartRequest("POST", uri);
     var headers = <String, String>{
+      "Accept": "application/json",
+      "Content-Type": "multipart/form-data",
       'Token': token,
+      'token': token,
     };
     //add text fields
+
+    print(files.path);
+    print(type);
+    print(token);
+    print(uri.toString());
     request.fields["type"] = type;
-    request.fields["expiry_date"] = expiry_date;
+    // request.fields["expiry_date"] = expiry_date;
     //create multipart using filepath, string or bytes
-    var pic = await http.MultipartFile.fromPath("file", files.path);
+    var pic = await http.MultipartFile.fromPath("files", files.absolute.path);
     //add multipart to request
     request.files.add(pic);
     request.headers.addAll(headers);
@@ -64,8 +72,10 @@ class ApiFileProvider {
     //Get the response from the server
     var responseData = await response.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
+    print("response.statusCode");
+    print(response.statusCode);
+    print(response);
     print(responseString);
-
 
     if (response.statusCode == 200) {
       return UserDocumentsResponse.fromJson(json.decode(responseString));

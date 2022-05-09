@@ -6,13 +6,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
 
 import '../../../model/user_complted_shift.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
-import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../Widgets/buttons/build_button.dart';
 import '../../error/ConnectionFailedScreen.dart';
@@ -208,18 +208,26 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                               if (data?.items?.length != 0) {
                                 return buildList(snapshot);
                               } else {
-                                return Center(
-                                  child: Container(
-                                    child: AutoSizeText(
-                                      'Completed shifts empty',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "SFProMedium",
-                                      ),
+                                return Column(
+                                  children: [
+                                    20.height,
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text('Completed Shift', style: boldTextStyle(size: 20)),
+                                        85.width,
+                                        16.height,
+                                        Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 32),
+                                          child: Text('There are no  completed shift found.',
+                                              style: primaryTextStyle(size: 15),
+                                              textAlign: TextAlign.center),
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                    150.height,
+                                    Image.asset('assets/images/error/empty_task.png', height: 250),
+                                  ],
                                 );
                               }
                             }

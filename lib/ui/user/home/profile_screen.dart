@@ -1,11 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/user/home/profile_edit.dart';
+import 'package:xpresshealthdev/utils/utils.dart';
 
 import '../../../Constants/app_defaults.dart';
 import '../../../blocs/profile_update_bloc.dart';
 import '../../../model/user_get_response.dart';
 import '../../../resources/token_provider.dart';
+import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/network_utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
@@ -41,7 +46,7 @@ class _ProfileState extends State<ProfileScreen> {
     if (null != token) {
       if (await isNetworkAvailable()) {
         setState(() {
-          visibility = true;
+          visibility = false;
         });
         profileBloc.getUserInfo(token);
       } else {
@@ -55,7 +60,6 @@ class _ProfileState extends State<ProfileScreen> {
       context,
       MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
     );
-
     if (respo == 1) {
       getData();
     }
@@ -90,29 +94,50 @@ class _ProfileState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+
     getData();
     observe();
   }
 
   void observe() {
-    profileBloc.getProfileStream.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
+    // profileBloc.getProfileStream.listen((event) {
+    //   // setState(() {
+    //   //   visibility = false;
+    //   // });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      // drawer: Drawer(
-      //   child: SideMenu(),
-      // ),
-      // appBar: AppBarCommon(
-      //   _scaffoldKey,
-      //   scaffoldKey: _scaffoldKey,
-      // ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/icon/arrow.svg',
+            width: 5.w,
+            height: 4.2.w,
+          ),
+          onPressed: () {
+            pop(context);
+          },
+        ),
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+          //change your color here
+        ),
+        backgroundColor: HexColor("#ffffff"),
+        title: AutoSizeText(
+          "Profile",
+          style: TextStyle(
+              fontSize: 17,
+              color: Constants.colors[1],
+              fontWeight: FontWeight.w700),
+        ),
+        centerTitle: true,
+      ),
       backgroundColor: Constants.colors[9],
       body: ScrollConfiguration(
         behavior: MyBehavior(),
@@ -127,145 +152,163 @@ class _ProfileState extends State<ProfileScreen> {
                       stream: profileBloc.getProfileStream,
                       builder:
                           (context, AsyncSnapshot<UserGetResponse> snapshot) {
-                        var data = snapshot.data?.userResponse?.data;
-                        String? firstName = data?.items?[0].firstName;
-                        String? lastName = data?.items?[0].lastName;
-                        String? employeeNo = data?.items?[0].employeeNo;
-                        String? hourlyRate =
-                            data?.items?[0].hourlyRate.toString();
-                        Items? item = data?.items?[0];
-                        String fullName =
-                            firstName.toString() + " " + lastName.toString();
-
-                        return Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Constants.colors[4],
-                                          Constants.colors[3],
-                                        ]),
-                                    borderRadius: BorderRadius.circular(20)),
-                                padding: const EdgeInsets.all(
-                                  AppDefaults.padding,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.12,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            child: AspectRatio(
-                                              aspectRatio: 1 / 1,
-                                              child: Image.network(
-                                                'https://i.imgur.com/PJpPD6S.png',
-                                                fit: BoxFit.cover,
+                        if (snapshot.hasData) {
+                          var data = snapshot.data?.response?.data;
+                          String? firstName = data?.items?[0].firstName;
+                          String? lastName = data?.items?[0].lastName;
+                          String? employeeNo = data?.items?[0].employeeNo;
+                          String? hourlyRate =
+                              data?.items?[0].hourlyRate.toString();
+                          Items? item = data?.items?[0];
+                          String fullName =
+                              firstName.toString() + " " + lastName.toString();
+                          return Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Constants.colors[4],
+                                            Constants.colors[3],
+                                          ]),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  padding: const EdgeInsets.all(
+                                    AppDefaults.padding,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.12,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              child: AspectRatio(
+                                                aspectRatio: 1 / 1,
+                                                child: Image.network(
+                                                  'https://i.imgur.com/PJpPD6S.png',
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(width: AppDefaults.margin),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            if (fullName != null)
+                                          const SizedBox(
+                                              width: AppDefaults.margin),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              if (fullName != null)
+                                                Text(
+                                                  fullName,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16.sp,
+                                                      fontFamily: "SFProMedium",
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                              const SizedBox(height: 5),
                                               Text(
-                                                fullName,
+                                                'Staff Nurses',
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 16.sp,
-                                                    fontFamily: "SFProMedium",
-                                                    fontWeight: FontWeight.w700),
-                                              ),
-                                            const SizedBox(height: 5),
-                                            Text(
-                                              'Staff Nurses',
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 11.sp,
-                                                  fontFamily: "S",
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            if (employeeNo != null)
-                                              Text(
-                                                employeeNo,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 12.sp,
+                                                    fontSize: 11.sp,
                                                     fontFamily: "S",
-                                                    fontWeight: FontWeight.w400),
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                               ),
-                                          ],
-                                        ),
-                                        const Spacer(),
-                                        Column(
-                                          children: [
-                                            if (hourlyRate != null)
-                                              Text(
-                                                hourlyRate,
-                                                style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: Constants.colors[8],
-                                                    fontWeight: FontWeight.w700),
+                                              const SizedBox(height: 5),
+                                              if (employeeNo != null)
+                                                Text(
+                                                  employeeNo,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12.sp,
+                                                      fontFamily: "S",
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          Column(
+                                            children: [
+                                              if (hourlyRate != null)
+                                                Text(
+                                                  hourlyRate,
+                                                  style: TextStyle(
+                                                      fontSize: 14.sp,
+                                                      color:
+                                                          Constants.colors[8],
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                              SizedBox(
+                                                height: 2.h,
                                               ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            DrawableButton(
-                                              onPressed: () {},
-                                              label: "Edit",
-                                              asset:
-                                                  "assets/images/icon/swipe-to-right.svg",
-                                              backgroundColor:
-                                                  Constants.colors[4],
-                                              textColors: Constants.colors[0],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: AppDefaults.margin),
-                                    // Actions
-                                  ],
+                                              DrawableButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProfileEditScreen()),
+                                                  );
+                                                },
+                                                label: "Edit",
+                                                asset:
+                                                    "assets/images/icon/swipe-to-right.svg",
+                                                backgroundColor:
+                                                    Constants.colors[4],
+                                                textColors: Constants.colors[0],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                          height: AppDefaults.margin),
+                                      // Actions
+                                    ],
+                                  ),
                                 ),
+                                if (null != item)
+                                  ProfileDetailCard(items: item),
+                                  Column(
+                                    children: [
+                                      if (null != item)
+                                      ProfileDocumentsCard(items: item),
+                                    ],
+                                  ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: Container(
+                              width: 100.w,
+                              height: 80.h,
+                              child: const Center(
+                                child: LoadingWidget(),
                               ),
-                              if (null != item) ProfileDetailCard(items: item),
-                              GestureDetector(
-                                  onTap: () => getImage(ImgSource.Both),
-                                  child: ProfileDocumentsCard()),
-                            ],
-                          ),
-                        );
+                            ),
+                          );
+                        }
                       }),
-                ),
-              ),
-              Center(
-                child: Visibility(
-                  visible: visibility,
-                  child: Container(
-                    width: 100.w,
-                    height: 80.h,
-                    child: const Center(
-                      child: LoadingWidget(),
-                    ),
-                  ),
                 ),
               ),
             ],

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/filter_booking_list.dart';
@@ -13,7 +14,6 @@ import '../../../Constants/strings.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
-import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../../utils/validator.dart';
 import '../../Widgets/buttons/submit_small.dart';
@@ -22,6 +22,7 @@ import '../../Widgets/my_booking_list_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
+import '../empty/empty_screen.dart';
 
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({Key? key}) : super(key: key);
@@ -111,7 +112,7 @@ class _HomeScreentate extends State<MyBookingScreen> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(65),
             child: Container(
-              color: Constants.colors[9],
+              color: Constants.colors[0],
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TabBar(
@@ -218,39 +219,63 @@ class _HomeScreentate extends State<MyBookingScreen> {
       list = allList.completed;
     }
 
-    return ListView.builder(
-      itemCount: list.length,
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        var items = list[index];
-        return Column(
-          children: [
-            MyBookingListWidget(
-              items: items!,
-              position: 12,
-              onTapView: (item) {
-                showTimeUpdateAlert(context, item);
-              },
-              onTapCancel: (item) {
-                print("Tapped");
-                //confirmBloc.fetchGetUserCancelJobResponse(token, job_request_row_id)
-                // showTimeUpdateAlert(context, item);
-                canceljob(items);
-              },
-              onTapCall: () {},
-              onTapMap: () {
-                // showFeactureAlert(context, date: "");
-              },
-              onTapBooking: () {
-                print("Tapped");
-              },
-              key: null,
-            ),
-          ],
-        );
-      },
-    );
+    if (list.length > 0) {
+      return ListView.builder(
+        itemCount: list.length,
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          var items = list[index];
+          return Column(
+            children: [
+              MyBookingListWidget(
+                items: items!,
+                position: 12,
+                onTapView: (item) {
+                  showTimeUpdateAlert(context, item);
+                },
+                onTapCancel: (item) {
+                  print("Tapped");
+                  //confirmBloc.fetchGetUserCancelJobResponse(token, job_request_row_id)
+                  // showTimeUpdateAlert(context, item);
+                  canceljob(items);
+                },
+                onTapCall: () {},
+                onTapMap: () {
+                  // showFeactureAlert(context, date: "");
+                },
+                onTapBooking: () {
+                  print("Tapped");
+                },
+                key: null,
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      return Column(
+        children: [
+          20.height,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('Empty Shifts', style: boldTextStyle(size: 20)),
+              85.width,
+              16.height,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('There are no shift found.',
+                    style: primaryTextStyle(size: 15),
+                    textAlign: TextAlign.center),
+              ),
+            ],
+          ),
+          150.height,
+          Image.asset('assets/images/error/empty_task.png', height: 250),
+        ],
+      );
+    }
   }
 }
 

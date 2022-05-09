@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_getschedule_bydate.dart';
@@ -51,18 +52,6 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
-              ),
-            ),
             Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: screenWidth(context, dividedBy: 35)),
@@ -108,11 +97,45 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                         } else if (snapshot.hasError) {
                           return Text(snapshot.error.toString());
                         }
-                        return Container();
+                        return Column(
+                          children: [
+                            20.height,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('Empty Shifts',
+                                    style: boldTextStyle(size: 20)),
+                                85.width,
+                                16.height,
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 32),
+                                  child: Text('There are no shift found.',
+                                      style: primaryTextStyle(size: 15),
+                                      textAlign: TextAlign.center),
+                                ),
+                              ],
+                            ),
+                            150.height,
+                            Image.asset('assets/images/error/empty_task.png',
+                                height: 250),
+                          ],
+                        );
                       }),
 
                   // StreamBuilder(builder: (context,Asy))
                 ])),
+            Center(
+              child: Visibility(
+                visible: visibility,
+                child: Container(
+                  width: 100.w,
+                  height: 80.h,
+                  child: const Center(
+                    child: LoadingWidget(),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -120,7 +143,8 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
   }
 
   Widget buildList(AsyncSnapshot<UserGetScheduleByDate> snapshot) {
-    if (null != snapshot.data?.response?.data?.items) {
+    var items = snapshot.data?.response?.data?.items;
+    if (null != items && items.isNotEmpty) {
       return ListView.builder(
         itemCount: snapshot.data?.response?.data?.items?.length,
         shrinkWrap: true,
@@ -128,19 +152,6 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
         itemBuilder: (BuildContext context, int index) {
           var items = snapshot.data?.response?.data?.items?[index];
           if (null != items) {
-            print("items.hospital");
-            print(items.rowId);
-            print(items.type);
-            print(items.userType);
-            print(items.category);
-            print(items.date);
-            print(items.timeFrom);
-            print(items.timeTo);
-            print(items.jobDetails);
-            print(items.price);
-            print(items.allowances);
-            print(items.createdDate);
-
             return Column(
               children: [
                 ShiftListWidget(
@@ -149,18 +160,16 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                   onTapDelete: () {},
                   onTapViewMap: () {},
                   onTapView: (item) {
-
-
                     if (items is Items) {
                       Items data = items;
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: data.rowId.toString(),)),
+                        MaterialPageRoute(
+                            builder: (context) => ShiftDetailScreen(
+                                  shift_id: data.rowId.toString(),
+                                )),
                       );
-
                     }
-
-
                   },
                   onTapBook: (item) {
                     requestShift(items);
@@ -180,20 +189,38 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
         },
       );
     } else {
-      return Container();
+      return Column(
+        children: [
+          20.height,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('Empty Shifts', style: boldTextStyle(size: 20)),
+              85.width,
+              16.height,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                child: Text('There are no shift found.',
+                    style: primaryTextStyle(size: 15),
+                    textAlign: TextAlign.center),
+              ),
+            ],
+          ),
+          150.height,
+          Image.asset('assets/images/error/empty_task.png', height: 250),
+        ],
+      );
     }
   }
 
   void requestShift(Items items) {
-
     setState(() {
       visibility = true;
     });
-      if (items is Items) {
+    if (items is Items) {
       Items data = items;
       bloc.fetchuserJobRequest(token, data.rowId.toString());
     }
-
   }
 
   Future<void> getData(DateTime date) async {

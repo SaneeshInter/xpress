@@ -9,27 +9,22 @@ import '../user/home/profile_edit.dart';
 import 'buttons/drawable_button.dart';
 
 class ProfileDetailCard extends StatelessWidget {
-
   Items items;
 
-ProfileDetailCard({Key? key, required this.items}) : super(key: key);
+  ProfileDetailCard({Key? key, required this.items}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-
     String? firstName = items.firstName;
-    String? lastName =items.lastName;
+    String? lastName = items.lastName;
     String? employeeNo = items.employeeNo;
     String? gender = items.gender;
     String? dob = items.dob;
     String? homeAddress = items.homeAddress;
     String? email = items.email;
-    String? phoneNumber =items.phoneNumber;
+    String? phoneNumber = items.phoneNumber;
     String? ppsNumber = items.ppsNumber;
-    String? bankIban =items.bankIban;
-
-
+    String? bankIban = items.bankIban;
 
     return Material(
       color: Colors.white,
@@ -72,7 +67,8 @@ ProfileDetailCard({Key? key, required this.items}) : super(key: key);
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ProfileEditScreen()),
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileEditScreen()),
                             );
                           },
                           label: "Edit",
@@ -83,51 +79,40 @@ ProfileDetailCard({Key? key, required this.items}) : super(key: key);
                       ],
                     ),
                     const SizedBox(height: 8.0),
-                    if(gender != null)
-                    ProfileDetailsRow(
-                        label: "Gender : "+gender,
-                        asset: "assets/images/icon/sex.svg"),
-
-
-                    SizedBox(width: 15.0),
-                    if(dob != null)
-                    ProfileDetailsRow(
-                        label: "Date Of Birth :  "+dob,
-                        asset: "assets/images/icon/confetti.svg"),
-
-
-                    SizedBox(width: 15.0),
-                    if(homeAddress != null)
+                    if (gender != null)
                       ProfileDetailsRow(
-                          label: "Address :  "+ homeAddress,
+                          label: "Gender : " + gender,
+                          asset: "assets/images/icon/sex.svg"),
+                    SizedBox(width: 15.0),
+                    if (dob != null)
+                      ProfileDetailsRow(
+                          label: "Date Of Birth :  " + dob,
+                          asset: "assets/images/icon/confetti.svg"),
+                    SizedBox(width: 15.0),
+                    if (homeAddress != null)
+                      ProfileDetailsRow(
+                          label: "Address :  " + homeAddress,
                           asset: "assets/images/icon/Pin.svg"),
-
                     SizedBox(width: 15.0),
-                    if(email != null)
+                    if (email != null)
                       ProfileDetailsRow(
-                        label: "Email :  "+email,
-                        asset: "assets/images/icon/email.svg"),
-
-
+                          label: "Email :  " + email,
+                          asset: "assets/images/icon/email.svg"),
                     SizedBox(width: 15.0),
-                    if(phoneNumber != null)
-                    ProfileDetailsRow(
-                        label: "Phone Number :   "+phoneNumber,
-                        asset: "assets/images/icon/phone.svg"),
-
-
+                    if (phoneNumber != null)
+                      ProfileDetailsRow(
+                          label: "Phone Number :   " + phoneNumber,
+                          asset: "assets/images/icon/phone.svg"),
                     SizedBox(width: 15.0),
-                    if(ppsNumber != null)
-                    ProfileDetailsRow(
-                        label: "PPS Number :  "+ppsNumber,
-                        asset: "assets/images/icon/passport.svg"),
-
-
+                    if (ppsNumber != null)
+                      ProfileDetailsRow(
+                          label: "PPS Number :  " + ppsNumber,
+                          asset: "assets/images/icon/passport.svg"),
                     SizedBox(width: 15.0),
-                    if(bankIban != null)
-                    ProfileDetailsRow(
-                        label: "Bank Details :  "+bankIban,
-                        asset: "assets/images/icon/bank.svg"),
+                    if (bankIban != null)
+                      ProfileDetailsRow(
+                          label: "Bank Details :  " + bankIban,
+                          asset: "assets/images/icon/bank.svg"),
                     SizedBox(width: 15.0),
                   ],
                 ),

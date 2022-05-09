@@ -132,14 +132,19 @@ flutter:
     - assets/images/icon/price-tag.svg
     - assets/images/icon/time.svg
     - assets/images/icon/close.svg
+    - assets/images/icon/information-button.svg
     - assets/images/icon/google_map.svg
     - assets/images/icon/edittool.png
+    - assets/images/icon/arrow.svg
+    - assets/images/icon/surface1.svg
     - assets/images/icon/background_icons.png
     - assets/images/icon/premium_home_icon.png
+    - assets/images/icon/bell.png
     - assets/images/icon/loading.json
     - assets/images/icon/delete.svg
     - assets/images/error/nw_error.png
     - assets/images/error/error.png
+    - assets/images/error/empty_task.png
 
 
     # An image asset can refer to one or more resolution-specific "variants", see

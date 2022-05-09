@@ -9,8 +9,6 @@ S
 #assets/images/icon/notification.svg,c/2/c2ffdeafeee8d46a7582b9f3d7b6ef82cbf1e485
 V
 &assets/images/icon/Order Completed.svg,5/7/573fbc9ed9657ff7d94988b00b487f6c5d557d2d
-O
-assets/images/icon/surface1.svg,5/0/5061503c5b27de2c3d89384a0bc81e77a6a35556
 P
  assets/images/icon/Group 107.svg,2/c/2c8f4474d062802821b92c1d48ed9ade5424954e
 O
@@ -19,8 +17,6 @@ L
 assets/images/icon/phone.svg,d/6/d6817e539dc169273657a43e0233d026842e8e9d
 O
 assets/images/icon/logoicon.svg,a/e/ae487a760413348df2ca83ab874d4b01e84266e2
-Y
-)assets/images/icon/information-button.svg,2/f/2f72af6cd9ca8cb3a14bde98e9381f7486845995
 S
 #assets/images/icon/Mask Group 1.svg,7/b/7b6480442fc9d5782631508c7f4e4a1389786f89
 M
@@ -29,8 +25,6 @@ K
 assets/images/icon/home.svg,9/5/956973bc9f3b5c4d0c48667b8142a633cc159aa5
 S
 #assets/images/icon/contact-book.svg,2/c/2ceb47a988cacc16d101dcea6ce9e6040c501fee
-L
-assets/images/icon/check.svg,c/b/cb9b598272e71aa43e15c70f14bab7d3ede99c6f
 L
 assets/images/icon/email.svg,2/d/2d68a3cebf225134aafab4252603a91e02616e22
 P
@@ -55,8 +49,6 @@ S
 #assets/images/icon/availability.svg,4/f/4f468de4748fc5b6400b0529665a2fc77c7a4d1e
 R
 "assets/images/icon/google-maps.svg,3/3/330c63cc066a6cf994161e12569a36cbab01e497
-M
-assets/images/icon/layer1.svg,b/4/b4c57300e2da72d3c9935b7acb50d288e4beb0db
 K
 assets/images/icon/flag.svg,3/7/373aa57a971d92621e2b2d5cdb5cd4f859bc6fd4
 J
@@ -77,8 +69,6 @@ S
 #assets/images/icon/conversation.svg,9/b/9b44c0cc36a9efc6cf3b29096f7edac1c242f961
 Q
 !assets/images/icon/shiftblack.svg,a/2/a287bfc6fd38f8f17ddb8c17c40aba67b2b702b2
-O
-assets/images/icon/loading.json,0/d/0dfac127913cc78f49b49c2240b82b4eaf051a1b
 P
  assets/images/icon/price-tag.svg,f/0/f0b244c88c078c84d94d99ab762950262adcf977
 M
@@ -97,8 +87,6 @@ K
 assets/images/icon/user.svg,5/8/5882908e319b45d3beab2bf7f853b7c1ad342be8
 N
 assets/images/icon/booking.svg,2/2/2202e11032ca76672c814d4bf0e1f85cb781dd3e
-K
-assets/images/icon/bank.svg,2/1/21b2ce051a9252eba9e80602091f49b280f6fd17
 K
 assets/images/icon/menu.svg,c/f/cfb83719db23a045b6e7f432f3f72de95e1887c0
 O
@@ -261,10 +249,6 @@ N
 lib/blocs/shift_list_bloc.dart,4/7/47b53053a0795a65cfd44cdb85a1eb8b548da374
 U
 %lib/blocs/user_availability_bloc.dart,c/f/cffdedeebd39a9714390059d1084d2159a88298b
-S
-#lib/blocs/shift_timesheet_bloc.dart,7/4/74f4f9f98fd6e26b3688ff83e1034a94b3d9eb16
-R
-"lib/blocs/profile_update_bloc.dart,5/2/5275759263f7390c641b413e79d5b2958a96a401
 V
 &lib/blocs/shift_notification_bloc.dart,6/5/65da4e6b697cb9858577d9b74a178cbfba1e66a7
 W
@@ -279,8 +263,6 @@ R
 "lib/ui/datepicker/extra/color.dart,4/c/4c82a44eb9ae31fd2137b4efca81367674ecb8bb
 R
 "lib/ui/datepicker/extra/dimen.dart,5/d/5d49ae189eb6bfaf45c1fadf9607a0d218b08dfb
-S
-#lib/blocs/shift_completed_bloc.dart,4/4/440ec191586ae8b49069cc0876e6ebc536468a93
 V
 &lib/blocs/accept_job_request_bloc.dart,9/3/9347441e3a25759fcd29de049019fc123c1bcf68
 I
@@ -301,8 +283,6 @@ X
 (lib/ui/widgets/buttons/build_button.dart,e/c/ec0425971ab47302066a24f4c5eb64b241f4a8ae
 X
 (lib/ui/widgets/buttons/submit_small.dart,9/1/9165486d252e5453434aade1eeac39f269793445
-[
-+lib/ui/widgets/buttons/drawable_button.dart,d/8/d852ccbcf6844a30ab733fa82be6b170f40b6ff0
 Z
 *lib/ui/widgets/input_text_description.dart,3/a/3a314520ffb00d72b5c989ab6b43a1290ecc3fd7
 U
@@ -313,8 +293,6 @@ W
 'lib/ui/widgets/buttons/view_button.dart,9/f/9fa880420c9ad22d7c7ef782a33447024929072a
 W
 'lib/ui/widgets/notification_widget.dart,c/0/c0ea9c4c25c4c33241385943c87a555b7124aac7
-U
-%lib/ui/widgets/profile_documents.dart,7/4/74e560a4e88023c6e16a0b8d2fcd1c7f0e27d856
 U
 %lib/ui/widgets/availability_list.dart,2/c/2c8a76cb31b85d22bfec5c8a20aed002f67683a5
 X
@@ -335,16 +313,10 @@ M
 lib/ui/error/ErrorScreen.dart,9/5/958d79f0ff25f0df562871b7969adae5bfa8c12d
 X
 (lib/ui/error/ConnectionFailedScreen.dart,1/c/1cef3f681c80dc76c5212cb7bce9a13af746d138
-W
-'lib/ui/user/detail/profile_doc_row.dart,9/7/97e3a7a2c11e178d6fc1c4041fe5595626b06eb6
 Y
 )lib/ui/user/detail/drawable _rowtext.dart,f/7/f76a2cd0f2553d3d107eadf4349c12dd95fecdbd
 S
 #lib/ui/user/underdev/event_tap.dart,0/b/0b33e0691c7444a76ab10086ea4c95905341f793
-O
-lib/ui/user/common/app_bar.dart,5/d/5d4e0a793bd0a62a5539c3e059f6f7babf84087d
-R
-"lib/ui/user/home/profile_edit.dart,7/4/74ff39b20b095814fe9d3ca61c3a4b312e19f367
 T
 $lib/ui/manager_dashboard_screen.dart,2/b/2b4fed885d6392aab298f67fbfc564824c1dc8be
 D
@@ -369,8 +341,6 @@ S
 #lib/blocs/shift_confirmed_bloc.dart,3/3/33b5af3884fc528ae1bd43cd041c2514322e1a74
 S
 #lib/model/manager_view_request.dart,8/6/865b4ad401ce1619e347017b60888d2c3dc858df
-N
-lib/resources/respository.dart,b/4/b404468c1202be93390aeb81993e45b9a43f3f2b
 K
 assets/images/icon/edit.svg,1/1/1119455721dccd30f258e82b2e8de85b0c26a44c
 K
@@ -379,16 +349,12 @@ K
 0android/app/src/main/res/values-night/styles.xml,4/e/4e6983532b567702817f41cb4202cebaa69c60f5
 Y
 )lib/ui/manager/home/my_shifts_screen.dart,3/7/37a2e2f1356fb2fe255a25ccf85e4512c352e949
-[
-+lib/ui/manager/home/time_sheet_details.dart,7/5/75c2831a03082d4f09c5eb1f11e797d71e7087ea
 a
 1lib/ui/widgets/timesheet_details_list_widget.dart,e/0/e016bf10aa1b883d9eb9cc1c5da2e69f0a8194f3
 ]
 -lib/ui/manager/home/shift_detail_manager.dart,d/1/d1f2dac3c22e8ee84a1ee2f4b5ffa01c46cd6b33
 Z
 *lib/ui/widgets/my_booking_list_widget.dart,2/e/2eb203ea167d6356c9f71fafa7486a098965f996
-N
-lib/resources/file_upload.dart,3/a/3a1f7898944a9d060e3e858f336abbd16df92925
 b
 2lib/ui/widgets/manager/my_booking_list_widget.dart,5/f/5f6dfa2551ed8d9e22693d7a5c8647dcb3c9cb90
 R
@@ -399,12 +365,8 @@ U
 ios/Podfile,5/1/510807778b56990ed3829592aea48d7a35b42809
 J
 lib/Constants/strings.dart,6/5/65589a357cb488b0eaec7f603d3ed7909612d25e
-\
-,lib/ui/user/sidenav/notification_screen.dart,e/9/e9c5247d6def0baef747fb49e580ced83cfa99c0
 b
 2lib/ui/manager/home/approved_timesheet_screen.dart,9/3/938d77eba8113be79f1a4cc4e4c0205bc8507bb6
-[
-+lib/ui/user/detail/profile_details_row.dart,c/1/c1d5ee3f6c55e9cb36eb7cc5dd8e5dfb7c546a12
 W
 'lib/ui/widgets/login_invalid_alert.dart,5/e/5e5cf8772036433e487e72fd9c24484da82f0d4f
 W
@@ -425,7 +387,59 @@ I
 lib/utils/date_utils.dart,4/2/42b54f00368d553292c8c2e2b8e4224b0ed37550
 U
 %lib/model/user_get_shift_details.dart,a/3/a3cee736eff9abe0e70cbf288e4e415a813074c6
-H
-lib/utils/constants.dart,a/2/a244082e3e5adfa8ce05639322885b3f9ed891f2
 P
  lib/ui/splash/splash_screen.dart,b/5/b5b9768a8df971f7b5360932e6ab3f5c8a4ade0b
+[
++lib/ui/user/detail/drawable_custom_row.dart,1/c/1c67f61d3860e3f05946858f5c028669a945ca29
+<
+pubspec.lock,c/1/c1c78778a0cef1e5344166792d1d823fdcb8b109
+@
+.flutter-plugins,c/0/c0b6f935ef14af8fe1d6391eeee68e16ee6087eb
+^
+.lib/ui/manager/home/shift_calendar_screen.dart,a/d/adaeed30b664ce3c8811451f84d2dbbe75bc276f
+R
+"lib/ui/widgets/loading_widget.dart,5/a/5a306b0c615afb67fe1d7dac84307011927aaf2a
+L
+lib/Constants/AppColors.dart,3/a/3a9cc27a4fe1f1ade02ef42abf8a175d6fcf300c
+W
+'lib/ui/widgets/buttons/call_button.dart,5/f/5f60791126b8651a457cce07e43c3fddb1dd28f6
+Q
+!assets/images/icon/google_map.svg,3/1/3192cd2ebe65fa0d76076c251ccd52011df20e6c
+L
+lib/ui/dashboard_screen.dart,1/b/1bea7a0f1fb8bc90c037be491df23299dcfc9c34
+S
+#.idea/libraries/Flutter_Plugins.xml,e/8/e8bbc0fdfcefee9aa7b463c83a8a480b92333860
+Q
+!.idea/libraries/Dart_Packages.xml,f/c/fc67c2d2441e33af1dbd1e910281523d1ce74b4a
+Y
+)lib/ui/user/home/availability_screen.dart,0/7/07affc48b79fe626b513f9ad7785b1057a4c694c
+\
+,lib/ui/manager/home/create_shift_screen.dart,5/3/5356adbb138abb8f86de8ab67d2ea7128c012251
+a
+1lib/ui/widgets/approve_timesheet_list_widget.dart,6/7/674015d9804c625f89bf182fba8cd78ddc6e3d9e
+\
+,lib/ui/manager/home/manager_home_screen.dart,2/4/24563b032d17b04e8d2094009d77a2979183fd12
+X
+(android/app/src/main/AndroidManifest.xml,e/f/ef79bfd51db69a15dbf5807c05bb249bdccb0556
+Q
+!lib/model/user_home_response.dart,e/c/ec926b05b88120bd8307abdd83b144791c6f9cf6
+K
+assets/images/icon/bank.svg,2/1/21b2ce051a9252eba9e80602091f49b280f6fd17
+H
+lib/utils/constants.dart,a/2/a244082e3e5adfa8ce05639322885b3f9ed891f2
+S
+#lib/blocs/shift_completed_bloc.dart,4/4/440ec191586ae8b49069cc0876e6ebc536468a93
+[
++lib/ui/manager/home/time_sheet_details.dart,7/5/75c2831a03082d4f09c5eb1f11e797d71e7087ea
+S
+#lib/blocs/shift_timesheet_bloc.dart,7/4/74f4f9f98fd6e26b3688ff83e1034a94b3d9eb16
+O
+lib/resources/api_provider.dart,9/b/9b3995585cb13836029a65950eb6614eed11d5fe
+[
++lib/ui/user/detail/profile_details_row.dart,c/1/c1d5ee3f6c55e9cb36eb7cc5dd8e5dfb7c546a12
+M
+assets/images/icon/layer1.svg,b/4/b4c57300e2da72d3c9935b7acb50d288e4beb0db
+L
+assets/images/icon/check.svg,c/b/cb9b598272e71aa43e15c70f14bab7d3ede99c6f
+Y
+)assets/images/icon/information-button.svg,2/f/2f72af6cd9ca8cb3a14bde98e9381f7486845995

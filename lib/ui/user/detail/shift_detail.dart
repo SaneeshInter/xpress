@@ -291,7 +291,10 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 ),
                                                 CustomRow(
                                                   onPressed: () {
-                                                    sendingMails(hospitalDetail.email!);
+                                                    hospitalDetail.email =
+                                                        "saneesh@gmail.com";
+                                                    sendingMails(
+                                                        hospitalDetail.email!);
                                                   },
                                                   label: hospitalDetail.email
                                                       .toString(),
@@ -300,15 +303,19 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                   textColors: Colors.black,
                                                   size: 9.sp,
                                                 ),
-                                                CustomRow(
-                                                  onPressed: () {},
-                                                  label: hospitalDetail.phone
-                                                      .toString(),
-                                                  asset:
-                                                      "assets/images/icon/price-tag.svg",
-                                                  textColors: Colors.black,
-                                                  size: 9.sp,
-                                                ),
+                                                if (null !=
+                                                        hospitalDetail.phone &&
+                                                    hospitalDetail
+                                                        .phone!.isNotEmpty)
+                                                  CustomRow(
+                                                    onPressed: () {},
+                                                    label: hospitalDetail.phone
+                                                        .toString(),
+                                                    asset:
+                                                        "assets/images/icon/price-tag.svg",
+                                                    textColors: Colors.black,
+                                                    size: 9.sp,
+                                                  ),
                                                 Padding(
                                                   padding: const EdgeInsets.all(
                                                       12.0),
@@ -325,7 +332,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                         shiftDetails.jobDetails
                                                             .toString(),
                                                     asset:
-                                                        "assets/images/icon/check.svg",
+                                                        "",
                                                     textColors: Colors.black,
                                                   ),
                                                 SizedBox(

@@ -7,11 +7,12 @@ import 'package:xpresshealthdev/ui/user/detail/profile_doc_row.dart';
 
 import '../../resources/token_provider.dart';
 import '../user/home/my_booking_screen.dart';
+import 'package:xpresshealthdev/model/user_get_response.dart';
 
 class ProfileDocumentsCard extends StatefulWidget {
-  const ProfileDocumentsCard({
-    Key? key,
-  }) : super(key: key);
+  Items items;
+
+  ProfileDocumentsCard({Key? key, required this.items}) : super(key: key);
 
   @override
   State<ProfileDocumentsCard> createState() => _ProfileDocumentsCardState();
@@ -30,10 +31,10 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
   String signaturePic = "";
   String phpdocument = "";
   String qqqidocument = "";
-
   String ipcccdocument = "";
   String ecsdocument = "";
   String piddocument = "";
+
 
   @override
   void didUpdateWidget(covariant ProfileDocumentsCard oldWidget) {
@@ -104,15 +105,13 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
           piddocument = image.path;
         });
       }
-      profileBloc.fetchUserDocuments(
-          token, File(image.path), type, "25/22/2022");
+      profileBloc.uploadUserDoc(token, File(image.path), type, "25/22/2022");
     }
   }
 
   @override
   void initState() {
     profilePicture = "";
-
     getData();
     observe();
     super.initState();
@@ -138,19 +137,20 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
         Column(
           children: [
             const SizedBox(height: 10),
-            InkWell(
-              onTap: () {
-                getImage(ImgSource.Both, "profilepic");
-              },
-              child: Container(
-                child: ProfileDocRow(
-                  label: "Profile Picture   ",
-                  asset: "assets/images/icon/check.svg",
-                  image: profilePicture,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
+            // InkWell(
+            //   onTap: () {
+            //     getImage(ImgSource.Both, "profilepic");
+            //   },
+            //   child: Container(
+            //     child: ProfileDocRow(
+            //       label: "Profile Picture   ",
+            //       asset: "assets/images/icon/check.svg",
+            //       image: profilePicture,
+            //       url: widget.items.profileSrc!,
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: 10),
             InkWell(
               onTap: () {
                 getImage(ImgSource.Both, "signature");
@@ -160,6 +160,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                   label: "Signature",
                   asset: "assets/images/icon/check.svg",
                   image: signaturePic,
+                  url: widget.items.signatureSrc!,
                 ),
               ),
             ),
@@ -170,9 +171,10 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "people_handling_document",
+                  label: "People handling document",
                   asset: "assets/images/icon/check.svg",
                   image: phpdocument,
+                  url: widget.items.phdLink!,
                 ),
               ),
             ),
@@ -183,22 +185,25 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "qqqi_level5_certification",
+                  label: "Level certification",
                   asset: "assets/images/icon/check.svg",
                   image: qqqidocument,
+                  url: widget.items.qqqiLink!,
                 ),
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "infection_prevention_control_certificate");
+                getImage(
+                    ImgSource.Both, "infection_prevention_control_certificate");
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "infection_prevention_control_certificate",
+                  label: "Infection prevention control certificate",
                   asset: "assets/images/icon/check.svg",
                   image: ipcccdocument,
+                  url: widget.items.ipccLink!,
                 ),
               ),
             ),
@@ -209,9 +214,10 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "employment_contract_signed",
+                  label: "Employment contract signed",
                   asset: "assets/images/icon/check.svg",
                   image: ecsdocument,
+                  url: widget.items.ecsLink!,
                 ),
               ),
             ),
@@ -222,9 +228,10 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "passport_id_card",
+                  label: "Passport Id",
                   asset: "assets/images/icon/check.svg",
                   image: piddocument,
+                  url: widget.items.ecsLink!,
                 ),
               ),
             ),

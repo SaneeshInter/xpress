@@ -135,7 +135,7 @@ class Repository {
       String token, String ids, File file) =>
       apiFileProvider.asyncFileUpload(token, ids, file);
 
-  Future<UserDocumentsResponse> UserDocuments(
+  Future<UserDocumentsResponse> uploadUserDoc(
       String token, File files, String type, String expiry_date) =>
       apiFileProvider.uploadUserDocuments(token,  files, type,expiry_date);
 

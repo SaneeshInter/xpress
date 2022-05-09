@@ -4,6 +4,7 @@ import 'package:xpresshealthdev/ui/error/ConnectionFailedScreen.dart';
 import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
 import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
 import 'package:flutter/services.dart';
+import 'package:xpresshealthdev/ui/user/home/profile_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
           // When navigating to the "/second" route, build the SecondScreen widget.
           '/nw_error': (context) => ConnectionFailedScreen(),
           '/error': (context) => ErrorScreen(),
+          '/profile': (context) => ProfileScreen(),
         },
       );
     });

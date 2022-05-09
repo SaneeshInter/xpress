@@ -2,10 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/widgets/buttons/call_button.dart';
 
 import '../../blocs/shift_list_bloc.dart';
 import '../../model/user_getschedule_bydate.dart';
 import '../../utils/constants.dart';
+import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
 import '../user/detail/shift_detail.dart';
 import 'action_alert_dialoge.dart';
@@ -104,7 +106,8 @@ class _HomePageCardState extends State<ShiftListWidget> {
                       SizedBox(
                         width: screenWidth(context, dividedBy: 40),
                       ),
-                      if (null != widget.items.price && widget.items.price!.isNotEmpty)
+                      if (null != widget.items.price &&
+                          widget.items.price!.isNotEmpty)
                         Text(
                           "\$" + widget.items.price!,
                           style: TextStyle(
@@ -126,24 +129,14 @@ class _HomePageCardState extends State<ShiftListWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
-                BuildButton(
-                  label: "View Shift",
-                  onPressed: () {
-                    widget.onTapView(widget.items);
-                  },
-                  key: null,
-                ),
-                SizedBox(width: screenWidth(context, dividedBy: 40)),
                 BookButton(
                   label: "Request Now",
                   onPressed: () {
-
                     widget.onTapBook(widget.items);
                     print("Tapped");
 
-
-                      // Items data = widget.items;
-                      // bloc.fetchuserJobRequest(widget.token, data.rowId.toString());
+                    // Items data = widget.items;
+                    // bloc.fetchuserJobRequest(widget.token, data.rowId.toString());
                     // showActionAlert(context,
                     //     tittle: "Request Now",
                     //     message: "Do you want to request this shift ?",
@@ -151,20 +144,30 @@ class _HomePageCardState extends State<ShiftListWidget> {
                   },
                   key: null,
                 ),
+                SizedBox(width: screenWidth(context, dividedBy: 40)),
+                // BuildButton(
+                //   label: "View Shift",
+                //   onPressed: () {
+                //     widget.onTapView(widget.items);
+                //   },
+                //   key: null,
+                // ),
                 Spacer(),
-                if(widget.items.type == "Premium")
+                if (widget.items.type == "Premium")
                   Container(
-                      width: 8.w,
-                      height: 8.w,
+                      width: 7.w,
+                      height: 7.w,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Constants.colors[8]),
+                          shape: BoxShape.circle, color: Constants.colors[8]),
                       child: Center(
-                          child: SvgPicture.asset(
-                              "assets/images/icon/rank.svg",
-                              width: 8.w,
-                              height: 8.w,
-                              fit: BoxFit.cover))),
+                          child: SvgPicture.asset("assets/images/icon/rank.svg",
+                              width: 6.w, height: 6.w, fit: BoxFit.cover))),
+                SizedBox(width: screenWidth(context, dividedBy: 40)),
+                CallButtons(
+                  onPressed: () {
+                    dialCall("86962876916");
+                  },
+                ),
               ],
             ),
             SizedBox(height: screenHeight(context, dividedBy: 120)),
@@ -198,11 +201,11 @@ class _HomePageCardState extends State<ShiftListWidget> {
                   message: message,
                   positiveText: "REQUEST NOW",
                   onPositvieClick: (item) {
-
 // widget.onTapBook(item);
                     if (item is Items) {
                       Items data = item;
-                      bloc.fetchuserJobRequest(widget.token, data.rowId.toString());
+                      bloc.fetchuserJobRequest(
+                          widget.token, data.rowId.toString());
                     }
                   },
                   onNegativeClick: () {})),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
@@ -61,10 +62,10 @@ class _DrawableState extends State<DrawableButton> {
             ),
             Padding(
               padding: const EdgeInsets.all(3.0),
-              child: Text(
+              child: AutoSizeText(
                 widget.label,
                 style: TextStyle(
-                    fontSize: 10.sp,
+                    fontSize: 8.sp,
                     color: widget.textColors,
                     fontFamily: "SFProMedium",
                     fontWeight: FontWeight.w400),

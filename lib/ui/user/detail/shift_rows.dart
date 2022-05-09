@@ -26,22 +26,20 @@ class CustomRowz extends StatefulWidget {
 }
 
 class _CustomRowState extends State<CustomRowz> {
-  bool tapped = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         widget.onPressed();
-        setState(() {
-          tapped = true;
-        });
+
       },
       child: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.only(top: 16,left: 10),
         child: Row(
           children: [
+            if(widget.asset !=null && widget.asset.isNotEmpty)
             SvgPicture.asset(
               widget.asset,
               width: MediaQuery.of(context).size.width * 0.03,
