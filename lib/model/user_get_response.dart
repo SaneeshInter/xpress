@@ -78,7 +78,7 @@ class Items {
   String? gender;
   int? genderId;
   String? visaType;
-  Null? visaTypeId;
+  String? visaTypeId;
   String? userType;
   int? userTypeId;
   String? homeAddress;
