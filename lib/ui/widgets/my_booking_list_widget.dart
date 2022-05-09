@@ -41,13 +41,13 @@ class _MyBookingState extends State<MyBookingListWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // widget.onTapMap;
+         //widget.onTapMap;
 
         Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => ShiftDetailScreen(
-                    shift_id: widget.items.rowId.toString(),
+                    shift_id: widget.items.jobId.toString(),
                   )),
         );
       },
@@ -162,7 +162,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
               context,
               MaterialPageRoute(
                   builder: (context) => ShiftDetailScreen(
-                        shift_id: widget.items.rowId.toString(),
+                        shift_id: widget.items.jobId.toString(),
                       )),
             );
             widget.onTapMap();
