@@ -118,7 +118,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Column(
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(left: 16.0,right: 16),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 16.0,
+                                                          right: 16),
                                                   child: Container(
                                                     child: TextInputFileds(
                                                       controlr: email,
@@ -145,7 +148,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                             Column(
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.only(left: 16.0,right: 16),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 16.0,
+                                                          right: 16),
                                                   child: Container(
                                                     child: TextInputFileds(
                                                       controlr: pwd,
@@ -214,6 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
   Widget signUpBtn() {
     return Column(
       children: <Widget>[
@@ -286,28 +293,47 @@ class _LoginScreenState extends State<LoginScreen> {
         final prefs = await SharedPreferences.getInstance();
         var token = event.response?.data?.token;
         var role = event.response?.data?.role;
-
-
+        var firstname = event.response?.data?.firstName;
+        var lastName = event.response?.data?.lastName;
+        var employeeNo = event.response?.data?.employeeNo;
+        var userType = event.response?.data?.userType;
+        var profileSrc = event.response?.data?.profileSrc;
         if (token != null) {
           prefs.setString(SharedPrefKey.AUTH_TOKEN, token);
           if (null != role) {
             prefs.setInt(SharedPrefKey.USER_TYPE, role);
-            if (role == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const DashBoard()),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ManagerDashBoard()),
-              );
+            if (null != firstname) {
+              prefs.setString(SharedPrefKey.FIRST_NAME, firstname);
+              if (null != lastName) {
+                prefs.setString(SharedPrefKey.LAST_NAME, lastName);
+                if (null != employeeNo) {
+                  prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo);
+                  if (null != userType) {
+                    prefs.setString(SharedPrefKey.USER_TYPE, userType);
+                    if (null != profileSrc) {
+                      prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc);
+                      if (role == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DashBoard()),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ManagerDashBoard()),
+                        );
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
+        } else {
+          showAlertDialoge(context, title: "Login Failed", message: message!);
         }
-      } else {
-        showAlertDialoge(context, title: "Login Failed", message: message!);
       }
     });
   }
