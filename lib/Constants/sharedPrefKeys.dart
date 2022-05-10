@@ -9,8 +9,15 @@ class SharedPrefKey {
   static const EMAIL_ID = "emailId";
   static const PROFILE_IMAGE = "profileImage";
   static const USER_NAME = "user_name";
-  static const USER_TYPE = "user_type";
+
   static const REF_URL = "reffereance_url";
   static const REF_CODE = "refCode";
+
+  static const FIRST_NAME = "first_name";
+  static const LAST_NAME = "last_name";
+  static const EMPLOYEE_NO= "employeeNo";
+  static const USER_TYPE = "user_type";
+  static const PROFILE_SRC = "profileSrc";
+
 
 }
