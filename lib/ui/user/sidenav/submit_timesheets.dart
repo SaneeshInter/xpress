@@ -9,8 +9,10 @@ import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
+import 'package:xpresshealthdev/blocs/user_timesheet_bloc.dart';
+import 'package:xpresshealthdev/ui/user/sidenav/user_time_sheet_details.dart';
 
-import '../../../model/user_complted_shift.dart';
+import '../../../model/user_get_timesheet.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
@@ -18,8 +20,7 @@ import '../../../utils/utils.dart';
 import '../../Widgets/buttons/build_button.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
-import '../../widgets/timesheet_list_item.dart';
-import '../common/side_menu.dart';
+import '../../widgets/user_timesheet_list_item.dart';
 
 class SubmitTimeShift extends StatefulWidget {
   const SubmitTimeShift({Key? key}) : super(key: key);
@@ -51,7 +52,8 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
         setState(() {
           visibility = true;
         });
-        completeBloc.fetchcomplete(token);
+
+        usertimesheetBloc.userGetTimeSheet(token);
       } else {
         showInternetNotAvailable();
       }
@@ -106,14 +108,14 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
   }
 
   void observe() {
-    completeBloc.allShift.listen((event) {
+    usertimesheetBloc.timesheetstream.listen((event) {
       setState(() {
         visibility = false;
       });
 
       var data = event.response?.data;
-      if (data?.items != null) {
-        if (data?.items?.length != 0) {
+      if (data?.timeSheetInfo != null) {
+        if (data?.timeSheetInfo?.length != 0) {
           setState(() {
             buttonVisibility = true;
           });
@@ -187,53 +189,15 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth(context, dividedBy: 35)),
                   child: Column(children: [
-                    SizedBox(height: screenHeight(context, dividedBy: 60)),
-                    Container(
-                        child: _image != null
-                            ? Image.file(File(_image.path))
-                            : Container()),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    if (buttonVisibility)
-                      DottedBorder(
-                        borderType: BorderType.RRect,
-                        dashPattern: [10, 10],
-                        color: Colors.green,
-                        strokeWidth: 1,
-                        child: GestureDetector(
-                          onTap: () {
-                            print("On tap");
-                            getImage(ImgSource.Both);
-                          },
-                          child: Container(
-                            color: Colors.white,
-                            width: 100.w,
-                            height: 10.w,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/images/icon/notification.svg',
-                                  color: Colors.green,
-                                ),
-                                SizedBox(width: 10),
-                                Text("Upload Shift Document Photos"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    SizedBox(height: screenHeight(context, dividedBy: 60)),
                     StreamBuilder(
-                        stream: completeBloc.allShift,
+                        stream:   usertimesheetBloc.timesheetstream,
                         builder: (BuildContext context,
-                            AsyncSnapshot<UserShoiftCompletedResponse>
+                            AsyncSnapshot<UserTimeSheetRespo>
                                 snapshot) {
                           if (snapshot.hasData) {
                             var data = snapshot.data?.response?.data;
-                            if (data?.items != null) {
-                              if (data?.items?.length != 0) {
+                            if (data?.timeSheetInfo != null) {
+                              if (data?.timeSheetInfo?.length != 0) {
                                 return buildList(snapshot);
                               } else {
                                 return Column(
@@ -270,42 +234,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                           }
                           return Container();
                         }),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    if (buttonVisibility)
-                      BuildButton(
-                        label: "Upload Timesheets",
-                        onPressed: () {
-                          setState(() {
-                            visibility = true;
-                          });
 
-                          String shiftid = "";
-                          print("PRINT UPLOAD LISTS");
-                          for (var item in list) {
-                            shiftid = shiftid + item + ",";
-                          }
-
-                          print(shiftid);
-                          if (_image != null) {
-                            if (shiftid.isNotEmpty) {
-                              completeBloc.uploadTimeSheet(
-                                  token, shiftid, File(_image.path));
-                            } else {
-                              showAlertDialoge(context,
-                                  title: "Alert", message: "Select Shift");
-                            }
-                          } else {
-                            showAlertDialoge(context,
-                                title: "Alert", message: "Upload Timesheet");
-                          }
-                        },
-                        key: null,
-                      ),
-                    SizedBox(
-                      height: 20,
-                    ),
                   ])),
               Center(
                 child: Visibility(
@@ -326,24 +255,35 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
     );
   }
 
-  Widget buildList(AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
+  Widget buildList(AsyncSnapshot<UserTimeSheetRespo> snapshot) {
     var data = snapshot.data?.response?.data;
     return ListView.builder(
-      itemCount: data?.items?.length,
+      itemCount: data?.timeSheetInfo?.length,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
-        var name = "Shift Reminder";
-        var description = "Completed shift";
-        var items = data?.items![index];
+        TimeSheetInfo items = data!.timeSheetInfo![index];
         return Column(
           children: [
-            TimeSheetListWidget(
-              onTapView: () {},
+            UserTimeSheetListWidget(
+              onTapView: (item) {
+
+                if (items is TimeSheetInfo) {
+                  TimeSheetInfo data = items;
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserTimeSheetDetails(
+                            item: data,),
+                      ));
+
+              }
+
+              },
               onTapCall: () {},
               onTapMap: () {},
               onTapBooking: () {},
-              items: items!,
+              items: items,
               onCheckBoxClicked: (rowId, isSelect) {
                 print(rowId);
                 print(isSelect);
@@ -352,11 +292,6 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                 } else {
                   list.remove(rowId.toString());
                 }
-                // String string = "";
-                // for (var item in list) {
-                //   string = string + item + ",";
-                // }
-                // print(string);
               },
             ),
             SizedBox(height: screenHeight(context, dividedBy: 100)),
@@ -365,16 +300,4 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
       },
     );
   }
-}
-
-Color getColor(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return Colors.blue;
-  }
-  return Colors.red;
 }
