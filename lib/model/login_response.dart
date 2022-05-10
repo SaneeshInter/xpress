@@ -1,13 +1,9 @@
 class LoginUserRespo {
-  String? email;
-  String? password;
   Response? response;
 
-  LoginUserRespo({this.email, this.password, this.response});
+  LoginUserRespo({this.response});
 
   LoginUserRespo.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    password = json['password'];
     response = json['Response'] != null
         ? new Response.fromJson(json['Response'])
         : null;
@@ -15,8 +11,6 @@ class LoginUserRespo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['password'] = this.password;
     if (this.response != null) {
       data['Response'] = this.response!.toJson();
     }
@@ -33,7 +27,7 @@ class Response {
   Response.fromJson(Map<String, dynamic> json) {
     data = json['Data'] != null ? new Data.fromJson(json['Data']) : null;
     status =
-        json['status'] != null ? new Status.fromJson(json['status']) : null;
+    json['status'] != null ? new Status.fromJson(json['status']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -51,18 +45,48 @@ class Response {
 class Data {
   String? token;
   int? role;
+  String? firstName;
+  String? lastName;
+  String? employeeNo;
+  int? hourlyRate;
+  String? userType;
+  int? userTypeId;
+  String? profileSrc;
 
-  Data({this.token, this.role});
+  Data(
+      {this.token,
+        this.role,
+        this.firstName,
+        this.lastName,
+        this.employeeNo,
+        this.hourlyRate,
+        this.userType,
+        this.userTypeId,
+        this.profileSrc});
 
   Data.fromJson(Map<String, dynamic> json) {
     token = json['token'];
     role = json['role'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    employeeNo = json['employee_no'];
+    hourlyRate = json['hourly_rate'];
+    userType = json['user_type'];
+    userTypeId = json['user_type_id'];
+    profileSrc = json['profile_src'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['token'] = this.token;
     data['role'] = this.role;
+    data['first_name'] = this.firstName;
+    data['last_name'] = this.lastName;
+    data['employee_no'] = this.employeeNo;
+    data['hourly_rate'] = this.hourlyRate;
+    data['user_type'] = this.userType;
+    data['user_type_id'] = this.userTypeId;
+    data['profile_src'] = this.profileSrc;
     return data;
   }
 }
@@ -88,3 +112,4 @@ class Status {
     return data;
   }
 }
+
