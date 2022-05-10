@@ -261,7 +261,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => UserTimeSheetDetails(
-                          item: data,
+                          item: item
                         ),
                       ));
                 }
