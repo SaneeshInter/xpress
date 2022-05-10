@@ -165,7 +165,7 @@ class _SideMenuState extends State<SideMenu> {
           ),
           ListTile(
             title: const Text(
-              'Submit Timesheet',
+              'Submitted Timesheet',
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(

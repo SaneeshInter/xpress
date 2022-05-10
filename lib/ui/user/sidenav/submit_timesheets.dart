@@ -165,7 +165,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
           ),
           backgroundColor: HexColor("#ffffff"),
           title: AutoSizeText(
-            "Summit Timesheets",
+            "Submitted Timesheet",
             style: TextStyle(
                 fontSize: 17,
                 color: Constants.colors[1],
@@ -173,69 +173,57 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
           ),
           centerTitle: true,
         ),
-
-        // drawer: Drawer(
-        //   child: SideMenu(),
-        // ),
-        // appBar: AppBarCommon(
-        //   _scaffoldKey,
-        //   scaffoldKey: _scaffoldKey,
-        // ),
         backgroundColor: Constants.colors[9],
         body: SingleChildScrollView(
           child: Stack(
             children: [
-              Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth(context, dividedBy: 35)),
-                  child: Column(children: [
-                    StreamBuilder(
-                        stream:   usertimesheetBloc.timesheetstream,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<UserTimeSheetRespo>
-                                snapshot) {
-                          if (snapshot.hasData) {
-                            var data = snapshot.data?.response?.data;
-                            if (data?.timeSheetInfo != null) {
-                              if (data?.timeSheetInfo?.length != 0) {
-                                return buildList(snapshot);
-                              } else {
-                                return Column(
-                                  children: [
-                                    20.height,
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text('Completed Shift',
-                                            style: boldTextStyle(size: 20)),
-                                        85.width,
-                                        16.height,
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 32),
-                                          child: Text(
-                                              'There are no  completed shift found.',
-                                              style: primaryTextStyle(size: 15),
-                                              textAlign: TextAlign.center),
-                                        ),
-                                      ],
-                                    ),
-                                    150.height,
-                                    Image.asset(
-                                        'assets/images/error/empty_task.png',
-                                        height: 250),
-                                  ],
-                                );
-                              }
-                            }
-                          } else if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
+              Column(children: [
+                StreamBuilder(
+                    stream: usertimesheetBloc.timesheetstream,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<UserTimeSheetRespo> snapshot) {
+                      if (snapshot.hasData) {
+                        var data = snapshot.data?.response?.data;
+                        if (data?.timeSheetInfo != null) {
+                          if (data?.timeSheetInfo?.length != 0) {
+                            return buildList(snapshot);
+                          } else {
+                            return Center(
+                              child: Column(
+                                children: [
+                                  20.height,
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text('Submitted Timesheet',
+                                          style: boldTextStyle(size: 20)),
+                                      85.width,
+                                      16.height,
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 32),
+                                        child: Text(
+                                            'There are no  completed shift found.',
+                                            style: primaryTextStyle(size: 15),
+                                            textAlign: TextAlign.center),
+                                      ),
+                                    ],
+                                  ),
+                                  150.height,
+                                  Image.asset(
+                                      'assets/images/error/empty_task.png',
+                                      height: 250),
+                                ],
+                              ),
+                            );
                           }
-                          return Container();
-                        }),
-
-                  ])),
+                        }
+                      } else if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      }
+                      return Container();
+                    }),
+              ]),
               Center(
                 child: Visibility(
                   visible: visibility,
@@ -267,18 +255,16 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
           children: [
             UserTimeSheetListWidget(
               onTapView: (item) {
-
                 if (items is TimeSheetInfo) {
                   TimeSheetInfo data = items;
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => UserTimeSheetDetails(
-                            item: data,),
+                          item: data,
+                        ),
                       ));
-
-              }
-
+                }
               },
               onTapCall: () {},
               onTapMap: () {},

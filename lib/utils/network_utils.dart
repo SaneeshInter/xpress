@@ -34,11 +34,19 @@ Future<void> navigateTo(double latitude, double longitude) async {
 }
 
 sendingMails(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
   }
+
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: url,
+    query:
+        encodeQueryParameters(<String, String>{'subject': 'Xpress health !'}),
+  );
+
+  await launch(emailLaunchUri.toString());
 }
-
-

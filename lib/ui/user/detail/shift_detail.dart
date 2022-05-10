@@ -291,8 +291,6 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 ),
                                                 CustomRow(
                                                   onPressed: () {
-                                                    hospitalDetail.email =
-                                                        "saneesh@gmail.com";
                                                     sendingMails(
                                                         hospitalDetail.email!);
                                                   },

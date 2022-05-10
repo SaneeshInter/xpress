@@ -151,8 +151,6 @@ S
 #android/xpresshealthdev_android.iml,7/7/7771e90eaadb6f039079409cfa45746ea1174d36
 H
 android/app/build.gradle,5/9/594ba479000e0bb5513707b709ad1cd52da9063a
-Q
-!lib/Constants/sharedPrefKeys.dart,7/0/705bb1cb7073cb270567a8923e3aaa1633cd716b
 P
  lib/Constants/app_constants.dart,2/9/29e18de4f5396684b175bc9c8c51e9fed7e6b0b7
 O
@@ -333,8 +331,6 @@ a
 1lib/ui/widgets/timesheet_details_list_widget.dart,e/0/e016bf10aa1b883d9eb9cc1c5da2e69f0a8194f3
 ]
 -lib/ui/manager/home/shift_detail_manager.dart,d/1/d1f2dac3c22e8ee84a1ee2f4b5ffa01c46cd6b33
-Z
-*lib/ui/widgets/my_booking_list_widget.dart,2/e/2eb203ea167d6356c9f71fafa7486a098965f996
 b
 2lib/ui/widgets/manager/my_booking_list_widget.dart,5/f/5f6dfa2551ed8d9e22693d7a5c8647dcb3c9cb90
 R
@@ -365,12 +361,8 @@ I
 lib/utils/date_utils.dart,4/2/42b54f00368d553292c8c2e2b8e4224b0ed37550
 U
 %lib/model/user_get_shift_details.dart,a/3/a3cee736eff9abe0e70cbf288e4e415a813074c6
-P
- lib/ui/splash/splash_screen.dart,b/5/b5b9768a8df971f7b5360932e6ab3f5c8a4ade0b
 [
 +lib/ui/user/detail/drawable_custom_row.dart,1/c/1c67f61d3860e3f05946858f5c028669a945ca29
-<
-pubspec.lock,c/1/c1c78778a0cef1e5344166792d1d823fdcb8b109
 @
 .flutter-plugins,c/0/c0b6f935ef14af8fe1d6391eeee68e16ee6087eb
 ^
@@ -391,8 +383,6 @@ Q
 ,lib/ui/manager/home/create_shift_screen.dart,5/3/5356adbb138abb8f86de8ab67d2ea7128c012251
 a
 1lib/ui/widgets/approve_timesheet_list_widget.dart,6/7/674015d9804c625f89bf182fba8cd78ddc6e3d9e
-\
-,lib/ui/manager/home/manager_home_screen.dart,2/4/24563b032d17b04e8d2094009d77a2979183fd12
 K
 assets/images/icon/bank.svg,2/1/21b2ce051a9252eba9e80602091f49b280f6fd17
 H
@@ -409,3 +399,59 @@ L
 assets/images/icon/check.svg,c/b/cb9b598272e71aa43e15c70f14bab7d3ede99c6f
 Y
 )assets/images/icon/information-button.svg,2/f/2f72af6cd9ca8cb3a14bde98e9381f7486845995
+O
+assets/images/icon/loading.json,0/d/0dfac127913cc78f49b49c2240b82b4eaf051a1b
+O
+assets/images/icon/surface1.svg,5/0/5061503c5b27de2c3d89384a0bc81e77a6a35556
+R
+"lib/ui/user/detail/shift_rows.dart,c/a/ca54d75207e827a71568480240ddbba33df0e7ea
+9
+	.packages,9/b/9b4bbe3dd58bdfaf2455c8d7f1db8e23fcd9bc95
+U
+%lib/ui/widgets/profile_documents.dart,7/4/74e560a4e88023c6e16a0b8d2fcd1c7f0e27d856
+R
+"lib/ui/widgets/profile_detail.dart,4/c/4c76466b9627458b69bb7a39908bf24a346991cf
+L
+assets/images/icon/arrow.svg,8/4/8489de1c134e3c3101d78f3e2e2b2d821bccab39
+[
++lib/ui/widgets/buttons/drawable_button.dart,d/8/d852ccbcf6844a30ab733fa82be6b170f40b6ff0
+S
+#lib/ui/user/empty/empty_screen.dart,b/1/b19a3bb05d219c145f39bb58ec21fc787b3093f9
+W
+'lib/ui/user/home/find_shift_screen.dart,4/f/4f56a4fcf81cabc3a7521ea31826a70772f634f7
+N
+lib/resources/respository.dart,b/4/b404468c1202be93390aeb81993e45b9a43f3f2b
+N
+lib/resources/file_upload.dart,3/a/3a1f7898944a9d060e3e858f336abbd16df92925
+V
+&lib/ui/user/detail/home_card_item.dart,1/f/1f4abe895af65598f2f677d816394b6af842f430
+U
+%lib/ui/widgets/availability_list.dart,2/c/2c8a76cb31b85d22bfec5c8a20aed002f67683a5
+U
+%lib/blocs/user_availability_bloc.dart,c/f/cffdedeebd39a9714390059d1084d2159a88298b
+Y
+)lib/model/user_availability_btw_date.dart,c/9/c96857e5ef31191a99cd04e22c2cf1b86055ebe1
+Y
+)lib/ui/user/detail/drawable _rowtext.dart,f/7/f76a2cd0f2553d3d107eadf4349c12dd95fecdbd
+O
+lib/ui/user/common/app_bar.dart,5/d/5d4e0a793bd0a62a5539c3e059f6f7babf84087d
+I
+lib/blocs/login_bloc.dart,f/3/f346b6fd5316090b97e5d5a0960775307410b857
+R
+"lib/model/user_complted_shift.dart,0/2/0243abd4dd784132a6f88374c6d946dbe3456d8f
+M
+lib/model/login_response.dart,f/7/f740dd57e82184f356afca0bcfb54c01d46765ee
+S
+#lib/blocs/shift_completed_bloc.dart,4/4/440ec191586ae8b49069cc0876e6ebc536468a93
+Y
+)lib/ui/user/sidenav/completed_shifts.dart,9/3/939b528834f03a70f5e8588713a6ecdb2df808a3
+Q
+!lib/model/user_home_response.dart,e/c/ec926b05b88120bd8307abdd83b144791c6f9cf6
+L
+lib/ui/dashboard_screen.dart,1/b/1bea7a0f1fb8bc90c037be491df23299dcfc9c34
+O
+lib/resources/api_provider.dart,9/b/9b3995585cb13836029a65950eb6614eed11d5fe
+\
+,lib/ui/user/home/completed_shift_screen.dart,9/7/977d8aef41f99b755ac5928a2c575e3f65d5d8fd
+R
+"lib/ui/user/home/profile_edit.dart,7/4/74ff39b20b095814fe9d3ca61c3a4b312e19f367
