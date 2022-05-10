@@ -267,18 +267,12 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
           children: [
             UserTimeSheetListWidget(
               onTapView: (item) {
-
-                if (items is TimeSheetInfo) {
-                  TimeSheetInfo data = items;
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => UserTimeSheetDetails(
-                            item: data,),
+                            item: item),
                       ));
-
-              }
-
               },
               onTapCall: () {},
               onTapMap: () {},
