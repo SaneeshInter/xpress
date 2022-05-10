@@ -18,10 +18,12 @@ import '../model/user_cancel_jobrequest.dart';
 import '../model/user_complted_shift.dart';
 import '../model/user_documents_response.dart';
 import '../model/user_get_response.dart';
+import '../model/user_get_timesheet.dart';
 import '../model/user_getschedule_by_month_year.dart';
 import '../model/user_getschedule_bydate.dart';
 import '../model/user_job_request.dart';
 import '../model/user_profile_update.dart';
+import '../model/user_time_sheet_details_respo.dart';
 import '../model/user_view_request_response.dart';
 import '../model/user_working_hours.dart';
 import '../model/utility_respo.dart';
@@ -164,6 +166,67 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
+
+
+
+
+  Future<UserTimeSheetRespo> userGetTimesheet(
+      String token) async {
+    var uri = Uri.parse(BASE_URL + "/user/get-time-sheet");
+    final response = await client.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token,
+        },
+        body: jsonEncode(<String, String>{
+
+        }));
+
+    print("PRINT User_Get_Timesheet" + token);
+
+    print(jsonEncode(<String, String>{
+
+    }).toString());
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return UserTimeSheetRespo.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+
+
+  Future<UserTimeSheetDetailsRespo> userGetTimeDetails(
+      String token,String time_shhet_id) async {
+    var uri = Uri.parse(BASE_URL + "/user/get-time-sheet-details");
+    final response = await client.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token,
+        },
+        body: jsonEncode(<String, String>{
+         "time_shhet_id":time_shhet_id,
+        }));
+
+    print("PRINT User_Get_Timesheet_Details" + token);
+
+    print(jsonEncode(<String, String>{
+      "time_shhet_id":time_shhet_id,
+    }).toString());
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return UserTimeSheetDetailsRespo.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+
+
+
 
   ///////////////////// MANAGER API
   Future<ManagerScheduleListResponse> fetchViewbooking(

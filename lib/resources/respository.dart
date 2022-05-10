@@ -22,12 +22,13 @@ import '../model/user_availability_btw_date.dart';
 import '../model/user_cancel_jobrequest.dart';
 import '../model/user_complted_shift.dart';
 import '../model/user_documents_response.dart';
+import '../model/user_get_timesheet.dart';
 import '../model/user_getschedule_by_month_year.dart';
 import '../model/user_getschedule_bydate.dart';
 import '../model/user_home_response.dart';
 import '../model/user_profile_update.dart';
+import '../model/user_time_sheet_details_respo.dart';
 import '../model/user_view_request_response.dart';
-
 import '../model/user_working_hours.dart';
 import '../model/utility_respo.dart';
 import '../model/viewbooking_response.dart';
@@ -55,9 +56,19 @@ class Repository {
           String token, String date) =>
       apiProvider.fetchViewbooking(token, date);
 
+  Future<UserTimeSheetRespo> fetchUserGetTimeSheet(String token) =>
+      apiProvider.userGetTimesheet(token);
+
+  Future<UserTimeSheetDetailsRespo> fetchUserGetTimeSheetDetails(String token,String time_shhet_id) =>
+      apiProvider.userGetTimeDetails(token,time_shhet_id);
+
   ///MANAGER TIME SHEET
-  Future<ManagerTimeSheetResponse> fetchManagerTimesheet(String token) => apiProvider.managerTimeSheet(token);
-  Future<ManagerTimeDetailsResponse> fetchManagerTimesheetDetials(String token,String time_shhet_id) => apiProvider.timeDetails(token,time_shhet_id);
+  Future<ManagerTimeSheetResponse> fetchManagerTimesheet(String token) =>
+      apiProvider.managerTimeSheet(token);
+
+  Future<ManagerTimeDetailsResponse> fetchManagerTimesheetDetials(
+          String token, String time_shhet_id) =>
+      apiProvider.timeDetails(token, time_shhet_id);
 
   Future<LoginUserRespo> fetchLogin(String username, String password) =>
       apiProvider.loginUser(username, password);
@@ -105,39 +116,32 @@ class Repository {
       apiProvider.getUserShiftDetails(token, shift_id);
 
   Future<UserCancelJobRequestResponse> UserCancelJobResponse(
-      String token, String job_request_row_id) =>
-      apiProvider.getUserCanceljobrequest(token,job_request_row_id);
-
-
+          String token, String job_request_row_id) =>
+      apiProvider.getUserCanceljobrequest(token, job_request_row_id);
 
   Future<AddUserAvailabilityResponse> addUserAvailability(
-      String token, String date,String availability) =>
-      apiProvider.getaddUserAvailability( token,  date, availability);
-
+          String token, String date, String availability) =>
+      apiProvider.getaddUserAvailability(token, date, availability);
 
   Future<UserAvailabilitydateResponse> UserAvailability(
-      String token, String from_date,String to_date) =>
-      apiProvider.getUserAvailability( token,  from_date, to_date);
-
+          String token, String from_date, String to_date) =>
+      apiProvider.getUserAvailability(token, from_date, to_date);
 
   Future<UserWorkingHoursResponse> AddUserWorking(
-      String token, String shift_id,String start_time,String end_time) =>
-      apiProvider.addUserWorkingHours( token,  shift_id, start_time,end_time);
-
-
-
+          String token, String shift_id, String start_time, String end_time) =>
+      apiProvider.addUserWorkingHours(token, shift_id, start_time, end_time);
 
   Future<GetAvailableUserByDate> fetchGetAvailableUserByDate(
-      String token, String date, String shifttype) =>
+          String token, String date, String shifttype) =>
       apiProvider.fetchGetAvailableUserByDate(token, date, shifttype);
 
   Future<TimeSheetUploadRespo> uplodTimeSheet(
-      String token, String ids, File file) =>
+          String token, String ids, File file) =>
       apiFileProvider.asyncFileUpload(token, ids, file);
 
   Future<UserDocumentsResponse> uploadUserDoc(
-      String token, File files, String type, String expiry_date) =>
-      apiFileProvider.uploadUserDocuments(token,  files, type,expiry_date);
+          String token, File files, String type, String expiry_date) =>
+      apiFileProvider.uploadUserDocuments(token, files, type, expiry_date);
 
   Future<ProfileUpdateRespo> ProfileUser(
           String token,
@@ -200,8 +204,5 @@ class Repository {
           job_details,
           price,
           shift,
-          allowances
-      );
-
-
+          allowances);
 }
