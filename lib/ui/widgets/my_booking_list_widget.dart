@@ -106,13 +106,13 @@ class _MyBookingState extends State<MyBookingListWidget> {
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
-                        Text(
-                          widget.items.userType!,
-                          style: TextStyle(
-                              fontSize: 9.5.sp,
-                              color: Constants.colors[3],
-                              fontWeight: FontWeight.w500),
-                        ),
+                        // Text(
+                        //   widget.items.userType!,
+                        //   style: TextStyle(
+                        //       fontSize: 9.5.sp,
+                        //       color: Constants.colors[3],
+                        //       fontWeight: FontWeight.w500),
+                        // ),
                       ]),
                   Spacer(),
                   Column(
@@ -155,22 +155,22 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
   } else {
     return Row(
       children: [
-        BuildButton(
-          label: "View Shift",
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ShiftDetailScreen(
-                        shift_id: widget.items.jobId.toString(),
-                      )),
-            );
-            widget.onTapMap();
-            print("Cards booking");
-          },
-          key: null,
-        ),
-        SizedBox(width: screenWidth(context, dividedBy: 40)),
+        // BuildButton(
+        //   label: "View Shift",
+        //   onPressed: () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //           builder: (context) => ShiftDetailScreen(
+        //                 shift_id: widget.items.jobId.toString(),
+        //               )),
+        //     );
+        //     widget.onTapMap();
+        //     print("Cards booking");
+        //   },
+        //   key: null,
+        // ),
+        // SizedBox(width: screenWidth(context, dividedBy: 40)),
         if (widget.items.status == "Accepted")
           BookButton(
             label: "Cancel Request",

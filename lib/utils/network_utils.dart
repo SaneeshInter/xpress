@@ -34,7 +34,6 @@ Future<void> navigateTo(double latitude, double longitude) async {
 }
 
 sendingMails(String url) async {
-
   if (await canLaunch(url)) {
     await launch(url);
   } else {

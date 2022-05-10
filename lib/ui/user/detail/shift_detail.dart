@@ -308,7 +308,10 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     hospitalDetail
                                                         .phone!.isNotEmpty)
                                                   CustomRow(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      dialCall(hospitalDetail
+                                                          .phone!);
+                                                    },
                                                     label: hospitalDetail.phone
                                                         .toString(),
                                                     asset:
@@ -331,8 +334,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     label: " Job Details: " +
                                                         shiftDetails.jobDetails
                                                             .toString(),
-                                                    asset:
-                                                        "",
+                                                    asset: "",
                                                     textColors: Colors.black,
                                                   ),
                                                 SizedBox(

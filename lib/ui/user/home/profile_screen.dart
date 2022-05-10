@@ -2,11 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/user/home/profile_edit.dart';
 import 'package:xpresshealthdev/utils/utils.dart';
 
 import '../../../Constants/app_defaults.dart';
+import '../../../Constants/sharedPrefKeys.dart';
 import '../../../blocs/profile_update_bloc.dart';
 import '../../../model/user_get_response.dart';
 import '../../../resources/token_provider.dart';
@@ -94,17 +96,35 @@ class _ProfileState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-
-    getData();
     observe();
+    getData();
   }
 
   void observe() {
-    // profileBloc.getProfileStream.listen((event) {
-    //   // setState(() {
-    //   //   visibility = false;
-    //   // });
-    // });
+    profileBloc.getProfileStream.listen(
+      (event) async {
+
+        print("observe");
+        var datatItem = event.response?.data?.items;
+
+        if (datatItem!.length != 0) {
+          var items = datatItem[0];
+          var firstname = items.firstName;
+          print(firstname);
+          print("observe");
+          var lastName = items.lastName;
+          var employeeNo = items.employeeNo;
+          var userType = items.userType;
+          var profileSrc = items.profileSrc;
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString(SharedPrefKey.FIRST_NAME, firstname!);
+          prefs.setString(SharedPrefKey.LAST_NAME, lastName!);
+          prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo!);
+          prefs.setString(SharedPrefKey.USER_TYPE_NAME, userType!);
+          prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc!);
+        }
+      },
+    );
   }
 
   @override

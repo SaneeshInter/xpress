@@ -309,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (null != employeeNo) {
                   prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo);
                   if (null != userType) {
-                    prefs.setString(SharedPrefKey.USER_TYPE, userType);
+                    prefs.setString(SharedPrefKey.USER_TYPE_NAME, userType);
                     if (null != profileSrc) {
                       prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc);
                       if (role == 0) {

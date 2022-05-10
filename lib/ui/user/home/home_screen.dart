@@ -8,6 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_home_response.dart';
 import 'package:xpresshealthdev/ui/user/detail/home_card_item.dart';
+import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
 
 import '../../../Constants/AppColors.dart';
 import '../../../blocs/shift_homepage_bloc.dart';
@@ -643,7 +644,7 @@ class _HomeScreentate extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AvailabilityScreen(),
+                  builder: (context) => AvailabilityListScreen(),
                 ),
               );
             },

@@ -2,18 +2,52 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
 import '../../../Constants/app_defaults.dart';
+import '../../../Constants/sharedPrefKeys.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../sidenav/completed_shifts.dart';
 import '../sidenav/submit_timesheets.dart';
 
-class SideMenu extends StatelessWidget {
-  const SideMenu({
-    Key? key,
-  }) : super(key: key);
+class SideMenu extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _SideMenuState();
+  }
+}
+
+class _SideMenuState extends State<SideMenu> {
+  String name = "";
+  String profileImage = "";
+  String empNo = "";
+  String type = "";
+
+  @override
+  void initState() {
+    super.initState();
+    setProfileHeader();
+  }
+
+  Future<void> setProfileHeader() async {
+    SharedPreferences shdPre = await SharedPreferences.getInstance();
+    var firstName = shdPre.getString(SharedPrefKey.FIRST_NAME)!;
+    var secondName = shdPre.getString(SharedPrefKey.LAST_NAME)!;
+    name = firstName + " " + secondName;
+    var image = shdPre.getString(SharedPrefKey.PROFILE_SRC);
+    var empno = shdPre.getString(SharedPrefKey.EMPLOYEE_NO);
+    var usertype = shdPre.getString(SharedPrefKey.USER_TYPE_NAME);
+    print("setProfileHeader");
+    print(image);
+    setState(() {
+      name = firstName + " " + secondName;
+      profileImage = image!;
+      empNo = empno!;
+      type = usertype!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +81,19 @@ class SideMenu extends StatelessWidget {
                               borderRadius: BorderRadius.circular(50),
                               child: AspectRatio(
                                 aspectRatio: 1 / 1,
-                                child: Image.network(
-                                  'https://i.imgur.com/PJpPD6S.png',
-                                  fit: BoxFit.cover,
+                                child: Stack(
+                                  children: [
+                                    if (profileImage != "")
+                                      Image.network(
+                                        profileImage,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    if (profileImage == "")
+                                      Image.asset(
+                                        'assets/images/icon/man_ava.png',
+                                        fit: BoxFit.fill,
+                                      )
+                                  ],
                                 ),
                               ),
                             ),
@@ -60,7 +104,7 @@ class SideMenu extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                'Sanjay Abraham',
+                                name,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -70,7 +114,7 @@ class SideMenu extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Text(
-                                'Staff Nurses',
+                                type,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -80,7 +124,7 @@ class SideMenu extends StatelessWidget {
                               ),
                               const SizedBox(height: 5),
                               Text(
-                                'Emp No:6950',
+                                empNo,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.white,

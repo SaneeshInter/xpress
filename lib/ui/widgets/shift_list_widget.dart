@@ -107,9 +107,10 @@ class _HomePageCardState extends State<ShiftListWidget> {
                         width: screenWidth(context, dividedBy: 40),
                       ),
                       if (null != widget.items.price &&
-                          widget.items.price!.isNotEmpty)
+                          widget.items.price!.isNotEmpty &&
+                          widget.items.type == "Premium")
                         Text(
-                          "\$" + widget.items.price!,
+                          "\€" + widget.items.price!,
                           style: TextStyle(
                               fontSize: 20,
                               color: Constants.colors[3],
@@ -118,11 +119,6 @@ class _HomePageCardState extends State<ShiftListWidget> {
                     ],
                   ),
                   SizedBox(height: screenHeight(context, dividedBy: 70)),
-                  // ViewButton(
-                  //   label: "View",
-                  //   onPressed: widget.onTapView(),
-                  //   key: null,
-                  // )
                 ],
               )
             ]),
@@ -134,24 +130,10 @@ class _HomePageCardState extends State<ShiftListWidget> {
                   onPressed: () {
                     widget.onTapBook(widget.items);
                     print("Tapped");
-
-                    // Items data = widget.items;
-                    // bloc.fetchuserJobRequest(widget.token, data.rowId.toString());
-                    // showActionAlert(context,
-                    //     tittle: "Request Now",
-                    //     message: "Do you want to request this shift ?",
-                    //     item: widget.items);
                   },
                   key: null,
                 ),
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
-                // BuildButton(
-                //   label: "View Shift",
-                //   onPressed: () {
-                //     widget.onTapView(widget.items);
-                //   },
-                //   key: null,
-                // ),
                 Spacer(),
                 if (widget.items.type == "Premium")
                   Container(

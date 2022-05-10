@@ -103,9 +103,8 @@ class _HomeScreentate extends State<MyBookingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Constants.colors[9],
@@ -141,14 +140,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("Rejected Shift"),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
                             child: Text("Completed Shift"),
                           ),
                         ),
@@ -171,7 +162,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
                           bookingList(0, snapshot),
                           bookingList(1, snapshot),
                           bookingList(2, snapshot),
-                          bookingList(3, snapshot)
                         ]);
                       } else if (snapshot.hasError) {
                         return Text(snapshot.error.toString());
@@ -217,10 +207,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
     }
 
     if (position == 2) {
-      list = allList.reject;
-    }
-
-    if (position == 3) {
       list = allList.completed;
     }
 

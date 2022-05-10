@@ -161,13 +161,18 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       var item = snapshot.data![index];
-                                      if (item.availability == 0) {
-                                        availability = Availability.off;
-                                      } else if (item.availability == 1) {
+                                      if (item.availability == 1) {
                                         availability = Availability.day;
                                       } else if (item.availability == 2) {
                                         availability = Availability.night;
+                                      } else if (item.availability == 3) {
+                                        availability = Availability.morining;
+                                      } else if (item.availability == 4) {
+                                        availability = Availability.afternoon;
+                                      } else {
+                                        availability = Availability.off;
                                       }
+
                                       return Padding(
                                         padding: const EdgeInsets.only(
                                             left: 8.0, right: 8.0),
@@ -215,6 +220,40 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                         Colors
                                                                             .green),
                                                             value: Availability
+                                                                .morining,
+                                                            groupValue:
+                                                                availability,
+                                                            onChanged: (value) {
+                                                              updateShiftAvailabaity(
+                                                                  1,
+                                                                  item.date
+                                                                      .toString());
+                                                              setState(() {
+                                                                availability =
+                                                                    value;
+                                                              });
+                                                            },
+                                                          ),
+                                                          Text('Morining'),
+                                                        ],
+                                                      ),
+                                                      flex: 1,
+                                                    ),
+                                                    Expanded(
+                                                      child: Column(
+                                                        children: [
+                                                          Radio<Availability>(
+                                                            fillColor: MaterialStateColor
+                                                                .resolveWith(
+                                                                    (states) =>
+                                                                        Colors
+                                                                            .green),
+                                                            focusColor: MaterialStateColor
+                                                                .resolveWith(
+                                                                    (states) =>
+                                                                        Colors
+                                                                            .green),
+                                                            value: Availability
                                                                 .day,
                                                             groupValue:
                                                                 availability,
@@ -230,6 +269,40 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                             },
                                                           ),
                                                           Text('Day'),
+                                                        ],
+                                                      ),
+                                                      flex: 1,
+                                                    ),
+                                                    Expanded(
+                                                      child: Column(
+                                                        children: [
+                                                          Radio<Availability>(
+                                                            fillColor: MaterialStateColor
+                                                                .resolveWith(
+                                                                    (states) =>
+                                                                        Colors
+                                                                            .green),
+                                                            focusColor: MaterialStateColor
+                                                                .resolveWith(
+                                                                    (states) =>
+                                                                        Colors
+                                                                            .green),
+                                                            value: Availability
+                                                                .afternoon,
+                                                            groupValue:
+                                                                availability,
+                                                            onChanged: (value) {
+                                                              updateShiftAvailabaity(
+                                                                  1,
+                                                                  item.date
+                                                                      .toString());
+                                                              setState(() {
+                                                                availability =
+                                                                    value;
+                                                              });
+                                                            },
+                                                          ),
+                                                          Text('Afternoon'),
                                                         ],
                                                       ),
                                                       flex: 1,
