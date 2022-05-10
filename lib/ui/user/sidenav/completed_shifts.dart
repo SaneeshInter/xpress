@@ -17,6 +17,7 @@ import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../Widgets/buttons/build_button.dart';
 import '../../error/ConnectionFailedScreen.dart';
+import '../../widgets/completed_shift_list.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_list_item.dart';
 import '../common/side_menu.dart';
@@ -67,35 +68,6 @@ class _CompletedShiftState extends State<CompletedShift> {
     if (respo == 1) {
       getData();
     }
-  }
-
-  Future getImage(ImgSource source) async {
-    var image = await ImagePickerGC.pickImage(
-        enableCloseButton: true,
-        closeIcon: Icon(
-          Icons.close,
-          color: Colors.red,
-          size: 12,
-        ),
-        context: context,
-        source: source,
-        barrierDismissible: true,
-        cameraIcon: Icon(
-          Icons.camera_alt,
-          color: Colors.red,
-        ),
-        //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
-        cameraText: Text(
-          "From Camera",
-          style: TextStyle(color: Colors.red),
-        ),
-        galleryText: Text(
-          "From Gallery",
-          style: TextStyle(color: Colors.blue),
-        ));
-    setState(() {
-      _image = image;
-    });
   }
 
   @override
@@ -171,14 +143,6 @@ class _CompletedShiftState extends State<CompletedShift> {
           ),
           centerTitle: true,
         ),
-
-        // drawer: Drawer(
-        //   child: SideMenu(),
-        // ),
-        // appBar: AppBarCommon(
-        //   _scaffoldKey,
-        //   scaffoldKey: _scaffoldKey,
-        // ),
         backgroundColor: Constants.colors[9],
         body: SingleChildScrollView(
           child: Stack(
@@ -187,43 +151,6 @@ class _CompletedShiftState extends State<CompletedShift> {
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth(context, dividedBy: 35)),
                   child: Column(children: [
-                    SizedBox(height: screenHeight(context, dividedBy: 60)),
-                    Container(
-                        child: _image != null
-                            ? Image.file(File(_image.path))
-                            : Container()),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    if (buttonVisibility)
-                      DottedBorder(
-                        borderType: BorderType.RRect,
-                        dashPattern: [10, 10],
-                        color: Colors.green,
-                        strokeWidth: 1,
-                        child: GestureDetector(
-                          onTap: () {
-                            print("On tap");
-                            getImage(ImgSource.Both);
-                          },
-                          child: Container(
-                            color: Colors.white,
-                            width: 100.w,
-                            height: 10.w,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/images/icon/notification.svg',
-                                  color: Colors.green,
-                                ),
-                                SizedBox(width: 10),
-                                Text("Upload Shift Document Photos"),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
                     SizedBox(height: screenHeight(context, dividedBy: 60)),
                     StreamBuilder(
                         stream: completeBloc.allShift,
@@ -273,36 +200,6 @@ class _CompletedShiftState extends State<CompletedShift> {
                     SizedBox(
                       height: 10,
                     ),
-                    if (buttonVisibility)
-                      BuildButton(
-                        label: "Upload Timesheets",
-                        onPressed: () {
-                          setState(() {
-                            visibility = true;
-                          });
-
-                          String shiftid = "";
-                          print("PRINT UPLOAD LISTS");
-                          for (var item in list) {
-                            shiftid = shiftid + item + ",";
-                          }
-
-                          print(shiftid);
-                          if (_image != null) {
-                            if (shiftid.isNotEmpty) {
-                              completeBloc.uploadTimeSheet(
-                                  token, shiftid, File(_image.path));
-                            } else {
-                              showAlertDialoge(context,
-                                  title: "Alert", message: "Select Shift");
-                            }
-                          } else {
-                            showAlertDialoge(context,
-                                title: "Alert", message: "Upload Timesheet");
-                          }
-                        },
-                        key: null,
-                      ),
                     SizedBox(
                       height: 20,
                     ),
@@ -338,26 +235,12 @@ class _CompletedShiftState extends State<CompletedShift> {
         var items = data?.items![index];
         return Column(
           children: [
-            TimeSheetListWidget(
+            CompletedBookingWidget(
               onTapView: () {},
               onTapCall: () {},
               onTapMap: () {},
               onTapBooking: () {},
               items: items!,
-              onCheckBoxClicked: (rowId, isSelect) {
-                print(rowId);
-                print(isSelect);
-                if (isSelect) {
-                  list.add(rowId.toString());
-                } else {
-                  list.remove(rowId.toString());
-                }
-                // String string = "";
-                // for (var item in list) {
-                //   string = string + item + ",";
-                // }
-                // print(string);
-              },
             ),
             SizedBox(height: screenHeight(context, dividedBy: 100)),
           ],
