@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:xpresshealthdev/model/user_getschedule_bydate.dart';
 
 import '../home/find_shift_screen.dart';
 
 
 class MyShiftCalender extends StatefulWidget {
+
+  MyShiftCalender(List<Items> list);
+
   @override
   State<MyShiftCalender> createState() => _MyShiftCalenderState();
 }

@@ -9,9 +9,11 @@ import 'package:xpresshealthdev/ui/user/home/availability_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/completed_shift_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/home_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/my_booking_screen.dart';
+import 'package:xpresshealthdev/ui/user/home/my_shift_calendar.dart';
 
 import '../ui/user/home/find_shift_screen.dart';
 import '../utils/constants.dart';
+import 'manager/home/shift_calendar_screen.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
@@ -38,8 +40,10 @@ class _DashBoardWidgetState extends State<DashBoard> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    FindShiftScreen(),
+    // FindShiftScreen(),
     // FindshiftCalendar(),
+
+    FindshiftCalendar(),
     // ShiftCalendarScreen(),
     MyBookingScreen(),
     AvailabilityListScreen(),
