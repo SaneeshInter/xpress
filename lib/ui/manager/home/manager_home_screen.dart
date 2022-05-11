@@ -2,9 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:xpresshealthdev/ui/manager/home/approved_timesheet_screen.dart';
 import 'package:xpresshealthdev/ui/manager/home/create_shift_screen.dart';
 import 'package:xpresshealthdev/ui/manager/home/my_shifts_screen.dart';
@@ -51,8 +49,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
       });
     });
   }
-
-
 
   Future getData() async {
     token = await TokenProvider().getToken();
@@ -143,7 +139,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
       children: <Widget>[
         Expanded(
           child: HomeButton(
-              onPressed: sendingMails("manager@xpress.in"),
+              onPressed: () => sendingMails("manager@xpress.in"),
               label: "Send Mail",
               asset: "assets/images/icon/email.svg",
               textColors: Constants.colors[0],
@@ -183,8 +179,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
     );
   }
 
-
-
   Widget horizontalList() {
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -203,10 +197,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
           }),
     );
   }
-
-
-
-
 
   Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
     return ListView.builder(
@@ -275,7 +265,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
       },
     );
   }
-
 
   // Widget horizontalList() {
   //   return ConstrainedBox(

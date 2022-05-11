@@ -325,16 +325,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (context) => const ManagerDashBoard()),
                         );
                       }
+
                     }
                   }
                 }
               }
             }
           }
-        } else {
-          showAlertDialoge(context, title: "Login Failed", message: message!);
         }
+      }else {
+        showAlertDialoge(context, title: "Login Failed", message: message!);
       }
-    });
+    }
+    );
   }
 }
