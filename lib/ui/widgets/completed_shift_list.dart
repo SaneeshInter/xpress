@@ -29,77 +29,86 @@ class CompletedBookingWidget extends StatefulWidget {
 class _TimeSheetListState extends State<CompletedBookingWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: screenWidth(context, dividedBy: 1),
-      padding: EdgeInsets.symmetric(
-          horizontal: screenWidth(context, dividedBy: 25),
-          vertical: screenHeight(context, dividedBy: 70)),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          Row(children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                children: [
-                  AutoSizeText(
-                    "At : " + widget.items.hospital!,
-                    textAlign: TextAlign.start,
-                    maxLines: 3,
-                    style: TextStyle(
-                        color: Constants.colors[14],
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "SFProBold"),
-                  ),
-                ],
-              ),
-              SizedBox(height: screenHeight(context, dividedBy: 120)),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 1.0),
-                    child: Text(
-                      "On: " + widget.items.date!,
+    return GestureDetector(
+      onTap: () {
+        widget.onTapView(widget.items);
+       //  Navigator.push(
+       //    context,
+       //    MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: widget.items.rowId.toString(),)),
+       //  );
+      },
+      child: Container(
+        width: screenWidth(context, dividedBy: 1),
+        padding: EdgeInsets.symmetric(
+            horizontal: screenWidth(context, dividedBy: 25),
+            vertical: screenHeight(context, dividedBy: 70)),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
+        child: Column(
+          children: [
+            Row(children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Row(
+                  children: [
+                    AutoSizeText(
+                      "At : " + widget.items.hospital!,
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
                       style: TextStyle(
-                          fontSize: 9.sp,
-                          color: Constants.colors[13],
-                          fontWeight: FontWeight.w400),
+                          color: Constants.colors[14],
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "SFProBold"),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 3.0),
-                    child: Text(
-                      "From " +
-                          widget.items.timeFrom! +
-                          " To " +
-                          widget.items.timeTo!,
-                      style: TextStyle(
-                          fontSize: 9.sp,
-                          color: Constants.colors[13],
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: screenHeight(context, dividedBy: 120)),
-              if (null != widget.items.userType)
-                Text(
-                  widget.items.userType!,
-                  style: TextStyle(
-                      fontSize: 11.sp,
-                      color: Constants.colors[3],
-                      fontWeight: FontWeight.w500),
+                  ],
                 ),
+                SizedBox(height: screenHeight(context, dividedBy: 120)),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 1.0),
+                      child: Text(
+                        "On: " + widget.items.date!,
+                        style: TextStyle(
+                            fontSize: 9.sp,
+                            color: Constants.colors[13],
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 3.0),
+                      child: Text(
+                        "From " +
+                            widget.items.timeFrom! +
+                            " To " +
+                            widget.items.timeTo!,
+                        style: TextStyle(
+                            fontSize: 9.sp,
+                            color: Constants.colors[13],
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: screenHeight(context, dividedBy: 120)),
+                if (null != widget.items.userType)
+                  Text(
+                    widget.items.userType!,
+                    style: TextStyle(
+                        fontSize: 11.sp,
+                        color: Constants.colors[3],
+                        fontWeight: FontWeight.w500),
+                  ),
+              ]),
+              Spacer(),
             ]),
-            Spacer(),
-          ]),
-          SizedBox(height: screenHeight(context, dividedBy: 120)),
-        ],
+            SizedBox(height: screenHeight(context, dividedBy: 120)),
+          ],
+        ),
       ),
     );
   }

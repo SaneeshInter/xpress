@@ -4,11 +4,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
+
 import '../../../Constants/app_defaults.dart';
 import '../../../Constants/sharedPrefKeys.dart';
+import '../../../db/database.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
+import '../../splash/user_or_manager.dart';
+import '../home/profile_screen.dart';
 import '../sidenav/completed_shifts.dart';
 import '../sidenav/submit_timesheets.dart';
 
@@ -157,10 +160,18 @@ class _SideMenuState extends State<SideMenu> {
               ),
             ),
             onTap: () {
-              pop(context);
-              Navigator.pushNamed(context, '/profile').then((_) {
-                // This block runs when you have returned back to the 1st Page from 2nd.
-              });
+              Navigator.pop(context);
+              pushNewScreen(
+                context,
+                screen: ProfileScreen(),
+                withNavBar: true, // OPTIONAL VALUE. True by default.
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+
+              // pop(context);
+              // Navigator.pushNamed(context, '/profile').then((_) {
+              //   // This block runs when you have returned back to the 1st Page from 2nd.
+              // });
             },
           ),
           ListTile(
@@ -177,6 +188,8 @@ class _SideMenuState extends State<SideMenu> {
               ),
             ),
             onTap: () {
+              // Update the state of the app.
+              // ...
               Navigator.pop(context);
               pushNewScreen(
                 context,
@@ -218,7 +231,7 @@ class _SideMenuState extends State<SideMenu> {
               width: 5.w,
               height: 5.w,
               child: SvgPicture.asset(
-                'assets/images/icon/notification.svg',
+                'assets/images/icon/shift.svg',
                 color: Colors.white,
               ),
             ),
@@ -283,19 +296,29 @@ class _SideMenuState extends State<SideMenu> {
                 color: Colors.white,
               ),
             ),
-            onTap: () {
-              Navigator.pushAndRemoveUntil<dynamic>(
-                context,
-                MaterialPageRoute<dynamic>(
-                  builder: (BuildContext context) => SplashScreen(),
-                ),
-                (route) =>
-                    false, //if you want to disable back feature set to false
-              );
+            onTap: () async {
+              await logOut(context);
             },
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> logOut(BuildContext context) async {
+    var db = Db();
+    db.clearDb();
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.clear();
+
+    Navigator.pop(context);
+
+    Navigator.pushAndRemoveUntil<dynamic>(
+      context,
+      MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => UserOrManager(),
+      ),
+      (route) => false, //if you want to disable back feature set to false
     );
   }
 }
