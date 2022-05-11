@@ -21,6 +21,7 @@ import '../../widgets/completed_shift_list.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_list_item.dart';
 import '../common/side_menu.dart';
+import '../detail/shift_detail.dart';
 
 class CompletedShift extends StatefulWidget {
   const CompletedShift({Key? key}) : super(key: key);
@@ -236,7 +237,18 @@ class _CompletedShiftState extends State<CompletedShift> {
         return Column(
           children: [
             CompletedBookingWidget(
-              onTapView: () {},
+              onTapView: (item) {
+                if (items is Items) {
+                  Items data = items;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ShiftDetailScreen(
+                          shift_id: data.rowId.toString(),
+                        )),
+                  );
+                }
+              },
               onTapCall: () {},
               onTapMap: () {},
               onTapBooking: () {},

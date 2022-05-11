@@ -27,6 +27,7 @@ import '../model/user_getschedule_by_month_year.dart';
 import '../model/user_getschedule_bydate.dart';
 import '../model/user_home_response.dart';
 import '../model/user_profile_update.dart';
+import '../model/user_shift_calender.dart';
 import '../model/user_time_sheet_details_respo.dart';
 import '../model/user_view_request_response.dart';
 import '../model/user_working_hours.dart';
@@ -86,7 +87,7 @@ class Repository {
           String token, String date) =>
       apiProvider.getUserScheduleByDate(token, date);
 
-  Future<UserGetScheduleByMonthYear> fetchGetUserScheduleByMonthYear(
+  Future<UserGetScheduleByMonthYear> fetchvGetUserScheduleByMonthYear(
           String token, String month, String year) =>
       apiProvider.getUserScheduleByMonthYear(token, month, year);
 
@@ -142,6 +143,12 @@ class Repository {
   Future<UserDocumentsResponse> uploadUserDoc(
           String token, File files, String type, String expiry_date) =>
       apiFileProvider.uploadUserDocuments(token, files, type, expiry_date);
+
+
+
+  Future<UserGetScheduleByYear> fetchuserscheduleyear(
+      String token, String year) =>
+      apiProvider.userScheduleByYears(token, year);
 
   Future<ProfileUpdateRespo> ProfileUser(
           String token,

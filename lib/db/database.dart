@@ -61,6 +61,7 @@ class Db {
     version: 1,
   );
 
+
   //HOSPITAL
   Future<void> insertAllowanceList(AllowanceList dog) async {
     // Get a reference to the database.
@@ -360,7 +361,7 @@ class Db {
     );
   }
 
-  // Define a function that inserts dogs into the database
+  // Define a function that delete the database
   Future<void> clearDb() async {
     // Get a reference to the database.
     final db = await database;

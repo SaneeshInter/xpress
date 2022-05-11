@@ -23,6 +23,7 @@ import '../model/user_getschedule_by_month_year.dart';
 import '../model/user_getschedule_bydate.dart';
 import '../model/user_job_request.dart';
 import '../model/user_profile_update.dart';
+import '../model/user_shift_calender.dart';
 import '../model/user_time_sheet_details_respo.dart';
 import '../model/user_view_request_response.dart';
 import '../model/user_working_hours.dart';
@@ -614,7 +615,7 @@ class ApiProvider {
 
   Future<UserGetScheduleByMonthYear> getUserScheduleByMonthYear(
       String token, String month, String year) async {
-    var uri = Uri.parse(BASE_URL + '/get-schedule-by-month');
+    var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-month');
     final response = await client.post(uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -635,6 +636,36 @@ class ApiProvider {
 
     if (response.statusCode == 200) {
       return UserGetScheduleByMonthYear.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+
+
+  Future<UserGetScheduleByYear> userScheduleByYears(
+      String token, String year) async {
+    var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-year');
+    final response = await client.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token,
+        },
+        body: jsonEncode(<String, String>{
+
+          'year': year,
+        }));
+
+    print("PRINT  YEAR" + token);
+
+    print(jsonEncode(<String, String>{
+
+      'year': year,
+    }).toString());
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return UserGetScheduleByYear.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load post');
     }
