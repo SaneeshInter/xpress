@@ -652,14 +652,11 @@ class ApiProvider {
           'token': token,
         },
         body: jsonEncode(<String, String>{
-
           'year': year,
         }));
 
     print("PRINT  YEAR" + token);
-
     print(jsonEncode(<String, String>{
-
       'year': year,
     }).toString());
     print(response.body);
