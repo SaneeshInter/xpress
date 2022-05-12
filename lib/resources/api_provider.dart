@@ -5,6 +5,7 @@ import 'package:xpresshealthdev/model/user_get_shift_details.dart';
 import 'package:xpresshealthdev/model/user_home_response.dart';
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
+import '../model/manager_shift_calendar_respo.dart';
 import '../model/manager_get_time.dart';
 import '../model/manager_home_response.dart';
 import '../model/manager_response.dart';
@@ -663,6 +664,37 @@ class ApiProvider {
 
     if (response.statusCode == 200) {
       return UserGetScheduleByYear.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+
+
+
+  Future<ManagerGetScheduleByYear> managerScheduleByYears(
+      String token, String year) async {
+    var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-year');
+    final response = await client.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token,
+        },
+        body: jsonEncode(<String, String>{
+
+          'year': year,
+        }));
+
+    print("PRINT  YEAR" + token);
+
+    print(jsonEncode(<String, String>{
+
+      'year': year,
+    }).toString());
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return ManagerGetScheduleByYear.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load post');
     }

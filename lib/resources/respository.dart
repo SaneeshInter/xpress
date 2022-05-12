@@ -9,6 +9,7 @@ import 'package:xpresshealthdev/resources/api_provider.dart';
 
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
+import '../model/manager_shift_calendar_respo.dart';
 import '../model/manager_get_time.dart';
 import '../model/manager_home_response.dart';
 import '../model/manager_response.dart';
@@ -151,6 +152,10 @@ class Repository {
   Future<UserGetScheduleByYear> fetchuserscheduleyear(
       String token, String year) =>
       apiProvider.userScheduleByYears(token, year);
+
+  Future<ManagerGetScheduleByYear> fetchmanagerscheduleyear(
+      String token, String year) =>
+      apiProvider.managerScheduleByYears(token, year);
 
   Future<ProfileUpdateRespo> ProfileUser(
           String token,
