@@ -80,6 +80,12 @@ class _CreateShiftState extends State<ProfileEditScreen> {
     observerResponse();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    profileBloc.dispose();
+  }
+
   Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
@@ -121,10 +127,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {

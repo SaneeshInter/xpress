@@ -3,7 +3,6 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_getschedule_bydate.dart';
-import 'package:xpresshealthdev/ui/user/common/app_bar.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../blocs/shift_list_bloc.dart';
@@ -12,7 +11,6 @@ import '../../../utils/utils.dart';
 import '../../datepicker/date_picker_widget.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/shift_list_widget.dart';
-import '../common/side_menu.dart';
 import '../detail/shift_detail.dart';
 
 class FindShiftScreen extends StatefulWidget {
@@ -28,8 +26,14 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
   @override
   void initState() {
     super.initState();
-    getData(DateTime.now());
     observe();
+    getData(DateTime.now());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    bloc.dispose();
   }
 
   @override
@@ -167,6 +171,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                         MaterialPageRoute(
                             builder: (context) => ShiftDetailScreen(
                                   shift_id: data.rowId.toString(),
+                                  isCompleted: false,
                                 )),
                       );
                     }

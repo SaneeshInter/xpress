@@ -27,8 +27,9 @@ import 'drawable_custom_row.dart';
 
 class ShiftDetailScreen extends StatefulWidget {
   final String shift_id;
+  final bool isCompleted;
 
-  const ShiftDetailScreen({Key? key, required this.shift_id}) : super(key: key);
+  const ShiftDetailScreen({Key? key, required this.shift_id,required this.isCompleted}) : super(key: key);
 
   @override
   State<ShiftDetailScreen> createState() => _ShiftDetailScreenState();
@@ -53,12 +54,22 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     bloc.fetchuserJobRequest(token!, widget.shift_id.toString());
   }
 
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    // usershiftdetailsBloc.dispose();
+  }
+
   Future getDataz() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
     print("token inn deta");
     print(token);
     print(widget.shift_id);
+    print("widget.isCompleted");
+    print(widget.isCompleted);
     usershiftdetailsBloc.fetchGetUserShiftDetailsResponse(
         token!, widget.shift_id);
   }
@@ -346,6 +357,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                     ),
                                   ),
                                 ),
+
+                              if (!widget.isCompleted)
                               Padding(
                                 padding: const EdgeInsets.all(25.0),
                                 child: Row(

@@ -244,7 +244,7 @@ class _CompletedShiftState extends State<CompletedShift> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ShiftDetailScreen(
-                          shift_id: data.rowId.toString(),
+                          shift_id: data.rowId.toString(),isCompleted: true,
                         )),
                   );
                 }

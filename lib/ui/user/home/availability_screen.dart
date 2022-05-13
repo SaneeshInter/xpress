@@ -93,6 +93,12 @@ class _AvailabilityState extends State<AvailabilityScreen> {
   //   }
   // }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    availabilitybloc.dispose();
+  }
   void observe() {
     availabilitybloc.useravailabilitiydate.listen((event) {
       setState(() {

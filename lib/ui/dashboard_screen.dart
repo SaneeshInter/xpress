@@ -1,19 +1,21 @@
+import 'dart:math';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/user/common/app_bar.dart';
 import 'package:xpresshealthdev/ui/user/common/side_menu.dart';
 import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
-import 'package:xpresshealthdev/ui/user/home/availability_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/completed_shift_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/home_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/my_booking_screen.dart';
 import 'package:xpresshealthdev/ui/user/home/my_shift_calendar.dart';
 
-import '../ui/user/home/find_shift_screen.dart';
 import '../utils/constants.dart';
-import 'manager/home/shift_calendar_screen.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
@@ -27,12 +29,29 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 class _DashBoardWidgetState extends State<DashBoard> {
   late PersistentTabController _controller;
   late bool _hideNavBar;
-
+  String _firebaseAppToken = '';
   @override
   void initState() {
     super.initState();
     _controller = PersistentTabController(initialIndex: 0);
     _hideNavBar = false;
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: 10,
+          notificationLayout: NotificationLayout.BigPicture,
+          channelKey: 'big_picture',
+          title: 'Notification Test',
+          body: 'Test Notification fot xpress',
+          bigPicture:
+              'https://tecnoblog.net/wp-content/uploads/2019/09/emoji.jpg',
+        ),
+        actionButtons: [
+          NotificationActionButton(
+            key: "STOP",
+            label: "STOP",
+          ),
+        ]);
+    initializeFirebaseService();
   }
 
   int _selectedIndex = 0;
@@ -57,6 +76,94 @@ class _DashBoardWidgetState extends State<DashBoard> {
     });
   }
 
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initializeFirebaseService() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String firebaseAppToken = await messaging.getToken(
+      vapidKey: '',
+    ) ??
+        '';
+
+    if (AwesomeStringUtils.isNullOrEmpty(firebaseAppToken,
+        considerWhiteSpaceAsEmpty: true)) return;
+    if (!mounted) {
+      _firebaseAppToken = firebaseAppToken;
+    } else {
+      setState(() {
+        _firebaseAppToken = firebaseAppToken;
+      });
+    }
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+      if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
+          considerWhiteSpaceAsEmpty: true) ||
+          !AwesomeStringUtils.isNullOrEmpty(message.notification?.body,
+              considerWhiteSpaceAsEmpty: true)) {
+        print('Message also contained a notification: ${message.notification}');
+
+        String? imageUrl;
+        imageUrl ??= message.notification!.android?.imageUrl;
+        imageUrl ??= message.notification!.apple?.imageUrl;
+        Map<String, dynamic> notificationAdapter = {
+          NOTIFICATION_CONTENT: {
+            NOTIFICATION_ID: Random().nextInt(2147483647),
+            NOTIFICATION_CHANNEL_KEY: 'basic_channel',
+            NOTIFICATION_TITLE: message.notification!.title,
+            NOTIFICATION_BODY: message.notification!.body,
+            NOTIFICATION_LAYOUT: AwesomeStringUtils.isNullOrEmpty(imageUrl)
+                ? 'Default'
+                : 'BigPicture',
+            NOTIFICATION_BIG_PICTURE: imageUrl
+          }
+        };
+
+        AwesomeNotifications()
+            .createNotificationFromJsonData(notificationAdapter);
+      } else {
+        AwesomeNotifications().createNotificationFromJsonData(message.data);
+      }
+    });
+  }
+
+  void setUpNotification() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        // This is just a basic example. For real apps, you must show some
+        // friendly dialog box before call the request method.
+        // This is very important to not harm the user experience
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+    AwesomeNotifications().createdStream.listen((receivedNotification) {
+      String? createdSourceText = AwesomeAssertUtils.toSimpleEnumString(
+          receivedNotification.createdSource);
+      Fluttertoast.showToast(msg: '$createdSourceText notification created');
+    });
+
+    AwesomeNotifications().actionStream.listen((receivedAction) {
+      if (receivedAction.channelKey == 'call_channel') {
+        switch (receivedAction.buttonKeyPressed) {
+          case 'UPDATE':
+            print("REJECT");
+
+            break;
+          case 'STOP':
+            print("STOP");
+
+            break;
+          case 'ACCEPT':
+            print("ACCEPT");
+            break;
+
+          default:
+            print("default");
+            break;
+        }
+        return;
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     _controller = PersistentTabController(initialIndex: 0);
@@ -70,7 +177,10 @@ class _DashBoardWidgetState extends State<DashBoard> {
         // space to fit everything.
         child: SideMenu(),
       ),
-      appBar: AppBarCommon(_scaffoldKey, scaffoldKey: _scaffoldKey,),
+      appBar: AppBarCommon(
+        _scaffoldKey,
+        scaffoldKey: _scaffoldKey,
+      ),
       body: PersistentTabView(
         context,
         controller: _controller,

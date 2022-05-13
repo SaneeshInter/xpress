@@ -387,7 +387,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     ShiftDetailScreen(
-                                                      shift_id: shiftId,
+                                                      shift_id: shiftId,isCompleted: false,
                                                     )),
                                           );
                                         },
@@ -450,7 +450,7 @@ class _HomeScreentate extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => ShiftDetailScreen(
-                            shift_id: shiftId,
+                            shift_id: shiftId,isCompleted: false,
                           )),
                 );
               },

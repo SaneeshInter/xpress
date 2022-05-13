@@ -88,6 +88,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
 
 
 
+
   Future getToken() async {
     token = await TokenProvider().getToken();
   }
@@ -144,9 +145,10 @@ class _CreateShiftState extends State<CreateShiftScreen> {
 
   @override
   void dispose() {
+    super.dispose();
     managerBloc.dispose();
     dropdownBloc.dispose();
-    super.dispose();
+;
   }
 
   @override

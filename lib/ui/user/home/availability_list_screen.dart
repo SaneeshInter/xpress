@@ -47,6 +47,13 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    availabilitybloc.dispose();
+  }
+
   @override
   void initState() {
     super.initState();

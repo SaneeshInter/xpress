@@ -57,6 +57,12 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
   }
 
 
+  @override
+  void dispose() {
+    super.dispose();
+    viewbookingBloc.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {

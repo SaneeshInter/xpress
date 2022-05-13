@@ -39,6 +39,13 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
     getData();
   }
 
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    managerviewrequestBloc.dispose();
+  }
   Future getData() async {
     if (await isNetworkAvailable()) {
       setState(() {

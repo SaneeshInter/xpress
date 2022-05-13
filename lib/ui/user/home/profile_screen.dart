@@ -43,6 +43,13 @@ class _ProfileState extends State<ProfileScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+    profileBloc.dispose();
+  }
+
   Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {

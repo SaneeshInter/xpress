@@ -49,6 +49,12 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
       print("TOKEN NOT FOUND");
     }
   }
+  @override
+  void dispose() {
+    super.dispose();
+    timesheetBloc.dispose();
+  }
+
 
   void observe() {
     timesheetBloc.timesheet.listen((event) {

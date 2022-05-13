@@ -47,7 +47,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
           context,
           MaterialPageRoute(
               builder: (context) => ShiftDetailScreen(
-                    shift_id: widget.items.jobId.toString(),
+                    shift_id: widget.items.jobId.toString(),isCompleted: true,
                   )),
         );
       },

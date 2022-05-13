@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "606441532686",
+    "project_id": "xpress-health-inter",
+    "storage_bucket": "xpress-health-inter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606441532686:android:ddeda87fbcc784c413fb5f",
+        "android_client_info": {
+          "package_name": "com.intersmart.xpresshealthdev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606441532686-autovr8cqbubnhvpf3t0463bpovg8oll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmuKmD3R44hdrBZzQTe9zfylcZhDHwk4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606441532686-autovr8cqbubnhvpf3t0463bpovg8oll.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "606441532686-n5ogq2q7ekj4k6hkoqacfke9mjoqjs38.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.intersmart.xpresshealthdev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

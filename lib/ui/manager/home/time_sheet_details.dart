@@ -34,7 +34,11 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
 
     super.initState();
   }
-
+  @override
+  void dispose() {
+    super.dispose();
+    timesheetBloc.dispose();
+  }
   Future<void> getDataa() async {
     token = await TokenProvider().getToken();
     print(token);

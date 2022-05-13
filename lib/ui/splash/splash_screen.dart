@@ -48,11 +48,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    utility_bloc.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -63,6 +58,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
     observe();
   }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    utility_bloc.dispose();
+  }
+
 
   getData() async {
     if (await isNetworkAvailable()) {

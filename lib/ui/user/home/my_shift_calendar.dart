@@ -1,23 +1,20 @@
 import 'dart:collection';
-import 'package:auto_size_text/auto_size_text.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import '../../../blocs/user_shift_calendar.dart';
 import '../../../eventutil/eventutil.dart';
 import '../../../model/user_shift_calender.dart';
 import '../../../resources/token_provider.dart';
-import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/shift_list_calender_widget.dart';
-import '../../widgets/shift_list_widget.dart';
 import '../detail/shift_detail.dart';
-import '../underdev/event_tap.dart';
 
 class FindshiftCalendar extends StatefulWidget {
   const FindshiftCalendar({Key? key}) : super(key: key);
@@ -49,6 +46,13 @@ class _FindshiftState extends State<FindshiftCalendar> {
     equals: isSameDay,
     hashCode: getHashCode,
   );
+
+  @override
+  void dispose() {
+    super.dispose();
+    shiftcalenderBloc.dispose();
+  }
+
 
   @override
   void didUpdateWidget(covariant FindshiftCalendar oldWidget) {
@@ -92,7 +96,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
       context,
       MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
     );
-
     if (respo == 1) {
       getData();
     }
@@ -209,6 +212,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                                       ShiftDetailScreen(
                                                         shift_id: data.rowId
                                                             .toString(),
+                                                        isCompleted: false,
                                                       )),
                                             );
                                           }

@@ -58,6 +58,12 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    completeBloc.dispose();
+  }
+
   Future<void> showInternetNotAvailable() async {
     int respo = await Navigator.push(
       context,
