@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 
 class TextInputFiledDescription extends StatefulWidget {
@@ -44,34 +45,34 @@ class _BuildButtonState extends State<TextInputFiledDescription> {
         keyboardType: widget.keyboadType,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(5),
-            errorBorder: const OutlineInputBorder(
+            errorBorder:  OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              borderSide: BorderSide(color: Colors.grey, width: 1),
+              borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
             labelStyle: TextStyle(
                 fontFamily: 'SFProRegular',
                 fontWeight: FontWeight.w500,
                 fontSize: 10.sp,
                 color: Colors.grey),
-            enabledBorder: const OutlineInputBorder(
+            enabledBorder:  OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              borderSide: BorderSide(color: Colors.grey, width: 1),
+              borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
-            focusedBorder: const OutlineInputBorder(
+            focusedBorder:  OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              borderSide: BorderSide(color: Colors.grey, width: 1),
+              borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
             hintText: widget.hintText,
             hintStyle: TextStyle(
                 fontFamily: 'SFProRegular',
                 fontWeight: FontWeight.normal,
                 fontSize: 10.sp,
-                color: Colors.grey)),
+                color: Constants.colors[29])),
         style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 10.sp,
             decoration: TextDecoration.none,
-            color: Colors.brown),
+            color: Constants.colors[29]),
       ),
     ));
   }

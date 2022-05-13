@@ -10,7 +10,7 @@ class ShiftViewBookingBloc {
   final _removeManagerSchedule =
       PublishSubject<RemoveManagerScheduleResponse>();
 
-  Stream<ManagerScheduleListResponse> get allShift => _shiftViewBooking.stream;
+  Stream<ManagerScheduleListResponse> get allShifts => _shiftViewBooking.stream;
 
   Stream<RemoveManagerScheduleResponse> get removeshift =>
       _removeManagerSchedule.stream;

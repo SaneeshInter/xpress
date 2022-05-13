@@ -54,7 +54,7 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
           children: [
             Row(children: [
               Container(
-                width: 35.w,
+                width: 75.w,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -114,65 +114,8 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                     ]),
               ),
               Spacer(),
-              Column(
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    transformAlignment: Alignment.topLeft,
-                    child: Checkbox(
-                      checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
-                      value: isChecked,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isChecked = value!;
-                          isCheckedReject = !value;
-                        });
-                        widget.onCheckBoxClicked(
-                            widget.items.rowId.toString(), value);
-                      },
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    transformAlignment: Alignment.topLeft,
-                    child: Checkbox(
-                      checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
-                      value: isCheckedReject,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isCheckedReject = value!;
-                          isChecked = !value;
-                        });
-                        widget.onCheckBoxClicked(
-                            widget.items.rowId.toString(), value);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Container(
-                    width: 40.w,
-                    alignment: Alignment.topLeft,
-                    transformAlignment: Alignment.topLeft,
-                    child: TextInputFiledDescription(
-                        controlr: jobDescri,
-                        onTapDate: () {},
-                        validator: (jobDescri) {
-                          if (validDescription(jobDescri))
-                            return null;
-                          else
-                            return "enter job decscription";
-                        },
-                        hintText: "Comment",
-                        keyboadType: TextInputType.visiblePassword,
-                        isPwd: false),
-                  ),
-                ],
-              ),
+
+
             ]),
             SizedBox(height: screenHeight(context, dividedBy: 120)),
           ],

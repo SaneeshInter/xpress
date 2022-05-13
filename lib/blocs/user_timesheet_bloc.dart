@@ -15,7 +15,7 @@ class UserTimeSheet {
   Stream<UserTimeSheetRespo> get timesheetstream =>
       _usergettimesheet.stream;
 
-  Stream<UserTimeSheetDetailsRespo> get timedetailststream =>
+  Stream<UserTimeSheetDetailsRespo> get  timedetailststream =>
       _usertimedetails.stream;
 
   userGetTimeSheet(String token  ) async {

@@ -89,12 +89,31 @@ class _SideMenuState extends State<SideMenu> {
                                     if (profileImage != "")
                                       Image.network(
                                         profileImage,
-                                        fit: BoxFit.fill,
+                                        fit: BoxFit.fitHeight,
+                                        width: MediaQuery.of(
+                                            context)
+                                            .size
+                                            .width *
+                                            0.22,
+                                        height: MediaQuery.of(
+                                            context)
+                                            .size
+                                            .width *
+                                            0.22,
                                       ),
                                     if (profileImage == "")
                                       Image.asset(
                                         'assets/images/icon/man_ava.png',
-                                        fit: BoxFit.fill,
+                                        fit: BoxFit.fitHeight, width: MediaQuery.of(
+                                          context)
+                                          .size
+                                          .width *
+                                          0.22,
+                                        height: MediaQuery.of(
+                                            context)
+                                            .size
+                                            .width *
+                                            0.22,
                                       )
                                   ],
                                 ),

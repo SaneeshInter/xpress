@@ -15,6 +15,7 @@ import '../../error/ConnectionFailedScreen.dart';
 import '../../user/detail/drawable_custom_row.dart';
 import '../../widgets/request_user_list.dart';
 
+
 class ShiftDetailManagerScreen extends StatefulWidget {
   final String shift_id;
 
@@ -131,7 +132,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                               left: 14,
                                                               top: 10),
                                                       child: Text(
-                                                        "At. " +
+
                                                             hospitalDetail
                                                                 .hospitalName
                                                                 .toString(),

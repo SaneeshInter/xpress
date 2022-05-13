@@ -226,10 +226,16 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                   Stack(
                                                     children: [
                                                       Container(
+
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .width *
+                                                            0.22,
+                                                        height: MediaQuery.of(
+                                                            context)
+                                                            .size
+                                                            .width *
                                                             0.22,
                                                         child: ClipRRect(
                                                           borderRadius:
@@ -248,14 +254,37 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                   Image.network(
                                                                     profileImage,
                                                                     fit: BoxFit
-                                                                        .fill,
+                                                                        .fitHeight,
+                                                                    width: MediaQuery.of(
+                                                                        context)
+                                                                        .size
+                                                                        .width *
+                                                                        0.22,
+                                                                    height: MediaQuery.of(
+                                                                        context)
+                                                                        .size
+                                                                        .width *
+                                                                        0.22,
+
                                                                   ),
+
                                                                 if (profileImage ==
                                                                     "")
                                                                   Image.asset(
+
                                                                     'assets/images/icon/man_ava.png',
                                                                     fit: BoxFit
-                                                                        .fill,
+                                                                        .fitHeight,
+                                                                    width: MediaQuery.of(
+                                                                        context)
+                                                                        .size
+                                                                        .width *
+                                                                        0.22,
+                                                                    height: MediaQuery.of(
+                                                                        context)
+                                                                        .size
+                                                                        .width *
+                                                                        0.22,
                                                                   )
                                                               ],
                                                             ),
@@ -306,6 +335,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 Expanded(
                                                     flex: 1,
                                                     child: TextInputFileds(
+
                                                         controlr: first_name,
                                                         onTapDate: () {},
                                                         validator: (name) {
@@ -344,6 +374,14 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 ),
                                               ],
                                             ),
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.03,
+                                            ),
                                             Row(
                                               children: [
                                                 Expanded(
@@ -377,16 +415,15 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                             Radius.circular(5)),
                                                                     borderSide:
                                                                         BorderSide(
-                                                                            color:
-                                                                                Colors.grey),
+
+                                                                            color: Constants.colors[28],),
                                                                   ),
                                                                   focusedBorder: OutlineInputBorder(
                                                                       borderRadius:
                                                                           BorderRadius.all(Radius.circular(
                                                                               5.0)),
                                                                       borderSide: BorderSide(
-                                                                          color: Colors
-                                                                              .grey,
+                                                                          color: Constants.colors[28],
                                                                           width:
                                                                               1)),
                                                                   contentPadding:
@@ -395,6 +432,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                               3.0),
                                                                   labelText:
                                                                       "Nationality",
+
                                                                   labelStyle:
                                                                       TextStyle(
                                                                           fontSize:
@@ -434,8 +472,13 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(
-                                              height: 15,
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.05,
                                             ),
                                             Column(
                                               children: [
@@ -473,16 +516,14 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                               5)),
                                                                   borderSide:
                                                                       BorderSide(
-                                                                          color:
-                                                                              Colors.grey),
+                                                            color: Constants.colors[28]),
                                                                 ),
                                                                 focusedBorder: OutlineInputBorder(
                                                                     borderRadius:
                                                                         BorderRadius.all(Radius.circular(
                                                                             5.0)),
                                                                     borderSide: BorderSide(
-                                                                        color: Colors
-                                                                            .grey,
+                                                                        color: Constants.colors[28],
                                                                         width:
                                                                             1)),
                                                                 contentPadding:
@@ -642,6 +683,14 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 keyboadType:
                                                     TextInputType.number,
                                                 isPwd: false),
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.03,
+                                            ),
                                             TextInputFileds(
                                                 controlr: date,
                                                 validator: (dob) {
@@ -657,6 +706,14 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 hintText: Txt.dob,
                                                 keyboadType: TextInputType.none,
                                                 isPwd: false),
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.03,
+                                            ),
                                             Column(
                                               children: [
                                                 Container(
@@ -675,7 +732,16 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                           .visiblePassword,
                                                       isPwd: false),
                                                 ),
+
                                               ],
+                                            ),
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.03,
                                             ),
                                             Column(
                                               children: [
@@ -695,6 +761,14 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                       isPwd: false),
                                                 ),
                                               ],
+                                            ),
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.03,
                                             ),
                                             Column(
                                               children: [
@@ -718,6 +792,14 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 ),
                                               ],
                                             ),
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.03,
+                                            ),
                                             Column(
                                               children: [
                                                 Container(
@@ -738,6 +820,14 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 ),
                                               ],
                                             ),
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.03,
+                                            ),
                                             Column(
                                               children: [
                                                 Container(
@@ -757,6 +847,14 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                       isPwd: false),
                                                 ),
                                               ],
+                                            ),
+                                            SizedBox(
+                                              height:
+                                              MediaQuery.of(
+                                                  context)
+                                                  .size
+                                                  .width *
+                                                  0.03,
                                             ),
                                             Column(
                                               children: [
