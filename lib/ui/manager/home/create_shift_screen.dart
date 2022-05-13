@@ -83,7 +83,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
 
 
   Future getData(String date, String shifttype) async {
-    managerBloc.getUserListByDate(token!, date, shifttype);
+    managerBloc.getUserListByDate(token, date, shifttype);
   }
 
 
@@ -96,6 +96,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
   @override
   void initState() {
     getToken();
+
     observerResponse();
     dropdownBloc.addItem();
     managerBloc.getDropDownValues();
@@ -238,14 +239,13 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                           borderRadius:
                                                                               BorderRadius.all(Radius.circular(5)),
                                                                           borderSide:
-                                                                              BorderSide(color: Colors.grey),
+                                                                              BorderSide( color: Constants.colors[28],),
                                                                         ),
                                                                         focusedBorder: OutlineInputBorder(
                                                                             borderRadius: BorderRadius.all(Radius.circular(
                                                                                 8.0)),
                                                                             borderSide: BorderSide(
-                                                                                color: Colors
-                                                                                    .grey,
+                                                                                color: Constants.colors[28],
                                                                                 width:
                                                                                     1)),
                                                                         contentPadding:
@@ -270,8 +270,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                               .sp,
                                                                           decoration: TextDecoration
                                                                               .none,
-                                                                          color:
-                                                                              Colors.grey),
+                                                                        color: Constants.colors[29],),
                                                                     ),
                                                                     value: item
                                                                         .rowId,
@@ -334,16 +333,14 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                             Radius.circular(5)),
                                                                     borderSide:
                                                                         BorderSide(
-                                                                            color:
-                                                                                Colors.grey),
+                                                                          color: Constants.colors[28],),
                                                                   ),
                                                                   focusedBorder: OutlineInputBorder(
                                                                       borderRadius:
                                                                           BorderRadius.all(Radius.circular(
                                                                               8.0)),
                                                                       borderSide: BorderSide(
-                                                                          color: Colors
-                                                                              .grey,
+                                                                          color: Constants.colors[28],
                                                                           width:
                                                                               1)),
                                                                   contentPadding:
@@ -372,8 +369,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                               .sp,
                                                                           decoration: TextDecoration
                                                                               .none,
-                                                                          color:
-                                                                              Colors.grey),
+                                                                        color: Constants.colors[29],),
                                                                     ),
                                                                     value: item
                                                                         .rowId,
@@ -434,14 +430,13 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                           borderRadius:
                                                                               BorderRadius.all(Radius.circular(5.0)),
                                                                           borderSide:
-                                                                              BorderSide(color: Colors.grey),
+                                                                              BorderSide( color: Constants.colors[28],),
                                                                         ),
                                                                         focusedBorder: OutlineInputBorder(
                                                                             borderRadius: BorderRadius.all(Radius.circular(
                                                                                 8.0)),
                                                                             borderSide: BorderSide(
-                                                                                color: Colors
-                                                                                    .grey,
+                                                                                color: Constants.colors[28],
                                                                                 width:
                                                                                     1)),
                                                                         contentPadding:
@@ -466,8 +461,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                               .sp,
                                                                           decoration: TextDecoration
                                                                               .none,
-                                                                          color:
-                                                                              Colors.grey),
+                                                                        color: Constants.colors[29],),
                                                                     ),
                                                                     value: item
                                                                         .rowId,
@@ -513,6 +507,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                               }
 
                                                               return DropdownButtonFormField(
+                                                                isExpanded: true,
                                                                 value:
                                                                     hospitalId,
                                                                 decoration:
@@ -522,14 +517,13 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                           borderRadius:
                                                                               BorderRadius.all(Radius.circular(5)),
                                                                           borderSide:
-                                                                              BorderSide(color: Colors.grey),
+                                                                              BorderSide( color: Constants.colors[28],),
                                                                         ),
                                                                         focusedBorder: OutlineInputBorder(
                                                                             borderRadius: BorderRadius.all(Radius.circular(
                                                                                 8.0)),
                                                                             borderSide: BorderSide(
-                                                                                color: Colors
-                                                                                    .grey,
+                                                                                color: Constants.colors[28],
                                                                                 width:
                                                                                     1)),
                                                                         contentPadding:
@@ -544,18 +538,19 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                     ?.map(
                                                                         (item) {
                                                                   return DropdownMenuItem(
+
+
                                                                     child:
                                                                         new Text(
-                                                                      item.name!,
+                                                                      item.name!,overflow: TextOverflow.clip,
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight
                                                                               .w500,
-                                                                          fontSize: 10
+                                                                          fontSize: 8
                                                                               .sp,
                                                                           decoration: TextDecoration
                                                                               .none,
-                                                                          color:
-                                                                              Colors.grey),
+                                                                        color: Constants.colors[29],),
                                                                     ),
                                                                     value: item
                                                                         .rowId,
@@ -603,6 +598,9 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                   ),
                                                 ],
                                               ),
+                                              const SizedBox(
+                                                height: 15,
+                                              ),
                                               Column(
                                                 children: [
                                                   Row(
@@ -641,14 +639,13 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                           borderRadius:
                                                                               BorderRadius.all(Radius.circular(5.0)),
                                                                           borderSide:
-                                                                              BorderSide(color: Colors.grey),
+                                                                              BorderSide( color: Constants.colors[28],),
                                                                         ),
                                                                         focusedBorder: OutlineInputBorder(
                                                                             borderRadius: BorderRadius.all(Radius.circular(
                                                                                 8.0)),
                                                                             borderSide: BorderSide(
-                                                                                color: Colors
-                                                                                    .grey,
+                                                                                color: Constants.colors[28],
                                                                                 width:
                                                                                     1)),
                                                                         contentPadding:
@@ -673,8 +670,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                               .sp,
                                                                           decoration: TextDecoration
                                                                               .none,
-                                                                          color:
-                                                                              Colors.grey),
+                                                                        color: Constants.colors[29],),
                                                                     ),
                                                                     value: item
                                                                         .rowId,
@@ -688,8 +684,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                     shiftType =
                                                                         value
                                                                             .rowId!;
-                                                                    print("PRINT THE RESPONSES");
-                                                                   getData(date.text , shiftType.toString());
+
                                                                   }
                                                                 },
                                                               );
@@ -808,14 +803,13 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                           borderRadius:
                                                                               BorderRadius.all(Radius.circular(5.0)),
                                                                           borderSide:
-                                                                              BorderSide(color: Colors.grey),
+                                                                              BorderSide( color: Constants.colors[28],),
                                                                         ),
                                                                         focusedBorder: OutlineInputBorder(
                                                                             borderRadius: BorderRadius.all(Radius.circular(
                                                                                 8.0)),
                                                                             borderSide: BorderSide(
-                                                                                color: Colors
-                                                                                    .grey,
+                                                                                color: Constants.colors[28],
                                                                                 width:
                                                                                     1)),
                                                                         contentPadding:
@@ -840,8 +834,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                               .sp,
                                                                           decoration: TextDecoration
                                                                               .none,
-                                                                          color:
-                                                                              Colors.grey),
+                                                                        color: Constants.colors[29],),
                                                                     ),
                                                                     value: item
                                                                         .rowId,
@@ -910,6 +903,9 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                         false),
                                                           ),
                                                         ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 10,
                                                       ),
                                                       Expanded(
                                                         flex: 1,
@@ -988,33 +984,33 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                  // RaisedButton(
-                                                  //   onPressed: () {
-                                                  //     showModalBottomSheet(
-                                                  //         context: context,
-                                                  //         builder: (context) {
-                                                  //           return AllowanceBottomSheet(
-                                                  //             onSumbmit: () {},
-                                                  //             onTapView: () {},
-                                                  //             value: 1,
-                                                  //           );
-                                                  //         });
-                                                  //   },
-                                                  //   padding: EdgeInsets.only(
-                                                  //       left: 10,
-                                                  //       right: 10,
-                                                  //       top: 5,
-                                                  //       bottom: 5),
-                                                  //   color: Colors.blueAccent,
-                                                  //   child: Text(
-                                                  //     'Add Allowances',
-                                                  //     style: TextStyle(fontSize: 10.sp,
-                                                  //         color: Colors.white,
-                                                  //         fontWeight:
-                                                  //             FontWeight.w500,
-                                                  //         letterSpacing: 0.6),
-                                                  //   ),
-                                                  // ),
+                                                  RaisedButton(
+                                                    onPressed: () {
+                                                      showModalBottomSheet(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return AllowanceBottomSheet(
+                                                              onSumbmit: () {},
+                                                              onTapView: () {},
+                                                              value: 1,
+                                                            );
+                                                          });
+                                                    },
+                                                    padding: EdgeInsets.only(
+                                                        left: 10,
+                                                        right: 10,
+                                                        top: 5,
+                                                        bottom: 5),
+                                                    color: Colors.blueAccent,
+                                                    child: Text(
+                                                      'Add Allowances',
+                                                      style: TextStyle(fontSize: 10.sp,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          letterSpacing: 0.6),
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                               const SizedBox(

@@ -9,10 +9,10 @@ import 'package:xpresshealthdev/resources/api_provider.dart';
 
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
-import '../model/manager_shift_calendar_respo.dart';
 import '../model/manager_get_time.dart';
 import '../model/manager_home_response.dart';
 import '../model/manager_response.dart';
+import '../model/manager_shift_calendar_respo.dart';
 import '../model/manager_timesheet.dart';
 import '../model/manager_view_request.dart';
 import '../model/remove_manager_schedule.dart';
@@ -50,9 +50,9 @@ class Repository {
 
   Future<SliftListRepso> fetchConfirm() => apiProvider.fetchConfirm();
 
-  Future<ManagerScheduleListResponse> fetchUserListByDate(
-          String token, String date) =>
-      apiProvider.fetchUserListByDate(token, date);
+  // Future<ManagerScheduleListResponse> fetchUserListByDate(
+  //         String token, String date) =>
+  //     apiProvider.fetchUserListByDate(token, date);
 
   Future<ManagerScheduleListResponse> fetchViewbooking(
           String token, String date) =>
@@ -61,8 +61,9 @@ class Repository {
   Future<UserTimeSheetRespo> fetchUserGetTimeSheet(String token) =>
       apiProvider.userGetTimesheet(token);
 
-  Future<UserTimeSheetDetailsRespo> fetchUserGetTimeSheetDetails(String token,String time_shhet_id) =>
-      apiProvider.userGetTimeDetails(token,time_shhet_id);
+  Future<UserTimeSheetDetailsRespo> fetchUserGetTimeSheetDetails(
+          String token, String time_shhet_id) =>
+      apiProvider.userGetTimeDetails(token, time_shhet_id);
 
   ///MANAGER TIME SHEET
   Future<ManagerTimeSheetResponse> fetchManagerTimesheet(String token) =>
@@ -145,16 +146,12 @@ class Repository {
           String token, File files, String type, String expiry_date) =>
       apiFileProvider.uploadUserDocuments(token, files, type, expiry_date);
 
-
-
-
-
   Future<UserGetScheduleByYear> fetchuserscheduleyear(
-      String token, String year) =>
+          String token, String year) =>
       apiProvider.userScheduleByYears(token, year);
 
   Future<ManagerGetScheduleByYear> fetchmanagerscheduleyear(
-      String token, String year) =>
+          String token, String year) =>
       apiProvider.managerScheduleByYears(token, year);
 
   Future<ProfileUpdateRespo> ProfileUser(
@@ -204,7 +201,7 @@ class Repository {
     String shift,
     String allowances,
   ) =>
-      apiProvider.CreateShiftManager(
+      apiFileProvider.CreateShiftManagers(
           token,
           type.toString(),
           row_id,

@@ -9,7 +9,6 @@ import '../../../model/manager_get_time.dart';
 import '../../../model/manager_timesheet.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/utils.dart';
-import '../../Widgets/buttons/build_button.dart';
 import '../../user/home/my_booking_screen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
@@ -25,7 +24,7 @@ class ManagerTimeSheetDetails extends StatefulWidget {
 
 class _CreateShiftState extends State<ManagerTimeSheetDetails> {
   var token;
-  var time_shhet_id = "85";
+  var time_shhet_id = "";
 
   @override
   void initState() {
@@ -41,6 +40,8 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
   }
   Future<void> getDataa() async {
     token = await TokenProvider().getToken();
+
+    time_shhet_id = widget.item!.timeSheetId.toString();
     print(token);
     if (null != token) {
       setState(() {
@@ -54,9 +55,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
 
   void observe() {
     timesheetBloc.timesheetdetails.listen((event) {
-      setState(() {
-        visibility = false;
-      });
+      // setState(() {
+      //   visibility = true;
+      // });
     });
   }
 
@@ -70,17 +71,13 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 16, top: 10),
                   child: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * .4,
+                    width: MediaQuery.of(context).size.width * .4,
                     child: AutoSizeText(
                       "Time Sheet",
                       maxLines: 1,
@@ -93,10 +90,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,17 +98,14 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                       Container(
                           child: imageUrl != null
                               ? Image.network(
-                            imageUrl,
-                            fit: BoxFit.fill,
-                          )
+                                  imageUrl,
+                                  fit: BoxFit.fill,
+                                )
                               : Container()),
                       Padding(
                         padding: const EdgeInsets.only(left: 16, top: 10),
                         child: Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * .4,
+                          width: MediaQuery.of(context).size.width * .4,
                           child: AutoSizeText(
                             "Shifts",
                             maxLines: 1,
@@ -144,23 +135,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                 SizedBox(
                   height: 5.w,
                 ),
-                Center(
-                  child: Container(
-                    child: BuildButton(
-                      label: "Approve ",
-                      onPressed: () {
-                        showAlertDialoge(context, message: "Feacture",
-                            title: "This feacture is under development");
-                      },
-                      key: null,
-                    ),
-                  ),
-                ),
-
                 SizedBox(
                   height: 10.w,
                 ),
-
               ],
             ),
             Center(
@@ -189,7 +166,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
       itemBuilder: (BuildContext context, int index) {
         if (null != snapshot.data?.response?.data?.timeSheetDetails) {
           TimeSheetDetails? timeSheetDetails =
-          snapshot.data?.response?.data?.timeSheetDetails![index];
+              snapshot.data?.response?.data?.timeSheetDetails![index];
 
           return Column(
             children: [
@@ -203,7 +180,8 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                   showBookingAlert(context, date: "Show Timesheet");
                 },
                 key: null,
-                onCheckBoxClicked: () {}, onRejectCheckBoxClicked: (){},
+                onCheckBoxClicked: () {},
+                onRejectCheckBoxClicked: () {},
               ),
               SizedBox(height: screenHeight(context, dividedBy: 100)),
             ],

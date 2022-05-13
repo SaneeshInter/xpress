@@ -148,7 +148,7 @@ class CreateShiftmanagerBloc {
       job_details,
       price,
       shift,
-      allowances,
+      json,
     );
 
     _getmanager.sink.add(respo);

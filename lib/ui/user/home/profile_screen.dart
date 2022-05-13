@@ -221,7 +221,12 @@ class _ProfileState extends State<ProfileScreen> {
                                                 0.12,
                                             child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(16),
+                                              BorderRadius.circular(
+                                                  MediaQuery.of(
+                                                      context)
+                                                      .size
+                                                      .width *
+                                                      0.22),
                                               child: AspectRatio(
                                                 aspectRatio: 1 / 1,
                                                 child: Stack(
@@ -237,6 +242,16 @@ class _ProfileState extends State<ProfileScreen> {
                                                       Image.network(
                                                         profileImage,
                                                         fit: BoxFit.fill,
+                                                        width: MediaQuery.of(
+                                                            context)
+                                                            .size
+                                                            .width *
+                                                            0.22,
+                                                        height: MediaQuery.of(
+                                                            context)
+                                                            .size
+                                                            .width *
+                                                            0.22,
                                                       ),
                                                   ],
                                                 ),

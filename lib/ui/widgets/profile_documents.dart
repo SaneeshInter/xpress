@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 import 'package:flutter/material.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:xpresshealthdev/blocs/profile_update_bloc.dart';
@@ -31,16 +32,18 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
   String signaturePic = "";
   String phpdocument = "";
   String qqqidocument = "";
+
   String ipcccdocument = "";
   String ecsdocument = "";
   String piddocument = "";
-
 
   @override
   void didUpdateWidget(covariant ProfileDocumentsCard oldWidget) {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
+
+
 
   Future getImage(ImgSource source, var type) async {
     var image = await ImagePickerGC.pickImage(
@@ -67,6 +70,9 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
           style: TextStyle(color: Colors.green),
         ));
 
+
+
+
     if (image != null) {
       if (type == "profilepic") {
         setState(() {
@@ -79,28 +85,31 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
           signaturePic = image.path;
         });
       }
-      if (type == "people_handling_document") {
+      if (type == "phd") {
         setState(() {
           phpdocument = image.path;
         });
       }
-      if (type == "qqqi_level5_certification") {
+
+      if (type == "qqqi") {
         setState(() {
           qqqidocument = image.path;
         });
       }
 
-      if (type == "infection_prevention_control_certificate") {
+      if (type == "ipcc") {
         setState(() {
           ipcccdocument = image.path;
         });
       }
-      if (type == "employment_contract_signed") {
+
+      if (type == "ecs") {
         setState(() {
           ecsdocument = image.path;
         });
       }
-      if (type == "passport_id_card") {
+
+      if (type == "pid") {
         setState(() {
           piddocument = image.path;
         });
@@ -112,6 +121,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
   @override
   void initState() {
     profilePicture = "";
+
     getData();
     observe();
     super.initState();
@@ -167,7 +177,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "people_handling_document");
+                getImage(ImgSource.Both, "phd");
               },
               child: Container(
                 child: ProfileDocRow(
@@ -181,7 +191,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "qqqi_level5_certification");
+                getImage(ImgSource.Both, "qqqi");
               },
               child: Container(
                 child: ProfileDocRow(
@@ -196,7 +206,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             InkWell(
               onTap: () {
                 getImage(
-                    ImgSource.Both, "infection_prevention_control_certificate");
+                    ImgSource.Both, "ipcc");
               },
               child: Container(
                 child: ProfileDocRow(
@@ -210,7 +220,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "employment_contract_signed");
+                getImage(ImgSource.Both, "ecs");
               },
               child: Container(
                 child: ProfileDocRow(
@@ -224,7 +234,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "passport_id_card");
+                getImage(ImgSource.Both, "pid");
               },
               child: Container(
                 child: ProfileDocRow(

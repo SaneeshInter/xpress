@@ -116,7 +116,7 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                 setState(() {
                   _selectedValue = date;
                   dateValue = formatDate(date);
-                  viewbookingBloc.allShift.drain();
+                  viewbookingBloc.allShifts.drain();
                   getDataFromUi();
                 });
               },
@@ -127,7 +127,7 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                 Column(
                   children: [
                     StreamBuilder(
-                        stream: viewbookingBloc.allShift,
+                        stream: viewbookingBloc.allShifts,
                         builder: (BuildContext context,
                             AsyncSnapshot<ManagerScheduleListResponse>
                                 snapshot) {
@@ -180,7 +180,7 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
         showAlertDialoge(context, title: "Failed", message: message!);
       }
     });
-    viewbookingBloc.allShift.listen((event) {
+    viewbookingBloc.allShifts.listen((event) {
       setState(() {
         visible = false;
       });

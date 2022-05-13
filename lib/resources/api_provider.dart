@@ -231,30 +231,7 @@ class ApiProvider {
 
 
   ///////////////////// MANAGER API
-  Future<ManagerScheduleListResponse> fetchViewbooking(
-      String token, String date) async {
-    print("View Booking");
 
-    var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-date');
-    final response = await client.post(uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          "token": token,
-        },
-        body: jsonEncode(<String, String>{
-          "date": date,
-        }));
-
-    print(uri.toString());
-    print(response.body);
-    print(response.statusCode);
-    print(response.toString());
-    if (response.statusCode == 200) {
-      return ManagerScheduleListResponse.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load post');
-    }
-  }
 
   Future<AcceptJobRequestResponse> AcceptJobRequest(
       String token, String job_request_row_id) async {
@@ -404,8 +381,32 @@ class ApiProvider {
     }
   }
 
-  //////////////USER
-  Future<ManagerScheduleListResponse> fetchUserListByDate(
+  //
+  // Future<ManagerScheduleListResponse> fetchUserListByDate(
+  //     String token, String date) async {
+  //   print("View Booking");
+  //
+  //   var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-date');
+  //   final response = await client.post(uri,
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //         "token": token,
+  //       },
+  //       body: jsonEncode(<String, String>{
+  //         "date": date,
+  //       }));
+  //
+  //   print(response.body);
+  //   print(response.statusCode);
+  //   print(response.toString());
+  //   if (response.statusCode == 200) {
+  //     return ManagerScheduleListResponse.fromJson(json.decode(response.body));
+  //   } else {
+  //     throw Exception('Failed to load post');
+  //   }
+  // }
+
+  Future<ManagerScheduleListResponse> fetchViewbooking(
       String token, String date) async {
     print("View Booking");
 
@@ -419,6 +420,7 @@ class ApiProvider {
           "date": date,
         }));
 
+    print(uri.toString());
     print(response.body);
     print(response.statusCode);
     print(response.toString());
@@ -472,28 +474,32 @@ class ApiProvider {
     }
   }
 
+
+
+
+
+
   Future<ManagerShift> CreateShiftManager(
-    String token,
-    String type,
-    int row_id,
-    String category,
-    String user_type,
-    String job_title,
-    String hospital,
-    String date,
-    String time_from,
-    String time_to,
-    String job_details,
-    String price,
-    String shift,
-    String allowances,
-  ) async {
+      String token,
+      String type,
+      int row_id,
+      String category,
+      String user_type,
+      String job_title,
+      String hospital,
+      String date,
+      String time_from,
+      String time_to,
+      String job_details,
+      String price,
+      String shift,
+      String allowances,
+      ) async {
     var response;
     var uri = Uri.parse(BASE_URL + '/manager/add-schedule');
     if (row_id != -1) {
       uri = Uri.parse(BASE_URL + '/manager/edit-schedule');
-      response = await client.post(uri,
-          headers: <String, String>{
+      response = await client.post(uri, headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             "token": token,
           },
@@ -562,6 +568,7 @@ class ApiProvider {
       throw Exception('Failed to load post');
     }
   }
+
 
   Future<GetAvailableUserByDate> fetchGetAvailableUserByDate(
       String token, String date, String shifttype) async {

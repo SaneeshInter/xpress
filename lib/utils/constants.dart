@@ -31,5 +31,8 @@ class Constants{
     Color(0xFFADB4BD),
     Color(0xFF1CB551),//26
     Color(0xFF61CC86),
+    Color(0xFFD7E1E9),//28
+    Color(0xFF5D5858),
+
   ];
 }

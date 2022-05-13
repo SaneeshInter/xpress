@@ -5,13 +5,17 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/manager/home/approved_timesheet_screen.dart';
 import 'package:xpresshealthdev/ui/manager/home/manager_home_screen.dart';
-import 'package:xpresshealthdev/model/user_get_response.dart';
-import 'package:xpresshealthdev/model/viewbooking_response.dart';
+
+//import 'package:xpresshealthdev/ui/manager/home/manager_calendar_screen.dart';
+import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
 import 'package:xpresshealthdev/utils/constants.dart';
 
 import '../utils/colors_util.dart';
+
 import 'manager/home/create_shift_screen.dart';
+import 'manager/home/manager_calendar_screen.dart';
 import 'manager/home/my_shifts_screen.dart';
+import 'user/home/my_shift_calendar.dart';
 
 class ManagerDashBoard extends StatefulWidget {
   const ManagerDashBoard({Key? key}) : super(key: key);
@@ -26,7 +30,9 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static  List<Widget> _widgetOptions = <Widget>[
     ManagerHomeScreen(),
-    CreateShiftScreen(shiftItem: null),
+    //CreateShiftScreen(shiftItem: null),
+    ManagerfindshiftCalendar(),
+
     ManagerShiftsScreen(),
     ApprovedTimeSheetScreen()
   ];
@@ -135,10 +141,17 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationScreen()),
+              );
+            },
             icon: SvgPicture.asset(
-              'assets/images/icon/searchicon.svg',
+              'assets/images/icon/notification.svg',
+
               width: 5.w,
+              color: Colors.black,
               height: 5.w,
             ), //Image.asset('assets/images/icon/searchicon.svg',width: 20,height: 20,fit: BoxFit.contain,),
           ),
