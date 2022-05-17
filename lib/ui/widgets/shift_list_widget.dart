@@ -9,10 +9,8 @@ import '../../model/user_getschedule_bydate.dart';
 import '../../utils/constants.dart';
 import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
-import '../user/detail/shift_detail.dart';
 import 'action_alert_dialoge.dart';
 import 'buttons/book_button.dart';
-import 'buttons/build_button.dart';
 
 class ShiftListWidget extends StatefulWidget {
   final Items items;
@@ -183,7 +181,7 @@ class _HomePageCardState extends State<ShiftListWidget> {
                   message: message,
                   positiveText: "REQUEST NOW",
                   onPositvieClick: (item) {
-// widget.onTapBook(item);
+                    widget.onTapBook(item);
                     if (item is Items) {
                       Items data = item;
                       bloc.fetchuserJobRequest(

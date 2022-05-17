@@ -9,9 +9,9 @@ import 'package:xpresshealthdev/dbmodel/allowance_category_model.dart';
 import 'package:xpresshealthdev/dbmodel/allowance_mode.dart';
 import 'package:xpresshealthdev/model/country_list.dart';
 import 'package:xpresshealthdev/model/schedule_hospital_list.dart';
-import 'package:xpresshealthdev/ui/error/ConnectionFailedScreen.dart';
 import 'package:xpresshealthdev/ui/login/login_screen.dart';
 import 'package:xpresshealthdev/ui/manager_dashboard_screen.dart';
+import 'package:xpresshealthdev/ui/splash/user_or_manager.dart';
 
 import '../../blocs/utility_bloc.dart';
 import '../../db/database.dart';
@@ -30,6 +30,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  var token;
+
   Future changeScreen() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     bool _isLoggedin = shdPre.getString(SharedPrefKey.AUTH_TOKEN) != null;
@@ -44,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     } else {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          context, MaterialPageRoute(builder: (context) => UserOrManager()));
     }
   }
 
@@ -55,7 +57,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     getData();
-
     observe();
   }
 
@@ -66,6 +67,27 @@ class _SplashScreenState extends State<SplashScreen> {
     utility_bloc.dispose();
   }
 
+
+  //
+  // Future getData() async {
+  //   token = await TokenProvider().getToken();
+  //   if (null != token) {
+  //     if (await isNetworkAvailable()) {
+  //       setState(() {
+  //         visibility = true;
+  //       });
+  //       utility_bloc.fetchUtility();
+  //       profileBloc.getUserInfo(token);
+  //     } else {
+  //       showInternetNotAvailable();
+  //     }
+  //   }
+  // }
+
+  // Future getToken() async {
+  //   token = await TokenProvider().getToken();
+  //   profileBloc.getUserInfo(token);
+  // }
 
   getData() async {
     if (await isNetworkAvailable()) {
