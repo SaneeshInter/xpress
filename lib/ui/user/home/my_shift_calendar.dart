@@ -53,7 +53,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
     shiftcalenderBloc.dispose();
   }
 
-
   @override
   void didUpdateWidget(covariant FindshiftCalendar oldWidget) {
     // TODO: implement didUpdateWidget
@@ -133,7 +132,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Constants.colors[9],
-        //backgroundColor: Constants.colors[9],
         body: Stack(
           children: [
             Column(
@@ -165,16 +163,42 @@ class _FindshiftState extends State<FindshiftCalendar> {
                       selectedDayPredicate: (day) {
                         return _selectedDays.contains(day);
                       },
+                      calendarBuilders: CalendarBuilders(markerBuilder:
+                          (BuildContext context, DateTime datetime,
+                              List<Event> list) {
+                        if (list.isNotEmpty) {
+                          return Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                    color: Colors.transparent,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4),
+                                      child: Text(
+                                        list.length.toString(),
+                                        style: TextStyle(
+                                            fontSize: 8.sp,
+                                            color: Constants.colors[15],
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          );
+                        }
+                      }),
                       eventLoader: _getEventsForDay,
                       startingDayOfWeek: StartingDayOfWeek.sunday,
                       daysOfWeekVisible: true,
                       calendarStyle: CalendarStyle(
                         isTodayHighlighted: true,
                         markerSize: 4,
+                        canMarkersOverflow: false,
                         selectedDecoration: BoxDecoration(
-                          color: Colors.green,
+                          color: Constants.colors[15],
                           shape: BoxShape.circle,
-
                           // borderRadius: BorderRadius.circular(100.0),
                         ),
                       ),
