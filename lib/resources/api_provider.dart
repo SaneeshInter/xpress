@@ -5,11 +5,13 @@ import 'package:xpresshealthdev/model/user_get_shift_details.dart';
 import 'package:xpresshealthdev/model/user_home_response.dart';
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
+import '../model/manager_get_clients.dart';
 import '../model/manager_shift_calendar_respo.dart';
 import '../model/manager_get_time.dart';
 import '../model/manager_home_response.dart';
 import '../model/manager_response.dart';
 import '../model/manager_timesheet.dart';
+import '../model/manager_unit_name.dart';
 import '../model/manager_view_request.dart';
 import '../model/remove_manager_schedule.dart';
 import '../model/shift_list_response.dart';
@@ -39,7 +41,7 @@ class ApiProvider {
   Client client = Client();
   String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
 
-  Future<LoginUserRespo> loginUser(String username, String password) async {
+  Future<LoginUserRespo> loginUser(String username, String password,String user_type) async {
     var uri = Uri.parse(BASE_URL + '/account/login');
     final response = await client.post(uri,
         headers: <String, String>{
@@ -48,11 +50,14 @@ class ApiProvider {
         body: jsonEncode(<String, String>{
           'email': username,
           'password': password,
+          'user_type': user_type,
         }));
 
     print(jsonEncode(<String, String>{
       'email': username,
       'password': password,
+      'user_type': user_type,
+
     }).toString());
     print(response.body);
 
@@ -385,7 +390,59 @@ class ApiProvider {
     }
   }
 
-  //
+
+  Future<ManagerGetClientsResponse> managerGetClients(
+      String token) async {
+    var uri = Uri.parse(BASE_URL + "/manager/get-clients");
+    final response = await client.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token,
+        },
+        body: jsonEncode(<String, String>{
+
+        }));
+
+    print("PRINT Manager get clients" + token);
+
+    print(jsonEncode(<String, String>{
+
+    }).toString());
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return ManagerGetClientsResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+
+  Future<ManagerUnitNameResponse>managerUnitName(
+      String token, String clients) async {
+    var uri = Uri.parse(BASE_URL + '/manager/get-unit-name');
+    final response = await client.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token,
+        },
+        body: jsonEncode(<String, String>{
+          'client': clients,
+        }));
+
+    print("PRINT unit Nmae" + token);
+
+    print(jsonEncode(<String, String>{
+      'client': clients,
+    }).toString());
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return ManagerUnitNameResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
   // Future<ManagerScheduleListResponse> fetchUserListByDate(
   //     String token, String date) async {
   //   print("View Booking");

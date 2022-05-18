@@ -192,334 +192,217 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    child: Container(
-                                      color: Colors.white,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            // const SizedBox(
-                                            //   height: 25,
-                                            // ),
-                                            // Padding(
-                                            //   padding:
-                                            //       const EdgeInsets.fromLTRB(
-                                            //           16.0, 10, 0, 0),
-                                            //   child: AutoSizeText(
-                                            //     Update Profile ',
-                                            //     style: TextStyle(
-                                            //       fontSize: 18,
-                                            //       color: Colors.black,
-                                            //       fontWeight: FontWeight.bold,
-                                            //       fontFamily: "SFProMedium",
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                            Center(
-                                              child: Column(
-                                                children: [
-                                                  Stack(
-                                                    children: [
-                                                      Container(
+                                  child: Container(
+                                    color: Colors.white,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
 
-                                                        width: MediaQuery.of(
-                                                                    context)
+                                          // const SizedBox(
+                                          //   height: 25,
+                                          // ),
+                                          // Padding(
+                                          //   padding:
+                                          //       const EdgeInsets.fromLTRB(
+                                          //           16.0, 10, 0, 0),
+                                          //   child: AutoSizeText(
+                                          //     Update Profile ',
+                                          //     style: TextStyle(
+                                          //       fontSize: 18,
+                                          //       color: Colors.black,
+                                          //       fontWeight: FontWeight.bold,
+                                          //       fontFamily: "SFProMedium",
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Center(
+                                            child: Column(
+                                              children: [
+                                                Stack(
+                                                  children: [
+                                                    Container(
+
+                                                      width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width *
+                                                          0.22,
+                                                      height: MediaQuery.of(
+                                                          context)
+                                                          .size
+                                                          .width *
+                                                          0.22,
+                                                      child:  ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            MediaQuery.of(
+                                                                context)
                                                                 .size
                                                                 .width *
-                                                            0.22,
-                                                        height: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
-                                                            0.22,
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.22),
-                                                          child: AspectRatio(
-                                                            aspectRatio: 1 / 1,
-                                                            child: Stack(
-                                                              children: [
-                                                                if (profileImage !=
-                                                                    "")
-                                                                  Image.network(
-                                                                    profileImage,
-                                                                    fit: BoxFit
-                                                                        .fitHeight,
-                                                                    width: MediaQuery.of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        0.22,
-                                                                    height: MediaQuery.of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        0.22,
-
-                                                                  ),
-
-                                                                if (profileImage ==
-                                                                    "")
-                                                                  Image.asset(
-
-                                                                    'assets/images/icon/man_ava.png',
-                                                                    fit: BoxFit
-                                                                        .fitHeight,
-                                                                    width: MediaQuery.of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        0.22,
-                                                                    height: MediaQuery.of(
-                                                                        context)
-                                                                        .size
-                                                                        .width *
-                                                                        0.22,
-                                                                  )
-                                                              ],
-                                                            ),
+                                                                0.22),
+                                                        child: AspectRatio(
+                                                          aspectRatio: 1 / 1,
+                                                          child: Stack(
+                                                            children: [
+                                                              if (profileImage == "" ||
+                                                                  null == profileImage)
+                                                                Image.asset(
+                                                                  'assets/images/icon/man_ava.png',
+                                                                  fit: BoxFit.fill,
+                                                                ),
+                                                              if (profileImage != "" &&
+                                                                  null != profileImage)
+                                                                Image.network(
+                                                                  profileImage,
+                                                                  fit: BoxFit.fill,
+                                                                  width: MediaQuery.of(
+                                                                      context)
+                                                                      .size
+                                                                      .width *
+                                                                      0.22,
+                                                                  height: MediaQuery.of(
+                                                                      context)
+                                                                      .size
+                                                                      .width *
+                                                                      0.22,
+                                                                ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                65, 70, 0, 0),
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.05,
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            0),
-                                                                child:
-                                                                    AspectRatio(
-                                                                  aspectRatio:
-                                                                      1 / 1,
-                                                                  child: Image
-                                                                      .asset(
-                                                                          'assets/images/icon/edittool.png'),
-                                                                ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets
+                                                                  .fromLTRB(
+                                                              65, 70, 0, 0),
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.05,
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          0),
+                                                              child:
+                                                                  AspectRatio(
+                                                                aspectRatio:
+                                                                    1 / 1,
+                                                                child: Image
+                                                                    .asset(
+                                                                        'assets/images/icon/edittool.png'),
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 25,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                    flex: 1,
-                                                    child: TextInputFileds(
-
-                                                        controlr: first_name,
-                                                        onTapDate: () {},
-                                                        validator: (name) {
-                                                          if (validfirstname(
-                                                              name))
-                                                            return null;
-                                                          else {
-                                                            return "enter firstname";
-                                                          }
-                                                        },
-                                                        hintText:
-                                                            Txt.first_name,
-                                                        keyboadType:
-                                                            TextInputType.text,
-                                                        isPwd: false)),
-                                                const SizedBox(
-                                                  width: 10,
+                                                    ),
+                                                  ],
                                                 ),
-                                                Expanded(
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 25,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
                                                   flex: 1,
                                                   child: TextInputFileds(
-                                                    controlr: last_name,
-                                                    validator: (name) {
-                                                      if (validlastname(name))
-                                                        return null;
-                                                      else {
-                                                        return "enter last name";
-                                                      }
-                                                    },
-                                                    hintText: Txt.last_name,
-                                                    keyboadType:
-                                                        TextInputType.text,
-                                                    isPwd: false,
-                                                    onTapDate: () {},
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.03,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                    width: 50.w,
-                                                    child: StreamBuilder(
-                                                      stream: profileBloc
-                                                          .countryStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                                  List<
-                                                                      CountryList>>
-                                                              snapshot) {
-                                                        if (null ==
-                                                                snapshot.data ||
-                                                            snapshot.data
-                                                                    ?.length ==
-                                                                0) {
-                                                          return Container();
+
+                                                      controlr: first_name,
+                                                      onTapDate: () {},
+                                                      validator: (name) {
+                                                        if (validfirstname(
+                                                            name))
+                                                          return null;
+                                                        else {
+                                                          return "enter firstname";
                                                         }
-
-                                                        return DropdownButtonFormField(
-                                                          value: nationalityId,
-                                                          decoration:
-                                                              InputDecoration(
-                                                                  enabledBorder:
-                                                                      OutlineInputBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(5)),
-                                                                    borderSide:
-                                                                        BorderSide(
-
-                                                                            color: Constants.colors[28],),
-                                                                  ),
-                                                                  focusedBorder: OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.all(Radius.circular(
-                                                                              5.0)),
-                                                                      borderSide: BorderSide(
-                                                                          color: Constants.colors[28],
-                                                                          width:
-                                                                              1)),
-                                                                  contentPadding:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              3.0),
-                                                                  labelText:
-                                                                      "Nationality",
-
-                                                                  labelStyle:
-                                                                      TextStyle(
-                                                                          fontSize:
-                                                                              10.sp)),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
-                                                            return DropdownMenuItem(
-                                                              child: new Text(
-                                                                item.countryName!,
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontSize:
-                                                                        8.sp,
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .none,
-                                                                    color: Colors
-                                                                        .grey),
-                                                              ),
-                                                              value: item.rowId,
-                                                            );
-                                                          }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
-                                                            if (value
-                                                                is CountryList) {
-                                                              nationalityId =
-                                                                  value.rowId!;
-                                                            }
-                                                          },
-                                                        );
                                                       },
-                                                    ),
-                                                  ),
+                                                      hintText:
+                                                          Txt.first_name,
+                                                      keyboadType:
+                                                          TextInputType.text,
+                                                      isPwd: false)),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: TextInputFileds(
+                                                  controlr: last_name,
+                                                  validator: (name) {
+                                                    if (validlastname(name))
+                                                      return null;
+                                                    else {
+                                                      return "enter last name";
+                                                    }
+                                                  },
+                                                  hintText: Txt.last_name,
+                                                  keyboadType:
+                                                      TextInputType.text,
+                                                  isPwd: false,
+                                                  onTapDate: () {},
                                                 ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.05,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Container(
-                                                        child: StreamBuilder(
-                                                          stream: profileBloc
-                                                              .genderStream,
-                                                          builder: (context,
-                                                              AsyncSnapshot<
-                                                                      List<
-                                                                          GenderList>>
-                                                                  snapshot) {
-                                                            if (null ==
-                                                                    snapshot
-                                                                        .data ||
-                                                                snapshot.data
-                                                                        ?.length ==
-                                                                    0) {
-                                                              return Container();
-                                                            }
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.03,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Container(
+                                                  width: 50.w,
+                                                  child: StreamBuilder(
+                                                    stream: profileBloc
+                                                        .countryStream,
+                                                    builder: (context,
+                                                        AsyncSnapshot<
+                                                                List<
+                                                                    CountryList>>
+                                                            snapshot) {
+                                                      if (null ==
+                                                              snapshot.data ||
+                                                          snapshot.data
+                                                                  ?.length ==
+                                                              0) {
+                                                        return Container();
+                                                      }
 
-                                                            return DropdownButtonFormField(
-                                                              value: genderId,
-                                                              decoration:
-                                                                  InputDecoration(
+                                                      return DropdownButtonFormField(
+                                                        value: nationalityId,
+                                                        decoration:
+                                                            InputDecoration(
                                                                 enabledBorder:
                                                                     OutlineInputBorder(
                                                                   borderRadius:
                                                                       BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              5)),
+                                                                          Radius.circular(5)),
                                                                   borderSide:
                                                                       BorderSide(
-                                                            color: Constants.colors[28]),
+
+                                                                          color: Constants.colors[28],),
                                                                 ),
                                                                 focusedBorder: OutlineInputBorder(
                                                                     borderRadius:
@@ -534,357 +417,456 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                         .all(
                                                                             3.0),
                                                                 labelText:
-                                                                    "Gender",
-                                                              ),
-                                                              items: snapshot
-                                                                  .data
-                                                                  ?.map((item) {
-                                                                return DropdownMenuItem(
-                                                                  child:
-                                                                      new Text(
-                                                                    item.gender!,
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                        fontSize: 8
-                                                                            .sp,
-                                                                        decoration:
-                                                                            TextDecoration
-                                                                                .none,
-                                                                        color: Colors
-                                                                            .grey),
-                                                                  ),
-                                                                  value: item
-                                                                      .rowId,
-                                                                );
-                                                              }).toList(),
-                                                              onChanged:
-                                                                  (Object?
-                                                                      value) {
-                                                                if (value
-                                                                    is GenderList) {
-                                                                  genderId = value
-                                                                      .rowId!;
-                                                                }
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Container(
-                                                        width: 50.w,
-                                                        child: StreamBuilder(
-                                                          stream: profileBloc
-                                                              .visatypeStream,
-                                                          builder: (context,
-                                                              AsyncSnapshot<
-                                                                      List<
-                                                                          VisaTypeList>>
-                                                                  snapshot) {
-                                                            if (null ==
-                                                                    snapshot
-                                                                        .data ||
-                                                                snapshot.data
-                                                                        ?.length ==
-                                                                    0) {
-                                                              return Container();
-                                                            }
+                                                                    "Nationality",
 
-                                                            return DropdownButtonFormField(
-                                                              value: visatypeId,
-                                                              decoration:
-                                                                  InputDecoration(
-                                                                enabledBorder:
-                                                                    OutlineInputBorder(
+                                                                labelStyle:
+                                                                    TextStyle(
+                                                                        fontSize:
+                                                                            10.sp)),
+                                                        items: snapshot.data
+                                                            ?.map((item) {
+                                                          return DropdownMenuItem(
+                                                            child: new Text(
+                                                              item.countryName!,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize:
+                                                                      8.sp,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .none,
+                                                                  color: Colors
+                                                                      .grey),
+                                                            ),
+                                                            value: item.rowId,
+                                                          );
+                                                        }).toList(),
+                                                        onChanged:
+                                                            (Object? value) {
+                                                          if (value
+                                                              is CountryList) {
+                                                            nationalityId =
+                                                                value.rowId!;
+                                                          }
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.05,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      child: StreamBuilder(
+                                                        stream: profileBloc
+                                                            .genderStream,
+                                                        builder: (context,
+                                                            AsyncSnapshot<
+                                                                    List<
+                                                                        GenderList>>
+                                                                snapshot) {
+                                                          if (null ==
+                                                                  snapshot
+                                                                      .data ||
+                                                              snapshot.data
+                                                                      ?.length ==
+                                                                  0) {
+                                                            return Container();
+                                                          }
+
+                                                          return DropdownButtonFormField(
+                                                            value: genderId,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius.all(
+                                                                        Radius.circular(
+                                                                            5)),
+                                                                borderSide:
+                                                                    BorderSide(
+                                                          color: Constants.colors[28]),
+                                                              ),
+                                                              focusedBorder: OutlineInputBorder(
                                                                   borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              5)),
-                                                                  borderSide:
-                                                                      BorderSide(
-                                                                          color:
-                                                                              Colors.grey),
+                                                                      BorderRadius.all(Radius.circular(
+                                                                          5.0)),
+                                                                  borderSide: BorderSide(
+                                                                      color: Constants.colors[28],
+                                                                      width:
+                                                                          1)),
+                                                              contentPadding:
+                                                                  EdgeInsets
+                                                                      .all(
+                                                                          3.0),
+                                                              labelText:
+                                                                  "Gender",
+                                                            ),
+                                                            items: snapshot
+                                                                .data
+                                                                ?.map((item) {
+                                                              return DropdownMenuItem(
+                                                                child:
+                                                                    new Text(
+                                                                  item.gender!,
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontSize: 8
+                                                                          .sp,
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .none,
+                                                                      color: Colors
+                                                                          .grey),
                                                                 ),
-                                                                focusedBorder: OutlineInputBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.all(Radius.circular(
-                                                                            8.0)),
-                                                                    borderSide: BorderSide(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        width:
-                                                                            1)),
-                                                                contentPadding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            3.0),
-                                                                labelText:
-                                                                    "Visa Type ",
-                                                              ),
-                                                              items: snapshot
-                                                                  .data
-                                                                  ?.map((item) {
-                                                                return DropdownMenuItem(
-                                                                  child:
-                                                                      new Text(
-                                                                    item.type!,
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w500,
-                                                                        fontSize: 8
-                                                                            .sp,
-                                                                        decoration:
-                                                                            TextDecoration
-                                                                                .none,
-                                                                        color: Colors
-                                                                            .grey),
-                                                                  ),
-                                                                  value: item
-                                                                      .rowId,
-                                                                );
-                                                              }).toList(),
-                                                              onChanged:
-                                                                  (Object?
-                                                                      value) {
-                                                                if (value
-                                                                    is VisaTypeList) {
-                                                                  visatypeId =
-                                                                      value
-                                                                          .rowId!;
-                                                                }
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
+                                                                value: item
+                                                                    .rowId,
+                                                              );
+                                                            }).toList(),
+                                                            onChanged:
+                                                                (Object?
+                                                                    value) {
+                                                              if (value
+                                                                  is GenderList) {
+                                                                genderId = value
+                                                                    .rowId!;
+                                                              }
+                                                            },
+                                                          );
+                                                        },
                                                       ),
                                                     ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 15,
-                                            ),
-                                            TextInputFileds(
-                                                controlr: phonenumber,
-                                                onTapDate: () {},
-                                                validator: (number) {
-                                                  if (validphonenumber(number))
-                                                    return null;
-                                                  else
-                                                    return "enter phone number";
-                                                },
-                                                hintText: Txt.phone_number,
-                                                keyboadType:
-                                                    TextInputType.number,
-                                                isPwd: false),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.03,
-                                            ),
-                                            TextInputFileds(
-                                                controlr: date,
-                                                validator: (dob) {
-                                                  if (validDate(dob))
-                                                    return null;
-                                                  else
-                                                    return "select dob";
-                                                },
-                                                onTapDate: () {
-                                                  _selectDate(context, date);
-                                                  print("values");
-                                                },
-                                                hintText: Txt.dob,
-                                                keyboadType: TextInputType.none,
-                                                isPwd: false),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.03,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  child: TextInputFileds(
-                                                      controlr: home_address,
-                                                      onTapDate: () {},
-                                                      validator: (address) {
-                                                        if (validadress(
-                                                            address))
-                                                          return null;
-                                                        else
-                                                          return "enter your address";
-                                                      },
-                                                      hintText: Txt.address,
-                                                      keyboadType: TextInputType
-                                                          .visiblePassword,
-                                                      isPwd: false),
-                                                ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      width: 50.w,
+                                                      child: StreamBuilder(
+                                                        stream: profileBloc
+                                                            .visatypeStream,
+                                                        builder: (context,
+                                                            AsyncSnapshot<
+                                                                    List<
+                                                                        VisaTypeList>>
+                                                                snapshot) {
+                                                          if (null ==
+                                                                  snapshot
+                                                                      .data ||
+                                                              snapshot.data
+                                                                      ?.length ==
+                                                                  0) {
+                                                            return Container();
+                                                          }
 
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.03,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  child: TextInputFileds(
-                                                      controlr: email,
-                                                      onTapDate: () {},
-                                                      validator: (number) {
-                                                        if (validEmail(number))
-                                                          return null;
-                                                        else
-                                                          return "enter email";
-                                                      },
-                                                      hintText: Txt.email,
-                                                      keyboadType:
-                                                          TextInputType.text,
-                                                      isPwd: false),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.03,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  child: TextInputFileds(
-                                                      controlr:
-                                                          permission_to_work_in_ireland,
-                                                      validator: (permission) {
-                                                        if (vaidpermission_to_work_in_ireland(
-                                                            permission))
-                                                          return null;
-                                                        else
-                                                          return "enter permission";
-                                                      },
-                                                      onTapDate: () {},
-                                                      hintText: Txt
-                                                          .permission_to_work_in_ireland,
-                                                      keyboadType:
-                                                          TextInputType.text,
-                                                      isPwd: false),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.03,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  child: TextInputFileds(
-                                                      controlr: ppsnumber,
-                                                      validator: (permission) {
-                                                        if (validppsnumber(
-                                                            permission))
-                                                          return null;
-                                                        else
-                                                          return "enter pps number";
-                                                      },
-                                                      onTapDate: () {},
-                                                      hintText: Txt.pps_number,
-                                                      keyboadType:
-                                                          TextInputType.text,
-                                                      isPwd: false),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.03,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  child: TextInputFileds(
-                                                      controlr: bank_iban,
-                                                      validator: (number) {
-                                                        if (validbankiban(
-                                                            number))
-                                                          return null;
-                                                        else
-                                                          return "enter bankiban";
-                                                      },
-                                                      onTapDate: () {},
-                                                      hintText: Txt.bankiban,
-                                                      keyboadType:
-                                                          TextInputType.text,
-                                                      isPwd: false),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height:
-                                              MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width *
-                                                  0.03,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  child: TextInputFileds(
-                                                      controlr: bank_bic,
-                                                      validator: (number) {
-                                                        if (validbankbic(
-                                                            number))
-                                                          return null;
-                                                        else
-                                                          return "enter bankbic";
-                                                      },
-                                                      onTapDate: () {},
-                                                      hintText: Txt.bankbic,
-                                                      keyboadType:
-                                                          TextInputType.text,
-                                                      isPwd: false),
-                                                ),
-                                              ],
-                                            ),
-                                            signUpBtn(),
-                                            const SizedBox(
-                                              height: 15,
-                                            ),
-                                          ],
-                                        ),
+                                                          return DropdownButtonFormField(
+                                                            value: visatypeId,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius.all(
+                                                                        Radius.circular(
+                                                                            5)),
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                        color:
+                                                                            Colors.grey),
+                                                              ),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.all(Radius.circular(
+                                                                          8.0)),
+                                                                  borderSide: BorderSide(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          1)),
+                                                              contentPadding:
+                                                                  EdgeInsets
+                                                                      .all(
+                                                                          3.0),
+                                                              labelText:
+                                                                  "Visa Type ",
+                                                            ),
+                                                            items: snapshot
+                                                                .data
+                                                                ?.map((item) {
+                                                              return DropdownMenuItem(
+                                                                child:
+                                                                    new Text(
+                                                                  item.type!,
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontSize: 8
+                                                                          .sp,
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .none,
+                                                                      color: Colors
+                                                                          .grey),
+                                                                ),
+                                                                value: item
+                                                                    .rowId,
+                                                              );
+                                                            }).toList(),
+                                                            onChanged:
+                                                                (Object?
+                                                                    value) {
+                                                              if (value
+                                                                  is VisaTypeList) {
+                                                                visatypeId =
+                                                                    value
+                                                                        .rowId!;
+                                                              }
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          TextInputFileds(
+                                              controlr: phonenumber,
+                                              onTapDate: () {},
+                                              validator: (number) {
+                                                if (validphonenumber(number))
+                                                  return null;
+                                                else
+                                                  return "enter phone number";
+                                              },
+                                              hintText: Txt.phone_number,
+                                              keyboadType:
+                                                  TextInputType.number,
+                                              isPwd: false),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.03,
+                                          ),
+                                          TextInputFileds(
+                                              controlr: date,
+                                              validator: (dob) {
+                                                if (validDate(dob))
+                                                  return null;
+                                                else
+                                                  return "select dob";
+                                              },
+                                              onTapDate: () {
+                                                _selectDate(context, date);
+                                                print("values");
+                                              },
+                                              hintText: Txt.dob,
+                                              keyboadType: TextInputType.none,
+                                              isPwd: false),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.03,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                child: TextInputFileds(
+                                                    controlr: home_address,
+                                                    onTapDate: () {},
+                                                    validator: (address) {
+                                                      if (validadress(
+                                                          address))
+                                                        return null;
+                                                      else
+                                                        return "enter your address";
+                                                    },
+                                                    hintText: Txt.address,
+                                                    keyboadType: TextInputType
+                                                        .visiblePassword,
+                                                    isPwd: false),
+                                              ),
+
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.03,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                child: TextInputFileds(
+                                                    controlr: email,
+                                                    onTapDate: () {},
+                                                    validator: (number) {
+                                                      if (validEmail(number))
+                                                        return null;
+                                                      else
+                                                        return "enter email";
+                                                    },
+                                                    hintText: Txt.email,
+                                                    keyboadType:
+                                                        TextInputType.text,
+                                                    isPwd: false),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.03,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                child: TextInputFileds(
+                                                    controlr:
+                                                        permission_to_work_in_ireland,
+                                                    validator: (permission) {
+                                                      if (vaidpermission_to_work_in_ireland(
+                                                          permission))
+                                                        return null;
+                                                      else
+                                                        return "enter permission";
+                                                    },
+                                                    onTapDate: () {},
+                                                    hintText: Txt
+                                                        .permission_to_work_in_ireland,
+                                                    keyboadType:
+                                                        TextInputType.text,
+                                                    isPwd: false),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.03,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                child: TextInputFileds(
+                                                    controlr: ppsnumber,
+                                                    validator: (permission) {
+                                                      if (validppsnumber(
+                                                          permission))
+                                                        return null;
+                                                      else
+                                                        return "enter pps number";
+                                                    },
+                                                    onTapDate: () {},
+                                                    hintText: Txt.pps_number,
+                                                    keyboadType:
+                                                        TextInputType.text,
+                                                    isPwd: false),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.03,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                child: TextInputFileds(
+                                                    controlr: bank_iban,
+                                                    validator: (number) {
+                                                      if (validbankiban(
+                                                          number))
+                                                        return null;
+                                                      else
+                                                        return "enter bankiban";
+                                                    },
+                                                    onTapDate: () {},
+                                                    hintText: Txt.bankiban,
+                                                    keyboadType:
+                                                        TextInputType.text,
+                                                    isPwd: false),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height:
+                                            MediaQuery.of(
+                                                context)
+                                                .size
+                                                .width *
+                                                0.03,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                child: TextInputFileds(
+                                                    controlr: bank_bic,
+                                                    validator: (number) {
+                                                      if (validbankbic(
+                                                          number))
+                                                        return null;
+                                                      else
+                                                        return "enter bankbic";
+                                                    },
+                                                    onTapDate: () {},
+                                                    hintText: Txt.bankbic,
+                                                    keyboadType:
+                                                        TextInputType.text,
+                                                    isPwd: false),
+                                              ),
+                                            ],
+                                          ),
+                                          signUpBtn(),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),

@@ -14,6 +14,7 @@ import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/manager_list_calendar.dart';
+import '../create_shift_screen_update.dart';
 import 'create_shift_screen.dart';
 
 class ManagerfindshiftCalendar extends StatefulWidget {
@@ -260,7 +261,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
           foregroundColor: Constants.colors[0],
           onPressed: () {   Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => CreateShiftScreen()),
+            MaterialPageRoute(builder: (context) => CreateShiftScreenUpdate()),
           );},
           child: Icon(Icons.add),
         ),

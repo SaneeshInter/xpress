@@ -124,14 +124,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
-                BookButton(
-                  label: "Request Now",
-                  onPressed: () {
-                    widget.onTapBook(widget.items);
-                    print("Tapped");
-                  },
-                  key: null,
-                ),
+
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
                 Spacer(),
                 if (widget.items.type == "Premium")

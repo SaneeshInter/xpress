@@ -9,11 +9,13 @@ import 'package:xpresshealthdev/resources/api_provider.dart';
 
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
+import '../model/manager_get_clients.dart';
 import '../model/manager_get_time.dart';
 import '../model/manager_home_response.dart';
 import '../model/manager_response.dart';
 import '../model/manager_shift_calendar_respo.dart';
 import '../model/manager_timesheet.dart';
+import '../model/manager_unit_name.dart';
 import '../model/manager_view_request.dart';
 import '../model/remove_manager_schedule.dart';
 import '../model/shift_list_response.dart';
@@ -73,8 +75,8 @@ class Repository {
           String token, String time_shhet_id) =>
       apiProvider.timeDetails(token, time_shhet_id);
 
-  Future<LoginUserRespo> fetchLogin(String username, String password) =>
-      apiProvider.loginUser(username, password);
+  Future<LoginUserRespo> fetchLogin(String username, String password, String user_type) =>
+      apiProvider.loginUser(username, password,user_type);
 
   Future<UtilityResop> fetchUtility() => apiProvider.fetchUtility();
 
@@ -153,6 +155,16 @@ class Repository {
   Future<ManagerGetScheduleByYear> fetchmanagerscheduleyear(
           String token, String year) =>
       apiProvider.managerScheduleByYears(token, year);
+
+
+
+
+  Future<ManagerGetClientsResponse> fetchManagerGetClients(String token) =>
+      apiProvider.managerGetClients(token);
+
+
+  Future<ManagerUnitNameResponse> fetchManagerUnitName(String token,String client) =>
+      apiProvider.managerUnitName(token,client);
 
   Future<ProfileUpdateRespo> ProfileUser(
           String token,

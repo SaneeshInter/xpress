@@ -4,7 +4,6 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/user_availability_bloc.dart';
 import 'package:xpresshealthdev/main.dart';
-import 'package:xpresshealthdev/ui/widgets/availability_list.dart';
 
 import '../../../model/user_availability_btw_date.dart';
 import '../../../resources/token_provider.dart';
@@ -14,8 +13,6 @@ import '../../../utils/utils.dart';
 import '../../datepicker/date_picker_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
-import '../common/app_bar.dart';
-import '../common/side_menu.dart';
 
 class AvailabilityListScreen extends StatefulWidget {
   const AvailabilityListScreen({Key? key}) : super(key: key);
@@ -46,7 +43,6 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   void didUpdateWidget(covariant AvailabilityListScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
-
 
   @override
   void dispose() {
@@ -110,10 +106,16 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
       });
     });
     availabilitybloc.useravailabilitiy.listen((event) {
+      if (event.response?.status?.statusCode == 200) {
+        getData();
+      } else {
+        var message = event.response?.status?.statusMessage;
+        showAlertDialoge(context, title: "Availablity", message: message!);
+      }
+
       setState(() {
         visibility = false;
       });
-      getData();
     });
   }
 
@@ -176,7 +178,8 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                         availability = Availability.morining;
                                       } else if (item.availability == 4) {
                                         availability = Availability.afternoon;
-                                      } else {
+                                      }
+                                      else {
                                         availability = Availability.off;
                                       }
 
@@ -232,7 +235,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                 availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
-                                                                  1,
+                                                                  3,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
@@ -300,7 +303,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                 availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
-                                                                  1,
+                                                                  4,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {

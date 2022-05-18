@@ -13,6 +13,10 @@ import '../../../utils/utils.dart';
 import '../../splash/user_or_manager.dart';
 import '../home/profile_screen.dart';
 import '../sidenav/completed_shifts.dart';
+import '../sidenav/contact_us_screen.dart';
+import '../sidenav/faqs_screen.dart';
+
+import '../sidenav/notification_screen.dart';
 import '../sidenav/submit_timesheets.dart';
 
 class SideMenu extends StatefulWidget {
@@ -81,15 +85,28 @@ class _SideMenuState extends State<SideMenu> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.12,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius:
+                              BorderRadius.circular(
+                                  MediaQuery.of(
+                                      context)
+                                      .size
+                                      .width *
+                                      0.22),
                               child: AspectRatio(
                                 aspectRatio: 1 / 1,
                                 child: Stack(
                                   children: [
-                                    if (profileImage != "")
+                                    if (profileImage == "" ||
+                                        null == profileImage)
+                                      Image.asset(
+                                        'assets/images/icon/man_ava.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                    if (profileImage != "" &&
+                                        null != profileImage)
                                       Image.network(
                                         profileImage,
-                                        fit: BoxFit.fitHeight,
+                                        fit: BoxFit.fill,
                                         width: MediaQuery.of(
                                             context)
                                             .size
@@ -101,20 +118,6 @@ class _SideMenuState extends State<SideMenu> {
                                             .width *
                                             0.22,
                                       ),
-                                    if (profileImage == "")
-                                      Image.asset(
-                                        'assets/images/icon/man_ava.png',
-                                        fit: BoxFit.fitHeight, width: MediaQuery.of(
-                                          context)
-                                          .size
-                                          .width *
-                                          0.22,
-                                        height: MediaQuery.of(
-                                            context)
-                                            .size
-                                            .width *
-                                            0.22,
-                                      )
                                   ],
                                 ),
                               ),
@@ -260,12 +263,12 @@ class _SideMenuState extends State<SideMenu> {
             ),
             onTap: () {
               Navigator.pop(context);
-              // pushNewScreen(
-              //   context,
-              //   screen: NotificationScreen(),
-              //   withNavBar: true, // OPTIONAL VALUE. True by default.
-              //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              // );
+              pushNewScreen(
+                context,
+                screen: NotificationScreen(),
+                withNavBar: true, // OPTIONAL VALUE. True by default.
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
             },
           ),
           ListTile(
@@ -283,8 +286,12 @@ class _SideMenuState extends State<SideMenu> {
             ),
             onTap: () {
               Navigator.pop(context);
-              // Update the state of the app.
-              // ...
+              pushNewScreen(
+                context,
+                screen: FaqsShitsScreen(),
+                withNavBar: true, // OPTIONAL VALUE. True by default.
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
             },
           ),
           ListTile(
@@ -302,8 +309,12 @@ class _SideMenuState extends State<SideMenu> {
             ),
             onTap: () {
               Navigator.pop(context);
-              // Update the state of the app.
-              // ...
+              pushNewScreen(
+                context,
+                screen: ContactScreen(),
+                withNavBar: true, // OPTIONAL VALUE. True by default.
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
             },
           ),
           ListTile(

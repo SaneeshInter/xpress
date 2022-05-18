@@ -240,7 +240,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           setState(() {
                             visible = true;
                           });
-                          loginBloc.fetchLogin(email.text, pwd.text);
+
+
+                          SharedPreferences shdPre = await SharedPreferences.getInstance();
+                          bool isuser = shdPre.getBool("user")!;
+                          var userType = "1";
+                          if (isuser)
+                            {
+                              userType = "0";
+                            }
+
+                          loginBloc.fetchLogin(email.text, pwd.text,userType);
                         }
                         // use the information provided
                       }
