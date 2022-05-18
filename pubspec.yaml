@@ -68,6 +68,7 @@ dependencies:
   firebase_messaging: ^11.3.0
   awesome_notifications: ^0.6.21
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -151,9 +152,12 @@ flutter:
     - assets/images/icon/loading_circle.gif
     - assets/images/icon/delete.svg
     - assets/images/icon/man_ava.png
+    - assets/images/icon/work.png
     - assets/images/error/nw_error.png
     - assets/images/error/error.png
     - assets/images/error/empty_task.png
+
+
 
 
     # An image asset can refer to one or more resolution-specific "variants", see
