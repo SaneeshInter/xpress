@@ -5,11 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/sharedPrefKeys.dart';
 import 'package:xpresshealthdev/blocs/login_bloc.dart';
 import 'package:xpresshealthdev/ui/manager_dashboard_screen.dart';
 import 'package:xpresshealthdev/utils/utils.dart';
 
+import '../../Constants/sharedPrefKeys.dart';
 import '../../Constants/strings.dart';
 import '../../Constants/toast.dart';
 import '../../utils/constants.dart';
@@ -241,16 +241,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             visible = true;
                           });
 
-
-                          SharedPreferences shdPre = await SharedPreferences.getInstance();
+                          SharedPreferences shdPre =
+                              await SharedPreferences.getInstance();
                           bool isuser = shdPre.getBool("user")!;
                           var userType = "1";
-                          if (isuser)
-                            {
-                              userType = "0";
-                            }
+                          if (isuser) {
+                            userType = "0";
+                          }
 
-                          loginBloc.fetchLogin(email.text, pwd.text,userType);
+                          loginBloc.fetchLogin(email.text, pwd.text, userType);
                         }
                         // use the information provided
                       }
@@ -294,9 +293,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _loginResponse() {
     loginBloc.loginStream.listen((event) async {
-      setState(() {
-        visible = false;
-      });
+      if (mounted) {
+        setState(() {
+          visible = false;
+        });
+      }
 
       var message = event.response?.status?.statusMessage;
       if (event.response?.status?.statusCode == 200) {
@@ -308,45 +309,62 @@ class _LoginScreenState extends State<LoginScreen> {
         var employeeNo = event.response?.data?.employeeNo;
         var userType = event.response?.data?.userType;
         var profileSrc = event.response?.data?.profileSrc;
-        if (token != null) {
-          prefs.setString(SharedPrefKey.AUTH_TOKEN, token);
-          if (null != role) {
-            prefs.setInt(SharedPrefKey.USER_TYPE, role);
-            if (null != firstname) {
-              prefs.setString(SharedPrefKey.FIRST_NAME, firstname);
-              if (null != lastName) {
-                prefs.setString(SharedPrefKey.LAST_NAME, lastName);
-                if (null != employeeNo) {
-                  prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo);
-                  if (null != userType) {
-                    prefs.setString(SharedPrefKey.USER_TYPE_NAME, userType);
-                    if (null != profileSrc) {
-                      prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc);
-                      if (role == 0) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const DashBoard()),
-                        );
-                      } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ManagerDashBoard()),
-                        );
-                      }
 
-                    }
-                  }
-                }
-              }
-            }
-          }
+        if (null == token) {
+          showAlertDialoge(context, title: "Login Failed", message: message!);
+          return;
         }
-      }else {
+        if (null == role) {
+          return;
+        }
+        if (null == firstname) {
+          return;
+        }
+
+        if (null == lastName) {
+          return;
+        }
+
+        if (null == employeeNo) {
+          return;
+        }
+
+        if (null == userType) {
+          return;
+        }
+
+        if (null == profileSrc) {
+          return;
+        }
+
+        prefs.setString(SharedPrefKey.AUTH_TOKEN, token);
+
+        prefs.setInt(SharedPrefKey.USER_TYPE, role);
+
+        prefs.setString(SharedPrefKey.FIRST_NAME, firstname);
+
+        prefs.setString(SharedPrefKey.LAST_NAME, lastName);
+
+        prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo);
+
+        prefs.setString(SharedPrefKey.USER_TYPE_NAME, userType);
+
+        prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc);
+
+        if (role == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DashBoard()),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ManagerDashBoard()),
+          );
+        }
+      } else {
         showAlertDialoge(context, title: "Login Failed", message: message!);
       }
-    }
-    );
+    });
   }
 }
