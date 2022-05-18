@@ -128,14 +128,18 @@ class _SideMenuState extends State<SideMenu> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                name,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.sp,
-                                    fontFamily: "SFProMedium",
-                                    fontWeight: FontWeight.w700),
+                              SizedBox(
+                                child: Text(
+                                  name,
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.sp,
+                                      fontFamily: "SFProMedium",
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                width: 45.w,
                               ),
                               const SizedBox(height: 5),
                               Text(

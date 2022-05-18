@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:xpresshealthdev/ui/user/detail/profile_details_row.dart';
 import 'package:xpresshealthdev/model/user_get_response.dart';
+import 'package:xpresshealthdev/ui/user/detail/profile_details_row.dart';
 
 import '../../Constants/app_defaults.dart';
 import '../../utils/constants.dart';
+import '../../utils/network_utils.dart';
 import '../user/home/profile_edit.dart';
 import 'buttons/drawable_button.dart';
 
@@ -95,14 +95,24 @@ class ProfileDetailCard extends StatelessWidget {
                           asset: "assets/images/icon/Pin.svg"),
                     SizedBox(width: 15.0),
                     if (email != null)
-                      ProfileDetailsRow(
-                          label: "Email :  " + email,
-                          asset: "assets/images/icon/email.svg"),
+                      GestureDetector(
+                        onTap: () {
+                          sendingMails(email);
+                        },
+                        child: ProfileDetailsRow(
+                            label: "Email :  " + email,
+                            asset: "assets/images/icon/email.svg"),
+                      ),
                     SizedBox(width: 15.0),
                     if (phoneNumber != null)
-                      ProfileDetailsRow(
-                          label: "Phone Number :   " + phoneNumber,
-                          asset: "assets/images/icon/phone.svg"),
+                      GestureDetector(
+                        onTap: () {
+                          dialCall(phoneNumber);
+                        },
+                        child: ProfileDetailsRow(
+                            label: "Phone Number :   " + phoneNumber,
+                            asset: "assets/images/icon/phone.svg"),
+                      ),
                     SizedBox(width: 15.0),
                     if (ppsNumber != null)
                       ProfileDetailsRow(

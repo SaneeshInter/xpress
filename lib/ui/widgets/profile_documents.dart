@@ -1,14 +1,12 @@
-import 'dart:io';
-
-
 import 'package:flutter/material.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:xpresshealthdev/blocs/profile_update_bloc.dart';
+import 'package:xpresshealthdev/model/user_get_response.dart';
 import 'package:xpresshealthdev/ui/user/detail/profile_doc_row.dart';
 
+import '../../main.dart';
 import '../../resources/token_provider.dart';
 import '../user/home/my_booking_screen.dart';
-import 'package:xpresshealthdev/model/user_get_response.dart';
 
 class ProfileDocumentsCard extends StatefulWidget {
   Items items;
@@ -43,88 +41,20 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
     super.didUpdateWidget(oldWidget);
   }
 
-
-
-  Future getImage(ImgSource source, var type) async {
-    var image = await ImagePickerGC.pickImage(
-        enableCloseButton: true,
-        closeIcon: Icon(
-          Icons.close,
-          color: Colors.red,
-          size: 12,
-        ),
-        context: context,
-        source: source,
-        barrierDismissible: true,
-        cameraIcon: Icon(
-          Icons.camera_alt,
-          color: Colors.red,
-        ),
-        //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
-        cameraText: Text(
-          "From Camera",
-          style: TextStyle(color: Colors.green),
-        ),
-        galleryText: Text(
-          "From Gallery",
-          style: TextStyle(color: Colors.green),
-        ));
-
-
-
-
-    if (image != null) {
-      if (type == "profilepic") {
-        setState(() {
-          profilePicture = image.path;
-        });
-      }
-
-      if (type == "signature") {
-        setState(() {
-          signaturePic = image.path;
-        });
-      }
-      if (type == "phd") {
-        setState(() {
-          phpdocument = image.path;
-        });
-      }
-
-      if (type == "qqqi") {
-        setState(() {
-          qqqidocument = image.path;
-        });
-      }
-
-      if (type == "ipcc") {
-        setState(() {
-          ipcccdocument = image.path;
-        });
-      }
-
-      if (type == "ecs") {
-        setState(() {
-          ecsdocument = image.path;
-        });
-      }
-
-      if (type == "pid") {
-        setState(() {
-          piddocument = image.path;
-        });
-      }
-      profileBloc.uploadUserDoc(token, File(image.path), type, "25/22/2022");
-    }
+  Future getImage(ImgSource source, var type, var imagefile, var expiry) async {
+    Navigator.pushNamed(
+      context,
+      '/upload_screen',
+      arguments: ScreenArguments(type, imagefile, expiry),
+    ).then((value) => getData());
   }
 
   @override
   void initState() {
+    super.initState();
     profilePicture = "";
-
     getData();
     observe();
-    super.initState();
   }
 
   Future getData() async {
@@ -163,7 +93,8 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             // const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "signature");
+                getImage(ImgSource.Both, "signature",
+                    widget.items.signatureSrc!, "");
               },
               child: Container(
                 child: ProfileDocRow(
@@ -177,7 +108,8 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "phd");
+                getImage(ImgSource.Both, "phd", widget.items.phdLink!,
+                    widget.items.phdExpiry);
               },
               child: Container(
                 child: ProfileDocRow(
@@ -191,7 +123,8 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "qqqi");
+                getImage(ImgSource.Both, "qqqi", widget.items.qqqiLink!,
+                    widget.items.qqqiExpiry);
               },
               child: Container(
                 child: ProfileDocRow(
@@ -205,8 +138,8 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(
-                    ImgSource.Both, "ipcc");
+                getImage(ImgSource.Both, "ipcc", widget.items.ipccLink!,
+                    widget.items.ipccExpiry);
               },
               child: Container(
                 child: ProfileDocRow(
@@ -220,7 +153,8 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "ecs");
+                getImage(ImgSource.Both, "ecs", widget.items.ecsLink!,
+                    widget.items.ecsExpiry);
               },
               child: Container(
                 child: ProfileDocRow(
@@ -234,7 +168,8 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "pid");
+                getImage(ImgSource.Both, "pid", widget.items.ecsLink!,
+                    widget.items.ecsExpiry);
               },
               child: Container(
                 child: ProfileDocRow(

@@ -29,6 +29,8 @@ class _FindshiftState extends State<FindshiftCalendar> {
   int perPageItem = 3;
   int pageCount = 0;
   var token;
+  var  _scrollController;
+  var _scrollPosition;
   bool visibility = false;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
@@ -127,85 +129,91 @@ class _FindshiftState extends State<FindshiftCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Constants.colors[9],
-        body: Stack(
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(10),
-                        bottomLeft: Radius.circular(10),
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: Constants.colors[9],
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                     ),
-                    child: TableCalendar(
-                      focusedDay: _focusedDay,
-                      firstDay: DateTime(2022),
-                      lastDay: DateTime(2050),
-                      calendarFormat: format,
-                      onFormatChanged: (CalendarFormat _format) {
-                        setState(() {
-                          format = _format;
-                        });
-                      },
-                      onDaySelected: _onDaySelected,
-                      selectedDayPredicate: (day) {
-                        return _selectedDays.contains(day);
-                      },
-                      calendarBuilders: CalendarBuilders(markerBuilder:
-                          (BuildContext context, DateTime datetime,
-                              List<Event> list) {
-                        if (list.isNotEmpty) {
-                          return Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: Container(
-                                    color: Colors.transparent,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 4),
-                                      child: Text(
-                                        list.length.toString(),
-                                        style: TextStyle(
-                                            fontSize: 8.sp,
-                                            color: Constants.colors[15],
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    )),
-                              ),
-                            ],
-                          );
-                        }
-                      }),
-                      eventLoader: _getEventsForDay,
-                      startingDayOfWeek: StartingDayOfWeek.sunday,
-                      daysOfWeekVisible: true,
-                      calendarStyle: CalendarStyle(
-                        isTodayHighlighted: true,
-                        markerSize: 4,
-                        canMarkersOverflow: false,
-                        selectedDecoration: BoxDecoration(
-                          color: Constants.colors[15],
-                          shape: BoxShape.circle,
-                          // borderRadius: BorderRadius.circular(100.0),
-                        ),
+                  ),
+                  child: TableCalendar(
+                    focusedDay: _focusedDay,
+                    firstDay: DateTime(2022),
+                    lastDay: DateTime(2050),
+                    calendarFormat: format,
+                    onFormatChanged: (CalendarFormat _format) {
+                      setState(() {
+                        format = _format;
+                      });
+                    },
+                    onDaySelected: _onDaySelected,
+                    selectedDayPredicate: (day) {
+                      return _selectedDays.contains(day);
+                    },
+                    calendarBuilders: CalendarBuilders(markerBuilder:
+                        (BuildContext context, DateTime datetime,
+                            List<Event> list) {
+                      if (list.isNotEmpty) {
+                        return Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Container(
+                                  color: Colors.transparent,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    child: Text(
+                                      list.length.toString(),
+                                      style: TextStyle(
+                                          fontSize: 8.sp,
+                                          color: Constants.colors[15],
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        );
+                      }
+                    }),
+                    eventLoader: _getEventsForDay,
+                    startingDayOfWeek: StartingDayOfWeek.sunday,
+                    daysOfWeekVisible: true,
+                    calendarStyle: CalendarStyle(
+                      isTodayHighlighted: true,
+                      markerSize: 4,
+                      canMarkersOverflow: false,
+                      selectedDecoration: BoxDecoration(
+                        color: Constants.colors[15],
+                        shape: BoxShape.circle,
+                        // borderRadius: BorderRadius.circular(100.0),
                       ),
                     ),
                   ),
                 ),
-                Expanded(
+              ),
+              NotificationListener(
+                onNotification: (notification)
+                {
+                  print(_scrollController.position.pixels);
+                  // Return true to cancel the notification bubbling. Return false (or null) to
+                  // allow the notification to continue to be dispatched to further ancestors.
+                  return true;
+                },
+                child: Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: StreamBuilder(
@@ -216,6 +224,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                             return ListView.builder(
                               itemCount: snapshot.data?.length,
                               shrinkWrap: true,
+                              controller: _scrollController,
                               itemBuilder: (BuildContext context, int index) {
                                 var items = snapshot.data?[index];
                                 if (null != items) {
@@ -267,22 +276,22 @@ class _FindshiftState extends State<FindshiftCalendar> {
                         }),
                   ),
                 ),
-              ],
-            ),
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
+              ),
+            ],
+          ),
+          Center(
+            child: Visibility(
+              visible: visibility,
+              child: Container(
+                width: 100.w,
+                height: 80.h,
+                child: const Center(
+                  child: LoadingWidget(),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

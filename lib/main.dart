@@ -4,15 +4,23 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/error/ConnectionFailedScreen.dart';
 import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
 import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
-import 'package:flutter/services.dart';
 import 'package:xpresshealthdev/ui/user/home/profile_screen.dart';
+import 'package:xpresshealthdev/ui/user/imageupload/upload_documents.dart';
+
+class ScreenArguments {
+  final String type;
+  final String imgUrl;
+  final String expiry;
+
+  ScreenArguments(this.type, this.imgUrl,this.expiry);
+}
 
 enum Availability { morining, day, afternoon, night, off }
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +28,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp();
   AwesomeNotifications().initialize(
-    // set the icon to null if you want to use the default app icon
+      // set the icon to null if you want to use the default app icon
       null,
       [
         NotificationChannel(
@@ -72,6 +80,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashScreen(),
           // When navigating to the "/second" route, build the SecondScreen widget.
           '/nw_error': (context) => ConnectionFailedScreen(),
+          '/upload_screen': (context) => UploadDocumentsScreen(),
           '/error': (context) => ErrorScreen(),
           '/profile': (context) => ProfileScreen(),
         },
@@ -79,16 +88,17 @@ class MyApp extends StatelessWidget {
     });
   }
 }
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
   print('Handling a background message: ${message.messageId}');
 
-  if(
-  !AwesomeStringUtils.isNullOrEmpty(message.notification?.title, considerWhiteSpaceAsEmpty: true) ||
-      !AwesomeStringUtils.isNullOrEmpty(message.notification?.body, considerWhiteSpaceAsEmpty: true)
-  ){
+  if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
+          considerWhiteSpaceAsEmpty: true) ||
+      !AwesomeStringUtils.isNullOrEmpty(message.notification?.body,
+          considerWhiteSpaceAsEmpty: true)) {
     print('message also contained a notification: ${message.notification}');
 
     String? imageUrl;
@@ -97,24 +107,22 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
     Map<String, dynamic> notificationAdapter = {
       NOTIFICATION_CHANNEL_KEY: 'basic_channel',
-      NOTIFICATION_ID:
-      message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_ID] ??
+      NOTIFICATION_ID: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_ID] ??
           message.messageId ??
           Random().nextInt(2147483647),
-      NOTIFICATION_TITLE:
-      message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_TITLE] ??
+      NOTIFICATION_TITLE: message.data[NOTIFICATION_CONTENT]
+              ?[NOTIFICATION_TITLE] ??
           message.notification?.title,
-      NOTIFICATION_BODY:
-      message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_BODY] ??
-          message.notification?.body ,
+      NOTIFICATION_BODY: message.data[NOTIFICATION_CONTENT]
+              ?[NOTIFICATION_BODY] ??
+          message.notification?.body,
       NOTIFICATION_LAYOUT:
-      AwesomeStringUtils.isNullOrEmpty(imageUrl) ? 'Default' : 'BigPicture',
+          AwesomeStringUtils.isNullOrEmpty(imageUrl) ? 'Default' : 'BigPicture',
       NOTIFICATION_BIG_PICTURE: imageUrl
     };
 
     AwesomeNotifications().createNotificationFromJsonData(notificationAdapter);
-  }
-  else {
+  } else {
     AwesomeNotifications().createNotificationFromJsonData(message.data);
   }
 }
