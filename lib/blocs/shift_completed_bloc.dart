@@ -16,7 +16,8 @@ class ShiftCompletedBloc {
 
   fetchcomplete(String token) async {
     UserShoiftCompletedResponse list = await _repo.fetchComplete(token);
-    _shiftComplete.sink.add(list);
+    if (!_shiftComplete.isClosed)
+      _shiftComplete.sink.add(list);
   }
 
   dispose() {

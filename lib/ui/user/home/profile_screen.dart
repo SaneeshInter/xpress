@@ -345,6 +345,7 @@ class _ProfileState extends State<ProfileScreen> {
                                     ],
                                   ),
                                 ),
+                                const SizedBox(height: 10),
                                 if (null != item)
                                   ProfileDetailCard(items: item),
                                 Column(
