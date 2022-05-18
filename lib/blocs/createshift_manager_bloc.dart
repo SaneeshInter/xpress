@@ -10,7 +10,9 @@ import 'package:xpresshealthdev/resources/respository.dart';
 import '../dbmodel/allowance_mode.dart';
 import '../model/gender_list.dart';
 import '../model/get_available_user_by_date.dart';
+import '../model/manager_get_clients.dart';
 import '../model/manager_response.dart';
+import '../model/manager_unit_name.dart';
 import '../model/schedule_categegory_list.dart';
 import '../model/shift_type_list.dart';
 import '../model/user_type_list.dart';
@@ -20,6 +22,14 @@ class CreateShiftmanagerBloc {
   final _db = Db();
   final _manager = PublishSubject<GetAvailableUserByDate>();
   final _getmanager = PublishSubject<ManagerShift>();
+
+
+  final _managerclient = PublishSubject<ManagerGetClientsResponse>();
+  final _managerunit= PublishSubject<ManagerUnitNameResponse>();
+
+
+
+
   List<Allowances> allowanceList = [];
   final _allowancesList = PublishSubject<List<Allowances>>();
 
@@ -64,6 +74,10 @@ class CreateShiftmanagerBloc {
 
   List<String> shifttype = [];
   final _shifttype = PublishSubject<List<ShiftTypeList>>();
+
+
+
+
 
   Stream<List<ShiftTypeList>> get shifttypeStream => _shifttype.stream;
 
@@ -167,8 +181,38 @@ class CreateShiftmanagerBloc {
     _manager.sink.add(list);
   }
 
+
+
+  Stream<ManagerGetClientsResponse> get managergetclientStream => _managerclient.stream;
+
+  getManagerClient(
+      String token,
+      ) async {
+    ManagerGetClientsResponse list =
+    await _repo.fetchManagerGetClients(token );
+
+
+
+    _managerclient.sink.add(list);
+  }
+
+
+  Stream<ManagerUnitNameResponse> get managerunitStream => _managerunit.stream;
+
+  getManagerUnitName(
+      String token,String client
+      ) async {
+    ManagerUnitNameResponse list =
+    await _repo.fetchManagerUnitName(token,client);
+    _managerunit.sink.add(list);
+  }
+
+
+
   dispose() {
     _manager.close();
+    _managerclient.close();
+    _managerunit.close();
   }
 
 
