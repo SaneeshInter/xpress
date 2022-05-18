@@ -26,49 +26,42 @@ class _CustomRowState extends State<ProfileDetailsRow> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          tapped = true;
-        });
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.white,
-            )
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 8, 5, 8),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                    height: 4.w,
-                    width: 4.w,
-                    child: SvgPicture.asset(
-                      widget.asset,
-                      color: Constants.colors[7],
-                    )),
-              ),
-              Expanded(
-                flex: 6,
-                child: AutoSizeText(
-                  widget.label,
-                  style: TextStyle(
-                    fontSize: 10.sp,
-                    color: Colors.black,
-                    fontFamily: "SFProMedium",
-                  ),
-                  maxLines: 2,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.white,
+          )
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 8, 5, 8),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                  height: 4.w,
+                  width: 4.w,
+                  child: SvgPicture.asset(
+                    widget.asset,
+                    color: Constants.colors[7],
+                  )),
+            ),
+            Expanded(
+              flex: 6,
+              child: AutoSizeText(
+                widget.label,
+                style: TextStyle(
+                  fontSize: 10.sp,
+                  color: Colors.black,
+                  fontFamily: "SFProMedium",
                 ),
+                maxLines: 2,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

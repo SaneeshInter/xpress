@@ -130,6 +130,7 @@ flutter:
     - assets/images/icon/phone.svg
     - assets/images/icon/email.svg
     - assets/images/icon/rank.svg
+    - assets/images/icon/add.png
     - assets/images/icon/notification.svg
     - assets/images/icon/dubai.jpg
     - assets/images/icon/dubai.jpg
@@ -146,6 +147,8 @@ flutter:
     - assets/images/icon/premium_home_icon.png
     - assets/images/icon/bell.png
     - assets/images/icon/loading.json
+    - assets/images/icon/loading_bar.gif
+    - assets/images/icon/loading_circle.gif
     - assets/images/icon/delete.svg
     - assets/images/icon/man_ava.png
     - assets/images/error/nw_error.png
