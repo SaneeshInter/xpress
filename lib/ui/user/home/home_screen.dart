@@ -1,5 +1,6 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +14,7 @@ import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
 import '../../../Constants/AppColors.dart';
 import '../../../blocs/shift_homepage_bloc.dart';
 import '../../../resources/token_provider.dart';
+import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
@@ -37,6 +39,10 @@ class HomeScreen extends StatefulWidget {
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _HomeScreentate extends State<HomeScreen> {
+  final PageController ctrl = PageController(
+    viewportFraction: .7,
+  );
+  double? currentPage = 0;
   bool visibility = false;
   var scaffoldKey = GlobalKey<ScaffoldState>();
   int devicePixelRatio = 3;
@@ -387,7 +393,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     ShiftDetailScreen(
-                                                      shift_id: shiftId,isCompleted: false,
+                                                      shift_id: shiftId,
+                                                      isCompleted: false,
                                                     )),
                                           );
                                         },
@@ -450,7 +457,8 @@ class _HomeScreentate extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => ShiftDetailScreen(
-                            shift_id: shiftId,isCompleted: false,
+                            shift_id: shiftId,
+                            isCompleted: false,
                           )),
                 );
               },
@@ -464,7 +472,6 @@ class _HomeScreentate extends State<HomeScreen> {
         Expanded(
           child: HomeButton(
               onPressed: () {
-
                 print("HomeButton");
                 LatestShift late = shiftDetails;
                 final Event event = Event(
@@ -525,73 +532,108 @@ class _HomeScreentate extends State<HomeScreen> {
       ],
     );
   }
-
   Widget buildList(AsyncSnapshot<UserHomeResponse> snapshot) {
-    return ListView.builder(
-      itemCount: snapshot.data?.response?.data?.importantUpdates!.length,
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (BuildContext context, int index) {
-        var list = snapshot.data?.response?.data?.importantUpdates![index];
-        if (null != list) {
-          var name = list.title!;
-          var date = list.date!;
-          var description = list.description!;
-          return Card(
-            elevation: 0.0,
-            child: Container(
-              width: 65.w,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AutoSizeText(
-                      name,
-                      maxLines: 2,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14.sp,
-                        fontFamily: "SFProMedium",
+    if (null != snapshot.data?.response?.data?.importantUpdates) {
+      var itemcount = snapshot.data?.response?.data?.importantUpdates!.length;
+      return Container(
+        height: 35.w,
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: ctrl,
+                padEnds: false,
+                onPageChanged: (page) {
+                  print("page");
+                  print(page);
+                  setState(() {
+                    currentPage = page.toDouble();
+                  });
+                },
+                pageSnapping: true,
+                itemCount: itemcount,
+                itemBuilder: (BuildContext context, int index) {
+                  var list =
+                      snapshot.data?.response?.data?.importantUpdates![index];
+                  if (null != list) {
+                    var name = list.title!;
+                    var date = list.date!;
+                    var description = list.description!;
+                    return Container(
+                      child: Card(
+                        elevation: 0.0,
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AutoSizeText(
+                                  name,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontFamily: "SFProMedium",
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: Container(
+                                      width:
+                                          screenHeight(context, dividedBy: 2.2),
+                                      child: AutoSizeText(
+                                        description,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
+                                        ),
+                                      )),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: SizedBox(
+                                      width:
+                                          screenHeight(context, dividedBy: 2.2),
+                                      child: AutoSizeText(
+                                        date,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
+                                        ),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      child: Container(
-                          width: screenHeight(context, dividedBy: 2.2),
-                          child: AutoSizeText(
-                            description,
-                            maxLines: 2,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 8.sp,
-                            ),
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      child: SizedBox(
-                          width: screenHeight(context, dividedBy: 2.2),
-                          child: AutoSizeText(
-                            date,
-                            maxLines: 5,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 8.sp,
-                            ),
-                          )),
-                    ),
-                  ],
-                ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ),
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
+            DotsIndicator(
+              dotsCount: itemcount!,
+              position: currentPage!,
+              decorator: DotsDecorator(
+                color: Colors.white, // Inactive color
+                activeColor: HexColor("#04b654"),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget horizontalIndiCator() {

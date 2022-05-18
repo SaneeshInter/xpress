@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,6 +13,7 @@ import 'package:xpresshealthdev/utils/network_utils.dart';
 import '../../../blocs/manager_home_bloc.dart';
 import '../../../model/manager_home_response.dart';
 import '../../../resources/token_provider.dart';
+import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../user/detail/home_card_item.dart';
@@ -33,8 +35,11 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
   int selectedIndex = 0;
   int lastPageItemLength = 0;
   var token;
-
+  double? currentPage = 0;
   late PageController pageController;
+  final PageController ctrl = PageController(
+    viewportFraction: .7,
+  );
 
   @override
   void didUpdateWidget(covariant ManagerHomeScreen oldWidget) {
@@ -49,7 +54,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
       });
     });
   }
-
 
   Future getData() async {
     token = await TokenProvider().getToken();
@@ -109,7 +113,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                         ),
                       ),
                       horizontalList(),
-                      horizontalIndiCator(),
                       gridView(),
                       equalSizeButtons()
                     ],
@@ -200,196 +203,107 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
   }
 
   Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
-    return ListView.builder(
-      itemCount: snapshot.data?.response?.data?.importantUpdates!.length,
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (BuildContext context, int index) {
-        var list = snapshot.data?.response?.data?.importantUpdates![index];
-        if (null != list) {
-          var name = list.title!;
-          var date = list.date!;
-          var description = list.description!;
-          return Card(
-            elevation: 0.0,
-            child: Container(
-              width: 65.w,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AutoSizeText(
-                      name,
-                      maxLines: 2,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14.sp,
-                        fontFamily: "SFProMedium",
+    if (null != snapshot.data?.response?.data?.importantUpdates) {
+      var itemcount = snapshot.data?.response?.data?.importantUpdates!.length;
+      return Container(
+        height: 35.w,
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: ctrl,
+                padEnds: false,
+                onPageChanged: (page) {
+                  print("page");
+                  print(page);
+                  setState(() {
+                    currentPage = page.toDouble();
+                  });
+                },
+                pageSnapping: true,
+                itemCount: itemcount,
+                itemBuilder: (BuildContext context, int index) {
+                  var list =
+                      snapshot.data?.response?.data?.importantUpdates![index];
+                  if (null != list) {
+                    var name = list.title!;
+                    var date = list.date!;
+                    var description = list.description!;
+                    return Container(
+                      child: Card(
+                        elevation: 0.0,
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AutoSizeText(
+                                  name,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontFamily: "SFProMedium",
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: Container(
+                                      width:
+                                          screenHeight(context, dividedBy: 2.2),
+                                      child: AutoSizeText(
+                                        description,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
+                                        ),
+                                      )),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: SizedBox(
+                                      width:
+                                          screenHeight(context, dividedBy: 2.2),
+                                      child: AutoSizeText(
+                                        date,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
+                                        ),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                      child: Container(
-                          width: screenHeight(context, dividedBy: 2.2),
-                          child: AutoSizeText(
-                            description,
-                            maxLines: 2,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 8.sp,
-                            ),
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                      child: SizedBox(
-                          width: screenHeight(context, dividedBy: 2.2),
-                          child: AutoSizeText(
-                            date,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 8.sp,
-                            ),
-                          )),
-                    ),
-                  ],
-                ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ),
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
-  }
-
-  // Widget horizontalList() {
-  //   return ConstrainedBox(
-  //     constraints: BoxConstraints(
-  //       maxHeight: 110,
-  //     ),
-  //     child: StreamBuilder(
-  //         stream: managerhomeBloc.managerhomeStream,
-  //         builder: (BuildContext context,
-  //             AsyncSnapshot<ManagerHomeResponse> snapshot) {
-  //           if (snapshot.hasData) {
-  //             return buildList(snapshot);
-  //           } else if (snapshot.hasError) {
-  //             return Text(snapshot.error.toString());
-  //           }
-  //           return Container();
-  //         }),
-  //   );
-  // }
-
-  // Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
-  //   return ListView.builder(
-  //     itemCount: snapshot.data?.response?.data?.importantUpdates!.length,
-  //     shrinkWrap: true,
-  //     physics: NeverScrollableScrollPhysics(),
-  //     itemBuilder: (BuildContext context, int index) {
-  //       var name = "Shift Reminder";
-  //       var date = "Your shift at Beneavin Manor is in  1 hour";
-  //       var description = "Your shift at Beneavin Manor is in  1 hour";
-  //
-  //       var manager = snapshot.data?.response?.data?.importantUpdates![index];
-  //       if (manager != null) {
-  //         name = manager.title!;
-  //         date = manager.date!;
-  //         description = manager.description!;
-  //       }
-  //
-  //       return Card(
-  //         elevation: 0.0,
-  //         child: Container(
-  //           width: 65.w,
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(15.0),
-  //             child: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 AutoSizeText(
-  //                   name,
-  //                   maxLines: 3,
-  //                   style: TextStyle(
-  //                     color: Constants.colors[22],
-  //                     fontSize: 14.sp,
-  //                     fontFamily: "SFProMedium",
-  //                   ),
-  //                 ),
-  //                 Padding(
-  //                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-  //                   child: Container(
-  //                       width: 65.w,
-  //                       child: AutoSizeText(
-  //                         description,
-  //                         maxLines: 3,
-  //                         style: TextStyle(
-  //                           color: Constants.colors[13],
-  //                           fontSize: 8.sp,
-  //                         ),
-  //                       )),
-  //                 ),
-  //                 Padding(
-  //                   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-  //                   child: Container(
-  //                       width: screenHeight(context, dividedBy: 2.2),
-  //                       child: AutoSizeText(
-  //                         date,
-  //                         maxLines: 1,
-  //                         style: TextStyle(
-  //                           color: Constants.colors[13],
-  //                           fontSize: 8.sp,
-  //                         ),
-  //                       )),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
-  Widget horizontalIndiCator() {
-    return Container(
-      alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(vertical: 0.0),
-      child: SizedBox(
-        height: 15,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: 4,
-          itemBuilder: (_, index) {
-            return GestureDetector(
-              onTap: () {
-                pageController.animateToPage(index,
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut);
-              },
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 100),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Constants.colors[11]
-                        .withOpacity(selectedIndex == index ? 1 : 0.5)),
-                margin: EdgeInsets.all(5),
-                width: 10,
-                height: 10,
+            DotsIndicator(
+              dotsCount: itemcount!,
+              position: currentPage!,
+              decorator: DotsDecorator(
+                color: Colors.white, // Inactive color
+                activeColor: HexColor("#04b654"),
               ),
-            );
-          },
+            ),
+          ],
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget gridView() {

@@ -67,6 +67,7 @@ dependencies:
   firebase_analytics: ^9.1.7
   firebase_messaging: ^11.3.0
   awesome_notifications: ^0.6.21
+  dots_indicator: ^2.1.0
 
 
 dev_dependencies:
@@ -92,8 +93,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-
 
   # To add assets to your application, add an assets section, like this:
   assets:

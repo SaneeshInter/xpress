@@ -220,6 +220,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                           SizedBox(
                             height: 20,
                           ),
+                          if (type != "signature")
                           Container(
                             width: 100.w,
                             height: 5.3.h,

@@ -208,7 +208,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
               NotificationListener(
                 onNotification: (notification)
                 {
-                  print(_scrollController.position.pixels);
+                  print(_scrollController.position);
                   // Return true to cancel the notification bubbling. Return false (or null) to
                   // allow the notification to continue to be dispatched to further ancestors.
                   return true;
