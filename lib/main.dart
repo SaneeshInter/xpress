@@ -20,7 +20,7 @@ class ScreenArguments {
   ScreenArguments(this.type, this.imgUrl,this.expiry);
 }
 
-enum Availability { morining, day, afternoon, night, off }
+enum Availability { morning, day, afternoon, night, sleepover }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

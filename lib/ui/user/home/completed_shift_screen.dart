@@ -113,6 +113,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
 
   void observe() {
     completeBloc.allShift.listen((event) {
+      print("inside observer");
       setState(() {
         visibility = false;
       });
@@ -148,6 +149,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
 
@@ -177,7 +179,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    // if (buttonVisibility)
+                    if (buttonVisibility)
                       DottedBorder(
                         borderType: BorderType.RRect,
                         dashPattern: [10, 10],
@@ -257,13 +259,11 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    // if (buttonVisibility)
+                    if (buttonVisibility)
                       BuildButton(
                         label: "Upload Timesheets",
                         onPressed: () {
-                          setState(() {
-                            visibility = true;
-                          });
+
 
                           String shiftid = "";
                           print("PRINT UPLOAD LISTS");
@@ -274,6 +274,10 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                           print(shiftid);
                           if (_image != null) {
                             if (shiftid.isNotEmpty) {
+
+                              setState(() {
+                                visibility = true;
+                              });
                               completeBloc.uploadTimeSheet(
                                   token, shiftid, File(_image.path));
                             } else {

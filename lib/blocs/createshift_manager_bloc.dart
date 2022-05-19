@@ -15,6 +15,7 @@ import '../model/manager_response.dart';
 import '../model/manager_unit_name.dart';
 import '../model/schedule_categegory_list.dart';
 import '../model/shift_type_list.dart';
+import '../model/user_shifttiming_list.dart';
 import '../model/user_type_list.dart';
 
 class CreateShiftmanagerBloc {
@@ -23,12 +24,8 @@ class CreateShiftmanagerBloc {
   final _manager = PublishSubject<GetAvailableUserByDate>();
   final _getmanager = PublishSubject<ManagerShift>();
 
-
   final _managerclient = PublishSubject<ManagerGetClientsResponse>();
-  final _managerunit= PublishSubject<ManagerUnitNameResponse>();
-
-
-
+  final _managerunit = PublishSubject<ManagerUnitNameResponse>();
 
   List<Allowances> allowanceList = [];
   final _allowancesList = PublishSubject<List<Allowances>>();
@@ -75,17 +72,27 @@ class CreateShiftmanagerBloc {
   List<String> shifttype = [];
   final _shifttype = PublishSubject<List<ShiftTypeList>>();
 
-
-
-
-
   Stream<List<ShiftTypeList>> get shifttypeStream => _shifttype.stream;
 
+
+
+  List<String> shifttime = [];
+  final _shiftime = PublishSubject<List<ShiftTimingList>>();
+  Stream<List<ShiftTimingList>> get shifttimeStream => _shiftime.stream;
 
   getDropDownValues() async {
     var usertype = await _db.getUserTypeList();
     var category = await _db.getCategory();
     var hospitals = await _db.getHospitalList();
+
+
+    var shifttiming = await _db.getShiftTimingList();
+    for (var list in shifttiming) {
+      print("the shifttimming list");
+      print(list.startTime);
+    }
+
+
     List<ShiftTypeList> typeList = [];
     var type1 = ShiftTypeList(rowId: 1, type: "Regular");
     var type2 = ShiftTypeList(rowId: 2, type: "Premium");
@@ -95,13 +102,18 @@ class CreateShiftmanagerBloc {
     var shifttype1 = ShiftTypeList(rowId: 1, type: "Day");
     var shifttype2 = ShiftTypeList(rowId: 2, type: "Night");
     shifttype.add(shifttype1);
+
     shifttype.add(shifttype2);
     _shifttype.add(shifttype);
     _type.add(typeList);
     _category.add(category);
     _usertype.add(usertype);
     _hospital.add(hospitals);
+
+    _shiftime.add(shifttiming);
   }
+
+
 
   getModelDropDown() async {
     print("getModelDropDown");
@@ -121,8 +133,6 @@ class CreateShiftmanagerBloc {
     print(typeList.length);
     _typeAllowances.add(typeList);
   }
-
-
 
   Stream<ManagerShift> get getmanagerStream => _getmanager.stream;
 
@@ -168,53 +178,38 @@ class CreateShiftmanagerBloc {
     _getmanager.sink.add(respo);
   }
 
-
-
-
-
   Stream<GetAvailableUserByDate> get managerStream => _manager.stream;
-  getUserListByDate(
-      String token, String date, String shifttype
-      ) async {
+
+  getUserListByDate(String token, String date, String shifttype) async {
     GetAvailableUserByDate list =
-    await _repo.fetchGetAvailableUserByDate(token, date, shifttype);
+        await _repo.fetchGetAvailableUserByDate(token, date, shifttype);
     _manager.sink.add(list);
   }
 
-
-
-  Stream<ManagerGetClientsResponse> get managergetclientStream => _managerclient.stream;
+  Stream<ManagerGetClientsResponse> get managergetclientStream =>
+      _managerclient.stream;
 
   getManagerClient(
-      String token,
-      ) async {
-    ManagerGetClientsResponse list =
-    await _repo.fetchManagerGetClients(token );
-
-
+    String token,
+  ) async {
+    ManagerGetClientsResponse list = await _repo.fetchManagerGetClients(token);
 
     _managerclient.sink.add(list);
   }
 
-
   Stream<ManagerUnitNameResponse> get managerunitStream => _managerunit.stream;
 
-  getManagerUnitName(
-      String token,String client
-      ) async {
+  getManagerUnitName(String token, String client) async {
     ManagerUnitNameResponse list =
-    await _repo.fetchManagerUnitName(token,client);
+        await _repo.fetchManagerUnitName(token, client);
     _managerunit.sink.add(list);
   }
-
-
 
   dispose() {
     _manager.close();
     _managerclient.close();
     _managerunit.close();
   }
-
 
   void addAllowances(int allowanceId, int allowanceCategroyId, String allowance,
       String allowanceCategroy, String amount) {

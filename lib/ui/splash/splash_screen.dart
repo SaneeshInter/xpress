@@ -19,6 +19,7 @@ import '../../model/gender_list.dart';
 import '../../model/loctions_list.dart';
 import '../../model/schedule_categegory_list.dart';
 import '../../model/schedule_hospital_list.dart';
+import '../../model/user_shifttiming_list.dart';
 import '../../model/user_type_list.dart';
 import '../../model/visa_type_list.dart';
 import '../../ui/dashboard_screen.dart';
@@ -207,6 +208,7 @@ class _SplashScreenState extends State<SplashScreen> {
         var loctionsList = event.response?.data?.loctionsList;
         if (null != loctionsList) {
           for (var item in loctionsList) {
+
             var obj = LoctionsList(rowId: item.rowId, location: item.location);
             db.insertLoctionsList(obj);
           }
@@ -225,6 +227,14 @@ class _SplashScreenState extends State<SplashScreen> {
           for (var item in visaTypeList) {
             var obj = VisaTypeList(rowId: item.rowId, type: item.type);
             db.insertVisaTypeList(obj);
+          }
+        }
+
+        var shiftTimingList = event.response?.data?.shiftTimingList;
+        if (null != shiftTimingList) {
+          for (var item in shiftTimingList) {
+            var obj = ShiftTimingList(rowId: item.rowId, shift: item.shift,startTime: item.startTime,endTime:  item.endTime);
+            db.insertShiftTimingList(obj);
           }
         }
 

@@ -56,7 +56,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
     startDate = DateTime.now();
     var today = DateTime.now();
     endDate = today.add(const Duration(days: 29));
-    availability = Availability.off;
+    availability = Availability.sleepover;
     observe();
     getData();
     pageController = PageController(initialPage: 0, viewportFraction: 0.8);
@@ -171,16 +171,16 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                         (BuildContext context, int index) {
                                       var item = snapshot.data![index];
                                       if (item.availability == 1) {
-                                        availability = Availability.day;
+                                        availability = Availability.morning;
                                       } else if (item.availability == 2) {
-                                        availability = Availability.night;
+                                        availability = Availability.day;
                                       } else if (item.availability == 3) {
-                                        availability = Availability.morining;
-                                      } else if (item.availability == 4) {
                                         availability = Availability.afternoon;
+                                      } else if (item.availability == 4) {
+                                        availability = Availability.night;
                                       }
                                       else {
-                                        availability = Availability.off;
+                                        availability = Availability.sleepover;
                                       }
 
                                       return Padding(
@@ -230,12 +230,12 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                         Colors
                                                                             .green),
                                                             value: Availability
-                                                                .morining,
+                                                                .morning,
                                                             groupValue:
                                                                 availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
-                                                                  3,
+                                                                  1,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
@@ -244,7 +244,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                               });
                                                             },
                                                           ),
-                                                          Text('Morining'),
+                                                          Text('Morning'),
                                                         ],
                                                       ),
                                                       flex: 1,
@@ -269,7 +269,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                 availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
-                                                                  1,
+                                                                  2,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
@@ -303,7 +303,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                 availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
-                                                                  4,
+                                                                  3,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
@@ -337,7 +337,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                 availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
-                                                                  2,
+                                                                  4,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
@@ -366,7 +366,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                         Colors
                                                                             .green),
                                                             value: Availability
-                                                                .off,
+                                                                .sleepover,
                                                             groupValue:
                                                                 availability,
                                                             onChanged: (value) {
@@ -380,7 +380,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                       .toString());
                                                             },
                                                           ),
-                                                          Text('Off'),
+                                                          Text('Sleepover'),
                                                         ],
                                                       ),
                                                       flex: 1,

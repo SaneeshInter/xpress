@@ -26,13 +26,14 @@ class Constants{
     Color(0xFF179A43),//20
     Color(0xFF68707A),
     Color(0xFF2A2A2A),//22
-    Color(0xFFAACFE5),
+    Color(0xFFAACFE5),//23
     Color(0xFF939CA8),//24
     Color(0xFFADB4BD),
     Color(0xFF1CB551),//26
     Color(0xFF61CC86),
     Color(0xFFD7E1E9),//28
     Color(0xFF5D5858),
+    Color(0xFF0A6AB4),//30
 
   ];
 }

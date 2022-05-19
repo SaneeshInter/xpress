@@ -54,6 +54,7 @@ class Data {
   List<HospitalList>? hospitalList;
   List<ProvincesList>? provincesList;
   List<CityList>? cityList;
+  List<ShiftTimingList>? shiftTimingList;
   String? timeZone;
 
   Data(
@@ -68,6 +69,7 @@ class Data {
         this.hospitalList,
         this.provincesList,
         this.cityList,
+        this.shiftTimingList,
         this.timeZone});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -137,6 +139,13 @@ class Data {
         cityList!.add(new CityList.fromJson(v));
       });
     }
+
+    if (json['shift_timing_list'] != null) {
+      shiftTimingList = <ShiftTimingList>[];
+      json['shift_timing_list'].forEach((v) {
+        shiftTimingList!.add(new ShiftTimingList.fromJson(v));
+      });
+    }
     timeZone = json['time_zone'];
   }
 
@@ -182,6 +191,10 @@ class Data {
     }
     if (this.cityList != null) {
       data['city_list'] = this.cityList!.map((v) => v.toJson()).toList();
+    }
+    if (this.shiftTimingList != null) {
+      data['shift_timing_list'] =
+          this.shiftTimingList!.map((v) => v.toJson()).toList();
     }
     data['time_zone'] = this.timeZone;
     return data;
@@ -457,7 +470,30 @@ class CityList {
     return data;
   }
 }
+class ShiftTimingList {
+  int? rowId;
+  String? shift;
+  String? startTime;
+  String? endTime;
 
+  ShiftTimingList({this.rowId, this.shift, this.startTime, this.endTime});
+
+  ShiftTimingList.fromJson(Map<String, dynamic> json) {
+    rowId = json['row_id'];
+    shift = json['shift'];
+    startTime = json['start_time'];
+    endTime = json['end_time'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['row_id'] = this.rowId;
+    data['shift'] = this.shift;
+    data['start_time'] = this.startTime;
+    data['end_time'] = this.endTime;
+    return data;
+  }
+}
 class Status {
   int? count;
   int? statusCode;

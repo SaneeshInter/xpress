@@ -9,6 +9,7 @@ import '../model/gender_list.dart';
 import '../model/loctions_list.dart';
 import '../model/schedule_categegory_list.dart';
 import '../model/schedule_hospital_list.dart';
+import '../model/user_shifttiming_list.dart';
 import '../model/user_type_list.dart';
 
 class Db {
@@ -16,7 +17,7 @@ class Db {
     // Set the path to the database. Note: Using the `join` function from the
     // `path` package is best practice to ensure the path is correctly
     // constructed for each platform.
-    join('xprsa_database.db'),
+    join('xpress_database.db'),
     // When the database is first created, create a table to store dogs.
     onCreate: (db, version) {
       // Run the CREATE TABLE statement on the database.
@@ -49,6 +50,10 @@ class Db {
       );
 
       db.execute(
+        'CREATE TABLE shifttiminglist(row_id INTEGER , shift TEXT , start_time TEXT, end_time TEXT)',
+      );
+
+      db.execute(
         'CREATE TABLE  hospitals(row_id INTEGER , name TEXT,email TEXT,phone TEXT,address TEXT,province INTEGER,city INTEGER ,longitude TEXT ,latitude TEXT'
         ', photo TEXT)',
       );
@@ -61,8 +66,36 @@ class Db {
     version: 1,
   );
 
+  Future<void> insertShiftTimingList(ShiftTimingList dog) async {
+    // Get a reference to the database.
+    final db = await database;
 
-  //HOSPITAL
+    // Insert the Dog into the correct table. You might also specify the
+    // `conflict algorithm` to use in case the same dog is inserted twice.
+    // In this case, replace any previous data.
+    await db.insert(
+      'shifttiminglist',
+      dog.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<ShiftTimingList>> getShiftTimingList() async {
+    final db = await database;
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query('shifttiminglist');
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return ShiftTimingList(
+        rowId: maps[i]['row_id'],
+        shift: maps[i]['shift'],
+        startTime: maps[i]['start_time'],
+        endTime: maps[i]['end_time'],
+      );
+    });
+  }
+
   Future<void> insertAllowanceList(AllowanceList dog) async {
     // Get a reference to the database.
     final db = await database;
@@ -374,5 +407,7 @@ class Db {
     db.delete("hospitals");
     db.delete("allowance");
     db.delete("allowancecategroy");
+
+    db.delete("shifttiminglist");
   }
 }
