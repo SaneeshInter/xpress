@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../blocs/shift_list_bloc.dart';
 import '../../../blocs/user_shift_calendar.dart';
 import '../../../eventutil/eventutil.dart';
 import '../../../model/user_shift_calender.dart';
@@ -75,6 +76,16 @@ class _FindshiftState extends State<FindshiftCalendar> {
     }
   }
 
+  void observes() {
+    bloc.jobrequest.listen((event) {
+      setState(() {
+        visibility = false;
+      });
+      String? message = event.response?.status?.statusMessage;
+      showAlertDialoge(context, message: message!, title: "Request");
+    });
+
+  }
   void observe() {
     shiftcalenderBloc.shiftcalendar.listen((event) {
       var itemList = event.response?.data?.item;
@@ -107,7 +118,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
     super.initState();
     observe();
     getData();
-    pageController = PageController(initialPage: 0);
+    observes();    pageController = PageController(initialPage: 0);
     pageCount = 3;
   }
 
@@ -208,7 +219,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
               NotificationListener(
                 onNotification: (notification)
                 {
-                  print(_scrollController.position);
+                  //print(_scrollController.position);
                   // Return true to cancel the notification bubbling. Return false (or null) to
                   // allow the notification to continue to be dispatched to further ancestors.
                   return true;
@@ -251,10 +262,10 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                           }
                                         },
                                         onTapBook: (item) {
-                                          // requestShift(items);
+                                          requestShift(items);
                                         },
                                         onTapEdit: () {
-                                          print("Tapped");
+                                          print("Tapped calendar");
                                         },
                                         key: null,
                                       ),
@@ -308,4 +319,16 @@ class _FindshiftState extends State<FindshiftCalendar> {
       shiftcalenderBloc.filterItemByDate(selectedDay);
     });
   }
+  void requestShift(Items items) {
+    setState(() {
+      visibility = true;
+    });
+    if (items is Items) {
+      Items data = items;
+      bloc.fetchuserJobRequest(token, data.rowId.toString());
+    }
+  }
+
+
+
 }
