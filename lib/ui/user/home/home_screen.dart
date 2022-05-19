@@ -426,7 +426,6 @@ class _HomeScreentate extends State<HomeScreen> {
                                 ),
                               ),
                               horizontalList(snapshot),
-                              horizontalIndiCator(),
                               gridView(),
                             ],
                           ),
@@ -636,39 +635,6 @@ class _HomeScreentate extends State<HomeScreen> {
     }
   }
 
-  Widget horizontalIndiCator() {
-    return Container(
-      alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(vertical: 0.0),
-      child: SizedBox(
-        height: 15,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: 4,
-          itemBuilder: (_, index) {
-            return GestureDetector(
-              onTap: () {
-                pageController.animateToPage(index,
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut);
-              },
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 100),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.blue
-                        .withOpacity(selectedIndex == index ? 1 : 0.5)),
-                margin: EdgeInsets.all(5),
-                width: 10,
-                height: 10,
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
 
   Widget gridView() {
     return Container(

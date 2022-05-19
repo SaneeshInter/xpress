@@ -24,6 +24,9 @@ class CreateShiftmanagerBloc {
   final _manager = PublishSubject<GetAvailableUserByDate>();
   final _getmanager = PublishSubject<ManagerShift>();
 
+  final _managerclient = PublishSubject<List<HospitalListItem>>();
+  final _managerunit = PublishSubject<List<UnitItems>>();
+
   final _managerclient = PublishSubject<ManagerGetClientsResponse>();
   final _managerunit = PublishSubject<ManagerUnitNameResponse>();
 
@@ -71,6 +74,10 @@ class CreateShiftmanagerBloc {
 
   List<String> shifttype = [];
   final _shifttype = PublishSubject<List<ShiftTypeList>>();
+
+
+
+
 
   Stream<List<ShiftTypeList>> get shifttypeStream => _shifttype.stream;
 
@@ -134,6 +141,8 @@ class CreateShiftmanagerBloc {
     _typeAllowances.add(typeList);
   }
 
+
+
   Stream<ManagerShift> get getmanagerStream => _getmanager.stream;
 
   createShiftManager(
@@ -188,8 +197,15 @@ class CreateShiftmanagerBloc {
 
   Stream<ManagerGetClientsResponse> get managergetclientStream =>
       _managerclient.stream;
+  Stream<List<HospitalListItem>> get managergetclientStream =>
+      _managerclient.stream;
 
   getManagerClient(
+    String token,
+  ) async {
+    ManagerGetClientsResponse respo = await _repo.fetchManagerGetClients(token);
+    var list = respo.response?.data?.items;
+    _managerclient.sink.add(list!);
     String token,
   ) async {
     ManagerGetClientsResponse list = await _repo.fetchManagerGetClients(token);
@@ -197,6 +213,13 @@ class CreateShiftmanagerBloc {
     _managerclient.sink.add(list);
   }
 
+  Stream<List<UnitItems>> get managerunitStream => _managerunit.stream;
+
+  getManagerUnitName(String token, String client) async {
+    ManagerUnitNameResponse respo =
+        await _repo.fetchManagerUnitName(token, client);
+    var list = respo.response?.data?.items;
+    _managerunit.sink.add(list!);
   Stream<ManagerUnitNameResponse> get managerunitStream => _managerunit.stream;
 
   getManagerUnitName(String token, String client) async {

@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:xpresshealthdev/blocs/manager_shift_calendar.dart';
 import 'package:xpresshealthdev/model/manager_shift_calendar_respo.dart';
+import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
 
 import '../../../eventutil/eventutil.dart';
 import '../../../resources/token_provider.dart';
@@ -68,20 +69,36 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
     }
   }
 
+
+  void showError() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => const ErrorScreen()),
+    );
+  }
+
   void observe() {
     managercalendarBloc.managercalendar.listen((event) {
-      var itemList = event.response?.data?.item;
-      final Set<DateTime> selectedDay = LinkedHashSet<DateTime>(
-        equals: isSameDay,
-        hashCode: getHashCode,
-      );
-      for (var item in itemList!) {
-        selectedDay.add(DateTime.parse(item.date.toString()));
+      if (null != event.response?.data) {
+        var itemList = event.response?.data?.item;
+        final Set<DateTime> selectedDay = LinkedHashSet<DateTime>(
+          equals: isSameDay,
+          hashCode: getHashCode,
+        );
+        for (var item in itemList!) {
+          selectedDay.add(DateTime.parse(item.date.toString()));
+        }
+        setState(() {
+          visibility = false;
+          _selectedDays.addAll(selectedDay);
+        });
+      } else {
+        setState(() {
+          visibility = false;
+        });
+        showError();
       }
-      setState(() {
-        visibility = false;
-        _selectedDays.addAll(selectedDay);
-      });
     });
   }
 
@@ -259,10 +276,13 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Constants.colors[4],
           foregroundColor: Constants.colors[0],
-          onPressed: () {   Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CreateShiftScreenUpdate()),
-          );},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CreateShiftScreenUpdate()),
+            );
+          },
           child: Icon(Icons.add),
         ),
       ),
