@@ -46,6 +46,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
                   padding: EdgeInsets.all(16),
                   onTap: () {
                     toast('RETRY');
+            Navigator.pop(context);
                   },
                 ),
                 100.height,

@@ -740,7 +740,7 @@ class ApiProvider {
 
 
 
-  Future<ManagerGetScheduleByYear> managerScheduleByYears(
+  Future<ManagerGetScheduleByYear?> managerScheduleByYears(
       String token, String year) async {
     var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-year');
     final response = await client.post(uri,
@@ -764,7 +764,7 @@ class ApiProvider {
     if (response.statusCode == 200) {
       return ManagerGetScheduleByYear.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load post');
+     return null;
     }
   }
 

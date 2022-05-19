@@ -23,12 +23,8 @@ class CreateShiftmanagerBloc {
   final _manager = PublishSubject<GetAvailableUserByDate>();
   final _getmanager = PublishSubject<ManagerShift>();
 
-
-  final _managerclient = PublishSubject<ManagerGetClientsResponse>();
-  final _managerunit= PublishSubject<ManagerUnitNameResponse>();
-
-
-
+  final _managerclient = PublishSubject<List<HospitalListItem>>();
+  final _managerunit = PublishSubject<List<UnitItems>>();
 
   List<Allowances> allowanceList = [];
   final _allowancesList = PublishSubject<List<Allowances>>();
@@ -75,12 +71,7 @@ class CreateShiftmanagerBloc {
   List<String> shifttype = [];
   final _shifttype = PublishSubject<List<ShiftTypeList>>();
 
-
-
-
-
   Stream<List<ShiftTypeList>> get shifttypeStream => _shifttype.stream;
-
 
   getDropDownValues() async {
     var usertype = await _db.getUserTypeList();
@@ -121,8 +112,6 @@ class CreateShiftmanagerBloc {
     print(typeList.length);
     _typeAllowances.add(typeList);
   }
-
-
 
   Stream<ManagerShift> get getmanagerStream => _getmanager.stream;
 
@@ -168,53 +157,39 @@ class CreateShiftmanagerBloc {
     _getmanager.sink.add(respo);
   }
 
-
-
-
-
   Stream<GetAvailableUserByDate> get managerStream => _manager.stream;
-  getUserListByDate(
-      String token, String date, String shifttype
-      ) async {
+
+  getUserListByDate(String token, String date, String shifttype) async {
     GetAvailableUserByDate list =
-    await _repo.fetchGetAvailableUserByDate(token, date, shifttype);
+        await _repo.fetchGetAvailableUserByDate(token, date, shifttype);
     _manager.sink.add(list);
   }
 
-
-
-  Stream<ManagerGetClientsResponse> get managergetclientStream => _managerclient.stream;
+  Stream<List<HospitalListItem>> get managergetclientStream =>
+      _managerclient.stream;
 
   getManagerClient(
-      String token,
-      ) async {
-    ManagerGetClientsResponse list =
-    await _repo.fetchManagerGetClients(token );
-
-
-
-    _managerclient.sink.add(list);
+    String token,
+  ) async {
+    ManagerGetClientsResponse respo = await _repo.fetchManagerGetClients(token);
+    var list = respo.response?.data?.items;
+    _managerclient.sink.add(list!);
   }
 
+  Stream<List<UnitItems>> get managerunitStream => _managerunit.stream;
 
-  Stream<ManagerUnitNameResponse> get managerunitStream => _managerunit.stream;
-
-  getManagerUnitName(
-      String token,String client
-      ) async {
-    ManagerUnitNameResponse list =
-    await _repo.fetchManagerUnitName(token,client);
-    _managerunit.sink.add(list);
+  getManagerUnitName(String token, String client) async {
+    ManagerUnitNameResponse respo =
+        await _repo.fetchManagerUnitName(token, client);
+    var list = respo.response?.data?.items;
+    _managerunit.sink.add(list!);
   }
-
-
 
   dispose() {
     _manager.close();
     _managerclient.close();
     _managerunit.close();
   }
-
 
   void addAllowances(int allowanceId, int allowanceCategroyId, String allowance,
       String allowanceCategroy, String amount) {

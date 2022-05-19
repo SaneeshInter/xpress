@@ -43,15 +43,15 @@ class Response {
 }
 
 class Data {
-  List<Items>? items;
+  List<HospitalListItem>? items;
 
   Data({this.items});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <Items>[];
+      items = <HospitalListItem>[];
       json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
+        items!.add(new HospitalListItem.fromJson(v));
       });
     }
   }
@@ -65,7 +65,7 @@ class Data {
   }
 }
 
-class Items {
+class HospitalListItem {
   int? hospitalRowId;
   String? hospitalName;
   String? email;
@@ -76,7 +76,7 @@ class Items {
   String? latitude;
   String? photo;
 
-  Items(
+  HospitalListItem(
       {this.hospitalRowId,
         this.hospitalName,
         this.email,
@@ -87,7 +87,7 @@ class Items {
         this.latitude,
         this.photo});
 
-  Items.fromJson(Map<String, dynamic> json) {
+  HospitalListItem.fromJson(Map<String, dynamic> json) {
     hospitalRowId = json['hospital_row_id'];
     hospitalName = json['hospital_name'];
     email = json['email'];

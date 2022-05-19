@@ -21,6 +21,7 @@ import '../../../Constants/strings.dart';
 import '../../../Constants/toast.dart';
 import '../../../blocs/shift_dropdown.dart';
 import '../../../dbmodel/allowance_mode.dart';
+import '../../../model/manager_get_clients.dart';
 import '../../../model/user_type_list.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
@@ -64,7 +65,6 @@ class _CreateShiftState extends State<CreateShiftScreen> {
   TextEditingController dateTo = new TextEditingController();
   TextEditingController price = new TextEditingController();
   TextEditingController allowanceprice = new TextEditingController();
-
   TextEditingController job_title = new TextEditingController();
   TextEditingController resourceType = new TextEditingController();
   TextEditingController type = new TextEditingController();
@@ -79,24 +79,16 @@ class _CreateShiftState extends State<CreateShiftScreen> {
   bool visible = false;
   var buttonText = "Create Shift";
   var token;
-
-
-
   Future getData(String date, String shifttype) async {
     managerBloc.getUserListByDate(token, date, shifttype);
   }
 
-
-
-
   Future getToken() async {
     token = await TokenProvider().getToken();
   }
-
   @override
   void initState() {
     getToken();
-
     observerResponse();
     dropdownBloc.addItem();
     managerBloc.getDropDownValues();
@@ -144,13 +136,12 @@ class _CreateShiftState extends State<CreateShiftScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    managerBloc.dispose();
-    dropdownBloc.dispose();
-;
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   managerBloc.dispose();
+  //   dropdownBloc.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -215,11 +206,10 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                           width: 50.w,
                                                           child: StreamBuilder(
                                                             stream: managerBloc
-                                                                .typeStream,
+                                                                .managergetclientStream,
                                                             builder: (context,
                                                                 AsyncSnapshot<
-                                                                        List<
-                                                                            ShiftTypeList>>
+                                                                        List<HospitalListItem>>
                                                                     snapshot) {
                                                               if (null ==
                                                                       snapshot
@@ -262,7 +252,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                   return DropdownMenuItem(
                                                                     child:
                                                                         new Text(
-                                                                      item.type!,
+                                                                      item.hospitalName!,
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight
                                                                               .w500,
@@ -273,7 +263,7 @@ class _CreateShiftState extends State<CreateShiftScreen> {
                                                                         color: Constants.colors[29],),
                                                                     ),
                                                                     value: item
-                                                                        .rowId,
+                                                                        .hospitalRowId,
                                                                   );
                                                                 }).toList(),
                                                                 onChanged:

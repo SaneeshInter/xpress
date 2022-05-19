@@ -43,15 +43,15 @@ class Response {
 }
 
 class Data {
-  List<Items>? items;
+  List<UnitItems>? items;
 
   Data({this.items});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['items'] != null) {
-      items = <Items>[];
+      items = <UnitItems>[];
       json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
+        items!.add(new UnitItems.fromJson(v));
       });
     }
   }
@@ -65,13 +65,13 @@ class Data {
   }
 }
 
-class Items {
+class UnitItems {
   int? unitRowId;
   String? unitName;
 
-  Items({this.unitRowId, this.unitName});
+  UnitItems({this.unitRowId, this.unitName});
 
-  Items.fromJson(Map<String, dynamic> json) {
+  UnitItems.fromJson(Map<String, dynamic> json) {
     unitRowId = json['unit_row_id'];
     unitName = json['unit_name'];
   }

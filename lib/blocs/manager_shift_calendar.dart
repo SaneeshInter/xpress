@@ -10,23 +10,24 @@ class ManagerShiftCalendarBloc {
   final _filterItems = PublishSubject<List<Items>>();
   List<Item>? itemlListALl = [];
   List<Items>? eventListByDate = [];
-
   Stream<ManagerGetScheduleByYear> get managercalendar =>
       _getshiftcalendar.stream;
 
   Stream<List<Items>> get filtered => _filterItems.stream;
-
   managerGetScheduleByYear(String token, String year) async {
-    ManagerGetScheduleByYear respo =
+    ManagerGetScheduleByYear? respo =
         await _repo.fetchmanagerscheduleyear(token, year);
-    itemlListALl = respo.response?.data?.item;
-    _getshiftcalendar.sink.add(respo);
+    if (null != respo) {
+      itemlListALl = respo.response?.data?.item;
+      _getshiftcalendar.sink.add(respo);
+    } else {
+      _getshiftcalendar.sink.add(ManagerGetScheduleByYear());
+    }
   }
 
   dispose() {
     _getshiftcalendar.close();
   }
-
 
   filterItemByDates(DateTime selectedDay) {
     var itemList = itemlListALl!.where((element) {

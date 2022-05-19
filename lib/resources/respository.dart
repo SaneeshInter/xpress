@@ -152,7 +152,7 @@ class Repository {
           String token, String year) =>
       apiProvider.userScheduleByYears(token, year);
 
-  Future<ManagerGetScheduleByYear> fetchmanagerscheduleyear(
+  Future<ManagerGetScheduleByYear?> fetchmanagerscheduleyear(
           String token, String year) =>
       apiProvider.managerScheduleByYears(token, year);
 

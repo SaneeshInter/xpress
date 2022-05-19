@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
           // When navigating to the "/second" route, build the SecondScreen widget.
           '/nw_error': (context) => ConnectionFailedScreen(),
           '/upload_screen': (context) => UploadDocumentsScreen(),
-          '/error': (context) => ErrorScreen(),
+          '/error_screen': (context) => ErrorScreen(),
           '/profile': (context) => ProfileScreen(),
         },
       );

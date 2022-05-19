@@ -14,7 +14,6 @@ Stream<String> get outName  => _name.stream;
 Function(String) get inName => _name.sink.add;
 //TODO - Don't forget to dispose this _name
 
-
   addItem() async {
     _getmanager.add(names);
 
