@@ -26,6 +26,51 @@ class ProfileDetailCard extends StatelessWidget {
     String? ppsNumber = items.ppsNumber;
     String? bankIban = items.bankIban;
 
+
+    String? permissionToWorkInIreland = "NO";
+    if(items.permissionToWorkInIreland==1)
+      {
+        permissionToWorkInIreland ="YES";
+      }
+
+    String? doYouDrive ="NO";
+    if(items.doYouDrive==1)
+      {
+        doYouDrive="YES";
+      }
+
+    String? haveYouGotCovid19Vaccination ="NO";
+    if(items.haveYouGotCovid19Vaccination==1)
+      {
+        haveYouGotCovid19Vaccination="YES";
+      }
+
+
+    String? doYouConsentGardaVettingToBeCompleted ="NO";
+    if(items.doYouConsentGardaVettingToBeCompleted==1)
+    {
+      doYouConsentGardaVettingToBeCompleted="YES";
+    }
+
+    String? tuberculosisVaccination ="NO";
+    if(items.tuberculosisVaccination==1)
+    {
+      tuberculosisVaccination="YES";
+    }
+
+    String? hepatitisBAntibody ="NO";
+    if(items.hepatitisBAntibody==1)
+    {
+      hepatitisBAntibody="YES";
+    }
+
+    String? idCardReceived ="NO";
+    if(items.idCardReceived==1)
+    {
+      idCardReceived="YES";
+    }
+
+
     return Material(
       color: Colors.white,
       borderRadius: AppDefaults.borderRadius,
@@ -124,6 +169,58 @@ class ProfileDetailCard extends StatelessWidget {
                           label: "Bank Details :  " + bankIban,
                           asset: "assets/images/icon/bank.svg"),
                     SizedBox(width: 15.0),
+
+                    if (permissionToWorkInIreland != null)
+                      ProfileDetailsRow(
+                          label: "Permission to work in Ireland:  " + permissionToWorkInIreland,
+                          asset: ""),
+                    SizedBox(width: 15.0),
+
+
+
+                    if ( doYouDrive!= null)
+                      ProfileDetailsRow(
+                          label: "Do You Drive:  " + doYouDrive,
+                          asset: ""),
+                    SizedBox(width: 15.0),
+
+                    if ( haveYouGotCovid19Vaccination!= null)
+                      ProfileDetailsRow(
+                          label: "Have You Got Covid19 Vaccination:  " + haveYouGotCovid19Vaccination,
+                          asset: ""),
+                    SizedBox(width: 15.0),
+
+
+                    if ( doYouConsentGardaVettingToBeCompleted!= null)
+                      ProfileDetailsRow(
+                          label: "Do You Consent GardaVetting To Be Completed:  " + doYouConsentGardaVettingToBeCompleted,
+                          asset: ""),
+                    SizedBox(width: 15.0),
+
+
+                    if (tuberculosisVaccination != null)
+                      ProfileDetailsRow(
+                          label: "Tuberculosis Vaccination:  " + tuberculosisVaccination,
+                          asset: ""),
+                    SizedBox(width: 15.0),
+
+
+                    if (hepatitisBAntibody != null)
+                      ProfileDetailsRow(
+                          label: "Hepatitis B Antibody:  " + hepatitisBAntibody,
+                          asset: ""),
+                    SizedBox(width: 15.0),
+
+
+                    if (idCardReceived != null)
+                      ProfileDetailsRow(
+                          label: "IdCard Received:  " + idCardReceived,
+                          asset: ""),
+                    SizedBox(width: 15.0),
+
+
+
+
                   ],
                 ),
               ),
