@@ -11,6 +11,10 @@ class Items {
   String? hospital;
   int? hospitalId;
   String? date;
+  String? unitName;
+  int? unitNameId;
+  int? shiftTypeId;
+  String? shiftType;
   String? timeFrom;
   String? timeTo;
   String? jobDetails;
@@ -29,6 +33,10 @@ class Items {
         this.hospital,
         this.hospitalId,
         this.date,
+        this.unitName,
+        this.unitNameId,
+        this.shiftTypeId,
+        this.shiftType,
         this.timeFrom,
         this.timeTo,
         this.jobDetails,
@@ -47,6 +55,10 @@ class Items {
     hospital = json['hospital'];
     hospitalId = json['hospital_id'];
     date = json['date'];
+    unitName = json['unit_name'];
+    unitNameId = json['unit_name_id'];
+    shiftTypeId = json['shift_type_id'];
+    shiftType = json['shift_type'];
     timeFrom = json['time_from'];
     timeTo = json['time_to'];
     jobDetails = json['job_details'];
@@ -72,6 +84,10 @@ class Items {
     data['hospital'] = this.hospital;
     data['hospital_id'] = this.hospitalId;
     data['date'] = this.date;
+    data['unit_name'] = this.unitName;
+    data['unit_name_id'] = this.unitNameId;
+    data['shift_type_id'] = this.shiftTypeId;
+    data['shift_type'] = this.shiftType;
     data['time_from'] = this.timeFrom;
     data['time_to'] = this.timeTo;
     data['job_details'] = this.jobDetails;
