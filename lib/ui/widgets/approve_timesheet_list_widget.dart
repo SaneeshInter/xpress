@@ -4,7 +4,7 @@ import 'package:xpresshealthdev/ui/widgets/buttons/delete_button.dart';
 
 import '../../model/manager_timesheet.dart';
 import '../../utils/utils.dart';
-import '../manager/home/time_sheet_details.dart';
+import '../manager/home/manager_time_sheet_details.dart';
 import 'buttons/build_button.dart';
 import 'buttons/view_button.dart';
 

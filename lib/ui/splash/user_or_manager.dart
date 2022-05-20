@@ -107,7 +107,7 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                         final prefs = await SharedPreferences.getInstance();
                         await prefs.setBool('user', false);
                         print('Button Clicked');
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LoginScreen()));
@@ -169,7 +169,7 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                         await prefs.setBool('user', true);
                         print('Button Clicked');
                         print('Button Clicked');
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LoginScreen()));

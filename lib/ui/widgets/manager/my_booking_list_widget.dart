@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/viewbooking_response.dart';
 
+import '../../../model/common/manager_shift.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../manager/home/shift_detail_manager.dart';

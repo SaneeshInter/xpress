@@ -4,14 +4,15 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/createshift_manager_bloc.dart';
+import 'package:xpresshealthdev/blocs/shift_list_bloc.dart';
 import 'package:xpresshealthdev/model/allowance_model.dart';
 import 'package:xpresshealthdev/model/schedule_categegory_list.dart';
 import 'package:xpresshealthdev/model/schedule_hospital_list.dart';
 import 'package:xpresshealthdev/model/shift_type_list.dart';
-import 'package:xpresshealthdev/model/viewbooking_response.dart';
 import 'package:xpresshealthdev/utils/validator.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
@@ -22,7 +23,9 @@ import '../../../model/user_type_list.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
+import '../../model/common/manager_shift.dart';
 import '../../model/manager_unit_name.dart';
+import '../../model/user_shifttiming_list.dart';
 import '../widgets/allowance_bottom_sheet.dart';
 import '../widgets/buttons/login_button.dart';
 import '../widgets/input_text.dart';
@@ -105,10 +108,17 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         row_id = item.rowId!;
         date.text = item.date!;
         dateTo.text = item.timeTo!;
+        if (item.price != null) {
+          price.text = item.price.toString();
+        }
         dateFrom.text = item.timeFrom!;
         jobDescri.text = item.jobDetails!;
         category.text = item.category!;
         buttonText = "Edit Shift";
+
+        if (null != item.allowances) {
+
+        }
 
         if (item.type == "Premium") {
           setState(() {
@@ -143,12 +153,12 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    managerBloc.dispose();
-    dropdownBloc.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   managerBloc.dispose();
+  //   dropdownBloc.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -442,31 +452,37 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               return DropdownButtonFormField(
                                                                 decoration:
                                                                     InputDecoration(
-                                                                        enabledBorder:
-                                                                            OutlineInputBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.all(Radius.circular(5.0)),
-                                                                          borderSide:
-                                                                              BorderSide(
-                                                                            color:
-                                                                                Constants.colors[28],
-                                                                          ),
-                                                                        ),
-                                                                        focusedBorder: OutlineInputBorder(
-                                                                            borderRadius: BorderRadius.all(Radius.circular(
-                                                                                8.0)),
-                                                                            borderSide: BorderSide(
-                                                                                color: Constants.colors[
-                                                                                    28],
-                                                                                width:
-                                                                                    1)),
-                                                                        contentPadding:
-                                                                            EdgeInsets.all(
-                                                                                3.0),
-                                                                        labelText:
-                                                                            "User Type",
-                                                                        labelStyle:
-                                                                            TextStyle(fontSize: 10.sp)),
+                                                                  enabledBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(5)),
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Constants
+                                                                          .colors[28],
+                                                                    ),
+                                                                  ),
+                                                                  focusedBorder: OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(Radius.circular(
+                                                                              8.0)),
+                                                                      borderSide: BorderSide(
+                                                                          color: Constants.colors[
+                                                                              28],
+                                                                          width:
+                                                                              1)),
+                                                                  contentPadding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              3.0),
+                                                                  labelStyle:
+                                                                      TextStyle(
+                                                                          fontSize:
+                                                                              10.sp),
+                                                                  labelText:
+                                                                      "User Type",
+                                                                ),
                                                                 items: snapshot
                                                                     .data
                                                                     ?.map(
@@ -495,7 +511,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                     (Object?
                                                                         value) {
                                                                   if (value
-                                                                      is UserTypeList) {
+                                                                      is ScheduleCategoryList) {
                                                                     usertypeId =
                                                                         value
                                                                             .rowId!;
@@ -600,10 +616,15 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                         "hospitalId");
                                                                     print(
                                                                         hospitalId);
-                                                                    setState(() {
-                                                                      visible = true;
+                                                                    setState(
+                                                                        () {
+                                                                      visible =
+                                                                          true;
                                                                     });
-                                                                    managerBloc.getManagerUnitName(token, hospitalId.toString());
+                                                                    managerBloc.getManagerUnitName(
+                                                                        token,
+                                                                        hospitalId
+                                                                            .toString());
                                                                   }
                                                                 },
                                                               );
@@ -618,8 +639,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                               const SizedBox(
                                                 height: 15,
                                               ),
-
-
                                               SizedBox(
                                                 width: 100.w,
                                                 child: StreamBuilder(
@@ -627,88 +646,80 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                       .managerunitStream,
                                                   builder: (context,
                                                       AsyncSnapshot<
-                                                          List<
-                                                              UnitItems>>
-                                                      snapshot) {
-                                                    if (null ==
-                                                        snapshot
-                                                            .data ||
-                                                        snapshot.data
-                                                            ?.length ==
+                                                              List<UnitItems>>
+                                                          snapshot) {
+                                                    if (null == snapshot.data ||
+                                                        snapshot.data?.length ==
                                                             0) {
                                                       return Container();
                                                     }
 
                                                     return DropdownButtonFormField(
-                                                      isExpanded:
-                                                      true,
-                                                      value:
-                                                      unitId,
+                                                      isExpanded: true,
+                                                      value: unitId,
                                                       decoration:
-                                                      InputDecoration(
-                                                          enabledBorder:
-                                                          OutlineInputBorder(
-                                                            borderRadius:
-                                                            BorderRadius.all(Radius.circular(5)),
-                                                            borderSide:
-                                                            BorderSide(
-                                                              color:
-                                                              Constants.colors[28],
-                                                            ),
-                                                          ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                              borderRadius: BorderRadius.all(Radius.circular(
-                                                                  8.0)),
-                                                              borderSide: BorderSide(
-                                                                  color: Constants.colors[
-                                                                  28],
-                                                                  width:
-                                                                  1)),
-                                                          contentPadding:
-                                                          EdgeInsets.all(
-                                                              3.0),
-                                                          labelText:
-                                                          "Unit Name",
-                                                          labelStyle:
-                                                          TextStyle(fontSize: 10.sp)),
-                                                      items: snapshot
-                                                          .data
-                                                          ?.map(
-                                                              (item) {
-                                                            return DropdownMenuItem(
-                                                              child:
-                                                              new Text(
-                                                                item.unitName!,
-                                                                overflow:
-                                                                TextOverflow
-                                                                    .clip,
-                                                                style:
-                                                                TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight.w500,
-                                                                  fontSize:
-                                                                  9.sp,
-                                                                  decoration:
-                                                                  TextDecoration.none,
+                                                          InputDecoration(
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            5)),
+                                                                borderSide:
+                                                                    BorderSide(
                                                                   color: Constants
-                                                                      .colors[29],
+                                                                      .colors[28],
                                                                 ),
                                                               ),
-                                                              value: item
-                                                                  .unitRowId,
-                                                            );
-                                                          }).toList(),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              8.0)),
+                                                                  borderSide: BorderSide(
+                                                                      color: Constants
+                                                                              .colors[
+                                                                          28],
+                                                                      width:
+                                                                          1)),
+                                                              contentPadding:
+                                                                  EdgeInsets
+                                                                      .all(3.0),
+                                                              labelText:
+                                                                  "Unit Name",
+                                                              labelStyle:
+                                                                  TextStyle(
+                                                                      fontSize:
+                                                                          10.sp)),
+                                                      items: snapshot.data
+                                                          ?.map((item) {
+                                                        return DropdownMenuItem(
+                                                          child: new Text(
+                                                            item.unitName!,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .clip,
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 9.sp,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .none,
+                                                              color: Constants
+                                                                  .colors[29],
+                                                            ),
+                                                          ),
+                                                          value: item.unitRowId,
+                                                        );
+                                                      }).toList(),
                                                       onChanged:
-                                                          (Object?
-                                                      value) {
-                                                        if (value
-                                                        is int) {
-                                                          unitId =
-                                                              value;
-                                                          print(
-                                                              "unitId");
-                                                          print(
-                                                              unitId);
+                                                          (Object? value) {
+                                                        if (value is int) {
+                                                          unitId = value;
+                                                          print("unitId");
+                                                          print(unitId);
                                                         }
                                                       },
                                                     );
@@ -751,11 +762,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           width: 50.w,
                                                           child: StreamBuilder(
                                                             stream: managerBloc
-                                                                .shifttypeStream,
+                                                                .shifttimeStream,
                                                             builder: (context,
                                                                 AsyncSnapshot<
                                                                         List<
-                                                                            ShiftTypeList>>
+                                                                            ShiftTimingList>>
                                                                     snapshot) {
                                                               if (null ==
                                                                       snapshot
@@ -801,7 +812,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                   return DropdownMenuItem(
                                                                     child:
                                                                         new Text(
-                                                                      item.type!,
+                                                                      item.shift!,
                                                                       style:
                                                                           TextStyle(
                                                                         fontWeight:
@@ -814,18 +825,23 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                             .colors[29],
                                                                       ),
                                                                     ),
-                                                                    value: item
-                                                                        .rowId,
+                                                                    value: item,
                                                                   );
                                                                 }).toList(),
                                                                 onChanged:
                                                                     (Object?
                                                                         value) {
                                                                   if (value
-                                                                      is UserTypeList) {
+                                                                      is ShiftTimingList) {
                                                                     shiftType =
                                                                         value
                                                                             .rowId!;
+                                                                    dateFrom.text =
+                                                                        value
+                                                                            .startTime!;
+                                                                    dateTo.text =
+                                                                        value
+                                                                            .endTime!;
                                                                   }
                                                                 },
                                                               );
@@ -1221,7 +1237,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                   dateTo.text,
                                   jobDescri.text,
                                   price.text,
-                                  shift.text);
+                                  shift.text,
+                                  unitId.toString());
                             } else {
                               print("TOKEN NULL");
                             }
@@ -1249,7 +1266,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       });
     });
 
-
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
       setState(() {
@@ -1257,16 +1273,18 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       });
       if (event.response?.status?.statusCode == 200) {
         if (row_id == -1) {
-          showAlertDialoge(context, title: "Success", message: message!);
-          jobtitle.text = "";
-          hospital.text = "";
-          date.text = "";
-          date.text = "";
-          dateTo.text = "";
-          dateFrom.text = "";
-          jobDescri.text = "";
-          price.text = "";
-          shift.text = "";
+          Fluttertoast.showToast(msg: '$message');
+          Navigator.pop(context);
+          // showAlertDialoge(context, title: "Success", message: message!);
+          // jobtitle.text = "";
+          // hospital.text = "";
+          // date.text = "";
+          // date.text = "";
+          // dateTo.text = "";
+          // dateFrom.text = "";
+          // jobDescri.text = "";
+          // price.text = "";
+          // shift.text = "";
         } else {
           Navigator.pop(context);
         }

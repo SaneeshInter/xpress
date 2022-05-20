@@ -6,17 +6,21 @@ import 'package:xpresshealthdev/ui/widgets/buttons/call_button.dart';
 
 import '../../blocs/shift_list_bloc.dart';
 //import 'package:xpresshealthdev/model/viewbooking_response.dart';
+import '../../model/common/manager_shift.dart';
 import '../../model/manager_shift_calendar_respo.dart';
 import '../../model/manager_shift_calendar_respo.dart';
 import '../../utils/constants.dart';
 import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
+import '../Widgets/buttons/build_button.dart';
+import '../Widgets/buttons/view_button.dart';
+import '../manager/home/shift_detail_manager.dart';
 import 'action_alert_dialoge.dart';
 import 'buttons/book_button.dart';
+import 'buttons/delete_button.dart';
 
 class ManagerListCalenderWidget extends StatefulWidget {
   final Items items;
-  final String token;
   final Function onTapEdit;
   final Function onTapDelete;
   final Function onTapViewMap;
@@ -26,7 +30,6 @@ class ManagerListCalenderWidget extends StatefulWidget {
   const ManagerListCalenderWidget({
     Key? key,
     required this.items,
-    required this.token,
     required this.onTapView,
     required this.onTapEdit,
     required this.onTapDelete,
@@ -41,14 +44,8 @@ class ManagerListCalenderWidget extends StatefulWidget {
 class _HomePageCardStates extends State<ManagerListCalenderWidget> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        widget.onTapView(widget.items);
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: widget.items.rowId.toString(),)),
-        // );
-      },
+    return  Padding(
+      padding: const EdgeInsets.all(4.0),
       child: Container(
         width: screenWidth(context, dividedBy: 1),
         padding: EdgeInsets.symmetric(
@@ -58,133 +55,116 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                if (null != widget.items.hospital)
-                  AutoSizeText(
-                    widget.items.hospital!,
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: 11.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700),
-                  ),
-                SizedBox(height: screenHeight(context, dividedBy: 120)),
-                if (null != widget.items.timeFrom &&
-                    null != widget.items.timeTo)
-                  Text(
-                    "From " +
-                        widget.items.timeFrom! +
-                        " To " +
-                        widget.items.timeTo!,
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w400),
-                  ),
-                SizedBox(height: screenHeight(context, dividedBy: 120)),
-                if (null != widget.items.type)
-                  Text(
-                    "" + widget.items.type!,
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Constants.colors[3],
-                        fontWeight: FontWeight.w500),
-                  ),
-              ]),
-              Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: screenWidth(context, dividedBy: 40),
+                      AutoSizeText(
+                        "At : " + widget.items.hospital!,
+                        textAlign: TextAlign.start,
+                        maxLines: 3,
+                        style: TextStyle(
+                            color: Constants.colors[14],
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "SFProBold"),
                       ),
-                      if (null != widget.items.price &&
-                          widget.items.type == "Premium")
-                        Text(
-                          "\€" + widget.items.price.toString(),
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Constants.colors[3],
-                              fontWeight: FontWeight.w700),
-                        )
                     ],
                   ),
-                  SizedBox(height: screenHeight(context, dividedBy: 70)),
-                ],
-              )
-            ]),
-            SizedBox(height: screenHeight(context, dividedBy: 120)),
-            Row(
-              children: [
-
-                SizedBox(width: screenWidth(context, dividedBy: 40)),
+                  SizedBox(height: screenHeight(context, dividedBy: 120)),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1.0),
+                        child: Text(
+                          "On: " + widget.items.date!,
+                          style: TextStyle(
+                              fontSize: 9.sp,
+                              color: Constants.colors[13],
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3.0),
+                        child: Text(
+                          "From " +
+                              widget.items.timeFrom! +
+                              " To " +
+                              widget.items.timeTo!,
+                          style: TextStyle(
+                              fontSize: 9.sp,
+                              color: Constants.colors[13],
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight(context, dividedBy: 120)),
+                  if (null != widget.items.userType)
+                    Text(
+                      widget.items.userType!,
+                      style: TextStyle(
+                          fontSize: 11.sp,
+                          color: Constants.colors[3],
+                          fontWeight: FontWeight.w500),
+                    ),
+                ]),
                 Spacer(),
-                if (widget.items.type == "Premium")
-                  Container(
-                      width: 7.w,
-                      height: 7.w,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Constants.colors[8]),
-                      child: Center(
-                          child: SvgPicture.asset("assets/images/icon/rank.svg",
-                              width: 6.w, height: 6.w, fit: BoxFit.cover))),
-                SizedBox(width: screenWidth(context, dividedBy: 40)),
-                CallButtons(
-                  onPressed: () {
-                    dialCall("86962876916");
-                  },
-                ),
-              ],
-            ),
-            SizedBox(height: screenHeight(context, dividedBy: 120)),
-          ],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ViewButton(
+                      label: "view",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShiftDetailManagerScreen(shift_id: widget.items.rowId.toString(),)),
+                        );
+                      },
+                      key: null,
+                    )
+                  ],
+                )
+              ]),
+              SizedBox(height: screenHeight(context, dividedBy: 120)),
+              Row(
+                children: [
+                  BuildButton(
+                    label: "Edit",
+                    onPressed: () {
+                      widget.onTapEdit(widget.items);
+                    },
+                    key: null,
+                  ),
+                  SizedBox(width: screenWidth(context, dividedBy: 40)),
+                  DeleteButton(
+                    label: "Delete",
+                    onPressed: () {
+
+                      widget.onTapDelete(widget.items.rowId);
+
+
+                    },
+                    key: null,
+                  ),
+                  Spacer(),
+                ],
+              ),
+              SizedBox(height: screenHeight(context, dividedBy: 120)),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void showActionAlert(
-      context, {
-        required String tittle,
-        required String message,
-        required Items item,
-      }) {
-    showDialog(
-      context: context,
-      barrierColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Center(
-          child: AlertDialog(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              insetPadding: EdgeInsets.symmetric(
-                horizontal: screenWidth(context, dividedBy: 30),
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              content: ActionAlertBox(
-                  tittle: tittle,
-                  message: message,
-                  positiveText: "REQUEST NOW",
-                  onPositvieClick: (item) {
-// widget.onTapBook(item);
-                    if (item is Items) {
-                      Items data = item;
-                      bloc.fetchuserJobRequest(
-                          widget.token, data.rowId.toString());
-                    }
-                  },
-                  onNegativeClick: () {})),
-        );
-      },
-    );
-  }
+
 }

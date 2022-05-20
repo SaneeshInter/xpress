@@ -352,12 +352,12 @@ class _LoginScreenState extends State<LoginScreen> {
         prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc);
 
         if (role == 0) {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const DashBoard()),
           );
         } else {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const ManagerDashBoard()),
           );

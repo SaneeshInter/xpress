@@ -93,6 +93,7 @@ class ApiFileProvider {
     String price,
     String shift,
     String allowances,
+    String unit_name,
   ) async {
     var uri = Uri.parse(BASE_URL + '/manager/add-schedule');
 
@@ -118,6 +119,7 @@ class ApiFileProvider {
     request.fields["allowances"] = allowances;
     request.fields["assigned_to"] = "";
     request.fields["shift"] = shift;
+    request.fields["unit_name"] = unit_name;
 
     var headers = <String, String>{
       "Accept": "application/json",

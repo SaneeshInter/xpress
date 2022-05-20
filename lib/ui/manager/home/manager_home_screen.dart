@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/manager/home/approved_timesheet_screen.dart';
-import 'package:xpresshealthdev/ui/manager/home/create_shift_screen.dart';
+
 import 'package:xpresshealthdev/ui/manager/home/my_shifts_screen.dart';
 import 'package:xpresshealthdev/ui/widgets/loading_widget.dart';
 import 'package:xpresshealthdev/utils/network_utils.dart';
@@ -18,6 +18,7 @@ import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../user/detail/home_card_item.dart';
 import '../../widgets/buttons/home_button.dart';
+import '../create_shift_screen_update.dart';
 
 class ManagerHomeScreen extends StatefulWidget {
   const ManagerHomeScreen({Key? key}) : super(key: key);
@@ -320,7 +321,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                 print("ON TAP");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CreateShiftScreen()),
+                  MaterialPageRoute(builder: (context) => CreateShiftScreenUpdate()),
                 );
               },
               child: HomeCardItem(

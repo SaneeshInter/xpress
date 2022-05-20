@@ -52,70 +52,121 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
         ),
         child: Column(
           children: [
-            Row(children: [
-              Container(
-                width: 75.w,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          AutoSizeText(
-                            "At : " + widget.items.hospital!,
-                            textAlign: TextAlign.start,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Constants.colors[14],
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: "SFProBold"),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: screenHeight(context, dividedBy: 120)),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 1.0),
-                            child: Text(
-                              "On: " + widget.items.date!,
-                              style: TextStyle(
-                                  fontSize: 9.sp,
-                                  color: Constants.colors[13],
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 3.0),
-                            child: Text(
-                              "From " +
-                                  widget.items.timeFrom! +
-                                  " To " +
-                                  widget.items.timeTo!,
-                              style: TextStyle(
-                                  fontSize: 9.sp,
-                                  color: Constants.colors[13],
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: screenHeight(context, dividedBy: 120)),
-                      if (null != widget.items.userType)
-                        Text(
-                          widget.items.userType!,
+            Column(children: [
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        AutoSizeText(
+                          "At : " + widget.items.hospital!,
+                          textAlign: TextAlign.start,
+                          maxLines: 3,
+                          overflow: TextOverflow.visible,
                           style: TextStyle(
-                              fontSize: 11.sp,
-                              color: Constants.colors[3],
-                              fontWeight: FontWeight.w500),
+                              color: Constants.colors[14],
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "SFProBold"),
                         ),
-                    ]),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight(context, dividedBy: 120)),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 1.0),
+                          child: Text(
+                            "On: " + widget.items.date!,
+                            style: TextStyle(
+                                fontSize: 9.sp,
+                                color: Constants.colors[13],
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 3.0),
+                          child: Text(
+                            "From " +
+                                widget.items.timeFrom! +
+                                " To " +
+                                widget.items.timeTo!,
+                            style: TextStyle(
+                                fontSize: 9.sp,
+                                color: Constants.colors[13],
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: screenHeight(context, dividedBy: 120)),
+                    if (null != widget.items.userType)
+                      Text(
+                        widget.items.userType!,
+                        style: TextStyle(
+                            fontSize: 11.sp,
+                            color: Constants.colors[3],
+                            fontWeight: FontWeight.w500),
+                      ),
+                  ]),
+              Row(
+                children: [
+                  Container(
+                    alignment: Alignment.topLeft,
+                    transformAlignment: Alignment.topLeft,
+                    child: Checkbox(
+                      checkColor: Colors.white,
+                      fillColor: MaterialStateProperty.resolveWith(getColor),
+                      value: isChecked,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isChecked = value!;
+                          isCheckedReject = !value;
+                        });
+                        widget.onCheckBoxClicked(
+                            widget.items.rowId.toString(), value);
+                      },
+                    ),
+                  ),
+                  Container(
+                    child: Checkbox(
+                      checkColor: Colors.white,
+                      fillColor: MaterialStateProperty.resolveWith(getColor),
+                      value: isCheckedReject,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isCheckedReject = value!;
+                          isChecked = !value;
+                        });
+                        widget.onCheckBoxClicked(
+                            widget.items.rowId.toString(), value);
+                      },
+                    ),
+                  ),
+                ],
               ),
-              Spacer(),
-
-
+              Column(
+                children: [
+                  Container(
+                    alignment: Alignment.topLeft,
+                    transformAlignment: Alignment.topLeft,
+                    child: TextInputFiledDescription(
+                        controlr: jobDescri,
+                        onTapDate: () {},
+                        validator: (jobDescri) {
+                          if (validDescription(jobDescri))
+                            return null;
+                          else
+                            return "enter job decscription";
+                        },
+                        hintText: "Comment",
+                        keyboadType: TextInputType.visiblePassword,
+                        isPwd: false),
+                  ),
+                ],
+              ),
             ]),
             SizedBox(height: screenHeight(context, dividedBy: 120)),
           ],

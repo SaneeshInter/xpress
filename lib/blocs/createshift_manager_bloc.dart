@@ -124,7 +124,6 @@ class CreateShiftmanagerBloc {
     _category.add(category);
     _usertype.add(usertype);
     _hospital.add(hospitals);
-
     _shiftime.add(shifttiming);
   }
 
@@ -163,7 +162,9 @@ class CreateShiftmanagerBloc {
       String time_to,
       String job_details,
       String price,
-      String shift,) async {
+      String shift,
+      String unit_name,
+      ) async {
     var json = jsonEncode(allowanceList.map((e) => e.toJson()).toList());
     // var json = jsonEncode(allowanceList, toEncodable: (e) => {
     // print(e)
@@ -186,6 +187,7 @@ class CreateShiftmanagerBloc {
       price,
       shift,
       json,
+      unit_name,
     );
 
     _getmanager.sink.add(respo);

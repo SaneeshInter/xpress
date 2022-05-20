@@ -212,6 +212,7 @@ class Repository {
     String price,
     String shift,
     String allowances,
+    String unit_name,
   ) =>
       apiFileProvider.CreateShiftManagers(
           token,
@@ -227,5 +228,7 @@ class Repository {
           job_details,
           price,
           shift,
-          allowances);
+          allowances,
+          unit_name
+      );
 }

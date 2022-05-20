@@ -300,7 +300,6 @@ class ApiProvider {
         body: jsonEncode(<String, String>{
           'shift_id': shift_id,
         }));
-
     print("PRINT VIEW REQUEST" + uri.toString());
     print("PRINT VIEW REQUEST" + shift_id);
     print("PRINT VIEW REQUEST" + token);

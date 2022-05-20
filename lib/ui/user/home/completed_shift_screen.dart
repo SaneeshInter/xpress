@@ -124,11 +124,11 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
       if (data?.items != null) {
         print("data?.items?.length");
         print(data?.items?.length);
-        if (data?.items?.length != 0) {
-          setState(() {
-            buttonVisibility = true;
-          });
-        }
+        // if (data?.items?.length != 0) {
+        //   setState(() {
+        //     buttonVisibility = true;
+        //   });
+        // }
       }
     });
     completeBloc.uploadStatus.listen((event) {
@@ -149,7 +149,6 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
 
@@ -179,7 +178,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    if (buttonVisibility)
+                    // if (buttonVisibility)
                       DottedBorder(
                         borderType: BorderType.RRect,
                         dashPattern: [10, 10],
@@ -259,7 +258,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    if (buttonVisibility)
+                    // if (buttonVisibility)
                       BuildButton(
                         label: "Upload Timesheets",
                         onPressed: () {

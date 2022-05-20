@@ -12,35 +12,28 @@ import '../../../utils/utils.dart';
 import '../../user/home/my_booking_screen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
-
 class ManagerTimeSheetDetails extends StatefulWidget {
   final TimeSheetInfo? item;
-
   const ManagerTimeSheetDetails({Key? key, this.item}) : super(key: key);
-
   @override
   _CreateShiftState createState() => _CreateShiftState();
 }
-
 class _CreateShiftState extends State<ManagerTimeSheetDetails> {
   var token;
   var time_shhet_id = "";
-
   @override
   void initState() {
     observe();
     getDataa();
-
     super.initState();
   }
-  @override
-  void dispose() {
-    super.dispose();
-    timesheetBloc.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   timesheetBloc.dispose();
+  // }
   Future<void> getDataa() async {
     token = await TokenProvider().getToken();
-
     time_shhet_id = widget.item!.timeSheetId.toString();
     print(token);
     if (null != token) {
@@ -52,12 +45,11 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
       print("TOKEN NOT FOUND");
     }
   }
-
   void observe() {
     timesheetBloc.timesheetdetails.listen((event) {
-      // setState(() {
-      //   visibility = true;
-      // });
+      setState(() {
+        visibility = false;
+      });
     });
   }
 
@@ -97,10 +89,12 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                     children: [
                       Container(
                           child: imageUrl != null
-                              ? Image.network(
-                                  imageUrl,
-                                  fit: BoxFit.fill,
-                                )
+                              ? InteractiveViewer(
+                                child: Image.network(
+                                    imageUrl,
+                                    fit: BoxFit.fill,
+                                  ),
+                              )
                               : Container()),
                       Padding(
                         padding: const EdgeInsets.only(left: 16, top: 10),
@@ -167,7 +161,6 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
         if (null != snapshot.data?.response?.data?.timeSheetDetails) {
           TimeSheetDetails? timeSheetDetails =
               snapshot.data?.response?.data?.timeSheetDetails![index];
-
           return Column(
             children: [
               TimeSheetDetailsListWidget(

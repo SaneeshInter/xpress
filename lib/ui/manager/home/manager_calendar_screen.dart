@@ -8,6 +8,7 @@ import 'package:xpresshealthdev/model/manager_shift_calendar_respo.dart';
 import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
 
 import '../../../eventutil/eventutil.dart';
+import '../../../model/common/manager_shift.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/network_utils.dart';
@@ -16,7 +17,7 @@ import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/manager_list_calendar.dart';
 import '../create_shift_screen_update.dart';
-import 'create_shift_screen.dart';
+
 
 class ManagerfindshiftCalendar extends StatefulWidget {
   const ManagerfindshiftCalendar({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   int perPageItem = 3;
   int pageCount = 0;
   var token;
+
   bool visibility = false;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
@@ -79,6 +81,21 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   }
 
   void observe() {
+
+
+
+    managercalendarBloc.removeshift.listen((event) {
+      print(event.response?.status?.statusCode);
+      setState(() {
+        visibility = false;
+      });
+      var message = event.response?.status?.statusMessage;
+      if (event.response?.status?.statusCode == 200) {
+        getData();
+      } else {
+        showAlertDialoge(context, title: "Failed", message: message!);
+      }
+    });
     managercalendarBloc.managercalendar.listen((event) {
       if (null != event.response?.data) {
         var itemList = event.response?.data?.item;
@@ -177,16 +194,42 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                       selectedDayPredicate: (day) {
                         return _selectedDays.contains(day);
                       },
+                      calendarBuilders: CalendarBuilders(markerBuilder:
+                          (BuildContext context, DateTime datetime,
+                          List<Event> list) {
+                        if (list.isNotEmpty) {
+                          return Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                    color: Colors.transparent,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4),
+                                      child: Text(
+                                        list.length.toString(),
+                                        style: TextStyle(
+                                            fontSize: 8.sp,
+                                            color: Constants.colors[15],
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )),
+                              ),
+                            ],
+                          );
+                        }
+                      }),
                       eventLoader: _getEventsForDay,
                       startingDayOfWeek: StartingDayOfWeek.sunday,
                       daysOfWeekVisible: true,
                       calendarStyle: CalendarStyle(
                         isTodayHighlighted: true,
                         markerSize: 4,
+                        canMarkersOverflow: false,
                         selectedDecoration: BoxDecoration(
-                          color: Colors.green,
+                          color: Constants.colors[15],
                           shape: BoxShape.circle,
-
                           // borderRadius: BorderRadius.circular(100.0),
                         ),
                       ),
@@ -211,27 +254,24 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                     children: [
                                       ManagerListCalenderWidget(
                                         items: items,
-                                        token: token,
-                                        onTapDelete: () {},
-                                        onTapViewMap: () {},
-                                        onTapView: (item) {
-                                          if (items is Items) {
-                                            Items data = items;
-                                            // Navigator.push(
-                                            //   context,
-                                            //   MaterialPageRoute(
-                                            //       builder: (context) =>
-                                            //           ShiftDetailManagerScreen(shift_id: widget.items.rowId.toString(),)),
-                                            // );
-                                          }
-                                        },
-                                        onTapBook: (item) {
-                                          // requestShift(items);
-                                        },
-                                        onTapEdit: () {
-                                          print("Tapped");
-                                        },
+                                        onTapView: () {},
                                         key: null,
+                                        onTapEdit: (item) {
+                                          print(item);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => CreateShiftScreenUpdate(
+                                                    shiftItem: items,
+                                                  )));
+                                        },
+                                        onTapDelete: (row_id) {
+                                          print(row_id);
+                                          setState(() {
+                                            visibility = true;
+                                          });
+                                          deleteShift(row_id);
+                                        }, onTapBook: (){}, onTapViewMap: (){},
                                       ),
                                       SizedBox(
                                           height: screenHeight(context,
@@ -281,12 +321,16 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
               context,
               MaterialPageRoute(
                   builder: (context) => CreateShiftScreenUpdate()),
-            );
-          },
+            ).then((value) => getData());
+            },
           child: Icon(Icons.add),
         ),
       ),
     );
+  }
+  Future deleteShift(rowId) async {
+    String? token = await TokenProvider().getToken();
+    managercalendarBloc.fetchRemoveManager(token!, rowId.toString());
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {

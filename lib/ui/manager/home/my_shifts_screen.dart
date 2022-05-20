@@ -12,7 +12,7 @@ import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../datepicker/date_picker_widget.dart';
 import '../../widgets/manager/my_booking_list_widget.dart';
-import 'create_shift_screen.dart';
+import '../create_shift_screen_update.dart';
 
 class ManagerShiftsScreen extends StatefulWidget {
   const ManagerShiftsScreen({Key? key}) : super(key: key);
@@ -210,7 +210,7 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CreateShiftScreen(
+                        builder: (context) => CreateShiftScreenUpdate(
                               shiftItem: items,
                             )));
               },
