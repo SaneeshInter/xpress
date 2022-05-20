@@ -96,6 +96,19 @@ class Items {
   String? ecsLink;
   String? ecsExpiry;
   String? pidExpiry;
+  int? permissionToWorkInIreland;
+  int? doYouDrive;
+  int? haveYouGotCovid19Vaccination;
+  int? doYouConsentGardaVettingToBeCompleted;
+  int? tuberculosisVaccination;
+  int? hepatitisBAntibody;
+  String? uniformSize;
+  Null? uniformSizeId;
+  Null? termsAndConditions;
+  Null? uniqueStaffId;
+  int? idCardReceived;
+  String? location;
+  Null? locationId;
 
   Items(
       {this.firstName,
@@ -127,7 +140,20 @@ class Items {
         this.ipccExpiry,
         this.ecsLink,
         this.ecsExpiry,
-        this.pidExpiry});
+        this.pidExpiry,
+        this.permissionToWorkInIreland,
+        this.doYouDrive,
+        this.haveYouGotCovid19Vaccination,
+        this.doYouConsentGardaVettingToBeCompleted,
+        this.tuberculosisVaccination,
+        this.hepatitisBAntibody,
+        this.uniformSize,
+        this.uniformSizeId,
+        this.termsAndConditions,
+        this.uniqueStaffId,
+        this.idCardReceived,
+        this.location,
+        this.locationId});
 
   Items.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
@@ -160,6 +186,20 @@ class Items {
     ecsLink = json['ecs_link'];
     ecsExpiry = json['ecs_expiry'];
     pidExpiry = json['pid_expiry'];
+    permissionToWorkInIreland = json['permission_to_work_in_ireland'];
+    doYouDrive = json['do_you_drive'];
+    haveYouGotCovid19Vaccination = json['have_you_got_covid19_vaccination'];
+    doYouConsentGardaVettingToBeCompleted =
+    json['do_you_consent_garda_vetting_to_be_completed'];
+    tuberculosisVaccination = json['tuberculosis_vaccination'];
+    hepatitisBAntibody = json['hepatitis_b_antibody'];
+    uniformSize = json['uniform_size'];
+    uniformSizeId = json['uniform_size_id'];
+    termsAndConditions = json['terms_and_conditions'];
+    uniqueStaffId = json['unique_staff_id'];
+    idCardReceived = json['id_card_received'];
+    location = json['location'];
+    locationId = json['location_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -194,6 +234,21 @@ class Items {
     data['ecs_link'] = this.ecsLink;
     data['ecs_expiry'] = this.ecsExpiry;
     data['pid_expiry'] = this.pidExpiry;
+    data['permission_to_work_in_ireland'] = this.permissionToWorkInIreland;
+    data['do_you_drive'] = this.doYouDrive;
+    data['have_you_got_covid19_vaccination'] =
+        this.haveYouGotCovid19Vaccination;
+    data['do_you_consent_garda_vetting_to_be_completed'] =
+        this.doYouConsentGardaVettingToBeCompleted;
+    data['tuberculosis_vaccination'] = this.tuberculosisVaccination;
+    data['hepatitis_b_antibody'] = this.hepatitisBAntibody;
+    data['uniform_size'] = this.uniformSize;
+    data['uniform_size_id'] = this.uniformSizeId;
+    data['terms_and_conditions'] = this.termsAndConditions;
+    data['unique_staff_id'] = this.uniqueStaffId;
+    data['id_card_received'] = this.idCardReceived;
+    data['location'] = this.location;
+    data['location_id'] = this.locationId;
     return data;
   }
 }
