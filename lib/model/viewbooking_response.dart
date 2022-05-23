@@ -69,28 +69,6 @@ class Data {
 
 
 
-class Allowancess {
-  String? category;
-  String? allowance;
-  String? price;
-
-  Allowancess({this.category, this.allowance, this.price});
-
-  Allowancess.fromJson(Map<String, dynamic> json) {
-    category = json['category'];
-    allowance = json['allowance'];
-    price = json['price'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['category'] = this.category;
-    data['allowance'] = this.allowance;
-    data['price'] = this.price;
-    return data;
-  }
-}
-
 class Status {
   int? count;
   int? statusCode;
