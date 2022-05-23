@@ -150,7 +150,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
         BookButton(
           label: "Add Timesheet",
           onPressed: () {
-            widget.onTapView();
+            widget.onTapView(widget.items);
             print("Cards booking");
           },
           key: null,
@@ -181,18 +181,18 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
           BookButton(
             label: "Cancel Request",
             onPressed: () {
-              widget.onTapCancel(widget.items);
+              widget.onTapCancel();
               print("Cards booking");
             },
             key: null,
           ),
 
-        SizedBox(width: 10,),
-        if (widget.items.status == "Accepted")
+
+        if (widget.items.status == "Completed")
         BookButton(
-          label: "Add Timesheet",
+          label: "Add Working Hours",
           onPressed: () {
-            widget.onTapView();
+            widget.onTapView(widget.items);
             print("Cards booking");
           },
           key: null,

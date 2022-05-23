@@ -233,6 +233,7 @@ class _HomeScreentate extends State<MyBookingScreen> {
                 },
                 onTapCall: () {},
                 onTapMap: () {
+
                   // showFeactureAlert(context, date: "");
                 },
                 onTapBooking: () {
@@ -298,7 +299,7 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               height: 11.w,
-                              color: Constants.colors[4],
+                              color: Constants.colors[20],
                               child: Container(
                                 child: Row(
                                   children: [
@@ -308,9 +309,9 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text("Add Timesheet",
                                             style: TextStyle(
-                                              fontSize: 12.sp,
+                                              fontSize: 13.sp,
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold,
+                                             fontWeight: FontWeight.w400,
                                               fontFamily: "SFProMedium",
                                             )),
                                       ),
@@ -322,13 +323,16 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                         height: 3.w,
                                         width: 3.w,
                                         color: Constants.colors[0],
-                                      ),
+                              ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -349,12 +353,13 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                           maxLines: 1,
                                           style: TextStyle(
                                             color: Constants.colors[22],
-                                            fontSize: 10.sp,
+                                            fontSize: 11.sp,
                                             fontFamily: "SFProMedium",
+
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 3,
+                                          height: 10,
                                         ),
                                         TextInputFileds(
                                             controlr: dateFrom,
@@ -375,6 +380,9 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                width: 6,
+                              ),
                               Expanded(
                                 flex: 1,
                                 child: Column(
@@ -385,12 +393,13 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                       maxLines: 1,
                                       style: TextStyle(
                                         color: Constants.colors[22],
-                                        fontSize: 10.sp,
+                                        fontSize: 11.sp,
+
                                         fontFamily: "SFProMedium",
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 3,
+                                      height: 10,
                                     ),
                                     TextInputFileds(
                                         controlr: dateTo,
@@ -413,6 +422,9 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                             ],
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Padding(
                           padding:
                               const EdgeInsets.only(left: 15.0, bottom: 15.0),
@@ -420,8 +432,7 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                             width: 20.w,
                             child: SubmitButton(
                                 onPressed: () {
-                                  confirmBloc.fetchUserWorkingHours(
-                                      token,
+                                  confirmBloc.fetchUserWorkingHours(token,
                                       item.rowId.toString(),
                                       dateFrom.text,
                                       dateTo.text);
@@ -431,6 +442,9 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                 color1: Constants.colors[3],
                                 color2: Constants.colors[4]),
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                       ],
                     ),

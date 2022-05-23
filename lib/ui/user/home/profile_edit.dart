@@ -61,9 +61,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
   TextEditingController home_address = TextEditingController();
   TextEditingController visa_type = TextEditingController();
 
-  //updstaes
-  TextEditingController permission_to_work_in_ireland =
-      new TextEditingController();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
   bool visibility = false;
@@ -126,8 +123,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
       });
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +195,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-
                                           // const SizedBox(
                                           //   height: 25,
                                           // ),
@@ -227,49 +221,54 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 Stack(
                                                   children: [
                                                     Container(
-
-                                                      width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width *
-                                                          0.22,
-                                                      height: MediaQuery.of(
-                                                          context)
-                                                          .size
-                                                          .width *
-                                                          0.22,
-                                                      child:  ClipRRect(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.22,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.22,
+                                                      child: ClipRRect(
                                                         borderRadius:
-                                                        BorderRadius.circular(
-                                                            MediaQuery.of(
-                                                                context)
-                                                                .size
-                                                                .width *
-                                                                0.22),
+                                                            BorderRadius.circular(
+                                                                MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.22),
                                                         child: AspectRatio(
                                                           aspectRatio: 1 / 1,
                                                           child: Stack(
                                                             children: [
-                                                              if (profileImage == "" ||
-                                                                  null == profileImage)
+                                                              if (profileImage ==
+                                                                      "" ||
+                                                                  null ==
+                                                                      profileImage)
                                                                 Image.asset(
                                                                   'assets/images/icon/man_ava.png',
-                                                                  fit: BoxFit.fill,
+                                                                  fit: BoxFit
+                                                                      .fill,
                                                                 ),
-                                                              if (profileImage != "" &&
-                                                                  null != profileImage)
+                                                              if (profileImage !=
+                                                                      "" &&
+                                                                  null !=
+                                                                      profileImage)
                                                                 Image.network(
                                                                   profileImage,
-                                                                  fit: BoxFit.fill,
+                                                                  fit: BoxFit
+                                                                      .fill,
                                                                   width: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
+                                                                              context)
+                                                                          .size
+                                                                          .width *
                                                                       0.22,
                                                                   height: MediaQuery.of(
-                                                                      context)
-                                                                      .size
-                                                                      .width *
+                                                                              context)
+                                                                          .size
+                                                                          .width *
                                                                       0.22,
                                                                 ),
                                                             ],
@@ -278,10 +277,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets
-                                                                  .fromLTRB(
-                                                              65, 70, 0, 0),
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          65, 70, 0, 0),
                                                       child: Column(
                                                         children: [
                                                           Container(
@@ -299,9 +297,8 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                   AspectRatio(
                                                                 aspectRatio:
                                                                     1 / 1,
-                                                                child: Image
-                                                                    .asset(
-                                                                        'assets/images/icon/edittool.png'),
+                                                                child: Image.asset(
+                                                                    'assets/images/icon/edittool.png'),
                                                               ),
                                                             ),
                                                           ),
@@ -321,7 +318,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                               Expanded(
                                                   flex: 1,
                                                   child: TextInputFileds(
-
                                                       controlr: first_name,
                                                       onTapDate: () {},
                                                       validator: (name) {
@@ -332,8 +328,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                           return "enter firstname";
                                                         }
                                                       },
-                                                      hintText:
-                                                          Txt.first_name,
+                                                      hintText: Txt.first_name,
                                                       keyboadType:
                                                           TextInputType.text,
                                                       isPwd: false)),
@@ -361,11 +356,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.03,
                                           ),
                                           Row(
@@ -398,18 +391,21 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                     OutlineInputBorder(
                                                                   borderRadius:
                                                                       BorderRadius.all(
-                                                                          Radius.circular(5)),
+                                                                          Radius.circular(
+                                                                              5)),
                                                                   borderSide:
                                                                       BorderSide(
-
-                                                                          color: Constants.colors[28],),
+                                                                    color: Constants
+                                                                        .colors[28],
+                                                                  ),
                                                                 ),
                                                                 focusedBorder: OutlineInputBorder(
                                                                     borderRadius:
                                                                         BorderRadius.all(Radius.circular(
                                                                             5.0)),
                                                                     borderSide: BorderSide(
-                                                                        color: Constants.colors[28],
+                                                                        color: Constants.colors[
+                                                                            28],
                                                                         width:
                                                                             1)),
                                                                 contentPadding:
@@ -418,7 +414,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                             3.0),
                                                                 labelText:
                                                                     "Nationality",
-
                                                                 labelStyle:
                                                                     TextStyle(
                                                                         fontSize:
@@ -459,11 +454,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.05,
                                           ),
                                           Column(
@@ -496,55 +489,55 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                 InputDecoration(
                                                               enabledBorder:
                                                                   OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius.all(
-                                                                        Radius.circular(
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
                                                                             5)),
-                                                                borderSide:
-                                                                    BorderSide(
-                                                          color: Constants.colors[28]),
+                                                                borderSide: BorderSide(
+                                                                    color: Constants
+                                                                            .colors[
+                                                                        28]),
                                                               ),
                                                               focusedBorder: OutlineInputBorder(
                                                                   borderRadius:
-                                                                      BorderRadius.all(Radius.circular(
-                                                                          5.0)),
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              5.0)),
                                                                   borderSide: BorderSide(
-                                                                      color: Constants.colors[28],
+                                                                      color: Constants
+                                                                              .colors[
+                                                                          28],
                                                                       width:
                                                                           1)),
                                                               contentPadding:
                                                                   EdgeInsets
-                                                                      .all(
-                                                                          3.0),
+                                                                      .all(3.0),
                                                               labelText:
                                                                   "Gender",
                                                             ),
-                                                            items: snapshot
-                                                                .data
+                                                            items: snapshot.data
                                                                 ?.map((item) {
                                                               return DropdownMenuItem(
-                                                                child:
-                                                                    new Text(
+                                                                child: new Text(
                                                                   item.gender!,
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
-                                                                      fontSize: 8
-                                                                          .sp,
+                                                                      fontSize:
+                                                                          8.sp,
                                                                       decoration:
                                                                           TextDecoration
                                                                               .none,
                                                                       color: Colors
                                                                           .grey),
                                                                 ),
-                                                                value: item
-                                                                    .rowId,
+                                                                value:
+                                                                    item.rowId,
                                                               );
                                                             }).toList(),
-                                                            onChanged:
-                                                                (Object?
-                                                                    value) {
+                                                            onChanged: (Object?
+                                                                value) {
                                                               if (value
                                                                   is GenderList) {
                                                                 genderId = value
@@ -586,19 +579,19 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                 InputDecoration(
                                                               enabledBorder:
                                                                   OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius.all(
-                                                                        Radius.circular(
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
                                                                             5)),
-                                                                borderSide:
-                                                                    BorderSide(
-                                                                        color:
-                                                                            Colors.grey),
+                                                                borderSide: BorderSide(
+                                                                    color: Colors
+                                                                        .grey),
                                                               ),
                                                               focusedBorder: OutlineInputBorder(
                                                                   borderRadius:
-                                                                      BorderRadius.all(Radius.circular(
-                                                                          8.0)),
+                                                                      BorderRadius.all(
+                                                                          Radius.circular(
+                                                                              8.0)),
                                                                   borderSide: BorderSide(
                                                                       color: Colors
                                                                           .grey,
@@ -606,37 +599,33 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                           1)),
                                                               contentPadding:
                                                                   EdgeInsets
-                                                                      .all(
-                                                                          3.0),
+                                                                      .all(3.0),
                                                               labelText:
                                                                   "Visa Type ",
                                                             ),
-                                                            items: snapshot
-                                                                .data
+                                                            items: snapshot.data
                                                                 ?.map((item) {
                                                               return DropdownMenuItem(
-                                                                child:
-                                                                    new Text(
+                                                                child: new Text(
                                                                   item.type!,
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w500,
-                                                                      fontSize: 8
-                                                                          .sp,
+                                                                      fontSize:
+                                                                          8.sp,
                                                                       decoration:
                                                                           TextDecoration
                                                                               .none,
                                                                       color: Colors
                                                                           .grey),
                                                                 ),
-                                                                value: item
-                                                                    .rowId,
+                                                                value:
+                                                                    item.rowId,
                                                               );
                                                             }).toList(),
-                                                            onChanged:
-                                                                (Object?
-                                                                    value) {
+                                                            onChanged: (Object?
+                                                                value) {
                                                               if (value
                                                                   is VisaTypeList) {
                                                                 visatypeId =
@@ -666,15 +655,12 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                   return "enter phone number";
                                               },
                                               hintText: Txt.phone_number,
-                                              keyboadType:
-                                                  TextInputType.number,
+                                              keyboadType: TextInputType.number,
                                               isPwd: false),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.03,
                                           ),
                                           TextInputFileds(
@@ -693,11 +679,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                               keyboadType: TextInputType.none,
                                               isPwd: false),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.03,
                                           ),
                                           Column(
@@ -707,8 +691,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                     controlr: home_address,
                                                     onTapDate: () {},
                                                     validator: (address) {
-                                                      if (validadress(
-                                                          address))
+                                                      if (validadress(address))
                                                         return null;
                                                       else
                                                         return "enter your address";
@@ -718,15 +701,12 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                         .visiblePassword,
                                                     isPwd: false),
                                               ),
-
                                             ],
                                           ),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.03,
                                           ),
                                           Column(
@@ -749,41 +729,37 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.03,
                                           ),
-                                          Column(
-                                            children: [
-                                              Container(
-                                                child: TextInputFileds(
-                                                    controlr:
-                                                        permission_to_work_in_ireland,
-                                                    validator: (permission) {
-                                                      if (vaidpermission_to_work_in_ireland(
-                                                          permission))
-                                                        return null;
-                                                      else
-                                                        return "enter permission";
-                                                    },
-                                                    onTapDate: () {},
-                                                    hintText: Txt
-                                                        .permission_to_work_in_ireland,
-                                                    keyboadType:
-                                                        TextInputType.text,
-                                                    isPwd: false),
-                                              ),
-                                            ],
-                                          ),
+                                          // Column(
+                                          //   children: [
+                                          //     Container(
+                                          //       child: TextInputFileds(
+                                          //           controlr:
+                                          //               permission_to_work_in_ireland,
+                                          //           validator: (permission) {
+                                          //             if (vaidpermission_to_work_in_ireland(
+                                          //                 permission))
+                                          //               return null;
+                                          //             else
+                                          //               return "enter permission";
+                                          //           },
+                                          //           onTapDate: () {},
+                                          //           hintText: Txt
+                                          //               .permission_to_work_in_ireland,
+                                          //           keyboadType:
+                                          //               TextInputType.text,
+                                          //           isPwd: false),
+                                          //     ),
+                                          //   ],
+                                          // ),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.03,
                                           ),
                                           Column(
@@ -807,11 +783,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.03,
                                           ),
                                           Column(
@@ -820,8 +794,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 child: TextInputFileds(
                                                     controlr: bank_iban,
                                                     validator: (number) {
-                                                      if (validbankiban(
-                                                          number))
+                                                      if (validbankiban(number))
                                                         return null;
                                                       else
                                                         return "enter bankiban";
@@ -835,11 +808,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height:
-                                            MediaQuery.of(
-                                                context)
-                                                .size
-                                                .width *
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.03,
                                           ),
                                           Column(
@@ -848,8 +819,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 child: TextInputFileds(
                                                     controlr: bank_bic,
                                                     validator: (number) {
-                                                      if (validbankbic(
-                                                          number))
+                                                      if (validbankbic(number))
                                                         return null;
                                                       else
                                                         return "enter bankbic";
@@ -880,6 +850,17 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                   ),
                 ),
               ],
+            ),   Center(
+              child: Visibility(
+                visible: visibility,
+                child: Container(
+                  width: 100.w,
+                  height: 80.h,
+                  child: const Center(
+                    child: LoadingWidget(),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -923,7 +904,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                   genderId.toString(),
                                   nationalityId.toString(),
                                   home_address.text,
-                                  permission_to_work_in_ireland.text,
+                                  "NO",
                                   visatypeId.toString(),
                                   phonenumber.text,
                                   email.text,
@@ -991,8 +972,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
           last_name.text = item.lastName!;
           date.text = item.dob!;
           email.text = item.email!;
-
-          permission_to_work_in_ireland.text = item.firstName!;
 
           phonenumber.text = item.phoneNumber!;
           ppsnumber.text = item.ppsNumber!;

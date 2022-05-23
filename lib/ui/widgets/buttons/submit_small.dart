@@ -40,8 +40,8 @@ class _SubmitButtonState extends State<SubmitButton> {
       child: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
-            horizontal: screenWidth(context, dividedBy: 20),
-            vertical: screenHeight(context, dividedBy: 150)),
+            horizontal: screenWidth(context, dividedBy: 24),
+            vertical: screenHeight(context, dividedBy: 90)),
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
@@ -51,17 +51,17 @@ class _SubmitButtonState extends State<SubmitButton> {
                   widget.color2,
                 ]),
             color: Constants.colors[3],
-            borderRadius: BorderRadius.circular(10)),
+            borderRadius: BorderRadius.circular(5)),
         child: Container(
           alignment: Alignment.center,
           child: AutoSizeText.rich(
             TextSpan(
               text: widget.label,
               style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   color: widget.textColors,
                   fontFamily: "SFProMedium",
-                  fontWeight: FontWeight.w600),
+                  fontWeight: FontWeight.w400),
             ),
             minFontSize: 0,
             stepGranularity: 0.1,
