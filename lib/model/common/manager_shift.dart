@@ -1,4 +1,4 @@
-import '../viewbooking_response.dart';
+import '../allowance_model.dart';
 
 class Items {
   int? rowId;
@@ -19,7 +19,7 @@ class Items {
   String? timeTo;
   String? jobDetails;
   int? price;
-  List<Allowancess>? allowances;
+  List<Allowances>? allowances;
   String? createdDate;
 
   Items(
@@ -64,9 +64,9 @@ class Items {
     jobDetails = json['job_details'];
     price = json['price'];
     if (json['allowances'] != null) {
-      allowances = <Allowancess>[];
+      allowances = <Allowances>[];
       json['allowances'].forEach((v) {
-        allowances!.add(new Allowancess.fromJson(v));
+        allowances!.add(new Allowances.fromJson(v));
       });
     }
     createdDate = json['created_date'];
