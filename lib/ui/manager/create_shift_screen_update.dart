@@ -92,6 +92,13 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   @override
+  void didUpdateWidget(covariant CreateShiftScreenUpdate oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+
+  }
+
+  @override
   void initState() {
     super.initState();
     getToken();
@@ -113,9 +120,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         jobDescri.text = item.jobDetails!;
         category.text = item.category!;
         buttonText = "Edit Shift";
-        if (null != item.allowances) {
-            managerBloc.setAllowance(item.allowances);
-        }
+        WidgetsBinding.instance
+            ?.addPostFrameCallback((_) => updateAllowances(context,item));
+
+
         if (item.type == "Premium") {
           setState(() {
             typeId = 2;
@@ -1093,7 +1101,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                       .allowancesList,
                                                   builder: (context, snapshot) {
                                                     return buildAllowanceList(
-                                                        snapshot);
+                                                        snapshot,context);
                                                   }),
                                               createShiftButton(),
                                               const SizedBox(
@@ -1134,10 +1142,18 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     );
   }
 
-  Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot) {
+  Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
     print("update allowances");
-
+    var lenth = snapshot.data?.length;
+    print("update allowances");
     if (snapshot.hasData) {
+      print("update allowances");
+      var lenth = snapshot.data?.length;
+      print("update allowances " + lenth!.toString());
+    }
+    if (snapshot.hasData) {
+
+      print("update allowances");
       return ListView.builder(
         itemCount: snapshot.data?.length,
         shrinkWrap: true,
@@ -1145,6 +1161,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         itemBuilder: (BuildContext context, int index) {
           var items = snapshot.data?[index];
           String? allowace = items?.allowance.toString();
+          print(allowace);
           String? category = items?.category.toString();
           String? amount = items?.amount.toString();
           return Container(
@@ -1152,50 +1169,54 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
               borderRadius: BorderRadius.circular(10),
               color: Colors.white,
             ),
-            child: Row(
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: Text(
-                      allowace!,
-                      style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
-                    )),
-                Expanded(
-                    flex: 1,
-                    child: Text(
-                      category!,
-                      style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
-                    )),
-                Expanded(
-                    flex: 1,
-                    child: Text(
-                      amount!,
-                      style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
-                    )),
-                GestureDetector(
-                  onTap: () {
-                    managerBloc.deleteAllowance(index);
-                  },
-                  child: SvgPicture.asset(
-                    'assets/images/icon/delete.svg',
-                    fit: BoxFit.contain,
-                    height: 20,
-                    width: 30,
-                  ),
-                )
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Text(
+                        allowace!,
+                        style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 14,
+                            fontFamily: "SFProMedium",
+                            fontWeight: FontWeight.w500),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Text(
+                        category!,
+                        style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 14,
+                            fontFamily: "SFProMedium",
+                            fontWeight: FontWeight.w500),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: Text(
+                        amount!,
+                        style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 14,
+                            fontFamily: "SFProMedium",
+                            fontWeight: FontWeight.w500),
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      print("Delete");
+                      managerBloc.deleteAllowance(index);
+                    },
+                    child: SvgPicture.asset(
+                      'assets/images/icon/delete.svg',
+                      fit: BoxFit.contain,
+                      height: 20,
+                      width: 30,
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },
@@ -1290,5 +1311,13 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   getItemFromId(int value, List<ShiftTimingList>? data) {
     int? index = data?.indexWhere((element) => element.rowId == value);
     return data![index!];
+  }
+
+  updateAllowances(BuildContext context, Items item) {
+
+    if (null != item.allowances) {
+      managerBloc.setAllowance(item.allowances!);
+    }
+
   }
 }

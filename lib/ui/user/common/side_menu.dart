@@ -195,7 +195,7 @@ class _SideMenuState extends State<SideMenu> {
               ),
             ),
             onTap: () {
-              // Navigator.pop(context);
+              Navigator.pop(context);
               // pushNewScreen(
               //   context,
               //   screen: HomeScreen(),
