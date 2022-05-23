@@ -43,56 +43,59 @@ class _TimeSheetListState extends State<UserTimeSheetListWidget> {
 //   MaterialPageRoute(builder: (context) =>UserTimeSheetDetails ()),
 // );
       },
-      child: Container(
-        width: screenWidth(context, dividedBy: 1),
-        padding: EdgeInsets.symmetric(
-            horizontal: screenWidth(context, dividedBy: 25),
-            vertical: screenHeight(context, dividedBy: 70)),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  widget.items.firstName!,
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700),
-                ),
-                SizedBox(height: screenHeight(context, dividedBy: 120)),
-                Row(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: screenWidth(context, dividedBy: 1),
+          padding: EdgeInsets.symmetric(
+              horizontal: screenWidth(context, dividedBy: 25),
+              vertical: screenHeight(context, dividedBy: 70)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    widget.items.firstName!,
+                    style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(height: screenHeight(context, dividedBy: 120)),
+                  Row(
+                    children: [
+                      Text(
+                        "Date : " + widget.items.date!,
+                        style: TextStyle(
+                            fontSize: 10.sp,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      SizedBox(width: 2.w),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight(context, dividedBy: 120)),
+                ]),
+                Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      "Date : " + widget.items.date!,
-                      style: TextStyle(
-                          fontSize: 10.sp,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    SizedBox(width: 2.w),
+                    ViewButton(
+                      label: widget.items.userType!,
+                      onPressed: () {},
+                      key: null,
+                    )
                   ],
-                ),
-                SizedBox(height: screenHeight(context, dividedBy: 120)),
+                )
               ]),
-              Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  ViewButton(
-                    label: widget.items.userType!,
-                    onPressed: () {},
-                    key: null,
-                  )
-                ],
-              )
-            ]),
-            SizedBox(height: screenHeight(context, dividedBy: 120)),
-          ],
+              SizedBox(height: screenHeight(context, dividedBy: 120)),
+            ],
+          ),
         ),
       ),
     );

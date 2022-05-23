@@ -128,20 +128,10 @@ class ApiFileProvider {
       'token': token,
     };
 
-
-
-
-
     request.headers.addAll(headers);
     var response = await request.send();
     var responseData = await response.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
-    print("response.statusCode");
-    print(response.statusCode);
-    print("request.toString()");
-    print(request.toString());
-    print(response);
-    print(responseString);
     if (response.statusCode == 200) {
       return ManagerShift.fromJson(json.decode(responseString));
     } else {

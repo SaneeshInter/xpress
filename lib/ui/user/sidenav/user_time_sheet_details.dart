@@ -53,9 +53,9 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
 
   void observe() {
     usertimesheetBloc.timedetailststream.listen((event) {
-      // setState(() {
-      //   visibility = false;
-      // });
+      setState(() {
+        visibility = false;
+      });
     });
   }
 

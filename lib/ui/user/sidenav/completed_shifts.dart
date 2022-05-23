@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
@@ -151,7 +152,8 @@ class _CompletedShiftState extends State<CompletedShift> {
               Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth(context, dividedBy: 35)),
-                  child: Column(children: [
+                  child: Column(
+                      children: [
                     SizedBox(height: screenHeight(context, dividedBy: 60)),
                     StreamBuilder(
                         stream: completeBloc.allShift,
@@ -165,6 +167,7 @@ class _CompletedShiftState extends State<CompletedShift> {
                                 return buildList(snapshot);
                               } else {
                                 return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     20.height,
                                     Column(
@@ -200,9 +203,6 @@ class _CompletedShiftState extends State<CompletedShift> {
                         }),
                     SizedBox(
                       height: 10,
-                    ),
-                    SizedBox(
-                      height: 20,
                     ),
                   ])),
               Center(

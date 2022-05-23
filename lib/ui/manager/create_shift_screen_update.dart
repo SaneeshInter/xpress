@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/createshift_manager_bloc.dart';
-import 'package:xpresshealthdev/blocs/shift_list_bloc.dart';
 import 'package:xpresshealthdev/model/allowance_model.dart';
 import 'package:xpresshealthdev/model/schedule_categegory_list.dart';
 import 'package:xpresshealthdev/model/schedule_hospital_list.dart';
@@ -47,9 +46,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   var row_id = -1;
   var typeId = 1;
   var categoryId = 1;
-  var usertypeId = 1;
+  var usertypeId = 2; //default
   var shiftType = 1;
   var hospitalId = 1;
+  var shiftTypeId = 1;
   var unitId = 1;
   var allowanceCategroyId = 1;
   var allowanceId = 1;
@@ -66,7 +66,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   TextEditingController dateTo = new TextEditingController();
   TextEditingController price = new TextEditingController();
   TextEditingController allowanceprice = new TextEditingController();
-
   TextEditingController job_title = new TextEditingController();
   TextEditingController resourceType = new TextEditingController();
   TextEditingController type = new TextEditingController();
@@ -94,6 +93,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
   @override
   void initState() {
+    super.initState();
     getToken();
     observerResponse();
     dropdownBloc.addItem();
@@ -101,8 +101,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     row_id = -1;
     if (widget.shiftItem != null) {
       var item = widget.shiftItem;
-      print("item.category");
-      print(item?.category);
       if (item != null) {
         jobtitle.text = item.jobTitle!;
         row_id = item.rowId!;
@@ -115,11 +113,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         jobDescri.text = item.jobDetails!;
         category.text = item.category!;
         buttonText = "Edit Shift";
-
         if (null != item.allowances) {
-
+            managerBloc.setAllowance(item.allowances);
         }
-
         if (item.type == "Premium") {
           setState(() {
             typeId = 2;
@@ -132,25 +128,34 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
           });
         }
 
-        if (item.categoryId != 0) {
+        if (item.categoryId != 0 && null != item.categoryId) {
           setState(() {
             categoryId = item.categoryId!;
           });
         }
-        if (item.userTypeId != 0) {
+
+        if (item.userTypeId != 1 && null != item.userTypeId) {
           setState(() {
             usertypeId = item.userTypeId!;
           });
         }
-        if (item.hospitalId != 0) {
+        if (item.hospitalId != 0 && null != item.hospitalId) {
           setState(() {
             hospitalId = item.hospitalId!;
           });
         }
+        if (item.shiftTypeId != 0 && null != item.shiftTypeId) {
+          setState(() {
+            shiftTypeId = item.shiftTypeId!;
+          });
+        }
+        if (item.unitNameId != 0 && null != item.unitNameId) {
+          setState(() {
+            unitId = item.unitNameId!;
+          });
+        }
       }
     }
-
-    super.initState();
   }
 
   // @override
@@ -294,10 +299,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                 onChanged:
                                                                     (Object?
                                                                         value) {
-                                                                  print(
-                                                                      "typeId");
-                                                                  print(value);
-
+                                                                  typeId = value
+                                                                      as int;
                                                                   if (value ==
                                                                       2) {
                                                                     setState(
@@ -406,10 +409,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                     (Object?
                                                                         value) {
                                                                   if (value
-                                                                      is ScheduleCategoryList) {
+                                                                      is int?) {
                                                                     categoryId =
-                                                                        value
-                                                                            .rowId!;
+                                                                        value!;
                                                                   }
                                                                 },
                                                               );
@@ -450,6 +452,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               }
 
                                                               return DropdownButtonFormField(
+                                                                value:
+                                                                    usertypeId,
                                                                 decoration:
                                                                     InputDecoration(
                                                                   enabledBorder:
@@ -511,10 +515,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                     (Object?
                                                                         value) {
                                                                   if (value
-                                                                      is ScheduleCategoryList) {
+                                                                      is int?) {
                                                                     usertypeId =
-                                                                        value
-                                                                            .rowId!;
+                                                                        value!;
                                                                   }
                                                                 },
                                                               );
@@ -609,13 +612,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                     (Object?
                                                                         value) {
                                                                   if (value
-                                                                      is int) {
+                                                                      is int?) {
                                                                     hospitalId =
-                                                                        value;
-                                                                    print(
-                                                                        "hospitalId");
-                                                                    print(
-                                                                        hospitalId);
+                                                                        value!;
                                                                     setState(
                                                                         () {
                                                                       visible =
@@ -716,10 +715,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                       }).toList(),
                                                       onChanged:
                                                           (Object? value) {
-                                                        if (value is int) {
-                                                          unitId = value;
-                                                          print("unitId");
-                                                          print(unitId);
+                                                        if (value is int?) {
+                                                          unitId = value!;
                                                         }
                                                       },
                                                     );
@@ -778,6 +775,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               }
 
                                                               return DropdownButtonFormField(
+                                                                value:
+                                                                    shiftTypeId,
                                                                 decoration:
                                                                     InputDecoration(
                                                                         enabledBorder:
@@ -825,22 +824,28 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                             .colors[29],
                                                                       ),
                                                                     ),
-                                                                    value: item,
+                                                                    value: item
+                                                                        .rowId,
                                                                   );
                                                                 }).toList(),
                                                                 onChanged:
                                                                     (Object?
                                                                         value) {
                                                                   if (value
-                                                                      is ShiftTimingList) {
+                                                                      is int?) {
+                                                                    ShiftTimingList
+                                                                        shiftValue =
+                                                                        getItemFromId(
+                                                                            value!,
+                                                                            snapshot.data);
                                                                     shiftType =
-                                                                        value
+                                                                        shiftValue
                                                                             .rowId!;
                                                                     dateFrom.text =
-                                                                        value
+                                                                        shiftValue
                                                                             .startTime!;
                                                                     dateTo.text =
-                                                                        value
+                                                                        shiftValue
                                                                             .endTime!;
                                                                   }
                                                                 },
@@ -1130,6 +1135,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot) {
+    print("update allowances");
+
     if (snapshot.hasData) {
       return ListView.builder(
         itemCount: snapshot.data?.length,
@@ -1137,7 +1144,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           var items = snapshot.data?[index];
-
           String? allowace = items?.allowance.toString();
           String? category = items?.category.toString();
           String? amount = items?.amount.toString();
@@ -1219,32 +1225,30 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                             setState(() {
                               visible = true;
                             });
-
                             final prefs = await SharedPreferences.getInstance();
                             var auth_tokn =
                                 prefs.getString(SharedPrefKey.AUTH_TOKEN);
-                            if (null != auth_tokn) {
-                              managerBloc.createShiftManager(
-                                  auth_tokn,
-                                  row_id,
-                                  typeId,
-                                  categoryId,
-                                  usertypeId,
-                                  jobtitle.text,
-                                  hospitalId,
-                                  date.text,
-                                  dateFrom.text,
-                                  dateTo.text,
-                                  jobDescri.text,
-                                  price.text,
-                                  shift.text,
-                                  unitId.toString());
-                            } else {
-                              print("TOKEN NULL");
+                            if (null == auth_tokn) {
+                              return;
                             }
+                            managerBloc.createShiftManager(
+                                auth_tokn,
+                                row_id,
+                                typeId,
+                                categoryId,
+                                usertypeId,
+                                jobtitle.text,
+                                hospitalId,
+                                date.text,
+                                dateFrom.text,
+                                dateTo.text,
+                                jobDescri.text,
+                                price.text,
+                                shift.text,
+                                unitId.toString());
                           }
                         }
-                        // showFeactureAlert(context, date: "");
+
                       },
                       label: buttonText)
                 ],
@@ -1265,7 +1269,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         visible = false;
       });
     });
-
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
       setState(() {
@@ -1275,16 +1278,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         if (row_id == -1) {
           Fluttertoast.showToast(msg: '$message');
           Navigator.pop(context);
-          // showAlertDialoge(context, title: "Success", message: message!);
-          // jobtitle.text = "";
-          // hospital.text = "";
-          // date.text = "";
-          // date.text = "";
-          // dateTo.text = "";
-          // dateFrom.text = "";
-          // jobDescri.text = "";
-          // price.text = "";
-          // shift.text = "";
         } else {
           Navigator.pop(context);
         }
@@ -1292,5 +1285,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         showAlertDialoge(context, title: "Failed", message: message!);
       }
     });
+  }
+
+  getItemFromId(int value, List<ShiftTimingList>? data) {
+    int? index = data?.indexWhere((element) => element.rowId == value);
+    return data![index!];
   }
 }

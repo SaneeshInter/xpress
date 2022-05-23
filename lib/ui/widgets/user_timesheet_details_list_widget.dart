@@ -51,68 +51,62 @@ class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
         child: Column(
           children: [
             Row(children: [
-              Container(
-                width: 35.w,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          AutoSizeText(
-                            widget.items.firstName!,
-                            textAlign: TextAlign.start,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Constants.colors[14],
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: "SFProBold"),
-                          ),
-                        ],
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Row(
+                  children: [
+                    AutoSizeText(
+                      widget.items.jobTitle!,
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                      style: TextStyle(
+                          color: Constants.colors[14],
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "SFProBold"),
+                    ),
+                  ],
+                ),
+                SizedBox(height: screenHeight(context, dividedBy: 120)),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 1.0),
+                      child: Text(
+                        "On: " + widget.items.date!,
+                        style: TextStyle(
+                            fontSize: 9.sp,
+                            color: Constants.colors[13],
+                            fontWeight: FontWeight.w400),
                       ),
-                      SizedBox(height: screenHeight(context, dividedBy: 120)),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 1.0),
-                            child: Text(
-                              "On: " + widget.items.date!,
-                              style: TextStyle(
-                                  fontSize: 9.sp,
-                                  color: Constants.colors[13],
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 3.0),
-                            child: Text(
-                              "From " +
-                                  widget.items.timeFrom! +
-                                  " To " +
-                                  widget.items.timeTo!,
-                              style: TextStyle(
-                                  fontSize: 9.sp,
-                                  color: Constants.colors[13],
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 3.0),
+                      child: Text(
+                        "From " +
+                            widget.items.timeFrom! +
+                            " To " +
+                            widget.items.timeTo!,
+                        style: TextStyle(
+                            fontSize: 9.sp,
+                            color: Constants.colors[13],
+                            fontWeight: FontWeight.w400),
                       ),
-                      SizedBox(height: screenHeight(context, dividedBy: 120)),
-                      if (null != widget.items.userType)
-                        Text(
-                          widget.items.userType!,
-                          style: TextStyle(
-                              fontSize: 11.sp,
-                              color: Constants.colors[3],
-                              fontWeight: FontWeight.w500),
-                        ),
-                    ]),
-              ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: screenHeight(context, dividedBy: 120)),
+                if (null != widget.items.userType)
+                  Text(
+                    widget.items.userType!,
+                    style: TextStyle(
+                        fontSize: 11.sp,
+                        color: Constants.colors[3],
+                        fontWeight: FontWeight.w500),
+                  ),
+              ]),
             ]),
-            SizedBox(height: screenHeight(context, dividedBy: 120)),
           ],
         ),
       ),

@@ -130,10 +130,15 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                           child: SizedBox.fromSize(
                                               size: Size.fromRadius(10),
                                               // Image radius
-                                              child: Image.network(
-                                                hospitalDetail.photo!,
+                                              child: FadeInImage.assetNetwork(
+                                                placeholder:
+                                                'assets/images/icon/loading_bar.gif',
+                                                image: hospitalDetail.photo!,
+                                                placeholderScale: 1,
                                                 fit: BoxFit.cover,
-                                              )),
+                                              ),
+
+                                        ),
                                         ),
                                         Align(
                                           alignment: Alignment.bottomLeft,

@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/manager/home/approved_timesheet_screen.dart';
 import 'package:xpresshealthdev/ui/manager/home/manager_home_screen.dart';
+import 'package:xpresshealthdev/ui/splash/user_or_manager.dart';
 
 //import 'package:xpresshealthdev/ui/manager/home/manager_calendar_screen.dart';
 import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
 import 'package:xpresshealthdev/utils/constants.dart';
 
+import '../db/database.dart';
 import '../utils/colors_util.dart';
 
 
@@ -141,14 +144,10 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotificationScreen()),
-              );
+               logOut(context);
             },
             icon: SvgPicture.asset(
-              'assets/images/icon/notification.svg',
-
+              'assets/images/icon/logout.svg',
               width: 5.w,
               color: Colors.black,
               height: 5.w,
@@ -227,4 +226,20 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
   ];
+
+
+}
+Future<void> logOut(BuildContext context) async {
+  var db = Db();
+  db.clearDb();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.clear();
+  Navigator.pop(context);
+  Navigator.pushAndRemoveUntil<dynamic>(
+    context,
+    MaterialPageRoute<dynamic>(
+      builder: (BuildContext context) => UserOrManager(),
+    ),
+        (route) => false, //if you want to disable back feature set to false
+  );
 }

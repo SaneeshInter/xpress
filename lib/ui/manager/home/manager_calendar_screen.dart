@@ -263,7 +263,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                               MaterialPageRoute(
                                                   builder: (context) => CreateShiftScreenUpdate(
                                                     shiftItem: items,
-                                                  )));
+                                                  ))).then((value) => getData());
                                         },
                                         onTapDelete: (row_id) {
                                           print(row_id);
