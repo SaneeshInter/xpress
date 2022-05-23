@@ -186,6 +186,17 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
             },
             key: null,
           ),
+
+        SizedBox(width: 10,),
+        if (widget.items.status == "Accepted")
+        BookButton(
+          label: "Add Timesheet",
+          onPressed: () {
+            widget.onTapView();
+            print("Cards booking");
+          },
+          key: null,
+        ),
         if (widget.items.status == "Pending")
           BookButton(
             label: "Cancel Request",
