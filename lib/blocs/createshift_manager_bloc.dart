@@ -5,7 +5,6 @@ import 'package:xpresshealthdev/db/database.dart';
 import 'package:xpresshealthdev/dbmodel/allowance_category_model.dart';
 import 'package:xpresshealthdev/model/allowance_model.dart';
 import 'package:xpresshealthdev/model/schedule_hospital_list.dart';
-import 'package:xpresshealthdev/model/viewbooking_response.dart';
 import 'package:xpresshealthdev/resources/respository.dart';
 
 import '../dbmodel/allowance_mode.dart';
@@ -211,12 +210,6 @@ class CreateShiftmanagerBloc {
     _managerunit.sink.add(list!);
   }
 
-  // getManagerUnitName(String token, String client) async {
-  // ManagerUnitNameResponse list =
-  // await _repo.fetchManagerUnitName(token, client);
-  // _managerunit.sink.add(list);
-  // }
-
   dispose() {
     _manager.close();
     _managerclient.close();
@@ -237,26 +230,21 @@ class CreateShiftmanagerBloc {
 
   void deleteAllowance(int index) {
     if (null != allowanceList) {
-      allowanceList.remove(index);
+      allowanceList.removeAt(index);
       _allowancesList.add(allowanceList);
     }
   }
 
-  void setAllowance(List<Allowancess>? allowances) {
-    List<Allowances> allowanceList = [];
-    for (var dataItem in allowances!) {
-      print("dataItem.category");
-      print(dataItem.category);
-      Allowances item = Allowances();
-      item.allowance = dataItem.allowance;
-      item.amount = dataItem.price;
-      item.category = dataItem.category;
-      allowanceList.add(item);
-    }
-    print("dataItem.size");
-    print(allowanceList.length);
+  void setAllowance(List<Allowances> allowances) {
+    if (!_allowancesList.isClosed) {
+      print("allo.category");
+      for (var allo in allowances) {
 
-    _allowancesList.sink.add(allowanceList);
+        print(allo.category);
+        allowanceList.add(allo);
+      }
+      _allowancesList.add(allowanceList);
+    }
   }
 }
 

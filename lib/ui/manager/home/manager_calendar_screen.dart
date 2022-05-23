@@ -141,12 +141,15 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
 
   List<Event> _getEventsForDay(DateTime day) {
     List<Event> eventList = [];
+
     var itemList = managercalendarBloc.itemlListALl!.where((element) {
       DateTime itemDay = DateTime.parse(element.date.toString());
       return isSameDay(itemDay, day);
     });
+
     if (itemList.isNotEmpty) {
       var listItem = itemList.first;
+      eventList.clear();
       for (var item in listItem.items!) {
         eventList.add(Event(item.jobTitle!));
       }
@@ -197,7 +200,13 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                       calendarBuilders: CalendarBuilders(markerBuilder:
                           (BuildContext context, DateTime datetime,
                           List<Event> list) {
+
+
+
                         if (list.isNotEmpty) {
+
+                          print("list size");
+                          print(list.length.toString());
                           return Stack(
                             children: [
                               Align(

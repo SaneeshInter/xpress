@@ -2,18 +2,14 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_view_request_response.dart';
-
 import '../../ui/Widgets/buttons/view_button.dart';
-import '../../ui/manager/home/shift_detail_manager.dart';
 import '../../ui/user/detail/shift_detail.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import 'buttons/book_button.dart';
-import 'buttons/build_button.dart';
 
 class MyBookingListWidget extends StatefulWidget {
   final Items items;
-
   final int position;
   final Function onTapBooking;
   final Function onTapMap;

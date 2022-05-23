@@ -718,21 +718,17 @@ class ApiProvider {
         body: jsonEncode(<String, String>{
           'year': year,
         }));
-
     print("PRINT  YEAR" + token);
-
     print(jsonEncode(<String, String>{
       'year': year,
     }).toString());
     print(response.body);
-
     if (response.statusCode == 200) {
       return ManagerGetScheduleByYear.fromJson(json.decode(response.body));
     } else {
       return null;
     }
   }
-
   Future<UserJobRequestResponse> getUserJobRequest(
       String token, String job_id) async {
     var uri = Uri.parse(BASE_URL + "/user/job-request");
@@ -744,14 +740,11 @@ class ApiProvider {
         body: jsonEncode(<String, String>{
           'job_id': job_id,
         }));
-
     print("PRINT JOB REQUEST" + token);
-
     print(jsonEncode(<String, String>{
       'job_id': job_id,
     }).toString());
     print(response.body);
-
     if (response.statusCode == 200) {
       return UserJobRequestResponse.fromJson(json.decode(response.body));
     } else {
