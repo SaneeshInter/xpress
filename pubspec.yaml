@@ -155,6 +155,11 @@ flutter:
     - assets/images/error/nw_error.png
     - assets/images/error/error.png
     - assets/images/error/empty_task.png
+    - assets/images/icon/edit.svg
+    - assets/images/icon/Order Completed.svg
+    - assets/images/icon/conversation.svg
+    - assets/images/icon/contact-book.svg
+    - assets/images/icon/Page-1.svg
 
 
 

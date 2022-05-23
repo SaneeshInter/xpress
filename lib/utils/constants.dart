@@ -21,7 +21,7 @@ class Constants{
     Color(0xFF03C757),
     Color(0xFFEBF7F0),//16
     Color(0xFFECECEC),
-    Color(0xFF1E1E1E),
+    Color(0xFF1E1E1E),//18
     Color(0xFF1CB550),
     Color(0xFF179A43),//20
     Color(0xFF68707A),
@@ -34,6 +34,14 @@ class Constants{
     Color(0xFFD7E1E9),//28
     Color(0xFF5D5858),
     Color(0xFF0A6AB4),//30
+    Color(0xFF1CB34F),
+    Color(0xFF169741),//32
+    Color(0xFFFFFF0C),
+    Color(0xFF04B852),//34
+    Color(0xFF0586D0),
+    Color(0xFF006AB4),//36
+    Color(0xFFAACFE5),
+
 
   ];
 }

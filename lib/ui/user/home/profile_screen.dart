@@ -203,8 +203,8 @@ class _ProfileState extends State<ProfileScreen> {
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
                                           colors: [
-                                            Constants.colors[4],
-                                            Constants.colors[3],
+                                            Constants.colors[31],
+                                            Constants.colors[32],
                                           ]),
                                       borderRadius: BorderRadius.circular(20)),
                                   padding: const EdgeInsets.all(
@@ -275,7 +275,7 @@ class _ProfileState extends State<ProfileScreen> {
                                                       fontSize: 16.sp,
                                                       fontFamily: "SFProMedium",
                                                       fontWeight:
-                                                          FontWeight.w700),
+                                                          FontWeight.w500),
                                                 ),
                                               const SizedBox(height: 5),
                                               if (null != categroy)
@@ -292,7 +292,7 @@ class _ProfileState extends State<ProfileScreen> {
                                               const SizedBox(height: 5),
                                               if (employeeNo != null)
                                                 Text(
-                                                  "EMP NO :" + employeeNo,
+                                                  "Emp No :" + employeeNo,
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -308,13 +308,14 @@ class _ProfileState extends State<ProfileScreen> {
                                             children: [
                                               if (hourlyRate != null)
                                                 Text(
-                                                  hourlyRate,
+                                                  hourlyRate +"/hr",
                                                   style: TextStyle(
+
                                                       fontSize: 14.sp,
                                                       color:
-                                                          Constants.colors[8],
+                                                          Constants.colors[33],
                                                       fontWeight:
-                                                          FontWeight.w700),
+                                                          FontWeight.w400),
                                                 ),
                                               SizedBox(
                                                 height: 2.h,
@@ -330,7 +331,7 @@ class _ProfileState extends State<ProfileScreen> {
                                                 },
                                                 label: "Edit",
                                                 asset:
-                                                    "assets/images/icon/swipe-to-right.svg",
+                                                    "assets/images/icon/edit.svg",
                                                 backgroundColor:
                                                     Constants.colors[4],
                                                 textColors: Constants.colors[0],

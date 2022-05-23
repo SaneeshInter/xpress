@@ -563,7 +563,7 @@ class _HomeScreentate extends State<HomeScreen> {
                         elevation: 0.0,
                         child: Container(
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(13.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -623,8 +623,8 @@ class _HomeScreentate extends State<HomeScreen> {
               dotsCount: itemcount!,
               position: currentPage!,
               decorator: DotsDecorator(
-                color: Colors.white, // Inactive color
-                activeColor: HexColor("#04b654"),
+                color: Constants.colors[37], // Inactive color
+                activeColor:  Constants.colors[36],
               ),
             ),
           ],
@@ -673,7 +673,7 @@ class _HomeScreentate extends State<HomeScreen> {
             },
             child: HomeCardItem(
                 label: "Submit\nTimeSheets ",
-                asset: "assets/images/icon/availability.svg"),
+                asset: "assets/images/icon/Page-1.svg"),
           ),
           GestureDetector(
             onTap: () {
@@ -688,7 +688,7 @@ class _HomeScreentate extends State<HomeScreen> {
             },
             child: HomeCardItem(
                 label: "Find Shift",
-                asset: "assets/images/icon/availability.svg"),
+                asset: "assets/images/icon/shift.svg"),
           ),
           GestureDetector(
             onTap: () {
@@ -703,7 +703,7 @@ class _HomeScreentate extends State<HomeScreen> {
             },
             child: HomeCardItem(
                 label: "My\nBooking",
-                asset: "assets/images/icon/availability.svg"),
+                asset: "assets/images/icon/booking.svg"),
           )
         ],
       ),
