@@ -11,6 +11,7 @@ import '../../../db/database.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../splash/user_or_manager.dart';
+
 import '../home/profile_screen.dart';
 import '../sidenav/completed_shifts.dart';
 import '../sidenav/contact_us_screen.dart';
@@ -61,11 +62,11 @@ class _SideMenuState extends State<SideMenu> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [
-              Constants.colors[3],
-              Constants.colors[4],
+              Constants.colors[34],
+              Constants.colors[35],
             ]),
       ),
       child: ListView(
@@ -153,7 +154,7 @@ class _SideMenuState extends State<SideMenu> {
                               ),
                               const SizedBox(height: 5),
                               Text(
-                                empNo,
+                                "Emp No :" + empNo,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -171,10 +172,41 @@ class _SideMenuState extends State<SideMenu> {
                 ),
               ],
             ),
+
+          ),
+          Divider(
+            endIndent:20 ,
+            indent: 20,
+            thickness: 0.5,
+            color: Constants.colors[0],
+          ),
+
+          ListTile(
+            title: const Text(
+              'Home',
+              style: TextStyle(color: Colors.white),
+            ),
+            leading: Container(
+              width: 5.w,
+              height: 5.w,
+              child: SvgPicture.asset(
+                'assets/images/icon/home.svg',
+                color: Colors.white,
+              ),
+            ),
+            onTap: () {
+              // Navigator.pop(context);
+              // pushNewScreen(
+              //   context,
+              //   screen: HomeScreen(),
+              //   withNavBar: true, // OPTIONAL VALUE. True by default.
+              //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              // );
+            },
           ),
           ListTile(
             title: const Text(
-              'Profile ',
+              'My Profile ',
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -225,6 +257,27 @@ class _SideMenuState extends State<SideMenu> {
               );
             },
           ),
+
+          ListTile(
+            title: const Text(
+              'Notification',
+              style: TextStyle(color: Colors.white),
+            ),
+            leading: Container(
+              width: 5.w,
+              height: 5.w,
+              child: SvgPicture.asset('assets/images/icon/notification.svg', color: Colors.white,),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              pushNewScreen(
+                context,
+                screen: NotificationScreen(),
+                withNavBar: true, // OPTIONAL VALUE. True by default.
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+            },
+          ),
           ListTile(
             title: const Text(
               'Completed Shifts',
@@ -234,7 +287,7 @@ class _SideMenuState extends State<SideMenu> {
               width: 5.w,
               height: 5.w,
               child: SvgPicture.asset(
-                'assets/images/icon/shift.svg',
+                'assets/images/icon/Order Completed.svg',
                 color: Colors.white,
               ),
             ),
@@ -250,39 +303,13 @@ class _SideMenuState extends State<SideMenu> {
           ),
           ListTile(
             title: const Text(
-              'Notification',
-              style: TextStyle(color: Colors.white),
-            ),
-            leading: Container(
-              width: 5.w,
-              height: 5.w,
-              child: SvgPicture.asset(
-                'assets/images/icon/shift.svg',
-                color: Colors.white,
-              ),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              pushNewScreen(
-                context,
-                screen: NotificationScreen(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
-                pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              );
-            },
-          ),
-          ListTile(
-            title: const Text(
               'FAQs',
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
               width: 5.w,
               height: 5.w,
-              child: SvgPicture.asset(
-                'assets/images/icon/email.svg',
-                color: Colors.white,
-              ),
+              child: SvgPicture.asset('assets/images/icon/conversation.svg', color: Colors.white,),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -294,6 +321,7 @@ class _SideMenuState extends State<SideMenu> {
               );
             },
           ),
+
           ListTile(
             title: const Text(
               'Contact Us',
@@ -302,10 +330,7 @@ class _SideMenuState extends State<SideMenu> {
             leading: Container(
               width: 5.w,
               height: 5.w,
-              child: SvgPicture.asset(
-                'assets/images/icon/passport.svg',
-                color: Colors.white,
-              ),
+              child:  SvgPicture.asset('assets/images/icon/contact-book.svg', color: Colors.white,),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -326,7 +351,7 @@ class _SideMenuState extends State<SideMenu> {
               width: 5.w,
               height: 5.w,
               child: SvgPicture.asset(
-                'assets/images/icon/email.svg',
+                'assets/images/icon/turn-off.svg',
                 color: Colors.white,
               ),
             ),
