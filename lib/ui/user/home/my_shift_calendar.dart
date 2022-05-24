@@ -203,6 +203,10 @@ class _FindshiftState extends State<FindshiftCalendar> {
                     eventLoader: _getEventsForDay,
                     startingDayOfWeek: StartingDayOfWeek.sunday,
                     daysOfWeekVisible: true,
+                    headerStyle: HeaderStyle(
+                      formatButtonVisible: false,
+                      titleCentered: true,
+                    ),
                     calendarStyle: CalendarStyle(
                       isTodayHighlighted: true,
                       markerSize: 4,
