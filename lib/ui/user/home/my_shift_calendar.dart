@@ -188,11 +188,11 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 4),
                                     child: Text(
-                                      list.length.toString(),
+                                      list.length.toString() + " Shift",
                                       style: TextStyle(
-                                          fontSize: 8.sp,
-                                          color: Constants.colors[15],
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: 7.sp,
+                                          color: Constants.colors[38],
+                                          fontWeight: FontWeight.w600),
                                     ),
                                   )),
                             ),
@@ -206,13 +206,21 @@ class _FindshiftState extends State<FindshiftCalendar> {
                     calendarStyle: CalendarStyle(
                       isTodayHighlighted: true,
                       markerSize: 4,
+                      cellMargin: EdgeInsets.all(11),
                       canMarkersOverflow: false,
                       selectedDecoration: BoxDecoration(
-                        color: Constants.colors[15],
-                        shape: BoxShape.circle,
-                        // borderRadius: BorderRadius.circular(100.0),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Constants.colors[4],
+                              Constants.colors[3],
+                            ]),
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
+
                   ),
                 ),
               ),

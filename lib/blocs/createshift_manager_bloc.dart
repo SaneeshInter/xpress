@@ -215,7 +215,6 @@ class CreateShiftmanagerBloc {
     _managerclient.close();
     _managerunit.close();
   }
-
   void addAllowances(int allowanceId, int allowanceCategroyId, String allowance,
       String allowanceCategroy, String amount) {
     Allowances allowances = Allowances(
@@ -236,10 +235,10 @@ class CreateShiftmanagerBloc {
   }
 
   void setAllowance(List<Allowances> allowances) {
+    allowanceList.clear();
     if (!_allowancesList.isClosed) {
       print("allo.category");
       for (var allo in allowances) {
-
         print(allo.category);
         allowanceList.add(allo);
       }

@@ -18,7 +18,6 @@ import '../../widgets/loading_widget.dart';
 import '../../widgets/manager_list_calendar.dart';
 import '../create_shift_screen_update.dart';
 
-
 class ManagerfindshiftCalendar extends StatefulWidget {
   const ManagerfindshiftCalendar({Key? key}) : super(key: key);
 
@@ -71,19 +70,14 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
     }
   }
 
-
   void showError() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => const ErrorScreen()),
+      MaterialPageRoute(builder: (context) => const ErrorScreen()),
     );
   }
 
   void observe() {
-
-
-
     managercalendarBloc.removeshift.listen((event) {
       print(event.response?.status?.statusCode);
       setState(() {
@@ -199,29 +193,25 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                       },
                       calendarBuilders: CalendarBuilders(markerBuilder:
                           (BuildContext context, DateTime datetime,
-                          List<Event> list) {
-
-
-
+                              List<Event> list) {
                         if (list.isNotEmpty) {
-
                           print("list size");
                           print(list.length.toString());
                           return Stack(
                             children: [
                               Align(
-                                alignment: Alignment.bottomRight,
+                                alignment: Alignment.topCenter,
                                 child: Container(
                                     color: Colors.transparent,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 4),
                                       child: Text(
-                                        list.length.toString(),
+                                        list.length.toString() + " Shift",
                                         style: TextStyle(
-                                            fontSize: 8.sp,
-                                            color: Constants.colors[15],
-                                            fontWeight: FontWeight.bold),
+                                            fontSize: 7.sp,
+                                            color: Constants.colors[38],
+                                            fontWeight: FontWeight.w600),
                                       ),
                                     )),
                               ),
@@ -232,14 +222,25 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                       eventLoader: _getEventsForDay,
                       startingDayOfWeek: StartingDayOfWeek.sunday,
                       daysOfWeekVisible: true,
+                      headerStyle: HeaderStyle(
+                        formatButtonVisible: false,
+                        titleCentered: true,
+                      ),
                       calendarStyle: CalendarStyle(
                         isTodayHighlighted: true,
                         markerSize: 4,
+                        cellMargin: EdgeInsets.all(11),
                         canMarkersOverflow: false,
                         selectedDecoration: BoxDecoration(
-                          color: Constants.colors[15],
-                          shape: BoxShape.circle,
-                          // borderRadius: BorderRadius.circular(100.0),
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Constants.colors[4],
+                                Constants.colors[3],
+                              ]),
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),
@@ -270,9 +271,11 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => CreateShiftScreenUpdate(
-                                                    shiftItem: items,
-                                                  ))).then((value) => getData());
+                                                  builder: (context) =>
+                                                      CreateShiftScreenUpdate(
+                                                        shiftItem: items,
+                                                      ))).then(
+                                              (value) => getData());
                                         },
                                         onTapDelete: (row_id) {
                                           print(row_id);
@@ -280,7 +283,9 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                             visibility = true;
                                           });
                                           deleteShift(row_id);
-                                        }, onTapBook: (){}, onTapViewMap: (){},
+                                        },
+                                        onTapBook: () {},
+                                        onTapViewMap: () {},
                                       ),
                                       SizedBox(
                                           height: screenHeight(context,
@@ -331,12 +336,13 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
               MaterialPageRoute(
                   builder: (context) => CreateShiftScreenUpdate()),
             ).then((value) => getData());
-            },
+          },
           child: Icon(Icons.add),
         ),
       ),
     );
   }
+
   Future deleteShift(rowId) async {
     String? token = await TokenProvider().getToken();
     managercalendarBloc.fetchRemoveManager(token!, rowId.toString());
