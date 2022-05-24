@@ -123,45 +123,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         WidgetsBinding.instance
             ?.addPostFrameCallback((_) => updateAllowances(context,item));
 
-
-        if (item.type == "Premium") {
-          setState(() {
-            typeId = 2;
-            isPricevisible = true;
-          });
-        } else {
-          setState(() {
-            typeId = 1;
-            isPricevisible = false;
-          });
-        }
-
-        if (item.categoryId != 0 && null != item.categoryId) {
-          setState(() {
-            categoryId = item.categoryId!;
-          });
-        }
-
-        if (item.userTypeId != 1 && null != item.userTypeId) {
-          setState(() {
-            usertypeId = item.userTypeId!;
-          });
-        }
-        if (item.hospitalId != 0 && null != item.hospitalId) {
-          setState(() {
-            hospitalId = item.hospitalId!;
-          });
-        }
-        if (item.shiftTypeId != 0 && null != item.shiftTypeId) {
-          setState(() {
-            shiftTypeId = item.shiftTypeId!;
-          });
-        }
-        if (item.unitNameId != 0 && null != item.unitNameId) {
-          setState(() {
-            unitId = item.unitNameId!;
-          });
-        }
       }
     }
   }
@@ -1314,10 +1275,46 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   updateAllowances(BuildContext context, Items item) {
-
     if (null != item.allowances) {
       managerBloc.setAllowance(item.allowances!);
     }
+    if (item.type == "Premium") {
+      setState(() {
+        typeId = 2;
+        isPricevisible = true;
+      });
+    } else {
+      setState(() {
+        typeId = 1;
+        isPricevisible = false;
+      });
+    }
 
+    if (item.categoryId != 0 && null != item.categoryId) {
+      setState(() {
+        categoryId = item.categoryId!;
+      });
+    }
+
+    if (item.userTypeId != 1 && null != item.userTypeId) {
+      setState(() {
+        usertypeId = item.userTypeId!;
+      });
+    }
+    if (item.hospitalId != 0 && null != item.hospitalId) {
+      setState(() {
+        hospitalId = item.hospitalId!;
+      });
+    }
+    if (item.shiftTypeId != 0 && null != item.shiftTypeId) {
+      setState(() {
+        shiftTypeId = item.shiftTypeId!;
+      });
+    }
+    if (item.unitNameId != 0 && null != item.unitNameId) {
+      setState(() {
+        unitId = item.unitNameId!;
+      });
+    }
   }
 }
