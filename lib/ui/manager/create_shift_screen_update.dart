@@ -86,17 +86,14 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getUserListByDate(token, date, shifttype);
   }
 
-
   Future getToken() async {
     token = await TokenProvider().getToken();
-
   }
 
   @override
   void didUpdateWidget(covariant CreateShiftScreenUpdate oldWidget) {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
-
   }
 
   @override
@@ -122,8 +119,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         category.text = item.category!;
         buttonText = "Edit Shift";
         WidgetsBinding.instance
-            ?.addPostFrameCallback((_) => updateAllowances(context,item));
-
+            ?.addPostFrameCallback((_) => updateAllowances(context, item));
       }
     }
   }
@@ -284,6 +280,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       isPricevisible =
                                                                           false;
                                                                     });
+
                                                                   }
                                                                 },
                                                               );
@@ -590,6 +587,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       visible =
                                                                           true;
                                                                     });
+                                                                    setState(
+                                                                        () {
+                                                                      unitId =
+                                                                          1;
+                                                                    });
                                                                     managerBloc.getManagerUnitName(
                                                                         token,
                                                                         hospitalId
@@ -810,8 +812,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                             snapshot.data);
 
                                                                     shiftTypeId =
-                                                                    shiftValue
-                                                                        .rowId!;
+                                                                        shiftValue
+                                                                            .rowId!;
 
                                                                     shiftType =
                                                                         shiftValue
@@ -1068,7 +1070,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                       .allowancesList,
                                                   builder: (context, snapshot) {
                                                     return buildAllowanceList(
-                                                        snapshot,context);
+                                                        snapshot, context);
                                                   }),
                                               createShiftButton(),
                                               const SizedBox(
@@ -1109,7 +1111,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     );
   }
 
-  Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
+  Widget buildAllowanceList(
+      AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
     print("update allowances");
     var lenth = snapshot.data?.length;
     print("update allowances");
@@ -1119,7 +1122,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       print("update allowances " + lenth!.toString());
     }
     if (snapshot.hasData) {
-
       print("update allowances");
       return ListView.builder(
         itemCount: snapshot.data?.length,
@@ -1236,7 +1238,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                 unitId.toString());
                           }
                         }
-
                       },
                       label: buttonText)
                 ],
@@ -1259,13 +1260,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     });
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
-      if(mounted)
-        {
-          setState(() {
-            visible = false;
-          });
-        }
-
+      setState(() {
+        visible = false;
+      });
       if (event.response?.status?.statusCode == 200) {
         if (row_id == -1) {
           Fluttertoast.showToast(msg: '$message');
