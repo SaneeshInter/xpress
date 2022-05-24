@@ -1259,9 +1259,13 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     });
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
-      setState(() {
-        visible = false;
-      });
+      if(mounted)
+        {
+          setState(() {
+            visible = false;
+          });
+        }
+
       if (event.response?.status?.statusCode == 200) {
         if (row_id == -1) {
           Fluttertoast.showToast(msg: '$message');
