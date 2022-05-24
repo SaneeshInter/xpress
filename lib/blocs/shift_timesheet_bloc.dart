@@ -20,6 +20,10 @@ class ShiftTimeSheetBloc{
 
 
 
+
+
+
+
   fetchTimesheet(String token) async {
     ManagerTimeSheetResponse list = await _repo.fetchManagerTimesheet(token);
     _shiftimeSheet.sink.add(list);
@@ -31,11 +35,13 @@ class ShiftTimeSheetBloc{
 
 
 
-  fetchApproveTimesheet(String token,String data) async {
-    ManagerApproveResponse list = await _repo.fetchapproveTimeSheet(token,data);
-    _approvetimesheet.sink. add(list);
-  }
 
+
+
+  approveTimeSheet(String token,String data) async {
+    ManagerApproveResponse list = await _repo.fetchapproveTimeSheet(token,data);
+    _approvetimesheet.sink.add(list);
+  }
 
   dispose() {
     _shiftimeSheet.close();

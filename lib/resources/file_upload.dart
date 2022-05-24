@@ -173,22 +173,23 @@ class ApiFileProvider {
     String data,
   ) async {
     var uri = Uri.parse(BASE_URL + '/manager/approve-timesheet');
-
     var request = http.MultipartRequest("POST", uri);
-    request.fields["data"] = data;
-
-    print(uri.toString());
     var headers = <String, String>{
       "Accept": "application/json",
       "Content-Type": "multipart/form-data",
       'Token': token,
       'token': token,
     };
+    request.fields["data"] = data;
+    print(uri.toString());
+    print(token);
+    print(data);
 
     request.headers.addAll(headers);
     var response = await request.send();
     var responseData = await response.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
+    print(responseString);
     if (response.statusCode == 200) {
       return ManagerApproveResponse.fromJson(json.decode(responseString));
     } else {

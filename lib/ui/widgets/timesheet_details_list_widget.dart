@@ -11,21 +11,17 @@ import 'input_text_description.dart';
 class TimeSheetDetailsListWidget extends StatefulWidget {
   final TimeSheetDetails items;
   final Function onTapBooking;
-  final Function onTapMap;
-  final Function onTapCall;
-  final Function onTapView;
   final Function onCheckBoxClicked;
-  final Function onRejectCheckBoxClicked;
+  final Function textChange;
+  final int index;
 
   const TimeSheetDetailsListWidget({
     Key? key,
     required this.items,
-    required this.onTapView,
     required this.onTapBooking,
-    required this.onTapCall,
-    required this.onTapMap,
+    required this.index,
     required this.onCheckBoxClicked,
-    required this.onRejectCheckBoxClicked,
+    required this.textChange,
   }) : super(key: key);
 
   @override
@@ -36,6 +32,17 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
   bool isChecked = false;
   bool isCheckedReject = false;
   TextEditingController jobDescri = new TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    jobDescri.addListener(updateValue);
+  }
+
+  void updateValue() {
+    widget.textChange(jobDescri.text, widget.index);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,37 +118,55 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
               ]),
               Row(
                 children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    transformAlignment: Alignment.topLeft,
-                    child: Checkbox(
-                      checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
-                      value: isChecked,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isChecked = value!;
-                          isCheckedReject = !value;
-                        });
-                        widget.onCheckBoxClicked(
-                            widget.items.rowId.toString(), value);
-                      },
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("Accept"),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        transformAlignment: Alignment.topLeft,
+                        child: Checkbox(
+                          checkColor: Colors.white,
+                          fillColor:
+                              MaterialStateProperty.resolveWith(getColor),
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isChecked = value!;
+                              isCheckedReject = !value;
+                            });
+
+                            if (isChecked) {
+                              widget.onCheckBoxClicked(
+                                  widget.index, "1");
+                            }
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    child: Checkbox(
-                      checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
-                      value: isCheckedReject,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isCheckedReject = value!;
-                          isChecked = !value;
-                        });
-                        widget.onCheckBoxClicked(
-                            widget.items.rowId.toString(), value);
-                      },
-                    ),
+                  Row(
+                    children: [
+                      Text("Reject"),
+                      Container(
+                        child: Checkbox(
+                          checkColor: Colors.white,
+                          fillColor:
+                              MaterialStateProperty.resolveWith(getColor),
+                          value: isCheckedReject,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isCheckedReject = value!;
+                              isChecked = !value;
+                            });
+                            if (isCheckedReject) {
+                              widget.onCheckBoxClicked(
+                                  widget.index, "0");
+                            }
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -151,7 +151,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                 padding: const EdgeInsets.only(
                     left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(10),
