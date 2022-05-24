@@ -86,9 +86,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getUserListByDate(token, date, shifttype);
   }
 
+
   Future getToken() async {
     token = await TokenProvider().getToken();
-    managerBloc.getManagerClient(token);
+
   }
 
   @override
@@ -807,6 +808,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                         getItemFromId(
                                                                             value!,
                                                                             snapshot.data);
+
+                                                                    shiftTypeId =
+                                                                    shiftValue
+                                                                        .rowId!;
+
                                                                     shiftType =
                                                                         shiftValue
                                                                             .rowId!;
@@ -1226,7 +1232,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                 dateTo.text,
                                 jobDescri.text,
                                 price.text,
-                                shift.text,
+                                shiftTypeId.toString(),
                                 unitId.toString());
                           }
                         }
