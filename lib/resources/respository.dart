@@ -76,7 +76,7 @@ class Repository {
           String token, String time_shhet_id) =>
       apiProvider.timeDetails(token, time_shhet_id);
 
-  Future<LoginUserRespo?> fetchLogin(String username, String password, String user_type) =>
+  Future<LoginUserRespo> fetchLogin(String username, String password, String user_type) =>
       apiProvider.loginUser(username, password,user_type);
 
   Future<UtilityResop> fetchUtility() => apiProvider.fetchUtility();

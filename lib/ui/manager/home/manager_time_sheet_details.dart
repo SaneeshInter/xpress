@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/model/approve_data.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../blocs/shift_timesheet_bloc.dart';
@@ -9,24 +12,32 @@ import '../../../model/manager_get_time.dart';
 import '../../../model/manager_timesheet.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/utils.dart';
+import '../../Widgets/buttons/book_button.dart';
 import '../../user/home/my_booking_screen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
+
 class ManagerTimeSheetDetails extends StatefulWidget {
   final TimeSheetInfo? item;
+
   const ManagerTimeSheetDetails({Key? key, this.item}) : super(key: key);
+
   @override
   _CreateShiftState createState() => _CreateShiftState();
 }
+
 class _CreateShiftState extends State<ManagerTimeSheetDetails> {
   var token;
   var time_shhet_id = "";
+  List<ApproveData> approveData = [];
+
   @override
   void initState() {
     observe();
     getDataa();
     super.initState();
   }
+
   // @override
   // void dispose() {
   //   super.dispose();
@@ -45,15 +56,26 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
       print("TOKEN NOT FOUND");
     }
   }
+
   void observe() {
+    timesheetBloc.approvetimesheet.listen((event) {
+      if (mounted) {
+        setState(() {
+          visibility = false;
+        });
+      }
+      var message = event.response?.status?.statusMessage;
+      showAlertDialoge(context, title: "Timesheet Updated", message: message!);
+    });
     timesheetBloc.timesheetdetails.listen((event) {
-      setState(() {
-        visibility = false;
-      });
+      createApproveData(event);
+      if (mounted) {
+        setState(() {
+          visibility = false;
+        });
+      }
     });
   }
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,11 +112,11 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                       Container(
                           child: imageUrl != null
                               ? InteractiveViewer(
-                                child: Image.network(
+                                  child: Image.network(
                                     imageUrl,
                                     fit: BoxFit.fill,
                                   ),
-                              )
+                                )
                               : Container()),
                       Padding(
                         padding: const EdgeInsets.only(left: 16, top: 10),
@@ -128,6 +150,25 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                     }),
                 SizedBox(
                   height: 5.w,
+                ),
+                Center(
+                  child: BookButton(
+                    label: "APPROVE",
+                    onPressed: () {
+                      if (mounted) {
+                        setState(() {
+                          visibility = true;
+                        });
+                      }
+                      var json = jsonEncode(
+                          approveData.map((e) => e.toJson()).toList());
+                      var uploadData = json.toString();
+                      print("Cards booking");
+                      print(uploadData);
+                      timesheetBloc.approveTimeSheet(token, uploadData);
+                    },
+                    key: null,
+                  ),
                 ),
                 SizedBox(
                   height: 10.w,
@@ -165,16 +206,18 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
             children: [
               TimeSheetDetailsListWidget(
                 items: timeSheetDetails!,
-                onTapView: () {},
-                onTapCall: () {},
-                onTapMap: () {},
+                index: index,
                 onTapBooking: () {
                   print("Tapped");
                   showBookingAlert(context, date: "Show Timesheet");
                 },
                 key: null,
-                onCheckBoxClicked: () {},
-                onRejectCheckBoxClicked: () {},
+                onCheckBoxClicked: (index, status) {
+                  approveData[index].status = status;
+                },
+                textChange: (comment, index) {
+                  approveData[index].comment = comment;
+                },
               ),
               SizedBox(height: screenHeight(context, dividedBy: 100)),
             ],
@@ -184,5 +227,15 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
         }
       },
     );
+  }
+
+  void createApproveData(ManagerTimeDetailsResponse event) {
+    var listItem = event.response?.data?.timeSheetDetails;
+    for (TimeSheetDetails item in listItem!) {
+      ApproveData data = ApproveData();
+      data.timesheetId = time_shhet_id;
+      data.scheduleId = item.rowId.toString();
+      approveData.add(data);
+    }
   }
 }

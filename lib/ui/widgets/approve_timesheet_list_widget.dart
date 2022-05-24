@@ -83,13 +83,13 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
+                // BuildButton(
+                //   label: "Approve Timesheets",
+                //   onPressed: widget.onTapMap,
+                //   key: null,
+                // ),
+                // SizedBox(width: screenWidth(context, dividedBy: 40)),
                 BuildButton(
-                  label: "Approve Timesheets",
-                  onPressed: widget.onTapMap,
-                  key: null,
-                ),
-                SizedBox(width: screenWidth(context, dividedBy: 40)),
-                DeleteButton(
                   label: "View Timesheets",
                   onPressed: () {
                     Navigator.push(

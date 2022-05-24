@@ -56,9 +56,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
     // timesheetBloc.dispose();
   }
 
-  uploadTimesheet() {
-    timesheetBloc.fetchApproveTimesheet(token, "data");
-  }
+
 
   void observe() {
     timesheetBloc.timesheet.listen((event) {
