@@ -9,6 +9,7 @@ import 'package:xpresshealthdev/resources/api_provider.dart';
 
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
+import '../model/manager_approve_timesheet_respo.dart';
 import '../model/manager_get_clients.dart';
 import '../model/manager_get_time.dart';
 import '../model/manager_home_response.dart';
@@ -75,7 +76,7 @@ class Repository {
           String token, String time_shhet_id) =>
       apiProvider.timeDetails(token, time_shhet_id);
 
-  Future<LoginUserRespo> fetchLogin(String username, String password, String user_type) =>
+  Future<LoginUserRespo?> fetchLogin(String username, String password, String user_type) =>
       apiProvider.loginUser(username, password,user_type);
 
   Future<UtilityResop> fetchUtility() => apiProvider.fetchUtility();
@@ -165,6 +166,10 @@ class Repository {
 
   Future<ManagerUnitNameResponse> fetchManagerUnitName(String token,String client) =>
       apiProvider.managerUnitName(token,client);
+
+
+  Future<ManagerApproveResponse> fetchapproveTimeSheet(String token,String data) =>
+      apiFileProvider.approveTimeSheets(token,data);
 
   Future<ProfileUpdateRespo> ProfileUser(
           String token,

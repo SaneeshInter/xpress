@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import '../model/manager_approve_timesheet_respo.dart';
 import '../model/manager_response.dart';
 import '../model/time_sheet_upload_respo.dart';
 import '../model/user_documents_response.dart';
@@ -95,6 +96,34 @@ class ApiFileProvider {
     String allowances,
     String unit_name,
   ) async {
+    print("type :" +
+        type +
+        " " +
+        "row_id : " +
+        row_id.toString() +
+        "category :" +
+        category +
+        "user_type :" +
+        user_type +
+        "job_title :" +
+        job_title +
+        "hospital :" +
+        hospital +
+        "time_from :" +
+        time_from +
+        "time_to :" +
+        time_to +
+        "job_details :" +
+        job_details +
+        "price :" +
+        price +
+        "shift :" +
+        shift +
+        "allowances :" +
+        allowances +
+        "unit_name :" +
+        unit_name);
+
     var uri = Uri.parse(BASE_URL + '/manager/add-schedule');
 
     if (row_id != -1) {
@@ -120,7 +149,7 @@ class ApiFileProvider {
     request.fields["assigned_to"] = "";
     request.fields["shift"] = shift;
     request.fields["unit_name"] = unit_name;
-
+    print(uri.toString());
     var headers = <String, String>{
       "Accept": "application/json",
       "Content-Type": "multipart/form-data",
@@ -134,6 +163,34 @@ class ApiFileProvider {
     var responseString = String.fromCharCodes(responseData);
     if (response.statusCode == 200) {
       return ManagerShift.fromJson(json.decode(responseString));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+  Future<ManagerApproveResponse> approveTimeSheets(
+    String token,
+    String data,
+  ) async {
+    var uri = Uri.parse(BASE_URL + '/manager/approve-timesheet');
+
+    var request = http.MultipartRequest("POST", uri);
+    request.fields["data"] = data;
+
+    print(uri.toString());
+    var headers = <String, String>{
+      "Accept": "application/json",
+      "Content-Type": "multipart/form-data",
+      'Token': token,
+      'token': token,
+    };
+
+    request.headers.addAll(headers);
+    var response = await request.send();
+    var responseData = await response.stream.toBytes();
+    var responseString = String.fromCharCodes(responseData);
+    if (response.statusCode == 200) {
+      return ManagerApproveResponse.fromJson(json.decode(responseString));
     } else {
       throw Exception('Failed to load post');
     }

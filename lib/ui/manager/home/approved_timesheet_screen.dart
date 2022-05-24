@@ -49,12 +49,16 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
       print("TOKEN NOT FOUND");
     }
   }
+
   @override
   void dispose() {
     super.dispose();
-    timesheetBloc.dispose();
+    // timesheetBloc.dispose();
   }
 
+  uploadTimesheet() {
+    timesheetBloc.fetchApproveTimesheet(token, "data");
+  }
 
   void observe() {
     timesheetBloc.timesheet.listen((event) {
@@ -74,7 +78,6 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
         body: Stack(
           children: [
             LiquidPullToRefresh(
-
               onRefresh: () async {
                 getData();
               },
