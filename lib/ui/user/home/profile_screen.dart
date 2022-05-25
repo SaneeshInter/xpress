@@ -118,7 +118,6 @@ class _ProfileState extends State<ProfileScreen> {
           var items = datatItem[0];
           var firstname = items.firstName;
           print(firstname);
-          print("observe");
           var lastName = items.lastName;
           var employeeNo = items.employeeNo;
           var userType = items.userType;
@@ -191,7 +190,7 @@ class _ProfileState extends State<ProfileScreen> {
                           String? hourlyRate =
                               data?.items?[0].hourlyRate.toString();
                           Items? item = data?.items?[0];
-                          String fullName =
+                          String? fullName =
                               firstName.toString() + " " + lastName.toString();
                           return Container(
                             child: Column(
@@ -348,11 +347,15 @@ class _ProfileState extends State<ProfileScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 if (null != item)
+
                                   ProfileDetailCard(items: item),
                                 Column(
                                   children: [
                                     if (null != item)
-                                      ProfileDocumentsCard(items: item),
+                                      ProfileDocumentsCard(items: item, onRefresh: (){
+                                        print("Refresh item");
+                                        getData();
+                                      },),
                                   ],
                                 ),
                               ],

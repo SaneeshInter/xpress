@@ -11,8 +11,10 @@ import '../user/home/my_booking_screen.dart';
 
 class ProfileDocumentsCard extends StatefulWidget {
   Items items;
+  Function onRefresh;
 
-  ProfileDocumentsCard({Key? key, required this.items}) : super(key: key);
+  ProfileDocumentsCard({Key? key, required this.items, required this.onRefresh})
+      : super(key: key);
 
   @override
   State<ProfileDocumentsCard> createState() => _ProfileDocumentsCardState();
@@ -54,8 +56,8 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
   void initState() {
     super.initState();
     profilePicture = "";
-    getData();
     observe();
+    getData();
   }
 
   Future getData() async {
@@ -68,60 +70,52 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
         visibility = false;
       });
     });
+
+    profileBloc.getProfileQuestions.listen((event) {
+
+      print("Listen refresh");
+      widget.onRefresh();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-
-var items = widget.items;
-
+    var items = widget.items;
 
     String? permissionToWorkInIreland = "No";
-    if(items.permissionToWorkInIreland==1)
-    {
-      permissionToWorkInIreland ="Yes";
+    if (items.permissionToWorkInIreland == 1) {
+      permissionToWorkInIreland = "Yes";
     }
 
-    String? doYouDrive ="No";
-    if(items.doYouDrive==1)
-    {
-      doYouDrive="Yes";
+    String? doYouDrive = "No";
+    if (items.doYouDrive == 1) {
+      doYouDrive = "Yes";
     }
 
-    String? haveYouGotCovid19Vaccination ="No";
-    if(items.haveYouGotCovid19Vaccination==1)
-    {
-      haveYouGotCovid19Vaccination="Yes";
+    String? haveYouGotCovid19Vaccination = "No";
+    if (items.haveYouGotCovid19Vaccination == 1) {
+      haveYouGotCovid19Vaccination = "Yes";
     }
 
-
-    String? doYouConsentGardaVettingToBeCompleted ="No";
-    if(items.doYouConsentGardaVettingToBeCompleted==1)
-    {
-      doYouConsentGardaVettingToBeCompleted="Yes";
+    String? doYouConsentGardaVettingToBeCompleted = "No";
+    if (items.doYouConsentGardaVettingToBeCompleted == 1) {
+      doYouConsentGardaVettingToBeCompleted = "Yes";
     }
 
-    String? tuberculosisVaccination ="No";
-    if(items.tuberculosisVaccination==1)
-    {
-      tuberculosisVaccination="Yes";
+    String? tuberculosisVaccination = "No";
+    if (items.tuberculosisVaccination == 1) {
+      tuberculosisVaccination = "Yes";
     }
 
-    String? hepatitisBAntibody ="No";
-    if(items.hepatitisBAntibody==1)
-    {
-      hepatitisBAntibody="Yes";
+    String? hepatitisBAntibody = "No";
+    if (items.hepatitisBAntibody == 1) {
+      hepatitisBAntibody = "Yes";
     }
 
-    String? idCardReceived ="No";
-    if(items.idCardReceived==1)
-    {
-      idCardReceived="Yes";
+    String? idCardReceived = "No";
+    if (items.idCardReceived == 1) {
+      idCardReceived = "Yes";
     }
-
-
 
     return Column(
       children: [
@@ -129,20 +123,6 @@ var items = widget.items;
         Column(
           children: [
             const SizedBox(height: 10),
-            // InkWell(
-            //   onTap: () {
-            //     getImage(ImgSource.Both, "profilepic");
-            //   },
-            //   child: Container(
-            //     child: ProfileDocRow(
-            //       label: "Profile Picture   ",
-            //       asset: "assets/images/icon/check.svg",
-            //       image: profilePicture,
-            //       url: widget.items.profileSrc!,
-            //     ),
-            //   ),
-            // ),
-            // const SizedBox(height: 10),
             InkWell(
               onTap: () {
                 getImage(ImgSource.Both, "signature",
@@ -232,95 +212,163 @@ var items = widget.items;
                 ),
               ),
             ),
-
             const SizedBox(height: 10),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
                   label: "Do you drive : " + doYouDrive,
-                  asset: "assets/images/icon/check.svg", status: widget.items.doYouDrive!,
+                  asset: "assets/images/icon/check.svg",
+                  status: widget.items.doYouDrive!,
+                  onChanged: (value) {
+                    var status = 0;
+                    bool isVal = value;
+                    if (isVal) {
+                      status = 1;
+                    }
 
+                    setState(() {
+                      visibility = true;
+                    });
+                    profileBloc.profileQuestions(
+                        token, "drive", status.toString());
+                  },
                 ),
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Permission to work in ireland : " + permissionToWorkInIreland,
-                  asset: "assets/images/icon/check.svg", status: widget.items.permissionToWorkInIreland!,
+                  label: "Permission to work in ireland : " +
+                      permissionToWorkInIreland,
+                  asset: "assets/images/icon/check.svg",
+                  status: widget.items.permissionToWorkInIreland!,
+                  onChanged: (value) {
+                    var status = 0;
+                    bool isVal = value;
+                    if (isVal) {
+                      status = 1;
+                    }
 
+                    setState(() {
+                      visibility = true;
+                    });
+                    profileBloc.profileQuestions(
+                        token, "work_ireland", status.toString());
+                  },
                 ),
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Have you got Covid19 vaccination : " + haveYouGotCovid19Vaccination,
-                  asset: "assets/images/icon/check.svg", status: widget.items.haveYouGotCovid19Vaccination!,
+                  label: "Have you got Covid19 vaccination : " +
+                      haveYouGotCovid19Vaccination,
+                  asset: "assets/images/icon/check.svg",
+                  status: widget.items.haveYouGotCovid19Vaccination!,
+                  onChanged: (value) {
+                    var status = 0;
+                    bool isVal = value;
+                    if (isVal) {
+                      status = 1;
+                    }
 
+                    setState(() {
+                      visibility = true;
+                    });
+
+                    profileBloc.profileQuestions(
+                        token, "covid_vaccine", status.toString());
+                  },
                 ),
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Do you consent garda vetting to be completed: " + doYouConsentGardaVettingToBeCompleted,
-                  asset: "assets/images/icon/check.svg", status: widget.items.doYouConsentGardaVettingToBeCompleted!,
-
+                  label: "Do you consent garda vetting to be completed: " +
+                      doYouConsentGardaVettingToBeCompleted,
+                  asset: "assets/images/icon/check.svg",
+                  status: widget.items.doYouConsentGardaVettingToBeCompleted!,
+                  onChanged: (value) {
+                    var status = 0;
+                    bool isVal = value;
+                    if (isVal) {
+                      status = 1;
+                    }
+                    profileBloc.profileQuestions(
+                        token, "garda_vetting", status.toString());
+                  },
                 ),
               ),
-            ),  const SizedBox(height: 10),
+            ),
+            const SizedBox(height: 10),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
                   label: "Tuberculosis vaccination: " + tuberculosisVaccination,
-                  asset: "assets/images/icon/check.svg", status: widget.items.tuberculosisVaccination!,
-
+                  asset: "assets/images/icon/check.svg",
+                  status: widget.items.tuberculosisVaccination!,
+                  onChanged: (value) {
+                    var status = 0;
+                    bool isVal = value;
+                    if (isVal) {
+                      status = 1;
+                    }
+                    profileBloc.profileQuestions(
+                        token, "tuberculosis", status.toString());
+                  },
                 ),
               ),
-            ),  const SizedBox(height: 10),
+            ),
+            const SizedBox(height: 10),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
                   label: "Hepatitis B antibody: " + hepatitisBAntibody,
-                  asset: "assets/images/icon/check.svg", status: widget.items.hepatitisBAntibody!,
-
+                  asset: "assets/images/icon/check.svg",
+                  status: widget.items.hepatitisBAntibody!,
+                  onChanged: (value) {
+                    var status = 0;
+                    bool isVal = value;
+                    if (isVal) {
+                      status = 1;
+                    }
+                    profileBloc.profileQuestions(
+                        token, "hepatitis", status.toString());
+                  },
                 ),
               ),
-            ),  const SizedBox(height: 10),
+            ),
+            const SizedBox(height: 10),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
                   label: "Id card received: " + idCardReceived,
-                  asset: "assets/images/icon/check.svg", status: widget.items.idCardReceived!,
-
+                  asset: "assets/images/icon/check.svg",
+                  status: widget.items.idCardReceived!,
+                  onChanged: (value) {
+                    var status = 0;
+                    bool isVal = value;
+                    if (isVal) {
+                      status = 1;
+                    }
+                    profileBloc.profileQuestions(
+                        token, "id_card", status.toString());
+                  },
                 ),
               ),
-            ),  const SizedBox(height: 10),
+            ),
+            const SizedBox(height: 10),
           ],
         ),
 

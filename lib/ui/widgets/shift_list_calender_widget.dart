@@ -189,7 +189,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   message: message,
                   positiveText: "REQUEST NOW",
                   onPositvieClick: (item) {
-// widget.onTapBook(item);
+                  widget.onTapBook(item);
                     if (item is Items) {
                       Items data = item;
                       bloc.fetchuserJobRequest(

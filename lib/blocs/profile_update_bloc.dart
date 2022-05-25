@@ -8,6 +8,7 @@ import 'package:xpresshealthdev/resources/respository.dart';
 import '../db/database.dart';
 import '../model/country_list.dart';
 import '../model/gender_list.dart';
+import '../model/update_profile_questn_respo.dart';
 import '../model/user_profile_update.dart';
 import '../model/visa_type_list.dart';
 
@@ -16,6 +17,7 @@ class ProfileBloc {
   final _profileUser = PublishSubject<ProfileUpdateRespo>();
   final _getUser = PublishSubject<UserGetResponse>();
   final _documents = PublishSubject<UserDocumentsResponse>();
+  final _questions = PublishSubject<ProfileQuestionResponse>();
   final _db = Db();
 
   List<String> genders = [];
@@ -55,6 +57,8 @@ class ProfileBloc {
 
   Stream<UserDocumentsResponse> get userdocuments => _documents.stream;
 
+  Stream<ProfileQuestionResponse> get getProfileQuestions => _questions.stream;
+
 
   getUserInfo(String token) async {
     UserGetResponse response = await _repo.fetchUserInfo(token);
@@ -92,7 +96,11 @@ class ProfileBloc {
         pps_number,
         bank_iban,
         bank_bic);
-    _profileUser.sink.add(respo);
+    if(!_profileUser.isClosed)
+      {
+        _profileUser.sink.add(respo);
+      }
+
   }
 
   uploadUserDoc(
@@ -109,10 +117,24 @@ class ProfileBloc {
     _documents.sink.add(respo);
   }
 
-  dispose() {
-    _profileUser.close();
-    _documents.close();
+
+
+  profileQuestions(
+      String token,
+      String key,
+      String value,
+      ) async {
+    ProfileQuestionResponse respo = await _repo.fetchProfileQuestions(token, key,value);
+    _questions.sink.add(respo);
   }
+
+  dispose() {
+    // _profileUser.close();
+    // _documents.close();
+  }
+
+
+
 }
 
 final profileBloc = ProfileBloc();

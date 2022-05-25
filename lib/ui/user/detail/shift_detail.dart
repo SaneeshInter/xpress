@@ -413,6 +413,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
   void observe() {
     usershiftdetailsBloc.usershiftdetailsStream.listen((event) {
       var hospitalDetail = event.response?.data?.hospitalDetails![0];
+      if(mounted)
+
       setState(() {
         visibility = false;
         if (null != hospitalDetail) {
