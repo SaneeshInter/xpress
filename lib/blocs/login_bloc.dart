@@ -9,8 +9,15 @@ class LoginBloc {
   final _loginbloc = PublishSubject<LoginUserRespo>();
   Stream<LoginUserRespo> get loginStream => _loginbloc.stream;
   fetchLogin(String username,String  password,String user_type) async {
-    LoginUserRespo respo = await _repo.fetchLogin(username, password,user_type);
-    _loginbloc.sink.add(respo);
+
+    LoginUserRespo? respo = await _repo.fetchLogin(username, password,user_type);
+    if(null!=respo)
+      {
+        _loginbloc.sink.add(respo);
+      }else{
+      _loginbloc.sink.add(LoginUserRespo());
+    }
+
   }
 
   dispose() {

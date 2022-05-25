@@ -59,8 +59,14 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Image.asset(
             'assets/images/icon/Bg2.png',
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .5,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * .5,
             fit: BoxFit.fill,
           ),
           Container(
@@ -71,7 +77,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width * 0.9,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.9,
                       height: 70.h,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,14 +97,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   ClipRRect(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
+                                    BorderRadius.all(Radius.circular(20)),
                                     child: Container(
                                       color: Colors.white,
                                       child: Padding(
                                         padding: const EdgeInsets.all(12.0),
                                         child: Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: <Widget>[
                                             logoImage(),
                                             Padding(
@@ -119,9 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               children: [
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.only(
-                                                          left: 16.0,
-                                                          right: 16),
+                                                  const EdgeInsets.only(
+                                                      left: 16.0,
+                                                      right: 16),
                                                   child: Container(
                                                     child: TextInputFileds(
                                                       controlr: email,
@@ -149,9 +158,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               children: [
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.only(
-                                                          left: 16.0,
-                                                          right: 16),
+                                                  const EdgeInsets.only(
+                                                      left: 16.0,
+                                                      right: 16),
                                                   child: Container(
                                                     child: TextInputFileds(
                                                       controlr: pwd,
@@ -228,36 +237,35 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.only(top: 5),
           child: Center(
               child: Padding(
-            padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-            child: Stack(
-              children: [
-                LoginButton(
-                    onPressed: () async {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      var validate = formKey.currentState?.validate();
-                      if (null != validate) {
-                        if (validate) {
-                          setState(() {
-                            visible = true;
-                          });
-
-                          SharedPreferences shdPre =
+                padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                child: Stack(
+                  children: [
+                    LoginButton(
+                        onPressed: () async {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          var validate = formKey.currentState?.validate();
+                          if (null != validate) {
+                            if (validate) {
+                              setState(() {
+                                visible = true;
+                              });
+                              SharedPreferences shdPre =
                               await SharedPreferences.getInstance();
-                          bool isuser = shdPre.getBool("user")!;
-                          var userType = "1";
-                          if (isuser) {
-                            userType = "0";
+                              bool isuser = shdPre.getBool("user")!;
+                              var userType = "1";
+                              if (isuser) {
+                                userType = "0";
+                              }
+                              loginBloc.fetchLogin(
+                                  email.text, pwd.text, userType);
+                            }
+                            // use the information provided
                           }
-
-                          loginBloc.fetchLogin(email.text, pwd.text, userType);
-                        }
-                        // use the information provided
-                      }
-                    },
-                    label: "Login"),
-              ],
-            ),
-          )),
+                        },
+                        label: "Login"),
+                  ],
+                ),
+              )),
         ),
         SizedBox(
           height: 5,
@@ -271,22 +279,28 @@ class _LoginScreenState extends State<LoginScreen> {
       children: <Widget>[
         Center(
             child: Stack(
-          children: [
-            Visibility(
-              visible: !visible,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 10, left: 0, right: 0, bottom: 0),
-                child: Container(
-                    height: MediaQuery.of(context).size.width / 5,
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: SvgPicture.asset(
-                      'assets/images/icon/logo.svg',
-                    )),
-              ),
-            ),
-          ],
-        )),
+              children: [
+                Visibility(
+                  visible: !visible,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, left: 0, right: 0, bottom: 0),
+                    child: Container(
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 5,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 2,
+                        child: SvgPicture.asset(
+                          'assets/images/icon/logo.svg',
+                        )),
+                  ),
+                ),
+              ],
+            )),
       ],
     );
   }
@@ -299,72 +313,76 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
 
-      var message = event.response?.status?.statusMessage;
-      if (event.response?.status?.statusCode == 200) {
-        final prefs = await SharedPreferences.getInstance();
-        var token = event.response?.data?.token;
-        var role = event.response?.data?.role;
-        var firstname = event.response?.data?.firstName;
-        var lastName = event.response?.data?.lastName;
-        var employeeNo = event.response?.data?.employeeNo;
-        var userType = event.response?.data?.userType;
-        var profileSrc = event.response?.data?.profileSrc;
+      if (null != event.response) {
+        var message = event.response?.status?.statusMessage;
+        if (event.response?.status?.statusCode == 200) {
+          final prefs = await SharedPreferences.getInstance();
+          var token = event.response?.data?.token;
+          var role = event.response?.data?.role;
+          var firstname = event.response?.data?.firstName;
+          var lastName = event.response?.data?.lastName;
+          var employeeNo = event.response?.data?.employeeNo;
+          var userType = event.response?.data?.userType;
+          var profileSrc = event.response?.data?.profileSrc;
 
-        if (null == token) {
-          showAlertDialoge(context, title: "Login Failed", message: message!);
-          return;
-        }
-        if (null == role) {
-          return;
-        }
-        if (null == firstname) {
-          return;
-        }
+          if (null == token) {
+            showAlertDialoge(context, title: "Login Failed", message: message!);
+            return;
+          }
+          if (null == role) {
+            return;
+          }
+          if (null == firstname) {
+            return;
+          }
 
-        if (null == lastName) {
-          return;
-        }
+          if (null == lastName) {
+            return;
+          }
 
-        if (null == employeeNo) {
-          return;
-        }
+          if (null == employeeNo) {
+            return;
+          }
 
-        if (null == userType) {
-          return;
-        }
+          if (null == userType) {
+            return;
+          }
 
-        if (null == profileSrc) {
-          return;
-        }
+          if (null == profileSrc) {
+            return;
+          }
 
-        prefs.setString(SharedPrefKey.AUTH_TOKEN, token);
+          prefs.setString(SharedPrefKey.AUTH_TOKEN, token);
 
-        prefs.setInt(SharedPrefKey.USER_TYPE, role);
+          prefs.setInt(SharedPrefKey.USER_TYPE, role);
 
-        prefs.setString(SharedPrefKey.FIRST_NAME, firstname);
+          prefs.setString(SharedPrefKey.FIRST_NAME, firstname);
 
-        prefs.setString(SharedPrefKey.LAST_NAME, lastName);
+          prefs.setString(SharedPrefKey.LAST_NAME, lastName);
 
-        prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo);
+          prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo);
 
-        prefs.setString(SharedPrefKey.USER_TYPE_NAME, userType);
+          prefs.setString(SharedPrefKey.USER_TYPE_NAME, userType);
 
-        prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc);
+          prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc);
 
-        if (role == 0) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const DashBoard()),
-          );
+          if (role == 0) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const DashBoard()),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const ManagerDashBoard()),
+            );
+          }
         } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const ManagerDashBoard()),
-          );
+          showAlertDialoge(context, title: "Login Failed", message: message!);
         }
       } else {
-        showAlertDialoge(context, title: "Login Failed", message: message!);
-      }
-    });
+        showAlertDialoge(context, title: "Login Failed", message: "Something went wrong on server side ");
+        }
+        });
   }
 }
