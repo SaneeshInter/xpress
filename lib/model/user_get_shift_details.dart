@@ -94,6 +94,7 @@ class ShiftDetails {
   int? price;
   List<Allowances>? allowances;
   String? createdDate;
+  int? if_requested;
 
   ShiftDetails(
       {this.shiftRowId,
@@ -111,7 +112,13 @@ class ShiftDetails {
         this.jobDetails,
         this.price,
         this.allowances,
-        this.createdDate});
+        this.createdDate,
+        this.if_requested,
+
+      }
+
+
+      );
 
   ShiftDetails.fromJson(Map<String, dynamic> json) {
     shiftRowId = json['shift_row_id'];
@@ -135,6 +142,7 @@ class ShiftDetails {
       });
     }
     createdDate = json['created_date'];
+    if_requested = json['if_requested'];
   }
 
   Map<String, dynamic> toJson() {
@@ -157,6 +165,7 @@ class ShiftDetails {
       data['allowances'] = this.allowances!.map((v) => v.toJson()).toList();
     }
     data['created_date'] = this.createdDate;
+    data['if_requested'] = this.if_requested;
     return data;
   }
 }
