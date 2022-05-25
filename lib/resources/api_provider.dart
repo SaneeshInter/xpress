@@ -17,6 +17,7 @@ import '../model/manager_unit_name.dart';
 import '../model/manager_view_request.dart';
 import '../model/remove_manager_schedule.dart';
 import '../model/shift_list_response.dart';
+import '../model/update_profile_questn_respo.dart';
 import '../model/user_add_availability.dart';
 import '../model/user_availability_btw_date.dart';
 import '../model/user_cancel_jobrequest.dart';
@@ -38,32 +39,41 @@ import '../model/viewbooking_response.dart';
 class ApiProvider {
   Client client = Client();
   String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
-
-  Future<LoginUserRespo> loginUser(
+  Future<LoginUserRespo?> loginUser(
       String username, String password, String user_type) async {
     var uri = Uri.parse(BASE_URL + '/account/login');
-    final response = await client.post(uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'email': username,
-          'password': password,
-          'user_type': user_type,
-        }));
+    try
+    {
+      final response = await client.post(uri,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'email': username,
+            'password': password,
+            'user_type': user_type,
+          }));
+      print(jsonEncode(<String, String>{
+        'email': username,
+        'password': password,
+        'user_type': user_type,
+      }).toString());
 
-    print(jsonEncode(<String, String>{
-      'email': username,
-      'password': password,
-      'user_type': user_type,
-    }).toString());
-    print(response.body);
+      print(response.body);
 
-    if (response.statusCode == 200) {
-      return LoginUserRespo.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load post');
+      if (response.statusCode == 200) {
+        return LoginUserRespo.fromJson(json.decode(response.body));
+      } else {
+        return null;
+      }
     }
+    catch(e)
+    {
+      return null;
+    }
+
+
+
   }
 
   Future<UserGetResponse> getUserInfo(String token) async {
@@ -96,6 +106,35 @@ class ApiProvider {
     print(response.body);
     if (response.statusCode == 200) {
       return UtilityResop.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+
+
+
+  Future<ProfileQuestionResponse> geProfileQuestions(
+      String token, String key, String value) async {
+    var uri = Uri.parse(BASE_URL + '/account/update-questions');
+    final response = await client.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token,
+        },
+        body: jsonEncode(<String, String>{
+          'key': key,
+          'value': value,
+        }));
+
+    print("Print Update questions" + token);
+
+    print(jsonEncode(<String, String>{
+      'key': key,
+    }).toString());
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return ProfileQuestionResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load post');
     }
@@ -261,7 +300,7 @@ class ApiProvider {
         },
         body: jsonEncode(<String, String>{}));
 
-    print("PRINT MANAGERHOME RESPONSE" + token);
+    print("Print ManagerHome ImportantUpdates " + token);
 
     print(jsonEncode(<String, String>{}).toString());
     print(response.body);
@@ -285,7 +324,7 @@ class ApiProvider {
           'shift_id': shift_id,
         }));
     print("PRINT VIEW REQUEST" + uri.toString());
-    print("PRINT VIEW REQUEST" + shift_id);
+    print("PRINT VIEW REQUEST Id" + shift_id);
     print("PRINT VIEW REQUEST" + token);
     print(jsonEncode(<String, String>{
       'shift_id': shift_id,
@@ -628,6 +667,9 @@ class ApiProvider {
     }
   }
 
+
+
+
   Future<UserGetScheduleByDate> getUserScheduleByDate(
       String token, String date) async {
     var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-date');
@@ -685,6 +727,12 @@ class ApiProvider {
   Future<UserGetScheduleByYear> userScheduleByYears(
       String token, String year) async {
     var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-year');
+
+
+    print(uri);
+
+
+
     final response = await client.post(uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -698,6 +746,9 @@ class ApiProvider {
     print(jsonEncode(<String, String>{
       'year': year,
     }).toString());
+
+
+
     print(response.body);
 
     if (response.statusCode == 200) {
@@ -722,7 +773,16 @@ class ApiProvider {
     print(jsonEncode(<String, String>{
       'year': year,
     }).toString());
+
+
+
+    print(uri.toString());
     print(response.body);
+
+
+
+
+
     if (response.statusCode == 200) {
       return ManagerGetScheduleByYear.fromJson(json.decode(response.body));
     } else {
