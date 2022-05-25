@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_view_request_response.dart';
+
 import '../../ui/Widgets/buttons/view_button.dart';
 import '../../ui/user/detail/shift_detail.dart';
 import '../../utils/constants.dart';
@@ -41,7 +42,8 @@ class _MyBookingState extends State<MyBookingListWidget> {
           context,
           MaterialPageRoute(
               builder: (context) => ShiftDetailScreen(
-                    shift_id: widget.items.jobId.toString(),isCompleted: true,
+                    shift_id: widget.items.jobId.toString(),
+                    isCompleted: true,
                   )),
         );
       },
@@ -100,6 +102,19 @@ class _MyBookingState extends State<MyBookingListWidget> {
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
+                        AutoSizeText.rich(
+                          TextSpan(
+                            text: "At : " + widget.items.hospital!,
+                            style: TextStyle(
+                                fontSize: 10.sp,
+                                color: Constants.colors[4],
+                                fontWeight: FontWeight.w700),
+                          ),
+                          minFontSize: 0,
+                          stepGranularity: 0.3,
+                          maxLines: 3,
+                        ),
+                        SizedBox(height: screenHeight(context, dividedBy: 180)),
                         // Text(
                         //   widget.items.userType!,
                         //   style: TextStyle(
@@ -119,8 +134,9 @@ class _MyBookingState extends State<MyBookingListWidget> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ShiftDetailScreen(
-                                  shift_id: widget.items.jobId.toString(),isCompleted: true,
-                                )),
+                                      shift_id: widget.items.jobId.toString(),
+                                      isCompleted: true,
+                                    )),
                           );
                         },
                         key: null,
@@ -172,36 +188,46 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
         //   },
         //   key: null,
         // ),
-        // SizedBox(width: screenWidth(context, dividedBy: 40)),
+
+        if (widget.items.status == "Accepted" || widget.items.status == "Pending")
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BookButton(
+                label: "Cancel Request",
+                onPressed: () {
+                  widget.onTapCancel();
+                  print("Cards booking");
+                },
+                key: null,
+              ),
+              SizedBox(width: screenWidth(context, dividedBy: 40)),
+            ],
+          ),
+
+
         if (widget.items.status == "Accepted")
           BookButton(
-            label: "Cancel Request",
+            label: "Add Working Hours",
             onPressed: () {
-              widget.onTapCancel();
+              widget.onTapView(widget.items);
               print("Cards booking");
             },
             key: null,
           ),
-
 
         if (widget.items.status == "Completed")
-        BookButton(
-          label: "Add Working Hours",
-          onPressed: () {
-            widget.onTapView(widget.items);
-            print("Cards booking");
-          },
-          key: null,
-        ),
-        if (widget.items.status == "Pending")
           BookButton(
-            label: "Cancel Request",
+            label: "Add Working Hours",
             onPressed: () {
-              widget.onTapCancel(widget.items);
+              widget.onTapView(widget.items);
               print("Cards booking");
             },
             key: null,
           ),
+
+
+
       ],
     );
   }

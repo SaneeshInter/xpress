@@ -47,6 +47,18 @@ class _HomeScreentate extends State<MyBookingScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
+
+  void canceljob(Items items) {
+    if (items is Items) {
+      setState(() {
+        visibility = true;
+      });
+
+      Items data = items;
+      confirmBloc.UserCancelJobResponse(token, data.rowId.toString());
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -88,11 +100,16 @@ class _HomeScreentate extends State<MyBookingScreen> {
 
   void observe() {
     confirmBloc.usercanceljobrequest.listen((event) {
+
+
+      setState(() {
+        visibility = false;
+      });
       String? message = event.response?.status?.statusMessage;
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Cancel");
     });
-    confirmBloc.usercanceljobrequest.listen((event) {});
+
   }
 
   @override
@@ -102,6 +119,13 @@ class _HomeScreentate extends State<MyBookingScreen> {
       child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Constants.colors[9],
+          floatingActionButton:  FloatingActionButton(
+            onPressed: () {
+             getDataitems();
+            },
+            backgroundColor: Colors.green,
+            child: const Icon(Icons.refresh),
+          ),
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(65),
             child: Container(
@@ -142,41 +166,31 @@ class _HomeScreentate extends State<MyBookingScreen> {
               ),
             ),
           ),
-          body: Stack(
-            children: [
-
-              StreamBuilder(
-                stream: confirmBloc.viewrequest,
-                builder: (BuildContext context,
-                    AsyncSnapshot<UserViewRequestResponse> snapshot) {
-                  if (snapshot.hasData) {
-                    return TabBarView(children: [
-                      bookingList(0, snapshot),
-                      bookingList(1, snapshot),
-                      bookingList(2, snapshot),
-                    ]);
-                  } else if (snapshot.hasError) {
-                    return Text(snapshot.error.toString());
-                  }
-                  return Center(
-                    child: Visibility(
-                      child: Container(
-                        width: 100.w,
-                        height: 80.h,
-                        child: const Center(
-                          child: LoadingWidget(),
-                        ),
-                      ),
+          body: StreamBuilder(
+            stream: confirmBloc.viewrequest,
+            builder: (BuildContext context,
+                AsyncSnapshot<UserViewRequestResponse> snapshot) {
+              if (snapshot.hasData) {
+                return TabBarView(children: [
+                  bookingList(0, snapshot),
+                  bookingList(1, snapshot),
+                  bookingList(2, snapshot),
+                ]);
+              } else if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
+              return Center(
+                child: Visibility(
+                  child: Container(
+                    width: 100.w,
+                    height: 80.h,
+                    child: const Center(
+                      child: LoadingWidget(),
                     ),
-                  );
-                }),
-              Container(
-                child: LiquidPullToRefresh(onRefresh: () async {getDataitems();  },
-                    child: ListView()),
-              ),
-             ],
-
-          )),
+                  ),
+                ),
+              );
+            })),
     );
   }
 
@@ -218,8 +232,7 @@ class _HomeScreentate extends State<MyBookingScreen> {
                 },
                 onTapCancel: (item) {
                   print("Tapped");
-                  //confirmBloc.fetchGetUserCancelJobResponse(token, job_request_row_id)
-                  // showTimeUpdateAlert(context, item);
+
                   canceljob(items);
                 },
                 onTapCall: () {},
@@ -444,14 +457,11 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
           ),
         );
       });
+
+
 }
 
-void canceljob(Items items) {
-  if (items is Items) {
-    Items data = items;
-    confirmBloc.UserCancelJobResponse(token, data.rowId.toString());
-  }
-}
+
 
 FilterBookingList getFilterList(
     AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {

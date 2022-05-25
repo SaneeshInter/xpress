@@ -634,8 +634,6 @@ class _HomeScreentate extends State<HomeScreen> {
       return Container();
     }
   }
-
-
   Widget gridView() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0),
