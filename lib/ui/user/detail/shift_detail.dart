@@ -46,7 +46,6 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     observe();
     getDataz();
   }
-
   void requestShift() {
     setState(() {
       visibility = true;
@@ -368,6 +367,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                 padding: const EdgeInsets.all(25.0),
                                 child: Row(
                                   children: [
+
+                                    if(shiftDetails?.if_requested == 0)
                                     LoginButton(
                                         onPressed: () async {
                                           // use the information provided
@@ -411,6 +412,19 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
   }
 
   void observe() {
+
+
+
+    bloc.jobrequest.listen((event) {
+      setState(() {
+        visibility = false;
+      });
+      String? message = event.response?.status?.statusMessage;
+      showAlertDialoge(context, message: message!, title: "Request");
+      getDataz();
+    });
+
+
     usershiftdetailsBloc.usershiftdetailsStream.listen((event) {
       var hospitalDetail = event.response?.data?.hospitalDetails![0];
       if(mounted)
