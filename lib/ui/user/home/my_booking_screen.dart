@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/shift_confirmed_bloc.dart';
@@ -46,7 +45,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
-
 
   void canceljob(Items items) {
     if (items is Items) {
@@ -100,8 +98,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
 
   void observe() {
     confirmBloc.usercanceljobrequest.listen((event) {
-
-
       setState(() {
         visibility = false;
       });
@@ -109,7 +105,14 @@ class _HomeScreentate extends State<MyBookingScreen> {
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Cancel");
     });
-
+    confirmBloc.userworkinghours.listen((event) {
+      setState(() {
+        visibility = false;
+      });
+      String? message = event.response?.status?.statusMessage;
+      getDataitems();
+      showAlertDialoge(context, message: message!, title: "Working hours");
+    });
   }
 
   @override
@@ -119,9 +122,9 @@ class _HomeScreentate extends State<MyBookingScreen> {
       child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Constants.colors[9],
-          floatingActionButton:  FloatingActionButton(
+          floatingActionButton: FloatingActionButton(
             onPressed: () {
-             getDataitems();
+              getDataitems();
             },
             backgroundColor: Colors.green,
             child: const Icon(Icons.refresh),
@@ -167,36 +170,235 @@ class _HomeScreentate extends State<MyBookingScreen> {
             ),
           ),
           body: StreamBuilder(
-            stream: confirmBloc.viewrequest,
-            builder: (BuildContext context,
-                AsyncSnapshot<UserViewRequestResponse> snapshot) {
-              if (snapshot.hasData) {
-                return TabBarView(children: [
-                  bookingList(0, snapshot),
-                  bookingList(1, snapshot),
-                  bookingList(2, snapshot),
-                ]);
-              } else if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              return Center(
-                child: Visibility(
-                  child: Container(
-                    width: 100.w,
-                    height: 80.h,
-                    child: const Center(
-                      child: LoadingWidget(),
+              stream: confirmBloc.viewrequest,
+              builder: (BuildContext context,
+                  AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                if (snapshot.hasData) {
+                  return TabBarView(children: [
+                    bookingList(0, snapshot),
+                    bookingList(1, snapshot),
+                    bookingList(2, snapshot),
+                  ]);
+                } else if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                }
+                return Center(
+                  child: Visibility(
+                    child: Container(
+                      width: 100.w,
+                      height: 80.h,
+                      child: const Center(
+                        child: LoadingWidget(),
+                      ),
                     ),
                   ),
-                ),
-              );
-            })),
+                );
+              })),
     );
   }
 
   Widget bookingList(
       int position, AsyncSnapshot<UserViewRequestResponse> snapshot) {
     return Column(children: [buildList(snapshot, position)]);
+  }
+
+  Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
+    TextEditingController dateFrom = new TextEditingController();
+    TextEditingController dateTo = new TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 90.w,
+                    color: Colors.red,
+                    child: Material(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 11.w,
+                                color: Constants.colors[20],
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 4,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text("Add Timesheet",
+                                              style: TextStyle(
+                                                fontSize: 13.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "SFProMedium",
+                                              )),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Expanded(
+                                          flex: 2,
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 50),
+                                            child: SvgPicture.asset(
+                                              "assets/images/icon/close.svg",
+                                              height: 3.w,
+                                              width: 3.w,
+                                              color: Constants.colors[0],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, right: 8.0, top: 8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 2),
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Start Time",
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              color: Constants.colors[22],
+                                              fontSize: 11.sp,
+                                              fontFamily: "SFProMedium",
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          TextInputFileds(
+                                              controlr: dateFrom,
+                                              validator: (dateTo) {
+                                                if (validDate(dateTo))
+                                                  return null;
+                                                else
+                                                  return "select time";
+                                              },
+                                              onTapDate: () {
+                                                selectTime(context, dateFrom);
+                                              },
+                                              hintText: Txt.timeFrom,
+                                              keyboadType: TextInputType.none,
+                                              isPwd: false),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 6,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "End Time",
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          color: Constants.colors[22],
+                                          fontSize: 11.sp,
+                                          fontFamily: "SFProMedium",
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      TextInputFileds(
+                                          controlr: dateTo,
+                                          validator: (dateTo) {
+                                            if (validDate(dateTo))
+                                              return null;
+                                            else
+                                              return "select time";
+                                          },
+                                          onTapDate: () {
+                                            FocusScope.of(context).unfocus();
+                                            selectTime(context, dateTo);
+                                          },
+                                          hintText: Txt.timeTo,
+                                          keyboadType: TextInputType.none,
+                                          isPwd: false),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 15.0, bottom: 15.0),
+                            child: Container(
+                              width: 20.w,
+                              child: SubmitButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      visibility = true;
+                                    });
+
+                                    confirmBloc.fetchUserWorkingHours(
+                                        token,
+                                        item.rowId.toString(),
+                                        dateFrom.text,
+                                        dateTo.text);
+                                  },
+                                  label: "Submit",
+                                  textColors: Constants.colors[0],
+                                  color1: Constants.colors[3],
+                                  color2: Constants.colors[4]),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   Widget buildList(
@@ -274,195 +476,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
   }
 }
 
-Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
-  TextEditingController dateFrom = new TextEditingController();
-  TextEditingController dateTo = new TextEditingController();
-  return showDialog(
-      context: context,
-      builder: (context) {
-        return Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 90.w,
-                  color: Colors.red,
-                  child: Material(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 11.w,
-                              color: Constants.colors[20],
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text("Add Timesheet",
-                                            style: TextStyle(
-                                              fontSize: 13.sp,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "SFProMedium",
-                                            )),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: SvgPicture.asset(
-                                        "assets/images/icon/close.svg",
-                                        height: 3.w,
-                                        width: 3.w,
-                                        color: Constants.colors[0],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Start Time",
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                            color: Constants.colors[22],
-                                            fontSize: 11.sp,
-                                            fontFamily: "SFProMedium",
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        TextInputFileds(
-                                            controlr: dateFrom,
-                                            validator: (dateTo) {
-                                              if (validDate(dateTo))
-                                                return null;
-                                              else
-                                                return "select time";
-                                            },
-                                            onTapDate: () {
-                                              selectTime(context, dateFrom);
-                                            },
-                                            hintText: Txt.timeFrom,
-                                            keyboadType: TextInputType.none,
-                                            isPwd: false),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 6,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "End Time",
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        color: Constants.colors[22],
-                                        fontSize: 11.sp,
-                                        fontFamily: "SFProMedium",
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    TextInputFileds(
-                                        controlr: dateTo,
-                                        validator: (dateTo) {
-                                          if (validDate(dateTo))
-                                            return null;
-                                          else
-                                            return "select time";
-                                        },
-                                        onTapDate: () {
-                                          FocusScope.of(context).unfocus();
-                                          selectTime(context, dateTo);
-                                        },
-                                        hintText: Txt.timeTo,
-                                        keyboadType: TextInputType.none,
-                                        isPwd: false),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 15.0),
-                          child: Container(
-                            width: 20.w,
-                            child: SubmitButton(
-                                onPressed: () {
-                                  confirmBloc.fetchUserWorkingHours(
-                                      token,
-                                      item.rowId.toString(),
-                                      dateFrom.text,
-                                      dateTo.text);
-                                },
-                                label: "Submit",
-                                textColors: Constants.colors[0],
-                                color1: Constants.colors[3],
-                                color2: Constants.colors[4]),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      });
-
-
-}
-
-
-
 FilterBookingList getFilterList(
     AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
   FilterBookingList list = FilterBookingList();
@@ -488,7 +501,9 @@ FilterBookingList getFilterList(
 
 class BodyWidget extends StatelessWidget {
   final Color color;
+
   BodyWidget(this.color);
+
   @override
   Widget build(BuildContext context) {
     return Container(
