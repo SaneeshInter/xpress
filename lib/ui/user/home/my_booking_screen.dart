@@ -106,6 +106,14 @@ class _HomeScreentate extends State<MyBookingScreen> {
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Cancel");
     });
+    confirmBloc.userworkinghours.listen((event) {
+      setState(() {
+        visibility = false;
+      });
+      String? message = event.response?.status?.statusMessage;
+      getDataitems();
+      showAlertDialoge(context, message: message!, title: "Working hours");
+    });
   }
 
   @override
@@ -484,9 +492,7 @@ FilterBookingList getFilterList(
 
 class BodyWidget extends StatelessWidget {
   final Color color;
-
   BodyWidget(this.color);
-
   @override
   Widget build(BuildContext context) {
     return Container(
