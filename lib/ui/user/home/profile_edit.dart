@@ -107,15 +107,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
     }
   }
 
-  // Future getData() async {
-  //   token = await TokenProvider().getToken();
-  //   if (null != token) {
-  //     setState(() {
-  //       visibility = true;
-  //     });
-  //     profileBloc.getUserInfo(token);
-  //   }
-  // }
   void observe() {
     profileBloc.getProfileStream.listen((event) {
       setState(() {
@@ -195,23 +186,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          // const SizedBox(
-                                          //   height: 25,
-                                          // ),
-                                          // Padding(
-                                          //   padding:
-                                          //       const EdgeInsets.fromLTRB(
-                                          //           16.0, 10, 0, 0),
-                                          //   child: AutoSizeText(
-                                          //     Update Profile ',
-                                          //     style: TextStyle(
-                                          //       fontSize: 18,
-                                          //       color: Colors.black,
-                                          //       fontWeight: FontWeight.bold,
-                                          //       fontFamily: "SFProMedium",
-                                          //     ),
-                                          //   ),
-                                          // ),
                                           const SizedBox(
                                             height: 20,
                                           ),
@@ -441,9 +415,8 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                         onChanged:
                                                             (Object? value) {
                                                           if (value
-                                                              is CountryList) {
-                                                            nationalityId =
-                                                                value.rowId!;
+                                                              is int?) {
+                                                            nationalityId = value!;
                                                           }
                                                         },
                                                       );
@@ -539,9 +512,8 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                             onChanged: (Object?
                                                                 value) {
                                                               if (value
-                                                                  is GenderList) {
-                                                                genderId = value
-                                                                    .rowId!;
+                                                                  is int?) {
+                                                                genderId = value!;
                                                               }
                                                             },
                                                           );
@@ -915,8 +887,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                           }
                           // use the information provided
                         }
-                        //showFeactureAlert(context, date: "");
-                        // use the information provided
                       },
                       label: "SUBMIT"),
                   Padding(

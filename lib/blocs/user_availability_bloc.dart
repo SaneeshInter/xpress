@@ -54,6 +54,7 @@ class UserAvailiability {
         availabilityList.response?.data!.availabilityList;
     var finalList = getDataList(availableMokeList, listItem);
 
+
     _useravailabilitydate.add(finalList);
   }
 

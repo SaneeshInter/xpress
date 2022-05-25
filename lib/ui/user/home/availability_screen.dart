@@ -133,7 +133,9 @@ class _AvailabilityState extends State<AvailabilityScreen> {
       //   scaffoldKey: _scaffoldKey,
       // ),
       body: LiquidPullToRefresh(
-        onRefresh: () async {},
+        onRefresh: () async {
+          getData();
+        },
         child: ListView(
           children: [
             SingleChildScrollView(

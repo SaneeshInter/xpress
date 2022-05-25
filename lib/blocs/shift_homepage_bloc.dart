@@ -13,7 +13,11 @@ class ShiftHomepageBloc{
   Stream<UserHomeResponse> get userhomeStream => _userhome.stream;
   fetchUserHomepage(token) async {
     UserHomeResponse list = await _repo.fetchUserHomeResponse(token);
-    _userhome.sink.add(list);
+    if(!_userhome.isClosed)
+      {
+        _userhome.sink.add(list);
+      }
+
   }
 
 

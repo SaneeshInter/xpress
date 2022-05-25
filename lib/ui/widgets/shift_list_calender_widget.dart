@@ -71,6 +71,15 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                         fontWeight: FontWeight.w700),
                   ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
+                Text(
+                  "Date " +
+                      widget.items.date!,
+                  style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400),
+                ),
+                SizedBox(height: screenHeight(context, dividedBy: 120)),
                 if (null != widget.items.timeFrom &&
                     null != widget.items.timeTo)
                   Text(

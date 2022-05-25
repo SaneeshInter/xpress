@@ -1,28 +1,22 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/model/filter_booking_list.dart';
 import 'package:xpresshealthdev/blocs/shift_confirmed_bloc.dart';
+import 'package:xpresshealthdev/model/filter_booking_list.dart';
 import 'package:xpresshealthdev/model/user_view_request_response.dart';
 
-import '../../../Constants/sharedPrefKeys.dart';
 import '../../../Constants/strings.dart';
 import '../../../resources/token_provider.dart';
-import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../../utils/validator.dart';
 import '../../Widgets/buttons/submit_small.dart';
-import '../../Widgets/buttons/view_button.dart';
 import '../../Widgets/my_booking_list_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
-import '../empty/empty_screen.dart';
 
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({Key? key}) : super(key: key);
@@ -149,49 +143,41 @@ class _HomeScreentate extends State<MyBookingScreen> {
             ),
           ),
           body: LiquidPullToRefresh(
-            onRefresh: () async {
+            onRefresh: () async{
               getDataitems();
             },
-            child: Container(
-                child: StreamBuilder(
-                    stream: confirmBloc.viewrequest,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<UserViewRequestResponse> snapshot) {
-                      if (snapshot.hasData) {
-                        return TabBarView(children: [
-                          bookingList(0, snapshot),
-                          bookingList(1, snapshot),
-                          bookingList(2, snapshot),
-                        ]);
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
-                      return Center(
-                        child: Visibility(
-                          child: Container(
-                            width: 100.w,
-                            height: 80.h,
-                            child: const Center(
-                              child: LoadingWidget(),
-                            ),
-                          ),
+            child: StreamBuilder(
+                stream: confirmBloc.viewrequest,
+                builder: (BuildContext context,
+                    AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    return TabBarView(children: [
+                      bookingList(0, snapshot),
+                      bookingList(1, snapshot),
+                      bookingList(2, snapshot),
+                    ]);
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  return Center(
+                    child: Visibility(
+                      child: Container(
+                        width: 100.w,
+                        height: 80.h,
+                        child: const Center(
+                          child: LoadingWidget(),
                         ),
-                      );
-                    })),
+                      ),
+                    ),
+                  );
+                }),
           )),
     );
   }
 
   Widget bookingList(
       int position, AsyncSnapshot<UserViewRequestResponse> snapshot) {
-    return LiquidPullToRefresh(
-      onRefresh: () async {
-        getDataitems();
-      },
-      child: SingleChildScrollView(
-        child: Column(children: [buildList(snapshot, position)]),
-      ),
-    );
+    return Column(children: [buildList(snapshot, position)]);
   }
 
   Widget buildList(
@@ -233,7 +219,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
                 },
                 onTapCall: () {},
                 onTapMap: () {
-
                   // showFeactureAlert(context, date: "");
                 },
                 onTapBooking: () {
@@ -311,7 +296,7 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                             style: TextStyle(
                                               fontSize: 13.sp,
                                               color: Colors.white,
-                                             fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.w400,
                                               fontFamily: "SFProMedium",
                                             )),
                                       ),
@@ -323,7 +308,7 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                         height: 3.w,
                                         width: 3.w,
                                         color: Constants.colors[0],
-                              ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -355,7 +340,6 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                             color: Constants.colors[22],
                                             fontSize: 11.sp,
                                             fontFamily: "SFProMedium",
-
                                           ),
                                         ),
                                         SizedBox(
@@ -394,7 +378,6 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                                       style: TextStyle(
                                         color: Constants.colors[22],
                                         fontSize: 11.sp,
-
                                         fontFamily: "SFProMedium",
                                       ),
                                     ),
@@ -432,7 +415,8 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
                             width: 20.w,
                             child: SubmitButton(
                                 onPressed: () {
-                                  confirmBloc.fetchUserWorkingHours(token,
+                                  confirmBloc.fetchUserWorkingHours(
+                                      token,
                                       item.rowId.toString(),
                                       dateFrom.text,
                                       dateTo.text);
