@@ -113,34 +113,32 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
 
   void observe() {
     completeBloc.allShift.listen((event) {
-      print("inside observer");
-      setState(() {
-        visibility = false;
-      });
-
+    if(mounted)
+      {
+        setState(() {
+          visibility = false;
+        });
+      }
       var data = event.response?.data;
       print("data?.items?.length");
       print(data?.items?.length);
       if (data?.items != null) {
         print("data?.items?.length");
         print(data?.items?.length);
-        // if (data?.items?.length != 0) {
-        //   setState(() {
-        //     buttonVisibility = true;
-        //   });
-        // }
+        if (data?.items?.length != 0) {
+          setState(() {
+            buttonVisibility = true;
+          });
+        }
       }
     });
     completeBloc.uploadStatus.listen((event) {
-      print("event");
-      print(event.response);
       var message = event.response?.status?.statusMessage;
       setState(() {
         _image = null;
       });
       getData();
       showAlertDialoge(context, message: message!, title: "Upload Timesheet");
-
       setState(() {
         visibility = false;
       });
@@ -155,13 +153,6 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        // drawer: Drawer(
-        //   child: SideMenu(),
-        // ),
-        // appBar: AppBarCommon(
-        //   _scaffoldKey,
-        //   scaffoldKey: _scaffoldKey,
-        // ),
         backgroundColor: Constants.colors[9],
         body: SingleChildScrollView(
           child: Stack(
@@ -178,7 +169,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    // if (buttonVisibility)
+                    if (buttonVisibility)
                       DottedBorder(
                         borderType: BorderType.RRect,
                         dashPattern: [10, 10],
@@ -258,12 +249,10 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    // if (buttonVisibility)
+                    if (buttonVisibility)
                       BuildButton(
                         label: "Upload Timesheets",
                         onPressed: () {
-
-
                           String shiftid = "";
                           print("PRINT UPLOAD LISTS");
                           for (var item in list) {

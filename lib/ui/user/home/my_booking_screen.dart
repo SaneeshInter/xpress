@@ -142,11 +142,10 @@ class _HomeScreentate extends State<MyBookingScreen> {
               ),
             ),
           ),
-          body: LiquidPullToRefresh(
-            onRefresh: () async{
-              getDataitems();
-            },
-            child: StreamBuilder(
+          body: Stack(
+            children: [
+
+              StreamBuilder(
                 stream: confirmBloc.viewrequest,
                 builder: (BuildContext context,
                     AsyncSnapshot<UserViewRequestResponse> snapshot) {
@@ -171,6 +170,12 @@ class _HomeScreentate extends State<MyBookingScreen> {
                     ),
                   );
                 }),
+              Container(
+                child: LiquidPullToRefresh(onRefresh: () async {getDataitems();  },
+                    child: ListView()),
+              ),
+             ],
+
           )),
     );
   }
@@ -452,11 +457,9 @@ FilterBookingList getFilterList(
     AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
   FilterBookingList list = FilterBookingList();
   List<Items>? allList = snapshot.data?.response?.data?.items;
-
   for (var item in allList!) {
     print("item.status");
     print(item.status);
-
     if (item.status == "Accepted") {
       list.confirmed.add(item);
     }
@@ -475,9 +478,7 @@ FilterBookingList getFilterList(
 
 class BodyWidget extends StatelessWidget {
   final Color color;
-
   BodyWidget(this.color);
-
   @override
   Widget build(BuildContext context) {
     return Container(
