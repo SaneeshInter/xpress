@@ -108,6 +108,7 @@ class Items {
   int? price;
   List<Allowances>? allowances;
   String? createdDate;
+  int? if_requested;
 
   Items(
       {this.rowId,
@@ -125,6 +126,7 @@ class Items {
         this.jobDetails,
         this.price,
         this.allowances,
+        this.if_requested,
         this.createdDate});
 
   Items.fromJson(Map<String, dynamic> json) {
@@ -142,6 +144,7 @@ class Items {
     timeTo = json['time_to'];
     jobDetails = json['job_details'];
     price = json['price'];
+    if_requested = json['if_requested'];
     if (json['allowances'] != null) {
       allowances = <Allowances>[];
       json['allowances'].forEach((v) {
@@ -167,6 +170,7 @@ class Items {
     data['time_to'] = this.timeTo;
     data['job_details'] = this.jobDetails;
     data['price'] = this.price;
+    data['if_requested'] = this.if_requested;
     if (this.allowances != null) {
       data['allowances'] = this.allowances!.map((v) => v.toJson()).toList();
     }
