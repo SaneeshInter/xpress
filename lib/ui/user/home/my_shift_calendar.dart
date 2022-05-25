@@ -181,7 +181,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                         return Stack(
                           children: [
                             Align(
-                              alignment: Alignment.bottomRight,
+                              alignment: Alignment.topCenter,
                               child: Container(
                                   color: Colors.transparent,
                                   child: Padding(

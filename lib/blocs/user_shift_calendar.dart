@@ -20,7 +20,11 @@ class ShiftCalendarBloc {
     UserGetScheduleByYear respo =
         await _repo.fetchuserscheduleyear(token, year);
     itemlListALl = respo.response?.data?.item;
-    _shiftcalender.sink.add(respo);
+    if(!_shiftcalender.isClosed)
+      {
+        _shiftcalender.sink.add(respo);
+      }
+
   }
 
   dispose() {

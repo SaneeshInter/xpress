@@ -716,9 +716,15 @@ class _HomeScreentate extends State<HomeScreen> {
 
   void observe() {
     homepageBloc.userhomeStream.listen((event) {
-      setState(() {
-        visibility = false;
-      });
+
+
+      if(mounted)
+        {
+          setState(() {
+            visibility = false;
+          });
+        }
+
     });
   }
 }

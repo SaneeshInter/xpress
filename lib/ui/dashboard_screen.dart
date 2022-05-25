@@ -30,6 +30,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
   late PersistentTabController _controller;
   late bool _hideNavBar;
   String _firebaseAppToken = '';
+
   @override
   void initState() {
     super.initState();
@@ -80,8 +81,8 @@ class _DashBoardWidgetState extends State<DashBoard> {
   Future<void> initializeFirebaseService() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     String firebaseAppToken = await messaging.getToken(
-      vapidKey: '',
-    ) ??
+          vapidKey: '',
+        ) ??
         '';
 
     if (AwesomeStringUtils.isNullOrEmpty(firebaseAppToken,
@@ -97,7 +98,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
       print('Got a message whilst in the foreground!');
       print('Message data: ${message.data}');
       if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
-          considerWhiteSpaceAsEmpty: true) ||
+              considerWhiteSpaceAsEmpty: true) ||
           !AwesomeStringUtils.isNullOrEmpty(message.notification?.body,
               considerWhiteSpaceAsEmpty: true)) {
         print('Message also contained a notification: ${message.notification}');
@@ -164,6 +165,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     _controller = PersistentTabController(initialIndex: 0);
