@@ -109,18 +109,18 @@ class _RequestuserListState extends State<RequestuserListWidget> {
                           },
                           key: null,
                         ),
-                      Column(
-                        children: [
-                          if (widget.item.status == "Accepted")
-                            ViewButton(
-                              label: "Reject",
-                              onPressed: () {
-                                widget.onTapBooking(widget.item);
-                              },
-                              key: null,
-                            ),
-                        ],
-                      ),
+                      // Column(
+                      //   children: [
+                      //     if (widget.item.status == "Accepted")
+                      //       ViewButton(
+                      //         label: "Reject",
+                      //         onPressed: () {
+                      //           widget.onTapBooking(widget.item);
+                      //         },
+                      //         key: null,
+                      //       ),
+                      //   ],
+                      // ),
                     ],
                   )
                 ]),

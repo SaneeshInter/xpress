@@ -15,7 +15,6 @@ import '../../error/ConnectionFailedScreen.dart';
 import '../../user/detail/drawable_custom_row.dart';
 import '../../widgets/request_user_list.dart';
 
-
 class ShiftDetailManagerScreen extends StatefulWidget {
   final String shift_id;
 
@@ -40,13 +39,12 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
     getData();
   }
 
-
-
   @override
   void dispose() {
     super.dispose();
     managerviewrequestBloc.dispose();
   }
+
   Future getData() async {
     if (await isNetworkAvailable()) {
       setState(() {
@@ -139,10 +137,9 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                               left: 14,
                                                               top: 10),
                                                       child: Text(
-
-                                                            hospitalDetail
-                                                                .hospitalName
-                                                                .toString(),
+                                                        hospitalDetail
+                                                            .hospitalName
+                                                            .toString(),
                                                         style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: 16.sp,
@@ -314,17 +311,17 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(16),
+                          const Padding(
+                            padding: EdgeInsets.all(16),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
+                                padding: const EdgeInsets.only(left: 16.0),
                                 child: Container(
                                   child: Text(
-                                    "Shift Request From Users",
+                                    "Users Request ",
                                     style: TextStyle(
                                         fontSize: 11.sp,
                                         color: Colors.black,
@@ -332,7 +329,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               ListView.builder(
@@ -348,6 +345,9 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                         onTapCall: () {},
                                         onTapMap: () {},
                                         onTapBooking: (JobRequestDetails item) {
+                                          setState(() {
+                                            visibility = true;
+                                          });
                                           print("Tapped");
                                           acceptJobRequest(item);
                                         },
@@ -361,7 +361,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                   );
                                 },
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                             ],
@@ -387,7 +387,6 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                 ),
               ),
             ),
-
           ],
         ),
       ),
@@ -424,6 +423,9 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
       setState(() {
         visibility = false;
       });
+
+      var message = event.response?.status?.statusMessage;
+      showAlertDialoge(context, title: " Accepted", message: message!);
     });
   }
 }

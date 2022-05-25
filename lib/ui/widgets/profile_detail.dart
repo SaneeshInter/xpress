@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_get_response.dart';
 import 'package:xpresshealthdev/ui/user/detail/profile_details_row.dart';
 
@@ -81,6 +82,15 @@ class ProfileDetailCard extends StatelessWidget {
                           textColors: Constants.colors[4],
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 5
+                    ),
+                    Divider(
+                      thickness: 0.5,
+                      endIndent:7,
+                      indent: 2,
+                      color: Constants.colors[25],
                     ),
                     const SizedBox(height: 8.0),
                     if (gender != null)

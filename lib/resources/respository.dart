@@ -21,6 +21,7 @@ import '../model/manager_view_request.dart';
 import '../model/remove_manager_schedule.dart';
 import '../model/shift_list_response.dart';
 import '../model/time_sheet_upload_respo.dart';
+import '../model/update_profile_questn_respo.dart';
 import '../model/user_add_availability.dart';
 import '../model/user_availability_btw_date.dart';
 import '../model/user_cancel_jobrequest.dart';
@@ -76,7 +77,7 @@ class Repository {
           String token, String time_shhet_id) =>
       apiProvider.timeDetails(token, time_shhet_id);
 
-  Future<LoginUserRespo> fetchLogin(String username, String password, String user_type) =>
+  Future<LoginUserRespo?> fetchLogin(String username, String password, String user_type) =>
       apiProvider.loginUser(username, password,user_type);
 
   Future<UtilityResop> fetchUtility() => apiProvider.fetchUtility();
@@ -157,19 +158,25 @@ class Repository {
           String token, String year) =>
       apiProvider.managerScheduleByYears(token, year);
 
-
-
-
   Future<ManagerGetClientsResponse> fetchManagerGetClients(String token) =>
       apiProvider.managerGetClients(token);
-
 
   Future<ManagerUnitNameResponse> fetchManagerUnitName(String token,String client) =>
       apiProvider.managerUnitName(token,client);
 
-
   Future<ManagerApproveResponse> fetchapproveTimeSheet(String token,String data) =>
       apiFileProvider.approveTimeSheets(token,data);
+
+
+
+
+
+
+  Future<ProfileQuestionResponse> fetchProfileQuestions(String token,String key,String value) =>
+      apiProvider.geProfileQuestions(token,key,value);
+
+
+
 
   Future<ProfileUpdateRespo> ProfileUser(
           String token,

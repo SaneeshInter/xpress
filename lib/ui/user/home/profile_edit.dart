@@ -864,25 +864,29 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                         if (null != validate) {
                           if (validate) {
                             if (null != auth_tokn) {
-                              setState(() {
-                                visible = true;
-                              });
-                              print("after validation");
-                              profileBloc.ProfileUser(
-                                  auth_tokn,
-                                  first_name.text,
-                                  last_name.text,
-                                  date.text,
-                                  genderId.toString(),
-                                  nationalityId.toString(),
-                                  home_address.text,
-                                  "NO",
-                                  visatypeId.toString(),
-                                  phonenumber.text,
-                                  email.text,
-                                  ppsnumber.text,
-                                  bank_iban.text,
-                                  bank_bic.text);
+                              if(mounted)
+                                {
+                                  setState(() {
+                                    visible = true;
+                                  });
+                                  print("after validation");
+                                  profileBloc.ProfileUser(
+                                      auth_tokn,
+                                      first_name.text,
+                                      last_name.text,
+                                      date.text,
+                                      genderId.toString(),
+                                      nationalityId.toString(),
+                                      home_address.text,
+                                      "NO",
+                                      visatypeId.toString(),
+                                      phonenumber.text,
+                                      email.text,
+                                      ppsnumber.text,
+                                      bank_iban.text,
+                                      bank_bic.text);
+                                }
+
                             }
                           }
                           // use the information provided
@@ -891,8 +895,10 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                       label: "SUBMIT"),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+
                     child: Visibility(
                         visible: visible,
+
                         child: Center(
                           child: Container(
                               margin: EdgeInsets.only(top: 0, bottom: 0),
@@ -900,7 +906,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                 valueColor: new AlwaysStoppedAnimation<Color>(
                                     Constants.colors[3]),
                               )),
-                        )),
+                        ),
+                    ),
+
                   ),
                 ],
               ),
