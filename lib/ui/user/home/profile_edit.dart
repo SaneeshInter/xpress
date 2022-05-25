@@ -293,7 +293,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                   flex: 1,
                                                   child: TextInputFileds(
                                                       controlr: first_name,
-                                                      onTapDate: () {},
+                                                      onTapDate: () {},onChange: (){},
                                                       validator: (name) {
                                                         if (validfirstname(
                                                             name))
@@ -313,7 +313,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 flex: 1,
                                                 child: TextInputFileds(
                                                   controlr: last_name,
-                                                  validator: (name) {
+                                                  onChange: (){},             validator: (name) {
                                                     if (validlastname(name))
                                                       return null;
                                                     else {
@@ -620,7 +620,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                           TextInputFileds(
                                               controlr: phonenumber,
                                               onTapDate: () {},
-                                              validator: (number) {
+                                              onChange: (){},     validator: (number) {
                                                 if (validphonenumber(number))
                                                   return null;
                                                 else
@@ -636,7 +636,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 0.03,
                                           ),
                                           TextInputFileds(
-                                              controlr: date,
+                                              controlr: date,onChange: (){},
                                               validator: (dob) {
                                                 if (validDate(dob))
                                                   return null;
@@ -662,7 +662,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 child: TextInputFileds(
                                                     controlr: home_address,
                                                     onTapDate: () {},
-                                                    validator: (address) {
+                                                    onChange: (){},   validator: (address) {
                                                       if (validadress(address))
                                                         return null;
                                                       else
@@ -685,7 +685,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                             children: [
                                               Container(
                                                 child: TextInputFileds(
-                                                    controlr: email,
+                                                    onChange: (){},            controlr: email,
                                                     onTapDate: () {},
                                                     validator: (number) {
                                                       if (validEmail(number))
@@ -739,7 +739,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                               Container(
                                                 child: TextInputFileds(
                                                     controlr: ppsnumber,
-                                                    validator: (permission) {
+                                                    onChange: (){},            validator: (permission) {
                                                       if (validppsnumber(
                                                           permission))
                                                         return null;
@@ -764,7 +764,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                             children: [
                                               Container(
                                                 child: TextInputFileds(
-                                                    controlr: bank_iban,
+                                                    onChange: (){},             controlr: bank_iban,
                                                     validator: (number) {
                                                       if (validbankiban(number))
                                                         return null;
@@ -790,7 +790,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                               Container(
                                                 child: TextInputFileds(
                                                     controlr: bank_bic,
-                                                    validator: (number) {
+                                                    onChange: (){},        validator: (number) {
                                                       if (validbankbic(number))
                                                         return null;
                                                       else

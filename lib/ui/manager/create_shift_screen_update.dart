@@ -702,7 +702,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                 children: [
                                                   Container(
                                                     child: TextInputFileds(
-                                                        controlr: jobtitle,
+                                                        onChange: (){},   controlr: jobtitle,
                                                         validator: (jobtitle) {
                                                           if (validJob(
                                                               jobtitle))
@@ -841,7 +841,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           height: 5.3.h,
                                                           child:
                                                               TextInputFileds(
-                                                                  controlr:
+                                                                  onChange: (){}, controlr:
                                                                       date,
                                                                   validator:
                                                                       (date) {
@@ -892,7 +892,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                     visible: isPricevisible,
                                                     child: Container(
                                                       child: TextInputFileds(
-                                                          controlr: price,
+                                                          onChange: (){},   controlr: price,
                                                           validator: (date) {
                                                             if (validDate(date))
                                                               return null;
@@ -926,7 +926,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           child: Container(
                                                             child:
                                                                 TextInputFileds(
-                                                                    controlr:
+                                                                    onChange: (){},         controlr:
                                                                         dateFrom,
                                                                     validator:
                                                                         (dateTo) {
@@ -958,7 +958,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                       Expanded(
                                                         flex: 1,
                                                         child: TextInputFileds(
-                                                            controlr: dateTo,
+                                                            onChange: (){},      controlr: dateTo,
                                                             validator:
                                                                 (dateTo) {
                                                               if (validDate(

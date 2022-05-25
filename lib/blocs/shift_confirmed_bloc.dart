@@ -32,8 +32,8 @@ class ShiftConfirmedBloc{
   }
 
 
-fetchUserWorkingHours(String token, String shift_id,String start_time,String end_time) async {
-  UserWorkingHoursResponse list = await _repo.AddUserWorking(token,  shift_id, start_time,end_time);
+fetchUserWorkingHours(String token, String shift_id,String start_time,String end_time,String working_hours) async {
+  UserWorkingHoursResponse list = await _repo.AddUserWorking(token,  shift_id, start_time,end_time,working_hours);
   _userworkinghours.sink.add(list);
   }
 

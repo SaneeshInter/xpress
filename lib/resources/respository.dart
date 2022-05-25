@@ -135,8 +135,8 @@ class Repository {
       apiProvider.getUserAvailability(token, from_date, to_date);
 
   Future<UserWorkingHoursResponse> AddUserWorking(
-          String token, String shift_id, String start_time, String end_time) =>
-      apiProvider.addUserWorkingHours(token, shift_id, start_time, end_time);
+          String token, String shift_id, String start_time, String end_time, String working_hours) =>
+      apiProvider.addUserWorkingHours(token, shift_id, start_time, end_time,working_hours);
 
   Future<GetAvailableUserByDate> fetchGetAvailableUserByDate(
           String token, String date, String shifttype) =>

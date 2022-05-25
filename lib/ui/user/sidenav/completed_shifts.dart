@@ -166,33 +166,35 @@ class _CompletedShiftState extends State<CompletedShift> {
                               if (data?.items?.length != 0) {
                                 return buildList(snapshot);
                               } else {
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    20.height,
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text('Completed Shift',
-                                            style: boldTextStyle(size: 20)),
-                                        85.width,
-                                        16.height,
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 32),
-                                          child: Text(
-                                              'There are no  completed shift found.',
-                                              style: primaryTextStyle(size: 15),
-                                              textAlign: TextAlign.center),
-                                        ),
-                                      ],
-                                    ),
-                                    150.height,
-                                    Image.asset(
-                                        'assets/images/error/empty_task.png',
-                                        height: 250),
-                                  ],
+                                return Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      20.height,
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text('Completed Shift',
+                                              style: boldTextStyle(size: 20)),
+                                          85.width,
+                                          16.height,
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 32),
+                                            child: Text(
+                                                'There are no  completed shift found.',
+                                                style: primaryTextStyle(size: 15),
+                                                textAlign: TextAlign.center),
+                                          ),
+                                        ],
+                                      ),
+                                      150.height,
+                                      Image.asset(
+                                          'assets/images/error/empty_task.png',
+                                          height: 250),
+                                    ],
+                                  ),
                                 );
                               }
                             }

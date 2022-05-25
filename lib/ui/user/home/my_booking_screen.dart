@@ -33,6 +33,7 @@ class _HomeScreentate extends State<MyBookingScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   int devicePixelRatio = 3;
   int perPageItem = 3;
+  int working_hours = 10;
   int pageCount = 0;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
@@ -52,7 +53,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
       setState(() {
         visibility = true;
       });
-
       Items data = items;
       confirmBloc.UserCancelJobResponse(token, data.rowId.toString());
     }
@@ -106,6 +106,7 @@ class _HomeScreentate extends State<MyBookingScreen> {
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Cancel");
     });
+
     confirmBloc.userworkinghours.listen((event) {
       setState(() {
         visibility = false;
@@ -198,6 +199,219 @@ class _HomeScreentate extends State<MyBookingScreen> {
     return Column(children: [buildList(snapshot, position)]);
   }
 
+  Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
+    TextEditingController dateFrom = new TextEditingController();
+    TextEditingController dateTo = new TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 90.w,
+                    color: Colors.red,
+                    child: Material(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10)),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 11.w,
+                                color: Constants.colors[20],
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 4,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text("Add Timesheet",
+                                              style: TextStyle(
+                                                fontSize: 13.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "SFProMedium",
+                                              )),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Container(
+                                            child: SvgPicture.asset(
+                                              "assets/images/icon/close.svg",
+                                              height: 3.w,
+                                              width: 3.w,
+                                              color: Constants.colors[0],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, right: 8.0, top: 8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 2),
+                                    child: Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Start Time",
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              color: Constants.colors[22],
+                                              fontSize: 11.sp,
+                                              fontFamily: "SFProMedium",
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          TextInputFileds(
+                                              controlr: dateFrom,
+                                              onChange: (){},  validator: (dateTo) {
+                                                if (validDate(dateTo))
+                                                  return null;
+                                                else
+                                                  return "select time";
+                                              },
+                                              onTapDate: () {
+                                                selectTime(context, dateFrom);
+                                              },
+                                              hintText: Txt.timeFrom,
+                                              keyboadType: TextInputType.none,
+                                              isPwd: false),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 6,
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "End Time",
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          color: Constants.colors[22],
+                                          fontSize: 11.sp,
+                                          fontFamily: "SFProMedium",
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      TextInputFileds(
+                                          controlr: dateTo,
+                                          validator: (dateTo) {
+                                            if (validDate(dateTo))
+                                              return null;
+                                            else
+                                              return "select time";
+                                          },
+
+                                          onTapDate: () {
+                                            FocusScope.of(context).unfocus();
+                                            selectTime(context, dateTo);
+                                          },
+                                          hintText: Txt.timeTo,
+                                          keyboadType: TextInputType.none,
+                                          isPwd: false, onChange: (){},),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          if (working_hours != 0)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0,bottom: 16.0),
+                              child: Text(
+                                "Working Hours :" + working_hours.toString(),
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: Constants.colors[22],
+                                  fontSize: 11.sp,
+                                  fontFamily: "SFProMedium",
+                                ),
+                              ),
+                            ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 15.0, bottom: 15.0),
+                            child: Container(
+                              width: 20.w,
+                              child: SubmitButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      visibility = true;
+                                    });
+
+                                    confirmBloc.fetchUserWorkingHours(
+                                      token,
+                                      item.shiftId.toString(),
+                                      dateFrom.text,
+                                      dateTo.text,
+                                      working_hours.toString(),
+                                    );
+                                  },
+                                  label: "Submit",
+                                  textColors: Constants.colors[0],
+                                  color1: Constants.colors[3],
+                                  color2: Constants.colors[4]),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   Widget buildList(
       AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
     var allList = getFilterList(snapshot, position);
@@ -220,39 +434,37 @@ class _HomeScreentate extends State<MyBookingScreen> {
           onRefresh: () async {
             getDataitems();
           },
-          child: Expanded(
-            child: ListView.builder(
-              itemCount: list.length,
-              shrinkWrap: true,
-              physics: AlwaysScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                var items = list[index];
-                return Column(
-                  children: [
-                    MyBookingListWidget(
-                      items: items!,
-                      position: 12,
-                      onTapView: (item) {
-                        showTimeUpdateAlert(context, item);
-                      },
-                      onTapCancel: (item) {
-                        print("Tapped");
+          child: ListView.builder(
+            itemCount: list.length,
+            shrinkWrap: true,
+            physics: AlwaysScrollableScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              var items = list[index];
+              return Column(
+                children: [
+                  MyBookingListWidget(
+                    items: items!,
+                    position: 12,
+                    onTapView: (item) {
+                      showTimeUpdateAlert(context, item);
+                    },
+                    onTapCancel: (item) {
+                      print("Tapped");
 
-                        canceljob(items);
-                      },
-                      onTapCall: () {},
-                      onTapMap: () {
-                        // showFeactureAlert(context, date: "");
-                      },
-                      onTapBooking: () {
-                        print("Tapped");
-                      },
-                      key: null,
-                    ),
-                  ],
-                );
-              },
-            ),
+                      canceljob(items);
+                    },
+                    onTapCall: () {},
+                    onTapMap: () {
+                      // showFeactureAlert(context, date: "");
+                    },
+                    onTapBooking: () {
+                      print("Tapped");
+                    },
+                    key: null,
+                  ),
+                ],
+              );
+            },
           ),
         ),
       );
@@ -282,191 +494,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
   }
 }
 
-Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
-  TextEditingController dateFrom = new TextEditingController();
-  TextEditingController dateTo = new TextEditingController();
-  return showDialog(
-      context: context,
-      builder: (context) {
-        return Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 90.w,
-                  color: Colors.red,
-                  child: Material(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 11.w,
-                              color: Constants.colors[20],
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text("Add Timesheet",
-                                            style: TextStyle(
-                                              fontSize: 13.sp,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "SFProMedium",
-                                            )),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: SvgPicture.asset(
-                                        "assets/images/icon/close.svg",
-                                        height: 3.w,
-                                        width: 3.w,
-                                        color: Constants.colors[0],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 2),
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Start Time",
-                                          maxLines: 1,
-                                          style: TextStyle(
-                                            color: Constants.colors[22],
-                                            fontSize: 11.sp,
-                                            fontFamily: "SFProMedium",
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        TextInputFileds(
-                                            controlr: dateFrom,
-                                            validator: (dateTo) {
-                                              if (validDate(dateTo))
-                                                return null;
-                                              else
-                                                return "select time";
-                                            },
-                                            onTapDate: () {
-                                              selectTime(context, dateFrom);
-                                            },
-                                            hintText: Txt.timeFrom,
-                                            keyboadType: TextInputType.none,
-                                            isPwd: false),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 6,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "End Time",
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        color: Constants.colors[22],
-                                        fontSize: 11.sp,
-                                        fontFamily: "SFProMedium",
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    TextInputFileds(
-                                        controlr: dateTo,
-                                        validator: (dateTo) {
-                                          if (validDate(dateTo))
-                                            return null;
-                                          else
-                                            return "select time";
-                                        },
-                                        onTapDate: () {
-                                          FocusScope.of(context).unfocus();
-                                          selectTime(context, dateTo);
-                                        },
-                                        hintText: Txt.timeTo,
-                                        keyboadType: TextInputType.none,
-                                        isPwd: false),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, bottom: 15.0),
-                          child: Container(
-                            width: 20.w,
-                            child: SubmitButton(
-                                onPressed: () {
-                                  confirmBloc.fetchUserWorkingHours(
-                                      token,
-                                      item.rowId.toString(),
-                                      dateFrom.text,
-                                      dateTo.text);
-                                },
-                                label: "Submit",
-                                textColors: Constants.colors[0],
-                                color1: Constants.colors[3],
-                                color2: Constants.colors[4]),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      });
-}
-
 FilterBookingList getFilterList(
     AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
   FilterBookingList list = FilterBookingList();
@@ -483,7 +510,7 @@ FilterBookingList getFilterList(
     if (item.status == "Rejected") {
       list.reject.add(item);
     }
-    if (item.status == "Completed") {
+    if (item.status == "Completed" && item.workingTimeStatus ==0) {
       list.completed.add(item);
     }
   }
@@ -492,7 +519,9 @@ FilterBookingList getFilterList(
 
 class BodyWidget extends StatelessWidget {
   final Color color;
+
   BodyWidget(this.color);
+
   @override
   Widget build(BuildContext context) {
     return Container(

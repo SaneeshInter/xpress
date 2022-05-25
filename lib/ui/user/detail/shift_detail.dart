@@ -135,7 +135,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 'assets/images/icon/loading_bar.gif',
                                                 image: hospitalDetail.photo!,
                                                 placeholderScale: 4,
-                                                fit: BoxFit.cover,
+
                                               ),
 
                                         ),

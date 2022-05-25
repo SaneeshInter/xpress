@@ -12,6 +12,7 @@ class TextInputFileds extends StatefulWidget {
   TextInputType keyboadType;
   bool isPwd;
   Function onTapDate;
+  Function onChange;
   TextInputFileds(
       {Key? key,
       required this.hintText,
@@ -19,6 +20,7 @@ class TextInputFileds extends StatefulWidget {
       required this.controlr,
       required this.keyboadType,
       required this.isPwd,
+      required this.onChange,
       required this.onTapDate});
 
   @override
@@ -41,6 +43,9 @@ class _BuildButtonState extends State<TextInputFileds> {
         textAlign: TextAlign.justify,
         obscureText: widget.isPwd,
         maxLines: 1,
+        onChanged: (value) {
+          widget.onChange(value);
+        },
         keyboardType: widget.keyboadType,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(5),

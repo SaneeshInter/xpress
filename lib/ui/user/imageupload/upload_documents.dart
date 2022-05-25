@@ -226,6 +226,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                             height: 5.3.h,
                             child: TextInputFileds(
                                 controlr: date,
+                            onChange: (){},
                                 validator: (date) {
                                   if (validDate(date))
                                     return null;

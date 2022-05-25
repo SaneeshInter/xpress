@@ -186,7 +186,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
               Container(
                 child: TextInputFileds(
                     controlr: allowanceprice,
-                    validator: (date) {
+                    onChange: (){},   validator: (date) {
                       if (validDate(date))
                         return null;
                       else

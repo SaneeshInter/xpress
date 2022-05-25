@@ -426,6 +426,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
 
       var message = event.response?.status?.statusMessage;
       showAlertDialoge(context, title: " Accepted", message: message!);
+      getData();
     });
   }
 }

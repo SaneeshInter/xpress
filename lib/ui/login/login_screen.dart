@@ -134,6 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   child: Container(
                                                     child: TextInputFileds(
                                                       controlr: email,
+                                                      onChange: (){},
                                                       validator: (email) {
                                                         if (validEmail(email)) {
                                                           return null;
@@ -164,6 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   child: Container(
                                                     child: TextInputFileds(
                                                       controlr: pwd,
+                                                      onChange: (){},
                                                       validator: (password) {
                                                         if (validPassword(
                                                             password))

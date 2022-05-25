@@ -814,21 +814,30 @@ class ApiProvider {
 
   Future<UserViewRequestResponse> getUserViewRequest(String token) async {
     var uri = Uri.parse(BASE_URL + "/user/view-request");
-    final response = await client.post(
-      uri,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'token': token,
-      },
-    );
-    print(uri.toString());
-    print(token);
-    print(response.body);
-    if (response.statusCode == 200) {
-      return UserViewRequestResponse.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load post');
+
+
+    try{
+      final response = await client.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'token': token,
+        },
+      );
+      print(uri.toString());
+      print(token);
+      print(response.body);
+      if (response.statusCode == 200) {
+        return UserViewRequestResponse.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to load post');
+      }
     }
+    catch(e)
+    {
+      return UserViewRequestResponse();
+    }
+
   }
 
   Future<GetUserShiftDetailsResponse> getUserShiftDetails(
@@ -940,7 +949,7 @@ class ApiProvider {
   }
 
   Future<UserWorkingHoursResponse> addUserWorkingHours(
-      String token, String shift_id, String start_time, String end_time) async {
+      String token, String shift_id, String start_time, String end_time, String working_hours) async {
     var uri = Uri.parse(BASE_URL + "/user/add-working-hours");
     final response = await client.post(uri,
         headers: <String, String>{
@@ -951,6 +960,7 @@ class ApiProvider {
           'shift_id': shift_id,
           'start_time': start_time,
           'end_time': end_time,
+          'working_hours': working_hours,
         }));
 
     print("ADD USER WORKING HOURS" + token);
@@ -965,7 +975,7 @@ class ApiProvider {
     if (response.statusCode == 200) {
       return UserWorkingHoursResponse.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load post');
+      return UserWorkingHoursResponse();
     }
   }
 
