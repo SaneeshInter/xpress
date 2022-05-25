@@ -76,6 +76,9 @@ class Items {
   int? price;
   List<Allowances>? allowances;
   String? createdDate;
+  int? workingTimeStatus;
+  int? timeSheetStatus;
+
 
   Items(
       {this.rowId,
@@ -97,7 +100,9 @@ class Items {
         this.jobDetails,
         this.price,
         this.allowances,
-        this.createdDate});
+        this.createdDate,
+        this.workingTimeStatus,
+        this.timeSheetStatus});
 
   Items.fromJson(Map<String, dynamic> json) {
     rowId = json['row_id'];
@@ -125,6 +130,8 @@ class Items {
       });
     }
     createdDate = json['created_date'];
+    workingTimeStatus = json['working_time_status'];
+    timeSheetStatus = json['time_sheet_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -151,6 +158,8 @@ class Items {
       data['allowances'] = this.allowances!.map((v) => v.toJson()).toList();
     }
     data['created_date'] = this.createdDate;
+    data['working_time_status'] = this.workingTimeStatus;
+    data['time_sheet_status'] = this.timeSheetStatus;
     return data;
   }
 }
