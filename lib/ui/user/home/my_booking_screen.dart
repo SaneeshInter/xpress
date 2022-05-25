@@ -47,7 +47,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
-
   void canceljob(Items items) {
     if (items is Items) {
       setState(() {
@@ -100,8 +99,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
 
   void observe() {
     confirmBloc.usercanceljobrequest.listen((event) {
-
-
       setState(() {
         visibility = false;
       });
@@ -109,7 +106,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Cancel");
     });
-
   }
 
   @override
@@ -119,13 +115,6 @@ class _HomeScreentate extends State<MyBookingScreen> {
       child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Constants.colors[9],
-          floatingActionButton:  FloatingActionButton(
-            onPressed: () {
-             getDataitems();
-            },
-            backgroundColor: Colors.green,
-            child: const Icon(Icons.refresh),
-          ),
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(65),
             child: Container(
@@ -166,31 +155,33 @@ class _HomeScreentate extends State<MyBookingScreen> {
               ),
             ),
           ),
-          body: StreamBuilder(
-            stream: confirmBloc.viewrequest,
-            builder: (BuildContext context,
-                AsyncSnapshot<UserViewRequestResponse> snapshot) {
-              if (snapshot.hasData) {
-                return TabBarView(children: [
-                  bookingList(0, snapshot),
-                  bookingList(1, snapshot),
-                  bookingList(2, snapshot),
-                ]);
-              } else if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              return Center(
-                child: Visibility(
-                  child: Container(
-                    width: 100.w,
-                    height: 80.h,
-                    child: const Center(
-                      child: LoadingWidget(),
+          body: Container(
+            child: StreamBuilder(
+                stream: confirmBloc.viewrequest,
+                builder: (BuildContext context,
+                    AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                  if (snapshot.hasData) {
+                    return TabBarView(children: [
+                      bookingList(0, snapshot),
+                      bookingList(1, snapshot),
+                      bookingList(2, snapshot),
+                    ]);
+                  } else if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+                  }
+                  return Center(
+                    child: Visibility(
+                      child: Container(
+                        width: 100.w,
+                        height: 80.h,
+                        child: const Center(
+                          child: LoadingWidget(),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              );
-            })),
+                  );
+                }),
+          )),
     );
   }
 
@@ -216,37 +207,46 @@ class _HomeScreentate extends State<MyBookingScreen> {
     }
 
     if (list.length > 0) {
-      return ListView.builder(
-        itemCount: list.length,
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        itemBuilder: (BuildContext context, int index) {
-          var items = list[index];
-          return Column(
-            children: [
-              MyBookingListWidget(
-                items: items!,
-                position: 12,
-                onTapView: (item) {
-                  showTimeUpdateAlert(context, item);
-                },
-                onTapCancel: (item) {
-                  print("Tapped");
+      return Expanded(
+        child: LiquidPullToRefresh(
+          onRefresh: () async {
+            getDataitems();
+          },
+          child: Expanded(
+            child: ListView.builder(
+              itemCount: list.length,
+              shrinkWrap: true,
+              physics: AlwaysScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                var items = list[index];
+                return Column(
+                  children: [
+                    MyBookingListWidget(
+                      items: items!,
+                      position: 12,
+                      onTapView: (item) {
+                        showTimeUpdateAlert(context, item);
+                      },
+                      onTapCancel: (item) {
+                        print("Tapped");
 
-                  canceljob(items);
-                },
-                onTapCall: () {},
-                onTapMap: () {
-                  // showFeactureAlert(context, date: "");
-                },
-                onTapBooking: () {
-                  print("Tapped");
-                },
-                key: null,
-              ),
-            ],
-          );
-        },
+                        canceljob(items);
+                      },
+                      onTapCall: () {},
+                      onTapMap: () {
+                        // showFeactureAlert(context, date: "");
+                      },
+                      onTapBooking: () {
+                        print("Tapped");
+                      },
+                      key: null,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ),
       );
     } else {
       return Column(
@@ -457,11 +457,7 @@ Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
           ),
         );
       });
-
-
 }
-
-
 
 FilterBookingList getFilterList(
     AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
@@ -488,7 +484,9 @@ FilterBookingList getFilterList(
 
 class BodyWidget extends StatelessWidget {
   final Color color;
+
   BodyWidget(this.color);
+
   @override
   Widget build(BuildContext context) {
     return Container(
