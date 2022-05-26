@@ -1,9 +1,11 @@
 import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/approve_data.dart';
+
 import '../../../../utils/constants.dart';
 import '../../../blocs/shift_timesheet_bloc.dart';
 import '../../../model/manager_get_time.dart';
@@ -14,22 +16,28 @@ import '../../Widgets/buttons/book_button.dart';
 import '../../user/home/my_booking_screen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
+
 class ManagerTimeSheetDetails extends StatefulWidget {
   final TimeSheetInfo? item;
+
   const ManagerTimeSheetDetails({Key? key, this.item}) : super(key: key);
+
   @override
   _CreateShiftState createState() => _CreateShiftState();
 }
+
 class _CreateShiftState extends State<ManagerTimeSheetDetails> {
   var token;
   var time_shhet_id = "";
   List<ApproveData> approveData = [];
+
   @override
   void initState() {
     observe();
     getDataa();
     super.initState();
   }
+
   // @override
   // void dispose() {
   //   super.dispose();
@@ -56,6 +64,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
           visibility = false;
         });
       }
+      Navigator.pop(context);
       var message = event.response?.status?.statusMessage;
       showAlertDialoge(context, title: "Timesheet Updated", message: message!);
     });

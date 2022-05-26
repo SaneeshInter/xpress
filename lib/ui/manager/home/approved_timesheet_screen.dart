@@ -10,6 +10,7 @@ import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../Widgets/approve_timesheet_list_widget.dart';
 import '../../widgets/loading_widget.dart';
+import 'manager_time_sheet_details.dart';
 
 class ApprovedTimeSheetScreen extends StatefulWidget {
   const ApprovedTimeSheetScreen({Key? key}) : super(key: key);
@@ -136,7 +137,15 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
           children: [
             TimeSheetApproveListWidget(
               items: timeSheetInfo!,
-              onTapView: () {},
+              onTapView: (items) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ManagerTimeSheetDetails(
+                        item: items,
+                      )),
+                ).then((value) => getData());
+              },
               onTapCall: () {},
               onTapMap: () {},
               onTapBooking: () {
