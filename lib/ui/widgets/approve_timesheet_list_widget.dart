@@ -92,13 +92,6 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 BuildButton(
                   label: "View Timesheets",
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ManagerTimeSheetDetails(
-                                item: widget.items,
-                              )),
-                    );
                     widget.onTapView(widget.items);
                   },
                   key: null,

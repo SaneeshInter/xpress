@@ -56,7 +56,6 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
       print("TOKEN NOT FOUND");
     }
   }
-
   void observe() {
     timesheetBloc.approvetimesheet.listen((event) {
       if (mounted) {
@@ -235,7 +234,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
     for (TimeSheetDetails item in listItem!) {
       ApproveData data = ApproveData();
       data.timesheetId = time_shhet_id;
-      data.scheduleId = item.rowId.toString();
+      data.scheduleId = item.shiftRowId.toString();
       approveData.add(data);
     }
   }
