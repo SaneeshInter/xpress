@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
@@ -29,11 +30,12 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 bool visibility = false;
 var token;
 
-class _HomeScreentate extends State<MyBookingScreen> {
+class _HomeScreentate extends State<MyBookingScreen>
+    with WidgetsBindingObserver {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   int devicePixelRatio = 3;
   int perPageItem = 3;
-  int working_hours = 10;
+  int working_hours = 0;
   int pageCount = 0;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
@@ -41,6 +43,8 @@ class _HomeScreentate extends State<MyBookingScreen> {
   var itemSelected = 0;
   late PageController pageController;
   final ScrollController _controller = ScrollController();
+  TextEditingController dateFrom = new TextEditingController();
+  TextEditingController dateTo = new TextEditingController();
 
   @override
   void didUpdateWidget(covariant MyBookingScreen oldWidget) {
@@ -60,17 +64,35 @@ class _HomeScreentate extends State<MyBookingScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
+
     confirmBloc.dispose();
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("state");
+    print(state);
+    if (state == AppLifecycleState.resumed) {
+      getDataitems();
+    }
+  }
+
+  @override
   void initState() {
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
     getDataitems();
     observe();
     pageController = PageController(initialPage: 0);
     pageCount = 3;
+    dateFrom.addListener(() {
+      checkAndUpdateTimeDiffernce();
+    });
+    dateTo.addListener(() {
+      checkAndUpdateTimeDiffernce();
+    });
   }
 
   Future getDataitems() async {
@@ -102,6 +124,7 @@ class _HomeScreentate extends State<MyBookingScreen> {
       setState(() {
         visibility = false;
       });
+
       String? message = event.response?.status?.statusMessage;
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Cancel");
@@ -124,6 +147,14 @@ class _HomeScreentate extends State<MyBookingScreen> {
       child: Scaffold(
           key: _scaffoldKey,
           backgroundColor: Constants.colors[9],
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              getDataitems();
+            },
+            label: const Text('Refresh'),
+            icon: const Icon(Icons.refresh),
+            backgroundColor: Colors.green,
+          ),
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(65),
             child: Container(
@@ -170,11 +201,13 @@ class _HomeScreentate extends State<MyBookingScreen> {
                 builder: (BuildContext context,
                     AsyncSnapshot<UserViewRequestResponse> snapshot) {
                   if (snapshot.hasData) {
-                    return TabBarView(children: [
-                      bookingList(0, snapshot),
-                      bookingList(1, snapshot),
-                      bookingList(2, snapshot),
-                    ]);
+                    if (snapshot.data?.response?.data?.items?.length != 0) {
+                      return TabBarView(children: [
+                        bookingList(0, snapshot),
+                        bookingList(1, snapshot),
+                        bookingList(2, snapshot),
+                      ]);
+                    }
                   } else if (snapshot.hasError) {
                     return Text(snapshot.error.toString());
                   }
@@ -199,9 +232,7 @@ class _HomeScreentate extends State<MyBookingScreen> {
     return Column(children: [buildList(snapshot, position)]);
   }
 
-  Future<void> showTimeUpdateAlert(BuildContext context, Items item) async {
-    TextEditingController dateFrom = new TextEditingController();
-    TextEditingController dateTo = new TextEditingController();
+  showTimeUpdateAlert(BuildContext context, Items item) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -297,7 +328,8 @@ class _HomeScreentate extends State<MyBookingScreen> {
                                           ),
                                           TextInputFileds(
                                               controlr: dateFrom,
-                                              onChange: (){},  validator: (dateTo) {
+                                              onChange: (text) {},
+                                              validator: (dateTo) {
                                                 if (validDate(dateTo))
                                                   return null;
                                                 else
@@ -336,21 +368,24 @@ class _HomeScreentate extends State<MyBookingScreen> {
                                         height: 10,
                                       ),
                                       TextInputFileds(
-                                          controlr: dateTo,
-                                          validator: (dateTo) {
-                                            if (validDate(dateTo))
-                                              return null;
-                                            else
-                                              return "select time";
-                                          },
-
-                                          onTapDate: () {
-                                            FocusScope.of(context).unfocus();
-                                            selectTime(context, dateTo);
-                                          },
-                                          hintText: Txt.timeTo,
-                                          keyboadType: TextInputType.none,
-                                          isPwd: false, onChange: (){},),
+                                        controlr: dateTo,
+                                        validator: (dateTo) {
+                                          if (validDate(dateTo))
+                                            return null;
+                                          else
+                                            return "select time";
+                                        },
+                                        onTapDate: () {
+                                          FocusScope.of(context).unfocus();
+                                          selectTime(context, dateTo);
+                                        },
+                                        hintText: Txt.timeTo,
+                                        keyboadType: TextInputType.none,
+                                        isPwd: false,
+                                        onChange: (text) {
+                                          print(text);
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -362,7 +397,8 @@ class _HomeScreentate extends State<MyBookingScreen> {
                           ),
                           if (working_hours != 0)
                             Padding(
-                              padding: const EdgeInsets.only(left: 16.0,bottom: 16.0),
+                              padding: const EdgeInsets.only(
+                                  left: 16.0, bottom: 16.0),
                               child: Text(
                                 "Working Hours :" + working_hours.toString(),
                                 maxLines: 1,
@@ -383,14 +419,7 @@ class _HomeScreentate extends State<MyBookingScreen> {
                                     setState(() {
                                       visibility = true;
                                     });
-
-                                    confirmBloc.fetchUserWorkingHours(
-                                      token,
-                                      item.shiftId.toString(),
-                                      dateFrom.text,
-                                      dateTo.text,
-                                      working_hours.toString(),
-                                    );
+                                    updateAndExit(item, context);
                                   },
                                   label: "Submit",
                                   textColors: Constants.colors[0],
@@ -410,6 +439,23 @@ class _HomeScreentate extends State<MyBookingScreen> {
             ),
           );
         });
+  }
+
+  void updateAndExit(Items item, BuildContext context) {
+    setState(() {
+      visibility = true;
+    });
+    confirmBloc.fetchUserWorkingHours(
+      token,
+      item.shiftId.toString(),
+      dateFrom.text,
+      dateTo.text,
+      working_hours.toString(),
+    );
+    dateFrom.text ="";
+    dateTo.text ="";
+    working_hours =0;
+    Navigator.pop(context);
   }
 
   Widget buildList(
@@ -492,28 +538,53 @@ class _HomeScreentate extends State<MyBookingScreen> {
       );
     }
   }
+
+  Future<void> checkAndUpdateTimeDiffernce() async {
+    if (dateTo.text.isNotEmpty && dateFrom.text.isNotEmpty) {
+      DateTime date = DateFormat.jm().parse(dateTo.text);
+      DateTime date1 = DateFormat.jm().parse(dateFrom.text);
+
+      var time1 = DateFormat("HH:mm").format(date);
+      var time2 = DateFormat("HH:mm").format(date1);
+
+      print("time1");
+      print(time1);
+      print("time2");
+      print(time2);
+      var timeDiffrence = await getDifference(time1, time2);
+      print("timeDiffrence");
+      print(timeDiffrence);
+
+      setState(() {
+        working_hours = timeDiffrence;
+      });
+    }
+  }
 }
 
 FilterBookingList getFilterList(
     AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
   FilterBookingList list = FilterBookingList();
   List<Items>? allList = snapshot.data?.response?.data?.items;
-  for (var item in allList!) {
-    print("item.status");
-    print(item.status);
-    if (item.status == "Accepted") {
-      list.confirmed.add(item);
-    }
-    if (item.status == "Pending") {
-      list.requested.add(item);
-    }
-    if (item.status == "Rejected") {
-      list.reject.add(item);
-    }
-    if (item.status == "Completed" && item.workingTimeStatus ==0) {
-      list.completed.add(item);
+  if (null != allList) {
+    for (var item in allList) {
+      print("item.status");
+      print(item.status);
+      if (item.status == "Accepted") {
+        list.confirmed.add(item);
+      }
+      if (item.status == "Pending") {
+        list.requested.add(item);
+      }
+      if (item.status == "Rejected") {
+        list.reject.add(item);
+      }
+      if (item.status == "Completed" && item.workingTimeStatus == 0) {
+        list.completed.add(item);
+      }
     }
   }
+
   return list;
 }
 

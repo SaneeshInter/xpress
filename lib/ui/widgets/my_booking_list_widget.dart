@@ -141,8 +141,6 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         },
                         key: null,
                       ),
-
-
                     ],
                   )
                 ]),
@@ -158,8 +156,6 @@ class _MyBookingState extends State<MyBookingListWidget> {
 }
 
 Widget buttonList(BuildContext context, MyBookingListWidget widget) {
-
-
   print("widget.items.workingTimeStatus");
   print(widget.items.workingTimeStatus);
   if (widget.position == 1) {
@@ -179,23 +175,25 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
   } else {
     return Row(
       children: [
-        if (widget.items.status == "Accepted"  || widget.items.status == "Pending")
-          if(widget.items.workingTimeStatus == 0 )
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BookButton(
-                label: "Cancel Request",
-                onPressed: () {
-                  widget.onTapCancel(widget.items);
-                  print("Cards booking");
-                },
-                key: null,
-              ),
-              SizedBox(width: screenWidth(context, dividedBy: 40)),
-            ],
-          ),
-        if (widget.items.status == "Accepted" && widget.items.workingTimeStatus == 0)
+        if (widget.items.status == "Accepted" ||
+            widget.items.status == "Pending")
+          if (widget.items.workingTimeStatus == 0)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BookButton(
+                  label: "Cancel Request",
+                  onPressed: () {
+                    widget.onTapCancel(widget.items);
+                    print("Cards booking");
+                  },
+                  key: null,
+                ),
+                SizedBox(width: screenWidth(context, dividedBy: 40)),
+              ],
+            ),
+        if (widget.items.status == "Accepted" &&
+            widget.items.workingTimeStatus == 0)
           BookButton(
             label: "Add Working Hours",
             onPressed: () {
@@ -205,7 +203,8 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
             key: null,
           ),
         //
-        if (widget.items.status == "Completed" && widget.items.workingTimeStatus == 0)
+        if (widget.items.status == "Completed" &&
+            widget.items.workingTimeStatus == 0)
           BookButton(
             label: "Add Working Hours",
             onPressed: () {

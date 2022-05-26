@@ -134,6 +134,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 'assets/images/icon/loading_bar.gif',
                                                 image: hospitalDetail.photo!,
                                                 placeholderScale: 4,
+                                                fit:   BoxFit.cover,
 
                                               ),
 
@@ -368,22 +369,33 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                 child: Row(
                                   children: [
 
-                                    if(shiftDetails?.if_requested == 0)
-                                    LoginButton(
-                                        onPressed: () async {
-                                          // use the information provided
-                                          requestShift();
-                                        },
-                                        label: "Book This Shift"),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 15.0),
-                                      child: CallButtons(onPressed: () {
-                                        print("call");
-                                        print(hospitalNumber);
-                                        dialCall(hospitalNumber);
-                                      }),
-                                    )
+
+                                    Expanded
+                                      (
+                                      child: Column(
+                                        children: [
+                                          if(shiftDetails?.if_requested == 0)
+                                          LoginButton(
+                                              onPressed: () async {
+                                                // use the information provided
+                                                requestShift();
+                                              },
+                                              label: "Book This Shift"),
+                                        ],
+                                      ),
+                                    flex: 4,),
+                                    Expanded(
+
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15.0),
+                                        child: CallButtons(onPressed: () {
+                                          print("call");
+                                          print(hospitalNumber);
+                                          dialCall(hospitalNumber);
+                                        }),
+                                      ),
+                                   flex: 1, )
                                   ],
                                 ),
                               ),

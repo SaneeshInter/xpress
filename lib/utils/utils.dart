@@ -196,6 +196,30 @@ selectTime(BuildContext context, TextEditingController anycontroller) async {
 // }
 //
 //
+
+
+Future<int> getDifference(String time1, String time2) async
+{
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+
+  var _date = dateFormat.format(DateTime.now());
+
+  DateTime a = DateTime.parse('$_date $time1:00');
+  DateTime b = DateTime.parse('$_date $time2:00');
+
+  print('a $a');
+  print('b $a');
+
+  print("${b.difference(a).inHours}");
+  print("${b.difference(a).inMinutes}");
+  print("${b.difference(a).inSeconds}");
+
+  return b.difference(a).inHours;
+}
+
+
+
+
 void showActionAlert(
     context, {
       required String tittle,
@@ -227,3 +251,5 @@ void showActionAlert(
     },
   );
 }
+
+

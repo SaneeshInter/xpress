@@ -150,7 +150,8 @@ class _FindshiftState extends State<FindshiftCalendar> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                child: Container(
+                child:
+                Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -170,6 +171,9 @@ class _FindshiftState extends State<FindshiftCalendar> {
                         format = _format;
                       });
                     },
+                    // onPageChanged: (date){
+                    //   getData();
+                    // },
                     onDaySelected: _onDaySelected,
                     selectedDayPredicate: (day) {
                       return _selectedDays.contains(day);

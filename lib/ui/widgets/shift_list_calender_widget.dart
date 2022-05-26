@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
@@ -39,6 +40,10 @@ class ShiftListCalenderWidget extends StatefulWidget {
 class _HomePageCardState extends State<ShiftListCalenderWidget> {
   @override
   Widget build(BuildContext context) {
+
+
+    print("widget.items.if_requested");
+    print(widget.items.if_requested);
     return GestureDetector(
       onTap: () {
         widget.onTapView(widget.items);
@@ -59,6 +64,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             Row(children: [
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 if (null != widget.items.hospital)
@@ -131,6 +137,8 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
+
+                if(widget.items.if_requested! == 0)
                 BookButton(
                   label: "Request Now",
                   onPressed: () {

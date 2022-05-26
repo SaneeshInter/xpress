@@ -6,6 +6,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
@@ -32,7 +33,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime _selectedValue;
   bool visibility = false;
-  bool buttonVisibility = false;
+  // bool buttonVisibility = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var token;
   var _image;
@@ -107,8 +108,9 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
   @override
   void initState() {
     super.initState();
-    getData();
     observe();
+    getData();
+
   }
 
   void observe() {
@@ -126,9 +128,9 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         print("data?.items?.length");
         print(data?.items?.length);
         if (data?.items?.length != 0) {
-          setState(() {
-            buttonVisibility = true;
-          });
+          // setState(() {
+          //   // buttonVisibility = true;
+          // });
         }
       }
     });
@@ -153,6 +155,14 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            getData();
+          },
+          label: const Text('Refresh'),
+          icon: const Icon(Icons.refresh),
+          backgroundColor: Colors.green,
+        ),
         backgroundColor: Constants.colors[9],
         body: SingleChildScrollView(
           child: Stack(
@@ -161,6 +171,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth(context, dividedBy: 35)),
                   child: Column(children: [
+
                     SizedBox(height: screenHeight(context, dividedBy: 60)),
                     Container(
                         child: _image != null
@@ -169,7 +180,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    if (buttonVisibility)
+                    // if (buttonVisibility)
                       DottedBorder(
                         borderType: BorderType.RRect,
                         dashPattern: [10, 10],
@@ -205,6 +216,8 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                             AsyncSnapshot<UserShoiftCompletedResponse>
                                 snapshot) {
                           if (snapshot.hasData) {
+
+                            print("snapshot.hasData");
                             var data = snapshot.data?.response?.data;
                             print("data?.items?.length");
                             print(data?.items?.length);
@@ -249,7 +262,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    if (buttonVisibility)
+                    // if (buttonVisibility)
                       BuildButton(
                         label: "Upload Timesheets",
                         onPressed: () {

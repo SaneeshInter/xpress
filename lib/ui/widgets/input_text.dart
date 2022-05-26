@@ -44,6 +44,8 @@ class _BuildButtonState extends State<TextInputFileds> {
         obscureText: widget.isPwd,
         maxLines: 1,
         onChanged: (value) {
+          print("value");
+          print(value);
           widget.onChange(value);
         },
         keyboardType: widget.keyboadType,

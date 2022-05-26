@@ -518,6 +518,7 @@ class ApiProvider {
         },
         body: jsonEncode(<String, String>{}));
 
+    print("fetchUserCompleteShift" + uri.toString());
     print("PRINT USERHOME RESPONSE" + token);
 
     print(jsonEncode(<String, String>{}).toString());
@@ -969,6 +970,7 @@ class ApiProvider {
       'shift_id': shift_id,
       'start_time': start_time,
       'end_time': end_time,
+      'working_hours': working_hours,
     }).toString());
     print(response.body);
 
