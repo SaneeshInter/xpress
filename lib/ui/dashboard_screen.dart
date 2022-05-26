@@ -30,7 +30,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
   late PersistentTabController _controller;
   late bool _hideNavBar;
   String _firebaseAppToken = '';
-
+  int pageIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -183,6 +183,8 @@ class _DashBoardWidgetState extends State<DashBoard> {
         _scaffoldKey,
         scaffoldKey: _scaffoldKey,
       ),
+      // bottomNavigationBar: buildMyNavBar(context),
+      // body: _widgetOptions[pageIndex],
       body: PersistentTabView(
         context,
         controller: _controller,
@@ -203,7 +205,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
         ),
-        popAllScreensOnTapOfSelectedTab: false,
+        popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
         itemAnimationProperties: ItemAnimationProperties(
           // Navigation Bar's items animation properties.
@@ -221,7 +223,105 @@ class _DashBoardWidgetState extends State<DashBoard> {
       ),
     );
   }
+
+
+  Container buildMyNavBar(BuildContext context) {
+    return Container(
+      height: 60,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                pageIndex = 0;
+              });
+            },
+            icon: pageIndex == 0
+                ? const Icon(
+              Icons.home_filled,
+              color: Colors.white,
+              size: 35,
+            )
+                : const Icon(
+              Icons.home_outlined,
+              color: Colors.white,
+              size: 35,
+            ),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                pageIndex = 1;
+              });
+            },
+            icon: pageIndex == 1
+                ? const Icon(
+              Icons.work_rounded,
+              color: Colors.white,
+              size: 35,
+            )
+                : const Icon(
+              Icons.work_outline_outlined,
+              color: Colors.white,
+              size: 35,
+            ),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                pageIndex = 2;
+              });
+            },
+            icon: pageIndex == 2
+                ? const Icon(
+              Icons.widgets_rounded,
+              color: Colors.white,
+              size: 35,
+            )
+                : const Icon(
+              Icons.widgets_outlined,
+              color: Colors.white,
+              size: 35,
+            ),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                pageIndex = 3;
+              });
+            },
+            icon: pageIndex == 3
+                ? const Icon(
+              Icons.person,
+              color: Colors.white,
+              size: 35,
+            )
+                : const Icon(
+              Icons.person_outline,
+              color: Colors.white,
+              size: 35,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
+
+
+
 
 List<PersistentBottomNavBarItem> _navBarsItems() {
   return [

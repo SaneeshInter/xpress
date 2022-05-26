@@ -508,6 +508,9 @@ class ApiProvider {
     }
   }
 
+  // userd added working hours shift
+
+
   Future<UserShoiftCompletedResponse> fetchUserCompleteShift(
       String token) async {
     var uri = Uri.parse(BASE_URL + "/user/get-completed-shifts");
@@ -517,13 +520,10 @@ class ApiProvider {
           'token': token,
         },
         body: jsonEncode(<String, String>{}));
-
     print("fetchUserCompleteShift" + uri.toString());
     print("PRINT USERHOME RESPONSE" + token);
-
     print(jsonEncode(<String, String>{}).toString());
     print(response.body);
-
     if (response.statusCode == 200) {
       return UserShoiftCompletedResponse.fromJson(json.decode(response.body));
     } else {

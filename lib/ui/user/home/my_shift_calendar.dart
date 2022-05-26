@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../blocs/shift_confirmed_bloc.dart';
 import '../../../blocs/shift_list_bloc.dart';
 import '../../../blocs/user_shift_calendar.dart';
 import '../../../eventutil/eventutil.dart';
@@ -30,7 +31,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
   int perPageItem = 3;
   int pageCount = 0;
   var token;
-  var  _scrollController;
+  var _scrollController;
   var _scrollPosition;
   bool visibility = false;
   int selectedIndex = 0;
@@ -40,9 +41,10 @@ class _FindshiftState extends State<FindshiftCalendar> {
   late PageController pageController;
   DateTime SelectedDay = DateTime.now();
   DateTime focusDay = DateTime.now();
-  CalendarFormat format = CalendarFormat.month;
+  CalendarFormat format = CalendarFormat.twoWeeks;
   final ScrollController _controller = ScrollController();
   DateTime _focusedDay = DateTime.now();
+  DateTime selectedDate = DateTime.now();
 
   // Using a `LinkedHashSet` is recommended due to equality comparison override
   final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
@@ -76,16 +78,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
     }
   }
 
-  void observes() {
-    bloc.jobrequest.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-      String? message = event.response?.status?.statusMessage;
-      showAlertDialoge(context, message: message!, title: "Request");
-    });
-
-  }
   void observe() {
     shiftcalenderBloc.shiftcalendar.listen((event) {
       var itemList = event.response?.data?.item;
@@ -96,10 +88,21 @@ class _FindshiftState extends State<FindshiftCalendar> {
       for (var item in itemList!) {
         selectedDay.add(DateTime.parse(item.date.toString()));
       }
+      getSelectedDayEvent(selectedDate);
       setState(() {
         visibility = false;
         _selectedDays.addAll(selectedDay);
       });
+    });
+
+    bloc.jobrequest.listen((event) {
+      setState(() {
+        visibility = false;
+      });
+      getData();
+      confirmBloc.fetchUserViewRequest(token);
+      String? message = event.response?.status?.statusMessage;
+      showAlertDialoge(context, message: message!, title: "Request");
     });
   }
 
@@ -118,7 +121,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
     super.initState();
     observe();
     getData();
-    observes();    pageController = PageController(initialPage: 0);
+    pageController = PageController(initialPage: 0);
     pageCount = 3;
   }
 
@@ -142,6 +145,14 @@ class _FindshiftState extends State<FindshiftCalendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          getData();
+        },
+        label: const Text('Refresh'),
+        icon: const Icon(Icons.refresh),
+        backgroundColor: Colors.green,
+      ),
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
@@ -150,8 +161,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                child:
-                Container(
+                child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -214,6 +224,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                     calendarStyle: CalendarStyle(
                       isTodayHighlighted: true,
                       markerSize: 4,
+
                       cellMargin: EdgeInsets.all(11),
                       canMarkersOverflow: false,
                       selectedDecoration: BoxDecoration(
@@ -228,13 +239,11 @@ class _FindshiftState extends State<FindshiftCalendar> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
-
                   ),
                 ),
               ),
               NotificationListener(
-                onNotification: (notification)
-                {
+                onNotification: (notification) {
                   //print(_scrollController.position);
                   // Return true to cancel the notification bubbling. Return false (or null) to
                   // allow the notification to continue to be dispatched to further ancestors.
@@ -326,15 +335,20 @@ class _FindshiftState extends State<FindshiftCalendar> {
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
       _focusedDay = focusedDay;
+      selectedDate = selectedDay;
       // if (_selectedDays.contains(selectedDay)) {
       //   _selectedDays.remove(selectedDay);
       // } else {
       //   _selectedDays.add(selectedDay);
       // }
-
-      shiftcalenderBloc.filterItemByDate(selectedDay);
+      getSelectedDayEvent(selectedDate);
     });
   }
+
+  getSelectedDayEvent(DateTime selectedDay) {
+    shiftcalenderBloc.filterItemByDate(selectedDay);
+  }
+
   void requestShift(Items items) {
     setState(() {
       visibility = true;
@@ -344,7 +358,4 @@ class _FindshiftState extends State<FindshiftCalendar> {
       bloc.fetchuserJobRequest(token, data.rowId.toString());
     }
   }
-
-
-
 }

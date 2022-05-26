@@ -30,6 +30,8 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 bool visibility = false;
 var token;
 
+
+
 class _HomeScreentate extends State<MyBookingScreen>
     with WidgetsBindingObserver {
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -83,8 +85,9 @@ class _HomeScreentate extends State<MyBookingScreen>
   void initState() {
     WidgetsBinding.instance?.addObserver(this);
     super.initState();
-    getDataitems();
     observe();
+    getDataitems();
+
     pageController = PageController(initialPage: 0);
     pageCount = 3;
     dateFrom.addListener(() {
@@ -128,6 +131,11 @@ class _HomeScreentate extends State<MyBookingScreen>
       String? message = event.response?.status?.statusMessage;
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Cancel");
+    });
+
+
+    confirmBloc.viewrequest.listen((event) {
+     print("viewrequest");
     });
 
     confirmBloc.userworkinghours.listen((event) {
@@ -201,6 +209,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                 builder: (BuildContext context,
                     AsyncSnapshot<UserViewRequestResponse> snapshot) {
                   if (snapshot.hasData) {
+                    print("StreamBuilder updating my booking");
                     if (snapshot.data?.response?.data?.items?.length != 0) {
                       return TabBarView(children: [
                         bookingList(0, snapshot),
