@@ -4,17 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="my booking screen set state changes">
-      <change afterPath="$PROJECT_DIR$/lib/ui/bloc/no_data_screen.dart" afterDir="false" />
+    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="Empty screen widget&#10;Availability screen setstate removed &#10;Time sheet setstate removed">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Constants/strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Constants/strings.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/shift_completed_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/shift_completed_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/user_availability_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/user_availability_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/resources/api_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/api_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/availability_list_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/availability_list_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart" afterDir="false" />
     </list>
     <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/0/000e7013d35dd014f463168b55b75a1c98b25bb8" afterDir="false" />
@@ -166,7 +161,6 @@
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/1/d10b2978a00c3adad258280406f36671850a5c78" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/2/d2c744cc316dff823a081098f4a97f18cd817497" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/6/d6817e539dc169273657a43e0233d026842e8e9d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/8/d852ccbcf6844a30ab733fa82be6b170f40b6ff0" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/8/d8a00f9b871338ebb0d9877a560e99875056a0fb" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/a/da0b6107ffb7edc7865676472570497920f3a71b" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/b/dbf7693c872522765584c178ebac94ffeec74938" afterDir="false" />
@@ -197,7 +191,6 @@
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
@@ -608,7 +601,6 @@
       <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/.transforms/7570400948379a0b238d28ad3f66578a.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/.transforms/7570400948379a0b238d28ad3f66578a/classes/classes.dex" beforeDir="false" />
@@ -1271,7 +1263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653641827499</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Empty screen widget&#10;Availability screen setstate removed &#10;Time sheet setstate removed">
+      <created>1653647974369</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1653647974369</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -1298,7 +1297,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Update bug list" />
     <MESSAGE value="release build to client" />
     <MESSAGE value="Pre release" />
     <MESSAGE value="Update bug fix" />
@@ -1323,7 +1321,8 @@
     <MESSAGE value="Release build 25/2022" />
     <MESSAGE value="Update issue" />
     <MESSAGE value="my booking screen set state changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="my booking screen set state changes" />
+    <MESSAGE value="Empty screen widget&#10;Availability screen setstate removed &#10;Time sheet setstate removed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Empty screen widget&#10;Availability screen setstate removed &#10;Time sheet setstate removed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1335,27 +1334,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart</url>
-          <line>21</line>
+          <line>22</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/ui/user/home/home_screen.dart</url>
-          <line>464</line>
+          <line>460</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/ui/user/home/home_screen.dart</url>
-          <line>480</line>
+          <line>476</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart</url>
-          <line>114</line>
+          <line>109</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart</url>
-          <line>116</line>
+          <line>111</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
