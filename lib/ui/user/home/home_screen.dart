@@ -12,22 +12,19 @@ import 'package:xpresshealthdev/ui/user/detail/home_card_item.dart';
 import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
 
 import '../../../Constants/AppColors.dart';
+import '../../../Constants/strings.dart';
 import '../../../blocs/shift_homepage_bloc.dart';
 import '../../../resources/token_provider.dart';
-import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../../widgets/loading_widget.dart';
-import '../common/app_bar.dart';
 import '../detail/shift_detail.dart';
-import '../common/side_menu.dart';
-import 'availability_screen.dart';
 import 'completed_shift_screen.dart';
-import 'find_shift_screen.dart';
 import 'my_booking_screen.dart';
+import 'my_shift_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -64,9 +61,6 @@ class _HomeScreentate extends State<HomeScreen> {
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
         homepageBloc.fetchUserHomepage(token);
       } else {
         showInternetNotAvailable();
@@ -90,7 +84,6 @@ class _HomeScreentate extends State<HomeScreen> {
     super.initState();
     pageController = PageController(initialPage: 0);
     pageCount = 3;
-    observe();
     getData();
   }
 
@@ -105,17 +98,19 @@ class _HomeScreentate extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Stack(
             children: [
-              Center(
-                child: Visibility(
-                  visible: visibility,
-                  child: Container(
-                    width: 100.w,
-                    height: 80.h,
-                    child: const Center(
-                      child: LoadingWidget(),
-                    ),
-                  ),
-                ),
+              StreamBuilder(
+                stream: homepageBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
+                },
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -134,7 +129,7 @@ class _HomeScreentate extends State<HomeScreen> {
                             children: [
                               if (null != shiftDetails)
                                 AutoSizeText(
-                                  'Next Shift',
+                                 Txt.next_shift,
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     color: Colors.black,
@@ -154,12 +149,12 @@ class _HomeScreentate extends State<HomeScreen> {
                                               color: Colors.white),
                                           backgroundColor: appColorPrimary,
                                           content: Text(
-                                              'You have no shifts booked , Please request the shift and wait for approval',
+                                              Txt.you_have_no_shifts_booked,
                                               style: primaryTextStyle(
                                                   color: Colors.white)),
                                           actions: <Widget>[
                                             TextButton(
-                                              child: Text('Cancel',
+                                              child: Text(Txt.cancel,
                                                   style: secondaryTextStyle(
                                                       size: 16,
                                                       color: Colors.white
@@ -170,7 +165,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                               },
                                             ),
                                             TextButton(
-                                              child: Text('Done',
+                                              child: Text(Txt.done,
                                                   style: primaryTextStyle(
                                                       color: Colors.white)),
                                               onPressed: () {
@@ -187,7 +182,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             AutoSizeText(
-                                              "There are no shift booked .Click to know more . ",
+                                              Txt.there_are_no_shifts_booked,
                                               style: TextStyle(
                                                 color: Constants.colors[1],
                                                 fontSize: 12.sp,
@@ -254,7 +249,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                                 .center,
                                                         children: [
                                                           AutoSizeText(
-                                                            '18',
+                                                            getDateString(shiftDetails!.date!),
                                                             textAlign: TextAlign
                                                                 .center,
                                                             minFontSize: 0,
@@ -271,7 +266,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                                         .w800),
                                                           ),
                                                           AutoSizeText(
-                                                            'Jan,21',
+                                                            getDateString(shiftDetails!.date!),
                                                             minFontSize: 2,
                                                             stepGranularity: 1,
                                                             textAlign: TextAlign
@@ -319,12 +314,12 @@ class _HomeScreentate extends State<HomeScreen> {
                                                       height: 1.w,
                                                     ),
                                                     AutoSizeText(
-                                                      "On  " +
+                                                      Txt.on +
                                                           shiftDetails.date! +
-                                                          "  From " +
+                                                         Txt.from +
                                                           shiftDetails
                                                               .timeFrom! +
-                                                          " To " +
+                                                          Txt.to +
                                                           shiftDetails.timeTo!,
                                                       maxLines: 1,
                                                       textAlign: TextAlign.left,
@@ -415,7 +410,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
-                                    "Important Update",
+                                  Txt.important_update ,
                                     maxLines: 1,
                                     style: TextStyle(
                                       color: Colors.black,
@@ -461,7 +456,7 @@ class _HomeScreentate extends State<HomeScreen> {
                           )),
                 );
               },
-              label: "Shift Details",
+              label: Txt.shift_details,
               asset: "assets/images/icon/availability.svg",
               textColors: Constants.colors[0],
               color1: Constants.colors[3],
@@ -491,7 +486,7 @@ class _HomeScreentate extends State<HomeScreen> {
                 print(event.endDate);
                 Add2Calendar.addEvent2Cal(event);
               },
-              label: "Add to Calender",
+              label: Txt.calendar,
               asset: "assets/images/icon/availability.svg",
               textColors: Constants.colors[0],
               color1: Constants.colors[6],
@@ -531,6 +526,7 @@ class _HomeScreentate extends State<HomeScreen> {
       ],
     );
   }
+
   Widget buildList(AsyncSnapshot<UserHomeResponse> snapshot) {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
       var itemcount = snapshot.data?.response?.data?.importantUpdates!.length;
@@ -624,7 +620,7 @@ class _HomeScreentate extends State<HomeScreen> {
               position: currentPage!,
               decorator: DotsDecorator(
                 color: Constants.colors[37], // Inactive color
-                activeColor:  Constants.colors[36],
+                activeColor: Constants.colors[36],
               ),
             ),
           ],
@@ -634,6 +630,7 @@ class _HomeScreentate extends State<HomeScreen> {
       return Container();
     }
   }
+
   Widget gridView() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0),
@@ -655,7 +652,7 @@ class _HomeScreentate extends State<HomeScreen> {
               );
             },
             child: HomeCardItem(
-                label: "My\nAvailability ",
+                label: Txt.my_availability,
                 asset: "assets/images/icon/availability.svg"),
           ),
           GestureDetector(
@@ -670,7 +667,7 @@ class _HomeScreentate extends State<HomeScreen> {
               );
             },
             child: HomeCardItem(
-                label: "Submit\nTimeSheets ",
+                label: Txt.submit_timesheets,
                 asset: "assets/images/icon/Page-1.svg"),
           ),
           GestureDetector(
@@ -680,13 +677,12 @@ class _HomeScreentate extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FindShiftScreen(),
+                  builder: (context) => FindshiftCalendar(),
                 ),
               );
             },
             child: HomeCardItem(
-                label: "Find Shift",
-                asset: "assets/images/icon/shift.svg"),
+                label: Txt.find_shift, asset: "assets/images/icon/shift.svg"),
           ),
           GestureDetector(
             onTap: () {
@@ -700,8 +696,7 @@ class _HomeScreentate extends State<HomeScreen> {
               );
             },
             child: HomeCardItem(
-                label: "My\nBooking",
-                asset: "assets/images/icon/booking.svg"),
+                label: Txt.my_booking, asset: "assets/images/icon/booking.svg"),
           )
         ],
       ),
@@ -712,18 +707,12 @@ class _HomeScreentate extends State<HomeScreen> {
     return;
   }
 
-  void observe() {
-    homepageBloc.userhomeStream.listen((event) {
+  String getDateString(String date) {
 
 
-      if(mounted)
-        {
-          setState(() {
-            visibility = false;
-          });
-        }
 
-    });
+
+    return "28";
   }
 }
 
