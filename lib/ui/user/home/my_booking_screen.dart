@@ -4,11 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/blocs/shift_confirmed_bloc.dart';
-import 'package:xpresshealthdev/model/filter_booking_list.dart';
-import 'package:xpresshealthdev/model/user_view_request_response.dart';
 
 import '../../../Constants/strings.dart';
+import '../../../blocs/shift_confirmed_bloc.dart';
+import '../../../model/filter_booking_list.dart';
+import '../../../model/user_view_request_response.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
@@ -18,20 +18,14 @@ import '../../Widgets/my_booking_list_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
-
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({Key? key}) : super(key: key);
-
   @override
   _HomeScreentate createState() => _HomeScreentate();
 }
-
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 bool visibility = false;
 var token;
-
-
-
 class _HomeScreentate extends State<MyBookingScreen>
     with WidgetsBindingObserver {
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -45,37 +39,27 @@ class _HomeScreentate extends State<MyBookingScreen>
   var itemSelected = 0;
   late PageController pageController;
   final ScrollController _controller = ScrollController();
-  TextEditingController dateFrom = new TextEditingController();
-  TextEditingController dateTo = new TextEditingController();
+  TextEditingController dateFrom = TextEditingController();
+  TextEditingController dateTo = TextEditingController();
 
   @override
   void didUpdateWidget(covariant MyBookingScreen oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 
-  void canceljob(Items items) {
-    if (items is Items) {
-      setState(() {
-        visibility = true;
-      });
-      Items data = items;
-      confirmBloc.UserCancelJobResponse(token, data.rowId.toString());
-    }
+  void cancelJob(Items items) {
+    confirmBloc.userCancelJob(token, items.rowId.toString());
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
-    super.dispose();
-
     confirmBloc.dispose();
+    super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("state");
-    print(state);
     if (state == AppLifecycleState.resumed) {
       getDataitems();
     }
@@ -102,9 +86,6 @@ class _HomeScreentate extends State<MyBookingScreen>
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
         confirmBloc.fetchUserViewRequest(token);
       } else {
         showInternetNotAvailable();
@@ -124,24 +105,11 @@ class _HomeScreentate extends State<MyBookingScreen>
 
   void observe() {
     confirmBloc.usercanceljobrequest.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-
       String? message = event.response?.status?.statusMessage;
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Cancel");
     });
-
-
-    confirmBloc.viewrequest.listen((event) {
-     print("viewrequest");
-    });
-
     confirmBloc.userworkinghours.listen((event) {
-      setState(() {
-        visibility = false;
-      });
       String? message = event.response?.status?.statusMessage;
       getDataitems();
       showAlertDialoge(context, message: message!, title: "Working hours");
@@ -154,7 +122,6 @@ class _HomeScreentate extends State<MyBookingScreen>
       onWillPop: () async {
         print("onWillPop");
         return false;
-
       },
       child: DefaultTabController(
         length: 3,
@@ -185,7 +152,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                           child: Container(
                             child: Align(
                               alignment: Alignment.center,
-                              child: Text("Requested Shift"),
+                              child: Text(Txt.requested_shift),
                             ),
                           ),
                         ),
@@ -193,7 +160,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                           child: Container(
                             child: Align(
                               alignment: Alignment.center,
-                              child: Text("Confirmed Shift"),
+                              child: Text(Txt.confirmed_shift),
                             ),
                           ),
                         ),
@@ -201,7 +168,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                           child: Container(
                             child: Align(
                               alignment: Alignment.center,
-                              child: Text("Completed Shift"),
+                              child: Text(Txt.completed_shift),
                             ),
                           ),
                         ),
@@ -209,35 +176,43 @@ class _HomeScreentate extends State<MyBookingScreen>
                 ),
               ),
             ),
-            body: Container(
-              child: StreamBuilder(
-                  stream: confirmBloc.viewrequest,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<UserViewRequestResponse> snapshot) {
+            body: Stack(
+              children: [
+                Container(
+                  child: StreamBuilder(
+                      stream: confirmBloc.viewrequest,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data?.response?.data?.items?.length !=
+                              0) {
+                            return TabBarView(children: [
+                              bookingList(0, snapshot),
+                              bookingList(1, snapshot),
+                              bookingList(2, snapshot),
+                            ]);
+                          }
+                        } else if (snapshot.hasError) {
+                          return Text(snapshot.error.toString());
+                        }
+                        return Container();
+                      }),
+                ),
+                StreamBuilder(
+                  stream: confirmBloc.visible,
+                  builder: (context, AsyncSnapshot<bool> snapshot) {
                     if (snapshot.hasData) {
-                      print("StreamBuilder updating my booking");
-                      if (snapshot.data?.response?.data?.items?.length != 0) {
-                        return TabBarView(children: [
-                          bookingList(0, snapshot),
-                          bookingList(1, snapshot),
-                          bookingList(2, snapshot),
-                        ]);
+                      if (snapshot.data!) {
+                        return const Center(child: LoadingWidget());
+                      } else {
+                        return Container();
                       }
-                    } else if (snapshot.hasError) {
-                      return Text(snapshot.error.toString());
+                    } else {
+                      return Container();
                     }
-                    return Center(
-                      child: Visibility(
-                        child: Container(
-                          width: 100.w,
-                          height: 80.h,
-                          child: const Center(
-                            child: LoadingWidget(),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
+                  },
+                ),
+              ],
             )),
       ),
     );
@@ -282,7 +257,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                                         flex: 4,
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Text("Add Timesheet",
+                                          child: Text(Txt.add_time_sheet,
                                               style: TextStyle(
                                                 fontSize: 13.sp,
                                                 color: Colors.white,
@@ -331,7 +306,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Start Time",
+                                            Txt.start_time,
                                             maxLines: 1,
                                             style: TextStyle(
                                               color: Constants.colors[22],
@@ -349,7 +324,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                                                 if (validDate(dateTo))
                                                   return null;
                                                 else
-                                                  return "select time";
+                                                  return Txt.select_time;
                                               },
                                               onTapDate: () {
                                                 selectTime(context, dateFrom);
@@ -372,7 +347,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "End Time",
+                                        Txt.end_time,
                                         maxLines: 1,
                                         style: TextStyle(
                                           color: Constants.colors[22],
@@ -389,7 +364,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                                           if (validDate(dateTo))
                                             return null;
                                           else
-                                            return "select time";
+                                            return Txt.select_time;
                                         },
                                         onTapDate: () {
                                           FocusScope.of(context).unfocus();
@@ -416,7 +391,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                               padding: const EdgeInsets.only(
                                   left: 16.0, bottom: 16.0),
                               child: Text(
-                                "Working Hours :" + working_hours.toString(),
+                                Txt.working_hours + working_hours.toString(),
                                 maxLines: 1,
                                 style: TextStyle(
                                   color: Constants.colors[22],
@@ -432,12 +407,9 @@ class _HomeScreentate extends State<MyBookingScreen>
                               width: 20.w,
                               child: SubmitButton(
                                   onPressed: () {
-                                    setState(() {
-                                      visibility = true;
-                                    });
                                     updateAndExit(item, context);
                                   },
-                                  label: "Submit",
+                                  label: Txt.submit,
                                   textColors: Constants.colors[0],
                                   color1: Constants.colors[3],
                                   color2: Constants.colors[4]),
@@ -458,9 +430,6 @@ class _HomeScreentate extends State<MyBookingScreen>
   }
 
   void updateAndExit(Items item, BuildContext context) {
-    setState(() {
-      visibility = true;
-    });
     confirmBloc.fetchUserWorkingHours(
       token,
       item.shiftId.toString(),
@@ -468,9 +437,9 @@ class _HomeScreentate extends State<MyBookingScreen>
       dateTo.text,
       working_hours.toString(),
     );
-    dateFrom.text ="";
-    dateTo.text ="";
-    working_hours =0;
+    dateFrom.text = "";
+    dateTo.text = "";
+    working_hours = 0;
     Navigator.pop(context);
   }
 
@@ -490,7 +459,7 @@ class _HomeScreentate extends State<MyBookingScreen>
       list = allList.completed;
     }
 
-    if (list.length > 0) {
+    if (list.isNotEmpty) {
       return Expanded(
         child: LiquidPullToRefresh(
           onRefresh: () async {
@@ -511,17 +480,13 @@ class _HomeScreentate extends State<MyBookingScreen>
                       showTimeUpdateAlert(context, item);
                     },
                     onTapCancel: (item) {
-                      print("Tapped");
-
-                      canceljob(items);
+                      cancelJob(items);
                     },
                     onTapCall: () {},
                     onTapMap: () {
                       // showFeactureAlert(context, date: "");
                     },
-                    onTapBooking: () {
-                      print("Tapped");
-                    },
+                    onTapBooking: () {},
                     key: null,
                   ),
                 ],
@@ -559,21 +524,10 @@ class _HomeScreentate extends State<MyBookingScreen>
     if (dateTo.text.isNotEmpty && dateFrom.text.isNotEmpty) {
       DateTime date = DateFormat.jm().parse(dateTo.text);
       DateTime date1 = DateFormat.jm().parse(dateFrom.text);
-
       var time1 = DateFormat("HH:mm").format(date);
       var time2 = DateFormat("HH:mm").format(date1);
-
-      print("time1");
-      print(time1);
-      print("time2");
-      print(time2);
       var timeDiffrence = await getDifference(time1, time2);
-      print("timeDiffrence");
-      print(timeDiffrence);
-
-      setState(() {
-        working_hours = timeDiffrence;
-      });
+      working_hours = timeDiffrence;
     }
   }
 }
@@ -586,16 +540,16 @@ FilterBookingList getFilterList(
     for (var item in allList) {
       print("item.status");
       print(item.status);
-      if (item.status == "Accepted") {
+      if (item.status == Txt.accepted) {
         list.confirmed.add(item);
       }
-      if (item.status == "Pending") {
+      if (item.status == Txt.pending) {
         list.requested.add(item);
       }
-      if (item.status == "Rejected") {
+      if (item.status == Txt.rejected) {
         list.reject.add(item);
       }
-      if (item.status == "Completed" && item.workingTimeStatus == 0) {
+      if (item.status == Txt.completed && item.workingTimeStatus == 0) {
         list.completed.add(item);
       }
     }

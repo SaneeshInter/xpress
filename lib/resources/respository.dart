@@ -122,9 +122,9 @@ class Repository {
           String token, String shift_id) =>
       apiProvider.getUserShiftDetails(token, shift_id);
 
-  Future<UserCancelJobRequestResponse> UserCancelJobResponse(
+  Future<UserCancelJobRequestResponse> cancelJobRequest(
           String token, String job_request_row_id) =>
-      apiProvider.getUserCanceljobrequest(token, job_request_row_id);
+      apiProvider.canceljobrequest(token, job_request_row_id);
 
   Future<AddUserAvailabilityResponse> addUserAvailability(
           String token, String date, String availability) =>
