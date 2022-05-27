@@ -1,13 +1,12 @@
 import 'dart:core';
-import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
 import 'package:xpresshealthdev/blocs/user_timesheet_bloc.dart';
 import 'package:xpresshealthdev/ui/user/sidenav/user_time_sheet_details.dart';
@@ -17,7 +16,6 @@ import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
-import '../../Widgets/buttons/build_button.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/user_timesheet_list_item.dart';
@@ -32,7 +30,7 @@ class SubmitTimeShift extends StatefulWidget {
 class _CompletedShiftState extends State<SubmitTimeShift> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime _selectedValue;
-  bool visibility = false;
+
   bool buttonVisibility = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var token;
@@ -49,10 +47,6 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
-
         usertimesheetBloc.userGetTimeSheet(token);
       } else {
         showInternetNotAvailable();
@@ -88,11 +82,11 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
         ),
         //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
         cameraText: Text(
-          "From Camera",
+          Txt.frm_camera,
           style: TextStyle(color: Colors.red),
         ),
         galleryText: Text(
-          "From Gallery",
+          Txt.frm_gallery,
           style: TextStyle(color: Colors.blue),
         ));
     setState(() {
@@ -109,10 +103,6 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
 
   void observe() {
     usertimesheetBloc.timesheetstream.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-
       var data = event.response?.data;
       if (data?.timeSheetInfo != null) {
         if (data?.timeSheetInfo?.length != 0) {
@@ -130,11 +120,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
         _image = null;
       });
       getData();
-      showAlertDialoge(context, message: message!, title: "Upload Timesheet");
-
-      setState(() {
-        visibility = false;
-      });
+      showAlertDialoge(context, message: message!, title: Txt.uplod_timesht);
     });
   }
 
@@ -165,7 +151,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
           ),
           backgroundColor: HexColor("#ffffff"),
           title: AutoSizeText(
-            "Submitted Timesheet",
+            Txt.submtd_timsht,
             style: TextStyle(
                 fontSize: 17,
                 color: Constants.colors[1],
@@ -195,15 +181,14 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text('Submitted Timesheet',
+                                      Text(Txt.submtd_timsht,
                                           style: boldTextStyle(size: 20)),
                                       85.width,
                                       16.height,
                                       Container(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 32),
-                                        child: Text(
-                                            'There are no  completed shift found.',
+                                        child: Text(Txt.no_completd_shfts,
                                             style: primaryTextStyle(size: 15),
                                             textAlign: TextAlign.center),
                                       ),
@@ -224,17 +209,19 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                       return Container();
                     }),
               ]),
-              Center(
-                child: Visibility(
-                  visible: visibility,
-                  child: Container(
-                    width: 100.w,
-                    height: 80.h,
-                    child: const Center(
-                      child: LoadingWidget(),
-                    ),
-                  ),
-                ),
+              StreamBuilder(
+                stream: usertimesheetBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ],
           ),
@@ -260,9 +247,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => UserTimeSheetDetails(
-                          item: item
-                        ),
+                        builder: (context) => UserTimeSheetDetails(item: item),
                       ));
                 }
               },

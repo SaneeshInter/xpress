@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../model/user_time_sheet_details_respo.dart';
 import '../../utils/constants.dart';
@@ -74,7 +75,7 @@ class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
                     Padding(
                       padding: const EdgeInsets.only(top: 1.0),
                       child: Text(
-                        "On: " + widget.items.date!,
+                        Txt.on + widget.items.date!,
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],
@@ -84,9 +85,9 @@ class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
                     Padding(
                       padding: const EdgeInsets.only(top: 3.0),
                       child: Text(
-                        "From " +
+                        Txt.from +
                             widget.items.timeFrom! +
-                            " To " +
+                            Txt.to +
                             widget.items.timeTo!,
                         style: TextStyle(
                             fontSize: 9.sp,

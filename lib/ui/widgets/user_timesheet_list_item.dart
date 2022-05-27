@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../model/user_get_timesheet.dart';
 import '../../utils/constants.dart';
@@ -70,7 +71,7 @@ class _TimeSheetListState extends State<UserTimeSheetListWidget> {
                   Row(
                     children: [
                       Text(
-                        "Date : " + widget.items.date!,
+                      Txt.date_dot + widget.items.date!,
                         style: TextStyle(
                             fontSize: 10.sp,
                             color: Colors.grey,

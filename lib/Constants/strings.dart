@@ -186,7 +186,33 @@ class Txt {
   static const tuberculosis= "Tuberculosis vaccination: ";
   static const hepatits= "Hepatitis B antibody: ";
   static const id_card= "Id card received: ";
- // static const prsnl_details=  'Personal Details';
+  static const frm_camera= "From Camera";
+  static const frm_gallery= "From Gallery";
+
+
+  static const uplod_timesht= "Upload Timesheet";
+  static const submtd_timsht=  "Submitted Timesheet";
+
+  static const no_completd_shfts= 'There are no  completed shift found.';
+  static const date_dot=    "Date : ";
+
+
+  static const timesht_details=  "Timesheet Details" ;
+  static const time_sheet= "Time Sheet";
+  static const shifts=  "Shifts";
+  static const show_timsheet=  "Show Timesheet";
+
+
+  static const home=  'Home';
+  static const my_profile='My Profile ';
+  static const notify='Notification';
+  static const completed_shifts= 'Completed Shifts';
+  static const faqs=  'FAQs';
+  static const contact_us= 'Contact Us';
+  static const log_out=   'Log Out';
+  static const under_devlpmnt=    'The screen is under development.';
+
+
 
 
 

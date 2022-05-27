@@ -6,12 +6,12 @@ import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/user_timesheet_bloc.dart';
 
 import '../../../../utils/constants.dart';
+import '../../../Constants/strings.dart';
 import '../../../model/user_get_timesheet.dart';
 import '../../../model/user_time_sheet_details_respo.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/utils.dart';
-import '../../user/home/my_booking_screen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/user_timesheet_details_list_widget.dart';
 
@@ -30,7 +30,6 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
 
   @override
   void initState() {
-    observe();
     getDataa();
 
     super.initState();
@@ -41,22 +40,10 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
     time_shhet_id = widget.item?.timeSheetId.toString();
     print(token);
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
-      // timesheetBloc.fetchTimesheetDetails(token!, time_shhet_id!);
       usertimesheetBloc.userGetTimeSheetDetails(token, time_shhet_id!);
     } else {
       print("TOKEN NOT FOUND");
     }
-  }
-
-  void observe() {
-    usertimesheetBloc.timedetailststream.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -84,7 +71,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
         ),
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
-          "Timesheet Details",
+          Txt.timesht_details,
           style: TextStyle(
               fontSize: 17,
               color: Constants.colors[1],
@@ -104,7 +91,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * .4,
                     child: AutoSizeText(
-                      "Time Sheet",
+                      Txt.time_sheet,
                       maxLines: 1,
                       style: TextStyle(
                         color: Constants.colors[1],
@@ -132,7 +119,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * .4,
                           child: AutoSizeText(
-                            "Shifts",
+                            Txt.shifts,
                             maxLines: 1,
                             style: TextStyle(
                               color: Constants.colors[1],
@@ -165,17 +152,19 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                 ),
               ],
             ),
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
-              ),
+            StreamBuilder(
+              stream: usertimesheetBloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              },
             ),
           ],
         ),
@@ -202,7 +191,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                 onTapMap: () {},
                 onTapBooking: () {
                   print("Tapped");
-                  showBookingAlert(context, date: "Show Timesheet");
+                  showBookingAlert(context, date: Txt.show_timsheet);
                 },
                 key: null,
                 onCheckBoxClicked: () {},
