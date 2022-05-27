@@ -369,7 +369,6 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                 child: Row(
                                   children: [
 
-
                                     Expanded
                                       (
                                       child: Column(
