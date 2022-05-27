@@ -60,15 +60,10 @@ class _DashBoardWidgetState extends State<DashBoard> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    // FindShiftScreen(),
-    // FindshiftCalendar(),
-
     FindshiftCalendar(),
-    // ShiftCalendarScreen(),
     MyBookingScreen(),
     AvailabilityListScreen(),
     CompletedShiftScreen(),
-    // ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -130,16 +125,12 @@ class _DashBoardWidgetState extends State<DashBoard> {
   void setUpNotification() {
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
-        // This is just a basic example. For real apps, you must show some
-        // friendly dialog box before call the request method.
-        // This is very important to not harm the user experience
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
     AwesomeNotifications().createdStream.listen((receivedNotification) {
       String? createdSourceText = AwesomeAssertUtils.toSimpleEnumString(
           receivedNotification.createdSource);
-      Fluttertoast.showToast(msg: '$createdSourceText notification created');
     });
 
     AwesomeNotifications().actionStream.listen((receivedAction) {
@@ -147,16 +138,13 @@ class _DashBoardWidgetState extends State<DashBoard> {
         switch (receivedAction.buttonKeyPressed) {
           case 'UPDATE':
             print("REJECT");
-
             break;
           case 'STOP':
             print("STOP");
-
             break;
           case 'ACCEPT':
             print("ACCEPT");
             break;
-
           default:
             print("default");
             break;

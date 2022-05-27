@@ -142,6 +142,7 @@ class Txt {
   static const pending= "Pending";
   static const rejected= "Rejected";
   static const completed= "Completed";
+  static const availability= "Availablity";
 
   static const my_booking= "My\nBooking";
   static const next_shift= "Next Shift";

@@ -1,10 +1,17 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:xpresshealthdev/utils/utils.dart';
+
 import '../model/user_add_availability.dart';
 import '../model/user_availability_btw_date.dart';
 import '../resources/respository.dart';
+
 class UserAvailiability {
   final _repo = Repository();
+
+  final _visibility = PublishSubject<bool>();
+
+  Stream<bool> get visible => _visibility.stream;
+
   final _useravailability = PublishSubject<AddUserAvailabilityResponse>();
   final _useravailabilitydate = PublishSubject<List<AvailabilityList>>();
 
@@ -15,15 +22,11 @@ class UserAvailiability {
       _useravailabilitydate.stream;
 
   addUserAvailability(String token, String date, String availability) async {
-    print("TOKEN");
-    print("DATE");
-    print("AVAILABILITY");
-    print(token);
-    print(date);
-    print(availability);
+    _visibility.add(true);
     AddUserAvailabilityResponse list =
         await _repo.addUserAvailability(token, date, availability);
     _useravailability.sink.add(list);
+    _visibility.add(false);
   }
 
   List<DateTime> getDaysInBetween(DateTime startDate, DateTime endDate) {
@@ -36,6 +39,7 @@ class UserAvailiability {
 
   fetchuserAvailability(
       String token, DateTime startdate, DateTime endDate) async {
+    _visibility.add(true);
     UserAvailabilitydateResponse availabilityList =
         await _repo.UserAvailability(
             token, startdate.toString(), endDate.toString());
@@ -47,15 +51,12 @@ class UserAvailiability {
       item.availability = 0;
       availableMokeList.add(item);
     }
-    print("datelist.length");
-    print(datelist.length);
-
     List<AvailabilityList>? listItem =
         availabilityList.response?.data!.availabilityList;
     var finalList = getDataList(availableMokeList, listItem);
 
-
     _useravailabilitydate.add(finalList);
+    _visibility.add(false);
   }
 
   dispose() {
@@ -65,19 +66,14 @@ class UserAvailiability {
 
   List<AvailabilityList> getDataList(List<AvailabilityList> datelist,
       List<AvailabilityList>? availabilityList) {
-    print("getDataList");
     if (null != availabilityList) {
       for (var avalilability in availabilityList) {
         var itemPosition = datelist
             .indexWhere((element) => compareValue(element, avalilability));
-
-        print("itemPosition");
-        print(itemPosition);
         if (itemPosition != -1)
           datelist[itemPosition].availability = avalilability.availability;
       }
     }
-
     return datelist;
   }
 

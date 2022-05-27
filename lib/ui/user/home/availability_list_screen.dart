@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/user_availability_bloc.dart';
 import 'package:xpresshealthdev/main.dart';
 
+import '../../../Constants/strings.dart';
 import '../../../model/user_availability_btw_date.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
@@ -19,16 +20,14 @@ class AvailabilityListScreen extends StatefulWidget {
 
   @override
   _AvailabilityState createState() => _AvailabilityState();
-}
 
-final FixedExtentScrollController _controller = FixedExtentScrollController();
+}
 
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _AvailabilityState extends State<AvailabilityListScreen> {
   String? token;
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  var _selectedValue;
   var itemSelected = 0;
   var daysCount = 500;
   var startDate;
@@ -66,9 +65,6 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
         availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
       } else {
         showInternetNotAvailable();
@@ -87,35 +83,14 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
     }
   }
 
-  // Future<void> getData() async {
-  //   token = await TokenProvider().getToken();
-  //   if (null != token) {
-  //     setState(() {
-  //       visibility = true;
-  //     });
-  //     availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
-  //   } else {
-  //     print("TOKEN NOT FOUND");
-  //   }
-  // }
-
   void observe() {
-    availabilitybloc.useravailabilitiydate.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
     availabilitybloc.useravailabilitiy.listen((event) {
       if (event.response?.status?.statusCode == 200) {
         getData();
       } else {
         var message = event.response?.status?.statusMessage;
-        showAlertDialoge(context, title: "Availablity", message: message!);
+        showAlertDialoge(context, title: Txt.availability, message: message!);
       }
-
-      setState(() {
-        visibility = false;
-      });
     });
   }
 
@@ -178,8 +153,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                         availability = Availability.afternoon;
                                       } else if (item.availability == 4) {
                                         availability = Availability.night;
-                                      }
-                                      else {
+                                      } else {
                                         availability = Availability.sleepover;
                                       }
 
@@ -408,17 +382,19 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                 )
               ],
             ),
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
-              ),
+            StreamBuilder(
+              stream: availabilitybloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              },
             ),
           ],
         ),
@@ -428,12 +404,6 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
 
   void updateShiftAvailabaity(int selectedShfit, String date) {
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
-      print(token);
-      print(_selectedValue);
-      print(selectedShfit.toString());
       availabilitybloc.addUserAvailability(
           token!, date, selectedShfit.toString());
     }

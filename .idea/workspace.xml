@@ -4,68 +4,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="Update issue">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="my booking screen set state changes">
+      <change afterPath="$PROJECT_DIR$/lib/ui/bloc/no_data_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Constants/app_defaults.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Constants/app_defaults.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Constants/strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Constants/strings.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/createshift_manager_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/createshift_manager_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/login_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/login_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/manager_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/manager_shift_calendar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/manager_view_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/manager_view_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/profile_update_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/profile_update_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/shift_confirmed_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/shift_confirmed_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/shift_homepage_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/shift_homepage_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/shift_list_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/shift_list_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/shift_user_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/shift_user_details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/shift_completed_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/shift_completed_bloc.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/blocs/user_availability_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/user_availability_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/user_timesheet_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/user_timesheet_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/db/database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/db/database.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/events.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/events.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/filter_lists.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/filter_lists.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/resources/api_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/api_provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/login/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/login/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/approved_timesheet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/approved_timesheet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/manager_calendar_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/manager_calendar_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/manager_home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/manager_home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/manager_time_sheet_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/manager_time_sheet_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/my_shifts_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/my_shifts_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/shift_detail_manager.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/shift_detail_manager.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager_dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager_dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/splash/splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/splash/splash_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/common/app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/common/app_bar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/user/home/availability_list_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/availability_list_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/availability_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/availability_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/find_shift_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/find_shift_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/profile_edit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/profile_edit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/completed_shifts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/completed_shifts.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/notification_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/notification_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/submit_timesheets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/submit_timesheets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/user_time_sheet_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/user_time_sheet_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/underdev/event_tap.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/underdev/event_tap.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/approve_timesheet_list_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/approve_timesheet_list_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/completed_shift_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/completed_shift_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/input_text.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/input_text.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/manager/my_booking_list_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/manager/my_booking_list_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/manager_list_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/manager_list_calendar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/my_booking_list_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/my_booking_list_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/profile_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/profile_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/profile_documents.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/profile_documents.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/shift_list_calender_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/shift_list_calender_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/shift_list_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/shift_list_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/timesheet_list_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/timesheet_list_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/widget_test.dart" afterDir="false" />
     </list>
-    <list id="b12f2ddb-ec96-4599-9cc7-4a4caef473b0" name="local" comment="local">
+    <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/0/000e7013d35dd014f463168b55b75a1c98b25bb8" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/1/01e7e6417effcf34e71a7e169d1fbfd3e4ec539e" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/2/0243abd4dd784132a6f88374c6d946dbe3456d8f" afterDir="false" />
@@ -246,6 +197,7 @@
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
@@ -656,6 +608,7 @@
       <change beforePath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/apk/debug/app-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/flutter-apk/app.apk.sha1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/app/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/app/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/.transforms/7570400948379a0b238d28ad3f66578a.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/.transforms/7570400948379a0b238d28ad3f66578a/classes/classes.dex" beforeDir="false" />
@@ -1311,7 +1264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653569656059</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="my booking screen set state changes">
+      <created>1653641827499</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1653641827499</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -1338,7 +1298,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Release Verion 1.0.0 on :- 26/04/2022" />
     <MESSAGE value="Update bug list" />
     <MESSAGE value="release build to client" />
     <MESSAGE value="Pre release" />
@@ -1363,7 +1322,8 @@
     <MESSAGE value="Update final build" />
     <MESSAGE value="Release build 25/2022" />
     <MESSAGE value="Update issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update issue" />
+    <MESSAGE value="my booking screen set state changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="my booking screen set state changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1387,11 +1347,6 @@
           <url>file://$PROJECT_DIR$/lib/ui/user/home/home_screen.dart</url>
           <line>480</line>
           <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart</url>
-          <line>99</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart</url>
