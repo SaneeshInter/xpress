@@ -118,6 +118,19 @@ class Txt {
   static const login_failed= "Login Failed";
   static const someting_went_wrong= "Something went wrong on server side ";
   static const powered_by= "Powered By Xpress Health ";
+  static const requested_shift= "Requested Shift ";
+  static const completed_shift= "Completed Shift ";
+  static const confirmed_shift= "Confirmed Shift ";
+  static const add_time_sheet= "Add Timesheet ";
+  static const start_time= "Start Time ";
+  static const end_time= "End Time ";
+  static const select_time= "Select time ";
+  static const working_hours= "Working Hours :";
+  static const submit= "Submit";
+  static const accepted= "Accepted";
+  static const pending= "Pending";
+  static const rejected= "Rejected";
+  static const completed= "Completed";
 
   static const my_booking= "My\nBooking";
   static const next_shift= "Next Shift";

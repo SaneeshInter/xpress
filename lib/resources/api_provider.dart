@@ -875,7 +875,7 @@ class ApiProvider {
     }
   }
 
-  Future<UserCancelJobRequestResponse> getUserCanceljobrequest(
+  Future<UserCancelJobRequestResponse> canceljobrequest(
       String token, String job_request_row_id) async {
     var uri = Uri.parse(BASE_URL + "/user/cancel-request");
     final response = await client.post(uri,
