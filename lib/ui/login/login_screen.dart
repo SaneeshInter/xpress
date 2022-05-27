@@ -5,13 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/blocs/login_bloc.dart';
-import 'package:xpresshealthdev/ui/manager_dashboard_screen.dart';
-import 'package:xpresshealthdev/utils/utils.dart';
-
+import '../../blocs/login_bloc.dart';
+import '../../ui/manager_dashboard_screen.dart';
+import '../../utils/utils.dart';
 import '../../Constants/sharedPrefKeys.dart';
 import '../../Constants/strings.dart';
-import '../../Constants/toast.dart';
 import '../../utils/constants.dart';
 import '../../utils/validator.dart';
 import '../dashboard_screen.dart';
@@ -26,16 +24,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  ToastMsg toastMsg = ToastMsg();
-  bool isLoading = false;
-  TextEditingController email = new TextEditingController();
-  TextEditingController pwd = new TextEditingController();
-
-  // LoginBloc _loginBloc = LoginBloc();
-  // ToastMsg toastMsg = ToastMsg();
-  bool visible = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController email = TextEditingController();
+  TextEditingController pwd = TextEditingController();
 
   @override
   void initState() {
@@ -46,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // _loginBloc.dispose();
+    loginBloc.dispose();
     super.dispose();
   }
 
@@ -59,173 +50,172 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Image.asset(
             'assets/images/icon/Bg2.png',
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
-            height: MediaQuery
-                .of(context)
-                .size
-                .height * .5,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * .5,
             fit: BoxFit.fill,
           ),
-          Container(
-            child: Stack(
-              children: [
-                Container(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.9,
-                      height: 70.h,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Form(
-                            // autovalidateMode: AutovalidateMode.always,
-                            key: formKey,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 2.h,
-                                  ),
-                                  ClipRRect(
-                                    borderRadius:
+          Stack(
+            children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: 70.h,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Form(
+                        // autovalidateMode: AutovalidateMode.always,
+                        key: formKey,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              ClipRRect(
+                                borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
-                                    child: Container(
-                                      color: Colors.white,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Column(
-                                          crossAxisAlignment:
+                                child: Container(
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            logoImage(),
+                                      children: <Widget>[
+                                        logoImage(),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20.0, 0, 0, 0),
+                                          child: AutoSizeText(
+                                            Txt.login,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 3,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18.sp,
+                                                fontWeight: FontWeight.w800,
+                                                fontFamily: "SFProBold"),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 2.h,
+                                        ),
+                                        Column(
+                                          children: [
                                             Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  20.0, 0, 0, 0),
-                                              child: AutoSizeText(
-                                                Txt.login,
-                                                textAlign: TextAlign.start,
-                                                maxLines: 3,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18.sp,
-                                                    fontWeight: FontWeight.w800,
-                                                    fontFamily: "SFProBold"),
+                                              padding:
+                                                  const EdgeInsets.only(
+                                                      left: 16.0,
+                                                      right: 16),
+                                              child: Container(
+                                                child: TextInputFileds(
+                                                  controlr: email,
+                                                  onChange: () {},
+                                                  validator: (email) {
+                                                    if (validEmail(email)) {
+                                                      return null;
+                                                    } else {
+                                                      return Txt.enter_valid_email;
+                                                    }
+                                                  },
+                                                  hintText: Txt.email,
+                                                  keyboadType: TextInputType
+                                                      .emailAddress,
+                                                  isPwd: false,
+                                                  onTapDate: () {},
+                                                ),
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      left: 16.0,
-                                                      right: 16),
-                                                  child: Container(
-                                                    child: TextInputFileds(
-                                                      controlr: email,
-                                                      onChange: (){},
-                                                      validator: (email) {
-                                                        if (validEmail(email)) {
-                                                          return null;
-                                                        } else {
-                                                          return 'Enter a valid email address';
-                                                        }
-                                                      },
-                                                      hintText: Txt.email,
-                                                      keyboadType: TextInputType
-                                                          .emailAddress,
-                                                      isPwd: false,
-                                                      onTapDate: () {},
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 4.w,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.only(
-                                                      left: 16.0,
-                                                      right: 16),
-                                                  child: Container(
-                                                    child: TextInputFileds(
-                                                      controlr: pwd,
-                                                      onChange: (){},
-                                                      validator: (password) {
-                                                        if (validPassword(
-                                                            password))
-                                                          return null;
-                                                        else
-                                                          return 'Enter a valid password';
-                                                      },
-                                                      hintText: Txt.pwd,
-                                                      keyboadType: TextInputType
-                                                          .visiblePassword,
-                                                      isPwd: true,
-                                                      onTapDate: () {},
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            signUpBtn(),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            // Platform.isIOS ? AppleSignInButton(
-                                            // //style: ButtonStyle.black,
-                                            // type: ButtonType.continueButton,
-                                            // onPressed: appleLogIn,):Container(),
                                           ],
                                         ),
-                                      ),
+                                        SizedBox(
+                                          height: 4.w,
+                                        ),
+                                        Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.only(
+                                                      left: 16.0,
+                                                      right: 16),
+                                              child: Container(
+                                                child: TextInputFileds(
+                                                  controlr: pwd,
+                                                  onChange: () {},
+                                                  validator: (password) {
+                                                    if (validPassword(
+                                                        password))
+                                                      return null;
+                                                    else {
+                                                      return Txt.enter_valid_password;
+                                                    }
+                                                  },
+                                                  hintText: Txt.pwd,
+                                                  keyboadType: TextInputType
+                                                      .visiblePassword,
+                                                  isPwd: true,
+                                                  onTapDate: () {},
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 2.h,
+                                        ),
+                                        signUpBtn(),
+                                        SizedBox(
+                                          height: 2.h,
+                                        ),
+                                        // Platform.isIOS ? AppleSignInButton(
+                                        // //style: ButtonStyle.black,
+                                        // type: ButtonType.continueButton,
+                                        // onPressed: appleLogIn,):Container(),
+                                      ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-                const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 25, top: 0),
-                    child: Text(
-                      "Powered By Xpress Health",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontFamily: "SFProMedium"),
-                    ),
+              ),
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 25, top: 0),
+                  child: Text(
+                    Txt.powered_by,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontFamily: "SFProMedium"),
                   ),
                 ),
-                Visibility(
-                    visible: visible,
-                    child: const Center(child: LoadingWidget())),
-              ],
-            ),
+              ),
+              StreamBuilder(
+                stream: loginBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -239,37 +229,32 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.only(top: 5),
           child: Center(
               child: Padding(
-                padding: EdgeInsets.only(top: 10, left: 20, right: 20),
-                child: Stack(
-                  children: [
-                    LoginButton(
-                        onPressed: () async {
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          var validate = formKey.currentState?.validate();
-                          if (null != validate) {
-                            if (validate) {
-                              setState(() {
-                                visible = true;
-                              });
-                              SharedPreferences shdPre =
+            padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+            child: Stack(
+              children: [
+                LoginButton(
+                    onPressed: () async {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      var validate = formKey.currentState?.validate();
+                      if (null != validate) {
+                        if (validate) {
+                          SharedPreferences shdPre =
                               await SharedPreferences.getInstance();
-                              bool isuser = shdPre.getBool("user")!;
-                              var userType = "1";
-                              if (isuser) {
-                                userType = "0";
-                              }
-                              loginBloc.fetchLogin(
-                                  email.text, pwd.text, userType);
-                            }
-                            // use the information provided
+                          bool isuser = shdPre.getBool("user")!;
+                          var userType = "1";
+                          if (isuser) {
+                            userType = "0";
                           }
-                        },
-                        label: "Login"),
-                  ],
-                ),
-              )),
+                          loginBloc.fetchLogin(email.text, pwd.text, userType);
+                        }
+                      }
+                    },
+                    label: "Login"),
+              ],
+            ),
+          )),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
       ],
@@ -281,40 +266,27 @@ class _LoginScreenState extends State<LoginScreen> {
       children: <Widget>[
         Center(
             child: Stack(
-              children: [
-                Visibility(
-                  visible: !visible,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 0, right: 0, bottom: 0),
-                    child: Container(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .width / 5,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width / 2,
-                        child: SvgPicture.asset(
-                          'assets/images/icon/logo.svg',
-                        )),
-                  ),
-                ),
-              ],
-            )),
+          children: [
+            Visibility(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 10, left: 0, right: 0, bottom: 0),
+                child: Container(
+                    height: MediaQuery.of(context).size.width / 5,
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: SvgPicture.asset(
+                      'assets/images/icon/logo.svg',
+                    )),
+              ),
+            ),
+          ],
+        )),
       ],
     );
   }
 
   void _loginResponse() {
     loginBloc.loginStream.listen((event) async {
-      if (mounted) {
-        setState(() {
-          visible = false;
-        });
-      }
-
       if (null != event.response) {
         var message = event.response?.status?.statusMessage;
         if (event.response?.status?.statusCode == 200) {
@@ -326,9 +298,8 @@ class _LoginScreenState extends State<LoginScreen> {
           var employeeNo = event.response?.data?.employeeNo;
           var userType = event.response?.data?.userType;
           var profileSrc = event.response?.data?.profileSrc;
-
           if (null == token) {
-            showAlertDialoge(context, title: "Login Failed", message: message!);
+            showAlertDialoge(context, title: Txt.login_failed, message: message!);
             return;
           }
           if (null == role) {
@@ -380,11 +351,13 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           }
         } else {
-          showAlertDialoge(context, title: "Login Failed", message: message!);
+          showAlertDialoge(context, title: Txt.login_failed, message: message!);
         }
       } else {
-        showAlertDialoge(context, title: "Login Failed", message: "Something went wrong on server side ");
-        }
-        });
+        showAlertDialoge(context,
+            title: Txt.login_failed,
+            message: Txt.someting_went_wrong);
+      }
+    });
   }
 }

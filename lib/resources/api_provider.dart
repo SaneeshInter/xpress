@@ -96,19 +96,27 @@ class ApiProvider {
   }
 
   Future<UtilityResop> fetchUtility() async {
-    var uri = Uri.parse(BASE_URL + '/account/get-utilities');
-    final response = await client.get(
-      uri,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    print(response.body);
-    if (response.statusCode == 200) {
-      return UtilityResop.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load post');
+    try{
+      var uri = Uri.parse(BASE_URL + '/account/get-utilities');
+      final response = await client.get(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        return UtilityResop.fromJson(json.decode(response.body));
+      } else {
+        return UtilityResop();
+      }
+    }catch(e)
+    {
+      return UtilityResop();
     }
+
+
+
   }
 
 

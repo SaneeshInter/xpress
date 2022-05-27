@@ -150,89 +150,96 @@ class _HomeScreentate extends State<MyBookingScreen>
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          key: _scaffoldKey,
-          backgroundColor: Constants.colors[9],
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              getDataitems();
-            },
-            label: const Text('Refresh'),
-            icon: const Icon(Icons.refresh),
-            backgroundColor: Colors.green,
-          ),
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(65),
-            child: Container(
-              color: Constants.colors[0],
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TabBar(
-                    isScrollable: true,
-                    unselectedLabelColor: Colors.black,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    labelColor: Colors.black,
-                    tabs: [
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("Requested Shift"),
+    return WillPopScope(
+      onWillPop: () async {
+        print("onWillPop");
+        return false;
+
+      },
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            key: _scaffoldKey,
+            backgroundColor: Constants.colors[9],
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () {
+                getDataitems();
+              },
+              label: const Text('Refresh'),
+              icon: const Icon(Icons.refresh),
+              backgroundColor: Colors.green,
+            ),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(65),
+              child: Container(
+                color: Constants.colors[0],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TabBar(
+                      isScrollable: true,
+                      unselectedLabelColor: Colors.black,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      labelColor: Colors.black,
+                      tabs: [
+                        Tab(
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text("Requested Shift"),
+                            ),
                           ),
                         ),
-                      ),
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("Confirmed Shift"),
+                        Tab(
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text("Confirmed Shift"),
+                            ),
                           ),
                         ),
-                      ),
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("Completed Shift"),
+                        Tab(
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text("Completed Shift"),
+                            ),
                           ),
                         ),
-                      ),
-                    ]),
+                      ]),
+                ),
               ),
             ),
-          ),
-          body: Container(
-            child: StreamBuilder(
-                stream: confirmBloc.viewrequest,
-                builder: (BuildContext context,
-                    AsyncSnapshot<UserViewRequestResponse> snapshot) {
-                  if (snapshot.hasData) {
-                    print("StreamBuilder updating my booking");
-                    if (snapshot.data?.response?.data?.items?.length != 0) {
-                      return TabBarView(children: [
-                        bookingList(0, snapshot),
-                        bookingList(1, snapshot),
-                        bookingList(2, snapshot),
-                      ]);
+            body: Container(
+              child: StreamBuilder(
+                  stream: confirmBloc.viewrequest,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                    if (snapshot.hasData) {
+                      print("StreamBuilder updating my booking");
+                      if (snapshot.data?.response?.data?.items?.length != 0) {
+                        return TabBarView(children: [
+                          bookingList(0, snapshot),
+                          bookingList(1, snapshot),
+                          bookingList(2, snapshot),
+                        ]);
+                      }
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
                     }
-                  } else if (snapshot.hasError) {
-                    return Text(snapshot.error.toString());
-                  }
-                  return Center(
-                    child: Visibility(
-                      child: Container(
-                        width: 100.w,
-                        height: 80.h,
-                        child: const Center(
-                          child: LoadingWidget(),
+                    return Center(
+                      child: Visibility(
+                        child: Container(
+                          width: 100.w,
+                          height: 80.h,
+                          child: const Center(
+                            child: LoadingWidget(),
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }),
-          )),
+                    );
+                  }),
+            )),
+      ),
     );
   }
 

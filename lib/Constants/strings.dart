@@ -113,6 +113,13 @@ class Txt {
   static const permission = "Permission";
 
 
+  static const enter_valid_email = "Enter a valid email address";
+  static const enter_valid_password = "Enter a valid password";
+  static const login_failed= "Login Failed";
+  static const someting_went_wrong= "Something went wrong on server side ";
+  static const powered_by= "Powered By Xpress Health ";
+
+
 
 
 }

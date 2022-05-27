@@ -101,11 +101,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        //change status bar icon color
-        // statusBarColor: Colors.white, // Color for Android
+      //change status bar icon color
+      // statusBarColor: Colors.white, // Color for Android
         statusBarBrightness:
-            Brightness.dark // Dark == white status bar -- for IOS.
-        ));
+        Brightness.dark // Dark == white status bar -- for IOS.
+    ));
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -115,7 +115,10 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Center(
           child: SvgPicture.asset(
             "assets/images/icon/whitelogo.svg",
-            width: MediaQuery.of(context).size.width / 1.4,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width / 1.4,
           ),
         ),
       ),
@@ -125,120 +128,127 @@ class _SplashScreenState extends State<SplashScreen> {
   void observe() {
     utility_bloc.utilStream.listen((event) {
       print(event.toString());
-      if (event.response?.status?.statusCode == 200) {
-        var db = Db();
-        db.clearDb();
+      if (null != event.response) {
+        if (event.response?.status?.statusCode == 200) {
+          var db = Db();
+          db.clearDb();
 
-        var countryList = event.response?.data?.countryList;
-        if (null != countryList) {
-          for (var item in countryList) {
-            var obj =
-                CountryList(rowId: item.rowId, countryName: item.countryName);
-            db.insertCountryList(obj);
+          var countryList = event.response?.data?.countryList;
+          if (null != countryList) {
+            for (var item in countryList) {
+              var obj =
+              CountryList(rowId: item.rowId, countryName: item.countryName);
+              db.insertCountryList(obj);
+            }
           }
-        }
 
-        var categroryList = event.response?.data?.scheduleCategoryList;
-        if (null != categroryList) {
-          for (var item in categroryList) {
-            var obj = ScheduleCategoryList(
+          var categroryList = event.response?.data?.scheduleCategoryList;
+          if (null != categroryList) {
+            for (var item in categroryList) {
+              var obj = ScheduleCategoryList(
+                  rowId: item.rowId,
+                  userType: item.userType,
+                  category: item.category);
+              db.insertCategegoryList(obj);
+            }
+          }
+
+          //HOSPITALpost
+          var hospitaist = event.response?.data?.hospitalList;
+          if (null != hospitaist) {
+            for (var item in hospitaist) {
+              var obj = HospitalList(
+                  rowId: item.rowId,
+                  name: item.name,
+                  email: item.email,
+                  phone: item.phone,
+                  address: item.address,
+                  province: item.province,
+                  city: item.city,
+                  longitude: item.longitude,
+                  latitude: item.latitude,
+                  photo: item.photo);
+
+              db.inserthospitalList(obj);
+            }
+          }
+
+          //allowanceCategory
+          var allowanceCategory = event.response?.data?.allowanceCategoryList;
+          if (null != allowanceCategory) {
+            for (var item in allowanceCategory) {
+              var obj = AllowanceCategoryList(
                 rowId: item.rowId,
-                userType: item.userType,
-                category: item.category);
-            db.insertCategegoryList(obj);
+                category: item.category,
+              );
+              db.insertAllowanceCategoryList(obj);
+            }
           }
-        }
 
-        //HOSPITALpost
-        var hospitaist = event.response?.data?.hospitalList;
-        if (null != hospitaist) {
-          for (var item in hospitaist) {
-            var obj = HospitalList(
+          //allowance
+          var allowance = event.response?.data?.allowanceList;
+          if (null != allowance) {
+            for (var item in allowance) {
+              var obj = AllowanceList(
                 rowId: item.rowId,
-                name: item.name,
-                email: item.email,
-                phone: item.phone,
-                address: item.address,
-                province: item.province,
-                city: item.city,
-                longitude: item.longitude,
-                latitude: item.latitude,
-                photo: item.photo);
-
-            db.inserthospitalList(obj);
+                category: item.category,
+                allowance: item.allowance,
+                amount: item.amount,
+                maxAmount: item.maxAmount,
+                comment: item.comment,
+              );
+              db.insertAllowanceList(obj);
+            }
           }
-        }
 
-        //allowanceCategory
-        var allowanceCategory = event.response?.data?.allowanceCategoryList;
-        if (null != allowanceCategory) {
-          for (var item in allowanceCategory) {
-            var obj = AllowanceCategoryList(
-              rowId: item.rowId,
-              category: item.category,
-            );
-            db.insertAllowanceCategoryList(obj);
+          var genderList = event.response?.data?.genderList;
+          if (null != genderList) {
+            for (var item in genderList) {
+              var obj = GenderList(rowId: item.rowId, gender: item.gender);
+              db.insertGenderList(obj);
+            }
           }
-        }
 
-        //allowance
-        var allowance = event.response?.data?.allowanceList;
-        if (null != allowance) {
-          for (var item in allowance) {
-            var obj = AllowanceList(
-              rowId: item.rowId,
-              category: item.category,
-              allowance: item.allowance,
-              amount: item.amount,
-              maxAmount: item.maxAmount,
-              comment: item.comment,
-            );
-            db.insertAllowanceList(obj);
+          var loctionsList = event.response?.data?.loctionsList;
+          if (null != loctionsList) {
+            for (var item in loctionsList) {
+              var obj = LoctionsList(
+                  rowId: item.rowId, location: item.location);
+              db.insertLoctionsList(obj);
+            }
           }
-        }
 
-        var genderList = event.response?.data?.genderList;
-        if (null != genderList) {
-          for (var item in genderList) {
-            var obj = GenderList(rowId: item.rowId, gender: item.gender);
-            db.insertGenderList(obj);
+          var userTypeList = event.response?.data?.userTypeList;
+          if (null != userTypeList) {
+            for (var item in userTypeList) {
+              var obj = UserTypeList(rowId: item.rowId, type: item.type);
+              db.insertUserTypeList(obj);
+            }
           }
-        }
 
-        var loctionsList = event.response?.data?.loctionsList;
-        if (null != loctionsList) {
-          for (var item in loctionsList) {
-
-            var obj = LoctionsList(rowId: item.rowId, location: item.location);
-            db.insertLoctionsList(obj);
+          var visaTypeList = event.response?.data?.visaTypeList;
+          if (null != visaTypeList) {
+            for (var item in visaTypeList) {
+              var obj = VisaTypeList(rowId: item.rowId, type: item.type);
+              db.insertVisaTypeList(obj);
+            }
           }
-        }
 
-        var userTypeList = event.response?.data?.userTypeList;
-        if (null != userTypeList) {
-          for (var item in userTypeList) {
-            var obj = UserTypeList(rowId: item.rowId, type: item.type);
-            db.insertUserTypeList(obj);
+          var shiftTimingList = event.response?.data?.shiftTimingList;
+          if (null != shiftTimingList) {
+            for (var item in shiftTimingList) {
+              var obj = ShiftTimingList(rowId: item.rowId,
+                  shift: item.shift,
+                  startTime: item.startTime,
+                  endTime: item.endTime);
+              db.insertShiftTimingList(obj);
+            }
           }
-        }
 
-        var visaTypeList = event.response?.data?.visaTypeList;
-        if (null != visaTypeList) {
-          for (var item in visaTypeList) {
-            var obj = VisaTypeList(rowId: item.rowId, type: item.type);
-            db.insertVisaTypeList(obj);
-          }
+          changeScreen();
         }
-
-        var shiftTimingList = event.response?.data?.shiftTimingList;
-        if (null != shiftTimingList) {
-          for (var item in shiftTimingList) {
-            var obj = ShiftTimingList(rowId: item.rowId, shift: item.shift,startTime: item.startTime,endTime:  item.endTime);
-            db.insertShiftTimingList(obj);
-          }
-        }
-
-        changeScreen();
+      } else {
+        showInternetNotAvailable();
       }
     });
   }
