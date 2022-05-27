@@ -119,6 +119,28 @@ class Txt {
   static const someting_went_wrong= "Something went wrong on server side ";
   static const powered_by= "Powered By Xpress Health ";
 
+  static const my_booking= "My\nBooking";
+  static const next_shift= "Next Shift";
+  static const you_have_no_shifts_booked= "You have no shifts booked , Please request the shift and wait for approval";
+  static const cancel= "Cancel";
+  static const done= "Done";
+  static const there_are_no_shifts_booked= "There are no shift booked.Click to know more";
+  static const on= "On";
+  static const from= "From";
+  static const to= "To";
+  static const important_update=  "Important Update";
+  static const shift_details= "Shift Details";
+  static const calendar="Add to Calender";
+  static const my_availability= "My\nAvailability ";
+  static const submit_timesheets= "Submit\nTimeSheets ";
+  static const find_shift= "Find Shift";
+  static const empty_shifts='Empty Shifts';
+  static const no_shift= 'There are no shift found.';
+  static const request_now= "Request Now";
+
+
+
+
 
 
 

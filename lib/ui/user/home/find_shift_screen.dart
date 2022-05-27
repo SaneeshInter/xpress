@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_getschedule_bydate.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
+import '../../../Constants/strings.dart';
 import '../../../blocs/shift_list_bloc.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
@@ -42,16 +43,6 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
         FixedExtentScrollController();
     return Scaffold(
       key: _scaffoldKey,
-      // drawer: Drawer(
-      //   // Add a ListView to the drawer. This ensures the user can scroll
-      //   // through the options in the drawer if there isn't enough vertical
-      //   // space to fit everything.
-      //   child: SideMenu(),
-      // ),
-      // appBar: AppBarCommon(
-      //   _scaffoldKey,
-      //   scaffoldKey: _scaffoldKey,
-      // ),
       backgroundColor: Constants.colors[9],
       body: SingleChildScrollView(
         child: Stack(
@@ -107,13 +98,13 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text('Empty Shifts',
+                                Text(Txt.empty_shifts,
                                     style: boldTextStyle(size: 20)),
                                 85.width,
                                 16.height,
                                 Container(
                                   padding: EdgeInsets.symmetric(horizontal: 32),
-                                  child: Text('There are no shift found.',
+                                  child: Text(Txt.no_shift,
                                       style: primaryTextStyle(size: 15),
                                       textAlign: TextAlign.center),
                                 ),
@@ -128,17 +119,19 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
 
                   // StreamBuilder(builder: (context,Asy))
                 ])),
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
-              ),
+            StreamBuilder(
+              stream: bloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              },
             ),
           ],
         ),
@@ -200,12 +193,12 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('Empty Shifts', style: boldTextStyle(size: 20)),
+              Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
               85.width,
               16.height,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 32),
-                child: Text('There are no shift found.',
+                child: Text(Txt.no_shift,
                     style: primaryTextStyle(size: 15),
                     textAlign: TextAlign.center),
               ),
@@ -219,9 +212,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
   }
 
   void requestShift(Items items) {
-    setState(() {
-      visibility = true;
-    });
+
     if (items is Items) {
       Items data = items;
       bloc.fetchuserJobRequest(token, data.rowId.toString());
@@ -232,25 +223,13 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
       bloc.fetchgetUserScheduleByDate(token, date.toString());
     }
   }
-
   void observe() {
     bloc.jobrequest.listen((event) {
-      setState(() {
-        visibility = false;
-      });
       String? message = event.response?.status?.statusMessage;
       showAlertDialoge(context, message: message!, title: "Request");
-    });
-    bloc.shiftbydate.listen((event) {
-      setState(() {
-        visibility = false;
-      });
     });
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/widgets/buttons/call_button.dart';
 
+import '../../Constants/strings.dart';
 import '../../blocs/shift_list_bloc.dart';
 import '../../model/user_getschedule_bydate.dart';
 import '../../utils/constants.dart';
@@ -74,9 +75,9 @@ class _HomePageCardState extends State<ShiftListWidget> {
                 if (null != widget.items.timeFrom &&
                     null != widget.items.timeTo)
                   Text(
-                    "From " +
+                   Txt.from +
                         widget.items.timeFrom! +
-                        " To " +
+                        Txt.to+
                         widget.items.timeTo!,
                     style: TextStyle(
                         fontSize: 13,
@@ -124,7 +125,7 @@ class _HomePageCardState extends State<ShiftListWidget> {
             Row(
               children: [
                 BookButton(
-                  label: "Request Now",
+                  label: Txt.request_now,
                   onPressed: () {
                     widget.onTapBook(widget.items);
                     print("Tapped");
