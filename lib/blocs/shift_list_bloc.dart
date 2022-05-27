@@ -6,9 +6,18 @@ import '../model/user_getschedule_bydate.dart';
 import '../model/user_job_request.dart';
 
 class ShiftListBloc {
+
+
+
   final _repo = Repository();
+
+
+
+
   final _visibility = PublishSubject<bool>();
   Stream<bool> get visible => _visibility.stream;
+
+
   final _shiftList = PublishSubject<SliftListRepso>();
   final _scheduledate = PublishSubject<UserGetScheduleByDate>();
   final _jobrequest = PublishSubject<UserJobRequestResponse>();
