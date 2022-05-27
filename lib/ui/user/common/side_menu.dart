@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../../Constants/app_defaults.dart';
 import '../../../Constants/sharedPrefKeys.dart';
@@ -70,7 +71,7 @@ class _SideMenuState extends State<SideMenu> {
             ]),
       ),
       child: ListView(
-        // Important: Remove any padding from the ListView.
+
         padding: EdgeInsets.zero,
         children: [
           Container(
@@ -154,7 +155,7 @@ class _SideMenuState extends State<SideMenu> {
                               ),
                               const SizedBox(height: 5),
                               Text(
-                                "Emp No :" + empNo,
+                               Txt.emp_no + empNo,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -183,7 +184,7 @@ class _SideMenuState extends State<SideMenu> {
 
           ListTile(
             title: const Text(
-              'Home',
+             Txt.home,
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -196,17 +197,12 @@ class _SideMenuState extends State<SideMenu> {
             ),
             onTap: () {
               Navigator.pop(context);
-              // pushNewScreen(
-              //   context,
-              //   screen: HomeScreen(),
-              //   withNavBar: true, // OPTIONAL VALUE. True by default.
-              //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              // );
+
             },
           ),
           ListTile(
             title: const Text(
-              'My Profile ',
+            Txt.my_profile  ,
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -222,19 +218,16 @@ class _SideMenuState extends State<SideMenu> {
               pushNewScreen(
                 context,
                 screen: ProfileScreen(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
+                withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
 
-              // pop(context);
-              // Navigator.pushNamed(context, '/profile').then((_) {
-              //   // This block runs when you have returned back to the 1st Page from 2nd.
-              // });
+
             },
           ),
           ListTile(
             title: const Text(
-              'Submitted Timesheet',
+              Txt.submtd_timsht,
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -246,13 +239,12 @@ class _SideMenuState extends State<SideMenu> {
               ),
             ),
             onTap: () {
-              // Update the state of the app.
-              // ...
+
               Navigator.pop(context);
               pushNewScreen(
                 context,
                 screen: SubmitTimeShift(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
+                withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
             },
@@ -260,7 +252,7 @@ class _SideMenuState extends State<SideMenu> {
 
           ListTile(
             title: const Text(
-              'Notification',
+             Txt.notify ,
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -273,14 +265,14 @@ class _SideMenuState extends State<SideMenu> {
               pushNewScreen(
                 context,
                 screen: NotificationScreen(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
+                withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
             },
           ),
           ListTile(
             title: const Text(
-              'Completed Shifts',
+              Txt.completed_shifts,
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -296,14 +288,14 @@ class _SideMenuState extends State<SideMenu> {
               pushNewScreen(
                 context,
                 screen: CompletedShift(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
+                withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
             },
           ),
           ListTile(
             title: const Text(
-              'FAQs',
+             Txt.faqs,
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -316,7 +308,7 @@ class _SideMenuState extends State<SideMenu> {
               pushNewScreen(
                 context,
                 screen: FaqsShitsScreen(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
+                withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
             },
@@ -324,7 +316,7 @@ class _SideMenuState extends State<SideMenu> {
 
           ListTile(
             title: const Text(
-              'Contact Us',
+             Txt.contact_us ,
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -337,14 +329,14 @@ class _SideMenuState extends State<SideMenu> {
               pushNewScreen(
                 context,
                 screen: ContactScreen(),
-                withNavBar: true, // OPTIONAL VALUE. True by default.
+                withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
             },
           ),
           ListTile(
             title: const Text(
-              'Log Out',
+             Txt.log_out,
               style: TextStyle(color: Colors.white),
             ),
             leading: Container(
@@ -377,7 +369,7 @@ class _SideMenuState extends State<SideMenu> {
       MaterialPageRoute<dynamic>(
         builder: (BuildContext context) => UserOrManager(),
       ),
-      (route) => false, //if you want to disable back feature set to false
+      (route) => false,
     );
   }
 }

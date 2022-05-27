@@ -2,12 +2,13 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dotted_border/dotted_border.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
@@ -63,11 +64,11 @@ class _ContactScreenState extends State<ContactScreen> {
           elevation: 0.0,
           iconTheme: IconThemeData(
             color: Colors.black,
-            //change your color here
+
           ),
           backgroundColor: HexColor("#ffffff"),
           title: AutoSizeText(
-            "Contact Us ",
+           Txt.contact_us,
             style: TextStyle(
                 fontSize: 17,
                 color: Constants.colors[1],
@@ -90,7 +91,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         mainAxisAlignment:
                         MainAxisAlignment.start,
                         children: [
-                          Text('Contact Us',
+                          Text(Txt.contact_us,
                               style: boldTextStyle(size: 20)),
                           85.width,
                           16.height,
@@ -98,7 +99,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 32),
                             child: Text(
-                                'The screen is under development.',
+                              Txt.under_devlpmnt,
                                 style: primaryTextStyle(size: 15),
                                 textAlign: TextAlign.center),
                           ),

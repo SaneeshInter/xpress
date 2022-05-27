@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../Constants/strings.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
@@ -64,11 +65,11 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
           elevation: 0.0,
           iconTheme: IconThemeData(
             color: Colors.black,
-            //change your color here
+
           ),
           backgroundColor: HexColor("#ffffff"),
           title: AutoSizeText(
-            "FAQs ",
+           Txt.faqs,
             style: TextStyle(
                 fontSize: 17,
                 color: Constants.colors[1],
@@ -91,7 +92,7 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
                         mainAxisAlignment:
                         MainAxisAlignment.start,
                         children: [
-                          Text('FAQs',
+                          Text( Txt.faqs,
                               style: boldTextStyle(size: 20)),
                           85.width,
                           16.height,
@@ -99,7 +100,7 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 32),
                             child: Text(
-                                'The screen is under development.',
+                                Txt.under_devlpmnt,
                                 style: primaryTextStyle(size: 15),
                                 textAlign: TextAlign.center),
                           ),
