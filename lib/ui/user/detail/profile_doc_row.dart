@@ -99,16 +99,6 @@ class _CustomRowState extends State<ProfileDocRow> {
                           fit: BoxFit.cover,
                         )
                       : Container()),
-            // if (widget.url.isNotEmpty)
-              // Container(
-              //     height: 50.w,
-              //     width: 100.w,
-              //     child: widget.url.isNotEmpty
-              //         ? Image.network(
-              //             widget.url,
-              //             fit: BoxFit.cover,
-              //           )
-              //         : Container()),
           ],
         ),
       ),

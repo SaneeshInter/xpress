@@ -9,6 +9,7 @@ import 'package:xpresshealthdev/utils/utils.dart';
 
 import '../../../Constants/app_defaults.dart';
 import '../../../Constants/sharedPrefKeys.dart';
+import '../../../Constants/strings.dart';
 import '../../../blocs/profile_update_bloc.dart';
 import '../../../model/user_get_response.dart';
 import '../../../resources/token_provider.dart';
@@ -20,8 +21,6 @@ import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/profile_detail.dart';
 import '../../widgets/profile_documents.dart';
-import '../common/app_bar.dart';
-import '../common/side_menu.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -43,7 +42,6 @@ class _ProfileState extends State<ProfileScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
-
   @override
   void dispose() {
     super.dispose();
@@ -54,9 +52,7 @@ class _ProfileState extends State<ProfileScreen> {
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = false;
-        });
+
         profileBloc.getUserInfo(token);
       } else {
         showInternetNotAvailable();
@@ -91,11 +87,11 @@ class _ProfileState extends State<ProfileScreen> {
         ),
         //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
         cameraText: Text(
-          "From Camera",
+          Txt.ppCamera,
           style: TextStyle(color: Colors.black),
         ),
         galleryText: Text(
-          "From Gallery",
+         Txt.ppGallery,
           style: TextStyle(color: Colors.blue),
         ));
   }
@@ -110,7 +106,6 @@ class _ProfileState extends State<ProfileScreen> {
   void observe() {
     profileBloc.getProfileStream.listen(
       (event) async {
-
         print("observe");
         var datatItem = event.response?.data?.items;
 
@@ -156,7 +151,7 @@ class _ProfileState extends State<ProfileScreen> {
         ),
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
-          "Profile",
+          Txt.profile,
           style: TextStyle(
               fontSize: 17,
               color: Constants.colors[1],
@@ -220,12 +215,11 @@ class _ProfileState extends State<ProfileScreen> {
                                                 0.12,
                                             child: ClipRRect(
                                               borderRadius:
-                                              BorderRadius.circular(
-                                                  MediaQuery.of(
-                                                      context)
-                                                      .size
-                                                      .width *
-                                                      0.22),
+                                                  BorderRadius.circular(
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.22),
                                               child: AspectRatio(
                                                 aspectRatio: 1 / 1,
                                                 child: Stack(
@@ -242,14 +236,14 @@ class _ProfileState extends State<ProfileScreen> {
                                                         profileImage,
                                                         fit: BoxFit.fill,
                                                         width: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.22,
                                                         height: MediaQuery.of(
-                                                            context)
-                                                            .size
-                                                            .width *
+                                                                    context)
+                                                                .size
+                                                                .width *
                                                             0.22,
                                                       ),
                                                   ],
@@ -291,7 +285,7 @@ class _ProfileState extends State<ProfileScreen> {
                                               const SizedBox(height: 5),
                                               if (employeeNo != null)
                                                 Text(
-                                                  "Emp No :" + employeeNo,
+                                                  Txt.emp_no+ employeeNo,
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -307,9 +301,8 @@ class _ProfileState extends State<ProfileScreen> {
                                             children: [
                                               if (hourlyRate != null)
                                                 Text(
-                                                  hourlyRate +"/hr",
+                                                  hourlyRate +Txt.hr ,
                                                   style: TextStyle(
-
                                                       fontSize: 14.sp,
                                                       color:
                                                           Constants.colors[33],
@@ -328,7 +321,7 @@ class _ProfileState extends State<ProfileScreen> {
                                                             ProfileEditScreen()),
                                                   );
                                                 },
-                                                label: "Edit",
+                                                label:Txt.edit,
                                                 asset:
                                                     "assets/images/icon/edit.svg",
                                                 backgroundColor:
@@ -347,29 +340,36 @@ class _ProfileState extends State<ProfileScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 if (null != item)
-
                                   ProfileDetailCard(items: item),
                                 Column(
                                   children: [
                                     if (null != item)
-                                      ProfileDocumentsCard(items: item, onRefresh: (){
-                                        print("Refresh item");
-                                        getData();
-                                      },),
+                                      ProfileDocumentsCard(
+                                        items: item,
+                                        onRefresh: () {
+                                          print("Refresh item");
+                                          getData();
+                                        },
+                                      ),
                                   ],
                                 ),
                               ],
                             ),
                           );
                         } else {
-                          return Center(
-                            child: Container(
-                              width: 100.w,
-                              height: 80.h,
-                              child: const Center(
-                                child: LoadingWidget(),
-                              ),
-                            ),
+                          return      StreamBuilder(
+                            stream: profileBloc.visible,
+                            builder: (context, AsyncSnapshot<bool> snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data!) {
+                                  return const Center(child: LoadingWidget());
+                                } else {
+                                  return Container();
+                                }
+                              } else {
+                                return Container();
+                              }
+                            },
                           );
                         }
                       }),

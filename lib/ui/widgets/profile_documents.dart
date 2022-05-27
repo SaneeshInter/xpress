@@ -5,6 +5,7 @@ import 'package:xpresshealthdev/model/user_get_response.dart';
 import 'package:xpresshealthdev/ui/user/detail/profile_doc_row.dart';
 import 'package:xpresshealthdev/ui/user/detail/profile_question_row.dart';
 
+import '../../Constants/strings.dart';
 import '../../main.dart';
 import '../../resources/token_provider.dart';
 import '../user/home/my_booking_screen.dart';
@@ -65,11 +66,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
   }
 
   void observe() {
-    profileBloc.userdocuments.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
+
 
     profileBloc.getProfileQuestions.listen((event) {
 
@@ -130,7 +127,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "Signature",
+                  label:Txt.signature ,
                   asset: "assets/images/icon/check.svg",
                   image: signaturePic,
                   url: widget.items.signatureSrc!,
@@ -145,7 +142,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "People handling document",
+                  label:Txt.p_h_d ,
                   asset: "assets/images/icon/check.svg",
                   image: phpdocument,
                   url: widget.items.phdLink!,
@@ -160,7 +157,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "Level certification",
+                  label: Txt.level,
                   asset: "assets/images/icon/check.svg",
                   image: qqqidocument,
                   url: widget.items.qqqiLink!,
@@ -175,7 +172,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "Infection prevention control certificate",
+                  label: Txt.infection,
                   asset: "assets/images/icon/check.svg",
                   image: ipcccdocument,
                   url: widget.items.ipccLink!,
@@ -190,7 +187,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "Employment contract signed",
+                  label: Txt.employe,
                   asset: "assets/images/icon/check.svg",
                   image: ecsdocument,
                   url: widget.items.ecsLink!,
@@ -205,7 +202,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               },
               child: Container(
                 child: ProfileDocRow(
-                  label: "Passport Id",
+                  label:Txt.pass_id ,
                   asset: "assets/images/icon/check.svg",
                   image: piddocument,
                   url: widget.items.ecsLink!,
@@ -217,7 +214,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Do you drive : " + doYouDrive,
+                  label: Txt.drive + doYouDrive,
                   asset: "assets/images/icon/check.svg",
                   status: widget.items.doYouDrive!,
                   onChanged: (value) {
@@ -227,9 +224,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                       status = 1;
                     }
 
-                    setState(() {
-                      visibility = true;
-                    });
+
                     profileBloc.profileQuestions(
                         token, "drive", status.toString());
                   },
@@ -241,7 +236,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Permission to work in ireland : " +
+                  label: Txt.ireland +
                       permissionToWorkInIreland,
                   asset: "assets/images/icon/check.svg",
                   status: widget.items.permissionToWorkInIreland!,
@@ -252,9 +247,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                       status = 1;
                     }
 
-                    setState(() {
-                      visibility = true;
-                    });
+
                     profileBloc.profileQuestions(
                         token, "work_ireland", status.toString());
                   },
@@ -266,7 +259,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Have you got Covid19 vaccination : " +
+                  label:Txt.covid+
                       haveYouGotCovid19Vaccination,
                   asset: "assets/images/icon/check.svg",
                   status: widget.items.haveYouGotCovid19Vaccination!,
@@ -277,9 +270,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                       status = 1;
                     }
 
-                    setState(() {
-                      visibility = true;
-                    });
+
 
                     profileBloc.profileQuestions(
                         token, "covid_vaccine", status.toString());
@@ -292,7 +283,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Do you consent garda vetting to be completed: " +
+                  label:Txt.garda_vetting+
                       doYouConsentGardaVettingToBeCompleted,
                   asset: "assets/images/icon/check.svg",
                   status: widget.items.doYouConsentGardaVettingToBeCompleted!,
@@ -313,7 +304,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Tuberculosis vaccination: " + tuberculosisVaccination,
+                  label:  Txt.tuberculosis+ tuberculosisVaccination,
                   asset: "assets/images/icon/check.svg",
                   status: widget.items.tuberculosisVaccination!,
                   onChanged: (value) {
@@ -333,7 +324,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Hepatitis B antibody: " + hepatitisBAntibody,
+                  label:Txt.hepatits + hepatitisBAntibody,
                   asset: "assets/images/icon/check.svg",
                   status: widget.items.hepatitisBAntibody!,
                   onChanged: (value) {
@@ -353,7 +344,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
               onTap: () {},
               child: Container(
                 child: ProfileQuestionRow(
-                  label: "Id card received: " + idCardReceived,
+                  label:Txt.id_card + idCardReceived,
                   asset: "assets/images/icon/check.svg",
                   status: widget.items.idCardReceived!,
                   onChanged: (value) {

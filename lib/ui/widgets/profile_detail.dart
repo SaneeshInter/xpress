@@ -4,6 +4,7 @@ import 'package:xpresshealthdev/model/user_get_response.dart';
 import 'package:xpresshealthdev/ui/user/detail/profile_details_row.dart';
 
 import '../../Constants/app_defaults.dart';
+import '../../Constants/strings.dart';
 import '../../utils/constants.dart';
 import '../../utils/network_utils.dart';
 import '../user/home/profile_edit.dart';
@@ -60,7 +61,7 @@ class ProfileDetailCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Personal Details',
+                         Txt.prsnl_details,
                           style: TextStyle(
                               color: Constants.colors[3],
                               fontSize: 18,
@@ -76,7 +77,7 @@ class ProfileDetailCard extends StatelessWidget {
                                   builder: (context) => ProfileEditScreen()),
                             );
                           },
-                          label: "Edit",
+                          label: Txt.edit,
                           asset:"assets/images/icon/edit.svg",
                           backgroundColor: Constants.colors[2],
                           textColors: Constants.colors[4],
@@ -95,17 +96,17 @@ class ProfileDetailCard extends StatelessWidget {
                     const SizedBox(height: 8.0),
                     if (gender != null)
                       ProfileDetailsRow(
-                          label: "Gender : " + gender,
+                          label: Txt.gender_dot + gender,
                           asset: "assets/images/icon/sex.svg"),
                     SizedBox(width: 15.0),
                     if (dob != null)
                       ProfileDetailsRow(
-                          label: "Date Of Birth :  " + dob,
+                          label: Txt.d_o_b + dob,
                           asset: "assets/images/icon/confetti.svg"),
                     SizedBox(width: 15.0),
                     if (homeAddress != null)
                       ProfileDetailsRow(
-                          label: "Address :  " + homeAddress,
+                          label:Txt.address_dot  + homeAddress,
                           asset: "assets/images/icon/Pin.svg"),
                     SizedBox(width: 15.0),
                     if (email != null)
@@ -114,7 +115,7 @@ class ProfileDetailCard extends StatelessWidget {
                           sendingMails(email);
                         },
                         child: ProfileDetailsRow(
-                            label: "Email :  " + email,
+                            label: Txt.email_dot + email,
                             asset: "assets/images/icon/email.svg"),
                       ),
                     SizedBox(width: 15.0),
@@ -124,18 +125,18 @@ class ProfileDetailCard extends StatelessWidget {
                           dialCall(phoneNumber);
                         },
                         child: ProfileDetailsRow(
-                            label: "Phone Number :   " + phoneNumber,
+                            label: Txt.phone_number_dot+ phoneNumber,
                             asset: "assets/images/icon/phone.svg"),
                       ),
                     SizedBox(width: 15.0),
                     if (ppsNumber != null)
                       ProfileDetailsRow(
-                          label: "PPS Number :  " + ppsNumber,
+                          label: Txt.pps_number_dot+ ppsNumber,
                           asset: "assets/images/icon/passport.svg"),
                     SizedBox(width: 15.0),
                     if (bankIban != null)
                       ProfileDetailsRow(
-                          label: "Bank Details :  " + bankIban,
+                          label:Txt.bank_detail + bankIban,
                           asset: "assets/images/icon/bank.svg"),
                     SizedBox(width: 15.0),
 

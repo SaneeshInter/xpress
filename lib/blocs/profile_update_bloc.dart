@@ -14,6 +14,11 @@ import '../model/visa_type_list.dart';
 
 class ProfileBloc {
   final _repo = Repository();
+
+  final _visibility = PublishSubject<bool>();
+  Stream<bool> get visible => _visibility.stream;
+
+
   final _profileUser = PublishSubject<ProfileUpdateRespo>();
   final _getUser = PublishSubject<UserGetResponse>();
   final _documents = PublishSubject<UserDocumentsResponse>();
@@ -61,8 +66,11 @@ class ProfileBloc {
 
 
   getUserInfo(String token) async {
+    _visibility.add(true);
     UserGetResponse response = await _repo.fetchUserInfo(token);
+
     _getUser.sink.add(response);
+    _visibility.add(false);
   }
 
   ProfileUser(
@@ -81,6 +89,7 @@ class ProfileBloc {
     String bank_iban,
     String bank_bic,
   ) async {
+    _visibility.add(true);
     ProfileUpdateRespo respo = await _repo.ProfileUser(
         token,
         first_name,
@@ -99,6 +108,7 @@ class ProfileBloc {
     if(!_profileUser.isClosed)
       {
         _profileUser.sink.add(respo);
+        _visibility.add(false);
       }
 
   }
@@ -108,6 +118,7 @@ class ProfileBloc {
     String type,
     String expiry_date,
   ) async {
+    _visibility.add(true);
     UserDocumentsResponse respo = await _repo.uploadUserDoc(
       token,
       files,
@@ -115,6 +126,7 @@ class ProfileBloc {
       expiry_date,
     );
     _documents.sink.add(respo);
+    _visibility.add(false);
   }
 
 
@@ -124,8 +136,10 @@ class ProfileBloc {
       String key,
       String value,
       ) async {
+    _visibility.add(true);
     ProfileQuestionResponse respo = await _repo.fetchProfileQuestions(token, key,value);
     _questions.sink.add(respo);
+    _visibility.add(false);
   }
 
   dispose() {

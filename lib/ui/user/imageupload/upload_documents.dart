@@ -96,9 +96,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   Future<void> getToken() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-      setState(() {
-        visibility = false;
-      });
+
     } else {
       return;
     }
@@ -114,9 +112,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
       });
       showAlertDialoge(context, message: message!, title: "Upload Documents");
 
-      setState(() {
-        visibility = false;
-      });
+
     });
   }
 
@@ -221,25 +217,25 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                             height: 20,
                           ),
                           if (type != "signature")
-                          Container(
-                            width: 100.w,
-                            height: 5.3.h,
-                            child: TextInputFileds(
-                                controlr: date,
-                            onChange: (){},
-                                validator: (date) {
-                                  if (validDate(date))
-                                    return null;
-                                  else
-                                    return "select date";
-                                },
-                                onTapDate: () {
-                                  selectDate(context, date);
-                                },
-                                hintText: "Expiry Date",
-                                keyboadType: TextInputType.none,
-                                isPwd: false),
-                          ),
+                            Container(
+                              width: 100.w,
+                              height: 5.3.h,
+                              child: TextInputFileds(
+                                  controlr: date,
+                                  onChange: () {},
+                                  validator: (date) {
+                                    if (validDate(date))
+                                      return null;
+                                    else
+                                      return "select date";
+                                  },
+                                  onTapDate: () {
+                                    selectDate(context, date);
+                                  },
+                                  hintText: "Expiry Date",
+                                  keyboadType: TextInputType.none,
+                                  isPwd: false),
+                            ),
                           SizedBox(
                             height: 20,
                           ),
@@ -252,9 +248,6 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                               child: GestureDetector(
                                 onTap: () {
                                   if (_image != null) {
-                                    setState(() {
-                                      visibility = true;
-                                    });
                                     if (date.text != "" ||
                                         type == "signature") {
                                       profileBloc.uploadUserDoc(token,
@@ -297,17 +290,19 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                   ),
                 ],
               ),
-              Center(
-                child: Visibility(
-                  visible: visibility,
-                  child: Container(
-                    width: 100.w,
-                    height: 80.h,
-                    child: const Center(
-                      child: LoadingWidget(),
-                    ),
-                  ),
-                ),
+              StreamBuilder(
+                stream: profileBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ],
           ),

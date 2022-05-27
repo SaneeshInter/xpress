@@ -104,6 +104,16 @@ class Txt {
   static const  permission_to_work_in_ireland= "Permission";
 
 
+
+
+  static const gender_dot = "Gender : ";
+  static const d_o_b = "Date of birth : ";
+  static const address_dot = "Address : ";
+  static const phone_number_dot= "Phone number : ";
+  static const pps_number_dot = "PPS number : ";
+  static const email_dot = "Email : ";
+  static const bank_detail = "Bank Details : ";
+
   static const first_name = "First name";
   static const last_name = "Last name";
   static const nationality = "Nationality";
@@ -111,6 +121,7 @@ class Txt {
   static const bankiban = "Bank iban";
   static const bankbic = "Bank bic";
   static const permission = "Permission";
+  static const bank_details = "Bank Details";
 
 
   static const enter_valid_email = "Enter a valid email address";
@@ -152,6 +163,29 @@ class Txt {
   static const request_now= "Request Now";
 
 
+  static const profile= "Profile";
+  static const emp_no= "Emp No :";
+  static const hr="/hr";
+  static const edit= "Edit";
+  static const prsnl_details=  'Personal Details';
+
+
+  static const signature= "Signature";
+  static const p_h_d="People handling document";
+  static const level="Level certification";
+  static const infection= "Infection prevention control certificate";
+  static const employe=  "Employment contract signed";
+  static const pass_id= "Passport Id";
+
+
+  static const drive= "Do you drive : ";
+  static const ireland = "Permission to work in ireland : ";
+  static const covid= "Have you got Covid19 vaccination : " ;
+  static const garda_vetting=  "Do you consent garda vetting to be completed: " ;
+  static const tuberculosis= "Tuberculosis vaccination: ";
+  static const hepatits= "Hepatitis B antibody: ";
+  static const id_card= "Id card received: ";
+ // static const prsnl_details=  'Personal Details';
 
 
 
