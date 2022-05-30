@@ -12,8 +12,6 @@ import '../../../utils/utils.dart';
 import '../../datepicker/date_picker_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
-import '../common/app_bar.dart';
-import '../common/side_menu.dart';
 
 class AvailabilityScreen extends StatefulWidget {
   const AvailabilityScreen({Key? key}) : super(key: key);
@@ -60,9 +58,6 @@ class _AvailabilityState extends State<AvailabilityScreen> {
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
         availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
       } else {
         showInternetNotAvailable();
@@ -81,34 +76,14 @@ class _AvailabilityState extends State<AvailabilityScreen> {
     }
   }
 
-  // Future<void> getData() async {
-  //   token = await TokenProvider().getToken();
-  //   if (null != token) {
-  //     setState(() {
-  //       visibility = true;
-  //     });
-  //     availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
-  //   } else {
-  //     print("TOKEN NOT FOUND");
-  //   }
-  // }
-
-
   @override
   void dispose() {
     super.dispose();
     availabilitybloc.dispose();
   }
+
   void observe() {
-    availabilitybloc.useravailabilitiydate.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
     availabilitybloc.useravailabilitiy.listen((event) {
-      setState(() {
-        visibility = false;
-      });
       getData();
     });
   }
@@ -125,13 +100,6 @@ class _AvailabilityState extends State<AvailabilityScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
-      // drawer: Drawer(
-      //   child: SideMenu(),
-      // ),
-      // appBar: AppBarCommon(
-      //   _scaffoldKey,
-      //   scaffoldKey: _scaffoldKey,
-      // ),
       body: LiquidPullToRefresh(
         onRefresh: () async {
           getData();
@@ -237,17 +205,19 @@ class _AvailabilityState extends State<AvailabilityScreen> {
                               }),
                         ),
                       ])),
-                  Center(
-                    child: Visibility(
-                      visible: visibility,
-                      child: Container(
-                        width: 100.w,
-                        height: 80.h,
-                        child: const Center(
-                          child: LoadingWidget(),
-                        ),
-                      ),
-                    ),
+                  StreamBuilder(
+                    stream: availabilitybloc.visible,
+                    builder: (context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!) {
+                          return const Center(child: LoadingWidget());
+                        } else {
+                          return Container();
+                        }
+                      } else {
+                        return Container();
+                      }
+                    },
                   ),
                 ],
               ),
@@ -260,9 +230,6 @@ class _AvailabilityState extends State<AvailabilityScreen> {
 
   void updateShiftAvailabaity(int selectedShfit) {
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
       print(token);
       print(_selectedValue);
       print(selectedShfit.toString());
