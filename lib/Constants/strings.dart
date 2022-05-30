@@ -249,4 +249,12 @@ class Txt {
   static const view_booking =  "View\nMy Booking ";
   static const approve_timesheets = "Approve Timesheets";
 
+
+
+  static const no_schedule_for_day =  "No schedule found for the selected day";
+  static const failed = 'Failed';
+  static const at = 'At : ';
+  static const view =  "view ";
+  static const delete = "Delete";
+
 }
