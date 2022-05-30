@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import '../../Constants/strings.dart';
 import '../../model/user_view_request_response.dart';
 
 import '../../ui/Widgets/buttons/view_button.dart';
@@ -84,7 +85,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
                         Text(
-                          "On: " + widget.items.date!,
+                         Txt.on_dot+ widget.items.date!,
                           style: TextStyle(
                               fontSize: 9.sp,
                               color: Constants.colors[13],
@@ -92,9 +93,9 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
                         Text(
-                          "From " +
+                          Txt.from +
                               widget.items.timeFrom! +
-                              " To " +
+                             Txt.to +
                               widget.items.timeTo!,
                           style: TextStyle(
                               fontSize: 9.sp,
@@ -104,7 +105,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
                         AutoSizeText.rich(
                           TextSpan(
-                            text: "At : " + widget.items.hospital!,
+                            text: Txt.at + widget.items.hospital!,
                             style: TextStyle(
                                 fontSize: 10.sp,
                                 color: Constants.colors[4],
@@ -115,20 +116,14 @@ class _MyBookingState extends State<MyBookingListWidget> {
                           maxLines: 3,
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
-                        // Text(
-                        //   widget.items.userType!,
-                        //   style: TextStyle(
-                        //       fontSize: 9.5.sp,
-                        //       color: Constants.colors[3],
-                        //       fontWeight: FontWeight.w500),
-                        // ),
+
                       ]),
                   Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       ViewButton(
-                        label: "view",
+                        label: Txt.view,
                         onPressed: () {
                           Navigator.push(
                             context,
@@ -162,7 +157,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
     return Row(
       children: [
         BookButton(
-          label: "Add Timesheet",
+          label:Txt.add_time_sheet,
           onPressed: () {
             widget.onTapView(widget.items);
             print("Cards booking");
@@ -182,7 +177,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BookButton(
-                  label: "Cancel Request",
+                  label: Txt.cancel_req,
                   onPressed: () {
                     widget.onTapCancel(widget.items);
                     print("Cards booking");
@@ -195,7 +190,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
         if (widget.items.status == "Accepted" &&
             widget.items.workingTimeStatus == 0)
           BookButton(
-            label: "Add Working Hours",
+            label: Txt.add_wrkng_hrs,
             onPressed: () {
               widget.onTapView(widget.items);
               print("Cards booking");
@@ -206,7 +201,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
         if (widget.items.status == "Completed" &&
             widget.items.workingTimeStatus == 0)
           BookButton(
-            label: "Add Working Hours",
+            label:  Txt.add_wrkng_hrs,
             onPressed: () {
               widget.onTapView(widget.items);
               print("Cards booking");

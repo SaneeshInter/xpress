@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../model/user_availability_btw_date.dart';
 import '../../utils/constants.dart';
@@ -84,7 +85,7 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
                             child: Container(
                               padding: EdgeInsets.only(left: 15),
                               child: AutoSizeText(
-                                "DAY",
+                                Txt.day,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.black,
@@ -136,7 +137,7 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
                             child: Container(
                               padding: EdgeInsets.only(left: 15),
                               child: AutoSizeText(
-                                "NIGHT",
+                                Txt.night,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.black,

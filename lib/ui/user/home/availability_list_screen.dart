@@ -123,7 +123,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                           Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: AutoSizeText(
-                                "Availability",
+                               Txt.availability,
                                 maxLines: 1,
                                 style: TextStyle(
                                   color: Constants.colors[1],
@@ -218,7 +218,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                               });
                                                             },
                                                           ),
-                                                          Text('Morning'),
+                                                          Text(Txt.morning),
                                                         ],
                                                       ),
                                                       flex: 1,
@@ -252,7 +252,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                               });
                                                             },
                                                           ),
-                                                          Text('Day'),
+                                                          Text(Txt.day),
                                                         ],
                                                       ),
                                                       flex: 1,
@@ -286,7 +286,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                               });
                                                             },
                                                           ),
-                                                          Text('Afternoon'),
+                                                          Text(Txt.after_noon),
                                                         ],
                                                       ),
                                                       flex: 1,
@@ -320,7 +320,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                               });
                                                             },
                                                           ),
-                                                          Text('Night'),
+                                                          Text(Txt.night),
                                                         ],
                                                       ),
                                                       flex: 1,
@@ -354,7 +354,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                                       .toString());
                                                             },
                                                           ),
-                                                          Text('Sleepover'),
+                                                          Text(Txt.sleep_over),
                                                         ],
                                                       ),
                                                       flex: 1,

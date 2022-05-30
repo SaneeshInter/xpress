@@ -84,7 +84,7 @@ class _ProfileState extends State<ProfileScreen> {
           Icons.camera_alt,
           color: Colors.black,
         ),
-        //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
+
         cameraText: Text(
           Txt.ppCamera,
           style: TextStyle(color: Colors.black),
@@ -107,8 +107,7 @@ class _ProfileState extends State<ProfileScreen> {
       (event) async {
         print("observe");
         var datatItem = event.response?.data?.items;
-
-        if (datatItem!.length != 0) {
+        if (null != datatItem && datatItem.isNotEmpty) {
           var items = datatItem[0];
           var firstname = items.firstName;
           print(firstname);
@@ -187,9 +186,11 @@ class _ProfileState extends State<ProfileScreen> {
                                 " " +
                                 lastName.toString();
                             return Container(
+
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  if(null!=data)
                                   Container(
                                     decoration: BoxDecoration(
                                         gradient: LinearGradient(
@@ -366,19 +367,23 @@ class _ProfileState extends State<ProfileScreen> {
                 ],
               ),
             ),
-            StreamBuilder(
-              stream: profileBloc.visible,
-              builder: (context, AsyncSnapshot<bool> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data!) {
-                    return const Center(child: LoadingWidget());
+            Container(
+              width: 100.w,
+              height: 70.h,
+              child: StreamBuilder(
+                stream: profileBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
                   } else {
                     return Container();
                   }
-                } else {
-                  return Container();
-                }
-              },
+                },
+              ),
             ),
           ],
         ),

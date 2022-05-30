@@ -109,7 +109,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                 ),
                 Container(
                   width: 100.w,
-                  height: 50.h,
+                  height: 70.h,
                   child: StreamBuilder(
                     stream: managerhomeBloc.visible,
                     builder: (context, AsyncSnapshot<bool> snapshot) {

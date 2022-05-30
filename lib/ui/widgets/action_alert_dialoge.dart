@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
@@ -68,7 +69,7 @@ class ActionAlertBox extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BuildButton(
-                    label: "CLOSE",
+                    label: Txt.close,
                     onPressed: () {
                       pop(context);
                       print("Cards booking");

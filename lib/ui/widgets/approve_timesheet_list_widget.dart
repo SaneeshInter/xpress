@@ -5,7 +5,6 @@ import '../../ui/widgets/buttons/delete_button.dart';
 
 import '../../model/manager_timesheet.dart';
 import '../../utils/utils.dart';
-import '../manager/home/manager_time_sheet_details.dart';
 import 'buttons/build_button.dart';
 import 'buttons/view_button.dart';
 
@@ -58,7 +57,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 Row(
                   children: [
                     Text(
-                     Txt.date_dot + widget.items.date!,
+                      Txt.date_dot + widget.items.date!,
                       style: TextStyle(
                           fontSize: 10.sp,
                           color: Colors.grey,
@@ -84,12 +83,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
-                // BuildButton(
-                //   label: "Approve Timesheets",
-                //   onPressed: widget.onTapMap,
-                //   key: null,
-                // ),
-                // SizedBox(width: screenWidth(context, dividedBy: 40)),
+
                 BuildButton(
                   label: Txt.view_timesheets,
                   onPressed: () {

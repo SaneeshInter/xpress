@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../Constants/strings.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import '../Widgets/buttons/view_button.dart';
@@ -35,7 +36,7 @@ class FeactureAlertBox extends StatelessWidget {
           children: [
             SizedBox(height: screenHeight(context, dividedBy: 40)),
             AutoSizeText(
-              "Pending Feature",
+             Txt.pending_feature,
               style: TextStyle(
                   fontSize: 17,
                   color: Constants.colors[3],
@@ -43,7 +44,7 @@ class FeactureAlertBox extends StatelessWidget {
             ),
             SizedBox(height: screenHeight(context, dividedBy: 70)),
             Text(
-              "This feature implementation is pending",
+             Txt.implntn_pending ,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
@@ -52,7 +53,7 @@ class FeactureAlertBox extends StatelessWidget {
             ),
             SizedBox(height: screenHeight(context, dividedBy: 60)),
             BookButton(
-              label: "CLOSE",
+              label: Txt.implntn_pending,
               onPressed: () {
                 pop(context);
                 print("Cards booking");

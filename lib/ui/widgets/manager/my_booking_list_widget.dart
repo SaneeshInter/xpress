@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../model/viewbooking_response.dart';
 
+import '../../../Constants/strings.dart';
 import '../../../model/common/manager_shift.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
@@ -55,7 +56,7 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
                   Row(
                     children: [
                       AutoSizeText(
-                        "At : " + widget.items.hospital!,
+                        Txt.at + widget.items.hospital!,
                         textAlign: TextAlign.start,
                         maxLines: 3,
                         style: TextStyle(
@@ -74,7 +75,7 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1.0),
                         child: Text(
-                          "On: " + widget.items.date!,
+                          Txt.on + widget.items.date!,
                           style: TextStyle(
                               fontSize: 9.sp,
                               color: Constants.colors[13],
@@ -84,9 +85,9 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
                       Padding(
                         padding: const EdgeInsets.only(top: 3.0),
                         child: Text(
-                          "From " +
+                          Txt.from +
                               widget.items.timeFrom! +
-                              " To " +
+                              Txt.to +
                               widget.items.timeTo!,
                           style: TextStyle(
                               fontSize: 9.sp,
@@ -111,12 +112,14 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     ViewButton(
-                      label: "view",
+                      label: Txt.view,
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ShiftDetailManagerScreen(shift_id: widget.items.rowId.toString(),)),
+                              builder: (context) => ShiftDetailManagerScreen(
+                                    shift_id: widget.items.rowId.toString(),
+                                  )),
                         );
                       },
                       key: null,
@@ -128,7 +131,7 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
               Row(
                 children: [
                   BuildButton(
-                    label: "Edit",
+                    label: Txt.edit,
                     onPressed: () {
                       widget.onTapEdit(widget.items);
                     },
@@ -136,12 +139,9 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
                   ),
                   SizedBox(width: screenWidth(context, dividedBy: 40)),
                   DeleteButton(
-                    label: "Delete",
+                    label: Txt.delete,
                     onPressed: () {
-
                       widget.onTapDelete(widget.items.rowId);
-
-
                     },
                     key: null,
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../Constants/AppColors.dart';
 
@@ -32,7 +33,7 @@ class _LoadingState extends State<LoadingWidget> {
           children: [
             CircularProgressIndicator(color: appColorPrimary),
             SizedBox(height: 16),
-            Text("Please wait....",
+            Text(Txt.plz_wait,
                 style: primaryTextStyle(color: cardBackgroundBlackDark)),
           ],
         ),

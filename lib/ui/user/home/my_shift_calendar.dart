@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../../blocs/shift_confirmed_bloc.dart';
 import '../../../blocs/shift_list_bloc.dart';
@@ -85,14 +86,19 @@ class _FindshiftState extends State<FindshiftCalendar> {
         equals: isSameDay,
         hashCode: getHashCode,
       );
-      for (var item in itemList!) {
-        selectedDay.add(DateTime.parse(item.date.toString()));
-      }
-      getSelectedDayEvent(selectedDate);
-      setState(() {
-        visibility = false;
-        _selectedDays.addAll(selectedDay);
-      });
+
+      if(null!=itemList)
+        {
+          for (var item in itemList) {
+            selectedDay.add(DateTime.parse(item.date.toString()));
+          }
+          getSelectedDayEvent(selectedDate);
+          setState(() {
+            visibility = false;
+            _selectedDays.addAll(selectedDay);
+          });
+        }
+
     });
 
     bloc.jobrequest.listen((event) {
@@ -102,7 +108,8 @@ class _FindshiftState extends State<FindshiftCalendar> {
       getData();
       confirmBloc.fetchUserViewRequest(token);
       String? message = event.response?.status?.statusMessage;
-      showAlertDialoge(context, message: message!, title: "Request");
+      showAlertDialoge(context, message: message!, title: Txt
+      .request);
     });
   }
 
@@ -127,16 +134,20 @@ class _FindshiftState extends State<FindshiftCalendar> {
 
   List<Event> _getEventsForDay(DateTime day) {
     List<Event> eventList = [];
-    var itemList = shiftcalenderBloc.itemlListALl!.where((element) {
-      DateTime itemDay = DateTime.parse(element.date.toString());
-      return isSameDay(itemDay, day);
-    });
-    if (itemList.isNotEmpty) {
-      var listItem = itemList.first;
-      for (var item in listItem.items!) {
-        eventList.add(Event(item.jobTitle!));
+    if(null!=shiftcalenderBloc.itemlListALl)
+      {
+        var itemList = shiftcalenderBloc.itemlListALl?.where((element) {
+          DateTime itemDay = DateTime.parse(element.date.toString());
+          return isSameDay(itemDay, day);
+        });
+        if (itemList!.isNotEmpty) {
+          var listItem = itemList.first;
+          for (var item in listItem.items!) {
+            eventList.add(Event(item.jobTitle!));
+          }
+        }
       }
-    }
+
 
     return eventList;
   }
@@ -149,7 +160,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
         onPressed: () {
           getData();
         },
-        label: const Text('Refresh'),
+        label: const Text(Txt.refresh),
         icon: const Icon(Icons.refresh),
         backgroundColor: Colors.green,
       ),
@@ -202,7 +213,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 4),
                                     child: Text(
-                                      list.length.toString() + " Shift",
+                                      list.length.toString() +Txt.shifts,
                                       style: TextStyle(
                                           fontSize: 7.sp,
                                           color: Constants.colors[38],

@@ -1,27 +1,22 @@
 import 'dart:core';
-import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import '../../../blocs/shift_completed_bloc.dart';
 
+import '../../../Constants/strings.dart';
+import '../../../blocs/shift_completed_bloc.dart';
 import '../../../model/user_complted_shift.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
-import '../../Widgets/buttons/build_button.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/completed_shift_list.dart';
 import '../../widgets/loading_widget.dart';
-import '../../widgets/timesheet_list_item.dart';
-import '../common/side_menu.dart';
 import '../detail/shift_detail.dart';
 
 class CompletedShift extends StatefulWidget {
@@ -51,9 +46,6 @@ class _CompletedShiftState extends State<CompletedShift> {
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
         completeBloc.fetchcomplete(token);
       } else {
         showInternetNotAvailable();
@@ -81,10 +73,6 @@ class _CompletedShiftState extends State<CompletedShift> {
 
   void observe() {
     completeBloc.allShift.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-
       var data = event.response?.data;
       if (data?.items != null) {
         if (data?.items?.length != 0) {
@@ -102,11 +90,7 @@ class _CompletedShiftState extends State<CompletedShift> {
         _image = null;
       });
       getData();
-      showAlertDialoge(context, message: message!, title: "Upload Timesheet");
-
-      setState(() {
-        visibility = false;
-      });
+      showAlertDialoge(context, message: message!, title: Txt.upload_docs);
     });
   }
 
@@ -137,7 +121,7 @@ class _CompletedShiftState extends State<CompletedShift> {
           ),
           backgroundColor: HexColor("#ffffff"),
           title: AutoSizeText(
-            "Completed Shifts",
+           Txt.completed_shifts,
             style: TextStyle(
                 fontSize: 17,
                 color: Constants.colors[1],
@@ -152,8 +136,7 @@ class _CompletedShiftState extends State<CompletedShift> {
               Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth(context, dividedBy: 35)),
-                  child: Column(
-                      children: [
+                  child: Column(children: [
                     SizedBox(height: screenHeight(context, dividedBy: 60)),
                     StreamBuilder(
                         stream: completeBloc.allShift,
@@ -175,7 +158,7 @@ class _CompletedShiftState extends State<CompletedShift> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          Text('Completed Shift',
+                                          Text(Txt.completed_shift,
                                               style: boldTextStyle(size: 20)),
                                           85.width,
                                           16.height,
@@ -183,8 +166,9 @@ class _CompletedShiftState extends State<CompletedShift> {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 32),
                                             child: Text(
-                                                'There are no  completed shift found.',
-                                                style: primaryTextStyle(size: 15),
+                                             Txt.no_shift,
+                                                style:
+                                                    primaryTextStyle(size: 15),
                                                 textAlign: TextAlign.center),
                                           ),
                                         ],
@@ -207,16 +191,22 @@ class _CompletedShiftState extends State<CompletedShift> {
                       height: 10,
                     ),
                   ])),
-              Center(
-                child: Visibility(
-                  visible: visibility,
-                  child: Container(
-                    width: 100.w,
-                    height: 80.h,
-                    child: const Center(
-                      child: LoadingWidget(),
-                    ),
-                  ),
+              Container(
+                width: 100.w,
+                height: 70.h,
+                child: StreamBuilder(
+                  stream: completeBloc.visible,
+                  builder: (context, AsyncSnapshot<bool> snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!) {
+                        return const Center(child: LoadingWidget());
+                      } else {
+                        return Container();
+                      }
+                    } else {
+                      return Container();
+                    }
+                  },
                 ),
               ),
             ],
@@ -246,8 +236,9 @@ class _CompletedShiftState extends State<CompletedShift> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ShiftDetailScreen(
-                          shift_id: data.rowId.toString(),isCompleted: true,
-                        )),
+                              shift_id: data.rowId.toString(),
+                              isCompleted: true,
+                            )),
                   );
                 }
               },

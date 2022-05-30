@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
+import '../Constants/strings.dart';
 import '../ui/user/common/app_bar.dart';
 import '../ui/user/common/side_menu.dart';
 import '../ui/user/home/availability_list_screen.dart';
@@ -315,7 +316,7 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.home),
-      title: ("Home"),
+      title: (Txt.home),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -323,37 +324,32 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.shift),
       iconSize: 6.w,
-      title: ("Find Shift"),
+      title: (Txt.find_shift),
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.calendar),
-      title: ("Booking"),
+      title: (Txt.booking),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.calendar_badge_plus),
-      title: ("Availability"),
+      title: (Txt.availability),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.calendar_badge_plus),
-      title: ("Time Sheet"),
+      title: (Txt.time_sheet),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
-    // PersistentBottomNavBarItem(
-    //   icon: Icon(CupertinoIcons.person),
-    //   title: ("Profile"),
-    //   iconSize: 6.w,
-    //   activeColorPrimary: Constants.colors[6],
-    //   inactiveColorPrimary: CupertinoColors.systemGrey,
-    // ),
+
+
   ];
 }

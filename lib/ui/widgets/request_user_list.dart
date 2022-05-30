@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../model/manager_view_request.dart';
 import '../../utils/utils.dart';
@@ -103,24 +104,13 @@ class _RequestuserListState extends State<RequestuserListWidget> {
                       if (widget.item.status != "Rejected" &&
                           widget.item.status != "Accepted")
                         ViewButton(
-                          label: "Accept",
+                          label:Txt.accept,
                           onPressed: () {
                             widget.onTapBooking(widget.item);
                           },
                           key: null,
                         ),
-                      // Column(
-                      //   children: [
-                      //     if (widget.item.status == "Accepted")
-                      //       ViewButton(
-                      //         label: "Reject",
-                      //         onPressed: () {
-                      //           widget.onTapBooking(widget.item);
-                      //         },
-                      //         key: null,
-                      //       ),
-                      //   ],
-                      // ),
+
                     ],
                   )
                 ]),

@@ -107,12 +107,12 @@ class _HomeScreentate extends State<MyBookingScreen>
     confirmBloc.usercanceljobrequest.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataitems();
-      showAlertDialoge(context, message: message!, title: "Cancel");
+      showAlertDialoge(context, message: message!, title: Txt.cancel);
     });
     confirmBloc.userworkinghours.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataitems();
-      showAlertDialoge(context, message: message!, title: "Working hours");
+      showAlertDialoge(context, message: message!, title: Txt.working_hours);
     });
   }
 
@@ -132,7 +132,7 @@ class _HomeScreentate extends State<MyBookingScreen>
               onPressed: () {
                 getDataitems();
               },
-              label: const Text('Refresh'),
+              label: const Text(Txt.refresh),
               icon: const Icon(Icons.refresh),
               backgroundColor: Colors.green,
             ),
@@ -484,7 +484,7 @@ class _HomeScreentate extends State<MyBookingScreen>
                     },
                     onTapCall: () {},
                     onTapMap: () {
-                      // showFeactureAlert(context, date: "");
+
                     },
                     onTapBooking: () {},
                     key: null,
@@ -502,12 +502,12 @@ class _HomeScreentate extends State<MyBookingScreen>
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('Empty Shifts', style: boldTextStyle(size: 20)),
+              Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
               85.width,
               16.height,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 32),
-                child: Text('There are no shift found.',
+                child: Text(Txt.no_shift,
                     style: primaryTextStyle(size: 15),
                     textAlign: TextAlign.center),
               ),

@@ -245,6 +245,7 @@ class Txt {
   static const send_mail = "Send Mail";
   static const contact = 'Contact';
   static const create_shifts = 'Create Shifts';
+  static const create_shift = 'Create Shift';
   static const view_booking =  "View\nMy Booking "  ;
   static const approve_timesheets = "Approve Timesheets";
 
@@ -292,6 +293,32 @@ class Txt {
   static const upload_docs =    "Upload Documents";
   static const expiry_date =  "Expiry Date";
   static const expiry_date_req =  "Expiry date required";
+  static const sat_feb =  "Saturday 19th February 2022";
+
+  static const close =   "CLOSE";
+  static const add_timesheets = "Add Timesheet";
+  static const thnx_for_bokng =   "Thank You for Booking";
+  static const booking_confirmed =  "Your booking has been confirmed for ";
+  static const on_dot =   "On: ";
+  static const success_delted =  "Successfully Deleted";
+  static const pending_feature =   "Pending Feature";
+  static const implntn_pending = "This feature implementation is pending";
+
+
+
+  static const plz_wait =   "Please wait....";
+  static const cancel_req =  "Cancel Request";
+  static const add_wrkng_hrs = "Add Working Hours";
+  static const request_caps ="REQUEST NOW";
+  static const view_shift="View Shift";
+  static const booking =   "Booking";
+
+
+
+
+
+
+
 
 
 

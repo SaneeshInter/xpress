@@ -48,7 +48,6 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
 
   Future getData() async {
     if (await isNetworkAvailable()) {
-
       SharedPreferences shdPre = await SharedPreferences.getInstance();
       token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
       print("token inn deta");
@@ -151,7 +150,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                     ),
                                                     CustomRow(
                                                       onPressed: () {},
-                                                      label:Txt.address_dot +
+                                                      label: Txt.address_dot +
                                                           hospitalDetail.address
                                                               .toString(),
                                                       asset:
@@ -221,7 +220,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                       CustomRowz(
                                                         onPressed: () {},
                                                         label:
-                                                          Txt.job_details_dot+
+                                                            Txt.job_details_dot +
                                                                 shiftDetails
                                                                     .jobDetails
                                                                     .toString(),
@@ -230,71 +229,6 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                         textColors:
                                                             Colors.black,
                                                       ),
-                                                    // if (null != shiftDetails)
-                                                    //   CustomRowz(
-                                                    //     onPressed: () {},
-                                                    //     label: "Date : " +
-                                                    //         shiftDetails.date
-                                                    //             .toString(),
-                                                    //     asset:
-                                                    //         "assets/images/icon/check.svg",
-                                                    //     textColors: Colors.black,
-                                                    //   ),
-                                                    // if (null != shiftDetails)
-                                                    //   CustomRow(
-                                                    //     onPressed: () {},
-                                                    //     label: "From : " +
-                                                    //         shiftDetails.timeFrom
-                                                    //             .toString() +
-                                                    //         "AM To : " +
-                                                    //         shiftDetails.timeFrom
-                                                    //             .toString() +
-                                                    //         " PM",
-                                                    //     asset:
-                                                    //         "assets/images/icon/check.svg",
-                                                    //     textColors: Colors.black,
-                                                    //     size: 9.sp,
-                                                    //   ),
-                                                    // if (null != shiftDetails)
-                                                    //   CustomRowz(
-                                                    //     onPressed: () {},
-                                                    //     label: "Price : " +
-                                                    //         shiftDetails.price
-                                                    //             .toString(),
-                                                    //     asset:
-                                                    //         "assets/images/icon/check.svg",
-                                                    //     textColors: Colors.black,
-                                                    //   ),
-                                                    // if (null != shiftDetails)
-                                                    //   CustomRowz(
-                                                    //     onPressed: () {},
-                                                    //     label: "Category : " +
-                                                    //         shiftDetails.category
-                                                    //             .toString(),
-                                                    //     asset:
-                                                    //         "assets/images/icon/check.svg",
-                                                    //     textColors: Colors.black,
-                                                    //   ),
-                                                    // if (null != shiftDetails)
-                                                    //   CustomRowz(
-                                                    //     onPressed: () {},
-                                                    //     label: "UserType : " +
-                                                    //         shiftDetails.userType
-                                                    //             .toString(),
-                                                    //     asset:
-                                                    //         "assets/images/icon/check.svg",
-                                                    //     textColors: Colors.black,
-                                                    //   ),
-                                                    // if (null != shiftDetails)
-                                                    //   CustomRowz(
-                                                    //     onPressed: () {},
-                                                    //     label: "Shift ype : " +
-                                                    //         shiftDetails.type
-                                                    //             .toString(),
-                                                    //     asset:
-                                                    //         "assets/images/icon/check.svg",
-                                                    //     textColors: Colors.black,
-                                                    //   ),
                                                     SizedBox(
                                                       height: 3.h,
                                                     ),
@@ -320,7 +254,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                 padding: const EdgeInsets.only(left: 16.0),
                                 child: Container(
                                   child: Text(
-                                   Txt.users_request,
+                                    Txt.users_request,
                                     style: TextStyle(
                                         fontSize: 11.sp,
                                         color: Colors.black,
@@ -344,7 +278,6 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                         onTapCall: () {},
                                         onTapMap: () {},
                                         onTapBooking: (JobRequestDetails item) {
-
                                           print("Tapped");
                                           acceptJobRequest(item);
                                         },
@@ -397,7 +330,6 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   }
 
   void acceptJobRequest(JobRequestDetails item) {
-
     managerviewrequestBloc.fetchAcceptJobRequestResponse(
         token!, item.rowId.toString());
   }
@@ -414,11 +346,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   }
 
   void observe() {
-
-
     managerviewrequestBloc.acceptjobrequest.listen((event) {
-
-
       var message = event.response?.status?.statusMessage;
       showAlertDialoge(context, title: Txt.accepted, message: message!);
       getData();

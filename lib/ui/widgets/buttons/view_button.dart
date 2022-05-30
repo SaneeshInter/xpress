@@ -18,9 +18,7 @@ class _ViewButtonState extends State<ViewButton> {
     return GestureDetector(
       onTap: () {
         widget.onPressed();
-        // setState(() {
-        //   tapped = true;
-        // });
+
       },
       child: Container(
         padding: EdgeInsets.symmetric(

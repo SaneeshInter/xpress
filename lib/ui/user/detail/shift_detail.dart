@@ -6,6 +6,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 import '../../../blocs/shift_user_details.dart';
 import '../../../model/user_get_shift_details.dart';
 import '../../../ui/user/detail/shift_rows.dart';
@@ -192,7 +193,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                                 .only(
                                                                 right: 8.0),
                                                             child: Text(
-                                                                "View Location Map",
+                                                              Txt.view_map ,
                                                                 style:
                                                                 TextStyle(
                                                                   fontSize:
@@ -258,7 +259,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 ),
                                                 CustomRow(
                                                   onPressed: () {},
-                                                  label: "Address: " +
+                                                  label: Txt.address_dot+
                                                       hospitalDetail.address
                                                           .toString(),
                                                   asset:

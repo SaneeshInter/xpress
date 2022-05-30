@@ -38,7 +38,7 @@ class AddTimeSheetAlertBox extends StatelessWidget {
             color: Colors.green,
             alignment: Alignment.centerLeft,
             child: Text(
-              "Add Timesheet",
+              Txt.add_timesheets,
               style: TextStyle(
                   fontSize: 17,
                   color: Constants.colors[0],
@@ -53,7 +53,7 @@ class AddTimeSheetAlertBox extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Start Time " + date,
+                      Txt.start_time + date,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           fontSize: 14,
@@ -74,7 +74,7 @@ class AddTimeSheetAlertBox extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "End Time " + date,
+                      Txt.end_time + date,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 14,

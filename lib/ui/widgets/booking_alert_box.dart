@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../Constants/strings.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import '../Widgets/buttons/view_button.dart';
@@ -35,7 +36,7 @@ class BookingAlertBox extends StatelessWidget {
           children: [
             SizedBox(height: screenHeight(context, dividedBy: 40)),
             AutoSizeText(
-              "Thank You for Booking",
+             Txt.thnx_for_bokng,
               style: TextStyle(
                   fontSize: 17,
                   color: Constants.colors[3],
@@ -43,7 +44,7 @@ class BookingAlertBox extends StatelessWidget {
             ),
             SizedBox(height: screenHeight(context, dividedBy: 70)),
             Text(
-              "Your booking has been confirmed for " + date,
+             Txt.booking_confirmed + date,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,
@@ -52,7 +53,7 @@ class BookingAlertBox extends StatelessWidget {
             ),
             SizedBox(height: screenHeight(context, dividedBy: 60)),
             BookButton(
-              label: "CLOSE",
+              label: Txt.close,
               onPressed: () {
 
                 pop(context);

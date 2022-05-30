@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import '../../Constants/strings.dart';
 import '../../ui/widgets/buttons/call_button.dart';
 
 import '../../blocs/shift_list_bloc.dart';
@@ -65,7 +66,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                   Row(
                     children: [
                       AutoSizeText(
-                        "At : " + widget.items.hospital!,
+                        Txt.at + widget.items.hospital!,
                         textAlign: TextAlign.start,
                         maxLines: 3,
                         style: TextStyle(
@@ -84,7 +85,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1.0),
                         child: Text(
-                          "On: " + widget.items.date!,
+                          Txt.on_dot + widget.items.date!,
                           style: TextStyle(
                               fontSize: 9.sp,
                               color: Constants.colors[13],
@@ -94,9 +95,9 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                       Padding(
                         padding: const EdgeInsets.only(top: 3.0),
                         child: Text(
-                          "From " +
+                         Txt.from+
                               widget.items.timeFrom! +
-                              " To " +
+                              Txt.to+
                               widget.items.timeTo!,
                           style: TextStyle(
                               fontSize: 9.sp,
@@ -104,6 +105,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                               fontWeight: FontWeight.w400),
                         ),
                       ),
+
                     ],
                   ),
                   SizedBox(height: screenHeight(context, dividedBy: 120)),
@@ -116,12 +118,13 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                           fontWeight: FontWeight.w500),
                     ),
                 ]),
+
                 Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     ViewButton(
-                      label: "view",
+                      label: Txt.view,
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -138,7 +141,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
               Row(
                 children: [
                   BuildButton(
-                    label: "Edit",
+                    label: Txt.edit,
                     onPressed: () {
                       widget.onTapEdit(widget.items);
                     },
@@ -146,7 +149,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                   ),
                   SizedBox(width: screenWidth(context, dividedBy: 40)),
                   DeleteButton(
-                    label: "Delete",
+                    label: Txt.delete,
                     onPressed: () {
 
                       widget.onTapDelete(widget.items.rowId);

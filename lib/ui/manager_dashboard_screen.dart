@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import '../Constants/strings.dart';
 import '../ui/manager/home/approved_timesheet_screen.dart';
 import '../ui/manager/home/manager_home_screen.dart';
 import '../ui/splash/user_or_manager.dart';
@@ -199,28 +200,28 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.home),
-      title: ("Home"),
+      title: (Txt.home),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.shift),
-      title: ("Create Shift"),
+      title: (Txt.create_shift),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.calendar),
-      title: ("View Shift"),
+      title: (Txt.view_shift),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.calendar_badge_plus),
-      title: ("Apporve TimeSheets"),
+      title: (Txt.approve_timesheets),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,

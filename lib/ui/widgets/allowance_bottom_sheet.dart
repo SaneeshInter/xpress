@@ -1,16 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
+
+import '../../Constants/strings.dart';
 import '../../blocs/createshift_manager_bloc.dart';
 import '../../dbmodel/allowance_category_model.dart';
 import '../../dbmodel/allowance_mode.dart';
-import '../../model/user_availability_btw_date.dart';
-import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import '../../utils/validator.dart';
-import 'buttons/submit_button.dart';
 import 'input_text.dart';
 
 class AllowanceBottomSheet extends StatefulWidget {
@@ -37,6 +35,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
   var allowance = "Break Fast";
   TextEditingController allowanceprice = new TextEditingController();
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -53,7 +52,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AutoSizeText(
-            'Allowances',
+            Txt.allowances,
             style: TextStyle(
               fontSize: 13.sp,
               color: Colors.black,
@@ -87,7 +86,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                 borderSide:
                                     BorderSide(color: Colors.grey, width: 1)),
                             contentPadding: EdgeInsets.all(3.0),
-                            labelText: "Category",
+                            labelText:Txt.category,
                             labelStyle: TextStyle(fontSize: 10.sp)),
                         items: snapshot.data?.map((item) {
                           return DropdownMenuItem(
@@ -144,7 +143,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                     borderSide: BorderSide(
                                         color: Colors.grey, width: 1)),
                                 contentPadding: EdgeInsets.all(3.0),
-                                labelText: "Allowances",
+                                labelText:Txt.allowances,
                                 labelStyle: TextStyle(fontSize: 10.sp)),
                             items: snapshot.data?.map((item) {
                               return DropdownMenuItem(
@@ -190,10 +189,10 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                       if (validDate(date))
                         return null;
                       else
-                        return "Enter Price";
+                        return Txt.enter_price;
                     },
                     onTapDate: () {},
-                    hintText: "Price",
+                    hintText: Txt.price,
                     keyboadType: TextInputType.number,
                     isPwd: false),
               ),
@@ -201,14 +200,19 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
           ),
           ElevatedButton(
             onPressed: () {
-              managerBloc.addAllowances(allowanceId, allowanceCategroyId,
-                  allowance, allowanceCategroy, allowanceprice.text);
-              pop(context);
+
+                managerBloc.addAllowances(allowanceId, allowanceCategroyId,
+                    allowance, allowanceCategroy, allowanceprice.text);
+                pop(context);
+
+
             },
+
+
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Add Allowances',
+              Txt.add_allowances  ,
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,

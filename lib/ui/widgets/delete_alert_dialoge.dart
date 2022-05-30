@@ -1,12 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../../utils/constants.dart';
+import '../../Constants/strings.dart';
 import '../../utils/utils.dart';
-import '../Widgets/buttons/build_button.dart';
-import '../Widgets/buttons/view_button.dart';
-import 'buttons/book_button.dart';
 
 class ActionDeleteAlertBox extends StatelessWidget {
   final String tittle;
@@ -89,7 +85,7 @@ class ActionDeleteAlertBox extends StatelessWidget {
                                       child: Icon(Icons.close,
                                           color: Colors.blueAccent, size: 18))),
                               TextSpan(
-                                  text: "Cancel",
+                                  text:Txt.cancel,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     color: Colors.blueAccent,
@@ -128,7 +124,7 @@ class ActionDeleteAlertBox extends StatelessWidget {
                         ),
                       ),
                     ).onTap(() {
-                      toasty(context, "Successfully Deleted");
+                      toasty(context,Txt.success_delted);
                       finish(context);
                     }),
                   )

@@ -117,7 +117,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                         );
                       }),
 
-                  // StreamBuilder(builder: (context,Asy))
+
                 ])),
             StreamBuilder(
               stream: bloc.visible,
@@ -229,7 +229,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
   void observe() {
     bloc.jobrequest.listen((event) {
       String? message = event.response?.status?.statusMessage;
-      showAlertDialoge(context, message: message!, title: "Request");
+      showAlertDialoge(context, message: message!, title: Txt.request);
     });
   }
 }

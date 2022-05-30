@@ -100,7 +100,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
             ),
             Container(
               width: 100.w,
-              height: 60.h,
+              height: 70.h,
               child: StreamBuilder(
                 stream: timesheetBloc.visible,
                 builder: (context, AsyncSnapshot<bool> snapshot) {
@@ -140,8 +140,8 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => ManagerTimeSheetDetails(
-                        item: items,
-                      )),
+                            item: items,
+                          )),
                 ).then((value) => getData());
               },
               onTapCall: () {},

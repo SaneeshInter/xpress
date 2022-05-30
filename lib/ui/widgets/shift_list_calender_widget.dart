@@ -3,6 +3,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import '../../Constants/strings.dart';
 import '../../ui/widgets/buttons/call_button.dart';
 
 import '../../blocs/shift_list_bloc.dart';
@@ -47,10 +48,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
     return GestureDetector(
       onTap: () {
         widget.onTapView(widget.items);
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: widget.items.rowId.toString(),)),
-        // );
+
       },
       child: Container(
         width: screenWidth(context, dividedBy: 1),
@@ -78,7 +76,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
                 Text(
-                  "Date " +
+                  Txt.date+
                       widget.items.date!,
                   style: TextStyle(
                       fontSize: 13,
@@ -89,9 +87,9 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                 if (null != widget.items.timeFrom &&
                     null != widget.items.timeTo)
                   Text(
-                    "From " +
+                    Txt.from +
                         widget.items.timeFrom! +
-                        " To " +
+                        Txt.to +
                         widget.items.timeTo!,
                     style: TextStyle(
                         fontSize: 13,
@@ -140,7 +138,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
 
                 if(widget.items.if_requested! == 0)
                 BookButton(
-                  label: "Request Now",
+                  label: Txt.request_now,
                   onPressed: () {
                     widget.onTapBook(widget.items);
                     print("Tapped");
@@ -195,7 +193,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
               content: ActionAlertBox(
                   tittle: tittle,
                   message: message,
-                  positiveText: "REQUEST NOW",
+                  positiveText: Txt.request_caps,
                   onPositvieClick: (item) {
                   widget.onTapBook(item);
                     if (item is Items) {

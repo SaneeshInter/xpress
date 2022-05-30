@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 import '../../../blocs/shift_completed_bloc.dart';
 import '../../../ui/bloc/no_data_screen.dart';
 
+import '../../../Constants/strings.dart';
 import '../../../model/user_complted_shift.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
@@ -85,11 +86,11 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         ),
         //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
         cameraText: Text(
-          "From Camera",
+         Txt.frm_camera,
           style: TextStyle(color: Colors.red),
         ),
         galleryText: Text(
-          "From Gallery",
+          Txt.frm_gallery,
           style: TextStyle(color: Colors.blue),
         ));
     setState(() {
@@ -127,7 +128,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         _image = null;
       });
       getData();
-      showAlertDialoge(context, message: message!, title: "Upload Timesheet");
+      showAlertDialoge(context, message: message!, title: Txt.upload_docs);
     });
   }
 
@@ -142,7 +143,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
           onPressed: () {
             getData();
           },
-          label: const Text('Refresh'),
+          label: const Text(Txt.refresh),
           icon: const Icon(Icons.refresh),
           backgroundColor: Colors.green,
         ),
@@ -167,9 +168,9 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                               snapshot.data?.response?.data?.items?.length ==
                                   0) {
                             return NoDataWidget(
-                                tittle: "Empty",
+                                tittle: Txt.empty,
                                 description:
-                                    "There are no shift with working hours ",
+                                    Txt.no_shifts_working_hrs,
                                 asset_image:
                                     "assets/images/error/empty_task.png");
                           }
@@ -236,7 +237,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                         color: Colors.green,
                       ),
                       SizedBox(width: 10),
-                      Text("Upload Shift Document Photos"),
+                      Text(Txt.uplaod_shift_doc),
                     ],
                   ),
                 ),
@@ -274,7 +275,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
           ),
           if (buttonVisibility)
             BuildButton(
-              label: "Upload Timesheets",
+              label: Txt.upload_timesheets,
               onPressed: () {
                 String shiftid = "";
                 print("PRINT UPLOAD LISTS");
@@ -288,11 +289,11 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                         token, shiftid, File(_image.path));
                   } else {
                     showAlertDialoge(context,
-                        title: "Alert", message: "Select Shift");
+                        title: Txt.alert, message: Txt.select_shift);
                   }
                 } else {
                   showAlertDialoge(context,
-                      title: "Alert", message: "Upload Timesheet");
+                      title:  Txt.alert, message: Txt.uplod_timesht);
                 }
               },
               key: null,

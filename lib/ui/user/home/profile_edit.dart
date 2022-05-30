@@ -124,7 +124,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
         elevation: 0.0,
         iconTheme: IconThemeData(
           color: Colors.black,
-          //change your color here
+
         ),
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
@@ -143,18 +143,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
           children: <Widget>[
             Stack(
               children: [
-                Center(
-                  child: Visibility(
-                    visible: visibility,
-                    child: Container(
-                      width: 100.w,
-                      height: 80.h,
-                      child: const Center(
-                        child: LoadingWidget(),
-                      ),
-                    ),
-                  ),
-                ),
+
                 Align(
                   alignment: Alignment.center,
                   child: Container(
@@ -697,28 +686,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                     .width *
                                                 0.03,
                                           ),
-                                          // Column(
-                                          //   children: [
-                                          //     Container(
-                                          //       child: TextInputFileds(
-                                          //           controlr:
-                                          //               permission_to_work_in_ireland,
-                                          //           validator: (permission) {
-                                          //             if (vaidpermission_to_work_in_ireland(
-                                          //                 permission))
-                                          //               return null;
-                                          //             else
-                                          //               return "enter permission";
-                                          //           },
-                                          //           onTapDate: () {},
-                                          //           hintText: Txt
-                                          //               .permission_to_work_in_ireland,
-                                          //           keyboadType:
-                                          //               TextInputType.text,
-                                          //           isPwd: false),
-                                          //     ),
-                                          //   ],
-                                          // ),
+
                                           SizedBox(
                                             height: MediaQuery.of(context)
                                                     .size
@@ -813,19 +781,23 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                   ),
                 ),
               ],
-            ),         StreamBuilder(
-              stream: profileBloc.visible,
-              builder: (context, AsyncSnapshot<bool> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data!) {
-                    return const Center(child: LoadingWidget());
+            ),Container(
+              width: 100.w,
+              height: 70.h,
+              child: StreamBuilder(
+                stream: profileBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
                   } else {
                     return Container();
                   }
-                } else {
-                  return Container();
-                }
-              },
+                },
+              ),
             ),
           ],
         ),

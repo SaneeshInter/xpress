@@ -4,17 +4,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../../model/approve_data.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../Constants/strings.dart';
 import '../../../blocs/shift_timesheet_bloc.dart';
+import '../../../model/approve_data.dart';
 import '../../../model/manager_get_time.dart';
 import '../../../model/manager_timesheet.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/utils.dart';
 import '../../Widgets/buttons/book_button.dart';
-import '../../user/home/my_booking_screen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
 
@@ -39,32 +38,26 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   timesheetBloc.dispose();
-  // }
   Future<void> getDataa() async {
     token = await TokenProvider().getToken();
     time_shhet_id = widget.item!.timeSheetId.toString();
     print(token);
     if (null != token) {
-
       timesheetBloc.fetchTimesheetDetails(token!, time_shhet_id);
     } else {
       print("TOKEN NOT FOUND");
     }
   }
+
   void observe() {
     timesheetBloc.approvetimesheet.listen((event) {
-
       Navigator.pop(context);
       var message = event.response?.status?.statusMessage;
-      showAlertDialoge(context, title: Txt.timesheet_updated, message: message!);
+      showAlertDialoge(context,
+          title: Txt.timesheet_updated, message: message!);
     });
     timesheetBloc.timesheetdetails.listen((event) {
       createApproveData(event);
-
     });
   }
 
@@ -84,7 +77,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * .4,
                     child: AutoSizeText(
-                     Txt.time_sheet,
+                      Txt.time_sheet,
                       maxLines: 1,
                       style: TextStyle(
                         color: Constants.colors[1],
@@ -146,7 +139,6 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                   child: BookButton(
                     label: Txt.approve,
                     onPressed: () {
-
                       var json = jsonEncode(
                           approveData.map((e) => e.toJson()).toList());
                       var uploadData = json.toString();
@@ -164,7 +156,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
             ),
             Container(
               width: 100.w,
-              height: 60.h,
+              height: 70.h,
               child: StreamBuilder(
                 stream: timesheetBloc.visible,
                 builder: (context, AsyncSnapshot<bool> snapshot) {

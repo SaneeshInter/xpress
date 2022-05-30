@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 import '../../../blocs/shift_notification_bloc.dart';
 import '../../../model/shift_list_response.dart';
 import '../../../utils/constants.dart';
@@ -55,12 +56,12 @@ class _NotificationState extends State<NotificationScreen> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text('Notificaions', style: boldTextStyle(size: 20)),
+                          Text(Txt.notify, style: boldTextStyle(size: 20)),
                           85.width,
                           16.height,
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 32),
-                            child: Text('There are no notifications found.',
+                            child: Text(Txt.no_notify,
                                 style: primaryTextStyle(size: 15),
                                 textAlign: TextAlign.center),
                           ),
@@ -71,17 +72,7 @@ class _NotificationState extends State<NotificationScreen> {
                           height: 250),
                     ],
                   ),
-                  // StreamBuilder(
-                  //     stream: notificationBloc.allShift,
-                  //     builder: (BuildContext context,
-                  //         AsyncSnapshot<SliftListRepso> snapshot) {
-                  //       if (snapshot.hasData) {
-                  //         return buildList(snapshot);
-                  //       } else if (snapshot.hasError) {
-                  //         return Text(snapshot.error.toString());
-                  //       }
-                  //       return Center(child: CircularProgressIndicator());
-                  //     })
+
                 ])),
           ),
         ),
@@ -114,7 +105,7 @@ class _NotificationState extends State<NotificationScreen> {
               onTapMap: () {},
               onTapBooking: () {
                 print("Tapped");
-                showBookingAlert(context, date: "Saturday 19th February 2022");
+                showBookingAlert(context, date:Txt.sat_feb);
               },
               price: '100',
               startTime: '',

@@ -1,17 +1,18 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../Constants/strings.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
-import '../Widgets/buttons/view_button.dart';
 import 'buttons/book_button.dart';
 
 class LoginAlertBox extends StatefulWidget {
   final String title;
   final String message;
-  LoginAlertBox({Key? key,
-  required this.title,
-  required this.message,
+
+  LoginAlertBox({
+    Key? key,
+    required this.title,
+    required this.message,
   }) : super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class _LoginAlertBoxState extends State<LoginAlertBox> {
     return Container(
       width: screenWidth(context, dividedBy: 1),
       padding: EdgeInsets.symmetric(
-        // horizontal: screenWidth(context, dividedBy: 25),
+          // horizontal: screenWidth(context, dividedBy: 25),
           vertical: screenHeight(context, dividedBy: 70)),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -42,8 +43,8 @@ class _LoginAlertBoxState extends State<LoginAlertBox> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: screenHeight(context, dividedBy: 40)),
-           Text(
-             widget.title,
+            Text(
+              widget.title,
               style: TextStyle(
                   fontSize: 17,
                   color: Constants.colors[3],
@@ -60,7 +61,7 @@ class _LoginAlertBoxState extends State<LoginAlertBox> {
             ),
             SizedBox(height: screenHeight(context, dividedBy: 60)),
             BookButton(
-              label: "CLOSE",
+              label:Txt.close,
               onPressed: () {
                 pop(context);
                 print("Cards booking");
