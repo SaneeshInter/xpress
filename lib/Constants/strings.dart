@@ -204,5 +204,70 @@ class Txt {
   static const faqs = 'FAQs';
   static const contact_us = 'Contact Us';
   static const log_out = 'Log Out';
-  static const under_devlpmnt = 'The screen is under development.';
+  static const under_devlpmnt = 'The screen is under development.';static const no_notify = 'There are no notifications found';
+
+  static const morning = 'Morning';
+  static const day = 'Day';
+  static const after_noon = 'Afternoon';
+  static const night = 'Night';
+  static const sleep_over = 'Sleepover';
+  static const empty = 'Empty';
+  static const no_shifts_working_hrs = 'There are no shift with working hours ';
+
+  static const uplaod_shift_doc = "Upload Shift Document Photos";
+
+  static const upload_timesheets = "Upload Timesheets";
+  static const alert = "Alert";
+  static const select_shift = "Select Shift";
+
+  static const request = "Request";
+
+  static const refresh = "Refresh";
+
+  static const profile_update = "Profile Update";
+
+  static const enter_fst_name = "enter firstname";
+  static const enter_lst_name = "enter last name";
+
+  static const enter_phn_no = "enter phone number";
+  static const select_dob = "select dob";
+  static const enter_address = "enter your address";
+  static const enter_mail = "enter email";
+
+  static const enter_pps_no = "enter pps number";
+
+  static const enter_bank_iban = "enter bankiban";
+  static const enter_bic = "enter bankbic";
+  static const invalid = "Invalid";
+
+  static const select_date = 'Select a date';
+
+  static const send_mail = "Send Mail";
+  static const contact = 'Contact';
+  static const create_shifts = 'Create Shifts';
+  static const view_booking =  "View\nMy Booking "  ;
+  static const approve_timesheets = "Approve Timesheets";
+
+
+
+  static const no_schedule_for_day =  "No schedule found for the selected day";
+  static const failed = 'Failed';
+  static const at = 'At : ';
+  static const view =  "view ";
+  static const delete = "Delete";
+
+
+  static const am_to = 'AM To';
+  static const pm =  "PM ";
+  static const job_details_dot =    " Job Details: ";
+  static const users_request = "Users Request ";
+  static const accept ="Accept";
+
+
+  static const view_timesheets="View Timesheets" ;
+  static const timesheet_updated = "Timesheet Updated";
+  static const approve = 'APPROVE : ';
+
+
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 import '../../../blocs/shift_viewbooking_bloc.dart';
 import '../../../ui/widgets/loading_widget.dart';
 
@@ -39,15 +40,12 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
     observerResponse();
     var date = DateTime.now();
     dateValue = formatDate(date);
-    observerResponse();
+
     getDataFromUi();
     super.initState();
   }
 
   Future getDataFromUi() async {
-    setState(() {
-      visible = true;
-    });
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
     print(token);
@@ -56,13 +54,11 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
     viewbookingBloc.fetchViewbooking(token!, dateValue);
   }
 
-
   @override
   void dispose() {
     super.dispose();
     viewbookingBloc.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -136,8 +132,8 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                                 0) {
                               return buildList(snapshot);
                             } else {
-                              return Text(
-                                  "No schedule found for the selected day");
+                              return Text(Txt.no_schedule_for_day
+                                 );
                             }
                           } else if (snapshot.hasError) {
                             return Text(snapshot.error.toString());
@@ -146,15 +142,24 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                         }),
                   ],
                 ),
-                Visibility(
-                    visible: visible,
-                    child: Container(
-                      width: 100.w,
-                      height: 50.h,
-                      child: const Center(
-                        child: LoadingWidget(),
-                      ),
-                    )),
+                Container(
+                  width: 100.w,
+                  height: 50.h,
+                  child: StreamBuilder(
+                    stream: viewbookingBloc.visible,
+                    builder: (context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!) {
+                          return const Center(child: LoadingWidget());
+                        } else {
+                          return Container();
+                        }
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
           ])),
@@ -170,22 +175,16 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
   void observerResponse() {
     viewbookingBloc.removeshift.listen((event) {
       print(event.response?.status?.statusCode);
-      setState(() {
-        visible = false;
-      });
+
       var message = event.response?.status?.statusMessage;
       if (event.response?.status?.statusCode == 200) {
         getDataFromUi();
       } else {
-        showAlertDialoge(context, title: "Failed", message: message!);
+        showAlertDialoge(context, title: Txt.failed, message: message!);
       }
     });
-    viewbookingBloc.allShifts.listen((event) {
-      setState(() {
-        visible = false;
-      });
-    });
   }
+
   Future deleteShift(rowId) async {
     String? token = await TokenProvider().getToken();
     viewbookingBloc.fetchRemoveManager(token!, rowId.toString());

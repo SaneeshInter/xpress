@@ -5,6 +5,7 @@ import '../../../blocs/shift_timesheet_bloc.dart';
 import '../../../model/manager_timesheet.dart';
 import '../../../ui/user/home/my_booking_screen.dart';
 
+import '../../../Constants/strings.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
@@ -32,7 +33,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
 
   @override
   void initState() {
-    observe();
+
     getData();
     super.initState();
   }
@@ -40,9 +41,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
   Future<void> getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
+
       timesheetBloc.fetchTimesheet(
         token!,
       );
@@ -59,13 +58,6 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
 
 
 
-  void observe() {
-    timesheetBloc.timesheet.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,16 +98,22 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
                 ],
               ),
             ),
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
+            Container(
+              width: 100.w,
+              height: 60.h,
+              child: StreamBuilder(
+                stream: timesheetBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ),
           ],
@@ -150,7 +148,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
               onTapMap: () {},
               onTapBooking: () {
                 print("Tapped");
-                showBookingAlert(context, date: "Show Timesheet");
+                showBookingAlert(context, date: Txt.show_timsheet);
               },
               key: null,
             ),

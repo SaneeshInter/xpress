@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 import '../../../ui/manager/home/approved_timesheet_screen.dart';
-
 import '../../../ui/manager/home/my_shifts_screen.dart';
 import '../../../ui/widgets/loading_widget.dart';
 import '../../../utils/network_utils.dart';
 
+import '../../../Constants/strings.dart';
 import '../../../blocs/manager_home_bloc.dart';
 import '../../../model/manager_home_response.dart';
 import '../../../resources/token_provider.dart';
@@ -48,29 +48,17 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
-  void observe() {
-    managerhomeBloc.managerhomeStream.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
-  }
-
   Future getData() async {
     token = await TokenProvider().getToken();
-    if (null != token) {
-      setState(() {
-        visibility = true;
-      });
-      managerhomeBloc.fetchManagerHome(token);
-    }
+
+    managerhomeBloc.fetchManagerHome(token);
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    observe();
+
     getData();
     pageController = PageController(initialPage: 0);
     pageCount = 3;
@@ -103,7 +91,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * .4,
                           child: AutoSizeText(
-                            "Important Update",
+                            Txt.important_update,
                             maxLines: 1,
                             style: TextStyle(
                               color: Constants.colors[1],
@@ -119,16 +107,22 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                     ],
                   ),
                 ),
-                Center(
-                  child: Visibility(
-                    visible: visibility,
-                    child: Container(
-                      width: 100.w,
-                      height: 80.h,
-                      child: const Center(
-                        child: LoadingWidget(),
-                      ),
-                    ),
+                Container(
+                  width: 100.w,
+                  height: 50.h,
+                  child: StreamBuilder(
+                    stream: managerhomeBloc.visible,
+                    builder: (context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!) {
+                          return const Center(child: LoadingWidget());
+                        } else {
+                          return Container();
+                        }
+                      } else {
+                        return Container();
+                      }
+                    },
                   ),
                 ),
               ],
@@ -145,7 +139,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
         Expanded(
           child: HomeButton(
               onPressed: () => sendingMails("manager@xpress.in"),
-              label: "Send Mail",
+              label: Txt.send_mail,
               asset: "assets/images/icon/email.svg",
               textColors: Constants.colors[0],
               color1: Constants.colors[3],
@@ -155,7 +149,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
         Expanded(
           child: HomeButton(
               onPressed: () => dialCall("8606276916"),
-              label: "Contact",
+              label: Txt.contact,
               asset: "assets/images/icon/phone.svg",
               textColors: Constants.colors[0],
               color1: Constants.colors[6],
@@ -235,7 +229,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                         elevation: 0.0,
                         child: Container(
                           child: Padding(
-                            padding: const EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(13.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -321,11 +315,12 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                 print("ON TAP");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CreateShiftScreenUpdate()),
+                  MaterialPageRoute(
+                      builder: (context) => CreateShiftScreenUpdate()),
                 );
               },
               child: HomeCardItem(
-                  label: "Create Shifts ",
+                  label: Txt.create_shifts,
                   asset: "assets/images/icon/availability.svg")),
           GestureDetector(
             onTap: () {
@@ -335,7 +330,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
               );
             },
             child: HomeCardItem(
-                label: "View\nMy Booking ",
+                label: Txt.view_booking,
                 asset: "assets/images/icon/availability.svg"),
           ),
           GestureDetector(
@@ -347,7 +342,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
               );
             },
             child: HomeCardItem(
-                label: "Approve Timesheets",
+                label: Txt.approve_timesheets,
                 asset: "assets/images/icon/availability.svg"),
           ),
         ],

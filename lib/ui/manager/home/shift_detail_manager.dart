@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
+
 import '../../../../utils/constants.dart';
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../blocs/manager_view_detail.dart';
@@ -46,9 +48,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
 
   Future getData() async {
     if (await isNetworkAvailable()) {
-      setState(() {
-        visibility = true;
-      });
+
       SharedPreferences shdPre = await SharedPreferences.getInstance();
       token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
       print("token inn deta");
@@ -151,7 +151,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                     ),
                                                     CustomRow(
                                                       onPressed: () {},
-                                                      label: "Address: " +
+                                                      label:Txt.address_dot +
                                                           hospitalDetail.address
                                                               .toString(),
                                                       asset:
@@ -162,15 +162,15 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                     if (null != shiftDetails)
                                                       CustomRow(
                                                         onPressed: () {},
-                                                        label: "From " +
+                                                        label: Txt.from +
                                                             shiftDetails
                                                                 .timeFrom
                                                                 .toString() +
-                                                            "AM To " +
+                                                            Txt.am_to +
                                                             shiftDetails
                                                                 .timeFrom
                                                                 .toString() +
-                                                            " PM",
+                                                            Txt.pm,
                                                         asset:
                                                             "assets/images/icon/time.svg",
                                                         textColors:
@@ -221,7 +221,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                       CustomRowz(
                                                         onPressed: () {},
                                                         label:
-                                                            " Job Details: " +
+                                                          Txt.job_details_dot+
                                                                 shiftDetails
                                                                     .jobDetails
                                                                     .toString(),
@@ -320,7 +320,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                 padding: const EdgeInsets.only(left: 16.0),
                                 child: Container(
                                   child: Text(
-                                    "Users Request ",
+                                   Txt.users_request,
                                     style: TextStyle(
                                         fontSize: 11.sp,
                                         color: Colors.black,
@@ -344,9 +344,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                         onTapCall: () {},
                                         onTapMap: () {},
                                         onTapBooking: (JobRequestDetails item) {
-                                          setState(() {
-                                            visibility = true;
-                                          });
+
                                           print("Tapped");
                                           acceptJobRequest(item);
                                         },
@@ -374,16 +372,22 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                     return Container();
                   }
                 }),
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
+            Container(
+              width: 100.w,
+              height: 70.h,
+              child: StreamBuilder(
+                stream: managerviewrequestBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ),
           ],
@@ -393,9 +397,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   }
 
   void acceptJobRequest(JobRequestDetails item) {
-    setState(() {
-      visibility = true;
-    });
+
     managerviewrequestBloc.fetchAcceptJobRequestResponse(
         token!, item.rowId.toString());
   }
@@ -412,19 +414,13 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   }
 
   void observe() {
-    managerviewrequestBloc.managerviewrequest.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
+
 
     managerviewrequestBloc.acceptjobrequest.listen((event) {
-      setState(() {
-        visibility = false;
-      });
+
 
       var message = event.response?.status?.statusMessage;
-      showAlertDialoge(context, title: " Accepted", message: message!);
+      showAlertDialoge(context, title: Txt.accepted, message: message!);
       getData();
     });
   }
