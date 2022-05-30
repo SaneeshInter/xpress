@@ -235,7 +235,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                             EdgeInsets.all(
                                                                                 3.0),
                                                                         labelText:
-                                                                            "Type",
+                                                                         Txt.type,
                                                                         labelStyle:
                                                                             TextStyle(fontSize: 10.sp)),
                                                                 items: snapshot
@@ -346,7 +346,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                           fontSize:
                                                                               10.sp),
                                                                   labelText:
-                                                                      "Category",
+                                                                     Txt.category,
                                                                 ),
                                                                 items: snapshot
                                                                     .data
@@ -452,7 +452,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                           fontSize:
                                                                               10.sp),
                                                                   labelText:
-                                                                      "User Type",
+                                                                      Txt.user_type,
                                                                 ),
                                                                 items: snapshot
                                                                     .data
@@ -545,7 +545,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                             EdgeInsets.all(
                                                                                 3.0),
                                                                         labelText:
-                                                                            "Client",
+                                                                            Txt.client,
                                                                         labelStyle:
                                                                             TextStyle(fontSize: 10.sp)),
                                                                 items: snapshot
@@ -657,7 +657,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                   EdgeInsets
                                                                       .all(3.0),
                                                               labelText:
-                                                                  "Unit Name",
+                                                                Txt.unit_name ,
                                                               labelStyle:
                                                                   TextStyle(
                                                                       fontSize:
@@ -708,7 +708,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               jobtitle))
                                                             return null;
                                                           else
-                                                            return "enter job title";
+                                                            return Txt.enter_job;
                                                         },
                                                         hintText: Txt.jobtitle,
                                                         keyboadType:
@@ -773,7 +773,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                             EdgeInsets.all(
                                                                                 3.0),
                                                                         labelText:
-                                                                            "Shift Type",
+                                                                        Txt.shift_type ,
                                                                         labelStyle:
                                                                             TextStyle(fontSize: 10.sp)),
                                                                 items: snapshot
@@ -849,7 +849,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                         date))
                                                                       return null;
                                                                     else
-                                                                      return "select date";
+                                                                      return Txt.select_date;
                                                                   },
                                                                   onTapDate:
                                                                       () {
@@ -897,10 +897,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                             if (validDate(date))
                                                               return null;
                                                             else
-                                                              return "Enter Price";
+                                                              return Txt.enter_price;
                                                           },
                                                           onTapDate: () {},
-                                                          hintText: "Price",
+                                                          hintText: Txt.price,
                                                           keyboadType:
                                                               TextInputType
                                                                   .number,
@@ -934,7 +934,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                           dateTo))
                                                                         return null;
                                                                       else
-                                                                        return "select time";
+                                                                        return Txt.select_time;
                                                                     },
                                                                     onTapDate:
                                                                         () {
@@ -965,7 +965,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                   dateTo))
                                                                 return null;
                                                               else
-                                                                return "select time";
+                                                                return Txt.select_time;
                                                             },
                                                             onTapDate: () {
                                                               FocusScope.of(
@@ -1002,7 +1002,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                   jobDescri))
                                                                 return null;
                                                               else
-                                                                return "enter job decscription";
+                                                                return Txt.enter_job_descri;
                                                             },
                                                             hintText:
                                                                 Txt.jobDescri,
@@ -1021,7 +1021,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                   Expanded(
                                                     flex: 1,
                                                     child: AutoSizeText(
-                                                      'Allowances',
+                                                      Txt.allowances,
                                                       style: TextStyle(
                                                         fontSize: 13.sp,
                                                         color: Colors.black,
@@ -1051,7 +1051,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         bottom: 5),
                                                     color: Colors.blueAccent,
                                                     child: Text(
-                                                      'Add Allowances',
+                                                    Txt.add_allowances  ,
                                                       style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color: Colors.white,
@@ -1271,7 +1271,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
           Navigator.pop(context);
         }
       } else {
-        showAlertDialoge(context, title: "Failed", message: message!);
+        showAlertDialoge(context, title:Txt.failed, message: message!);
       }
     });
   }
