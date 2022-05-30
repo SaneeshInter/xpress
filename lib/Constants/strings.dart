@@ -246,7 +246,7 @@ class Txt {
   static const send_mail = "Send Mail";
   static const contact = 'Contact';
   static const create_shifts = 'Create Shifts';
-  static const view_booking =  "View\nMy Booking ";
+  static const view_booking =  "View\nMy Booking "  ;
   static const approve_timesheets = "Approve Timesheets";
 
 
@@ -263,6 +263,11 @@ class Txt {
   static const job_details_dot =    " Job Details: ";
   static const users_request = "Users Request ";
   static const accept ="Accept";
+
+
+  static const view_timesheets="View Timesheets" ;
+  static const timesheet_updated = "Timesheet Updated";
+  static const approve = 'APPROVE : ';
 
 
 

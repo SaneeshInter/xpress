@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 import 'package:xpresshealthdev/ui/widgets/buttons/delete_button.dart';
 
 import '../../model/manager_timesheet.dart';
@@ -57,7 +58,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 Row(
                   children: [
                     Text(
-                      "Date : " + widget.items.date!,
+                     Txt.date_dot + widget.items.date!,
                       style: TextStyle(
                           fontSize: 10.sp,
                           color: Colors.grey,
@@ -90,7 +91,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 // ),
                 // SizedBox(width: screenWidth(context, dividedBy: 40)),
                 BuildButton(
-                  label: "View Timesheets",
+                  label: Txt.view_timesheets,
                   onPressed: () {
                     widget.onTapView(widget.items);
                   },
