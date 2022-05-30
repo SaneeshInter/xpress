@@ -257,4 +257,14 @@ class Txt {
   static const view =  "view ";
   static const delete = "Delete";
 
+
+  static const am_to = 'AM To';
+  static const pm =  "PM ";
+  static const job_details_dot =    " Job Details: ";
+  static const users_request = "Users Request ";
+  static const accept ="Accept";
+
+
+
+
 }
