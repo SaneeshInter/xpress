@@ -72,7 +72,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
     super.initState();
     getData();
     profileBloc.getDropDownValues();
-    observe();
+
     listner();
     observerResponse();
   }
@@ -87,9 +87,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
+
         profileBloc.getUserInfo(token);
       } else {
         showInternetNotAvailable();
@@ -107,13 +105,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
     }
   }
 
-  void observe() {
-    profileBloc.getProfileStream.listen((event) {
-      setState(() {
-        visibility = false;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +128,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
         ),
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
-          "Profile Update",
+         Txt.profile_update,
           style: TextStyle(
               fontSize: 17,
               color: Constants.colors[1],
@@ -299,7 +290,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                             name))
                                                           return null;
                                                         else {
-                                                          return "enter firstname";
+                                                          return Txt.enter_fst_name;
                                                         }
                                                       },
                                                       hintText: Txt.first_name,
@@ -317,7 +308,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                     if (validlastname(name))
                                                       return null;
                                                     else {
-                                                      return "enter last name";
+                                                      return Txt.enter_lst_name;
                                                     }
                                                   },
                                                   hintText: Txt.last_name,
@@ -387,7 +378,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                         .all(
                                                                             3.0),
                                                                 labelText:
-                                                                    "Nationality",
+                                                                   Txt.nationality,
                                                                 labelStyle:
                                                                     TextStyle(
                                                                         fontSize:
@@ -486,7 +477,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                   EdgeInsets
                                                                       .all(3.0),
                                                               labelText:
-                                                                  "Gender",
+                                                                 Txt.gender,
                                                             ),
                                                             items: snapshot.data
                                                                 ?.map((item) {
@@ -573,7 +564,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                   EdgeInsets
                                                                       .all(3.0),
                                                               labelText:
-                                                                  "Visa Type ",
+                                                                  Txt.visatype,
                                                             ),
                                                             items: snapshot.data
                                                                 ?.map((item) {
@@ -624,7 +615,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 if (validphonenumber(number))
                                                   return null;
                                                 else
-                                                  return "enter phone number";
+                                                  return Txt.enter_phn_no ;
                                               },
                                               hintText: Txt.phone_number,
                                               keyboadType: TextInputType.number,
@@ -641,7 +632,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 if (validDate(dob))
                                                   return null;
                                                 else
-                                                  return "select dob";
+                                                  return Txt.select_dob;
                                               },
                                               onTapDate: () {
                                                 _selectDate(context, date);
@@ -666,7 +657,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                       if (validadress(address))
                                                         return null;
                                                       else
-                                                        return "enter your address";
+                                                        return Txt.enter_address;
                                                     },
                                                     hintText: Txt.address,
                                                     keyboadType: TextInputType
@@ -691,7 +682,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                       if (validEmail(number))
                                                         return null;
                                                       else
-                                                        return "enter email";
+                                                        return Txt.enter_mail ;
                                                     },
                                                     hintText: Txt.email,
                                                     keyboadType:
@@ -744,7 +735,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                           permission))
                                                         return null;
                                                       else
-                                                        return "enter pps number";
+                                                        return Txt.enter_pps_no;
                                                     },
                                                     onTapDate: () {},
                                                     hintText: Txt.pps_number,
@@ -769,7 +760,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                       if (validbankiban(number))
                                                         return null;
                                                       else
-                                                        return "enter bankiban";
+                                                        return Txt.enter_bank_iban;
                                                     },
                                                     onTapDate: () {},
                                                     hintText: Txt.bankiban,
@@ -794,7 +785,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                       if (validbankbic(number))
                                                         return null;
                                                       else
-                                                        return "enter bankbic";
+                                                        return Txt.enter_bic;
                                                     },
                                                     onTapDate: () {},
                                                     hintText: Txt.bankbic,
@@ -822,17 +813,19 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                   ),
                 ),
               ],
-            ),   Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
-              ),
+            ),         StreamBuilder(
+              stream: profileBloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              },
             ),
           ],
         ),
@@ -892,7 +885,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                           // use the information provided
                         }
                       },
-                      label: "SUBMIT"),
+                      label: Txt.submit),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
 
@@ -974,7 +967,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
       if (event.response?.status?.statusCode == 200) {
         Navigator.pop(context);
       } else {
-        showAlertDialoge(context, title: "Invalid", message: message!);
+        showAlertDialoge(context, title: Txt.invalid, message: message!);
       }
     });
   }
@@ -988,7 +981,7 @@ _selectDate(BuildContext context, TextEditingController dateController) async {
     initialDate: DateTime.now(),
     firstDate: DateTime.now(),
     lastDate: DateTime(2025),
-    helpText: 'Select a date',
+    helpText:Txt.select_date ,
     fieldHintText: "dd-MM-yyyy",
   );
   if (newDate != null) {
