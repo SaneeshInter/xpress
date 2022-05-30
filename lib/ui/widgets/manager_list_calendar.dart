@@ -2,10 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/widgets/buttons/call_button.dart';
+import '../../ui/widgets/buttons/call_button.dart';
 
 import '../../blocs/shift_list_bloc.dart';
-//import 'package:xpresshealthdev/model/viewbooking_response.dart';
+//import '../model/viewbooking_response.dart';
 import '../../model/common/manager_shift.dart';
 import '../../model/manager_shift_calendar_respo.dart';
 import '../../model/manager_shift_calendar_respo.dart';

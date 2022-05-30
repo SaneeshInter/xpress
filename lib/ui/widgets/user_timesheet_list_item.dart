@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../Constants/strings.dart';
 
 import '../../model/user_get_timesheet.dart';
 import '../../utils/constants.dart';
@@ -36,13 +36,7 @@ class _TimeSheetListState extends State<UserTimeSheetListWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-
         widget.onTapView(widget.items);
-
-// Navigator.push(
-//   context,
-//   MaterialPageRoute(builder: (context) =>UserTimeSheetDetails ()),
-// );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -61,7 +55,7 @@ class _TimeSheetListState extends State<UserTimeSheetListWidget> {
               Row(children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
-                    widget.items.firstName!,
+                    widget.items.firstName! + " " +widget.items.lastName!,
                     style: TextStyle(
                         fontSize: 12.sp,
                         color: Colors.black,

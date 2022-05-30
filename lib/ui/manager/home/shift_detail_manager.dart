@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/user/detail/shift_rows.dart';
-import 'package:xpresshealthdev/ui/widgets/loading_widget.dart';
-
 import '../../../../utils/constants.dart';
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../blocs/manager_view_detail.dart';
 import '../../../model/manager_view_request.dart';
+import '../../../ui/user/detail/shift_rows.dart';
+import '../../../ui/widgets/loading_widget.dart';
 import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';

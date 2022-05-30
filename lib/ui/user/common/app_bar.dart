@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
+import '../../../ui/user/sidenav/notification_screen.dart';
 
 import '../../../utils/colors_util.dart';
 

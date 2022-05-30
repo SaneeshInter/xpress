@@ -5,11 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/model/user_home_response.dart';
-import 'package:xpresshealthdev/ui/user/detail/home_card_item.dart';
-import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
+import '../../../model/user_home_response.dart';
+import '../../../ui/user/detail/home_card_item.dart';
+import '../../../ui/user/home/availability_list_screen.dart';
 
 import '../../../Constants/AppColors.dart';
 import '../../../Constants/strings.dart';
@@ -165,7 +166,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                       child: Container(
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: [
                                             AutoSizeText(
                                               Txt.there_are_no_shifts_booked,
@@ -184,7 +185,7 @@ class _HomeScreentate extends State<HomeScreen> {
                               if (null != shiftDetails)
                                 SizedBox(
                                     height:
-                                    screenHeight(context, dividedBy: 100)),
+                                        screenHeight(context, dividedBy: 100)),
                               if (null != shiftDetails)
                                 Column(
                                   children: [
@@ -203,11 +204,11 @@ class _HomeScreentate extends State<HomeScreen> {
                                             children: [
                                               Padding(
                                                 padding:
-                                                const EdgeInsets.fromLTRB(
-                                                    5, 0, 10, 0.0),
+                                                    const EdgeInsets.fromLTRB(
+                                                        5, 0, 10, 0.0),
                                                 child: ClipRRect(
                                                   borderRadius:
-                                                  BorderRadius.circular(50),
+                                                      BorderRadius.circular(50),
                                                   child: Container(
                                                     height: 18.w,
                                                     width: 18.w,
@@ -224,35 +225,41 @@ class _HomeScreentate extends State<HomeScreen> {
                                                     ),
                                                     child: Padding(
                                                       padding:
-                                                      const EdgeInsets.all(
-                                                          15.0),
+                                                          const EdgeInsets.all(
+                                                              15.0),
                                                       child: Column(
                                                         crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                                            CrossAxisAlignment
+                                                                .center,
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                            MainAxisAlignment
+                                                                .center,
                                                         children: [
                                                           AutoSizeText(
-                                                            getDateString(shiftDetails!.date!),
+                                                            getDateString(
+                                                                shiftDetails!
+                                                                    .date!,
+                                                                "d"),
                                                             textAlign: TextAlign
                                                                 .center,
                                                             minFontSize: 0,
                                                             stepGranularity:
-                                                            0.2,
+                                                                0.2,
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
-                                                                fontSize: 14.sp,
+                                                                fontSize: 15.sp,
                                                                 fontFamily:
-                                                                "SFProBold",
+                                                                    "SFProBold",
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .w800),
+                                                                    FontWeight
+                                                                        .w800),
                                                           ),
                                                           AutoSizeText(
-                                                            getDateString(shiftDetails!.date!),
+                                                            getDateString(
+                                                                shiftDetails!
+                                                                    .date!,
+                                                                "yy MMM"),
                                                             minFontSize: 2,
                                                             stepGranularity: 1,
                                                             textAlign: TextAlign
@@ -261,12 +268,12 @@ class _HomeScreentate extends State<HomeScreen> {
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
-                                                                fontSize: 9.sp,
+                                                                fontSize: 10.sp,
                                                                 fontFamily:
-                                                                "SFProMedium",
+                                                                    "SFProMedium",
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .w500),
+                                                                    FontWeight
+                                                                        .w500),
                                                           ),
                                                         ],
                                                       ),
@@ -279,9 +286,9 @@ class _HomeScreentate extends State<HomeScreen> {
                                                     dividedBy: 2),
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   children: [
                                                     AutoSizeText(
                                                       shiftDetails!.hospital!,
@@ -292,30 +299,29 @@ class _HomeScreentate extends State<HomeScreen> {
                                                               .colors[11],
                                                           fontSize: 16.sp,
                                                           fontFamily:
-                                                          "SFProMedium",
+                                                              "SFProMedium",
                                                           fontWeight:
-                                                          FontWeight.w600),
+                                                              FontWeight.w600),
                                                     ),
                                                     SizedBox(
                                                       height: 1.w,
                                                     ),
                                                     AutoSizeText(
-                                                      Txt.on +
-                                                          shiftDetails.date! +
-                                                          Txt.from +
+                                                      getDateString(shiftDetails.date, "MMMd") +
+                                                      " "+  getDateString(shiftDetails.date, "yyyy") +" | " +
                                                           shiftDetails
-                                                              .timeFrom! +
-                                                          Txt.to +
-                                                          shiftDetails.timeTo!,
+                                                              .timeFrom! +" "+
+                                                          shiftDetails.timeTo! ,
+
                                                       maxLines: 1,
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
                                                           color:
-                                                          Colors.blueGrey,
-                                                          fontSize: 12.sp,
+                                                              Colors.blueGrey,
+                                                          fontSize: 10.sp,
                                                           fontFamily: "S",
                                                           fontWeight:
-                                                          FontWeight.w400),
+                                                              FontWeight.w400),
                                                     ),
                                                     SizedBox(
                                                       height: 2.w,
@@ -327,10 +333,10 @@ class _HomeScreentate extends State<HomeScreen> {
                                                           label: shiftDetails!
                                                               .type!,
                                                           asset:
-                                                          "assets/images/icon/swipe-to-right.svg",
+                                                              "assets/images/icon/swipe-to-right.svg",
                                                           backgroundColor:
-                                                          Constants
-                                                              .colors[2],
+                                                              Constants
+                                                                  .colors[2],
                                                           textColors: Constants
                                                               .colors[4],
                                                         ),
@@ -342,10 +348,10 @@ class _HomeScreentate extends State<HomeScreen> {
                                                           label: shiftDetails!
                                                               .category!,
                                                           asset:
-                                                          "assets/images/icon/ward.svg",
+                                                              "assets/images/icon/ward.svg",
                                                           backgroundColor:
-                                                          Constants
-                                                              .colors[2],
+                                                              Constants
+                                                                  .colors[2],
                                                           textColors: Constants
                                                               .colors[6],
                                                         ),
@@ -357,9 +363,9 @@ class _HomeScreentate extends State<HomeScreen> {
                                               const Spacer(),
                                               Container(
                                                   alignment:
-                                                  Alignment.centerRight,
+                                                      Alignment.centerRight,
                                                   transformAlignment:
-                                                  Alignment.centerRight,
+                                                      Alignment.centerRight,
                                                   child: SvgPicture.asset(
                                                       'assets/images/icon/righarrow.svg')),
                                               SizedBox(width: 5),
@@ -396,7 +402,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                 child: Container(
                                   width: MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
-                                    Txt.important_update ,
+                                    Txt.important_update,
                                     maxLines: 1,
                                     style: TextStyle(
                                       color: Colors.black,
@@ -432,7 +438,6 @@ class _HomeScreentate extends State<HomeScreen> {
               },
             ),
           ],
-
         ),
       ),
     );
@@ -708,13 +713,7 @@ class _HomeScreentate extends State<HomeScreen> {
     return;
   }
 
-  String getDateString(String date) {
 
-
-
-
-    return "28";
-  }
 }
 
 class MyBehavior extends ScrollBehavior {

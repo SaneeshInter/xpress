@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:xpresshealthdev/model/user_view_request_response.dart';
+import '../model/user_view_request_response.dart';
 
 import '../model/user_cancel_jobrequest.dart';
 import '../model/user_working_hours.dart';

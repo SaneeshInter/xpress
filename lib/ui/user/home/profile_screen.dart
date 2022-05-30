@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/user/home/profile_edit.dart';
-import 'package:xpresshealthdev/utils/utils.dart';
+import '../../../ui/user/home/profile_edit.dart';
+import '../../../utils/utils.dart';
 
 import '../../../Constants/app_defaults.dart';
 import '../../../Constants/sharedPrefKeys.dart';

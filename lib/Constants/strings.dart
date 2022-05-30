@@ -95,21 +95,17 @@ class Txt {
   static const timeTo = "Time To";
   static const selectResourceType = "Select resource Type";
 
-
   static const gender = "Gender";
   static const dob = "Date of birth";
   static const addres = "Address";
   static const phone_number = "Phone number";
   static const pps_number = "PPS number";
-  static const  permission_to_work_in_ireland= "Permission";
-
-
-
+  static const permission_to_work_in_ireland = "Permission";
 
   static const gender_dot = "Gender : ";
   static const d_o_b = "Date of birth : ";
   static const address_dot = "Address : ";
-  static const phone_number_dot= "Phone number : ";
+  static const phone_number_dot = "Phone number : ";
   static const pps_number_dot = "PPS number : ";
   static const email_dot = "Email : ";
   static const bank_detail = "Bank Details : ";
@@ -123,99 +119,90 @@ class Txt {
   static const permission = "Permission";
   static const bank_details = "Bank Details";
 
-
   static const enter_valid_email = "Enter a valid email address";
   static const enter_valid_password = "Enter a valid password";
-  static const login_failed= "Login Failed";
-  static const someting_went_wrong= "Something went wrong on server side ";
-  static const powered_by= "Powered By Xpress Health ";
-  static const requested_shift= "Requested Shift ";
-  static const completed_shift= "Completed Shift ";
-  static const confirmed_shift= "Confirmed Shift ";
-  static const add_time_sheet= "Add Timesheet ";
-  static const start_time= "Start Time ";
-  static const end_time= "End Time ";
-  static const select_time= "Select time ";
-  static const working_hours= "Working Hours :";
-  static const submit= "Submit";
-  static const accepted= "Accepted";
-  static const pending= "Pending";
-  static const rejected= "Rejected";
-  static const completed= "Completed";
-  static const availability= "Availablity";
+  static const login_failed = "Login Failed";
+  static const someting_went_wrong = "Something went wrong on server side ";
+  static const powered_by = "Powered By Xpress Health ";
+  static const requested_shift = "Requested Shift ";
+  static const completed_shift = "Completed Shift ";
+  static const confirmed_shift = "Confirmed Shift ";
+  static const add_time_sheet = "Add Timesheet ";
+  static const start_time = "Start Time ";
+  static const end_time = "End Time ";
+  static const select_time = "Select time ";
+  static const working_hours = "Working Hours :";
+  static const submit = "Submit";
+  static const accepted = "Accepted";
+  static const pending = "Pending";
+  static const rejected = "Rejected";
+  static const completed = "Completed";
+  static const availability = "Availablity";
 
-  static const my_booking= "My\nBooking";
-  static const next_shift= "Next Shift";
-  static const you_have_no_shifts_booked= "You have no shifts booked , Please request the shift and wait for approval";
-  static const cancel= "Cancel";
-  static const done= "Done";
-  static const there_are_no_shifts_booked= "There are no shift booked.Click to know more";
-  static const on= "On";
-  static const from= "From";
-  static const to= "To";
-  static const important_update=  "Important Update";
-  static const shift_details= "Shift Details";
-  static const calendar="Add to Calender";
-  static const my_availability= "My\nAvailability ";
-  static const submit_timesheets= "Submit\nTimeSheets ";
-  static const find_shift= "Find Shift";
-  static const empty_shifts='Empty Shifts';
-  static const no_shift= 'There are no shift found.';
-  static const request_now= "Request Now";
+  static const my_booking = "My\nBooking";
+  static const next_shift = "Next Shift";
+  static const you_have_no_shifts_booked =
+      "You have no shifts booked , Please request the shift and wait for approval";
+  static const cancel = "Cancel";
+  static const done = "Done";
+  static const there_are_no_shifts_booked =
+      "There are no shift booked.Click to know more";
+  static const on = "On ";
+  static const from = " From ";
+  static const to = " To ";
+  static const important_update = "Important Update";
+  static const shift_details = "Shift Details";
+  static const calendar = "Add to Calender";
+  static const my_availability = "My\nAvailability ";
+  static const submit_timesheets = "Submit\nTimeSheets ";
+  static const find_shift = "Find Shift";
+  static const empty_shifts = 'Empty Shifts';
+  static const no_shift = 'There are no shift found.';
+  static const request_now = "Request Now";
 
+  static const profile = "Profile";
+  static const emp_no = "Emp No :";
+  static const hr = "/hr";
+  static const edit = "Edit";
+  static const prsnl_details = 'Personal Details';
 
-  static const profile= "Profile";
-  static const emp_no= "Emp No :";
-  static const hr="/hr";
-  static const edit= "Edit";
-  static const prsnl_details=  'Personal Details';
+  static const signature = "Signature";
+  static const p_h_d = "People handling document";
+  static const level = "Level certification";
+  static const infection = "Infection prevention control certificate";
+  static const employe = "Employment contract signed";
+  static const pass_id = "Passport Id";
 
-
-  static const signature= "Signature";
-  static const p_h_d="People handling document";
-  static const level="Level certification";
-  static const infection= "Infection prevention control certificate";
-  static const employe=  "Employment contract signed";
-  static const pass_id= "Passport Id";
-
-
-  static const drive= "Do you drive : ";
+  static const drive = "Do you drive : ";
   static const ireland = "Permission to work in ireland : ";
-  static const covid= "Have you got Covid19 vaccination : " ;
-  static const garda_vetting=  "Do you consent garda vetting to be completed: " ;
-  static const tuberculosis= "Tuberculosis vaccination: ";
-  static const hepatits= "Hepatitis B antibody: ";
-  static const id_card= "Id card received: ";
-  static const frm_camera= "From Camera";
-  static const frm_gallery= "From Gallery";
+  static const covid = "Have you got Covid19 vaccination : ";
 
+  static const garda_vetting = "Do you consent garda vetting to be completed: ";
 
-  static const uplod_timesht= "Upload Timesheet";
-  static const submtd_timsht=  "Submitted Timesheet";
+  static const tuberculosis = "Tuberculosis vaccination: ";
+  static const hepatits = "Hepatitis B antibody: ";
+  static const id_card = "Id card received: ";
+  static const frm_camera = "From Camera";
+  static const frm_gallery = "From Gallery";
 
-  static const no_completd_shfts= 'There are no  completed shift found.';
-  static const date_dot=    "Date : ";
+  static const uplod_timesht = "Upload Timesheet";
+  static const submtd_timsht = "Submitted Timesheet";
 
+  static const no_completd_shfts = 'There are no  completed shift found.';
+  static const date_dot = "Date : ";
 
-  static const timesht_details=  "Timesheet Details" ;
-  static const time_sheet= "Time Sheet";
-  static const shifts=  "Shifts";
-  static const show_timsheet=  "Show Timesheet";
+  static const timesht_details = "Timesheet Details";
 
+  static const time_sheet = "Time Sheet";
+  static const shifts = "Shifts";
+  static const show_timsheet = "Show Timesheet";
 
-  static const home=  'Home';
-  static const my_profile='My Profile ';
-  static const notify='Notification';
-  static const completed_shifts= 'Completed Shifts';
-  static const faqs=  'FAQs';
-  static const contact_us= 'Contact Us';
-  static const log_out=   'Log Out';
-  static const under_devlpmnt=    'The screen is under development.';
-
-
-
-
-
-
-
+  static const home = 'Home';
+  static const my_profile = 'My Profile ';
+  static const notify = 'Notification';
+  static const completed_shifts = 'Completed Shifts';
+  static const faqs = 'FAQs';
+  static const contact_us = 'Contact Us';
+  static const log_out = 'Log Out';
+  static const under_devlpmnt = 'The screen is under development.';
 }

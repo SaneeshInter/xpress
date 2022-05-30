@@ -3,7 +3,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/widgets/buttons/call_button.dart';
+import '../../ui/widgets/buttons/call_button.dart';
 
 import '../../blocs/shift_list_bloc.dart';
 import '../../model/user_shift_calender.dart';

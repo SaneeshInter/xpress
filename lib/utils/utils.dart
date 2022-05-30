@@ -217,6 +217,14 @@ Future<int> getDifference(String time1, String time2) async
   return b.difference(a).inHours;
 }
 
+String getDateString(String date, String format) {
+  var dateValue = DateTime.parse(date);
+  var dtFormats = DateFormat(format);
+  String updatedDt = dtFormats.format(dateValue);
+  print("updatedDt");
+  print(updatedDt);
+  return updatedDt;
+}
 
 
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/blocs/shift_viewbooking_bloc.dart';
-import 'package:xpresshealthdev/ui/widgets/loading_widget.dart';
+import '../../../blocs/shift_viewbooking_bloc.dart';
+import '../../../ui/widgets/loading_widget.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../model/viewbooking_response.dart';
