@@ -261,13 +261,19 @@ class Txt {
   static const am_to = 'AM To';
   static const pm =  "PM ";
   static const job_details_dot =    " Job Details: ";
-  static const users_request = "Users Request ";
+  static const users_request = "Users Requestttttt";
   static const accept ="Accept";
+  static const reject ="Reject";
+
 
 
   static const view_timesheets="View Timesheets" ;
   static const timesheet_updated = "Timesheet Updated";
-  static const approve = 'APPROVE : ';
+  static const approve = 'APPROVE';
+  static const enter_job_descri = "enter job decscription";
+
+
+
 
 
 

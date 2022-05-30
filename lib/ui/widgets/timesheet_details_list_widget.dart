@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../model/manager_get_time.dart';
 import '../../utils/constants.dart';
@@ -64,7 +65,7 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                 Row(
                   children: [
                     AutoSizeText(
-                      "At : " + widget.items.hospital!,
+                      Txt.at + widget.items.hospital!,
                       textAlign: TextAlign.start,
                       maxLines: 3,
                       overflow: TextOverflow.visible,
@@ -84,7 +85,7 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                     Padding(
                       padding: const EdgeInsets.only(top: 1.0),
                       child: Text(
-                        "On: " + widget.items.date!,
+                        Txt.on + widget.items.date!,
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],
@@ -94,9 +95,9 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                     Padding(
                       padding: const EdgeInsets.only(top: 3.0),
                       child: Text(
-                        "From " +
+                       Txt.from +
                             widget.items.timeFrom! +
-                            " To " +
+                            Txt.to+
                             widget.items.timeTo!,
                         style: TextStyle(
                             fontSize: 9.sp,
@@ -121,7 +122,7 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("Accept"),
+                      Text(Txt.accept),
                       Container(
                         alignment: Alignment.topLeft,
                         transformAlignment: Alignment.topLeft,
@@ -147,7 +148,7 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                   ),
                   Row(
                     children: [
-                      Text("Reject"),
+                      Text(Txt.reject),
                       Container(
                         child: Checkbox(
                           checkColor: Colors.white,
@@ -182,9 +183,9 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                           if (validDescription(jobDescri))
                             return null;
                           else
-                            return "enter job decscription";
+                            return Txt.enter_job_descri;
                         },
-                        hintText: "Comment",
+                        hintText:Txt.comment,
                         keyboadType: TextInputType.visiblePassword,
                         isPwd: false),
                   ),
