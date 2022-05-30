@@ -6,11 +6,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/error/ConnectionFailedScreen.dart';
-import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
-import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
-import 'package:xpresshealthdev/ui/user/home/profile_screen.dart';
-import 'package:xpresshealthdev/ui/user/imageupload/upload_documents.dart';
+import '../ui/error/ConnectionFailedScreen.dart';
+import '../ui/error/ErrorScreen.dart';
+import '../ui/splash/splash_screen.dart';
+import '../ui/user/home/profile_screen.dart';
+import '../ui/user/imageupload/upload_documents.dart';
 
 class ScreenArguments {
   final String type;

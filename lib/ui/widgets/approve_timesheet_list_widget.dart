@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/Constants/strings.dart';
-import 'package:xpresshealthdev/ui/widgets/buttons/delete_button.dart';
+import '../../ui/widgets/buttons/delete_button.dart';
 
 import '../../model/manager_timesheet.dart';
 import '../../utils/utils.dart';

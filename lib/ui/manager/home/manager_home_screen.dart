@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/manager/home/approved_timesheet_screen.dart';
-import 'package:xpresshealthdev/ui/manager/home/my_shifts_screen.dart';
-import 'package:xpresshealthdev/ui/widgets/loading_widget.dart';
-import 'package:xpresshealthdev/utils/network_utils.dart';
+import '../../../ui/manager/home/approved_timesheet_screen.dart';
+import '../../../ui/manager/home/my_shifts_screen.dart';
+import '../../../ui/widgets/loading_widget.dart';
+import '../../../utils/network_utils.dart';
 
 import '../../../Constants/strings.dart';
 import '../../../blocs/manager_home_bloc.dart';

@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/model/user_view_request_response.dart';
+import '../../model/user_view_request_response.dart';
 
 import '../../ui/Widgets/buttons/view_button.dart';
 import '../../ui/user/detail/shift_detail.dart';

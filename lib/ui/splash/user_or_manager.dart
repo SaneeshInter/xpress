@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/Login/login_screen.dart';
-import 'package:xpresshealthdev/utils/constants.dart';
+import '../../ui/Login/login_screen.dart';
+import '../../utils/constants.dart';
 
 import '../../Constants/strings.dart';
 import '../../Constants/toast.dart';

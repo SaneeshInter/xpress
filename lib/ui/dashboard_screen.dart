@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/user/common/app_bar.dart';
-import 'package:xpresshealthdev/ui/user/common/side_menu.dart';
-import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
-import 'package:xpresshealthdev/ui/user/home/completed_shift_screen.dart';
-import 'package:xpresshealthdev/ui/user/home/home_screen.dart';
-import 'package:xpresshealthdev/ui/user/home/my_booking_screen.dart';
-import 'package:xpresshealthdev/ui/user/home/my_shift_calendar.dart';
+import '../ui/user/common/app_bar.dart';
+import '../ui/user/common/side_menu.dart';
+import '../ui/user/home/availability_list_screen.dart';
+import '../ui/user/home/completed_shift_screen.dart';
+import '../ui/user/home/home_screen.dart';
+import '../ui/user/home/my_booking_screen.dart';
+import '../ui/user/home/my_shift_calendar.dart';
 
 import '../utils/constants.dart';
 

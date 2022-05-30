@@ -147,9 +147,9 @@ class Txt {
   static const done = "Done";
   static const there_are_no_shifts_booked =
       "There are no shift booked.Click to know more";
-  static const on = "On";
-  static const from = "From";
-  static const to = "To";
+  static const on = "On ";
+  static const from = " From ";
+  static const to = " To ";
   static const important_update = "Important Update";
   static const shift_details = "Shift Details";
   static const calendar = "Add to Calender";
@@ -204,8 +204,7 @@ class Txt {
   static const faqs = 'FAQs';
   static const contact_us = 'Contact Us';
   static const log_out = 'Log Out';
-  static const under_devlpmnt = 'The screen is under development.';
-  static const no_notify = 'There are no notifications found';
+  static const under_devlpmnt = 'The screen is under development.';static const no_notify = 'There are no notifications found';
 
   static const morning = 'Morning';
   static const day = 'Day';
@@ -288,7 +287,6 @@ class Txt {
   static const add_allowances ='Add Allowances';
   static const user="User";
   static const view_map =   "View Location Map";
-
 
 
 

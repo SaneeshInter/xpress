@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
-import 'package:xpresshealthdev/blocs/profile_update_bloc.dart';
-import 'package:xpresshealthdev/model/user_get_response.dart';
-import 'package:xpresshealthdev/ui/user/detail/profile_doc_row.dart';
-import 'package:xpresshealthdev/ui/user/detail/profile_question_row.dart';
+import '../../blocs/profile_update_bloc.dart';
+import '../../model/user_get_response.dart';
+import '../../ui/user/detail/profile_doc_row.dart';
+import '../../ui/user/detail/profile_question_row.dart';
 
 import '../../Constants/strings.dart';
 import '../../main.dart';

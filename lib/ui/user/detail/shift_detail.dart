@@ -6,11 +6,11 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xpresshealthdev/blocs/shift_user_details.dart';
-import 'package:xpresshealthdev/model/user_get_shift_details.dart';
-import 'package:xpresshealthdev/ui/user/detail/shift_rows.dart';
-import 'package:xpresshealthdev/ui/widgets/buttons/call_button.dart';
-import 'package:xpresshealthdev/utils/network_utils.dart';
+import '../../../blocs/shift_user_details.dart';
+import '../../../model/user_get_shift_details.dart';
+import '../../../ui/user/detail/shift_rows.dart';
+import '../../../ui/widgets/buttons/call_button.dart';
+import '../../../utils/network_utils.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../blocs/shift_list_bloc.dart';

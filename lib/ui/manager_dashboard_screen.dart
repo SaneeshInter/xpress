@@ -4,13 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/manager/home/approved_timesheet_screen.dart';
-import 'package:xpresshealthdev/ui/manager/home/manager_home_screen.dart';
-import 'package:xpresshealthdev/ui/splash/user_or_manager.dart';
+import '../ui/manager/home/approved_timesheet_screen.dart';
+import '../ui/manager/home/manager_home_screen.dart';
+import '../ui/splash/user_or_manager.dart';
 
-//import 'package:xpresshealthdev/ui/manager/home/manager_calendar_screen.dart';
-import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
-import 'package:xpresshealthdev/utils/constants.dart';
+//import '../ui/manager/home/manager_calendar_screen.dart';
+import '../ui/user/sidenav/notification_screen.dart';
+import '../utils/constants.dart';
 
 import '../db/database.dart';
 import '../utils/colors_util.dart';

@@ -6,10 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
-import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
-import 'package:xpresshealthdev/blocs/user_timesheet_bloc.dart';
-import 'package:xpresshealthdev/ui/user/sidenav/user_time_sheet_details.dart';
+import '../../../Constants/strings.dart';
+import '../../../blocs/shift_completed_bloc.dart';
+import '../../../blocs/user_timesheet_bloc.dart';
+import '../../../ui/user/sidenav/user_time_sheet_details.dart';
 
 import '../../../model/user_get_timesheet.dart';
 import '../../../resources/token_provider.dart';
@@ -97,8 +97,9 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
   @override
   void initState() {
     super.initState();
-    getData();
     observe();
+    getData();
+
   }
 
   void observe() {
@@ -128,7 +129,6 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
   Widget build(BuildContext context) {
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
-
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
@@ -160,10 +160,10 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
           centerTitle: true,
         ),
         backgroundColor: Constants.colors[9],
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Column(children: [
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(children: [
                 StreamBuilder(
                     stream: usertimesheetBloc.timesheetstream,
                     builder: (BuildContext context,
@@ -209,22 +209,22 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                       return Container();
                     }),
               ]),
-              StreamBuilder(
-                stream: usertimesheetBloc.visible,
-                builder: (context, AsyncSnapshot<bool> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!) {
-                      return const Center(child: LoadingWidget());
-                    } else {
-                      return Container();
-                    }
+            ),
+            StreamBuilder(
+              stream: usertimesheetBloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
                   } else {
                     return Container();
                   }
-                },
-              ),
-            ],
-          ),
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ],
         ),
       ),
     );

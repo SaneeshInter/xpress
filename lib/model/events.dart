@@ -1,4 +1,4 @@
-import 'package:xpresshealthdev/model/user_complted_shift.dart';
+import '../model/user_complted_shift.dart';
 
 class Events {
   final DateTime? dateTime;
