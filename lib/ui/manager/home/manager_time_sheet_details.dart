@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/approve_data.dart';
 
 import '../../../../utils/constants.dart';
+import '../../../Constants/strings.dart';
 import '../../../blocs/shift_timesheet_bloc.dart';
 import '../../../model/manager_get_time.dart';
 import '../../../model/manager_timesheet.dart';
@@ -48,9 +49,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
     time_shhet_id = widget.item!.timeSheetId.toString();
     print(token);
     if (null != token) {
-      setState(() {
-        visibility = true;
-      });
+
       timesheetBloc.fetchTimesheetDetails(token!, time_shhet_id);
     } else {
       print("TOKEN NOT FOUND");
@@ -58,22 +57,14 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
   }
   void observe() {
     timesheetBloc.approvetimesheet.listen((event) {
-      if (mounted) {
-        setState(() {
-          visibility = false;
-        });
-      }
+
       Navigator.pop(context);
       var message = event.response?.status?.statusMessage;
-      showAlertDialoge(context, title: "Timesheet Updated", message: message!);
+      showAlertDialoge(context, title: Txt.timesheet_updated, message: message!);
     });
     timesheetBloc.timesheetdetails.listen((event) {
       createApproveData(event);
-      if (mounted) {
-        setState(() {
-          visibility = false;
-        });
-      }
+
     });
   }
 
@@ -93,7 +84,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * .4,
                     child: AutoSizeText(
-                      "Time Sheet",
+                     Txt.time_sheet,
                       maxLines: 1,
                       style: TextStyle(
                         color: Constants.colors[1],
@@ -123,7 +114,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * .4,
                           child: AutoSizeText(
-                            "Shifts",
+                            Txt.shifts,
                             maxLines: 1,
                             style: TextStyle(
                               color: Constants.colors[1],
@@ -153,13 +144,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                 ),
                 Center(
                   child: BookButton(
-                    label: "APPROVE",
+                    label: Txt.approve,
                     onPressed: () {
-                      if (mounted) {
-                        setState(() {
-                          visibility = true;
-                        });
-                      }
+
                       var json = jsonEncode(
                           approveData.map((e) => e.toJson()).toList());
                       var uploadData = json.toString();
@@ -175,16 +162,22 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                 ),
               ],
             ),
-            Center(
-              child: Visibility(
-                visible: visibility,
-                child: Container(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
+            Container(
+              width: 100.w,
+              height: 60.h,
+              child: StreamBuilder(
+                stream: timesheetBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             ),
           ],
@@ -209,7 +202,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                 index: index,
                 onTapBooking: () {
                   print("Tapped");
-                  showBookingAlert(context, date: "Show Timesheet");
+                  showBookingAlert(context, date: Txt.show_timsheet);
                 },
                 key: null,
                 onCheckBoxClicked: (index, status) {
