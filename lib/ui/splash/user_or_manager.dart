@@ -30,12 +30,12 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //_loginResponse();
+
   }
 
   @override
   void dispose() {
-    // _loginBloc.dispose();
+
     super.dispose();
   }
 
@@ -174,7 +174,7 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                             MaterialPageRoute(
                                 builder: (context) => LoginScreen()));
                       },
-                      child: Text('User', style: TextStyle(fontSize: 12.sp)),
+                      child: Text(Txt.user, style: TextStyle(fontSize: 12.sp)),
                       style: ElevatedButton.styleFrom(
                           primary: Colors.white,
                           onPrimary: Constants.colors[10],
@@ -184,27 +184,6 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                                   BorderSide(color: Colors.white, width: 2.0))),
                     ),
 
-                    // child: RaisedButton(
-                    //   onPressed: () async {
-                    //     final prefs = await SharedPreferences.getInstance();
-                    //     await prefs.setBool('user', true);
-                    //     print('Button Clicked');
-                    //     print('Button Clicked');
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => LoginScreen()));
-                    //   },
-                    //   child: Text('User', style: TextStyle(fontSize: 12.sp)),
-                    //   color: Colors.white,
-                    //   //HexColor('#6587da'),
-                    //   textColor: Colors.black,
-                    //
-                    //   elevation: 0,
-                    //   shape: RoundedRectangleBorder(
-                    //     borderRadius: new BorderRadius.circular(7.0),
-                    //   ),
-                    // ),
                   ),
                 ),
                 Padding(

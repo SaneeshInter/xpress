@@ -264,13 +264,31 @@ class Txt {
   static const users_request = "Users Requestttttt";
   static const accept ="Accept";
   static const reject ="Reject";
-
-
-
   static const view_timesheets="View Timesheets" ;
   static const timesheet_updated = "Timesheet Updated";
   static const approve = 'APPROVE';
   static const enter_job_descri = "enter job decscription";
+
+
+  static const connection_failed = 'Connection Failed';
+  static const retry_again =  'Could not connect to the network, Please check & retry again.';
+  static const retry =    " RETRY ";
+  static const type =  "Type";
+  static const category = "Category";
+  static const user_type ="User Type";
+  static const client="Client";
+  static const unit_name =  "Unit Name";
+  static const enter_job = 'enter job title';
+  static const shift_type =    "Shift Type";
+
+
+  static const enter_price =    "Enter Price";
+  static const price =  "Price";
+  static const allowances =  "Allowances";
+  static const add_allowances ='Add Allowances';
+  static const user="User";
+  static const view_map =   "View Location Map";
+
 
 
 

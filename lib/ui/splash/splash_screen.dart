@@ -69,26 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
 
-  //
-  // Future getData() async {
-  //   token = await TokenProvider().getToken();
-  //   if (null != token) {
-  //     if (await isNetworkAvailable()) {
-  //       setState(() {
-  //         visibility = true;
-  //       });
-  //       utility_bloc.fetchUtility();
-  //       profileBloc.getUserInfo(token);
-  //     } else {
-  //       showInternetNotAvailable();
-  //     }
-  //   }
-  // }
 
-  // Future getToken() async {
-  //   token = await TokenProvider().getToken();
-  //   profileBloc.getUserInfo(token);
-  // }
 
   getData() async {
     if (await isNetworkAvailable()) {
@@ -101,10 +82,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      //change status bar icon color
-      // statusBarColor: Colors.white, // Color for Android
+
         statusBarBrightness:
-        Brightness.dark // Dark == white status bar -- for IOS.
+        Brightness.dark
     ));
     return Scaffold(
       body: Container(
@@ -153,7 +133,7 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           }
 
-          //HOSPITALpost
+
           var hospitaist = event.response?.data?.hospitalList;
           if (null != hospitaist) {
             for (var item in hospitaist) {
@@ -173,7 +153,6 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           }
 
-          //allowanceCategory
           var allowanceCategory = event.response?.data?.allowanceCategoryList;
           if (null != allowanceCategory) {
             for (var item in allowanceCategory) {
@@ -185,7 +164,6 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           }
 
-          //allowance
           var allowance = event.response?.data?.allowanceList;
           if (null != allowance) {
             for (var item in allowance) {
@@ -255,7 +233,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void showInternetNotAvailable() {
     Navigator.pushNamed(context, '/nw_error').then((_) {
-      // This block runs when you have returned back to the 1st Page from 2nd.
+
       getData();
     });
   }
