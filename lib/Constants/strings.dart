@@ -260,7 +260,7 @@ class Txt {
   static const am_to = 'AM To';
   static const pm =  "PM ";
   static const job_details_dot =    " Job Details: ";
-  static const users_request = "Users Requestttttt";
+  static const users_request = "Users Request";
   static const accept ="Accept";
   static const reject ="Reject";
   static const view_timesheets="View Timesheets" ;
@@ -287,6 +287,12 @@ class Txt {
   static const add_allowances ='Add Allowances';
   static const user="User";
   static const view_map =   "View Location Map";
+
+
+  static const upload_docs =    "Upload Documents";
+  static const expiry_date =  "Expiry Date";
+  static const expiry_date_req =  "Expiry date required";
+
 
 
 

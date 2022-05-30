@@ -152,19 +152,23 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                 ),
               ],
             ),
-            StreamBuilder(
-              stream: usertimesheetBloc.visible,
-              builder: (context, AsyncSnapshot<bool> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data!) {
-                    return const Center(child: LoadingWidget());
+            Container(
+              width: 100.w,
+              height: 70.h,
+              child: StreamBuilder(
+                stream: usertimesheetBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return Container();
+                    }
                   } else {
                     return Container();
                   }
-                } else {
-                  return Container();
-                }
-              },
+                },
+              ),
             ),
           ],
         ),

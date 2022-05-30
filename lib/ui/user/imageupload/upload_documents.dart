@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../Constants/strings.dart';
 import '../../../blocs/profile_update_bloc.dart';
 import '../../../main.dart';
 import '../../../resources/token_provider.dart';
@@ -74,11 +75,11 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         ),
         //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
         cameraText: Text(
-          "From Camera",
+          Txt.frm_camera,
           style: TextStyle(color: Colors.red),
         ),
         galleryText: Text(
-          "From Gallery",
+          Txt.frm_gallery,
           style: TextStyle(color: Colors.blue),
         ));
     setState(() {
@@ -96,7 +97,6 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   Future<void> getToken() async {
     token = await TokenProvider().getToken();
     if (null != token) {
-
     } else {
       return;
     }
@@ -110,9 +110,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
       setState(() {
         _image = null;
       });
-      showAlertDialoge(context, message: message!, title: "Upload Documents");
-
-
+      showAlertDialoge(context, message: message!, title: Txt.upload_docs);
     });
   }
 
@@ -148,7 +146,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
           ),
           backgroundColor: HexColor("#ffffff"),
           title: AutoSizeText(
-            "Upload Documents",
+            Txt.upload_docs,
             style: TextStyle(
                 fontSize: 17,
                 color: Constants.colors[1],
@@ -227,12 +225,12 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                                     if (validDate(date))
                                       return null;
                                     else
-                                      return "select date";
+                                      return Txt.select_date;
                                   },
                                   onTapDate: () {
                                     selectDate(context, date);
                                   },
-                                  hintText: "Expiry Date",
+                                  hintText: Txt.expiry_date,
                                   keyboadType: TextInputType.none,
                                   isPwd: false),
                             ),
@@ -254,13 +252,13 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                                           File(_image.path), type, date.text);
                                     } else {
                                       showAlertDialoge(context,
-                                          title: "Expiry Date ",
-                                          message: "Expiry date required");
+                                          title: Txt.expiry_date,
+                                          message: Txt.expiry_date_req);
                                     }
                                   } else {
                                     showAlertDialoge(context,
-                                        title: "Alert",
-                                        message: "Upload Timesheet");
+                                        title: Txt.alert,
+                                        message: Txt.uplod_timesht);
                                   }
                                 },
                                 child: Container(
@@ -275,7 +273,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                                         color: Colors.green,
                                       ),
                                       SizedBox(width: 10),
-                                      Text("Upload  Documents"),
+                                      Text(Txt.upload_docs),
                                     ],
                                   ),
                                 ),
@@ -290,19 +288,23 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                   ),
                 ],
               ),
-              StreamBuilder(
-                stream: profileBloc.visible,
-                builder: (context, AsyncSnapshot<bool> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!) {
-                      return const Center(child: LoadingWidget());
+              Container(
+                width: 100.w,
+                height: 70.h,
+                child: StreamBuilder(
+                  stream: profileBloc.visible,
+                  builder: (context, AsyncSnapshot<bool> snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!) {
+                        return const Center(child: LoadingWidget());
+                      } else {
+                        return Container();
+                      }
                     } else {
                       return Container();
                     }
-                  } else {
-                    return Container();
-                  }
-                },
+                  },
+                ),
               ),
             ],
           ),
