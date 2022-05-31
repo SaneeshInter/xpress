@@ -6,10 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
-import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
-import 'package:xpresshealthdev/blocs/user_timesheet_bloc.dart';
-import 'package:xpresshealthdev/ui/user/sidenav/user_time_sheet_details.dart';
+import '../../../Constants/strings.dart';
+import '../../../blocs/shift_completed_bloc.dart';
+import '../../../blocs/user_timesheet_bloc.dart';
+import '../../../ui/user/sidenav/user_time_sheet_details.dart';
 
 import '../../../model/user_get_timesheet.dart';
 import '../../../resources/token_provider.dart';
