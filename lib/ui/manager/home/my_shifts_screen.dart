@@ -10,8 +10,10 @@ import '../../../Constants/sharedPrefKeys.dart';
 import '../../../model/viewbooking_response.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../datepicker/date_picker_widget.dart';
+import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/manager/my_booking_list_widget.dart';
 import '../create_shift_screen_update.dart';
 
@@ -45,13 +47,36 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
     super.initState();
   }
 
-  Future getDataFromUi() async {
-    SharedPreferences shdPre = await SharedPreferences.getInstance();
-    token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
-    print(token);
-    print("dateValue");
-    print(dateValue);
-    viewbookingBloc.fetchViewbooking(token!, dateValue);
+  // Future getDataFromUi() async {
+  //   SharedPreferences shdPre = await SharedPreferences.getInstance();
+  //   token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
+  //   print(token);
+  //   print("dateValue");
+  //   print(dateValue);
+  //   viewbookingBloc.fetchViewbooking(token!, dateValue);
+  //
+  // }
+
+
+  Future<void> getDataFromUi() async {
+    token = await TokenProvider().getToken();
+    if (null != token) {
+      if (await isNetworkAvailable()) {
+        viewbookingBloc.fetchViewbooking(token!, dateValue);
+      } else {
+        showInternetNotAvailable();
+      }
+    }
+  }
+
+  Future<void> showInternetNotAvailable() async {
+    int respo = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
+    );
+    if (respo == 1) {
+      getDataFromUi();
+    }
   }
 
   @override
@@ -127,18 +152,12 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                         builder: (BuildContext context,
                             AsyncSnapshot<ManagerScheduleListResponse>
                                 snapshot) {
-                          if (snapshot.hasData) {
-                            if (snapshot.data?.response?.data?.items?.length !=
-                                0) {
-                              return buildList(snapshot);
-                            } else {
-                              return Text(Txt.no_schedule_for_day
-                                 );
+                          if(!snapshot.hasData || null==snapshot.data  || null == snapshot.data?.response?.data?.items)
+                            {
+                              return Container();
                             }
-                          } else if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
-                          }
-                          return Container();
+                          return buildList(snapshot);
+
                         }),
                   ],
                 ),
@@ -197,10 +216,12 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         var items = snapshot.data?.response?.data?.items![index];
+
         return Column(
           children: [
+            if(null!=items)
             ManagerBookingListWidget(
-              items: items!,
+              items: items,
               onTapView: () {},
               key: null,
               onTapItem: () {},

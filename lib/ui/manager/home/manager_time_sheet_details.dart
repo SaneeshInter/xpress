@@ -125,12 +125,12 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                     stream: timesheetBloc.timesheetdetails,
                     builder: (BuildContext context,
                         AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
-                      if (snapshot.hasData) {
-                        return buildList(snapshot);
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
+                      if (!snapshot.hasData ||
+                          null == snapshot.data ||
+                          null == snapshot.data?.response?.data?.timeSheetDetails) {
+                        return Container();
                       }
-                      return Container();
+                      return buildList(snapshot);
                     }),
                 SizedBox(
                   height: 5.w,
