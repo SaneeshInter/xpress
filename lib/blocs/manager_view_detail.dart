@@ -1,8 +1,9 @@
 import 'package:rxdart/rxdart.dart';
-import '../resources/respository.dart';
+import 'package:xpresshealthdev/resources/respository.dart';
 
 import '../model/accept_job_request.dart';
 import '../model/manager_view_request.dart';
+import '../model/shift_list_response.dart';
 
 class ManagerViewRequestBloc {
   final _repo = Repository();
@@ -35,9 +36,6 @@ class ManagerViewRequestBloc {
     String job_request_row_id,
   ) async {
     _visibility.add(true);
-
-
-
     AcceptJobRequestResponse list =
         await _repo.fetchAcceptJobRequestResponse(token, job_request_row_id);
     _shiftAcceptJobRequest.sink.add(list);

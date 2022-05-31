@@ -10,6 +10,10 @@ class ShiftViewBookingBloc {
   final _removeManagerSchedule =
       PublishSubject<RemoveManagerScheduleResponse>();
 
+
+  final _visibility = PublishSubject<bool>();
+  Stream<bool> get visible => _visibility.stream;
+
   Stream<ManagerScheduleListResponse> get allShifts => _shiftViewBooking.stream;
 
   Stream<RemoveManagerScheduleResponse> get removeshift =>
@@ -17,17 +21,21 @@ class ShiftViewBookingBloc {
 
   //get manager schedule by date
   fetchViewbooking(String token, String date) async {
+    _visibility.add(true);
     ManagerScheduleListResponse list =
         await _repo.fetchViewbooking(token, date);
     _shiftViewBooking.sink.add(list);
+    _visibility.add(false);
   }
 
   //remove manager schedule
   fetchRemoveManager(String token, String rowid) async {
+    _visibility.add(true);
     print(rowid);
     RemoveManagerScheduleResponse list =
         await _repo.fetchRemoveManager(token, rowid);
     _removeManagerSchedule.sink.add(list);
+    _visibility.add(false);
   }
 
   dispose() {
