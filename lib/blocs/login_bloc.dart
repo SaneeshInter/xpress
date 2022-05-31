@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
-import '../model/login_response.dart';
-import '../resources/respository.dart';
+import 'package:xpresshealthdev/model/login_response.dart';
+import 'package:xpresshealthdev/resources/respository.dart';
 
 
 
@@ -31,7 +31,7 @@ class LoginBloc {
     }
   }
   dispose() {
-    _loginbloc.close();
+    // _loginbloc.close();
   }
 }
 

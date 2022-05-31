@@ -7,12 +7,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../../blocs/createshift_manager_bloc.dart';
-import '../../model/allowance_model.dart';
-import '../../model/schedule_categegory_list.dart';
-import '../../model/schedule_hospital_list.dart';
-import '../../model/shift_type_list.dart';
-import '../../utils/validator.dart';
+import 'package:xpresshealthdev/blocs/createshift_manager_bloc.dart';
+import 'package:xpresshealthdev/model/allowance_model.dart';
+import 'package:xpresshealthdev/model/schedule_categegory_list.dart';
+import 'package:xpresshealthdev/model/schedule_hospital_list.dart';
+import 'package:xpresshealthdev/model/shift_type_list.dart';
+import 'package:xpresshealthdev/utils/validator.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../Constants/strings.dart';

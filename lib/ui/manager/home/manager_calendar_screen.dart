@@ -3,9 +3,9 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../../blocs/manager_shift_calendar.dart';
-import '../../../model/manager_shift_calendar_respo.dart';
-import '../../../ui/error/ErrorScreen.dart';
+import 'package:xpresshealthdev/blocs/manager_shift_calendar.dart';
+import 'package:xpresshealthdev/model/manager_shift_calendar_respo.dart';
+import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
 
 import '../../../eventutil/eventutil.dart';
 import '../../../model/common/manager_shift.dart';

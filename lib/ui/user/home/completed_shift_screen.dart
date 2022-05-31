@@ -7,8 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import '../../../blocs/shift_completed_bloc.dart';
-import '../../../ui/bloc/no_data_screen.dart';
+import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
+import 'package:xpresshealthdev/ui/bloc/no_data_screen.dart';
 
 import '../../../Constants/strings.dart';
 import '../../../model/user_complted_shift.dart';

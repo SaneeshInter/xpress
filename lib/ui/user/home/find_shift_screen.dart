@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../../../model/user_getschedule_bydate.dart';
+import 'package:xpresshealthdev/model/user_getschedule_bydate.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../Constants/strings.dart';

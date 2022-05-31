@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../../model/user_getschedule_bydate.dart';
+import 'package:xpresshealthdev/model/user_getschedule_bydate.dart';
 
 import '../home/find_shift_screen.dart';
 

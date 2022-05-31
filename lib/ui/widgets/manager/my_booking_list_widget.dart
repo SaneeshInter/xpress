@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../../model/viewbooking_response.dart';
+import 'package:xpresshealthdev/model/viewbooking_response.dart';
 
 import '../../../Constants/strings.dart';
 import '../../../model/common/manager_shift.dart';

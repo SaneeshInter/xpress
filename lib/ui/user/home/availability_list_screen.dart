@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
-import '../../../blocs/user_availability_bloc.dart';
-import '../../../main.dart';
+import 'package:xpresshealthdev/blocs/user_availability_bloc.dart';
+import 'package:xpresshealthdev/main.dart';
 
 import '../../../Constants/strings.dart';
 import '../../../model/user_availability_btw_date.dart';

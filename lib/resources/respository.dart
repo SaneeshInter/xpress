@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import '../model/login_response.dart';
-import '../model/user_get_response.dart';
-import '../model/user_get_shift_details.dart';
-import '../model/user_home_response.dart';
-import '../model/user_job_request.dart';
-import '../resources/api_provider.dart';
+import 'package:xpresshealthdev/model/login_response.dart';
+import 'package:xpresshealthdev/model/user_get_response.dart';
+import 'package:xpresshealthdev/model/user_get_shift_details.dart';
+import 'package:xpresshealthdev/model/user_home_response.dart';
+import 'package:xpresshealthdev/model/user_job_request.dart';
+import 'package:xpresshealthdev/resources/api_provider.dart';
 
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
