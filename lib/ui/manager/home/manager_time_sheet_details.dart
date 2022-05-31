@@ -93,15 +93,17 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                          child: imageUrl != null
-                              ? InteractiveViewer(
-                                  child: Image.network(
-                                    imageUrl,
-                                    fit: BoxFit.fill,
-                                  ),
-                                )
-                              : Container()),
+                      Center(
+                        child: Container(
+                            child: imageUrl != null
+                                ? InteractiveViewer(
+                                    child: Image.network(
+                                      imageUrl,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                : Container()),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(left: 16, top: 10),
                         child: Container(
