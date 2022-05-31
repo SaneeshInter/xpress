@@ -1,4 +1,4 @@
-import '../model/user_view_request_response.dart';
+import 'package:xpresshealthdev/model/user_view_request_response.dart';
 
 class FilterList {
   List<Items> requested = [];

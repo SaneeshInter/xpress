@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import '../model/user_home_response.dart';
+import 'package:xpresshealthdev/model/user_home_response.dart';
 
 import '../resources/respository.dart';
 

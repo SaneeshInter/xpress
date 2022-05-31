@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/constants.dart';
+import 'package:xpresshealthdev/utils/constants.dart';
 
 class AppDefaults {
   /// Default Paddding Value

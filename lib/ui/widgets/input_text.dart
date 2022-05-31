@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../utils/constants.dart';
+import 'package:xpresshealthdev/utils/constants.dart';
 
 import '../../utils/utils.dart';
 

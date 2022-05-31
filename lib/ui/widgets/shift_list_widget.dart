@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import '../../ui/widgets/buttons/call_button.dart';
+import 'package:xpresshealthdev/ui/widgets/buttons/call_button.dart';
 
 import '../../Constants/strings.dart';
 import '../../blocs/shift_list_bloc.dart';

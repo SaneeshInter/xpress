@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../Constants/strings.dart';
-import '../../../blocs/shift_completed_bloc.dart';
+import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
 import '../../../model/user_complted_shift.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';

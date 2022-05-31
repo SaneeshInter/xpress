@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import '../utils/utils.dart';
+import 'package:xpresshealthdev/utils/utils.dart';
 
 import '../model/user_add_availability.dart';
 import '../model/user_availability_btw_date.dart';

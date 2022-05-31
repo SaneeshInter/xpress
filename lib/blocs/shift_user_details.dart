@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
-import '../model/user_get_shift_details.dart';
-import '../resources/respository.dart';
+import 'package:xpresshealthdev/model/user_get_shift_details.dart';
+import 'package:xpresshealthdev/resources/respository.dart';
 
 class GetUserShiftDetailsBloc {
   final _repo = Repository();

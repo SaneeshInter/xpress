@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
-import '../../../blocs/user_availability_bloc.dart';
-import '../../../ui/widgets/availability_list.dart';
+import 'package:xpresshealthdev/blocs/user_availability_bloc.dart';
+import 'package:xpresshealthdev/ui/widgets/availability_list.dart';
 
 import '../../../model/user_availability_btw_date.dart';
 import '../../../resources/token_provider.dart';

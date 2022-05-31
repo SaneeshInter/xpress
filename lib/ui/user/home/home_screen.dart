@@ -8,9 +8,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import '../../../model/user_home_response.dart';
-import '../../../ui/user/detail/home_card_item.dart';
-import '../../../ui/user/home/availability_list_screen.dart';
+import 'package:xpresshealthdev/model/user_home_response.dart';
+import 'package:xpresshealthdev/ui/user/detail/home_card_item.dart';
+import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
 
 import '../../../Constants/AppColors.dart';
 import '../../../Constants/strings.dart';

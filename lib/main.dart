@@ -6,11 +6,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-import '../ui/error/ConnectionFailedScreen.dart';
-import '../ui/error/ErrorScreen.dart';
-import '../ui/splash/splash_screen.dart';
-import '../ui/user/home/profile_screen.dart';
-import '../ui/user/imageupload/upload_documents.dart';
+import 'package:xpresshealthdev/ui/error/ConnectionFailedScreen.dart';
+import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
+import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
+import 'package:xpresshealthdev/ui/user/home/profile_screen.dart';
+import 'package:xpresshealthdev/ui/user/imageupload/upload_documents.dart';
+
+import 'firebase_options.dart';
 
 class ScreenArguments {
   final String type;
@@ -26,7 +28,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   AwesomeNotifications().initialize(
       // set the icon to null if you want to use the default app icon
       null,

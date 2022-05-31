@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:rxdart/rxdart.dart';
-import '../model/user_documents_response.dart';
-import '../model/user_get_response.dart';
-import '../resources/respository.dart';
+import 'package:xpresshealthdev/model/user_documents_response.dart';
+import 'package:xpresshealthdev/model/user_get_response.dart';
+import 'package:xpresshealthdev/resources/respository.dart';
 
 import '../db/database.dart';
 import '../model/country_list.dart';
