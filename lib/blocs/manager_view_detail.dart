@@ -35,6 +35,9 @@ class ManagerViewRequestBloc {
     String job_request_row_id,
   ) async {
     _visibility.add(true);
+
+
+
     AcceptJobRequestResponse list =
         await _repo.fetchAcceptJobRequestResponse(token, job_request_row_id);
     _shiftAcceptJobRequest.sink.add(list);
