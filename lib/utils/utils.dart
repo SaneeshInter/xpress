@@ -8,6 +8,13 @@ import '../ui/widgets/action_alert_dialoge.dart';
 import '../ui/widgets/add_time_sheet_alert_box.dart';
 import '../ui/widgets/login_invalid_alert.dart';
 
+
+
+void showMessageAndPop(String? message,BuildContext context) {
+  Navigator.pop(context);
+  Fluttertoast.showToast(msg: '$message');
+}
+
 double screenHeight(context, {required double dividedBy}) {
   getPercentage(context);
   return MediaQuery.of(context).size.height / dividedBy;
