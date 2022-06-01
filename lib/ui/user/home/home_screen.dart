@@ -5,13 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_home_response.dart';
 import 'package:xpresshealthdev/ui/user/detail/home_card_item.dart';
 import 'package:xpresshealthdev/ui/user/home/availability_list_screen.dart';
-
 import '../../../Constants/AppColors.dart';
 import '../../../Constants/strings.dart';
 import '../../../blocs/shift_homepage_bloc.dart';
@@ -40,29 +38,19 @@ class _HomeScreentate extends State<HomeScreen> {
   final PageController ctrl = PageController(
     viewportFraction: .7,
   );
-  double? currentPage = 0;
-  bool visibility = false;
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  int devicePixelRatio = 3;
-  int perPageItem = 3;
-  int pageCount = 0;
-  int selectedIndex = 0;
-  int lastPageItemLength = 0;
-  var token;
-  var shiftDetails;
   late PageController pageController;
 
   @override
   void didUpdateWidget(covariant HomeScreen oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 
   Future getData() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
+    homepageBloc.token = await TokenProvider().getToken();
+    if (null != homepageBloc.token) {
       if (await isNetworkAvailable()) {
-        homepageBloc.fetchUserHomepage(token);
+        homepageBloc.fetchUserHomepage();
       } else {
         showInternetNotAvailable();
       }
@@ -84,7 +72,6 @@ class _HomeScreentate extends State<HomeScreen> {
   void initState() {
     super.initState();
     pageController = PageController(initialPage: 0);
-    pageCount = 3;
     getData();
   }
 
@@ -108,13 +95,13 @@ class _HomeScreentate extends State<HomeScreen> {
                       var data = snapshot.data?.response?.data;
                       if (data != null) {
                         if (data.latestShift!.length != 0) {
-                          shiftDetails = data.latestShift![0];
+                          homepageBloc.shiftDetails = data.latestShift![0];
                         }
                         return Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (null != shiftDetails)
+                              if (null != homepageBloc.shiftDetails)
                                 AutoSizeText(
                                   Txt.next_shift,
                                   style: TextStyle(
@@ -124,7 +111,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                     fontFamily: "SFProMedium",
                                   ),
                                 ),
-                              if (null == shiftDetails)
+                              if (null == homepageBloc.shiftDetails)
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: GestureDetector(
@@ -182,11 +169,11 @@ class _HomeScreentate extends State<HomeScreen> {
                                         ),
                                       )),
                                 ),
-                              if (null != shiftDetails)
+                              if (null != homepageBloc.shiftDetails)
                                 SizedBox(
                                     height:
                                         screenHeight(context, dividedBy: 100)),
-                              if (null != shiftDetails)
+                              if (null != homepageBloc.shiftDetails)
                                 Column(
                                   children: [
                                     Card(
@@ -237,7 +224,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                                         children: [
                                                           AutoSizeText(
                                                             getDateString(
-                                                                shiftDetails!
+                                                                homepageBloc
+                                                                    .shiftDetails!
                                                                     .date!,
                                                                 "d"),
                                                             textAlign: TextAlign
@@ -257,7 +245,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                                           ),
                                                           AutoSizeText(
                                                             getDateString(
-                                                                shiftDetails!
+                                                                homepageBloc
+                                                                    .shiftDetails!
                                                                     .date!,
                                                                 "yy MMM"),
                                                             minFontSize: 2,
@@ -291,7 +280,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                                       MainAxisAlignment.start,
                                                   children: [
                                                     AutoSizeText(
-                                                      shiftDetails!.hospital!,
+                                                      homepageBloc.shiftDetails!
+                                                          .hospital!,
                                                       textAlign: TextAlign.left,
                                                       maxLines: 1,
                                                       style: TextStyle(
@@ -307,12 +297,25 @@ class _HomeScreentate extends State<HomeScreen> {
                                                       height: 1.w,
                                                     ),
                                                     AutoSizeText(
-                                                      getDateString(shiftDetails.date, "MMMd") +
-                                                      " "+  getDateString(shiftDetails.date, "yyyy") +" | " +
-                                                          shiftDetails
-                                                              .timeFrom! +" "+
-                                                          shiftDetails.timeTo! ,
-
+                                                      getDateString(
+                                                              homepageBloc
+                                                                  .shiftDetails
+                                                                  .date,
+                                                              "MMMd") +
+                                                          " " +
+                                                          getDateString(
+                                                              homepageBloc
+                                                                  .shiftDetails
+                                                                  .date,
+                                                              "yyyy") +
+                                                          " | " +
+                                                          homepageBloc
+                                                              .shiftDetails
+                                                              .timeFrom! +
+                                                          " " +
+                                                          homepageBloc
+                                                              .shiftDetails
+                                                              .timeTo!,
                                                       maxLines: 1,
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
@@ -330,7 +333,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                                       children: [
                                                         DrawableButton(
                                                           onPressed: () {},
-                                                          label: shiftDetails!
+                                                          label: homepageBloc
+                                                              .shiftDetails!
                                                               .type!,
                                                           asset:
                                                               "assets/images/icon/swipe-to-right.svg",
@@ -345,7 +349,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                                         ),
                                                         DrawableButton(
                                                           onPressed: () {},
-                                                          label: shiftDetails!
+                                                          label: homepageBloc
+                                                              .shiftDetails!
                                                               .category!,
                                                           asset:
                                                               "assets/images/icon/ward.svg",
@@ -373,7 +378,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                           ),
                                         ),
                                         onTap: () {
-                                          LatestShift late = shiftDetails;
+                                          LatestShift late =
+                                              homepageBloc.shiftDetails;
                                           var shiftId = late.rowId.toString();
                                           Navigator.push(
                                             context,
@@ -444,7 +450,7 @@ class _HomeScreentate extends State<HomeScreen> {
   }
 
   Widget equalSizeButtons() {
-    LatestShift late = shiftDetails;
+    LatestShift late = homepageBloc.shiftDetails;
     var shiftId = late.rowId.toString();
     print("shiftId");
     print(shiftId);
@@ -473,7 +479,7 @@ class _HomeScreentate extends State<HomeScreen> {
           child: HomeButton(
               onPressed: () {
                 print("HomeButton");
-                LatestShift late = shiftDetails;
+                LatestShift late = homepageBloc.shiftDetails;
                 final Event event = Event(
                   title: late.jobTitle!,
                   description: late.jobDetails!,
@@ -548,7 +554,7 @@ class _HomeScreentate extends State<HomeScreen> {
                   print("page");
                   print(page);
                   setState(() {
-                    currentPage = page.toDouble();
+                    homepageBloc.currentPage = page.toDouble();
                   });
                 },
                 pageSnapping: true,
@@ -623,7 +629,7 @@ class _HomeScreentate extends State<HomeScreen> {
             ),
             DotsIndicator(
               dotsCount: itemcount!,
-              position: currentPage!,
+              position: homepageBloc.currentPage!,
               decorator: DotsDecorator(
                 color: Constants.colors[37], // Inactive color
                 activeColor: Constants.colors[36],
@@ -712,8 +718,6 @@ class _HomeScreentate extends State<HomeScreen> {
   getDate(String s) {
     return;
   }
-
-
 }
 
 class MyBehavior extends ScrollBehavior {
