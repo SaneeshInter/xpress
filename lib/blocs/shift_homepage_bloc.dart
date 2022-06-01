@@ -4,27 +4,33 @@ import 'package:xpresshealthdev/model/user_home_response.dart';
 import '../resources/respository.dart';
 
 class ShiftHomepageBloc {
+  double? currentPage = 0;
+  bool visibility = false;
+  int devicePixelRatio = 3;
+  int perPageItem = 3;
+  int selectedIndex = 0;
+  int lastPageItemLength = 0;
+  var token;
+  var shiftDetails;
   final _repo = Repository();
-
   final _visibility = PublishSubject<bool>();
 
   Stream<bool> get visible => _visibility.stream;
+  final _userHome = PublishSubject<UserHomeResponse>();
 
-  final _userhome = PublishSubject<UserHomeResponse>();
+  Stream<UserHomeResponse> get userhomeStream => _userHome.stream;
 
-  Stream<UserHomeResponse> get userhomeStream => _userhome.stream;
-
-  fetchUserHomepage(token) async {
+  fetchUserHomepage() async {
     _visibility.add(true);
     UserHomeResponse list = await _repo.fetchUserHomeResponse(token);
-    if (!_userhome.isClosed) {
+    if (!_userHome.isClosed) {
       _visibility.add(false);
-      _userhome.sink.add(list);
+      _userHome.sink.add(list);
     }
   }
 
   dispose() {
-    _userhome.close();
+    _userHome.close();
   }
 }
 

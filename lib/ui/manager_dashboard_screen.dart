@@ -61,66 +61,8 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            stops: [
-              0.3,
-              0.6,
-              0.9,
-              0.12,
-            ],
-            colors: [
-              HexColor("#04b654"),
-              HexColor("#049e95"),
-              HexColor("#049e95"),
-              HexColor("#058dbf"),
-            ],
-          )),
-          child: ListView(
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: [
-              Container(
-                height: 200,
-                child: Container(
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              ListTile(
-                title: const Text('Item 1'),
-                onTap: () {
-                  // Update the state of the app.
-                  // ...
-                },
-              ),
-              ListTile(
-                title: const Text('Item 2'),
-                onTap: () {
-                  // Update the state of the app.
-                  // ...
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
       appBar: AppBar(
-        leading: Container(
-            alignment: Alignment.center,
-            child: SvgPicture.asset(
-              'assets/images/icon/menu.svg',
-              fit: BoxFit.contain,
-              width: 5.w,
-              height: 4.2.w,
-            )),
+
         bottomOpacity: 0.0,
         elevation: 0.0,
         iconTheme: IconThemeData(
@@ -129,11 +71,11 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
         ),
         backgroundColor: HexColor("#ffffff"),
         title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-                alignment: Alignment.center,
+                alignment: Alignment.centerLeft,
                 child: SvgPicture.asset(
                   'assets/images/icon/logo.svg',
                   fit: BoxFit.contain,
