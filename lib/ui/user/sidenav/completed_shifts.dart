@@ -99,118 +99,116 @@ class _CompletedShiftState extends State<CompletedShift> {
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
 
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: SvgPicture.asset(
-              'assets/images/icon/arrow.svg',
-              width: 5.w,
-              height: 4.2.w,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/icon/arrow.svg',
+            width: 5.w,
+            height: 4.2.w,
           ),
-          bottomOpacity: 0.0,
-          elevation: 0.0,
-          iconTheme: IconThemeData(
-            color: Colors.black,
-            //change your color here
-          ),
-          backgroundColor: HexColor("#ffffff"),
-          title: AutoSizeText(
-           Txt.completed_shifts,
-            style: TextStyle(
-                fontSize: 17,
-                color: Constants.colors[1],
-                fontWeight: FontWeight.w700),
-          ),
-          centerTitle: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: Constants.colors[9],
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth(context, dividedBy: 35)),
-                  child: Column(children: [
-                    SizedBox(height: screenHeight(context, dividedBy: 60)),
-                    StreamBuilder(
-                        stream: completeBloc.allShift,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<UserShoiftCompletedResponse>
-                                snapshot) {
-                          if (snapshot.hasData) {
-                            var data = snapshot.data?.response?.data;
-                            if (data?.items != null) {
-                              if (data?.items?.length != 0) {
-                                return buildList(snapshot);
-                              } else {
-                                return Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      20.height,
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(Txt.completed_shift,
-                                              style: boldTextStyle(size: 20)),
-                                          85.width,
-                                          16.height,
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 32),
-                                            child: Text(
-                                             Txt.no_shift,
-                                                style:
-                                                    primaryTextStyle(size: 15),
-                                                textAlign: TextAlign.center),
-                                          ),
-                                        ],
-                                      ),
-                                      150.height,
-                                      Image.asset(
-                                          'assets/images/error/empty_task.png',
-                                          height: 250),
-                                    ],
-                                  ),
-                                );
-                              }
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+          //change your color here
+        ),
+        backgroundColor: HexColor("#ffffff"),
+        title: AutoSizeText(
+         Txt.completed_shifts,
+          style: TextStyle(
+              fontSize: 17,
+              color: Constants.colors[1],
+              fontWeight: FontWeight.w700),
+        ),
+        centerTitle: true,
+      ),
+      backgroundColor: Constants.colors[9],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth(context, dividedBy: 35)),
+                child: Column(children: [
+                  SizedBox(height: screenHeight(context, dividedBy: 60)),
+                  StreamBuilder(
+                      stream: completeBloc.allShift,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<UserShoiftCompletedResponse>
+                              snapshot) {
+                        if (snapshot.hasData) {
+                          var data = snapshot.data?.response?.data;
+                          if (data?.items != null) {
+                            if (data?.items?.length != 0) {
+                              return buildList(snapshot);
+                            } else {
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    20.height,
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(Txt.completed_shift,
+                                            style: boldTextStyle(size: 20)),
+                                        85.width,
+                                        16.height,
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 32),
+                                          child: Text(
+                                           Txt.no_shift,
+                                              style:
+                                                  primaryTextStyle(size: 15),
+                                              textAlign: TextAlign.center),
+                                        ),
+                                      ],
+                                    ),
+                                    150.height,
+                                    Image.asset(
+                                        'assets/images/error/empty_task.png',
+                                        height: 250),
+                                  ],
+                                ),
+                              );
                             }
-                          } else if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
                           }
-                          return Container();
-                        }),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ])),
-              Container(
-                width: 100.w,
-                height: 70.h,
-                child: StreamBuilder(
-                  stream: completeBloc.visible,
-                  builder: (context, AsyncSnapshot<bool> snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data!) {
-                        return const Center(child: LoadingWidget());
-                      } else {
+                        } else if (snapshot.hasError) {
+                          return Text(snapshot.error.toString());
+                        }
                         return Container();
-                      }
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ])),
+            Container(
+              width: 100.w,
+              height: 70.h,
+              child: StreamBuilder(
+                stream: completeBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
                     } else {
                       return Container();
                     }
-                  },
-                ),
+                  } else {
+                    return Container();
+                  }
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

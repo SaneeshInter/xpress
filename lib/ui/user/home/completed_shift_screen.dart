@@ -136,67 +136,65 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
   Widget build(BuildContext context) {
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            getData();
-          },
-          label: const Text(Txt.refresh),
-          icon: const Icon(Icons.refresh),
-          backgroundColor: Colors.green,
-        ),
-        backgroundColor: Constants.colors[9],
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth(context, dividedBy: 35)),
-                  child: Column(children: [
-                    StreamBuilder(
-                        stream: completeBloc.allShift,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<UserShoiftCompletedResponse>
-                                snapshot) {
-                          if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
-                          }
-                          if (!snapshot.hasData ||
-                              null == snapshot.data?.response?.data?.items ||
-                              snapshot.data?.response?.data?.items?.length ==
-                                  0) {
-                            return NoDataWidget(
-                                tittle: Txt.empty,
-                                description:
-                                    Txt.no_shifts_working_hrs,
-                                asset_image:
-                                    "assets/images/error/empty_task.png");
-                          }
-                          return buildList(snapshot);
-                        }),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ])),
-            ),
-            StreamBuilder(
-              stream: completeBloc.visible,
-              builder: (context, AsyncSnapshot<bool> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data!) {
-                    return const Center(child: LoadingWidget());
-                  } else {
-                    return Container();
-                  }
+    return Scaffold(
+      key: _scaffoldKey,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          getData();
+        },
+        label: const Text(Txt.refresh),
+        icon: const Icon(Icons.refresh),
+        backgroundColor: Colors.green,
+      ),
+      backgroundColor: Constants.colors[9],
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth(context, dividedBy: 35)),
+                child: Column(children: [
+                  StreamBuilder(
+                      stream: completeBloc.allShift,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<UserShoiftCompletedResponse>
+                              snapshot) {
+                        if (snapshot.hasError) {
+                          return Text(snapshot.error.toString());
+                        }
+                        if (!snapshot.hasData ||
+                            null == snapshot.data?.response?.data?.items ||
+                            snapshot.data?.response?.data?.items?.length ==
+                                0) {
+                          return NoDataWidget(
+                              tittle: Txt.empty,
+                              description:
+                                  Txt.no_shifts_working_hrs,
+                              asset_image:
+                                  "assets/images/error/empty_task.png");
+                        }
+                        return buildList(snapshot);
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ])),
+          ),
+          StreamBuilder(
+            stream: completeBloc.visible,
+            builder: (context, AsyncSnapshot<bool> snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data!) {
+                  return const Center(child: LoadingWidget());
                 } else {
                   return Container();
                 }
-              },
-            ),
-          ],
-        ),
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ],
       ),
     );
   }

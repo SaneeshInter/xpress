@@ -33,48 +33,46 @@ class _NotificationState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: Drawer(
-          child: SideMenu(),
-        ),
-        appBar: AppBarCommon(
-          _scaffoldKey,
-          scaffoldKey: _scaffoldKey,
-        ),
-        backgroundColor: Constants.colors[2],
-        body: SingleChildScrollView(
-          child: Center(
-            child: Container(
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        child: SideMenu(),
+      ),
+      appBar: AppBarCommon(
+        _scaffoldKey,
+        scaffoldKey: _scaffoldKey,
+      ),
+      backgroundColor: Constants.colors[2],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
 
-                child: Column(children: [
-                  SizedBox(height: screenHeight(context, dividedBy: 60)),
-                  Column(
-                    children: [
-                      20.height,
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(Txt.notify, style: boldTextStyle(size: 20)),
-                          85.width,
-                          16.height,
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 32),
-                            child: Text(Txt.no_notify,
-                                style: primaryTextStyle(size: 15),
-                                textAlign: TextAlign.center),
-                          ),
-                        ],
-                      ),
-                      150.height,
-                      Image.asset('assets/images/icon/bell.png',
-                          height: 250),
-                    ],
-                  ),
+              child: Column(children: [
+                SizedBox(height: screenHeight(context, dividedBy: 60)),
+                Column(
+                  children: [
+                    20.height,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(Txt.notify, style: boldTextStyle(size: 20)),
+                        85.width,
+                        16.height,
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 32),
+                          child: Text(Txt.no_notify,
+                              style: primaryTextStyle(size: 15),
+                              textAlign: TextAlign.center),
+                        ),
+                      ],
+                    ),
+                    150.height,
+                    Image.asset('assets/images/icon/bell.png',
+                        height: 250),
+                  ],
+                ),
 
-                ])),
-          ),
+              ])),
         ),
       ),
     );
