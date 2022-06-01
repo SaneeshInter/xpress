@@ -52,7 +52,7 @@ class _CustomRowState extends State<ProfileDocRow> {
                     maxLines: 2,
                   ),
                 ),
-                    if(widget.url.isNotEmpty)
+                    if(widget.url.isNotEmpty && widget.url!="")
                     Expanded(
                       flex: 1,
                       child: Container(
@@ -62,7 +62,7 @@ class _CustomRowState extends State<ProfileDocRow> {
                            "assets/images/icon/check.svg",
                           )),
                     ),
-                    if(widget.url.isEmpty)
+                    if(widget.url.isEmpty && widget.url!="")
                     Expanded(
                       flex: 1,
                       child: Container(
