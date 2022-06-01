@@ -21,6 +21,7 @@ import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../Widgets/buttons/book_button.dart';
 import '../../Widgets/buttons/submit_button.dart';
+import '../../widgets/buttons/book_button_green.dart';
 import '../../widgets/buttons/login_button.dart';
 import '../common/app_bar.dart';
 import '../common/side_menu.dart';
@@ -120,8 +121,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                               'assets/images/icon/loading_bar.gif',
                                               image: hospitalDetail.photo!,
                                               placeholderScale: 4,
-
-
+                                              fit: BoxFit.cover,
                                             ),
 
                                           ),
@@ -360,7 +360,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                         child: Column(
                                           children: [
                                             if(shiftDetails?.if_requested == 0)
-                                              LoginButton(
+                                              BookButtonGreen(
                                                   onPressed: () async {
                                                     // use the information provided
                                                     requestShift();

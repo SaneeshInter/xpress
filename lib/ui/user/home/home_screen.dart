@@ -226,7 +226,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                     child: Padding(
                                                       padding:
                                                           const EdgeInsets.all(
-                                                              15.0),
+                                                              13.0),
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
