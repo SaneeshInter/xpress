@@ -94,8 +94,8 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                                       placeholder:
                                           'assets/images/icon/loading_bar.gif',
                                       image: imageUrl,
-                                      placeholderScale: 1,
-                                      fit: BoxFit.cover,
+                                      placeholderScale: 4,
+
                                     ),
                                   )
                                 : Container(

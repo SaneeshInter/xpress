@@ -269,6 +269,46 @@ class ApiProvider {
 
   }
 
+
+//new   approvel
+
+
+  Future<ManagerTimeSheetResponse> managerApprovel(String token) async {
+
+    try{
+      var uri = Uri.parse(BASE_URL + "/manager/get-completed-time-sheet");
+      final response = await client.post(uri,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'token': token,
+          },
+          body: jsonEncode(<String, String>{}));
+
+      print("Completed approvel" + token);
+
+      print(jsonEncode(<String, String>{}).toString());
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        return ManagerTimeSheetResponse.fromJson(json.decode(response.body));
+      } else {
+        return ManagerTimeSheetResponse();
+      }
+    }catch(e){
+      print(e.toString());
+      return ManagerTimeSheetResponse();
+    }
+
+  }
+
+
+
+
+
+
+
+
+
   Future<UserTimeSheetDetailsRespo> userGetTimeDetails(
       String token, String time_shhet_id) async {
     try{

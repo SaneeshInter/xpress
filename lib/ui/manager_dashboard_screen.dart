@@ -9,14 +9,13 @@ import '../ui/manager/home/approved_timesheet_screen.dart';
 import '../ui/manager/home/manager_home_screen.dart';
 import '../ui/splash/user_or_manager.dart';
 
-//import '../ui/manager/home/manager_calendar_screen.dart';
-import '../ui/user/sidenav/notification_screen.dart';
 import '../utils/constants.dart';
 
 import '../db/database.dart';
 import '../utils/colors_util.dart';
 
 
+import 'manager/home/completed_approvel.dart';
 import 'manager/home/manager_calendar_screen.dart';
 import 'manager/home/my_shifts_screen.dart';
 
@@ -37,7 +36,8 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
     ManagerfindshiftCalendar(),
 
     ManagerShiftsScreen(),
-    ApprovedTimeSheetScreen()
+    ApprovedTimeSheetScreen(),
+    CompletedApprovelScreen(),
   ];
 
   late PersistentTabController _controller;
@@ -221,7 +221,14 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.calendar_badge_plus),
-      title: (Txt.approve_timesheets),
+      title: (Txt.time_sheets),
+      iconSize: 6.w,
+      activeColorPrimary: Constants.colors[6],
+      inactiveColorPrimary: CupertinoColors.systemGrey,
+    ),
+    PersistentBottomNavBarItem(
+      icon: Icon(CupertinoIcons.calendar_badge_plus),
+      title: (Txt.approved),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,

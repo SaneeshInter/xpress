@@ -176,6 +176,9 @@ class Repository {
       apiProvider.geProfileQuestions(token,key,value);
 
 
+  Future<ManagerTimeSheetResponse> fetchcompletedApprovel(String token ) =>
+      apiProvider.managerApprovel(token);
+
 
 
   Future<ProfileUpdateRespo> ProfileUser(

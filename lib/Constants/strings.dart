@@ -194,6 +194,7 @@ class Txt {
   static const timesht_details = "Timesheet Details";
 
   static const time_sheet = "Time Sheet";
+  static const time_sheets = "Time Sheets";
   static const shifts = "Shifts";
   static const show_timsheet = "Show Timesheet";
 
@@ -312,6 +313,7 @@ class Txt {
   static const request_caps ="REQUEST NOW";
   static const view_shift="View Shift";
   static const booking =   "Booking";
+  static const approved =   "Approved";
 
 
 

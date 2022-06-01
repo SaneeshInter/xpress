@@ -129,103 +129,101 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
   Widget build(BuildContext context) {
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: SvgPicture.asset(
-              'assets/images/icon/arrow.svg',
-              width: 5.w,
-              height: 4.2.w,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/icon/arrow.svg',
+            width: 5.w,
+            height: 4.2.w,
           ),
-          bottomOpacity: 0.0,
-          elevation: 0.0,
-          iconTheme: IconThemeData(
-            color: Colors.black,
-            //change your color here
-          ),
-          backgroundColor: HexColor("#ffffff"),
-          title: AutoSizeText(
-            Txt.submtd_timsht,
-            style: TextStyle(
-                fontSize: 17,
-                color: Constants.colors[1],
-                fontWeight: FontWeight.w700),
-          ),
-          centerTitle: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: Constants.colors[9],
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(children: [
-                StreamBuilder(
-                    stream: usertimesheetBloc.timesheetstream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<UserTimeSheetRespo> snapshot) {
-                      if (snapshot.hasData) {
-                        var data = snapshot.data?.response?.data;
-                        if (data?.timeSheetInfo != null) {
-                          if (data?.timeSheetInfo?.length != 0) {
-                            return buildList(snapshot);
-                          } else {
-                            return Center(
-                              child: Column(
-                                children: [
-                                  20.height,
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(Txt.submtd_timsht,
-                                          style: boldTextStyle(size: 20)),
-                                      85.width,
-                                      16.height,
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 32),
-                                        child: Text(Txt.no_completd_shfts,
-                                            style: primaryTextStyle(size: 15),
-                                            textAlign: TextAlign.center),
-                                      ),
-                                    ],
-                                  ),
-                                  150.height,
-                                  Image.asset(
-                                      'assets/images/error/empty_task.png',
-                                      height: 250),
-                                ],
-                              ),
-                            );
-                          }
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+          //change your color here
+        ),
+        backgroundColor: HexColor("#ffffff"),
+        title: AutoSizeText(
+          Txt.submtd_timsht,
+          style: TextStyle(
+              fontSize: 17,
+              color: Constants.colors[1],
+              fontWeight: FontWeight.w700),
+        ),
+        centerTitle: true,
+      ),
+      backgroundColor: Constants.colors[9],
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(children: [
+              StreamBuilder(
+                  stream: usertimesheetBloc.timesheetstream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<UserTimeSheetRespo> snapshot) {
+                    if (snapshot.hasData) {
+                      var data = snapshot.data?.response?.data;
+                      if (data?.timeSheetInfo != null) {
+                        if (data?.timeSheetInfo?.length != 0) {
+                          return buildList(snapshot);
+                        } else {
+                          return Center(
+                            child: Column(
+                              children: [
+                                20.height,
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(Txt.submtd_timsht,
+                                        style: boldTextStyle(size: 20)),
+                                    85.width,
+                                    16.height,
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 32),
+                                      child: Text(Txt.no_completd_shfts,
+                                          style: primaryTextStyle(size: 15),
+                                          textAlign: TextAlign.center),
+                                    ),
+                                  ],
+                                ),
+                                150.height,
+                                Image.asset(
+                                    'assets/images/error/empty_task.png',
+                                    height: 250),
+                              ],
+                            ),
+                          );
                         }
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
                       }
-                      return Container();
-                    }),
-              ]),
-            ),
-            StreamBuilder(
-              stream: usertimesheetBloc.visible,
-              builder: (context, AsyncSnapshot<bool> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data!) {
-                    return const Center(child: LoadingWidget());
-                  } else {
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
                     return Container();
-                  }
+                  }),
+            ]),
+          ),
+          StreamBuilder(
+            stream: usertimesheetBloc.visible,
+            builder: (context, AsyncSnapshot<bool> snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data!) {
+                  return const Center(child: LoadingWidget());
                 } else {
                   return Container();
                 }
-              },
-            ),
-          ],
-        ),
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ],
       ),
     );
   }
