@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../../utils/constants.dart';
 import '../../../Constants/strings.dart';
 import '../../../blocs/shift_timesheet_bloc.dart';
@@ -27,23 +23,19 @@ class ManagerTimeSheetDetails extends StatefulWidget {
 }
 
 class _CreateShiftState extends State<ManagerTimeSheetDetails> {
-  var token;
-  var time_shhet_id = "";
-  List<ApproveData> approveData = [];
-
   @override
   void initState() {
     observe();
-    getDataa();
+    getData();
     super.initState();
   }
 
-  Future<void> getDataa() async {
-    token = await TokenProvider().getToken();
-    time_shhet_id = widget.item!.timeSheetId.toString();
-    print(token);
-    if (null != token) {
-      timesheetBloc.fetchTimesheetDetails(token!, time_shhet_id);
+  Future<void> getData() async {
+    timesheetBloc.token = await TokenProvider().getToken();
+    timesheetBloc.time_shhet_id = widget.item!.timeSheetId.toString();
+    print(timesheetBloc.token);
+    if (null != timesheetBloc.token) {
+      timesheetBloc.fetchTimesheetDetails();
     } else {
       print("TOKEN NOT FOUND");
     }
@@ -95,14 +87,21 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                     children: [
                       Center(
                         child: Container(
+                            height: 60.h,
                             child: imageUrl != null
                                 ? InteractiveViewer(
-                                    child: Image.network(
-                                      imageUrl,
-                                      fit: BoxFit.fill,
+                                    child: FadeInImage.assetNetwork(
+                                      placeholder:
+                                          'assets/images/icon/loading_bar.gif',
+                                      image: imageUrl,
+                                      placeholderScale: 1,
+                                      fit: BoxFit.cover,
                                     ),
                                   )
-                                : Container()),
+                                : Container(
+                                    height: 10,
+                                    color: Colors.red,
+                                  )),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 16, top: 10),
@@ -129,28 +128,12 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
                         AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
                       if (!snapshot.hasData ||
                           null == snapshot.data ||
-                          null == snapshot.data?.response?.data?.timeSheetDetails) {
+                          null ==
+                              snapshot.data?.response?.data?.timeSheetDetails) {
                         return Container();
                       }
                       return buildList(snapshot);
                     }),
-                SizedBox(
-                  height: 5.w,
-                ),
-                Center(
-                  child: BookButton(
-                    label: Txt.approve,
-                    onPressed: () {
-                      var json = jsonEncode(
-                          approveData.map((e) => e.toJson()).toList());
-                      var uploadData = json.toString();
-                      print("Cards booking");
-                      print(uploadData);
-                      timesheetBloc.approveTimeSheet(token, uploadData);
-                    },
-                    key: null,
-                  ),
-                ),
                 SizedBox(
                   height: 10.w,
                 ),
@@ -181,38 +164,57 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
   }
 
   Widget buildList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
-    return ListView.builder(
-      itemCount: snapshot.data?.response?.data?.timeSheetDetails?.length,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        if (null != snapshot.data?.response?.data?.timeSheetDetails) {
-          TimeSheetDetails? timeSheetDetails =
-              snapshot.data?.response?.data?.timeSheetDetails![index];
-          return Column(
-            children: [
-              TimeSheetDetailsListWidget(
-                items: timeSheetDetails!,
-                index: index,
-                onTapBooking: () {
-                  print("Tapped");
-                  showBookingAlert(context, date: Txt.show_timsheet);
-                },
-                key: null,
-                onCheckBoxClicked: (index, status) {
-                  approveData[index].status = status;
-                },
-                textChange: (comment, index) {
-                  approveData[index].comment = comment;
-                },
-              ),
-              SizedBox(height: screenHeight(context, dividedBy: 100)),
-            ],
-          );
-        } else {
-          return Container();
-        }
-      },
+    var length = snapshot.data?.response?.data?.timeSheetDetails?.length;
+
+    return Column(
+      children: [
+        ListView.builder(
+          itemCount: length,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            if (null != snapshot.data?.response?.data?.timeSheetDetails) {
+              TimeSheetDetails? timeSheetDetails =
+                  snapshot.data?.response?.data?.timeSheetDetails![index];
+              return Column(
+                children: [
+                  TimeSheetDetailsListWidget(
+                    items: timeSheetDetails!,
+                    index: index,
+                    onTapBooking: () {
+                      print("Tapped");
+                      showBookingAlert(context, date: Txt.show_timsheet);
+                    },
+                    key: null,
+                    onCheckBoxClicked: (index, status) {
+                      timesheetBloc.approveData[index].status = status;
+                    },
+                    textChange: (comment, index) {
+                      timesheetBloc.approveData[index].comment = comment;
+                    },
+                  ),
+                  SizedBox(height: screenHeight(context, dividedBy: 100)),
+                ],
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
+        SizedBox(
+          height: 5.w,
+        ),
+        if (length != 0)
+          Center(
+            child: BookButton(
+              label: Txt.approve,
+              onPressed: () {
+                timesheetBloc.approveTimeSheet();
+              },
+              key: null,
+            ),
+          ),
+      ],
     );
   }
 
@@ -220,9 +222,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
     var listItem = event.response?.data?.timeSheetDetails;
     for (TimeSheetDetails item in listItem!) {
       ApproveData data = ApproveData();
-      data.timesheetId = time_shhet_id;
+      data.timesheetId = timesheetBloc.time_shhet_id;
       data.scheduleId = item.shiftRowId.toString();
-      approveData.add(data);
+      timesheetBloc.approveData.add(data);
     }
   }
 }
