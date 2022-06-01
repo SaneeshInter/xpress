@@ -187,7 +187,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                       child: Column(children: [
                         SizedBox(
                             height: screenHeight(context, dividedBy: 60)),
-                        if (null != imageUri && null == _image)
+                        if (null != imageUri && imageUri!="" && null == _image )
                           Container(
                               height: 70.h,
                               width: 100.w,
