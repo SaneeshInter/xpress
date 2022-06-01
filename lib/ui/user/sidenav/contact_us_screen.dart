@@ -46,74 +46,72 @@ class _ContactScreenState extends State<ContactScreen> {
     final FixedExtentScrollController itemController =
     FixedExtentScrollController();
 
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          leading: IconButton(
-            icon: SvgPicture.asset(
-              'assets/images/icon/arrow.svg',
-              width: 5.w,
-              height: 4.2.w,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            'assets/images/icon/arrow.svg',
+            width: 5.w,
+            height: 4.2.w,
           ),
-          bottomOpacity: 0.0,
-          elevation: 0.0,
-          iconTheme: IconThemeData(
-            color: Colors.black,
-
-          ),
-          backgroundColor: HexColor("#ffffff"),
-          title: AutoSizeText(
-           Txt.contact_us,
-            style: TextStyle(
-                fontSize: 17,
-                color: Constants.colors[1],
-                fontWeight: FontWeight.w700),
-          ),
-          centerTitle: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: Constants.colors[9],
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth(context, dividedBy: 5)),
-                  child: Column(
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        iconTheme: IconThemeData(
+          color: Colors.black,
 
-                    children: [
-                      20.height,
-                      Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.start,
-                        children: [
-                          Text(Txt.contact_us,
-                              style: boldTextStyle(size: 20)),
-                          85.width,
-                          16.height,
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 32),
-                            child: Text(
-                              Txt.under_devlpmnt,
-                                style: primaryTextStyle(size: 15),
-                                textAlign: TextAlign.center),
-                          ),
-                        ],
-                      ),
-                      150.height,
-                      Image.asset(
-                          'assets/images/icon/work.png',
-                          height: 250),
-                    ],
-                  )),
+        ),
+        backgroundColor: HexColor("#ffffff"),
+        title: AutoSizeText(
+         Txt.contact_us,
+          style: TextStyle(
+              fontSize: 17,
+              color: Constants.colors[1],
+              fontWeight: FontWeight.w700),
+        ),
+        centerTitle: true,
+      ),
+      backgroundColor: Constants.colors[9],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth(context, dividedBy: 5)),
+                child: Column(
 
-            ],
-          ),
+                  children: [
+                    20.height,
+                    Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.start,
+                      children: [
+                        Text(Txt.contact_us,
+                            style: boldTextStyle(size: 20)),
+                        85.width,
+                        16.height,
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 32),
+                          child: Text(
+                            Txt.under_devlpmnt,
+                              style: primaryTextStyle(size: 15),
+                              textAlign: TextAlign.center),
+                        ),
+                      ],
+                    ),
+                    150.height,
+                    Image.asset(
+                        'assets/images/icon/work.png',
+                        height: 250),
+                  ],
+                )),
+
+          ],
         ),
       ),
     );

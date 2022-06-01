@@ -100,6 +100,10 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                       ),
                     ),
                   ),
+
+
+
+
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
@@ -107,13 +111,16 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                          child: imageUrl != null
-                              ? Image.network(
-                                  imageUrl,
-                                  fit: BoxFit.fill,
-                                )
-                              : Container()),
+                      Center(
+                        child: Container(
+
+                            child: imageUrl != null
+                                ? Image.network(
+                                    imageUrl,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Container()),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(left: 16, top: 10),
                         child: Container(
