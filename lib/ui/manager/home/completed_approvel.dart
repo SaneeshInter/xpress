@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../Constants/strings.dart';
 import '../../../blocs/manager_completed_approvel.dart';
@@ -19,14 +18,11 @@ class CompletedApprovelScreen extends StatefulWidget {
   const CompletedApprovelScreen({Key? key}) : super(key: key);
 
   @override
-  _CompletedApprovelScreenState createState() => _CompletedApprovelScreenState();
+  _CompletedApprovelScreenState createState() =>
+      _CompletedApprovelScreenState();
 }
 
 class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  late DateTime _selectedValue;
-  var token;
-
   @override
   void didUpdateWidget(covariant CompletedApprovelScreen oldWidget) {
     // TODO: implement didUpdateWidget
@@ -40,12 +36,10 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
   }
 
   Future<void> getData() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
+    compeletedApprovelBloc.token = await TokenProvider().getToken();
+    if (null != compeletedApprovelBloc.token) {
       if (await isNetworkAvailable()) {
-        compeletedApprovelBloc.completedApprovel(
-          token!,
-        );
+        compeletedApprovelBloc.completedApprovel();
       } else {
         showInternetNotAvailable();
       }
@@ -65,7 +59,6 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
   @override
   void dispose() {
     super.dispose();
-    // timesheetBloc.dispose();
   }
 
   @override
@@ -87,10 +80,9 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth(context, dividedBy: 35)),
                       child: Column(children: [
-                        SizedBox(
-                            height: screenHeight(context, dividedBy: 60)),
+                        SizedBox(height: screenHeight(context, dividedBy: 60)),
                         StreamBuilder(
-                            stream: timesheetBloc.timesheet,
+                            stream: compeletedApprovelBloc.timesheet,
                             builder: (BuildContext context,
                                 AsyncSnapshot<ManagerTimeSheetResponse>
                                     snapshot) {
@@ -108,11 +100,9 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
               ],
             ),
           ),
-          Container(
-            width: 100.w,
-            height: 70.h,
+          Center(
             child: StreamBuilder(
-              stream: timesheetBloc.visible,
+              stream: compeletedApprovelBloc.visible,
               builder: (context, AsyncSnapshot<bool> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!) {

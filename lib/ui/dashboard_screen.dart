@@ -4,9 +4,9 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
+
 import '../Constants/strings.dart';
 import '../ui/user/common/app_bar.dart';
 import '../ui/user/common/side_menu.dart';
@@ -15,7 +15,6 @@ import '../ui/user/home/completed_shift_screen.dart';
 import '../ui/user/home/home_screen.dart';
 import '../ui/user/home/my_booking_screen.dart';
 import '../ui/user/home/my_shift_calendar.dart';
-
 import '../utils/constants.dart';
 
 class DashBoard extends StatefulWidget {
@@ -32,6 +31,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
   late bool _hideNavBar;
   String _firebaseAppToken = '';
   int pageIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -213,7 +213,6 @@ class _DashBoardWidgetState extends State<DashBoard> {
     );
   }
 
-
   Container buildMyNavBar(BuildContext context) {
     return Container(
       height: 60,
@@ -236,15 +235,15 @@ class _DashBoardWidgetState extends State<DashBoard> {
             },
             icon: pageIndex == 0
                 ? const Icon(
-              Icons.home_filled,
-              color: Colors.white,
-              size: 35,
-            )
+                    Icons.home_filled,
+                    color: Colors.white,
+                    size: 35,
+                  )
                 : const Icon(
-              Icons.home_outlined,
-              color: Colors.white,
-              size: 35,
-            ),
+                    Icons.home_outlined,
+                    color: Colors.white,
+                    size: 35,
+                  ),
           ),
           IconButton(
             enableFeedback: false,
@@ -255,15 +254,15 @@ class _DashBoardWidgetState extends State<DashBoard> {
             },
             icon: pageIndex == 1
                 ? const Icon(
-              Icons.work_rounded,
-              color: Colors.white,
-              size: 35,
-            )
+                    Icons.work_rounded,
+                    color: Colors.white,
+                    size: 35,
+                  )
                 : const Icon(
-              Icons.work_outline_outlined,
-              color: Colors.white,
-              size: 35,
-            ),
+                    Icons.work_outline_outlined,
+                    color: Colors.white,
+                    size: 35,
+                  ),
           ),
           IconButton(
             enableFeedback: false,
@@ -274,15 +273,15 @@ class _DashBoardWidgetState extends State<DashBoard> {
             },
             icon: pageIndex == 2
                 ? const Icon(
-              Icons.widgets_rounded,
-              color: Colors.white,
-              size: 35,
-            )
+                    Icons.widgets_rounded,
+                    color: Colors.white,
+                    size: 35,
+                  )
                 : const Icon(
-              Icons.widgets_outlined,
-              color: Colors.white,
-              size: 35,
-            ),
+                    Icons.widgets_outlined,
+                    color: Colors.white,
+                    size: 35,
+                  ),
           ),
           IconButton(
             enableFeedback: false,
@@ -293,24 +292,21 @@ class _DashBoardWidgetState extends State<DashBoard> {
             },
             icon: pageIndex == 3
                 ? const Icon(
-              Icons.person,
-              color: Colors.white,
-              size: 35,
-            )
+                    Icons.person,
+                    color: Colors.white,
+                    size: 35,
+                  )
                 : const Icon(
-              Icons.person_outline,
-              color: Colors.white,
-              size: 35,
-            ),
+                    Icons.person_outline,
+                    color: Colors.white,
+                    size: 35,
+                  ),
           ),
         ],
       ),
     );
   }
 }
-
-
-
 
 List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
@@ -349,7 +345,5 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
-
-
   ];
 }

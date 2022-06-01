@@ -30,7 +30,7 @@ class ShiftTimeSheetBloc {
   Stream<ManagerApproveResponse> get approvetimesheet =>
       _approvetimesheet.stream;
 
-  fetchTimesheet(String token) async {
+  fetchTimesheet() async {
     _visibility.add(true);
     ManagerTimeSheetResponse list = await _repo.fetchManagerTimesheet(token);
     _shiftimeSheet.sink.add(list);

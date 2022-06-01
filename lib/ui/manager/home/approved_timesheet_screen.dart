@@ -16,15 +16,10 @@ import 'manager_time_sheet_details.dart';
 
 class ApprovedTimeSheetScreen extends StatefulWidget {
   const ApprovedTimeSheetScreen({Key? key}) : super(key: key);
-
   @override
   _ApprovedTimeSheetState createState() => _ApprovedTimeSheetState();
 }
-
 class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  late DateTime _selectedValue;
-  var token;
 
   @override
   void didUpdateWidget(covariant ApprovedTimeSheetScreen oldWidget) {
@@ -39,12 +34,10 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
   }
 
   Future<void> getData() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
+    timesheetBloc.token = await TokenProvider().getToken();
+    if (null != timesheetBloc.token) {
       if (await isNetworkAvailable()) {
-        timesheetBloc.fetchTimesheet(
-          token!,
-        );
+        timesheetBloc.fetchTimesheet();
       } else {
         showInternetNotAvailable();
       }
@@ -64,7 +57,6 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
   @override
   void dispose() {
     super.dispose();
-    // timesheetBloc.dispose();
   }
 
   @override
@@ -86,8 +78,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth(context, dividedBy: 35)),
                       child: Column(children: [
-                        SizedBox(
-                            height: screenHeight(context, dividedBy: 60)),
+                        SizedBox(height: screenHeight(context, dividedBy: 60)),
                         StreamBuilder(
                             stream: timesheetBloc.timesheet,
                             builder: (BuildContext context,
@@ -107,9 +98,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
               ],
             ),
           ),
-          Container(
-            width: 100.w,
-            height: 70.h,
+          Center(
             child: StreamBuilder(
               stream: timesheetBloc.visible,
               builder: (context, AsyncSnapshot<bool> snapshot) {
