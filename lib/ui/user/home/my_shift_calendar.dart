@@ -28,24 +28,13 @@ class FindshiftCalendar extends StatefulWidget {
 
 class _FindshiftState extends State<FindshiftCalendar> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  int devicePixelRatio = 3;
-  int perPageItem = 3;
-  int pageCount = 0;
-
-  var _scrollController;
-  bool visibility = false;
-  int selectedIndex = 0;
-  int lastPageItemLength = 0;
-  var selected = 0;
-  var itemSelected = 0;
   late PageController pageController;
   DateTime SelectedDay = DateTime.now();
   DateTime focusDay = DateTime.now();
   CalendarFormat format = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
   DateTime selectedDate = DateTime.now();
-
-  // Using a `LinkedHashSet` is recommended due to equality comparison override
+  var _scrollController;
   final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
     equals: isSameDay,
     hashCode: getHashCode,
@@ -59,7 +48,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
 
   @override
   void didUpdateWidget(covariant FindshiftCalendar oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 
@@ -67,9 +55,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
     bloc.token = await TokenProvider().getToken();
     if (null != bloc.token) {
       if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
         shiftcalenderBloc.userGetScheduleByYear(bloc.token, "2022");
       } else {
         showInternetNotAvailable();
@@ -92,7 +77,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
           }
           getSelectedDayEvent(selectedDate);
           setState(() {
-            visibility = false;
             _selectedDays.addAll(selectedDay);
           });
         }
@@ -100,9 +84,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
     });
 
     bloc.jobrequest.listen((event) {
-      setState(() {
-        visibility = false;
-      });
       getData();
       confirmBloc.fetchUserViewRequest(bloc.token);
       String? message = event.response?.status?.statusMessage;
@@ -127,14 +108,14 @@ class _FindshiftState extends State<FindshiftCalendar> {
     observe();
     getData();
     pageController = PageController(initialPage: 0);
-    pageCount = 3;
+    confirmBloc.pageCount = 3;
   }
 
   List<Event> _getEventsForDay(DateTime day) {
     List<Event> eventList = [];
-    if(null!=shiftcalenderBloc.itemlListALl)
+    if(null!=shiftcalenderBloc.itemListAll)
       {
-        var itemList = shiftcalenderBloc.itemlListALl?.where((element) {
+        var itemList = shiftcalenderBloc.itemListAll?.where((element) {
           DateTime itemDay = DateTime.parse(element.date.toString());
           return isSameDay(itemDay, day);
         });
@@ -325,15 +306,19 @@ class _FindshiftState extends State<FindshiftCalendar> {
             ],
           ),
           Center(
-            child: Visibility(
-              visible: visibility,
-              child: Container(
-                width: 100.w,
-                height: 80.h,
-                child: const Center(
-                  child: LoadingWidget(),
-                ),
-              ),
+            child: StreamBuilder(
+              stream: bloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              },
             ),
           ),
         ],
@@ -354,12 +339,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
   }
 
   void requestShift(Items items) {
-    setState(() {
-      visibility = true;
-    });
-    if (items is Items) {
       Items data = items;
       bloc.fetchuserJobRequest(data.rowId.toString());
-    }
   }
 }

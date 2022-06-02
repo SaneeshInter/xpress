@@ -14,6 +14,13 @@ import '../model/visa_type_list.dart';
 
 class ProfileBloc {
   final _repo = Repository();
+  var token;
+
+  var profileImage = "";
+  var genderId = 1;
+  var nationalityId = 1;
+  var visatypeId = 1;
+
 
   final _visibility = PublishSubject<bool>();
   Stream<bool> get visible => _visibility.stream;
@@ -65,7 +72,7 @@ class ProfileBloc {
   Stream<ProfileQuestionResponse> get getProfileQuestions => _questions.stream;
 
 
-  getUserInfo(String token) async {
+  getUserInfo() async {
     _visibility.add(true);
     UserGetResponse response = await _repo.fetchUserInfo(token);
 
