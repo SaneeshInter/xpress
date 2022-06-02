@@ -321,7 +321,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
               },
               child: HomeCardItem(
                   label: Txt.create_shifts,
-                  asset: "assets/images/icon/availability.svg")),
+                  asset:"assets/images/icon/shift.svg")),
           GestureDetector(
             onTap: () {
               Navigator.push(
