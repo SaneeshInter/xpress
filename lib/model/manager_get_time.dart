@@ -86,6 +86,7 @@ class TimeSheetDetails {
   int? price;
   List<Allowances>? allowances;
   String? createdDate;
+  String? time_sheet_detail_status;
 
   TimeSheetDetails(
       {this.rowId,
@@ -106,6 +107,7 @@ class TimeSheetDetails {
         this.jobDetails,
         this.price,
         this.allowances,
+        this.time_sheet_detail_status,
         this.createdDate});
 
   TimeSheetDetails.fromJson(Map<String, dynamic> json) {
@@ -125,6 +127,7 @@ class TimeSheetDetails {
     timeFrom = json['time_from'];
     timeTo = json['time_to'];
     jobDetails = json['job_details'];
+    time_sheet_detail_status = json['time_sheet_detail_status'];
     price = json['price'];
     if (json['allowances'] != null) {
       allowances = <Allowances>[];
@@ -152,6 +155,7 @@ class TimeSheetDetails {
     data['date'] = this.date;
     data['time_from'] = this.timeFrom;
     data['time_to'] = this.timeTo;
+    data['time_sheet_detail_status'] = this.time_sheet_detail_status;
     data['job_details'] = this.jobDetails;
     data['price'] = this.price;
     if (this.allowances != null) {
