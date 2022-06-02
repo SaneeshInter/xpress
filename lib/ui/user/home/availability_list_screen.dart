@@ -4,20 +4,16 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/user_availability_bloc.dart';
 import 'package:xpresshealthdev/main.dart';
-
 import '../../../Constants/strings.dart';
 import '../../../model/user_availability_btw_date.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
-import '../../datepicker/date_picker_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
-
 class AvailabilityListScreen extends StatefulWidget {
   const AvailabilityListScreen({Key? key}) : super(key: key);
-
   @override
   _AvailabilityState createState() => _AvailabilityState();
 
@@ -26,17 +22,10 @@ class AvailabilityListScreen extends StatefulWidget {
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _AvailabilityState extends State<AvailabilityListScreen> {
-  String? token;
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  var itemSelected = 0;
-  var daysCount = 500;
-  var startDate;
-  var endDate;
   PageController? pageController;
-  bool visibility = false;
-  double viewportFraction = 0.8;
-  Availability? availability = null;
-  double? pageOffset = 0;
+
 
   @override
   void didUpdateWidget(covariant AvailabilityListScreen oldWidget) {
@@ -52,20 +41,24 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   @override
   void initState() {
     super.initState();
-    startDate = DateTime.now();
-    var today = DateTime.now();
-    endDate = today.add(const Duration(days: 29));
-    availability = Availability.sleepover;
+    init();
     observe();
     getData();
     pageController = PageController(initialPage: 0, viewportFraction: 0.8);
   }
 
+  void init() {
+    availabilitybloc.startDate = DateTime.now();
+    var today = DateTime.now();
+    availabilitybloc.endDate = today.add(const Duration(days: 29));
+    availabilitybloc.availability = Availability.sleepover;
+  }
+
   Future getData() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
+    availabilitybloc.token = await TokenProvider().getToken();
+    if (null != availabilitybloc.token) {
       if (await isNetworkAvailable()) {
-        availabilitybloc.fetchuserAvailability(token!, startDate, endDate);
+        availabilitybloc.fetchuserAvailability();
       } else {
         showInternetNotAvailable();
       }
@@ -73,12 +66,12 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   }
 
   Future<void> showInternetNotAvailable() async {
-    int respo = await Navigator.push(
+    int resp = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
     );
 
-    if (respo == 1) {
+    if (resp == 1) {
       getData();
     }
   }
@@ -96,13 +89,6 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    final PageController ctrl = PageController(
-      viewportFraction: .612,
-    );
-    final FixedExtentScrollController itemController =
-        FixedExtentScrollController();
-    DatePicker date;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
@@ -146,17 +132,16 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                         (BuildContext context, int index) {
                                       var item = snapshot.data![index];
                                       if (item.availability == 1) {
-                                        availability = Availability.morning;
+                                        availabilitybloc.availability = Availability.morning;
                                       } else if (item.availability == 2) {
-                                        availability = Availability.day;
+                                        availabilitybloc.availability = Availability.day;
                                       } else if (item.availability == 3) {
-                                        availability = Availability.afternoon;
+                                        availabilitybloc.availability = Availability.afternoon;
                                       } else if (item.availability == 4) {
-                                        availability = Availability.night;
+                                        availabilitybloc.availability = Availability.night;
                                       } else {
-                                        availability = Availability.sleepover;
+                                        availabilitybloc.availability = Availability.sleepover;
                                       }
-
                                       return Padding(
                                         padding: const EdgeInsets.only(
                                             left: 8.0, right: 8.0),
@@ -206,14 +191,14 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                             value: Availability
                                                                 .morning,
                                                             groupValue:
-                                                                availability,
+                                                            availabilitybloc.availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
                                                                   1,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
-                                                                availability =
+                                                                availabilitybloc.availability =
                                                                     value;
                                                               });
                                                             },
@@ -240,14 +225,14 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                             value: Availability
                                                                 .day,
                                                             groupValue:
-                                                                availability,
+                                                            availabilitybloc.availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
                                                                   2,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
-                                                                availability =
+                                                                availabilitybloc.availability =
                                                                     value;
                                                               });
                                                             },
@@ -274,14 +259,14 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                             value: Availability
                                                                 .afternoon,
                                                             groupValue:
-                                                                availability,
+                                                            availabilitybloc.availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
                                                                   3,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
-                                                                availability =
+                                                                availabilitybloc.availability =
                                                                     value;
                                                               });
                                                             },
@@ -308,14 +293,14 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                             value: Availability
                                                                 .night,
                                                             groupValue:
-                                                                availability,
+                                                            availabilitybloc.availability,
                                                             onChanged: (value) {
                                                               updateShiftAvailabaity(
                                                                   4,
                                                                   item.date
                                                                       .toString());
                                                               setState(() {
-                                                                availability =
+                                                                availabilitybloc.availability =
                                                                     value;
                                                               });
                                                             },
@@ -342,10 +327,10 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                             value: Availability
                                                                 .sleepover,
                                                             groupValue:
-                                                                availability,
+                                                            availabilitybloc.availability,
                                                             onChanged: (value) {
                                                               setState(() {
-                                                                availability =
+                                                                availabilitybloc.availability =
                                                                     value;
                                                               });
                                                               updateShiftAvailabaity(
@@ -403,9 +388,8 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   }
 
   void updateShiftAvailabaity(int selectedShfit, String date) {
-    if (null != token) {
-      availabilitybloc.addUserAvailability(
-          token!, date, selectedShfit.toString());
+    if (null != availabilitybloc.token) {
+      availabilitybloc.addUserAvailability(date, selectedShfit.toString());
     }
   }
 }

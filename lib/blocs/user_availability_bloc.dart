@@ -1,11 +1,22 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:xpresshealthdev/utils/utils.dart';
 
+import '../main.dart';
 import '../model/user_add_availability.dart';
 import '../model/user_availability_btw_date.dart';
 import '../resources/respository.dart';
 
 class UserAvailiability {
+  String? token;
+  var itemSelected = 0;
+  var daysCount = 500;
+  var startDate;
+  var endDate;
+  bool visibility = false;
+  double viewportFraction = 0.8;
+  Availability? availability = null;
+  double? pageOffset = 0;
+
   final _repo = Repository();
 
   final _visibility = PublishSubject<bool>();
@@ -21,10 +32,10 @@ class UserAvailiability {
   Stream<List<AvailabilityList>> get useravailabilitiydate =>
       _useravailabilitydate.stream;
 
-  addUserAvailability(String token, String date, String availability) async {
+  addUserAvailability(String date, String availability) async {
     _visibility.add(true);
     AddUserAvailabilityResponse list =
-        await _repo.addUserAvailability(token, date, availability);
+        await _repo.addUserAvailability(token!, date, availability);
     _useravailability.sink.add(list);
     _visibility.add(false);
   }
@@ -37,14 +48,13 @@ class UserAvailiability {
     return days;
   }
 
-  fetchuserAvailability(
-      String token, DateTime startdate, DateTime endDate) async {
+  fetchuserAvailability() async {
     _visibility.add(true);
     UserAvailabilitydateResponse availabilityList =
         await _repo.UserAvailability(
-            token, startdate.toString(), endDate.toString());
+            token!, startDate.toString(), endDate.toString());
     List<AvailabilityList> availableMokeList = [];
-    List<DateTime> datelist = getDaysInBetween(startdate, endDate);
+    List<DateTime> datelist = getDaysInBetween(startDate, endDate);
     for (var dates in datelist) {
       AvailabilityList item = AvailabilityList();
       item.date = formatDate(dates);
