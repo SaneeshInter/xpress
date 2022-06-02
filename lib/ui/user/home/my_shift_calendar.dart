@@ -54,6 +54,8 @@ class _FindshiftState extends State<FindshiftCalendar> {
 
   Future getData() async {
     shiftcalenderBloc.token = await TokenProvider().getToken();
+    bloc.token = await TokenProvider().getToken();
+    confirmBloc.token = await TokenProvider().getToken();
     if (null != shiftcalenderBloc.token) {
       if (await isNetworkAvailable()) {
         shiftcalenderBloc.userGetScheduleByYear(shiftcalenderBloc.token, "2022");
