@@ -31,9 +31,8 @@ class _FindshiftState extends State<FindshiftCalendar> {
   int devicePixelRatio = 3;
   int perPageItem = 3;
   int pageCount = 0;
-  var token;
+
   var _scrollController;
-  var _scrollPosition;
   bool visibility = false;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
@@ -43,7 +42,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
   DateTime SelectedDay = DateTime.now();
   DateTime focusDay = DateTime.now();
   CalendarFormat format = CalendarFormat.twoWeeks;
-  final ScrollController _controller = ScrollController();
   DateTime _focusedDay = DateTime.now();
   DateTime selectedDate = DateTime.now();
 
@@ -66,13 +64,13 @@ class _FindshiftState extends State<FindshiftCalendar> {
   }
 
   Future getData() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
+    bloc.token = await TokenProvider().getToken();
+    if (null != bloc.token) {
       if (await isNetworkAvailable()) {
         setState(() {
           visibility = true;
         });
-        shiftcalenderBloc.userGetScheduleByYear(token, "2022");
+        shiftcalenderBloc.userGetScheduleByYear(bloc.token, "2022");
       } else {
         showInternetNotAvailable();
       }
@@ -106,7 +104,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
         visibility = false;
       });
       getData();
-      confirmBloc.fetchUserViewRequest(token);
+      confirmBloc.fetchUserViewRequest(bloc.token);
       String? message = event.response?.status?.statusMessage;
       showAlertDialoge(context, message: message!, title: Txt
       .request);
@@ -279,7 +277,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                     children: [
                                       ShiftListCalenderWidget(
                                         items: items,
-                                        token: token,
+                                        token: bloc.token,
                                         onTapDelete: () {},
                                         onTapViewMap: () {},
                                         onTapView: (item) {
@@ -347,11 +345,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
     setState(() {
       _focusedDay = focusedDay;
       selectedDate = selectedDay;
-      // if (_selectedDays.contains(selectedDay)) {
-      //   _selectedDays.remove(selectedDay);
-      // } else {
-      //   _selectedDays.add(selectedDay);
-      // }
       getSelectedDayEvent(selectedDate);
     });
   }
@@ -366,7 +359,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
     });
     if (items is Items) {
       Items data = items;
-      bloc.fetchuserJobRequest(token, data.rowId.toString());
+      bloc.fetchuserJobRequest(data.rowId.toString());
     }
   }
 }

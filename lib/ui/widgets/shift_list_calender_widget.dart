@@ -1,17 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import '../../Constants/strings.dart';
-import '../../ui/widgets/buttons/call_button.dart';
-
-import '../../blocs/shift_list_bloc.dart';
 import '../../model/user_shift_calender.dart';
+import '../../ui/widgets/buttons/call_button.dart';
 import '../../utils/constants.dart';
 import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
-import 'action_alert_dialoge.dart';
 import 'buttons/book_button.dart';
 
 class ShiftListCalenderWidget extends StatefulWidget {
@@ -41,14 +37,11 @@ class ShiftListCalenderWidget extends StatefulWidget {
 class _HomePageCardState extends State<ShiftListCalenderWidget> {
   @override
   Widget build(BuildContext context) {
-
-
     print("widget.items.if_requested");
     print(widget.items.if_requested);
     return GestureDetector(
       onTap: () {
         widget.onTapView(widget.items);
-
       },
       child: Container(
         width: screenWidth(context, dividedBy: 1),
@@ -62,7 +55,6 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Row(children: [
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 if (null != widget.items.hospital)
@@ -76,8 +68,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
                 Text(
-                  Txt.date+
-                      widget.items.date!,
+                  Txt.date + widget.items.date!,
                   style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey,
@@ -135,16 +126,15 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
-
-                if(widget.items.if_requested! == 0)
-                BookButton(
-                  label: Txt.request_now,
-                  onPressed: () {
-                    widget.onTapBook(widget.items);
-                    print("Tapped");
-                  },
-                  key: null,
-                ),
+                if (widget.items.if_requested! == 0)
+                  BookButton(
+                    label: Txt.request_now,
+                    onPressed: () {
+                      widget.onTapBook(widget.items);
+                      print("Tapped");
+                    },
+                    key: null,
+                  ),
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
                 Spacer(),
                 if (widget.items.type == "Premium")
@@ -168,43 +158,6 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
           ],
         ),
       ),
-    );
-  }
-
-  void showActionAlert(
-    context, {
-    required String tittle,
-    required String message,
-    required Items item,
-  }) {
-    showDialog(
-      context: context,
-      barrierColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Center(
-          child: AlertDialog(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              insetPadding: EdgeInsets.symmetric(
-                horizontal: screenWidth(context, dividedBy: 30),
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              content: ActionAlertBox(
-                  tittle: tittle,
-                  message: message,
-                  positiveText: Txt.request_caps,
-                  onPositvieClick: (item) {
-                  widget.onTapBook(item);
-                    if (item is Items) {
-                      Items data = item;
-                      bloc.fetchuserJobRequest(
-                          widget.token, data.rowId.toString());
-                    }
-                  },
-                  onNegativeClick: () {})),
-        );
-      },
     );
   }
 }
