@@ -158,40 +158,5 @@ class _HomePageCardState extends State<ShiftListWidget> {
     );
   }
 
-  void showActionAlert(
-    context, {
-    required String tittle,
-    required String message,
-    required Items item,
-  }) {
-    showDialog(
-      context: context,
-      barrierColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Center(
-          child: AlertDialog(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              insetPadding: EdgeInsets.symmetric(
-                horizontal: screenWidth(context, dividedBy: 30),
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              content: ActionAlertBox(
-                  tittle: tittle,
-                  message: message,
-                  positiveText: "REQUEST NOW",
-                  onPositvieClick: (item) {
-                    widget.onTapBook(item);
-                    if (item is Items) {
-                      Items data = item;
-                      bloc.fetchuserJobRequest(
-                          widget.token, data.rowId.toString());
-                    }
-                  },
-                  onNegativeClick: () {})),
-        );
-      },
-    );
-  }
+
 }

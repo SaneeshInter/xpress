@@ -18,12 +18,8 @@ class FindShiftScreen extends StatefulWidget {
   @override
   _FindShiftScreenState createState() => _FindShiftScreenState();
 }
-
 class _FindShiftScreenState extends State<FindShiftScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool visibility = false;
-  var token;
-
   @override
   void initState() {
     super.initState();
@@ -153,7 +149,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
               children: [
                 ShiftListWidget(
                   items: items,
-                  token: token,
+                  token: bloc.token,
                   onTapDelete: () {},
                   onTapViewMap: () {},
                   onTapView: (item) {
@@ -212,20 +208,18 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
   }
 
   void requestShift(Items items) {
-
-    if (items is Items) {
       Items data = items;
-      bloc.fetchuserJobRequest(token, data.rowId.toString());
-    }
+      bloc.fetchuserJobRequest( data.rowId.toString());
   }
 
   Future<void> getData(DateTime date) async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
-    token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
-    if (null != token) {
-      bloc.fetchgetUserScheduleByDate(token, date.toString());
+    bloc.token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
+    if (null != bloc.token) {
+      bloc.fetchgetUserScheduleByDate(date.toString());
     }
   }
+
   void observe() {
     bloc.jobrequest.listen((event) {
       String? message = event.response?.status?.statusMessage;

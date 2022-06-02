@@ -7,16 +7,11 @@ import '../model/user_job_request.dart';
 
 class ShiftListBloc {
 
-
-
+  var token;
   final _repo = Repository();
-
-
-
 
   final _visibility = PublishSubject<bool>();
   Stream<bool> get visible => _visibility.stream;
-
 
   final _shiftList = PublishSubject<SliftListRepso>();
   final _scheduledate = PublishSubject<UserGetScheduleByDate>();
@@ -36,16 +31,16 @@ class ShiftListBloc {
         _shiftList.sink.add(SliftListRepso());
       }
   }
-  //SCHEDULE DATE
-  fetchgetUserScheduleByDate(String token, String date) async {
+
+  fetchgetUserScheduleByDate(String date) async {
     _visibility.add(true);
     UserGetScheduleByDate list =
         await _repo.fetchGetUserScheduleByDate(token, date);
     _scheduledate.sink.add(list);
     _visibility.add(false);
   }
-  // JOB REQUEST
-  fetchuserJobRequest(String token, String job_id) async {
+
+  fetchuserJobRequest(String job_id) async {
     _visibility.add(true);
     UserJobRequestResponse list =
         await _repo.fetchUserJobRequest(token, job_id);

@@ -32,15 +32,12 @@ class ShiftDetailScreen extends StatefulWidget {
   final bool isCompleted;
 
   const ShiftDetailScreen({Key? key, required this.shift_id,required this.isCompleted}) : super(key: key);
-
   @override
   State<ShiftDetailScreen> createState() => _ShiftDetailScreenState();
 }
 
 class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
-  String? token;
-  bool visibility = false;
-  String hospitalNumber = "";
+
 
   @override
   void initState() {
@@ -49,27 +46,19 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     getDataz();
   }
   void requestShift() {
-    bloc.fetchuserJobRequest(token!, widget.shift_id.toString());
+    bloc.fetchuserJobRequest(widget.shift_id.toString());
   }
-
-
 
   @override
   void dispose() {
     super.dispose();
-    // usershiftdetailsBloc.dispose();
   }
 
   Future getDataz() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
-    token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
-    print("token inn deta");
-    print(token);
-    print(widget.shift_id);
-    print("widget.isCompleted");
-    print(widget.isCompleted);
-    usershiftdetailsBloc.fetchGetUserShiftDetailsResponse(
-        token!, widget.shift_id);
+    bloc.token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
+    usershiftdetailsBloc.token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
+    usershiftdetailsBloc.fetchGetUserShiftDetailsResponse(widget.shift_id);
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -375,9 +364,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                           padding:
                                           const EdgeInsets.only(left: 15.0),
                                           child: CallButtons(onPressed: () {
-                                            print("call");
-                                            print(hospitalNumber);
-                                            dialCall(hospitalNumber);
+                                            dialCall(usershiftdetailsBloc.hospitalNumber);
                                           }),
                                         ),
                                         flex: 1, )
@@ -430,7 +417,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     usershiftdetailsBloc.usershiftdetailsStream.listen((event) {
       var hospitalDetail = event.response?.data?.hospitalDetails![0];
         if (null != hospitalDetail) {
-          hospitalNumber = hospitalDetail.phone!;
+          usershiftdetailsBloc.hospitalNumber = hospitalDetail.phone!;
         }
     });
   }
