@@ -43,10 +43,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> {
 
   void observe() {
     timesheetBloc.approvetimesheet.listen((event) {
-      Navigator.pop(context);
+
       var message = event.response?.status?.statusMessage;
-      showAlertDialoge(context,
-          title: Txt.timesheet_updated, message: message!);
+      showMessageAndPop(message, context);
     });
     timesheetBloc.timesheetdetails.listen((event) {
       createApproveData(event);
