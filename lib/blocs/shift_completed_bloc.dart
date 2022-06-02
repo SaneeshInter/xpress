@@ -9,6 +9,12 @@ import '../resources/respository.dart';
 class ShiftCompletedBloc {
   final _repo = Repository();
 
+  bool visibility = false;
+  bool buttonVisibility = false;
+  var token;
+  var image;
+  List<String> list = [];
+
   final _visibility = PublishSubject<bool>();
 
   Stream<bool> get visible => _visibility.stream;
@@ -22,7 +28,7 @@ class ShiftCompletedBloc {
   Stream<UserShoiftCompletedResponse> get allShift => _shiftComplete.stream;
   Stream<TimeSheetUploadRespo> get uploadStatus => _uploadRespo.stream;
 
-  fetchcomplete(String token) async {
+  fetchcomplete() async {
     _visibility.add(true);
     UserShoiftCompletedResponse list = await _repo.fetchComplete(token);
     if (!_shiftComplete.isClosed) {
@@ -35,7 +41,7 @@ class ShiftCompletedBloc {
     _shiftComplete.close();
   }
 
-  uploadTimeSheet(String token, String ids, File file) async{
+  uploadTimeSheet(String ids, File file) async{
     _visibility.add(true);
     TimeSheetUploadRespo data =  await _repo.uplodTimeSheet(token, ids, file);
     _uploadRespo.sink.add(data);

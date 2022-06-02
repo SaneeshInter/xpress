@@ -28,14 +28,7 @@ class CompletedShiftScreen extends StatefulWidget {
 }
 
 class _CompletedShiftState extends State<CompletedShiftScreen> {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  late DateTime _selectedValue;
-  bool visibility = false;
-  bool buttonVisibility = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  var token;
-  var _image;
-  List<String> list = [];
 
   @override
   void didUpdateWidget(covariant CompletedShiftScreen oldWidget) {
@@ -43,10 +36,10 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
   }
 
   Future getData() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
+    completeBloc.token = await TokenProvider().getToken();
+    if (null != completeBloc.token) {
       if (await isNetworkAvailable()) {
-        completeBloc.fetchcomplete(token);
+        completeBloc.fetchcomplete();
       } else {
         showInternetNotAvailable();
       }
@@ -84,9 +77,8 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
           Icons.camera_alt,
           color: Colors.red,
         ),
-        //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
         cameraText: Text(
-         Txt.frm_camera,
+          Txt.frm_camera,
           style: TextStyle(color: Colors.red),
         ),
         galleryText: Text(
@@ -94,7 +86,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
           style: TextStyle(color: Colors.blue),
         ));
     setState(() {
-      _image = image;
+      completeBloc.image = image;
     });
   }
 
@@ -113,11 +105,11 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         print(data?.items?.length);
         if (data?.items?.length != 0) {
           setState(() {
-            buttonVisibility = true;
+            completeBloc.buttonVisibility = true;
           });
         } else {
           setState(() {
-            buttonVisibility = false;
+            completeBloc.buttonVisibility = false;
           });
         }
       }
@@ -125,7 +117,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     completeBloc.uploadStatus.listen((event) {
       var message = event.response?.status?.statusMessage;
       setState(() {
-        _image = null;
+        completeBloc.image = null;
       });
       getData();
       showAlertDialoge(context, message: message!, title: Txt.upload_docs);
@@ -134,8 +126,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final FixedExtentScrollController itemController =
-        FixedExtentScrollController();
+    ;
     return Scaffold(
       key: _scaffoldKey,
       floatingActionButton: FloatingActionButton.extended(
@@ -157,19 +148,16 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                   StreamBuilder(
                       stream: completeBloc.allShift,
                       builder: (BuildContext context,
-                          AsyncSnapshot<UserShoiftCompletedResponse>
-                              snapshot) {
+                          AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
                         if (snapshot.hasError) {
                           return Text(snapshot.error.toString());
                         }
                         if (!snapshot.hasData ||
                             null == snapshot.data?.response?.data?.items ||
-                            snapshot.data?.response?.data?.items?.length ==
-                                0) {
+                            snapshot.data?.response?.data?.items?.length == 0) {
                           return NoDataWidget(
                               tittle: Txt.empty,
-                              description:
-                                  Txt.no_shifts_working_hrs,
+                              description: Txt.no_shifts_working_hrs,
                               asset_image:
                                   "assets/images/error/empty_task.png");
                         }
@@ -207,12 +195,13 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         children: [
           SizedBox(height: screenHeight(context, dividedBy: 60)),
           Container(
-              child:
-                  _image != null ? Image.file(File(_image.path)) : Container()),
+              child: completeBloc.image != null
+                  ? Image.file(File(completeBloc.image.path))
+                  : Container()),
           SizedBox(
             height: 20,
           ),
-          if (buttonVisibility)
+          if (completeBloc.buttonVisibility)
             DottedBorder(
               borderType: BorderType.RRect,
               dashPattern: [10, 10],
@@ -220,7 +209,6 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
               strokeWidth: 1,
               child: GestureDetector(
                 onTap: () {
-                  print("On tap");
                   getImage(ImgSource.Both);
                 },
                 child: Container(
@@ -260,9 +248,9 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                       print(rowId);
                       print(isSelect);
                       if (isSelect) {
-                        list.add(rowId.toString());
+                        completeBloc.list.add(rowId.toString());
                       } else {
-                        list.remove(rowId.toString());
+                        completeBloc.list.remove(rowId.toString());
                       }
                     },
                   ),
@@ -271,27 +259,27 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
               );
             },
           ),
-          if (buttonVisibility)
+          if (completeBloc.buttonVisibility)
             BuildButton(
               label: Txt.upload_timesheets,
               onPressed: () {
                 String shiftid = "";
-                print("PRINT UPLOAD LISTS");
-                for (var item in list) {
+
+                for (var item in completeBloc.list) {
                   shiftid = shiftid + item + ",";
                 }
                 print(shiftid);
-                if (_image != null) {
+                if (completeBloc.image != null) {
                   if (shiftid.isNotEmpty) {
                     completeBloc.uploadTimeSheet(
-                        token, shiftid, File(_image.path));
+                        shiftid, File(completeBloc.image.path));
                   } else {
                     showAlertDialoge(context,
                         title: Txt.alert, message: Txt.select_shift);
                   }
                 } else {
                   showAlertDialoge(context,
-                      title:  Txt.alert, message: Txt.uplod_timesht);
+                      title: Txt.alert, message: Txt.uplod_timesht);
                 }
               },
               key: null,
@@ -303,16 +291,4 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
       ),
     );
   }
-}
-
-Color getColor(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return Colors.blue;
-  }
-  return Colors.red;
 }
