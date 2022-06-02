@@ -331,7 +331,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
             },
             child: HomeCardItem(
                 label: Txt.view_booking,
-                asset: "assets/images/icon/availability.svg"),
+                asset: "assets/images/icon/booking.svg"),
           ),
           GestureDetector(
             onTap: () {
