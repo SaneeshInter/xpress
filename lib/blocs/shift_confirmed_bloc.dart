@@ -24,10 +24,10 @@ class ShiftConfirmedBloc {
 
   Stream<bool> get visible => _visibility.stream;
 
-  final _viewrequest = PublishSubject<UserViewRequestResponse>();
+
   final _usercanceljob = PublishSubject<UserCancelJobRequestResponse>();
   final _userworkinghours = PublishSubject<UserWorkingHoursResponse>();
-
+  final _viewrequest = PublishSubject<UserViewRequestResponse>();
   Stream<UserViewRequestResponse> get viewrequest => _viewrequest.stream;
 
   Stream<UserCancelJobRequestResponse> get usercanceljobrequest =>

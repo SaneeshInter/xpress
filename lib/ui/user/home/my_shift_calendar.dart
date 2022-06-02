@@ -6,6 +6,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:xpresshealthdev/Constants/strings.dart';
 
 import '../../../blocs/shift_confirmed_bloc.dart';
+
 import '../../../blocs/shift_list_bloc.dart';
 import '../../../blocs/user_shift_calendar.dart';
 import '../../../eventutil/eventutil.dart';
@@ -52,10 +53,10 @@ class _FindshiftState extends State<FindshiftCalendar> {
   }
 
   Future getData() async {
-    bloc.token = await TokenProvider().getToken();
-    if (null != bloc.token) {
+    shiftcalenderBloc.token = await TokenProvider().getToken();
+    if (null != shiftcalenderBloc.token) {
       if (await isNetworkAvailable()) {
-        shiftcalenderBloc.userGetScheduleByYear(bloc.token, "2022");
+        shiftcalenderBloc.userGetScheduleByYear(shiftcalenderBloc.token, "2022");
       } else {
         showInternetNotAvailable();
       }
@@ -85,7 +86,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
 
     bloc.jobrequest.listen((event) {
       getData();
-      confirmBloc.fetchUserViewRequest(bloc.token);
+      confirmBloc.fetchUserViewRequest(shiftcalenderBloc.token);
       String? message = event.response?.status?.statusMessage;
       showAlertDialoge(context, message: message!, title: Txt
       .request);
@@ -126,8 +127,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
           }
         }
       }
-
-
     return eventList;
   }
 
@@ -258,7 +257,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                     children: [
                                       ShiftListCalenderWidget(
                                         items: items,
-                                        token: bloc.token,
+                                        token: shiftcalenderBloc.token,
                                         onTapDelete: () {},
                                         onTapViewMap: () {},
                                         onTapView: (item) {
@@ -307,7 +306,39 @@ class _FindshiftState extends State<FindshiftCalendar> {
           ),
           Center(
             child: StreamBuilder(
+              stream: shiftcalenderBloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ),
+          Center(
+            child: StreamBuilder(
               stream: bloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ),
+          Center(
+            child: StreamBuilder(
+              stream: confirmBloc.visible,
               builder: (context, AsyncSnapshot<bool> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!) {
