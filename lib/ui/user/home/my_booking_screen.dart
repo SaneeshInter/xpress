@@ -23,9 +23,9 @@ class MyBookingScreen extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-bool visibility = false;
-var token;
+
+
+
 class _HomeState extends State<MyBookingScreen>
     with WidgetsBindingObserver {
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -39,7 +39,7 @@ class _HomeState extends State<MyBookingScreen>
   }
 
   void cancelJob(Items items) {
-    confirmBloc.userCancelJob(token, items.rowId.toString());
+    confirmBloc.userCancelJob(confirmBloc.token, items.rowId.toString());
   }
 
   @override
@@ -73,10 +73,10 @@ class _HomeState extends State<MyBookingScreen>
   }
 
   Future getDataitems() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
+    confirmBloc.token = await TokenProvider().getToken();
+    if (null != confirmBloc.token) {
       if (await isNetworkAvailable()) {
-        confirmBloc.fetchUserViewRequest(token);
+        confirmBloc.fetchUserViewRequest(confirmBloc.token);
       } else {
         showInternetNotAvailable();
       }
@@ -116,7 +116,7 @@ class _HomeState extends State<MyBookingScreen>
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
-            key: _scaffoldKey,
+            key: scaffoldKey,
             backgroundColor: Constants.colors[9],
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
@@ -421,7 +421,7 @@ class _HomeState extends State<MyBookingScreen>
 
   void updateAndExit(Items item, BuildContext context) {
     confirmBloc.fetchUserWorkingHours(
-      token,
+      confirmBloc.token,
       item.shiftId.toString(),
       dateFrom.text,
       dateTo.text,
