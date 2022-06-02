@@ -5,6 +5,7 @@ import 'package:xpresshealthdev/resources/respository.dart';
 import '../model/user_shift_calender.dart';
 
 class ShiftCalendarBloc {
+  var token;
   int devicePixelRatio = 3;
   int perPageItem = 3;
   int pageCount = 0;
@@ -58,6 +59,16 @@ class ShiftCalendarBloc {
       _visibility.add(false);
     }
   }
+
+
+
+
+
+
+
+
+
+
 }
 
 final shiftcalenderBloc = ShiftCalendarBloc();
