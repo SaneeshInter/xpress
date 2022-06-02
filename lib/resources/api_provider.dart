@@ -285,6 +285,7 @@ class ApiProvider {
           body: jsonEncode(<String, String>{}));
 
       print("Completed approvel" + token);
+      print("Completed approvel " + uri.toString());
 
       print(jsonEncode(<String, String>{}).toString());
       print(response.body);

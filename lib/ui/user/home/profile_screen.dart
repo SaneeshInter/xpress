@@ -342,7 +342,15 @@ class _ProfileState extends State<ProfileScreen> {
                                     ),
                                   const SizedBox(height: 10),
                                   if (null != item)
-                                    ProfileDetailCard(items: item),
+                                    ProfileDetailCard(items: item, onPressed: (){
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ProfileEditScreen()),
+                                      ).then((value) => getData());
+                                      
+                                    },),
                                   Column(
                                     children: [
                                       if (null != item)

@@ -119,7 +119,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         completeBloc.image = null;
       });
       getData();
-      showAlertDialoge(context, message: message!, title: Txt.upload_docs);
+      showMessageAndPop(message, context);
     });
   }
 
