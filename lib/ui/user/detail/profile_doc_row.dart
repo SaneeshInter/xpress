@@ -22,8 +22,11 @@ class ProfileDocRow extends StatefulWidget {
 
 class _CustomRowState extends State<ProfileDocRow> {
   bool tapped = false;
+
   @override
   Widget build(BuildContext context) {
+    print("widget.url");
+    print(widget.url);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
@@ -52,7 +55,7 @@ class _CustomRowState extends State<ProfileDocRow> {
                     maxLines: 2,
                   ),
                 ),
-                    if(widget.url.isNotEmpty && widget.url!="")
+                    if(widget.url.isNotEmpty )
                     Expanded(
                       flex: 1,
                       child: Container(
@@ -62,7 +65,7 @@ class _CustomRowState extends State<ProfileDocRow> {
                            "assets/images/icon/check.svg",
                           )),
                     ),
-                    if(widget.url.isEmpty && widget.url!="")
+                    if(widget.url.isEmpty)
                     Expanded(
                       flex: 1,
                       child: Container(

@@ -107,13 +107,13 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
       print("event");
       print(event.response);
       var message = event.response?.status?.statusMessage;
-      if(mounted){
+      if (mounted) {
         setState(() {
           _image = null;
         });
       }
+      showMessageAndPop(message, context);
 
-      showAlertDialoge(context, message: message!, title: Txt.upload_docs);
     });
   }
 
@@ -185,9 +185,10 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth(context, dividedBy: 35)),
                       child: Column(children: [
-                        SizedBox(
-                            height: screenHeight(context, dividedBy: 60)),
-                        if (null != imageUri && null == _image)
+                        SizedBox(height: screenHeight(context, dividedBy: 60)),
+                        if (null != imageUri &&
+                            imageUri != "" &&
+                            null == _image)
                           Container(
                               height: 70.h,
                               width: 100.w,
@@ -248,8 +249,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                             child: GestureDetector(
                               onTap: () {
                                 if (_image != null) {
-                                  if (date.text != "" ||
-                                      type == "signature") {
+                                  if (date.text != "" || type == "signature") {
                                     profileBloc.uploadUserDoc(token,
                                         File(_image.path), type, date.text);
                                   } else {
@@ -281,8 +281,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                               ),
                             ),
                           ),
-                        SizedBox(
-                            height: screenHeight(context, dividedBy: 60)),
+                        SizedBox(height: screenHeight(context, dividedBy: 60)),
                         SizedBox(
                           height: 10,
                         ),

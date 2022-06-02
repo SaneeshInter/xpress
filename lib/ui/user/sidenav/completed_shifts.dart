@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
 
 import '../../../Constants/strings.dart';
-import 'package:xpresshealthdev/blocs/shift_completed_bloc.dart';
 import '../../../model/user_complted_shift.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';
@@ -27,14 +27,8 @@ class CompletedShift extends StatefulWidget {
 }
 
 class _CompletedShiftState extends State<CompletedShift> {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  late DateTime _selectedValue;
-  bool visibility = false;
-  bool buttonVisibility = false;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  var token;
-  var _image;
-  List<String> list = [];
 
   @override
   void didUpdateWidget(covariant CompletedShift oldWidget) {
@@ -43,10 +37,10 @@ class _CompletedShiftState extends State<CompletedShift> {
   }
 
   Future getData() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
+    completeBloc.token = await TokenProvider().getToken();
+    if (null != completeBloc.token) {
       if (await isNetworkAvailable()) {
-        completeBloc.fetchcomplete(token);
+        completeBloc.fetchcomplete();
       } else {
         showInternetNotAvailable();
       }
@@ -77,7 +71,7 @@ class _CompletedShiftState extends State<CompletedShift> {
       if (data?.items != null) {
         if (data?.items?.length != 0) {
           setState(() {
-            buttonVisibility = true;
+            completeBloc.buttonVisibility = true;
           });
         }
       }
@@ -87,7 +81,7 @@ class _CompletedShiftState extends State<CompletedShift> {
       print(event.response);
       var message = event.response?.status?.statusMessage;
       setState(() {
-        _image = null;
+        completeBloc.image = null;
       });
       getData();
       showAlertDialoge(context, message: message!, title: Txt.upload_docs);
@@ -116,11 +110,10 @@ class _CompletedShiftState extends State<CompletedShift> {
         elevation: 0.0,
         iconTheme: IconThemeData(
           color: Colors.black,
-          //change your color here
         ),
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
-         Txt.completed_shifts,
+          Txt.completed_shifts,
           style: TextStyle(
               fontSize: 17,
               color: Constants.colors[1],
@@ -140,8 +133,7 @@ class _CompletedShiftState extends State<CompletedShift> {
                   StreamBuilder(
                       stream: completeBloc.allShift,
                       builder: (BuildContext context,
-                          AsyncSnapshot<UserShoiftCompletedResponse>
-                              snapshot) {
+                          AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
                         if (snapshot.hasData) {
                           var data = snapshot.data?.response?.data;
                           if (data?.items != null) {
@@ -164,10 +156,8 @@ class _CompletedShiftState extends State<CompletedShift> {
                                         Container(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 32),
-                                          child: Text(
-                                           Txt.no_shift,
-                                              style:
-                                                  primaryTextStyle(size: 15),
+                                          child: Text(Txt.no_shift,
+                                              style: primaryTextStyle(size: 15),
                                               textAlign: TextAlign.center),
                                         ),
                                       ],
@@ -221,8 +211,6 @@ class _CompletedShiftState extends State<CompletedShift> {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
-        var name = "Shift Reminder";
-        var description = "Completed shift";
         var items = data?.items![index];
         return Column(
           children: [
@@ -253,14 +241,4 @@ class _CompletedShiftState extends State<CompletedShift> {
   }
 }
 
-Color getColor(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return Colors.blue;
-  }
-  return Colors.red;
-}
+
