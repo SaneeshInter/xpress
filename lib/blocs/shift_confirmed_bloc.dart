@@ -6,6 +6,18 @@ import '../model/user_working_hours.dart';
 import '../resources/respository.dart';
 
 class ShiftConfirmedBloc {
+
+
+  int devicePixelRatio = 3;
+  int perPageItem = 3;
+  int working_hours = 0;
+  int pageCount = 0;
+  int selectedIndex = 0;
+  int lastPageItemLength = 0;
+  var selected = 0;
+  var itemSelected = 0;
+
+
   final _repo = Repository();
 
   final _visibility = PublishSubject<bool>();

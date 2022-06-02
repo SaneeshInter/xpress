@@ -21,24 +21,15 @@ import '../../widgets/loading_widget.dart';
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({Key? key}) : super(key: key);
   @override
-  _HomeScreentate createState() => _HomeScreentate();
+  _HomeState createState() => _HomeState();
 }
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 bool visibility = false;
 var token;
-class _HomeScreentate extends State<MyBookingScreen>
+class _HomeState extends State<MyBookingScreen>
     with WidgetsBindingObserver {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  int devicePixelRatio = 3;
-  int perPageItem = 3;
-  int working_hours = 0;
-  int pageCount = 0;
-  int selectedIndex = 0;
-  int lastPageItemLength = 0;
-  var selected = 0;
-  var itemSelected = 0;
   late PageController pageController;
-  final ScrollController _controller = ScrollController();
   TextEditingController dateFrom = TextEditingController();
   TextEditingController dateTo = TextEditingController();
 
@@ -53,7 +44,7 @@ class _HomeScreentate extends State<MyBookingScreen>
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     confirmBloc.dispose();
     super.dispose();
   }
@@ -67,13 +58,12 @@ class _HomeScreentate extends State<MyBookingScreen>
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     observe();
     getDataitems();
-
     pageController = PageController(initialPage: 0);
-    pageCount = 3;
+    confirmBloc.pageCount = 3;
     dateFrom.addListener(() {
       checkAndUpdateTimeDiffernce();
     });
@@ -94,11 +84,11 @@ class _HomeScreentate extends State<MyBookingScreen>
   }
 
   Future<void> showInternetNotAvailable() async {
-    int respo = await Navigator.push(
+    int response = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
     );
-    if (respo == 1) {
+    if (response == 1) {
       getDataitems();
     }
   }
@@ -386,12 +376,12 @@ class _HomeScreentate extends State<MyBookingScreen>
                           SizedBox(
                             height: 5,
                           ),
-                          if (working_hours != 0)
+                          if (confirmBloc.working_hours != 0)
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 16.0, bottom: 16.0),
                               child: Text(
-                                Txt.working_hours + working_hours.toString(),
+                                Txt.working_hours + confirmBloc.working_hours.toString(),
                                 maxLines: 1,
                                 style: TextStyle(
                                   color: Constants.colors[22],
@@ -435,11 +425,11 @@ class _HomeScreentate extends State<MyBookingScreen>
       item.shiftId.toString(),
       dateFrom.text,
       dateTo.text,
-      working_hours.toString(),
+      confirmBloc.working_hours.toString(),
     );
     dateFrom.text = "";
     dateTo.text = "";
-    working_hours = 0;
+    confirmBloc.working_hours = 0;
     Navigator.pop(context);
   }
 
@@ -527,7 +517,7 @@ class _HomeScreentate extends State<MyBookingScreen>
       var time1 = DateFormat("HH:mm").format(date);
       var time2 = DateFormat("HH:mm").format(date1);
       var timeDiffrence = await getDifference(time1, time2);
-      working_hours = timeDiffrence;
+      confirmBloc.working_hours = timeDiffrence;
     }
   }
 }
@@ -558,17 +548,3 @@ FilterBookingList getFilterList(
   return list;
 }
 
-class BodyWidget extends StatelessWidget {
-  final Color color;
-
-  BodyWidget(this.color);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100.0,
-      color: color,
-      alignment: Alignment.center,
-    );
-  }
-}

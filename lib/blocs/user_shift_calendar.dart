@@ -3,13 +3,26 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:xpresshealthdev/resources/respository.dart';
 
 import '../model/user_shift_calender.dart';
-import '../model/utility_respo.dart';
 
 class ShiftCalendarBloc {
+  int devicePixelRatio = 3;
+  int perPageItem = 3;
+  int pageCount = 0;
+  bool visibility = false;
+  int selectedIndex = 0;
+  int lastPageItemLength = 0;
+  var selected = 0;
+  var itemSelected = 0;
   final _repo = Repository();
   final _shiftcalender = PublishSubject<UserGetScheduleByYear>();
   final _filterItem = PublishSubject<List<Items>>();
-  List<Item>? itemlListALl = [];
+
+  final _visibility = PublishSubject<bool>();
+
+  Stream<bool> get visible => _visibility.stream;
+
+  List<Item>? itemListAll = [];
+
   List<Items>? eventListByDate = [];
 
   Stream<UserGetScheduleByYear> get shiftcalendar => _shiftcalender.stream;
@@ -17,14 +30,14 @@ class ShiftCalendarBloc {
   Stream<List<Items>> get filteredBydate => _filterItem.stream;
 
   userGetScheduleByYear(String token, String year) async {
+    _visibility.add(true);
     UserGetScheduleByYear respo =
         await _repo.fetchuserscheduleyear(token, year);
-    itemlListALl = respo.response?.data?.item;
-    if(!_shiftcalender.isClosed)
-      {
-        _shiftcalender.sink.add(respo);
-      }
-
+    itemListAll = respo.response?.data?.item;
+    if (!_shiftcalender.isClosed) {
+      _visibility.add(false);
+      _shiftcalender.sink.add(respo);
+    }
   }
 
   dispose() {
@@ -32,14 +45,17 @@ class ShiftCalendarBloc {
   }
 
   filterItemByDate(DateTime selectedDay) {
-    var itemList = itemlListALl!.where((element) {
+    _visibility.add(true);
+    var itemList = itemListAll!.where((element) {
       DateTime itemDay = DateTime.parse(element.date.toString());
       return isSameDay(itemDay, selectedDay);
     });
     if (itemList.isNotEmpty) {
       _filterItem.sink.add(itemList.first.items ?? []);
+      _visibility.add(false);
     } else {
       _filterItem.sink.add([]);
+      _visibility.add(false);
     }
   }
 }
