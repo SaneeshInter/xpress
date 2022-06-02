@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/model/user_get_response.dart';
 import 'package:xpresshealthdev/ui/user/detail/profile_details_row.dart';
 
@@ -7,19 +6,17 @@ import '../../Constants/app_defaults.dart';
 import '../../Constants/strings.dart';
 import '../../utils/constants.dart';
 import '../../utils/network_utils.dart';
-import '../user/home/profile_edit.dart';
 import 'buttons/drawable_button.dart';
 
 class ProfileDetailCard extends StatelessWidget {
   Items items;
+  final Function onPressed;
 
-  ProfileDetailCard({Key? key, required this.items}) : super(key: key);
+  ProfileDetailCard({Key? key, required this.items, required this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String? firstName = items.firstName;
-    String? lastName = items.lastName;
-    String? employeeNo = items.employeeNo;
     String? gender = items.gender;
     String? dob = items.dob;
     String? homeAddress = items.homeAddress;
@@ -27,10 +24,6 @@ class ProfileDetailCard extends StatelessWidget {
     String? phoneNumber = items.phoneNumber;
     String? ppsNumber = items.ppsNumber;
     String? bankIban = items.bankIban;
-
-
-
-
 
     return Material(
       color: Colors.white,
@@ -61,7 +54,7 @@ class ProfileDetailCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                         Txt.prsnl_details,
+                          Txt.prsnl_details,
                           style: TextStyle(
                               color: Constants.colors[3],
                               fontSize: 18,
@@ -71,25 +64,19 @@ class ProfileDetailCard extends StatelessWidget {
                         const Spacer(),
                         DrawableButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileEditScreen()),
-                            );
+                            onPressed();
                           },
                           label: Txt.edit,
-                          asset:"assets/images/icon/edit.svg",
+                          asset: "assets/images/icon/edit.svg",
                           backgroundColor: Constants.colors[2],
                           textColors: Constants.colors[4],
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 5
-                    ),
+                    SizedBox(height: 5),
                     Divider(
                       thickness: 0.5,
-                      endIndent:7,
+                      endIndent: 7,
                       indent: 2,
                       color: Constants.colors[25],
                     ),
@@ -106,7 +93,7 @@ class ProfileDetailCard extends StatelessWidget {
                     SizedBox(width: 15.0),
                     if (homeAddress != null)
                       ProfileDetailsRow(
-                          label:Txt.address_dot  + homeAddress,
+                          label: Txt.address_dot + homeAddress,
                           asset: "assets/images/icon/Pin.svg"),
                     SizedBox(width: 15.0),
                     if (email != null)
@@ -125,23 +112,20 @@ class ProfileDetailCard extends StatelessWidget {
                           dialCall(phoneNumber);
                         },
                         child: ProfileDetailsRow(
-                            label: Txt.phone_number_dot+ phoneNumber,
+                            label: Txt.phone_number_dot + phoneNumber,
                             asset: "assets/images/icon/phone.svg"),
                       ),
                     SizedBox(width: 15.0),
                     if (ppsNumber != null)
                       ProfileDetailsRow(
-                          label: Txt.pps_number_dot+ ppsNumber,
+                          label: Txt.pps_number_dot + ppsNumber,
                           asset: "assets/images/icon/passport.svg"),
                     SizedBox(width: 15.0),
                     if (bankIban != null)
                       ProfileDetailsRow(
-                          label:Txt.bank_detail + bankIban,
+                          label: Txt.bank_detail + bankIban,
                           asset: "assets/images/icon/bank.svg"),
                     SizedBox(width: 15.0),
-
-
-
                   ],
                 ),
               ),
