@@ -16,7 +16,7 @@ class ShiftConfirmedBloc {
   int lastPageItemLength = 0;
   var selected = 0;
   var itemSelected = 0;
-
+  var token;
 
   final _repo = Repository();
 
