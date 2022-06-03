@@ -44,7 +44,7 @@ class _HomeState extends State<MyBookingScreen>
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     confirmBloc.dispose();
     super.dispose();
   }
@@ -58,7 +58,7 @@ class _HomeState extends State<MyBookingScreen>
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
     observe();
     getDataitems();
@@ -97,12 +97,12 @@ class _HomeState extends State<MyBookingScreen>
     confirmBloc.usercanceljobrequest.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataitems();
-      showAlertDialoge(context, message: message!, title: Txt.cancel);
+      Fluttertoast.showToast(msg: '$message');
     });
     confirmBloc.userworkinghours.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataitems();
-      showAlertDialoge(context, message: message!, title: Txt.working_hours);
+      Fluttertoast.showToast(msg: '$message');
     });
   }
 

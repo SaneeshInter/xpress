@@ -87,6 +87,7 @@ class TimeSheetDetails {
   List<Allowances>? allowances;
   String? createdDate;
   int? time_sheet_detail_status;
+  String? time_sheet_detail_comment;
 
   TimeSheetDetails(
       {this.rowId,
@@ -108,6 +109,7 @@ class TimeSheetDetails {
         this.price,
         this.allowances,
         this.time_sheet_detail_status,
+        this.time_sheet_detail_comment,
         this.createdDate});
 
   TimeSheetDetails.fromJson(Map<String, dynamic> json) {
@@ -136,6 +138,7 @@ class TimeSheetDetails {
       });
     }
     createdDate = json['created_date'];
+    time_sheet_detail_comment = json['time_sheet_detail_comment'];
   }
 
   Map<String, dynamic> toJson() {
@@ -162,6 +165,7 @@ class TimeSheetDetails {
       data['allowances'] = this.allowances!.map((v) => v.toJson()).toList();
     }
     data['created_date'] = this.createdDate;
+    data['time_sheet_detail_comment'] = this.time_sheet_detail_comment;
     return data;
   }
 }
