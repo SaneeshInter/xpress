@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:xpresshealthdev/Constants/strings.dart';
@@ -88,10 +89,9 @@ class _FindshiftState extends State<FindshiftCalendar> {
 
     bloc.jobrequest.listen((event) {
       getData();
-      confirmBloc.fetchUserViewRequest(shiftcalenderBloc.token);
+
       String? message = event.response?.status?.statusMessage;
-      showAlertDialoge(context, message: message!, title: Txt
-      .request);
+      Fluttertoast.showToast(msg: '$message');
     });
   }
 

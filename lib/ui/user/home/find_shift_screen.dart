@@ -200,6 +200,10 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
             ],
           ),
           150.height,
+
+
+
+
           Image.asset('assets/images/error/empty_task.png', height: 250),
         ],
       );
