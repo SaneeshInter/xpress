@@ -381,18 +381,20 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                           SizedBox(
                             height: 5,
                           ),
-                          if (confirmBloc.working_hours != 0)
+                    
                             StreamBuilder(
-                              stream: confirmBloc.userworkinghours,
+                              stream: confirmBloc.workTime,
                               builder: (BuildContext context,
                                   AsyncSnapshot<dynamic> snapshot) {
-
-                               return Padding(
+                                if(!snapshot.hasData)
+                                  {
+                                    return Container();
+                                  }
+                                return Padding(
                                   padding: const EdgeInsets.only(
                                       left: 16.0, bottom: 16.0),
                                   child: Text(
-                                    Txt.working_hours +
-                                        snapshot.data,
+                                    Txt.working_hours + snapshot.data.toString(),
                                     maxLines: 1,
                                     style: TextStyle(
                                       color: Constants.colors[22],
