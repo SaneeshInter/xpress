@@ -36,9 +36,18 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     jobDescri.addListener(updateValue);
+
+    if(widget.items.time_sheet_detail_status==1)
+      {
+        isChecked = true;
+      }
+    if(widget.items.time_sheet_detail_status==2)
+    {
+      isCheckedReject = true;
+    }
+    // jobDescri.text = widget.items.time_sheet_detail_status;
   }
 
   void updateValue() {
@@ -47,6 +56,7 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.only(left: 12.0, right: 12.0),
       child: Container(

@@ -86,7 +86,7 @@ class TimeSheetDetails {
   int? price;
   List<Allowances>? allowances;
   String? createdDate;
-  String? time_sheet_detail_status;
+  int? time_sheet_detail_status;
 
   TimeSheetDetails(
       {this.rowId,

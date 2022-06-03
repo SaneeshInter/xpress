@@ -17,26 +17,23 @@ import '../../Widgets/buttons/book_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
 
-class ManagerTimeSheetDetails extends StatefulWidget {
+class CompletedTimeSheetDetails extends StatefulWidget {
   final TimeSheetInfo? item;
 
-  const ManagerTimeSheetDetails({Key? key, this.item}) : super(key: key);
+  const CompletedTimeSheetDetails({Key? key, this.item}) : super(key: key);
 
   @override
   _CreateShiftState createState() => _CreateShiftState();
 }
 
-class _CreateShiftState extends State<ManagerTimeSheetDetails>
+class _CreateShiftState extends State<CompletedTimeSheetDetails>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
   var scrollController = ScrollController();
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
     observe();
     getData();
-
     super.initState();
   }
 
@@ -70,7 +67,6 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
           timesheetBloc.approveTimeSheet();
         },
         label: const Text(Txt.approve),
-
         backgroundColor: Colors.green,
       ),
       body: Stack(
@@ -156,36 +152,6 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-                PreferredSize(
-                  preferredSize: const Size.fromHeight(65),
-                  child: Container(
-                    color: Constants.colors[0],
-                    child: TabBar(
-                        unselectedLabelColor: Colors.black,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        labelColor: Colors.black,
-                        controller: _tabController,
-                        tabs: [
-                          Tab(
-                            child: Container(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(Txt.pending),
-                              ),
-                            ),
-                          ),
-                          Tab(
-                            child: Container(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(Txt.completed),
-                              ),
-                            ),
-                          ),
-                        ]),
-                  ),
-                ),
-                const SizedBox(height: 10),
                 Flexible(
                   fit: FlexFit.loose,
                   child: Container(
@@ -201,11 +167,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                                       ?.timeSheetDetails) {
                             return Container();
                           }
-                          return TabBarView(
-                              controller:_tabController,children: [
-                            bookingList(0, snapshot),
-                            bookingList(1, snapshot),
-                          ]);
+                          return buildList(snapshot);
                         }),
                   ),
                 ),
@@ -235,40 +197,12 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
     );
   }
 
-  Widget bookingList(
-      int position, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
-    return buildList(snapshot, position);
-  }
 
-  FilterShiftList getFilterList(
-      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
-    FilterShiftList list = FilterShiftList();
-
-    List<TimeSheetDetails>? allList =
-        snapshot.data?.response?.data?.timeSheetDetails;
-    if (null != allList) {
-      for (var item in allList) {
-        if (item.time_sheet_detail_status == 0) {
-          list.pending.add(item);
-        } else {
-          list.completed.add(item);
-        }
-      }
-    }
-    return list;
-  }
 
   Widget buildList(
-      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
-    var allList = getFilterList(snapshot, position);
-    var list = [];
-    if (position == 0) {
-      list = allList.pending;
-    }
-    if (position == 1) {
-      list = allList.completed;
-    }
-    var length = list.length;
+      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
+    var list = snapshot.data?.response?.data?.timeSheetDetails;
+    var length = list?.length;
     return ListView.builder(
       itemCount: length,
       shrinkWrap: true,
@@ -279,7 +213,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
           return Column(
             children: [
               TimeSheetDetailsListWidget(
-                items: timeSheetDetails!,
+                items: timeSheetDetails,
                 index: index,
                 onTapBooking: () {
                   showBookingAlert(context, date: Txt.show_timsheet);

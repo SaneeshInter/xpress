@@ -12,6 +12,7 @@ import '../../../utils/utils.dart';
 import '../../Widgets/approve_timesheet_list_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
+import 'completed_time_sheet_details.dart';
 import 'manager_time_sheet_details.dart';
 
 class CompletedApprovelScreen extends StatefulWidget {
@@ -139,7 +140,7 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ManagerTimeSheetDetails(
+                        builder: (context) => CompletedTimeSheetDetails(
                               item: items,
                             )),
                   ).then((value) => getData());
