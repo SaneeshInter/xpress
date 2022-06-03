@@ -69,6 +69,36 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                             fontWeight: FontWeight.w700,
                             fontFamily: "SFProBold"),
                       ),
+                      SizedBox(
+                        width: 1.w,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Badge(
+                            padding: EdgeInsets.all(4),
+                            position: BadgePosition(bottom: 10, start: 30),
+                            badgeColor: Colors.green,
+                            badgeContent: Text(
+                              widget.items.requested_count.toString(),
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Text(
+                            "Request",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.green,
+                            ),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                   SizedBox(height: screenHeight(context, dividedBy: 120)),
@@ -115,36 +145,19 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-
-                    Badge(
-
-                      padding: EdgeInsets.all(4),
-                      position: BadgePosition(
-                        bottom: 10,
-                        start: 30
-
-                      ),
-                      badgeColor: Colors.green,
-                      badgeContent: Text(
-                        widget.items.requested_count.toString(),
-                        style: TextStyle(fontSize: 10,
-                          color: Colors.white,
-                        ),
-                      ),
-                      child: ViewButton(
-                        label: Txt.view,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ShiftDetailManagerScreen(
-                                      shift_id: widget.items.rowId.toString(),
-                                    )),
-                          );
-                        },
-                        key: null,
-                      ),
-                    )
+                    ViewButton(
+                      label: Txt.view,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShiftDetailManagerScreen(
+                                    shift_id: widget.items.rowId.toString(),
+                                  )),
+                        );
+                      },
+                      key: null,
+                    ),
                   ],
                 )
               ]),
