@@ -1,23 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import '../../Constants/strings.dart';
-import '../../ui/widgets/buttons/call_button.dart';
 
-import '../../blocs/shift_list_bloc.dart';
+import '../../Constants/strings.dart';
+
 //import '../model/viewbooking_response.dart';
 import '../../model/common/manager_shift.dart';
-import '../../model/manager_shift_calendar_respo.dart';
-import '../../model/manager_shift_calendar_respo.dart';
 import '../../utils/constants.dart';
-import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
 import '../Widgets/buttons/build_button.dart';
 import '../Widgets/buttons/view_button.dart';
 import '../manager/home/shift_detail_manager.dart';
-import 'action_alert_dialoge.dart';
-import 'buttons/book_button.dart';
 import 'buttons/delete_button.dart';
 
 class ManagerListCalenderWidget extends StatefulWidget {
@@ -45,7 +39,7 @@ class ManagerListCalenderWidget extends StatefulWidget {
 class _HomePageCardStates extends State<ManagerListCalenderWidget> {
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
         width: screenWidth(context, dividedBy: 1),
@@ -95,9 +89,9 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                       Padding(
                         padding: const EdgeInsets.only(top: 3.0),
                         child: Text(
-                         Txt.from+
+                          Txt.from +
                               widget.items.timeFrom! +
-                              Txt.to+
+                              Txt.to +
                               widget.items.timeTo!,
                           style: TextStyle(
                               fontSize: 9.sp,
@@ -105,7 +99,6 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                               fontWeight: FontWeight.w400),
                         ),
                       ),
-
                     ],
                   ),
                   SizedBox(height: screenHeight(context, dividedBy: 120)),
@@ -118,21 +111,39 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                           fontWeight: FontWeight.w500),
                     ),
                 ]),
-
                 Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    ViewButton(
-                      label: Txt.view,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ShiftDetailManagerScreen(shift_id: widget.items.rowId.toString(),)),
-                        );
-                      },
-                      key: null,
+
+                    Badge(
+
+                      padding: EdgeInsets.all(4),
+                      position: BadgePosition(
+                        bottom: 10,
+                        start: 30
+
+                      ),
+                      badgeColor: Colors.green,
+                      badgeContent: Text(
+                        widget.items.requested_count.toString(),
+                        style: TextStyle(fontSize: 10,
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: ViewButton(
+                        label: Txt.view,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShiftDetailManagerScreen(
+                                      shift_id: widget.items.rowId.toString(),
+                                    )),
+                          );
+                        },
+                        key: null,
+                      ),
                     )
                   ],
                 )
@@ -151,23 +162,32 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                   DeleteButton(
                     label: Txt.delete,
                     onPressed: () {
-
                       widget.onTapDelete(widget.items.rowId);
-
-
                     },
                     key: null,
                   ),
-                  Spacer(),
+                  // Spacer(),Container(
+                  //   padding: EdgeInsets.symmetric(
+                  //       horizontal: screenWidth(context, dividedBy: 50),
+                  //       vertical: screenHeight(context, dividedBy: 130)),
+                  //   decoration: BoxDecoration(
+                  //       gradient: LinearGradient(
+                  //           begin: Alignment.centerLeft,
+                  //           end: Alignment.centerRight,
+                  //           colors: [
+                  //             Constants.colors[3],
+                  //             Constants.colors[4],
+                  //           ]),
+                  //       color: Constants.colors[3],
+                  //       borderRadius: BorderRadius.circular(5)),
+                  //   child: Text(widget.items.requested_count.toString(),style: TextStyle(color: Colors.white,),),
+                  // ),
                 ],
               ),
-              SizedBox(height: screenHeight(context, dividedBy: 120)),
             ],
           ),
         ),
       ),
     );
   }
-
-
 }
