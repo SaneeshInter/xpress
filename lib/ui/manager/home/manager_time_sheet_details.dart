@@ -110,7 +110,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                             children: [
                               Center(
                                 child: Container(
-                                    height: 60.h,
+width:100.w,
                                     child: imageUrl != null
                                         ? InteractiveViewer(
                                             child: FadeInImage.assetNetwork(
@@ -118,12 +118,15 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                                                   'assets/images/icon/loading_bar.gif',
                                               image: imageUrl,
                                               placeholderScale: 4,
+                                              fit: BoxFit.contain,
+                                              height: 60.h,
                                             ),
                                           )
                                         : Container(
                                             height: 10,
                                             color: Colors.red,
                                           )),
+
                               ),
                               Padding(
                                 padding:

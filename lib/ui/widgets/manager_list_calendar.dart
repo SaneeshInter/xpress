@@ -40,7 +40,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(2.0),
       child: Container(
         width: screenWidth(context, dividedBy: 1),
         padding: EdgeInsets.symmetric(
@@ -52,149 +52,162 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              Row(children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Row(
-                    children: [
-                      AutoSizeText(
-                        Txt.at + widget.items.hospital!,
-                        textAlign: TextAlign.start,
-                        maxLines: 3,
+              Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Badge(
+                      padding: EdgeInsets.all(4),
+                      position: const BadgePosition(bottom: 10, start: 30),
+                      badgeColor: Colors.green,
+                      badgeContent: Text(
+                        widget.items.requested_count.toString(),
                         style: TextStyle(
-                            color: Constants.colors[14],
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: "SFProBold"),
+                          fontSize: 10,
+                          color: Colors.white,
+                        ),
                       ),
-                      SizedBox(
-                        width: 1.w,
+                    ),
+                    SizedBox(
+                      width: 1.w,
+                    ),
+                    Text(
+                      "Request",
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.green,
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
+                    )
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Badge(
-                            padding: EdgeInsets.all(4),
-                            position: BadgePosition(bottom: 10, start: 30),
-                            badgeColor: Colors.green,
-                            badgeContent: Text(
-                              widget.items.requested_count.toString(),
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.white,
+                          Row(
+                            children: [
+                              AutoSizeText(
+                                Txt.at + widget.items.hospital!,
+                                textAlign: TextAlign.start,
+                                maxLines: 3,
+                                style: TextStyle(
+                                    color: Constants.colors[14],
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: "SFProBold"),
                               ),
-                            ),
+                              SizedBox(
+                                width: 1.w,
+                              ),
+                            ],
                           ),
                           SizedBox(
-                            width: 1.w,
+                              height: screenHeight(context, dividedBy: 120)),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 1.0),
+                                child: Text(
+                                  Txt.on_dot + widget.items.date!,
+                                  style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Constants.colors[13],
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3.0),
+                                child: Text(
+                                  Txt.from +
+                                      widget.items.timeFrom! +
+                                      Txt.to +
+                                      widget.items.timeTo!,
+                                  style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Constants.colors[13],
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "Request",
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.green,
+                          SizedBox(
+                              height: screenHeight(context, dividedBy: 120)),
+                          if (null != widget.items.userType)
+                            Text(
+                              widget.items.userType!,
+                              style: TextStyle(
+                                  fontSize: 11.sp,
+                                  color: Constants.colors[3],
+                                  fontWeight: FontWeight.w500),
                             ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                        ]),
+                    Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        ViewButton(
+                          label: Txt.view,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ShiftDetailManagerScreen(
+                                        shift_id: widget.items.rowId.toString(),
+                                      )),
+                            );
+                          },
+                          key: null,
+                        ),
+                      ],
+                    )
+                  ]),
                   SizedBox(height: screenHeight(context, dividedBy: 120)),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1.0),
-                        child: Text(
-                          Txt.on_dot + widget.items.date!,
-                          style: TextStyle(
-                              fontSize: 9.sp,
-                              color: Constants.colors[13],
-                              fontWeight: FontWeight.w400),
-                        ),
+                      BuildButton(
+                        label: Txt.edit,
+                        onPressed: () {
+                          widget.onTapEdit(widget.items);
+                        },
+                        key: null,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 3.0),
-                        child: Text(
-                          Txt.from +
-                              widget.items.timeFrom! +
-                              Txt.to +
-                              widget.items.timeTo!,
-                          style: TextStyle(
-                              fontSize: 9.sp,
-                              color: Constants.colors[13],
-                              fontWeight: FontWeight.w400),
-                        ),
+                      SizedBox(width: screenWidth(context, dividedBy: 40)),
+                      DeleteButton(
+                        label: Txt.delete,
+                        onPressed: () {
+                          widget.onTapDelete(widget.items.rowId);
+                        },
+                        key: null,
                       ),
+                      // Spacer(),Container(
+                      //   padding: EdgeInsets.symmetric(
+                      //       horizontal: screenWidth(context, dividedBy: 50),
+                      //       vertical: screenHeight(context, dividedBy: 130)),
+                      //   decoration: BoxDecoration(
+                      //       gradient: LinearGradient(
+                      //           begin: Alignment.centerLeft,
+                      //           end: Alignment.centerRight,
+                      //           colors: [
+                      //             Constants.colors[3],
+                      //             Constants.colors[4],
+                      //           ]),
+                      //       color: Constants.colors[3],
+                      //       borderRadius: BorderRadius.circular(5)),
+                      //   child: Text(widget.items.requested_count.toString(),style: TextStyle(color: Colors.white,),),
+                      // ),
                     ],
                   ),
-                  SizedBox(height: screenHeight(context, dividedBy: 120)),
-                  if (null != widget.items.userType)
-                    Text(
-                      widget.items.userType!,
-                      style: TextStyle(
-                          fontSize: 11.sp,
-                          color: Constants.colors[3],
-                          fontWeight: FontWeight.w500),
-                    ),
-                ]),
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    ViewButton(
-                      label: Txt.view,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ShiftDetailManagerScreen(
-                                    shift_id: widget.items.rowId.toString(),
-                                  )),
-                        );
-                      },
-                      key: null,
-                    ),
-                  ],
-                )
-              ]),
-              SizedBox(height: screenHeight(context, dividedBy: 120)),
-              Row(
-                children: [
-                  BuildButton(
-                    label: Txt.edit,
-                    onPressed: () {
-                      widget.onTapEdit(widget.items);
-                    },
-                    key: null,
-                  ),
-                  SizedBox(width: screenWidth(context, dividedBy: 40)),
-                  DeleteButton(
-                    label: Txt.delete,
-                    onPressed: () {
-                      widget.onTapDelete(widget.items.rowId);
-                    },
-                    key: null,
-                  ),
-                  // Spacer(),Container(
-                  //   padding: EdgeInsets.symmetric(
-                  //       horizontal: screenWidth(context, dividedBy: 50),
-                  //       vertical: screenHeight(context, dividedBy: 130)),
-                  //   decoration: BoxDecoration(
-                  //       gradient: LinearGradient(
-                  //           begin: Alignment.centerLeft,
-                  //           end: Alignment.centerRight,
-                  //           colors: [
-                  //             Constants.colors[3],
-                  //             Constants.colors[4],
-                  //           ]),
-                  //       color: Constants.colors[3],
-                  //       borderRadius: BorderRadius.circular(5)),
-                  //   child: Text(widget.items.requested_count.toString(),style: TextStyle(color: Colors.white,),),
-                  // ),
                 ],
               ),
             ],
