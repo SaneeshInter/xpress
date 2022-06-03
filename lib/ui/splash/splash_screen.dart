@@ -4,17 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:xpresshealthdev/Constants/sharedPrefKeys.dart';
-import 'package:xpresshealthdev/dbmodel/allowance_category_model.dart';
-import 'package:xpresshealthdev/dbmodel/allowance_mode.dart';
-import 'package:xpresshealthdev/model/country_list.dart';
-import 'package:xpresshealthdev/model/schedule_hospital_list.dart';
-import 'package:xpresshealthdev/ui/login/login_screen.dart';
-import 'package:xpresshealthdev/ui/manager_dashboard_screen.dart';
-import 'package:xpresshealthdev/ui/splash/user_or_manager.dart';
+import 'package:sizer/sizer.dart';
 
+import '../../Constants/sharedPrefKeys.dart';
 import '../../blocs/utility_bloc.dart';
 import '../../db/database.dart';
+import '../../dbmodel/allowance_category_model.dart';
+import '../../dbmodel/allowance_mode.dart';
+import '../../model/country_list.dart';
 import '../../model/gender_list.dart';
 import '../../model/loctions_list.dart';
 import '../../model/schedule_categegory_list.dart';
@@ -23,6 +20,9 @@ import '../../model/user_shifttiming_list.dart';
 import '../../model/user_type_list.dart';
 import '../../model/visa_type_list.dart';
 import '../../ui/dashboard_screen.dart';
+import '../../ui/manager_dashboard_screen.dart';
+import '../../ui/splash/user_or_manager.dart';
+import '../../utils/constants.dart';
 import '../../utils/network_utils.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -51,25 +51,18 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     getData();
     observe();
   }
-
 
   @override
   void dispose() {
     super.dispose();
     utility_bloc.dispose();
   }
-
-
-
 
   getData() async {
     if (await isNetworkAvailable()) {
@@ -81,24 +74,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-
-        statusBarBrightness:
-        Brightness.dark
-    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
+        .copyWith(statusBarBrightness: Brightness.dark));
     return Scaffold(
+      backgroundColor: Constants.colors[3],
       body: Container(
-        decoration: BoxDecoration(
+        height: 100.h,
+        width: 100.w,
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/icon/Bg1.png"),
                 fit: BoxFit.cover)),
         child: Center(
           child: SvgPicture.asset(
             "assets/images/icon/whitelogo.svg",
-            width: MediaQuery
-                .of(context)
-                .size
-                .width / 1.4,
+            width: MediaQuery.of(context).size.width / 1.4,
           ),
         ),
       ),
@@ -117,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen> {
           if (null != countryList) {
             for (var item in countryList) {
               var obj =
-              CountryList(rowId: item.rowId, countryName: item.countryName);
+                  CountryList(rowId: item.rowId, countryName: item.countryName);
               db.insertCountryList(obj);
             }
           }
@@ -132,7 +122,6 @@ class _SplashScreenState extends State<SplashScreen> {
               db.insertCategegoryList(obj);
             }
           }
-
 
           var hospitaist = event.response?.data?.hospitalList;
           if (null != hospitaist) {
@@ -190,8 +179,8 @@ class _SplashScreenState extends State<SplashScreen> {
           var loctionsList = event.response?.data?.loctionsList;
           if (null != loctionsList) {
             for (var item in loctionsList) {
-              var obj = LoctionsList(
-                  rowId: item.rowId, location: item.location);
+              var obj =
+                  LoctionsList(rowId: item.rowId, location: item.location);
               db.insertLoctionsList(obj);
             }
           }
@@ -215,7 +204,8 @@ class _SplashScreenState extends State<SplashScreen> {
           var shiftTimingList = event.response?.data?.shiftTimingList;
           if (null != shiftTimingList) {
             for (var item in shiftTimingList) {
-              var obj = ShiftTimingList(rowId: item.rowId,
+              var obj = ShiftTimingList(
+                  rowId: item.rowId,
                   shift: item.shift,
                   startTime: item.startTime,
                   endTime: item.endTime);
@@ -233,7 +223,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void showInternetNotAvailable() {
     Navigator.pushNamed(context, '/nw_error').then((_) {
-
       getData();
     });
   }
