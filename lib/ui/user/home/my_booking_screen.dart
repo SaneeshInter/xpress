@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
@@ -18,20 +17,21 @@ import '../../Widgets/my_booking_list_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
+
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({Key? key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
 
-
-
-class _HomeState extends State<MyBookingScreen>
-    with WidgetsBindingObserver {
+class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
   late PageController pageController;
   TextEditingController dateFrom = TextEditingController();
   TextEditingController dateTo = TextEditingController();
+  bool visible = false;
 
   @override
   void didUpdateWidget(covariant MyBookingScreen oldWidget) {
@@ -65,10 +65,10 @@ class _HomeState extends State<MyBookingScreen>
     pageController = PageController(initialPage: 0);
     confirmBloc.pageCount = 3;
     dateFrom.addListener(() {
-      checkAndUpdateTimeDiffernce();
+      confirmBloc.checkAndUpdateTimeDiffernce(dateTo.text, dateFrom.text);
     });
     dateTo.addListener(() {
-      checkAndUpdateTimeDiffernce();
+      confirmBloc.checkAndUpdateTimeDiffernce(dateTo.text, dateFrom.text);
     });
   }
 
@@ -94,6 +94,8 @@ class _HomeState extends State<MyBookingScreen>
   }
 
   void observe() {
+    confirmBloc.workTime.listen((event) {});
+
     confirmBloc.usercanceljobrequest.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataitems();
@@ -281,114 +283,125 @@ class _HomeState extends State<MyBookingScreen>
                           SizedBox(
                             height: 10,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8.0, right: 8.0, top: 8.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 2),
-                                    child: Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            Txt.start_time,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              color: Constants.colors[22],
-                                              fontSize: 11.sp,
-                                              fontFamily: "SFProMedium",
+                          Form(
+                            key: formKey,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, right: 8.0, top: 8.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 2),
+                                      child: Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              Txt.start_time,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                color: Constants.colors[22],
+                                                fontSize: 11.sp,
+                                                fontFamily: "SFProMedium",
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          TextInputFileds(
-                                              controlr: dateFrom,
-                                              onChange: (text) {},
-                                              validator: (dateTo) {
-                                                if (validDate(dateTo))
-                                                  return null;
-                                                else
-                                                  return Txt.select_time;
-                                              },
-                                              onTapDate: () {
-                                                selectTime(context, dateFrom);
-                                              },
-                                              hintText: Txt.timeFrom,
-                                              keyboadType: TextInputType.none,
-                                              isPwd: false),
-                                        ],
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            TextInputFileds(
+                                                controlr: dateFrom,
+                                                onChange: (text) {},
+                                                validator: (dateTo) {
+                                                  if (validDate(dateTo))
+                                                    return null;
+                                                  else
+                                                    return Txt.select_time;
+                                                },
+                                                onTapDate: () {
+                                                  selectTime(context, dateFrom);
+                                                },
+                                                hintText: Txt.timeFrom,
+                                                keyboadType: TextInputType.none,
+                                                isPwd: false),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 6,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        Txt.end_time,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          color: Constants.colors[22],
-                                          fontSize: 11.sp,
-                                          fontFamily: "SFProMedium",
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      TextInputFileds(
-                                        controlr: dateTo,
-                                        validator: (dateTo) {
-                                          if (validDate(dateTo))
-                                            return null;
-                                          else
-                                            return Txt.select_time;
-                                        },
-                                        onTapDate: () {
-                                          FocusScope.of(context).unfocus();
-                                          selectTime(context, dateTo);
-                                        },
-                                        hintText: Txt.timeTo,
-                                        keyboadType: TextInputType.none,
-                                        isPwd: false,
-                                        onChange: (text) {
-                                          print(text);
-                                        },
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    width: 6,
                                   ),
-                                ),
-                              ],
+                                  Expanded(
+                                    flex: 1,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          Txt.end_time,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            color: Constants.colors[22],
+                                            fontSize: 11.sp,
+                                            fontFamily: "SFProMedium",
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        TextInputFileds(
+                                          controlr: dateTo,
+                                          validator: (dateTo) {
+                                            if (validDate(dateTo))
+                                              return null;
+                                            else
+                                              return Txt.select_time;
+                                          },
+                                          onTapDate: () {
+                                            FocusScope.of(context).unfocus();
+                                            selectTime(context, dateTo);
+                                          },
+                                          hintText: Txt.timeTo,
+                                          keyboadType: TextInputType.none,
+                                          isPwd: false,
+                                          onChange: (text) {
+                                            print(text);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
                           if (confirmBloc.working_hours != 0)
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16.0, bottom: 16.0),
-                              child: Text(
-                                Txt.working_hours + confirmBloc.working_hours.toString(),
-                                maxLines: 1,
-                                style: TextStyle(
-                                  color: Constants.colors[22],
-                                  fontSize: 11.sp,
-                                  fontFamily: "SFProMedium",
-                                ),
-                              ),
+                            StreamBuilder(
+                              stream: confirmBloc.userworkinghours,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<dynamic> snapshot) {
+
+                               return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16.0, bottom: 16.0),
+                                  child: Text(
+                                    Txt.working_hours +
+                                        snapshot.data,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      color: Constants.colors[22],
+                                      fontSize: 11.sp,
+                                      fontFamily: "SFProMedium",
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           Padding(
                             padding:
@@ -397,7 +410,16 @@ class _HomeState extends State<MyBookingScreen>
                               width: 20.w,
                               child: SubmitButton(
                                   onPressed: () {
-                                    updateAndExit(item, context);
+                                    var validate =
+                                        formKey.currentState?.validate();
+                                    if (null != validate) {
+                                      if (validate) {
+                                        if (mounted) {
+                                          updateAndExit(item, context);
+                                        }
+                                      }
+                                      // use the information provided
+                                    }
                                   },
                                   label: Txt.submit,
                                   textColors: Constants.colors[0],
@@ -473,9 +495,7 @@ class _HomeState extends State<MyBookingScreen>
                       cancelJob(items);
                     },
                     onTapCall: () {},
-                    onTapMap: () {
-
-                    },
+                    onTapMap: () {},
                     onTapBooking: () {},
                     key: null,
                   ),
@@ -509,17 +529,6 @@ class _HomeState extends State<MyBookingScreen>
       );
     }
   }
-
-  Future<void> checkAndUpdateTimeDiffernce() async {
-    if (dateTo.text.isNotEmpty && dateFrom.text.isNotEmpty) {
-      DateTime date = DateFormat.jm().parse(dateTo.text);
-      DateTime date1 = DateFormat.jm().parse(dateFrom.text);
-      var time1 = DateFormat("HH:mm").format(date);
-      var time2 = DateFormat("HH:mm").format(date1);
-      var timeDiffrence = await getDifference(time1, time2);
-      confirmBloc.working_hours = timeDiffrence;
-    }
-  }
 }
 
 FilterBookingList getFilterList(
@@ -547,4 +556,3 @@ FilterBookingList getFilterList(
 
   return list;
 }
-

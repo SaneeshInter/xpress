@@ -1,9 +1,11 @@
+import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:xpresshealthdev/model/user_view_request_response.dart';
 
 import '../model/user_cancel_jobrequest.dart';
 import '../model/user_working_hours.dart';
 import '../resources/respository.dart';
+import '../utils/utils.dart';
 
 class ShiftConfirmedBloc {
 
@@ -23,18 +25,20 @@ class ShiftConfirmedBloc {
   final _visibility = PublishSubject<bool>();
 
   Stream<bool> get visible => _visibility.stream;
+  final workingHours = PublishSubject<int>();
+  Stream<int> get workTime => workingHours.stream;
 
 
   final _usercanceljob = PublishSubject<UserCancelJobRequestResponse>();
   final _userworkinghours = PublishSubject<UserWorkingHoursResponse>();
   final _viewrequest = PublishSubject<UserViewRequestResponse>();
+
   Stream<UserViewRequestResponse> get viewrequest => _viewrequest.stream;
 
   Stream<UserCancelJobRequestResponse> get usercanceljobrequest =>
       _usercanceljob.stream;
 
-  Stream<UserWorkingHoursResponse> get userworkinghours =>
-      _userworkinghours.stream;
+  Stream<UserWorkingHoursResponse> get userworkinghours => _userworkinghours.stream;
 
   fetchUserViewRequest(String token) async {
     _visibility.add(true);
@@ -64,6 +68,19 @@ class ShiftConfirmedBloc {
     if (!_userworkinghours.isClosed) {
       _visibility.add(false);
       _userworkinghours.sink.add(list);
+    }
+  }
+
+
+
+  Future<void> checkAndUpdateTimeDiffernce(String dateTo,String dateFrom) async {
+    if (dateTo.isNotEmpty && dateFrom.isNotEmpty) {
+      DateTime date = DateFormat.jm().parse(dateFrom);
+      DateTime date1 = DateFormat.jm().parse(dateTo);
+      var time1 = DateFormat("HH:mm").format(date);
+      var time2 = DateFormat("HH:mm").format(date1);
+      var timeDiffrence = await getDifference(time1, time2);
+      working_hours = timeDiffrence;
     }
   }
 
