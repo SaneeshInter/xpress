@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:xpresshealthdev/blocs/manager_shift_calendar.dart';
@@ -361,6 +362,10 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   Future deleteShift(rowId) async {
     String? token = await TokenProvider().getToken();
     managercalendarBloc.fetchRemoveManager(token!, rowId.toString());
+    managercalendarBloc.removeshift.listen((event) {
+      var message = event.response?.status?.statusMessage;
+      Fluttertoast.showToast(msg: '$message');
+    });
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
