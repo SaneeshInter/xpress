@@ -28,7 +28,6 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _DashBoardWidgetState extends State<DashBoard> {
   late PersistentTabController _controller;
-  late bool _hideNavBar;
   String _firebaseAppToken = '';
   int pageIndex = 0;
 
@@ -36,7 +35,6 @@ class _DashBoardWidgetState extends State<DashBoard> {
   void initState() {
     super.initState();
     _controller = PersistentTabController(initialIndex: 0);
-    _hideNavBar = false;
     AwesomeNotifications().createNotification(
         content: NotificationContent(
           id: 10,
@@ -158,22 +156,15 @@ class _DashBoardWidgetState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     _controller = PersistentTabController(initialIndex: 0);
-    _hideNavBar = false;
-
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: SideMenu(),
       ),
       appBar: AppBarCommon(
         _scaffoldKey,
         scaffoldKey: _scaffoldKey,
       ),
-      // bottomNavigationBar: buildMyNavBar(context),
-      // body: _widgetOptions[pageIndex],
       body: PersistentTabView(
         context,
         controller: _controller,
@@ -181,15 +172,10 @@ class _DashBoardWidgetState extends State<DashBoard> {
         items: _navBarsItems(),
         confineInSafeArea: true,
         backgroundColor: Colors.white,
-        // Default is Colors.white.
         handleAndroidBackButtonPress: true,
-        // Default is true.
         resizeToAvoidBottomInset: true,
-        // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
         stateManagement: true,
-        // Default is true.
         hideNavigationBarWhenKeyboardShows: true,
-        // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
         decoration: NavBarDecoration(
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
@@ -197,12 +183,10 @@ class _DashBoardWidgetState extends State<DashBoard> {
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
         itemAnimationProperties: ItemAnimationProperties(
-          // Navigation Bar's items animation properties.
           duration: Duration(milliseconds: 200),
           curve: Curves.ease,
         ),
         screenTransitionAnimation: ScreenTransitionAnimation(
-          // Screen transition animation on change of selected tab.
           animateTabTransition: true,
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),

@@ -27,34 +27,28 @@ class ManagerDashBoard extends StatefulWidget {
 }
 
 class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
-  int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static  List<Widget> _widgetOptions = <Widget>[
     ManagerHomeScreen(),
-    //CreateShiftScreen(shiftItem: null),
     ManagerfindshiftCalendar(),
-
     ManagerShiftsScreen(),
     ApprovedTimeSheetScreen(),
     CompletedApprovelScreen(),
   ];
 
   late PersistentTabController _controller;
-  late bool _hideNavBar;
 
   @override
   void initState() {
     super.initState();
     _controller = PersistentTabController(initialIndex: 0);
-    _hideNavBar = false;
   }
 
 
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
     });
   }
 
@@ -94,7 +88,7 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
               width: 5.w,
               color: Colors.black,
               height: 5.w,
-            ), //Image.asset('assets/images/icon/searchicon.svg',width: 20,height: 20,fit: BoxFit.contain,),
+            ),
           ),
         ],
       ),
@@ -105,15 +99,10 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
         items: _navBarsItems(),
         confineInSafeArea: true,
         backgroundColor: Colors.white,
-        // Default is Colors.white.
         handleAndroidBackButtonPress: true,
-        // Default is true.
         resizeToAvoidBottomInset: true,
-        // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
         stateManagement: true,
-        // Default is true.
         hideNavigationBarWhenKeyboardShows: true,
-        // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
         decoration: NavBarDecoration(
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
@@ -121,12 +110,10 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
         itemAnimationProperties: ItemAnimationProperties(
-          // Navigation Bar's items animation properties.
           duration: Duration(milliseconds: 200),
           curve: Curves.ease,
         ),
         screenTransitionAnimation: ScreenTransitionAnimation(
-          // Screen transition animation on change of selected tab.
           animateTabTransition: true,
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),

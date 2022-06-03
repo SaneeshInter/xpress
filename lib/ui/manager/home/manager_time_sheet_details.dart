@@ -272,14 +272,15 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
     return ListView.builder(
       itemCount: length,
       shrinkWrap: true,
-      physics: AlwaysScrollableScrollPhysics(),
+      physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
-        if (null != list) {
+
           TimeSheetDetails? timeSheetDetails = list[index];
           return Column(
             children: [
+              if(null!=timeSheetDetails)
               TimeSheetDetailsListWidget(
-                items: timeSheetDetails!,
+                items: timeSheetDetails,
                 index: index,
                 onTapBooking: () {
                   showBookingAlert(context, date: Txt.show_timsheet);
@@ -295,9 +296,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
               SizedBox(height: screenHeight(context, dividedBy: 100)),
             ],
           );
-        } else {
-          return Container();
-        }
+
       },
     );
   }

@@ -1,19 +1,15 @@
-import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../Constants/strings.dart';
-import '../../../blocs/shift_timesheet_bloc.dart';
+import '../../../blocs/completed_timesheet_bloc.dart';
 import '../../../model/approve_data.dart';
-import '../../../model/filter_shift_list.dart';
 import '../../../model/manager_get_time.dart';
 import '../../../model/manager_timesheet.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/utils.dart';
-import '../../Widgets/buttons/book_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
 
@@ -38,25 +34,26 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
   }
 
   Future<void> getData() async {
-    timesheetBloc.token = await TokenProvider().getToken();
-    timesheetBloc.time_shhet_id = widget.item!.timeSheetId.toString();
-    print(timesheetBloc.token);
-    if (null != timesheetBloc.token) {
-      timesheetBloc.fetchTimesheetDetails();
+    completedTimesheetBloc.token = await TokenProvider().getToken();
+    completedTimesheetBloc.time_shhet_id = widget.item!.timeSheetId.toString();
+    print(completedTimesheetBloc.token);
+    if (null != completedTimesheetBloc.token) {
+      completedTimesheetBloc.fetchTimesheetDetails();
     } else {
       print("TOKEN NOT FOUND");
     }
   }
 
   void observe() {
-    timesheetBloc.approvetimesheet.listen((event) {
+    completedTimesheetBloc.approvetimesheet.listen((event) {
       var message = event.response?.status?.statusMessage;
       showMessageAndPop(message, context);
     });
-    timesheetBloc.timesheetdetails.listen((event) {
+    completedTimesheetBloc.timesheetdetails.listen((event) {
       createApproveData(event);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     String? imageUrl = widget.item?.timeSheetLink;
@@ -64,7 +61,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
       backgroundColor: Constants.colors[9],
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          timesheetBloc.approveTimeSheet();
+          completedTimesheetBloc.approveTimeSheet();
         },
         label: const Text(Txt.approve),
         backgroundColor: Colors.green,
@@ -99,8 +96,8 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.only(
-                              left: 5, right: 5, top: 10),
+                          padding:
+                              const EdgeInsets.only(left: 5, right: 5, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -125,8 +122,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                                 padding:
                                     const EdgeInsets.only(left: 16, top: 10),
                                 child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * .4,
+                                  width: MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
                                     Txt.shifts,
                                     maxLines: 1,
@@ -156,15 +152,15 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                   fit: FlexFit.loose,
                   child: Container(
                     child: StreamBuilder(
-                        stream: timesheetBloc.timesheetdetails,
+                        stream: completedTimesheetBloc.timesheetdetails,
                         builder: (BuildContext context,
                             AsyncSnapshot<ManagerTimeDetailsResponse>
                                 snapshot) {
                           if (!snapshot.hasData ||
                               null == snapshot.data ||
                               null ==
-                                  snapshot.data?.response?.data
-                                      ?.timeSheetDetails) {
+                                  snapshot
+                                      .data?.response?.data?.timeSheetDetails) {
                             return Container();
                           }
                           return buildList(snapshot);
@@ -178,7 +174,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
             width: 100.w,
             height: 70.h,
             child: StreamBuilder(
-              stream: timesheetBloc.visible,
+              stream: completedTimesheetBloc.visible,
               builder: (context, AsyncSnapshot<bool> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!) {
@@ -197,10 +193,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
     );
   }
 
-
-
-  Widget buildList(
-      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
+  Widget buildList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
     var list = snapshot.data?.response?.data?.timeSheetDetails;
     var length = list?.length;
     return ListView.builder(
@@ -220,10 +213,10 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                 },
                 key: null,
                 onCheckBoxClicked: (index, status) {
-                  timesheetBloc.approveData[index].status = status;
+                  completedTimesheetBloc.approveData[index].status = status;
                 },
                 textChange: (comment, index) {
-                  timesheetBloc.approveData[index].comment = comment;
+                  completedTimesheetBloc.approveData[index].comment = comment;
                 },
               ),
               SizedBox(height: screenHeight(context, dividedBy: 100)),
@@ -235,14 +228,15 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
       },
     );
   }
+
   void createApproveData(ManagerTimeDetailsResponse event) {
     var listItem = event.response?.data?.timeSheetDetails;
     if (null != listItem) {
       for (TimeSheetDetails item in listItem) {
         ApproveData data = ApproveData();
-        data.timesheetId = timesheetBloc.time_shhet_id;
+        data.timesheetId = completedTimesheetBloc.time_shhet_id;
         data.scheduleId = item.shiftRowId.toString();
-        timesheetBloc.approveData.add(data);
+        completedTimesheetBloc.approveData.add(data);
       }
     }
   }

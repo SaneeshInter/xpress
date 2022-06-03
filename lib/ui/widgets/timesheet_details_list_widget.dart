@@ -47,7 +47,11 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
     {
       isCheckedReject = true;
     }
-    // jobDescri.text = widget.items.time_sheet_detail_status;
+    if(null != widget.items.time_sheet_detail_comment)
+      {
+        jobDescri.text = widget.items.time_sheet_detail_comment!;
+      }
+
   }
 
   void updateValue() {
@@ -158,7 +162,7 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                   ),
                   Row(
                     children: [
-                      Text(Txt.reject),
+                      const Text(Txt.reject),
                       Container(
                         child: Checkbox(
                           checkColor: Colors.white,
@@ -190,10 +194,11 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                         controlr: jobDescri,
                         onTapDate: () {},
                         validator: (jobDescri) {
-                          if (validDescription(jobDescri))
+                          if (validDescription(jobDescri)) {
                             return null;
-                          else
+                          } else {
                             return Txt.enter_job_descri;
+                          }
                         },
                         hintText:Txt.comment,
                         keyboadType: TextInputType.visiblePassword,
