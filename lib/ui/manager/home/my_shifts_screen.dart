@@ -33,7 +33,6 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
 
   @override
   void didUpdateWidget(covariant ManagerShiftsScreen oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 
@@ -42,21 +41,9 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
     observerResponse();
     var date = DateTime.now();
     dateValue = formatDate(date);
-
     getDataFromUi();
     super.initState();
   }
-
-  // Future getDataFromUi() async {
-  //   SharedPreferences shdPre = await SharedPreferences.getInstance();
-  //   token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
-  //   print(token);
-  //   print("dateValue");
-  //   print(dateValue);
-  //   viewbookingBloc.fetchViewbooking(token!, dateValue);
-  //
-  // }
-
 
   Future<void> getDataFromUi() async {
     token = await TokenProvider().getToken();

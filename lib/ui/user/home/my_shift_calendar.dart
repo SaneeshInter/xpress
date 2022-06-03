@@ -147,165 +147,186 @@ class _FindshiftState extends State<FindshiftCalendar> {
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  child: TableCalendar(
-                    focusedDay: _focusedDay,
-                    firstDay: DateTime(2022),
-                    lastDay: DateTime(2050),
-                    calendarFormat: format,
-                    onFormatChanged: (CalendarFormat _format) {
-                      setState(() {
-                        format = _format;
-                      });
-                    },
-                    // onPageChanged: (date){
-                    //   getData();
-                    // },
-                    onDaySelected: _onDaySelected,
-                    selectedDayPredicate: (day) {
-                      return _selectedDays.contains(day);
-                    },
-                    calendarBuilders: CalendarBuilders(markerBuilder:
-                        (BuildContext context, DateTime datetime,
-                            List<Event> list) {
-                      if (list.isNotEmpty) {
-                        return Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: Container(
-                                  color: Colors.transparent,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4),
-                                    child: Text(
-                                      list.length.toString() +Txt.shifts,
-                                      style: TextStyle(
-                                          fontSize: 7.sp,
-                                          color: Constants.colors[38],
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        );
-                      }
-                    }),
-                    eventLoader: _getEventsForDay,
-                    startingDayOfWeek: StartingDayOfWeek.sunday,
-                    daysOfWeekVisible: true,
-                    headerStyle: HeaderStyle(
-                      formatButtonVisible: false,
-                      titleCentered: true,
-                    ),
-                    calendarStyle: CalendarStyle(
-                      isTodayHighlighted: true,
-                      markerSize: 4,
 
-                      cellMargin: EdgeInsets.all(11),
-                      canMarkersOverflow: false,
-                      selectedDecoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Constants.colors[4],
-                              Constants.colors[3],
-                            ]),
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              NotificationListener(
-                onNotification: (notification) {
-                  //print(_scrollController.position);
-                  // Return true to cancel the notification bubbling. Return false (or null) to
-                  // allow the notification to continue to be dispatched to further ancestors.
-                  return true;
-                },
-                child: Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: StreamBuilder(
-                        stream: shiftcalenderBloc.filteredBydate,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<Items>> snapshot) {
-                          if (snapshot.hasData) {
-                            return ListView.builder(
-                              itemCount: snapshot.data?.length,
-                              shrinkWrap: true,
-                              controller: _scrollController,
-                              itemBuilder: (BuildContext context, int index) {
-                                var items = snapshot.data?[index];
-                                if (null != items) {
-                                  return Column(
+
+          NestedScrollView(
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+
+              return <Widget>[
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            child: TableCalendar(
+                              focusedDay: _focusedDay,
+                              firstDay: DateTime(2022),
+                              lastDay: DateTime(2050),
+                              calendarFormat: format,
+                              onFormatChanged: (CalendarFormat _format) {
+                                setState(() {
+                                  format = _format;
+                                });
+                              },
+                              // onPageChanged: (date){
+                              //   getData();
+                              // },
+                              onDaySelected: _onDaySelected,
+                              selectedDayPredicate: (day) {
+                                return _selectedDays.contains(day);
+                              },
+                              calendarBuilders: CalendarBuilders(markerBuilder:
+                                  (BuildContext context, DateTime datetime,
+                                  List<Event> list) {
+                                if (list.isNotEmpty) {
+                                  return Stack(
                                     children: [
-                                      ShiftListCalenderWidget(
-                                        items: items,
-                                        token: shiftcalenderBloc.token,
-                                        onTapDelete: () {},
-                                        onTapViewMap: () {},
-                                        onTapView: (item) {
-                                          if (items is Items) {
-                                            Items data = items;
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ShiftDetailScreen(
-                                                        shift_id: data.rowId
-                                                            .toString(),
-                                                        isCompleted: false,
-                                                      )),
-                                            );
-                                          }
-                                        },
-                                        onTapBook: (item) {
-                                          requestShift(items);
-                                        },
-                                        onTapEdit: () {
-                                          print("Tapped calendar");
-                                        },
-                                        key: null,
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Container(
+                                            color: Colors.transparent,
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 4),
+                                              child: Text(
+                                                list.length.toString() +Txt.shifts,
+                                                style: TextStyle(
+                                                    fontSize: 7.sp,
+                                                    color: Constants.colors[38],
+                                                    fontWeight: FontWeight.w600),
+                                              ),
+                                            )),
                                       ),
-                                      SizedBox(
-                                          height: screenHeight(context,
-                                              dividedBy: 100)),
                                     ],
                                   );
-                                } else {
-                                  print("items.hospital");
-                                  return Container();
                                 }
-                              },
-                            );
-                          } else if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
-                          }
-                          return Container();
-                        }),
-                  ),
+                              }),
+                              eventLoader: _getEventsForDay,
+                              startingDayOfWeek: StartingDayOfWeek.sunday,
+                              daysOfWeekVisible: true,
+                              headerStyle: HeaderStyle(
+                                formatButtonVisible: false,
+                                titleCentered: true,
+                              ),
+                              calendarStyle: CalendarStyle(
+                                isTodayHighlighted: true,
+                                markerSize: 4,
+
+                                cellMargin: EdgeInsets.all(11),
+                                canMarkersOverflow: false,
+                                selectedDecoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Constants.colors[4],
+                                        Constants.colors[3],
+                                      ]),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ]),
+                ),
+              ];
+
+            },
+            body:     NotificationListener(
+              onNotification: (notification) {
+                //print(_scrollController.position);
+                // Return true to cancel the notification bubbling. Return false (or null) to
+                // allow the notification to continue to be dispatched to further ancestors.
+                return true;
+              },
+              child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: StreamBuilder(
+                      stream: shiftcalenderBloc.filteredBydate,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<Items>> snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: snapshot.data?.length,
+                            shrinkWrap: true,
+                            controller: _scrollController,
+                            itemBuilder: (BuildContext context, int index) {
+                              var items = snapshot.data?[index];
+                              if (null != items) {
+                                return Column(
+                                  children: [
+                                    ShiftListCalenderWidget(
+                                      items: items,
+                                      token: shiftcalenderBloc.token,
+                                      onTapDelete: () {},
+                                      onTapViewMap: () {},
+                                      onTapView: (item) {
+                                        if (items is Items) {
+                                          Items data = items;
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ShiftDetailScreen(
+                                                      shift_id: data.rowId
+                                                          .toString(),
+                                                      isCompleted: false,
+                                                    )),
+                                          );
+                                        }
+                                      },
+                                      onTapBook: (item) {
+                                        requestShift(items);
+                                      },
+                                      onTapEdit: () {
+                                        print("Tapped calendar");
+                                      },
+                                      key: null,
+                                    ),
+                                    SizedBox(
+                                        height: screenHeight(context,
+                                            dividedBy: 100)),
+                                  ],
+                                );
+                              } else {
+                                print("items.hospital");
+                                return Container();
+                              }
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text(snapshot.error.toString());
+                        }
+                        return Container();
+                      }),
                 ),
               ),
-            ],
+            ),
+
           ),
+
+
+
+
+
           Center(
             child: StreamBuilder(
               stream: shiftcalenderBloc.visible,
