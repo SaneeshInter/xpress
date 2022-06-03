@@ -22,8 +22,8 @@ class _BuildButtonState extends State<BuildButton> {
       },
       child: Container(
         padding: EdgeInsets.symmetric(
-            horizontal: screenWidth(context, dividedBy: 24),
-            vertical: screenHeight(context, dividedBy: 90)),
+            horizontal: 4.w,
+            vertical: 2.w),
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,

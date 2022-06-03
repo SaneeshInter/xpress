@@ -27,16 +27,13 @@ class ManagerDashBoard extends StatefulWidget {
 }
 
 class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static  List<Widget> _widgetOptions = <Widget>[
+  static  final List<Widget> _widgetOptions = <Widget>[
     ManagerHomeScreen(),
     ManagerfindshiftCalendar(),
-    ManagerShiftsScreen(),
+    // ManagerShiftsScreen(),
     ApprovedTimeSheetScreen(),
     CompletedApprovelScreen(),
   ];
-
   late PersistentTabController _controller;
 
   @override
@@ -56,12 +53,10 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         bottomOpacity: 0.0,
         elevation: 0.0,
         iconTheme: IconThemeData(
           color:Constants.colors[1],
-          //change your color here
         ),
         backgroundColor: HexColor("#ffffff"),
         title: Row(
@@ -136,18 +131,18 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.shift),
-      title: (Txt.create_shift),
+      title: (Txt.shifts),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
-    PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar),
-      title: (Txt.view_shift),
-      iconSize: 6.w,
-      activeColorPrimary: Constants.colors[6],
-      inactiveColorPrimary: CupertinoColors.systemGrey,
-    ),
+    // PersistentBottomNavBarItem(
+    //   icon: Icon(CupertinoIcons.calendar),
+    //   title: (Txt.view_shift),
+    //   iconSize: 6.w,
+    //   activeColorPrimary: Constants.colors[6],
+    //   inactiveColorPrimary: CupertinoColors.systemGrey,
+    // ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.calendar_badge_plus),
       title: (Txt.time_sheets),

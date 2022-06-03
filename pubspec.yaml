@@ -69,6 +69,7 @@ dependencies:
   awesome_notifications: ^0.6.21
   dots_indicator: ^2.1.0
   badges: ^2.0.3
+  cached_network_image: ^3.2.1
 
 
 
@@ -151,6 +152,7 @@ flutter:
     - assets/images/icon/bell.png
     - assets/images/icon/loading.json
     - assets/images/icon/loading_bar.gif
+    - assets/images/icon/loading_bar1.gif
     - assets/images/icon/loading_circle.gif
     - assets/images/icon/delete.svg
     - assets/images/icon/man_ava.png
