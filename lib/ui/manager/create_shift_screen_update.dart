@@ -124,13 +124,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     }
   }
 
-  // @override
-  // void dispose() {
-  //   managerBloc.dispose();
-  //   dropdownBloc.dispose();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -234,8 +227,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                         contentPadding:
                                                                             EdgeInsets.all(
                                                                                 3.0),
-                                                                        labelText:
-                                                                         Txt.type,
+                                                                        labelText: Txt
+                                                                            .type,
                                                                         labelStyle:
                                                                             TextStyle(fontSize: 10.sp)),
                                                                 items: snapshot
@@ -280,7 +273,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       isPricevisible =
                                                                           false;
                                                                     });
-
                                                                   }
                                                                 },
                                                               );
@@ -345,8 +337,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       TextStyle(
                                                                           fontSize:
                                                                               10.sp),
-                                                                  labelText:
-                                                                     Txt.category,
+                                                                  labelText: Txt
+                                                                      .category,
                                                                 ),
                                                                 items: snapshot
                                                                     .data
@@ -451,8 +443,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       TextStyle(
                                                                           fontSize:
                                                                               10.sp),
-                                                                  labelText:
-                                                                      Txt.user_type,
+                                                                  labelText: Txt
+                                                                      .user_type,
                                                                 ),
                                                                 items: snapshot
                                                                     .data
@@ -544,8 +536,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                         contentPadding:
                                                                             EdgeInsets.all(
                                                                                 3.0),
-                                                                        labelText:
-                                                                            Txt.client,
+                                                                        labelText: Txt
+                                                                            .client,
                                                                         labelStyle:
                                                                             TextStyle(fontSize: 10.sp)),
                                                                 items: snapshot
@@ -656,8 +648,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               contentPadding:
                                                                   EdgeInsets
                                                                       .all(3.0),
-                                                              labelText:
-                                                                Txt.unit_name ,
+                                                              labelText: Txt
+                                                                  .unit_name,
                                                               labelStyle:
                                                                   TextStyle(
                                                                       fontSize:
@@ -702,13 +694,15 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                 children: [
                                                   Container(
                                                     child: TextInputFileds(
-                                                        onChange: (){},   controlr: jobtitle,
+                                                        onChange: () {},
+                                                        controlr: jobtitle,
                                                         validator: (jobtitle) {
                                                           if (validJob(
                                                               jobtitle))
                                                             return null;
                                                           else
-                                                            return Txt.enter_job;
+                                                            return Txt
+                                                                .enter_job;
                                                         },
                                                         hintText: Txt.jobtitle,
                                                         keyboadType:
@@ -772,8 +766,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                         contentPadding:
                                                                             EdgeInsets.all(
                                                                                 3.0),
-                                                                        labelText:
-                                                                        Txt.shift_type ,
+                                                                        labelText: Txt
+                                                                            .shift_type,
                                                                         labelStyle:
                                                                             TextStyle(fontSize: 10.sp)),
                                                                 items: snapshot
@@ -841,7 +835,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           height: 5.3.h,
                                                           child:
                                                               TextInputFileds(
-                                                                  onChange: (){}, controlr:
+                                                                  onChange:
+                                                                      () {},
+                                                                  controlr:
                                                                       date,
                                                                   validator:
                                                                       (date) {
@@ -849,7 +845,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                         date))
                                                                       return null;
                                                                     else
-                                                                      return Txt.select_date;
+                                                                      return Txt
+                                                                          .select_date;
                                                                   },
                                                                   onTapDate:
                                                                       () {
@@ -892,12 +889,14 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                     visible: isPricevisible,
                                                     child: Container(
                                                       child: TextInputFileds(
-                                                          onChange: (){},   controlr: price,
+                                                          onChange: () {},
+                                                          controlr: price,
                                                           validator: (date) {
                                                             if (validDate(date))
                                                               return null;
                                                             else
-                                                              return Txt.enter_price;
+                                                              return Txt
+                                                                  .enter_price;
                                                           },
                                                           onTapDate: () {},
                                                           hintText: Txt.price,
@@ -926,7 +925,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           child: Container(
                                                             child:
                                                                 TextInputFileds(
-                                                                    onChange: (){},         controlr:
+                                                                    onChange:
+                                                                        () {},
+                                                                    controlr:
                                                                         dateFrom,
                                                                     validator:
                                                                         (dateTo) {
@@ -934,7 +935,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                           dateTo))
                                                                         return null;
                                                                       else
-                                                                        return Txt.select_time;
+                                                                        return Txt
+                                                                            .select_time;
                                                                     },
                                                                     onTapDate:
                                                                         () {
@@ -958,14 +960,16 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                       Expanded(
                                                         flex: 1,
                                                         child: TextInputFileds(
-                                                            onChange: (){},      controlr: dateTo,
+                                                            onChange: () {},
+                                                            controlr: dateTo,
                                                             validator:
                                                                 (dateTo) {
                                                               if (validDate(
                                                                   dateTo))
                                                                 return null;
                                                               else
-                                                                return Txt.select_time;
+                                                                return Txt
+                                                                    .select_time;
                                                             },
                                                             onTapDate: () {
                                                               FocusScope.of(
@@ -1002,7 +1006,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                   jobDescri))
                                                                 return null;
                                                               else
-                                                                return Txt.enter_job_descri;
+                                                                return Txt
+                                                                    .enter_job_descri;
                                                             },
                                                             hintText:
                                                                 Txt.jobDescri,
@@ -1051,7 +1056,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         bottom: 5),
                                                     color: Colors.blueAccent,
                                                     child: Text(
-                                                    Txt.add_allowances  ,
+                                                      Txt.add_allowances,
                                                       style: TextStyle(
                                                           fontSize: 10.sp,
                                                           color: Colors.white,
@@ -1265,13 +1270,15 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       });
       if (event.response?.status?.statusCode == 200) {
         if (row_id == -1) {
-          Fluttertoast.showToast(msg: '$message');
           Navigator.pop(context);
+
+
         } else {
           Navigator.pop(context);
+          Fluttertoast.showToast(msg: '$message');
         }
       } else {
-        showAlertDialoge(context, title:Txt.failed, message: message!);
+        showAlertDialoge(context, title: Txt.failed, message: message!);
       }
     });
   }

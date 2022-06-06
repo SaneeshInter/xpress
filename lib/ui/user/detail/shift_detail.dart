@@ -252,10 +252,10 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 if (null != shiftDetails)
                                                   CustomRow(
                                                     onPressed: () {},
-                                                    label: "From " +
+                                                    label:Txt.from+
                                                         shiftDetails.timeFrom
                                                             .toString() +
-                                                        " To " +
+                                                        Txt.to +
                                                         shiftDetails.timeFrom
                                                             .toString(),
                                                     asset:
@@ -313,7 +313,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 if (null != shiftDetails)
                                                   CustomRowz(
                                                     onPressed: () {},
-                                                    label: " Job Details: " +
+                                                    label:Txt.job_details_dot +
                                                         shiftDetails.jobDetails
                                                             .toString(),
                                                     asset: "",
@@ -344,7 +344,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     // use the information provided
                                                     requestShift();
                                                   },
-                                                  label: "Book This Shift"),
+                                                  label: Txt.book_this_shift),
                                           ],
                                         ),
                                         flex: 4,

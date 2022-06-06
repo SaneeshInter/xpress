@@ -66,7 +66,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         enableCloseButton: true,
         closeIcon: Icon(
           Icons.close,
-          color: Colors.red,
+         color:Constants.colors[14],
           size: 12,
         ),
         context: context,
@@ -74,15 +74,18 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         barrierDismissible: true,
         cameraIcon: Icon(
           Icons.camera_alt,
-          color: Colors.red,
-        ),
+            color:  Constants.colors[14]
+        ), galleryIcon: Icon(
+      Icons.image,color: Constants.colors[14],
+    ),
+
         cameraText: Text(
           Txt.frm_camera,
-          style: TextStyle(color: Colors.red),
+          style: TextStyle(color:Constants.colors[14]),
         ),
         galleryText: Text(
           Txt.frm_gallery,
-          style: TextStyle(color: Colors.blue),
+          style: TextStyle(color: Constants.colors[14]),
         ));
     setState(() {
       completeBloc.image = image;
@@ -119,7 +122,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         completeBloc.image = null;
       });
       getData();
-      showMessageAndPop(message, context);
+      Fluttertoast.showToast(msg: '$message');
     });
   }
 

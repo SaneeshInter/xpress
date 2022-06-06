@@ -63,7 +63,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         enableCloseButton: true,
         closeIcon: Icon(
           Icons.close,
-          color: Colors.red,
+          color: Constants.colors[14],
           size: 12,
         ),
         context: context,
@@ -71,16 +71,20 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         barrierDismissible: true,
         cameraIcon: Icon(
           Icons.camera_alt,
-          color: Colors.red,
+          color: Constants.colors[14],
+        ),
+        galleryIcon: Icon(
+          Icons.image,
+          color: Constants.colors[14],
         ),
         //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
         cameraText: Text(
           Txt.frm_camera,
-          style: TextStyle(color: Colors.red),
+          style: TextStyle(color: Constants.colors[14]),
         ),
         galleryText: Text(
           Txt.frm_gallery,
-          style: TextStyle(color: Colors.blue),
+          style: TextStyle(color: Constants.colors[14]),
         ));
     setState(() {
       _image = image;
@@ -113,7 +117,6 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         });
       }
       showMessageAndPop(message, context);
-
     });
   }
 

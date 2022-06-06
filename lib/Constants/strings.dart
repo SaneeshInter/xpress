@@ -314,6 +314,7 @@ class Txt {
   static const view_shift="View Shift";
   static const booking =   "Booking";
   static const approved =   "Approved";
+  static const book_this_shift =   "Book This Shift";
 
 
 
