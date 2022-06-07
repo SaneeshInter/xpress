@@ -1271,6 +1271,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       if (event.response?.status?.statusCode == 200) {
         if (row_id == -1) {
           Navigator.pop(context);
+          Fluttertoast.showToast(msg: '$message');
 
 
         } else {
