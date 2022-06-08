@@ -8,9 +8,7 @@ import '../ui/widgets/action_alert_dialoge.dart';
 import '../ui/widgets/add_time_sheet_alert_box.dart';
 import '../ui/widgets/login_invalid_alert.dart';
 
-
-
-void showMessageAndPop(String? message,BuildContext context) {
+void showMessageAndPop(String? message, BuildContext context) {
   Navigator.pop(context);
   Fluttertoast.showToast(msg: '$message');
 }
@@ -70,8 +68,7 @@ void showBookingAlert(
             insetPadding: EdgeInsets.symmetric(
               horizontal: screenWidth(context, dividedBy: 30),
             ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             content: BookingAlertBox(
               date: date,
               key: null,
@@ -99,8 +96,7 @@ void showAddTimeSheet(
             insetPadding: EdgeInsets.symmetric(
               horizontal: screenWidth(context, dividedBy: 30),
             ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             content: AddTimeSheetAlertBox(
               date: date,
               key: null,
@@ -129,8 +125,7 @@ void showAlertDialoge(
             insetPadding: EdgeInsets.symmetric(
               horizontal: screenWidth(context, dividedBy: 30),
             ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             content: LoginAlertBox(
               title: title,
               message: message,
@@ -141,9 +136,7 @@ void showAlertDialoge(
   );
 }
 
-
-selectDate(
-    BuildContext context, TextEditingController dateController) async {
+selectDate(BuildContext context, TextEditingController dateController) async {
   print("date");
   final DateTime? newDate = await showDatePicker(
     context: context,
@@ -189,24 +182,7 @@ selectTime(BuildContext context, TextEditingController anycontroller) async {
   }
 }
 
-// Future<void> datepicker(
-// context,{
-//   required String date,})
-// async {
-//   final DateTime? newDate = await showDatePicker(
-//     context: context,
-//     initialDate: DateTime(2020, 11, 17),
-//     firstDate: DateTime(2017, 1),
-//     lastDate: DateTime(2022, 7),
-//     helpText: 'Select a date',
-//   );
-// }
-//
-//
-
-
-Future<int> getDifference(String time1, String time2) async
-{
+Future<int> getDifference(String time1, String time2) async {
   DateFormat dateFormat = DateFormat("yyyy-MM-dd");
 
   var _date = dateFormat.format(DateTime.now());
@@ -233,13 +209,23 @@ String getDateString(String date, String format) {
   return updatedDt;
 }
 
+String convert12hrTo24hr(String date) {
+  var dateObj = DateFormat("hh:mm a").parse(date);
+  var date24 = DateFormat.Hm().format(dateObj);
+  return date24;
+}
 
+String convert24hrTo12hr(String time, BuildContext context) {
+  TimeOfDay _startTime = TimeOfDay(hour: int.parse(time.split(":")[0]), minute: int.parse(time.split(":")[1]));
+  var time12 = _startTime.format(context);
+  return time12;
+}
 
 void showActionAlert(
-    context, {
-      required String tittle,
-      required String message,
-    }) {
+  context, {
+  required String tittle,
+  required String message,
+}) {
   showDialog(
     context: context,
     barrierColor: Colors.transparent,
@@ -254,17 +240,9 @@ void showActionAlert(
             insetPadding: EdgeInsets.symmetric(
               horizontal: screenWidth(context, dividedBy: 30),
             ),
-            shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            content: ActionAlertBox(
-                tittle: tittle,
-                message: message,
-                positiveText: "DELETE",
-                onPositvieClick: () {},
-                onNegativeClick: () {})),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            content: ActionAlertBox(tittle: tittle, message: message, positiveText: "DELETE", onPositvieClick: () {}, onNegativeClick: () {})),
       );
     },
   );
 }
-
-
