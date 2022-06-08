@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:xpresshealthdev/db/database.dart';
 import 'package:xpresshealthdev/dbmodel/allowance_category_model.dart';
@@ -17,6 +18,7 @@ import '../model/schedule_categegory_list.dart';
 import '../model/shift_type_list.dart';
 import '../model/user_shifttiming_list.dart';
 import '../model/user_type_list.dart';
+import '../utils/utils.dart';
 
 class CreateShiftmanagerBloc {
   final _repo = Repository();
@@ -102,6 +104,7 @@ class CreateShiftmanagerBloc {
     for (var list in shifttiming) {
       print("the shifttimming list");
       print(list.startTime);
+      print(list.endTime);
     }
 
     List<ShiftTypeList> typeList = [];
@@ -116,6 +119,7 @@ class CreateShiftmanagerBloc {
 
     shifttype.add(shifttype2);
     _shifttype.add(shifttype);
+
     _type.add(typeList);
     _category.add(category);
     _usertype.add(usertype);
@@ -160,10 +164,10 @@ class CreateShiftmanagerBloc {
     String shift,
     String unit_name,
   ) async {
+    var timeFrom = convert12hrTo24hr(time_from);
+    var timeTo = convert12hrTo24hr(time_to);
+
     var json = jsonEncode(allowanceList.map((e) => e.toJson()).toList());
-    // var json = jsonEncode(allowanceList, toEncodable: (e) => {
-    // print(e)
-    // });
     var allowances = json.toString();
     print("allowances");
     print(allowances);
@@ -176,8 +180,8 @@ class CreateShiftmanagerBloc {
       job_title,
       hospital,
       date,
-      time_from,
-      time_to,
+      timeFrom,
+      timeTo,
       job_details,
       price,
       shift,
@@ -215,6 +219,7 @@ class CreateShiftmanagerBloc {
     _managerclient.close();
     _managerunit.close();
   }
+
   void addAllowances(int allowanceId, int allowanceCategroyId, String allowance,
       String allowanceCategroy, String amount) {
     Allowances allowances = Allowances(
@@ -244,6 +249,14 @@ class CreateShiftmanagerBloc {
       }
       _allowancesList.add(allowanceList);
     }
+  }
+}
+
+extension TimeOfDayConverter on TimeOfDay {
+  String to24hours() {
+    final hour = this.hour.toString().padLeft(2, "0");
+    final min = this.minute.toString().padLeft(2, "0");
+    return "$hour:$min";
   }
 }
 

@@ -38,11 +38,12 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   var selected = 0;
   var itemSelected = 0;
   late PageController pageController;
-  DateTime SelectedDay = DateTime.now();
+
   DateTime focusDay = DateTime.now();
   CalendarFormat format = CalendarFormat.twoWeeks;
   final ScrollController _controller = ScrollController();
   DateTime _focusedDay = DateTime.now();
+  DateTime selectedCalenderDay = DateTime.now();
   final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
     equals: isSameDay,
     hashCode: getHashCode,
@@ -101,6 +102,8 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
           visibility = false;
           _selectedDays.addAll(selectedDay);
         });
+        _onDaySelected(selectedCalenderDay,selectedCalenderDay);
+
       } else {
         setState(() {
           visibility = false;
@@ -368,18 +371,16 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
     });
   }
 
+
+
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
       _focusedDay = focusedDay;
+      selectedCalenderDay = focusedDay;
       print("selectedDay");
       print(selectedDay);
-      // if (_selectedDays.contains(selectedDay)) {
-      //   _selectedDays.remove(selectedDay);
-      // } else {
-      //   _selectedDays.add(selectedDay);
-      // }
-
       managercalendarBloc.filterItemByDates(selectedDay);
+
     });
   }
 }
