@@ -72,12 +72,17 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
   Future getToken() async {
     managerBloc.token = await TokenProvider().getToken();
-    print("token");
-    print(managerBloc.token);
+    dropdownBloc.addItem();
+    managerBloc.getDropDownValues();
     if (widget.shiftItem != null && null != managerBloc.token) {
       var item = widget.shiftItem;
       WidgetsBinding.instance.addPostFrameCallback((_) => updateAllowances(context, item!));
+    }else if(null != managerBloc.token){
+      managerBloc.getManagerUnitName(managerBloc.token, managerBloc.hospitalId.toString());
     }
+
+
+
   }
 
   @override
@@ -88,10 +93,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   @override
   void initState() {
     super.initState();
-    getToken();
     observerResponse();
-    dropdownBloc.addItem();
-    managerBloc.getDropDownValues();
+    getToken();
+
     managerBloc.row_id = -1;
   }
 
@@ -100,532 +104,506 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
-      body: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Form(
-                          key: formKey,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                                    child: Container(
-                                      color: Colors.white,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 18, right: 18),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              const SizedBox(
-                                                height: 25,
-                                              ),
-                                              AutoSizeText(
-                                                managerBloc.buttonText,
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: "SFProMedium",
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 25,
-                                              ),
-                                              Column(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Form(
+                      key: formKey,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                child: Container(
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 18, right: 18),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          const SizedBox(
+                                            height: 25,
+                                          ),
+                                          AutoSizeText(
+                                            managerBloc.buttonText,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "SFProMedium",
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 25,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Row(
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Container(
-                                                          width: 50.w,
-                                                          child: StreamBuilder(
-                                                            stream: managerBloc.typeStream,
-                                                            builder: (context, AsyncSnapshot<List<ShiftTypeList>> snapshot) {
-                                                              if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                                return Container();
-                                                              }
-                                                              return DropdownButtonFormField(
-                                                                value: managerBloc.typeId,
-                                                                decoration: InputDecoration(
-                                                                    enabledBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                      borderSide: BorderSide(
-                                                                        color: Constants.colors[28],
-                                                                      ),
-                                                                    ),
-                                                                    focusedBorder: OutlineInputBorder(
-                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                        borderSide: BorderSide(
-                                                                            color: Constants.colors[28], width: 1)),
-                                                                    contentPadding: EdgeInsets.all(3.0),
-                                                                    labelText: Txt.type,
-                                                                    labelStyle: TextStyle(fontSize: 10.sp)),
-                                                                items: snapshot.data?.map((item) {
-                                                                  return DropdownMenuItem(
-                                                                    child: new Text(
-                                                                      item.type!,
-                                                                      style: TextStyle(
-                                                                        fontWeight: FontWeight.w500,
-                                                                        fontSize: 10.sp,
-                                                                        decoration: TextDecoration.none,
-                                                                        color: Constants.colors[29],
-                                                                      ),
-                                                                    ),
-                                                                    value: item.rowId,
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (Object? value) {
-                                                                  managerBloc.typeId = value as int;
-                                                                  if (value == 2) {
-                                                                    setState(() {
-                                                                      managerBloc.isPricevisible = true;
-                                                                    });
-                                                                  } else {
-                                                                    setState(() {
-                                                                      managerBloc.isPricevisible = false;
-                                                                    });
-                                                                  }
-                                                                },
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Container(
-                                                          width: 50.w,
-                                                          child: StreamBuilder(
-                                                            stream: managerBloc.categoryStream,
-                                                            builder: (context,
-                                                                AsyncSnapshot<List<ScheduleCategoryList>> snapshot) {
-                                                              if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                                return Container();
-                                                              }
-                                                              return DropdownButtonFormField(
-                                                                value: managerBloc.categoryId,
-                                                                decoration: InputDecoration(
-                                                                  enabledBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                    borderSide: BorderSide(
-                                                                      color: Constants.colors[28],
-                                                                    ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      width: 50.w,
+                                                      child: StreamBuilder(
+                                                        stream: managerBloc.typeStream,
+                                                        builder: (context, AsyncSnapshot<List<ShiftTypeList>> snapshot) {
+                                                          if (null == snapshot.data || snapshot.data?.length == 0) {
+                                                            return Container();
+                                                          }
+                                                          return DropdownButtonFormField(
+                                                            value: managerBloc.typeId,
+                                                            decoration: InputDecoration(
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                                  borderSide: BorderSide(
+                                                                    color: Constants.colors[28],
                                                                   ),
-                                                                  focusedBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                      borderSide:
-                                                                          BorderSide(color: Constants.colors[28], width: 1)),
-                                                                  contentPadding: EdgeInsets.all(3.0),
-                                                                  labelStyle: TextStyle(fontSize: 10.sp),
-                                                                  labelText: Txt.category,
                                                                 ),
-                                                                items: snapshot.data?.map((item) {
-                                                                  return DropdownMenuItem(
-                                                                    child: new Text(
-                                                                      item.category!,
-                                                                      style: TextStyle(
-                                                                        fontWeight: FontWeight.w500,
-                                                                        fontSize: 10.sp,
-                                                                        decoration: TextDecoration.none,
-                                                                        color: Constants.colors[29],
-                                                                      ),
-                                                                    ),
-                                                                    value: item.rowId,
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (Object? value) {
-                                                                  if (value is int?) {
-                                                                    managerBloc.categoryId = value!;
-                                                                  }
-                                                                },
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Container(
-                                                          width: 50.w,
-                                                          child: StreamBuilder(
-                                                            stream: managerBloc.usertypeStream,
-                                                            builder: (context, AsyncSnapshot<List<UserTypeList>> snapshot) {
-                                                              if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                                return Container();
-                                                              }
-
-                                                              return DropdownButtonFormField(
-                                                                value: managerBloc.usertypeId,
-                                                                decoration: InputDecoration(
-                                                                  enabledBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                    borderSide: BorderSide(
-                                                                      color: Constants.colors[28],
-                                                                    ),
+                                                                focusedBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                    borderSide:
+                                                                        BorderSide(color: Constants.colors[28], width: 1)),
+                                                                contentPadding: EdgeInsets.all(3.0),
+                                                                labelText: Txt.type,
+                                                                labelStyle: TextStyle(fontSize: 10.sp)),
+                                                            items: snapshot.data?.map((item) {
+                                                              return DropdownMenuItem(
+                                                                child: new Text(
+                                                                  item.type!,
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 10.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
                                                                   ),
-                                                                  focusedBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                      borderSide:
-                                                                          BorderSide(color: Constants.colors[28], width: 1)),
-                                                                  contentPadding: EdgeInsets.all(3.0),
-                                                                  labelStyle: TextStyle(fontSize: 10.sp),
-                                                                  labelText: Txt.user_type,
                                                                 ),
-                                                                items: snapshot.data?.map((item) {
-                                                                  return DropdownMenuItem(
-                                                                    child: new Text(
-                                                                      item.type!,
-                                                                      style: TextStyle(
-                                                                        fontWeight: FontWeight.w500,
-                                                                        fontSize: 10.sp,
-                                                                        decoration: TextDecoration.none,
-                                                                        color: Constants.colors[29],
-                                                                      ),
-                                                                    ),
-                                                                    value: item.rowId,
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (Object? value) {
-                                                                  if (value is int?) {
-                                                                    managerBloc.usertypeId = value!;
-                                                                  }
-                                                                },
+                                                                value: item.rowId,
                                                               );
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Container(
-                                                          width: 50.w,
-                                                          child: StreamBuilder(
-                                                            stream: managerBloc.hospitalStream,
-                                                            builder: (context, AsyncSnapshot<List<HospitalList>> snapshot) {
-                                                              if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                                return Container();
+                                                            }).toList(),
+                                                            onChanged: (Object? value) {
+                                                              managerBloc.typeId = value as int;
+                                                              if (value == 2) {
+                                                                setState(() {
+                                                                  managerBloc.isPricevisible = true;
+                                                                });
+                                                              } else {
+                                                                setState(() {
+                                                                  managerBloc.isPricevisible = false;
+                                                                });
                                                               }
-
-                                                              return DropdownButtonFormField(
-                                                                isExpanded: true,
-                                                                value: managerBloc.hospitalId,
-                                                                decoration: InputDecoration(
-                                                                    enabledBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                      borderSide: BorderSide(
-                                                                        color: Constants.colors[28],
-                                                                      ),
-                                                                    ),
-                                                                    focusedBorder: OutlineInputBorder(
-                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                        borderSide: BorderSide(
-                                                                            color: Constants.colors[28], width: 1)),
-                                                                    contentPadding: EdgeInsets.all(3.0),
-                                                                    labelText: Txt.client,
-                                                                    labelStyle: TextStyle(fontSize: 10.sp)),
-                                                                items: snapshot.data?.map((item) {
-                                                                  return DropdownMenuItem(
-                                                                    child: new Text(
-                                                                      item.name!,
-                                                                      overflow: TextOverflow.clip,
-                                                                      style: TextStyle(
-                                                                        fontWeight: FontWeight.w500,
-                                                                        fontSize: 8.sp,
-                                                                        decoration: TextDecoration.none,
-                                                                        color: Constants.colors[29],
-                                                                      ),
-                                                                    ),
-                                                                    value: item.rowId,
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (Object? value) {
-                                                                  if (value is int?) {
-                                                                    managerBloc.hospitalId = value!;
-                                                                    setState(() {
-                                                                      managerBloc.unitId = 1;
-                                                                    });
-                                                                    managerBloc.getManagerUnitName(managerBloc.token,
-                                                                        managerBloc.hospitalId.toString());
-                                                                  }
-                                                                },
-                                                              );
                                                             },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              SizedBox(
-                                                width: 100.w,
-                                                child: StreamBuilder(
-                                                  stream: managerBloc.managerunitStream,
-                                                  builder: (context, AsyncSnapshot<List<UnitItems>> snapshot) {
-                                                    if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                      return Container();
-                                                    }
-
-                                                    return DropdownButtonFormField(
-                                                      isExpanded: true,
-                                                      value: managerBloc.unitId,
-                                                      decoration: InputDecoration(
-                                                          enabledBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                            borderSide: BorderSide(
-                                                              color: Constants.colors[28],
-                                                            ),
-                                                          ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                              borderSide: BorderSide(color: Constants.colors[28], width: 1)),
-                                                          contentPadding: EdgeInsets.all(3.0),
-                                                          labelText: Txt.unit_name,
-                                                          labelStyle: TextStyle(fontSize: 10.sp)),
-                                                      items: snapshot.data?.map((item) {
-                                                        return DropdownMenuItem(
-                                                          child: new Text(
-                                                            item.unitName!,
-                                                            overflow: TextOverflow.clip,
-                                                            style: TextStyle(
-                                                              fontWeight: FontWeight.w500,
-                                                              fontSize: 9.sp,
-                                                              decoration: TextDecoration.none,
-                                                              color: Constants.colors[29],
-                                                            ),
-                                                          ),
-                                                          value: item.unitRowId,
-                                                        );
-                                                      }).toList(),
-                                                      onChanged: (Object? value) {
-                                                        if (value is int?) {
-                                                          managerBloc.unitId = value!;
-                                                        }
-                                                      },
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    child: TextInputFileds(
-                                                        onChange: () {},
-                                                        controlr: jobtitle,
-                                                        validator: (jobtitle) {
-                                                          if (validJob(jobtitle))
-                                                            return null;
-                                                          else
-                                                            return Txt.enter_job;
+                                                          );
                                                         },
-                                                        hintText: Txt.jobtitle,
-                                                        keyboadType: TextInputType.text,
-                                                        isPwd: false,
-                                                        onTapDate: () {}),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      width: 50.w,
+                                                      child: StreamBuilder(
+                                                        stream: managerBloc.categoryStream,
+                                                        builder:
+                                                            (context, AsyncSnapshot<List<ScheduleCategoryList>> snapshot) {
+                                                          if (null == snapshot.data || snapshot.data?.length == 0) {
+                                                            return Container();
+                                                          }
+                                                          return DropdownButtonFormField(
+                                                            value: managerBloc.categoryId,
+                                                            decoration: InputDecoration(
+                                                              enabledBorder: OutlineInputBorder(
+                                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                                borderSide: BorderSide(
+                                                                  color: Constants.colors[28],
+                                                                ),
+                                                              ),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                  borderSide:
+                                                                      BorderSide(color: Constants.colors[28], width: 1)),
+                                                              contentPadding: EdgeInsets.all(3.0),
+                                                              labelStyle: TextStyle(fontSize: 10.sp),
+                                                              labelText: Txt.category,
+                                                            ),
+                                                            items: snapshot.data?.map((item) {
+                                                              return DropdownMenuItem(
+                                                                child: new Text(
+                                                                  item.category!,
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 10.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
+                                                                  ),
+                                                                ),
+                                                                value: item.rowId,
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (Object? value) {
+                                                              if (value is int?) {
+                                                                managerBloc.categoryId = value!;
+                                                              }
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Column(
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Row(
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Container(
-                                                          width: 50.w,
-                                                          child: StreamBuilder(
-                                                            stream: managerBloc.shifttimeStream,
-                                                            builder:
-                                                                (context, AsyncSnapshot<List<ShiftTimingList>> snapshot) {
-                                                              if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                                return Container();
-                                                              }
-
-                                                              return DropdownButtonFormField(
-                                                                value: managerBloc.shiftTypeId,
-                                                                decoration: InputDecoration(
-                                                                    enabledBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                                                      borderSide: BorderSide(
-                                                                        color: Constants.colors[28],
-                                                                      ),
-                                                                    ),
-                                                                    focusedBorder: OutlineInputBorder(
-                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                        borderSide: BorderSide(
-                                                                            color: Constants.colors[28], width: 1)),
-                                                                    contentPadding: EdgeInsets.all(3.0),
-                                                                    labelText: Txt.shift_type,
-                                                                    labelStyle: TextStyle(fontSize: 10.sp)),
-                                                                items: snapshot.data?.map((item) {
-                                                                  return DropdownMenuItem(
-                                                                    child: new Text(
-                                                                      item.shift!,
-                                                                      style: TextStyle(
-                                                                        fontWeight: FontWeight.w500,
-                                                                        fontSize: 10.sp,
-                                                                        decoration: TextDecoration.none,
-                                                                        color: Constants.colors[29],
-                                                                      ),
-                                                                    ),
-                                                                    value: item.rowId,
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (Object? value) {
-                                                                  if (value is int?) {
-                                                                    ShiftTimingList shiftValue =
-                                                                        getItemFromId(value!, snapshot.data);
-                                                                    managerBloc.shiftTypeId = shiftValue.rowId!;
-                                                                    var timeFrom = shiftValue.startTime!;
-                                                                    var timeTo = shiftValue.endTime!;
-                                                                    dateFrom.text = convert24hrTo12hr(timeFrom, context);
-                                                                    dateTo.text = convert24hrTo12hr(timeTo, context);
-                                                                  }
-                                                                },
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Container(
-                                                          width: 50.w,
-                                                          height: 5.3.h,
-                                                          child: TextInputFileds(
-                                                              onChange: () {},
-                                                              controlr: date,
-                                                              validator: (date) {
-                                                                if (validDate(date))
-                                                                  return null;
-                                                                else
-                                                                  return Txt.select_date;
-                                                              },
-                                                              onTapDate: () {
-                                                                selectDate(context, date);
-                                                                var dates = date.text;
-                                                                if (managerBloc.token != null && dates != "") {
-                                                                  var shifttype = managerBloc.shiftType;
-                                                                  managerBloc.getUserListByDate(
-                                                                      managerBloc.token, dates, shifttype.toString());
-                                                                }
-                                                              },
-                                                              hintText: Txt.date,
-                                                              keyboadType: TextInputType.none,
-                                                              isPwd: false),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Visibility(
-                                                    visible: managerBloc.isPricevisible,
+                                                  Expanded(
+                                                    flex: 1,
                                                     child: Container(
+                                                      width: 50.w,
+                                                      child: StreamBuilder(
+                                                        stream: managerBloc.usertypeStream,
+                                                        builder: (context, AsyncSnapshot<List<UserTypeList>> snapshot) {
+                                                          if (null == snapshot.data || snapshot.data?.length == 0) {
+                                                            return Container();
+                                                          }
+
+                                                          return DropdownButtonFormField(
+                                                            value: managerBloc.usertypeId,
+                                                            decoration: InputDecoration(
+                                                              enabledBorder: OutlineInputBorder(
+                                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                                borderSide: BorderSide(
+                                                                  color: Constants.colors[28],
+                                                                ),
+                                                              ),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                  borderSide:
+                                                                      BorderSide(color: Constants.colors[28], width: 1)),
+                                                              contentPadding: EdgeInsets.all(3.0),
+                                                              labelStyle: TextStyle(fontSize: 10.sp),
+                                                              labelText: Txt.user_type,
+                                                            ),
+                                                            items: snapshot.data?.map((item) {
+                                                              return DropdownMenuItem(
+                                                                child: new Text(
+                                                                  item.type!,
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 10.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
+                                                                  ),
+                                                                ),
+                                                                value: item.rowId,
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (Object? value) {
+                                                              if (value is int?) {
+                                                                managerBloc.usertypeId = value!;
+                                                              }
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      width: 50.w,
+                                                      child: StreamBuilder(
+                                                        stream: managerBloc.hospitalStream,
+                                                        builder: (context, AsyncSnapshot<List<HospitalList>> snapshot) {
+                                                          if (null == snapshot.data || snapshot.data?.length == 0) {
+                                                            return Container();
+                                                          }
+
+                                                          return DropdownButtonFormField(
+                                                            isExpanded: true,
+                                                            value: managerBloc.hospitalId,
+                                                            decoration: InputDecoration(
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                                  borderSide: BorderSide(
+                                                                    color: Constants.colors[28],
+                                                                  ),
+                                                                ),
+                                                                focusedBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                    borderSide:
+                                                                        BorderSide(color: Constants.colors[28], width: 1)),
+                                                                contentPadding: EdgeInsets.all(3.0),
+                                                                labelText: Txt.client,
+                                                                labelStyle: TextStyle(fontSize: 10.sp)),
+                                                            items: snapshot.data?.map((item) {
+                                                              return DropdownMenuItem(
+                                                                child: new Text(
+                                                                  item.name!,
+                                                                  overflow: TextOverflow.clip,
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 8.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
+                                                                  ),
+                                                                ),
+                                                                value: item.rowId,
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (Object? value) {
+                                                              if (value is int?) {
+                                                                managerBloc.hospitalId = value!;
+                                                                setState(() {
+                                                                  managerBloc.unitId = 1;
+                                                                });
+                                                                managerBloc.getManagerUnitName(
+                                                                    managerBloc.token, managerBloc.hospitalId.toString());
+                                                              }
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          SizedBox(
+                                            width: 100.w,
+                                            child: StreamBuilder(
+                                              stream: managerBloc.managerunitStream,
+                                              builder: (context, AsyncSnapshot<List<UnitItems>> snapshot) {
+                                                if (null == snapshot.data || snapshot.data?.length == 0) {
+                                                  return Container();
+                                                }
+
+                                                return DropdownButtonFormField(
+                                                  isExpanded: true,
+                                                  value: managerBloc.unitId,
+                                                  decoration: InputDecoration(
+                                                      enabledBorder: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                        borderSide: BorderSide(
+                                                          color: Constants.colors[28],
+                                                        ),
+                                                      ),
+                                                      focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                          borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+                                                      contentPadding: EdgeInsets.all(3.0),
+                                                      labelText: Txt.unit_name,
+                                                      labelStyle: TextStyle(fontSize: 10.sp)),
+                                                  items: snapshot.data?.map((item) {
+                                                    return DropdownMenuItem(
+                                                      child: new Text(
+                                                        item.unitName!,
+                                                        overflow: TextOverflow.clip,
+                                                        style: TextStyle(
+                                                          fontWeight: FontWeight.w500,
+                                                          fontSize: 9.sp,
+                                                          decoration: TextDecoration.none,
+                                                          color: Constants.colors[29],
+                                                        ),
+                                                      ),
+                                                      value: item.unitRowId,
+                                                    );
+                                                  }).toList(),
+                                                  onChanged: (Object? value) {
+                                                    if (value is int?) {
+                                                      managerBloc.unitId = value!;
+                                                    }
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                child: TextInputFileds(
+                                                    onChange: () {},
+                                                    controlr: jobtitle,
+                                                    validator: (jobtitle) {
+                                                      if (validJob(jobtitle))
+                                                        return null;
+                                                      else
+                                                        return Txt.enter_job;
+                                                    },
+                                                    hintText: Txt.jobtitle,
+                                                    keyboadType: TextInputType.text,
+                                                    isPwd: false,
+                                                    onTapDate: () {}),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      width: 50.w,
+                                                      child: StreamBuilder(
+                                                        stream: managerBloc.shifttimeStream,
+                                                        builder: (context, AsyncSnapshot<List<ShiftTimingList>> snapshot) {
+                                                          if (null == snapshot.data || snapshot.data?.length == 0) {
+                                                            return Container();
+                                                          }
+
+                                                          return DropdownButtonFormField(
+                                                            value: managerBloc.shiftTypeId,
+                                                            decoration: InputDecoration(
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                                                  borderSide: BorderSide(
+                                                                    color: Constants.colors[28],
+                                                                  ),
+                                                                ),
+                                                                focusedBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                    borderSide:
+                                                                        BorderSide(color: Constants.colors[28], width: 1)),
+                                                                contentPadding: EdgeInsets.all(3.0),
+                                                                labelText: Txt.shift_type,
+                                                                labelStyle: TextStyle(fontSize: 10.sp)),
+                                                            items: snapshot.data?.map((item) {
+                                                              return DropdownMenuItem(
+                                                                child: new Text(
+                                                                  item.shift!,
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 10.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
+                                                                  ),
+                                                                ),
+                                                                value: item.rowId,
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (Object? value) {
+                                                              if (value is int?) {
+                                                                ShiftTimingList shiftValue =
+                                                                    getItemFromId(value!, snapshot.data);
+                                                                managerBloc.shiftTypeId = shiftValue.rowId!;
+                                                                var timeFrom = shiftValue.startTime!;
+                                                                var timeTo = shiftValue.endTime!;
+                                                                dateFrom.text = convert24hrTo12hr(timeFrom, context);
+                                                                dateTo.text = convert24hrTo12hr(timeTo, context);
+                                                              }
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      width: 50.w,
+                                                      height: 5.3.h,
                                                       child: TextInputFileds(
                                                           onChange: () {},
-                                                          controlr: price,
+                                                          controlr: date,
                                                           validator: (date) {
                                                             if (validDate(date))
                                                               return null;
                                                             else
-                                                              return Txt.enter_price;
+                                                              return Txt.select_date;
                                                           },
-                                                          onTapDate: () {},
-                                                          hintText: Txt.price,
-                                                          keyboadType: TextInputType.number,
+                                                          onTapDate: () {
+                                                            selectDate(context, date);
+                                                            var dates = date.text;
+                                                            if (managerBloc.token != null && dates != "") {
+                                                              var shifttype = managerBloc.shiftType;
+                                                              managerBloc.getUserListByDate(
+                                                                  managerBloc.token, dates, shifttype.toString());
+                                                            }
+                                                          },
+                                                          hintText: Txt.date,
+                                                          keyboadType: TextInputType.none,
                                                           isPwd: false),
                                                     ),
                                                   ),
                                                 ],
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Visibility(
+                                                visible: managerBloc.isPricevisible,
+                                                child: Container(
+                                                  child: TextInputFileds(
+                                                      onChange: () {},
+                                                      controlr: price,
+                                                      validator: (date) {
+                                                        if (validDate(date))
+                                                          return null;
+                                                        else
+                                                          return Txt.enter_price;
+                                                      },
+                                                      onTapDate: () {},
+                                                      hintText: Txt.price,
+                                                      keyboadType: TextInputType.number,
+                                                      isPwd: false),
+                                                ),
                                               ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Column(
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Row(
                                                 children: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.only(right: 2),
-                                                          child: Container(
-                                                            child: TextInputFileds(
-                                                                onChange: () {},
-                                                                controlr: dateFrom,
-                                                                validator: (dateTo) {
-                                                                  if (validDate(dateTo))
-                                                                    return null;
-                                                                  else
-                                                                    return Txt.select_time;
-                                                                },
-                                                                onTapDate: () {
-                                                                  selectTime(context, dateFrom);
-                                                                },
-                                                                hintText: Txt.timeFrom,
-                                                                keyboadType: TextInputType.none,
-                                                                isPwd: false),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Expanded(
-                                                        flex: 1,
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(right: 2),
+                                                      child: Container(
                                                         child: TextInputFileds(
                                                             onChange: () {},
-                                                            controlr: dateTo,
+                                                            controlr: dateFrom,
                                                             validator: (dateTo) {
                                                               if (validDate(dateTo))
                                                                 return null;
@@ -633,133 +611,154 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                 return Txt.select_time;
                                                             },
                                                             onTapDate: () {
-                                                              FocusScope.of(context).unfocus();
-                                                              selectTime(context, dateTo);
+                                                              selectTime(context, dateFrom);
                                                             },
-                                                            hintText: Txt.timeTo,
+                                                            hintText: Txt.timeFrom,
                                                             keyboadType: TextInputType.none,
                                                             isPwd: false),
                                                       ),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Container(
-                                                    child: TextInputFiledDescription(
-                                                        controlr: jobDescri,
-                                                        onTapDate: () {},
-                                                        validator: (jobDescri) {
-                                                          if (validDescription(jobDescri))
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: TextInputFileds(
+                                                        onChange: () {},
+                                                        controlr: dateTo,
+                                                        validator: (dateTo) {
+                                                          if (validDate(dateTo))
                                                             return null;
                                                           else
-                                                            return Txt.enter_job_descri;
+                                                            return Txt.select_time;
                                                         },
-                                                        hintText: Txt.jobDescri,
-                                                        keyboadType: TextInputType.visiblePassword,
+                                                        onTapDate: () {
+                                                          FocusScope.of(context).unfocus();
+                                                          selectTime(context, dateTo);
+                                                        },
+                                                        hintText: Txt.timeTo,
+                                                        keyboadType: TextInputType.none,
                                                         isPwd: false),
                                                   ),
                                                 ],
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: AutoSizeText(
-                                                      Txt.allowances,
-                                                      style: TextStyle(
-                                                        fontSize: 13.sp,
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.w500,
-                                                        fontFamily: "SFProMedium",
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  RaisedButton(
-                                                    onPressed: () {
-                                                      showModalBottomSheet(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return AllowanceBottomSheet(
-                                                              onSumbmit: () {},
-                                                              onTapView: () {},
-                                                              value: 1,
-                                                            );
-                                                          });
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Container(
+                                                child: TextInputFiledDescription(
+                                                    controlr: jobDescri,
+                                                    onTapDate: () {},
+                                                    validator: (jobDescri) {
+                                                      if (validDescription(jobDescri))
+                                                        return null;
+                                                      else
+                                                        return Txt.enter_job_descri;
                                                     },
-                                                    padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                                                    color: Colors.blueAccent,
-                                                    child: Text(
-                                                      Txt.add_allowances,
-                                                      style: TextStyle(
-                                                          fontSize: 10.sp,
-                                                          color: Colors.white,
-                                                          fontWeight: FontWeight.w500,
-                                                          letterSpacing: 0.6),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                              StreamBuilder<List<Allowances>>(
-                                                  stream: managerBloc.allowancesList,
-                                                  builder: (context, snapshot) {
-                                                    if (null == snapshot.data) {
-                                                      return Container();
-                                                    }
-                                                    if (null==snapshot.data) {
-                                                      return Container();
-                                                    }
-                                                    return buildAllowanceList(snapshot, context);
-                                                  }),
-                                              createShiftButton(),
-                                              const SizedBox(
-                                                height: 15,
+                                                    hintText: Txt.jobDescri,
+                                                    keyboadType: TextInputType.visiblePassword,
+                                                    isPwd: false),
                                               ),
                                             ],
                                           ),
-                                        ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: AutoSizeText(
+                                                  Txt.allowances,
+                                                  style: TextStyle(
+                                                    fontSize: 13.sp,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontFamily: "SFProMedium",
+                                                  ),
+                                                ),
+                                              ),
+                                              RaisedButton(
+                                                onPressed: () {
+                                                  showModalBottomSheet(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AllowanceBottomSheet(
+                                                          onSumbmit: () {},
+                                                          onTapView: () {},
+                                                          value: 1,
+                                                        );
+                                                      });
+                                                },
+                                                padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                                                color: Colors.blueAccent,
+                                                child: Text(
+                                                  Txt.add_allowances,
+                                                  style: TextStyle(
+                                                      fontSize: 10.sp,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w500,
+                                                      letterSpacing: 0.6),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          StreamBuilder<List<Allowances>>(
+                                              stream: managerBloc.allowancesList,
+                                              builder: (context, snapshot) {
+                                                if (null == snapshot.data) {
+                                                  return Container();
+                                                }
+                                                if (null == snapshot.data) {
+                                                  return Container();
+                                                }
+                                                return buildAllowanceList(snapshot, context);
+                                              }),
+                                          createShiftButton(),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                Center(
-                  child: StreamBuilder(
-                    stream: managerBloc.visible,
-                    builder: (context, AsyncSnapshot<bool> snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data!) {
-                          return const Center(child: LoadingWidget());
-                        } else {
-                          return Container();
-                        }
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
-                ),
-              ],
+              ),
             ),
-          ],
-        ),
+          ),
+          Center(
+            child: StreamBuilder(
+              stream: managerBloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -789,30 +788,21 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                     child: Text(
                       allowace!,
                       style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
+                          color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
                     )),
                 Expanded(
                     flex: 1,
                     child: Text(
                       category!,
                       style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
+                          color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
                     )),
                 Expanded(
                     flex: 1,
                     child: Text(
                       amount!,
                       style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
+                          color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
                     )),
                 GestureDetector(
                   onTap: () {
@@ -832,7 +822,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         );
       },
     );
-
   }
 
   Widget createShiftButton() {
@@ -959,6 +948,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         managerBloc.usertypeId = item.userTypeId!;
       });
     }
+    print("item.hospitalId");
+    print(item.hospitalId);
     if (item.hospitalId != 0 && null != item.hospitalId) {
       setState(() {
         managerBloc.hospitalId = item.hospitalId!;

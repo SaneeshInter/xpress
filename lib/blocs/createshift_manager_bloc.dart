@@ -130,12 +130,6 @@ class CreateShiftmanagerBloc {
     var hospitals = await _db.getHospitalList();
 
     var shifttiming = await _db.getShiftTimingList();
-    for (var list in shifttiming) {
-      print("the shifttimming list");
-      print(list.startTime);
-      print(list.endTime);
-    }
-
     List<ShiftTypeList> typeList = [];
     var type1 = ShiftTypeList(rowId: 1, type: "Regular");
     var type2 = ShiftTypeList(rowId: 2, type: "Premium");

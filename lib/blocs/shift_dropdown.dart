@@ -18,8 +18,6 @@ Function(String) get inName => _name.sink.add;
     _getmanager.add(names);
 
   }
-
-
   dispose() {
     _name.close();
   }
