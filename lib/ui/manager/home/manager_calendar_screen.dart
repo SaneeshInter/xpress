@@ -76,16 +76,22 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   }
 
   void observe() {
+
+    // managercalendarBloc.removeshift.listen((event) {
+    //   var message = event.response?.status?.statusMessage;
+    //   Fluttertoast.showToast(msg: '$message');
+    // });
+
     managercalendarBloc.removeshift.listen((event) {
       print(event.response?.status?.statusCode);
       setState(() {
         visibility = false;
       });
+
       var message = event.response?.status?.statusMessage;
+      Fluttertoast.showToast(msg: '$message');
       if (event.response?.status?.statusCode == 200) {
         getData();
-      } else {
-        showAlertDialoge(context, title: "Failed", message: message!);
       }
     });
     managercalendarBloc.managercalendar.listen((event) {
@@ -311,6 +317,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                     );
                                   } else {
                                     print("items.hospital");
+
                                     return Container();
                                   }
                                 },
@@ -365,10 +372,6 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   Future deleteShift(rowId) async {
     String? token = await TokenProvider().getToken();
     managercalendarBloc.fetchRemoveManager(token!, rowId.toString());
-    managercalendarBloc.removeshift.listen((event) {
-      var message = event.response?.status?.statusMessage;
-      Fluttertoast.showToast(msg: '$message');
-    });
   }
 
 

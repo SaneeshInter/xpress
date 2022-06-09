@@ -94,9 +94,9 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
                         Text(
                           Txt.from +
-                              widget.items.timeFrom! +
+                            convert24hrTo12hr( widget.items.timeFrom!, context)  +
                              Txt.to +
-                              widget.items.timeTo!,
+                        convert24hrTo12hr( widget.items.timeTo!, context)     ,
                           style: TextStyle(
                               fontSize: 9.sp,
                               color: Constants.colors[13],

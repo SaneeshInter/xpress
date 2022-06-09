@@ -925,8 +925,10 @@ class _CreateShiftState extends State<ProfileEditScreen> {
   void observerResponse() {
     profileBloc.profileStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
+
       if (event.response?.status?.statusCode == 200) {
-        Navigator.pop(context);
+        showMessageAndPop(message, context);
+
       } else {
         showAlertDialoge(context, title: Txt.invalid, message: message!);
       }

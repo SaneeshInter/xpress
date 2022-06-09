@@ -110,9 +110,9 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                       padding: const EdgeInsets.only(top: 3.0),
                       child: Text(
                        Txt.from +
-                            widget.items.timeFrom! +
+                        convert24hrTo12hr(widget.items.timeFrom!, context)     +
                             Txt.to+
-                            widget.items.timeTo!,
+                        convert24hrTo12hr( widget.items.timeTo!, context)   ,
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],

@@ -381,7 +381,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                           SizedBox(
                             height: 5,
                           ),
-                    
+
                             StreamBuilder(
                               stream: confirmBloc.workTime,
                               builder: (BuildContext context,
@@ -525,7 +525,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
               ),
             ],
           ),
-          150.height,
+          100.height,
           Image.asset('assets/images/error/empty_task.png', height: 250),
         ],
       );

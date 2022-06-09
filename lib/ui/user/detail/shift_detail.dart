@@ -399,7 +399,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     bloc.jobrequest.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataz();
-      Fluttertoast.showToast(msg: '$message');
+      //Fluttertoast.showToast(msg: '$message');
     });
 
     usershiftdetailsBloc.usershiftdetailsStream.listen((event) {

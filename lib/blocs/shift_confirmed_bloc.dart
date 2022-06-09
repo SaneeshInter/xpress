@@ -81,6 +81,7 @@ class ShiftConfirmedBloc {
       var time2 = DateFormat("HH:mm").format(date1);
       var timeDiffrence = await getDifference(time1, time2);
       working_hours = timeDiffrence;
+      workingHours.add(working_hours);
     }
   }
 
