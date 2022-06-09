@@ -21,10 +21,6 @@ import '../model/user_type_list.dart';
 import '../utils/utils.dart';
 
 class CreateShiftmanagerBloc {
-
-
-
-
   var row_id = -1;
   var typeId = 1;
   var categoryId = 1;
@@ -38,18 +34,13 @@ class CreateShiftmanagerBloc {
   var allowanceCategroy = "Food Item";
   var allowance = "Break Fast";
   var shiftItem;
-
-  final _visibility = PublishSubject<bool>();
-  Stream<bool> get visible => _visibility.stream;
-
-
-
-
-  bool isPricevisible = false;
-  bool isShiftTypeChanged = false;
   var buttonText = "Create Shift";
   var token;
+  bool isPricevisible = false;
+  bool isShiftTypeChanged = false;
+  final _visibility = PublishSubject<bool>();
 
+  Stream<bool> get visible => _visibility.stream;
 
   final _repo = Repository();
   final _db = Db();
@@ -62,16 +53,13 @@ class CreateShiftmanagerBloc {
   final _managerclients = PublishSubject<ManagerGetClientsResponse>();
   final _managerunits = PublishSubject<ManagerUnitNameResponse>();
 
-  Stream<List<HospitalListItem>> get managergetclientStream =>
-      _managerclient.stream;
+  Stream<List<HospitalListItem>> get managergetclientStream => _managerclient.stream;
 
   Stream<List<UnitItems>> get managerunitStream => _managerunit.stream;
 
-  Stream<ManagerGetClientsResponse> get getclientsdtream =>
-      _managerclients.stream;
+  Stream<ManagerGetClientsResponse> get getclientsdtream => _managerclients.stream;
 
-  Stream<ManagerUnitNameResponse> get managerunitnamestream =>
-      _managerunits.stream;
+  Stream<ManagerUnitNameResponse> get managerunitnamestream => _managerunits.stream;
 
   List<Allowances> allowanceList = [];
   final _allowancesList = PublishSubject<List<Allowances>>();
@@ -81,8 +69,7 @@ class CreateShiftmanagerBloc {
   List<String> allowancesCategory = [];
   final _typeAllowancesCategroy = PublishSubject<List<AllowanceCategoryList>>();
 
-  Stream<List<AllowanceCategoryList>> get typeAllowancesCategroys =>
-      _typeAllowancesCategroy.stream;
+  Stream<List<AllowanceCategoryList>> get typeAllowancesCategroys => _typeAllowancesCategroy.stream;
 
   List<String> allowances = [];
   final _typeAllowances = PublishSubject<List<AllowanceList>>();
@@ -125,24 +112,23 @@ class CreateShiftmanagerBloc {
 
   Stream<List<ShiftTimingList>> get shifttimeStream => _shiftime.stream;
 
-  reset()
-  {
-
-     row_id = -1;
-     typeId = 1;
-     categoryId = 1;
-     usertypeId = 2; //default
-     shiftType = 0;
-     hospitalId = 1;
-     shiftTypeId = 1;
-     unitId = 1;
-     allowanceCategroyId = 1;
-     allowanceId = 1;
-     allowanceCategroy = "Food Item";
-     allowance = "Break Fast";
-     buttonText = "Create Shift";
+  reset() {
+    row_id = -1;
+    typeId = 1;
+    categoryId = 1;
+    usertypeId = 2; //default
+    shiftType = 0;
+    hospitalId = 1;
+    shiftTypeId = 1;
+    unitId = 1;
+    allowanceCategroyId = 1;
+    allowanceId = 1;
+    allowanceCategroy = "Food Item";
+    allowance = "Break Fast";
+    buttonText = "Create Shift";
+    isPricevisible = false;
+    isShiftTypeChanged = false;
   }
-
 
   getDropDownValues() async {
     var usertype = await _db.getUserTypeList();
@@ -233,8 +219,7 @@ class CreateShiftmanagerBloc {
   }
 
   getUserListByDate(String token, String date, String shifttype) async {
-    GetAvailableUserByDate list =
-        await _repo.fetchGetAvailableUserByDate(token, date, shifttype);
+    GetAvailableUserByDate list = await _repo.fetchGetAvailableUserByDate(token, date, shifttype);
     _manager.sink.add(list);
   }
 
@@ -252,8 +237,7 @@ class CreateShiftmanagerBloc {
 
   getManagerUnitName(String token, String client) async {
     _visibility.add(true);
-    ManagerUnitNameResponse respo =
-        await _repo.fetchManagerUnitName(token, client);
+    ManagerUnitNameResponse respo = await _repo.fetchManagerUnitName(token, client);
     var list = respo.response?.data?.items;
     _managerunit.sink.add(list!);
     _visibility.add(false);
@@ -265,8 +249,7 @@ class CreateShiftmanagerBloc {
     _managerunit.close();
   }
 
-  void addAllowances(int allowanceId, int allowanceCategroyId, String allowance,
-      String allowanceCategroy, String amount) {
+  void addAllowances(int allowanceId, int allowanceCategroyId, String allowance, String allowanceCategroy, String amount) {
     Allowances allowances = Allowances(
         allowance: allowance,
         category: allowanceCategroy,
