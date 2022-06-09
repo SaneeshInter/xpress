@@ -44,19 +44,6 @@ class CreateShiftScreenUpdate extends StatefulWidget {
 class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  var row_id = -1;
-  var typeId = 1;
-  var categoryId = 1;
-  var usertypeId = 2; //default
-  var shiftType = 1;
-  var hospitalId = 1;
-  var shiftTypeId = 1;
-  var unitId = 1;
-  var allowanceCategroyId = 1;
-  var allowanceId = 1;
-  var allowanceCategroy = "Food Item";
-  var allowance = "Break Fast";
-  var shiftItem;
   ToastMsg toastMsg = ToastMsg();
   bool isLoading = false;
   TextEditingController location = new TextEditingController();
@@ -89,11 +76,16 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
   Future getToken() async {
     token = await TokenProvider().getToken();
+    print("token");
+    print(token);
+    if (widget.shiftItem != null && null != token) {
+      var item = widget.shiftItem;
+      WidgetsBinding.instance.addPostFrameCallback((_) => updateAllowances(context, item!));
+    }
   }
 
   @override
   void didUpdateWidget(covariant CreateShiftScreenUpdate oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 
@@ -104,13 +96,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     observerResponse();
     dropdownBloc.addItem();
     managerBloc.getDropDownValues();
-    row_id = -1;
-
-    if (widget.shiftItem != null) {
-      var item = widget.shiftItem;
-      WidgetsBinding.instance?.addPostFrameCallback((_) => updateAllowances(context, item!));
-    }
-
+    managerBloc.row_id = -1;
   }
 
   @override
@@ -177,9 +163,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               if (null == snapshot.data || snapshot.data?.length == 0) {
                                                                 return Container();
                                                               }
-
                                                               return DropdownButtonFormField(
-                                                                value: typeId,
+                                                                value: managerBloc.typeId,
                                                                 decoration: InputDecoration(
                                                                     enabledBorder: OutlineInputBorder(
                                                                       borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -188,7 +173,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       ),
                                                                     ),
                                                                     focusedBorder: OutlineInputBorder(
-                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)), borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                        borderSide: BorderSide(
+                                                                            color: Constants.colors[28], width: 1)),
                                                                     contentPadding: EdgeInsets.all(3.0),
                                                                     labelText: Txt.type,
                                                                     labelStyle: TextStyle(fontSize: 10.sp)),
@@ -207,7 +194,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                   );
                                                                 }).toList(),
                                                                 onChanged: (Object? value) {
-                                                                  typeId = value as int;
+                                                                  managerBloc.typeId = value as int;
                                                                   if (value == 2) {
                                                                     setState(() {
                                                                       isPricevisible = true;
@@ -232,13 +219,13 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           width: 50.w,
                                                           child: StreamBuilder(
                                                             stream: managerBloc.categoryStream,
-                                                            builder: (context, AsyncSnapshot<List<ScheduleCategoryList>> snapshot) {
+                                                            builder: (context,
+                                                                AsyncSnapshot<List<ScheduleCategoryList>> snapshot) {
                                                               if (null == snapshot.data || snapshot.data?.length == 0) {
                                                                 return Container();
                                                               }
-
                                                               return DropdownButtonFormField(
-                                                                value: categoryId,
+                                                                value: managerBloc.categoryId,
                                                                 decoration: InputDecoration(
                                                                   enabledBorder: OutlineInputBorder(
                                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -247,7 +234,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                     ),
                                                                   ),
                                                                   focusedBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)), borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                      borderSide:
+                                                                          BorderSide(color: Constants.colors[28], width: 1)),
                                                                   contentPadding: EdgeInsets.all(3.0),
                                                                   labelStyle: TextStyle(fontSize: 10.sp),
                                                                   labelText: Txt.category,
@@ -268,7 +257,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                 }).toList(),
                                                                 onChanged: (Object? value) {
                                                                   if (value is int?) {
-                                                                    categoryId = value!;
+                                                                    managerBloc.categoryId = value!;
                                                                   }
                                                                 },
                                                               );
@@ -299,7 +288,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               }
 
                                                               return DropdownButtonFormField(
-                                                                value: usertypeId,
+                                                                value: managerBloc.usertypeId,
                                                                 decoration: InputDecoration(
                                                                   enabledBorder: OutlineInputBorder(
                                                                     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -308,7 +297,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                     ),
                                                                   ),
                                                                   focusedBorder: OutlineInputBorder(
-                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)), borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+                                                                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                      borderSide:
+                                                                          BorderSide(color: Constants.colors[28], width: 1)),
                                                                   contentPadding: EdgeInsets.all(3.0),
                                                                   labelStyle: TextStyle(fontSize: 10.sp),
                                                                   labelText: Txt.user_type,
@@ -329,7 +320,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                 }).toList(),
                                                                 onChanged: (Object? value) {
                                                                   if (value is int?) {
-                                                                    usertypeId = value!;
+                                                                    managerBloc.usertypeId = value!;
                                                                   }
                                                                 },
                                                               );
@@ -353,7 +344,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
                                                               return DropdownButtonFormField(
                                                                 isExpanded: true,
-                                                                value: hospitalId,
+                                                                value: managerBloc.hospitalId,
                                                                 decoration: InputDecoration(
                                                                     enabledBorder: OutlineInputBorder(
                                                                       borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -362,7 +353,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       ),
                                                                     ),
                                                                     focusedBorder: OutlineInputBorder(
-                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)), borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                        borderSide: BorderSide(
+                                                                            color: Constants.colors[28], width: 1)),
                                                                     contentPadding: EdgeInsets.all(3.0),
                                                                     labelText: Txt.client,
                                                                     labelStyle: TextStyle(fontSize: 10.sp)),
@@ -383,14 +376,15 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                 }).toList(),
                                                                 onChanged: (Object? value) {
                                                                   if (value is int?) {
-                                                                    hospitalId = value!;
+                                                                    managerBloc.hospitalId = value!;
                                                                     setState(() {
                                                                       visible = true;
                                                                     });
                                                                     setState(() {
-                                                                      unitId = 1;
+                                                                      managerBloc.unitId = 1;
                                                                     });
-                                                                    managerBloc.getManagerUnitName(token, hospitalId.toString());
+                                                                    managerBloc.getManagerUnitName(
+                                                                        token, managerBloc.hospitalId.toString());
                                                                   }
                                                                 },
                                                               );
@@ -416,7 +410,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
                                                     return DropdownButtonFormField(
                                                       isExpanded: true,
-                                                      value: unitId,
+                                                      value: managerBloc.unitId,
                                                       decoration: InputDecoration(
                                                           enabledBorder: OutlineInputBorder(
                                                             borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -424,8 +418,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               color: Constants.colors[28],
                                                             ),
                                                           ),
-                                                          focusedBorder:
-                                                              OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8.0)), borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                              borderSide: BorderSide(color: Constants.colors[28], width: 1)),
                                                           contentPadding: EdgeInsets.all(3.0),
                                                           labelText: Txt.unit_name,
                                                           labelStyle: TextStyle(fontSize: 10.sp)),
@@ -446,7 +441,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                       }).toList(),
                                                       onChanged: (Object? value) {
                                                         if (value is int?) {
-                                                          unitId = value!;
+                                                          managerBloc.unitId = value!;
                                                         }
                                                       },
                                                     );
@@ -488,13 +483,14 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           width: 50.w,
                                                           child: StreamBuilder(
                                                             stream: managerBloc.shifttimeStream,
-                                                            builder: (context, AsyncSnapshot<List<ShiftTimingList>> snapshot) {
+                                                            builder:
+                                                                (context, AsyncSnapshot<List<ShiftTimingList>> snapshot) {
                                                               if (null == snapshot.data || snapshot.data?.length == 0) {
                                                                 return Container();
                                                               }
 
                                                               return DropdownButtonFormField(
-                                                                value: shiftTypeId,
+                                                                value: managerBloc.shiftTypeId,
                                                                 decoration: InputDecoration(
                                                                     enabledBorder: OutlineInputBorder(
                                                                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -503,7 +499,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       ),
                                                                     ),
                                                                     focusedBorder: OutlineInputBorder(
-                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)), borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+                                                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                                                        borderSide: BorderSide(
+                                                                            color: Constants.colors[28], width: 1)),
                                                                     contentPadding: EdgeInsets.all(3.0),
                                                                     labelText: Txt.shift_type,
                                                                     labelStyle: TextStyle(fontSize: 10.sp)),
@@ -523,8 +521,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                 }).toList(),
                                                                 onChanged: (Object? value) {
                                                                   if (value is int?) {
-                                                                    ShiftTimingList shiftValue = getItemFromId(value!, snapshot.data);
-                                                                    shiftTypeId = shiftValue.rowId!;
+                                                                    ShiftTimingList shiftValue =
+                                                                        getItemFromId(value!, snapshot.data);
+                                                                    managerBloc.shiftTypeId = shiftValue.rowId!;
                                                                     var timeFrom = shiftValue.startTime!;
                                                                     var timeTo = shiftValue.endTime!;
                                                                     dateFrom.text = convert24hrTo12hr(timeFrom, context);
@@ -557,8 +556,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                 selectDate(context, date);
                                                                 var dates = date.text;
                                                                 if (token != null && dates != "") {
-                                                                  var shifttype = shiftType;
-                                                                  managerBloc.getUserListByDate(token, dates, shifttype.toString());
+                                                                  var shifttype = managerBloc.shiftType;
+                                                                  managerBloc.getUserListByDate(
+                                                                      token, dates, shifttype.toString());
                                                                 }
                                                               },
                                                               hintText: Txt.date,
@@ -705,7 +705,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                     color: Colors.blueAccent,
                                                     child: Text(
                                                       Txt.add_allowances,
-                                                      style: TextStyle(fontSize: 10.sp, color: Colors.white, fontWeight: FontWeight.w500, letterSpacing: 0.6),
+                                                      style: TextStyle(
+                                                          fontSize: 10.sp,
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight.w500,
+                                                          letterSpacing: 0.6),
                                                     ),
                                                   ),
                                                 ],
@@ -791,19 +795,31 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                       flex: 1,
                       child: Text(
                         allowace!,
-                        style: TextStyle(color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 14,
+                            fontFamily: "SFProMedium",
+                            fontWeight: FontWeight.w500),
                       )),
                   Expanded(
                       flex: 1,
                       child: Text(
                         category!,
-                        style: TextStyle(color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 14,
+                            fontFamily: "SFProMedium",
+                            fontWeight: FontWeight.w500),
                       )),
                   Expanded(
                       flex: 1,
                       child: Text(
                         amount!,
-                        style: TextStyle(color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 14,
+                            fontFamily: "SFProMedium",
+                            fontWeight: FontWeight.w500),
                       )),
                   GestureDetector(
                     onTap: () {
@@ -854,8 +870,21 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                               return;
                             }
 
-                            managerBloc.createShiftManager(auth_tokn, row_id, typeId, categoryId, usertypeId, jobtitle.text, hospitalId, date.text, dateFrom.text, dateTo.text, jobDescri.text,
-                                price.text, shiftTypeId.toString(), unitId.toString());
+                            managerBloc.createShiftManager(
+                                auth_tokn,
+                                managerBloc.row_id,
+                                managerBloc.typeId,
+                                managerBloc.categoryId,
+                                managerBloc.usertypeId,
+                                jobtitle.text,
+                                managerBloc.hospitalId,
+                                date.text,
+                                dateFrom.text,
+                                dateTo.text,
+                                jobDescri.text,
+                                price.text,
+                                managerBloc.shiftTypeId.toString(),
+                                managerBloc.unitId.toString());
                           }
                         }
                       },
@@ -884,7 +913,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         visible = false;
       });
       if (event.response?.status?.statusCode == 200) {
-        if (row_id == -1) {
+        if (managerBloc.row_id == -1) {
           Navigator.pop(context);
           Fluttertoast.showToast(msg: '$message');
         } else {
@@ -903,69 +932,65 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   updateAllowances(BuildContext context, Items item) {
-
-
-
-
-
-
-
-      if (item != null) {
-        jobtitle.text = item.jobTitle!;
-        row_id = item.rowId!;
-        date.text = item.date!;
-        dateTo.text = convert24hrTo12hr(item.timeTo!, context);
-        if (item.price != null) {
-          price.text = item.price.toString();
-        }
-        dateFrom.text = convert24hrTo12hr(item.timeFrom!, context) ;
-        jobDescri.text = item.jobDetails!;
-        category.text = item.category!;
-        buttonText = "Edit Shift";
-
+    if (item != null) {
+      jobtitle.text = item.jobTitle!;
+      managerBloc.row_id = item.rowId!;
+      date.text = item.date!;
+      dateTo.text = convert24hrTo12hr(item.timeTo!, context);
+      if (item.price != null) {
+        price.text = item.price.toString();
       }
-
-
+      dateFrom.text = convert24hrTo12hr(item.timeFrom!, context);
+      jobDescri.text = item.jobDetails!;
+      category.text = item.category!;
+      buttonText = "Edit Shift";
+    }
 
     if (null != item.allowances) {
       managerBloc.setAllowance(item.allowances!);
     }
+    print(item.type);
+    print("item.hospitalId");
+    print(item.hospitalId);
+    print(item.type == "Premium");
     if (item.type == "Premium") {
       setState(() {
-        typeId = 2;
+        managerBloc.typeId = 2;
         isPricevisible = true;
       });
     } else {
       setState(() {
-        typeId = 1;
+        managerBloc.typeId = 1;
         isPricevisible = false;
       });
     }
 
     if (item.categoryId != 0 && null != item.categoryId) {
       setState(() {
-        categoryId = item.categoryId!;
+        managerBloc.categoryId = item.categoryId!;
       });
     }
 
     if (item.userTypeId != 1 && null != item.userTypeId) {
       setState(() {
-        usertypeId = item.userTypeId!;
+        managerBloc.usertypeId = item.userTypeId!;
       });
     }
     if (item.hospitalId != 0 && null != item.hospitalId) {
       setState(() {
-        hospitalId = item.hospitalId!;
+        visible = true;
+        managerBloc.hospitalId = item.hospitalId!;
       });
+      managerBloc.getManagerUnitName(token, item.hospitalId.toString());
     }
     if (item.shiftTypeId != 0 && null != item.shiftTypeId) {
       setState(() {
-        shiftTypeId = item.shiftTypeId!;
+        managerBloc.shiftTypeId = item.shiftTypeId!;
       });
     }
     if (item.unitNameId != 0 && null != item.unitNameId) {
       setState(() {
-        unitId = item.unitNameId!;
+        managerBloc.unitId = item.unitNameId!;
       });
     }
   }
