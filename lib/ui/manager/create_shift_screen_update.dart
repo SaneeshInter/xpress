@@ -65,20 +65,16 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
   TextEditingController controller = TextEditingController();
-  bool visible = false;
-  bool isPricevisible = false;
-  var buttonText = "Create Shift";
-  var token;
 
   Future getData(String date, String shifttype) async {
-    managerBloc.getUserListByDate(token, date, shifttype);
+    managerBloc.getUserListByDate(managerBloc.token, date, shifttype);
   }
 
   Future getToken() async {
-    token = await TokenProvider().getToken();
+    managerBloc.token = await TokenProvider().getToken();
     print("token");
-    print(token);
-    if (widget.shiftItem != null && null != token) {
+    print(managerBloc.token);
+    if (widget.shiftItem != null && null != managerBloc.token) {
       var item = widget.shiftItem;
       WidgetsBinding.instance.addPostFrameCallback((_) => updateAllowances(context, item!));
     }
@@ -138,7 +134,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                 height: 25,
                                               ),
                                               AutoSizeText(
-                                                buttonText,
+                                                managerBloc.buttonText,
                                                 style: TextStyle(
                                                   fontSize: 18,
                                                   color: Colors.black,
@@ -197,11 +193,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                   managerBloc.typeId = value as int;
                                                                   if (value == 2) {
                                                                     setState(() {
-                                                                      isPricevisible = true;
+                                                                      managerBloc.isPricevisible = true;
                                                                     });
                                                                   } else {
                                                                     setState(() {
-                                                                      isPricevisible = false;
+                                                                      managerBloc.isPricevisible = false;
                                                                     });
                                                                   }
                                                                 },
@@ -378,13 +374,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                   if (value is int?) {
                                                                     managerBloc.hospitalId = value!;
                                                                     setState(() {
-                                                                      visible = true;
-                                                                    });
-                                                                    setState(() {
                                                                       managerBloc.unitId = 1;
                                                                     });
-                                                                    managerBloc.getManagerUnitName(
-                                                                        token, managerBloc.hospitalId.toString());
+                                                                    managerBloc.getManagerUnitName(managerBloc.token,
+                                                                        managerBloc.hospitalId.toString());
                                                                   }
                                                                 },
                                                               );
@@ -555,10 +548,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               onTapDate: () {
                                                                 selectDate(context, date);
                                                                 var dates = date.text;
-                                                                if (token != null && dates != "") {
+                                                                if (managerBloc.token != null && dates != "") {
                                                                   var shifttype = managerBloc.shiftType;
                                                                   managerBloc.getUserListByDate(
-                                                                      token, dates, shifttype.toString());
+                                                                      managerBloc.token, dates, shifttype.toString());
                                                                 }
                                                               },
                                                               hintText: Txt.date,
@@ -576,7 +569,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                               Column(
                                                 children: [
                                                   Visibility(
-                                                    visible: isPricevisible,
+                                                    visible: managerBloc.isPricevisible,
                                                     child: Container(
                                                       child: TextInputFileds(
                                                           onChange: () {},
@@ -720,6 +713,12 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                               StreamBuilder<List<Allowances>>(
                                                   stream: managerBloc.allowancesList,
                                                   builder: (context, snapshot) {
+                                                    if (null == snapshot.data) {
+                                                      return Container();
+                                                    }
+                                                    if (null==snapshot.data) {
+                                                      return Container();
+                                                    }
                                                     return buildAllowanceList(snapshot, context);
                                                   }),
                                               createShiftButton(),
@@ -742,15 +741,19 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                   ),
                 ),
                 Center(
-                  child: Visibility(
-                    visible: visible,
-                    child: Container(
-                      width: 100.w,
-                      height: 100.h,
-                      child: const Center(
-                        child: LoadingWidget(),
-                      ),
-                    ),
+                  child: StreamBuilder(
+                    stream: managerBloc.visible,
+                    builder: (context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!) {
+                          return const Center(child: LoadingWidget());
+                        } else {
+                          return Container();
+                        }
+                      } else {
+                        return Container();
+                      }
+                    },
                   ),
                 ),
               ],
@@ -762,86 +765,74 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
-    print("update allowances");
-    var lenth = snapshot.data?.length;
-    print("update allowances");
-    if (snapshot.hasData) {
-      print("update allowances");
-      var lenth = snapshot.data?.length;
-      print("update allowances " + lenth!.toString());
-    }
-    if (snapshot.hasData) {
-      print("update allowances");
-      return ListView.builder(
-        itemCount: snapshot.data?.length,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemBuilder: (BuildContext context, int index) {
-          var items = snapshot.data?[index];
-          String? allowace = items?.allowance.toString();
-          print(allowace);
-          String? category = items?.category.toString();
-          String? amount = items?.amount.toString();
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
+    return ListView.builder(
+      itemCount: snapshot.data?.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        var items = snapshot.data?[index];
+        String? allowace = items?.allowance.toString();
+        print(allowace);
+        String? category = items?.category.toString();
+        String? amount = items?.amount.toString();
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                      allowace!,
+                      style: TextStyle(
+                          color: Constants.colors[1],
+                          fontSize: 14,
+                          fontFamily: "SFProMedium",
+                          fontWeight: FontWeight.w500),
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                      category!,
+                      style: TextStyle(
+                          color: Constants.colors[1],
+                          fontSize: 14,
+                          fontFamily: "SFProMedium",
+                          fontWeight: FontWeight.w500),
+                    )),
+                Expanded(
+                    flex: 1,
+                    child: Text(
+                      amount!,
+                      style: TextStyle(
+                          color: Constants.colors[1],
+                          fontSize: 14,
+                          fontFamily: "SFProMedium",
+                          fontWeight: FontWeight.w500),
+                    )),
+                GestureDetector(
+                  onTap: () {
+                    print("Delete");
+                    managerBloc.deleteAllowance(index);
+                  },
+                  child: SvgPicture.asset(
+                    'assets/images/icon/delete.svg',
+                    fit: BoxFit.contain,
+                    height: 20,
+                    width: 30,
+                  ),
+                )
+              ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Text(
-                        allowace!,
-                        style: TextStyle(
-                            color: Constants.colors[1],
-                            fontSize: 14,
-                            fontFamily: "SFProMedium",
-                            fontWeight: FontWeight.w500),
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: Text(
-                        category!,
-                        style: TextStyle(
-                            color: Constants.colors[1],
-                            fontSize: 14,
-                            fontFamily: "SFProMedium",
-                            fontWeight: FontWeight.w500),
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: Text(
-                        amount!,
-                        style: TextStyle(
-                            color: Constants.colors[1],
-                            fontSize: 14,
-                            fontFamily: "SFProMedium",
-                            fontWeight: FontWeight.w500),
-                      )),
-                  GestureDetector(
-                    onTap: () {
-                      print("Delete");
-                      managerBloc.deleteAllowance(index);
-                    },
-                    child: SvgPicture.asset(
-                      'assets/images/icon/delete.svg',
-                      fit: BoxFit.contain,
-                      height: 20,
-                      width: 30,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    } else {
-      return Container();
-    }
+          ),
+        );
+      },
+    );
+
   }
 
   Widget createShiftButton() {
@@ -861,15 +852,14 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                         var validate = formKey.currentState?.validate();
                         if (null != validate) {
                           if (validate) {
-                            setState(() {
-                              visible = true;
-                            });
                             final prefs = await SharedPreferences.getInstance();
                             var auth_tokn = prefs.getString(SharedPrefKey.AUTH_TOKEN);
                             if (null == auth_tokn) {
                               return;
                             }
 
+                            print("managerBloc.typeId");
+                            print(managerBloc.typeId);
                             managerBloc.createShiftManager(
                                 auth_tokn,
                                 managerBloc.row_id,
@@ -888,7 +878,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                           }
                         }
                       },
-                      label: buttonText)
+                      label: managerBloc.buttonText)
                 ],
               ),
             )),
@@ -902,16 +892,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   void observerResponse() {
-    managerBloc.managerunitStream.listen((event) {
-      setState(() {
-        visible = false;
-      });
-    });
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
-      setState(() {
-        visible = false;
-      });
+
       if (event.response?.status?.statusCode == 200) {
         if (managerBloc.row_id == -1) {
           Navigator.pop(context);
@@ -943,7 +926,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       dateFrom.text = convert24hrTo12hr(item.timeFrom!, context);
       jobDescri.text = item.jobDetails!;
       category.text = item.category!;
-      buttonText = "Edit Shift";
+      managerBloc.buttonText = "Edit Shift";
     }
 
     if (null != item.allowances) {
@@ -956,12 +939,12 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     if (item.type == "Premium") {
       setState(() {
         managerBloc.typeId = 2;
-        isPricevisible = true;
+        managerBloc.isPricevisible = true;
       });
     } else {
       setState(() {
         managerBloc.typeId = 1;
-        isPricevisible = false;
+        managerBloc.isPricevisible = false;
       });
     }
 
@@ -978,10 +961,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     }
     if (item.hospitalId != 0 && null != item.hospitalId) {
       setState(() {
-        visible = true;
         managerBloc.hospitalId = item.hospitalId!;
       });
-      managerBloc.getManagerUnitName(token, item.hospitalId.toString());
+      managerBloc.getManagerUnitName(managerBloc.token, item.hospitalId.toString());
     }
     if (item.shiftTypeId != 0 && null != item.shiftTypeId) {
       setState(() {

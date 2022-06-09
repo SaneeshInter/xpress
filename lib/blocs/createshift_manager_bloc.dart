@@ -39,6 +39,15 @@ class CreateShiftmanagerBloc {
   var allowance = "Break Fast";
   var shiftItem;
 
+  final _visibility = PublishSubject<bool>();
+  Stream<bool> get visible => _visibility.stream;
+
+
+
+
+  bool isPricevisible = false;
+  var buttonText = "Create Shift";
+  var token;
 
 
   final _repo = Repository();
@@ -184,6 +193,9 @@ class CreateShiftmanagerBloc {
     String shift,
     String unit_name,
   ) async {
+
+
+    _visibility.add(true);
     var timeFrom = convert12hrTo24hr(time_from);
     var timeTo = convert12hrTo24hr(time_to);
 
@@ -209,6 +221,7 @@ class CreateShiftmanagerBloc {
       unit_name,
     );
     _getmanager.sink.add(respo);
+    _visibility.add(false);
   }
 
   getUserListByDate(String token, String date, String shifttype) async {
@@ -222,16 +235,20 @@ class CreateShiftmanagerBloc {
   getManagerClient(
     String token,
   ) async {
+    _visibility.add(true);
     ManagerGetClientsResponse respo = await _repo.fetchManagerGetClients(token);
     var list = respo.response?.data?.items;
     _managerclient.sink.add(list!);
+    _visibility.add(false);
   }
 
   getManagerUnitName(String token, String client) async {
+    _visibility.add(true);
     ManagerUnitNameResponse respo =
         await _repo.fetchManagerUnitName(token, client);
     var list = respo.response?.data?.items;
     _managerunit.sink.add(list!);
+    _visibility.add(false);
   }
 
   dispose() {

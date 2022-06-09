@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:xpresshealthdev/blocs/manager_shift_calendar.dart';
-import 'package:xpresshealthdev/model/manager_shift_calendar_respo.dart';
 import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
 
 import '../../../eventutil/eventutil.dart';
@@ -54,6 +53,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
+
   Future getData() async {
     token = await TokenProvider().getToken();
     if (null != token) {
@@ -108,8 +108,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
           visibility = false;
           _selectedDays.addAll(selectedDay);
         });
-        _onDaySelected(selectedCalenderDay,selectedCalenderDay);
-
+        _onDaySelected(selectedCalenderDay, selectedCalenderDay);
       } else {
         setState(() {
           visibility = false;
@@ -141,22 +140,20 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   List<Event> _getEventsForDay(DateTime day) {
     List<Event> eventList = [];
 
-    if(null!=managercalendarBloc.itemlListALl)
-      {
-        var itemList = managercalendarBloc.itemlListALl?.where((element) {
-          DateTime itemDay = DateTime.parse(element.date.toString());
-          return isSameDay(itemDay, day);
-        });
+    if (null != managercalendarBloc.itemlListALl) {
+      var itemList = managercalendarBloc.itemlListALl?.where((element) {
+        DateTime itemDay = DateTime.parse(element.date.toString());
+        return isSameDay(itemDay, day);
+      });
 
-        if (itemList!.isNotEmpty) {
-          var listItem = itemList.first;
-          eventList.clear();
-          for (var item in listItem.items!) {
-            eventList.add(Event(item.jobTitle!));
-          }
+      if (itemList!.isNotEmpty) {
+        var listItem = itemList.first;
+        eventList.clear();
+        for (var item in listItem.items!) {
+          eventList.add(Event(item.jobTitle!));
         }
       }
-
+    }
 
     return eventList;
   }
@@ -173,7 +170,6 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
           children: [
             NestedScrollView(
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-
                 return <Widget>[
                   SliverList(
                     delegate: SliverChildListDelegate([
@@ -182,8 +178,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -208,12 +203,9 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                 selectedDayPredicate: (day) {
                                   return _selectedDays.contains(day);
                                 },
-                                calendarBuilders: CalendarBuilders(markerBuilder:
-                                    (BuildContext context, DateTime datetime,
-                                    List<Event> list) {
+                                calendarBuilders: CalendarBuilders(
+                                    markerBuilder: (BuildContext context, DateTime datetime, List<Event> list) {
                                   if (list.isNotEmpty) {
-                                    print("list size");
-                                    print(list.length.toString());
                                     return Stack(
                                       children: [
                                         Align(
@@ -221,8 +213,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                           child: Container(
                                               color: Colors.transparent,
                                               child: Padding(
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 4),
+                                                padding: const EdgeInsets.symmetric(horizontal: 4),
                                                 child: Text(
                                                   list.length.toString() + " Shift",
                                                   style: TextStyle(
@@ -249,13 +240,11 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                   cellMargin: EdgeInsets.all(11),
                                   canMarkersOverflow: false,
                                   selectedDecoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Constants.colors[4],
-                                          Constants.colors[3],
-                                        ]),
+                                    gradient:
+                                        LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                      Constants.colors[4],
+                                      Constants.colors[3],
+                                    ]),
                                     shape: BoxShape.rectangle,
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
@@ -268,18 +257,15 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                     ]),
                   ),
                 ];
-
               },
-              body:  Column(
+              body: Column(
                 children: [
-
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: StreamBuilder(
                           stream: managercalendarBloc.filtered,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<Items>> snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<List<Items>> snapshot) {
                             if (snapshot.hasData) {
                               return ListView.builder(
                                 itemCount: snapshot.data?.length,
@@ -298,11 +284,9 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CreateShiftScreenUpdate(
+                                                    builder: (context) => CreateShiftScreenUpdate(
                                                           shiftItem: items,
-                                                        ))).then(
-                                                    (value) => getData());
+                                                        ))).then((value) => getData());
                                           },
                                           onTapDelete: (row_id) {
                                             print(row_id);
@@ -314,9 +298,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                           onTapBook: () {},
                                           onTapViewMap: () {},
                                         ),
-                                        SizedBox(
-                                            height: screenHeight(context,
-                                                dividedBy: 100)),
+                                        SizedBox(height: screenHeight(context, dividedBy: 100)),
                                       ],
                                     );
                                   } else {
@@ -338,7 +320,6 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                   ),
                 ],
               ),
-
             ),
             Center(
               child: Visibility(
@@ -363,8 +344,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => CreateShiftScreenUpdate()),
+              MaterialPageRoute(builder: (context) => CreateShiftScreenUpdate()),
             ).then((value) => getData());
           },
           child: Icon(Icons.add),
@@ -378,8 +358,6 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
     managercalendarBloc.fetchRemoveManager(token!, rowId.toString());
   }
 
-
-
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     setState(() {
       _focusedDay = focusedDay;
@@ -387,7 +365,6 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
       print("selectedDay");
       print(selectedDay);
       managercalendarBloc.filterItemByDates(selectedDay);
-
     });
   }
 }
