@@ -819,16 +819,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
       if (event.response?.status?.statusCode == 200) {
-
+        managerBloc.reset();
         Fluttertoast.showToast(msg: '$message');
         Navigator.pop(context);
-        // if (managerBloc.row_id == -1) {
-        //
-        //   Fluttertoast.showToast(msg: '$message');
-        // } else {
-        //   Navigator.pop(context);
-        //   Fluttertoast.showToast(msg: '$message');
-        // }
       } else {
         showAlertDialoge(context, title: Txt.failed, message: message!);
       }

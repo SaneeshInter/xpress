@@ -125,6 +125,25 @@ class CreateShiftmanagerBloc {
 
   Stream<List<ShiftTimingList>> get shifttimeStream => _shiftime.stream;
 
+  reset()
+  {
+
+     row_id = -1;
+     typeId = 1;
+     categoryId = 1;
+     usertypeId = 2; //default
+     shiftType = 0;
+     hospitalId = 1;
+     shiftTypeId = 1;
+     unitId = 1;
+     allowanceCategroyId = 1;
+     allowanceId = 1;
+     allowanceCategroy = "Food Item";
+     allowance = "Break Fast";
+     buttonText = "Create Shift";
+  }
+
+
   getDropDownValues() async {
     var usertype = await _db.getUserTypeList();
     var category = await _db.getCategory();
@@ -188,16 +207,10 @@ class CreateShiftmanagerBloc {
     String shift,
     String unit_name,
   ) async {
-
-
     _visibility.add(true);
     var timeFrom = convert12hrTo24hr(time_from);
     var timeTo = convert12hrTo24hr(time_to);
-
     var json = jsonEncode(allowanceList.map((e) => e.toJson()).toList());
-    var allowances = json.toString();
-    print("allowances");
-    print(allowances);
     ManagerShift respo = await _repo.CreateShiftManager(
       token,
       row_id,
