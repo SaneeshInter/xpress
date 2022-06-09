@@ -44,7 +44,6 @@ class CreateShiftScreenUpdate extends StatefulWidget {
 class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  ToastMsg toastMsg = ToastMsg();
   bool isLoading = false;
   TextEditingController location = new TextEditingController();
   TextEditingController jobtitle = new TextEditingController();
@@ -819,9 +818,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
       if (event.response?.status?.statusCode == 200) {
-        managerBloc.reset();
-        Fluttertoast.showToast(msg: '$message');
+
         Navigator.pop(context);
+        managerBloc.reset();
+        Fluttertoast.showToast(msg: '$message',toastLength: Toast.LENGTH_SHORT,);
+
       } else {
         showAlertDialoge(context, title: Txt.failed, message: message!);
       }

@@ -157,7 +157,6 @@ class CreateShiftmanagerBloc {
   }
 
   getModelDropDown() async {
-    print("getModelDropDown");
     _typeAllowancesCategroy.drain();
     var typeList = await _db.getAllowanceCategoryList();
     for (var list in typeList) {
@@ -167,10 +166,8 @@ class CreateShiftmanagerBloc {
   }
 
   getAllowanceList(int id) async {
-    print("getAllowanceCategory");
     _typeAllowances.drain();
     var typeList = await _db.getAllowanceList(id);
-    print("typeList");
     print(typeList.length);
     _typeAllowances.add(typeList);
   }

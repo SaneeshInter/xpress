@@ -166,8 +166,6 @@ BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent
 }
 
 selectTime(BuildContext context, TextEditingController anycontroller) async {
-  print("time");
-
   final TimeOfDay? timeOfDay = await showTimePicker(
     context: context,
     initialTime: TimeOfDay.now(),

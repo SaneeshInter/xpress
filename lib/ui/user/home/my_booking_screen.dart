@@ -381,7 +381,6 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                           SizedBox(
                             height: 5,
                           ),
-
                             StreamBuilder(
                               stream: confirmBloc.workTime,
                               builder: (BuildContext context,
@@ -444,6 +443,11 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
   }
 
   void updateAndExit(Items item, BuildContext context) {
+
+
+
+
+
     confirmBloc.fetchUserWorkingHours(
       confirmBloc.token,
       item.shiftId.toString(),
