@@ -177,7 +177,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                             }).toList(),
                                                             onChanged: (Object? value) {
                                                               managerBloc.typeId = value as int;
-                                                              if (value == 2) {
+                                                              if (value == 1) {
                                                                 setState(() {
                                                                   managerBloc.isPricevisible = true;
                                                                 });
