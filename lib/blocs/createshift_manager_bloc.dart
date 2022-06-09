@@ -29,7 +29,7 @@ class CreateShiftmanagerBloc {
   var typeId = 1;
   var categoryId = 1;
   var usertypeId = 2; //default
-  var shiftType = 1;
+  var shiftType = 0;
   var hospitalId = 1;
   var shiftTypeId = 1;
   var unitId = 1;
@@ -132,8 +132,8 @@ class CreateShiftmanagerBloc {
 
     var shifttiming = await _db.getShiftTimingList();
     List<ShiftTypeList> typeList = [];
-    var type1 = ShiftTypeList(rowId: 1, type: "Regular");
-    var type2 = ShiftTypeList(rowId: 2, type: "Premium");
+    var type1 = ShiftTypeList(rowId: 0, type: "Regular");
+    var type2 = ShiftTypeList(rowId: 1, type: "Premium");
     typeList.add(type1);
     typeList.add(type2);
     List<ShiftTypeList> shifttype = [];

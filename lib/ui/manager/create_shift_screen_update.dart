@@ -819,13 +819,16 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
       if (event.response?.status?.statusCode == 200) {
-        if (managerBloc.row_id == -1) {
-          Navigator.pop(context);
-          Fluttertoast.showToast(msg: '$message');
-        } else {
-          Navigator.pop(context);
-          Fluttertoast.showToast(msg: '$message');
-        }
+
+        Fluttertoast.showToast(msg: '$message');
+        Navigator.pop(context);
+        // if (managerBloc.row_id == -1) {
+        //
+        //   Fluttertoast.showToast(msg: '$message');
+        // } else {
+        //   Navigator.pop(context);
+        //   Fluttertoast.showToast(msg: '$message');
+        // }
       } else {
         showAlertDialoge(context, title: Txt.failed, message: message!);
       }
@@ -872,12 +875,12 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     print(item.type == "Premium");
     if (item.type == "Premium") {
       setState(() {
-        managerBloc.typeId = 2;
+        managerBloc.typeId = 1;
         managerBloc.isPricevisible = true;
       });
     } else {
       setState(() {
-        managerBloc.typeId = 1;
+        managerBloc.typeId = 0;
         managerBloc.isPricevisible = false;
       });
     }
@@ -901,7 +904,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       });
       managerBloc.getManagerUnitName(managerBloc.token, item.hospitalId.toString());
     }
-    if (item.shiftTypeId != 0 && null != item.shiftTypeId) {
+    if (null != item.shiftTypeId) {
       setState(() {
         managerBloc.shiftTypeId = item.shiftTypeId!;
       });
