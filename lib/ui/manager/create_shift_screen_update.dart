@@ -77,12 +77,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     if (widget.shiftItem != null && null != managerBloc.token) {
       var item = widget.shiftItem;
       WidgetsBinding.instance.addPostFrameCallback((_) => updateAllowances(context, item!));
-    }else if(null != managerBloc.token){
+    } else if (null != managerBloc.token) {
       managerBloc.getManagerUnitName(managerBloc.token, managerBloc.hospitalId.toString());
     }
-
-
-
   }
 
   @override
@@ -95,8 +92,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     super.initState();
     observerResponse();
     getToken();
-
     managerBloc.row_id = -1;
+    managerBloc.isShiftTypeChanged = false;
   }
 
   @override
@@ -163,20 +160,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           }
                                                           return DropdownButtonFormField(
                                                             value: managerBloc.typeId,
-                                                            decoration: InputDecoration(
-                                                                enabledBorder: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                  borderSide: BorderSide(
-                                                                    color: Constants.colors[28],
-                                                                  ),
-                                                                ),
-                                                                focusedBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                    borderSide:
-                                                                        BorderSide(color: Constants.colors[28], width: 1)),
-                                                                contentPadding: EdgeInsets.all(3.0),
-                                                                labelText: Txt.type,
-                                                                labelStyle: TextStyle(fontSize: 10.sp)),
+                                                            decoration: buildInputDecoration(Txt.type),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
                                                                 child: new Text(
@@ -224,21 +208,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           }
                                                           return DropdownButtonFormField(
                                                             value: managerBloc.categoryId,
-                                                            decoration: InputDecoration(
-                                                              enabledBorder: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                borderSide: BorderSide(
-                                                                  color: Constants.colors[28],
-                                                                ),
-                                                              ),
-                                                              focusedBorder: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                  borderSide:
-                                                                      BorderSide(color: Constants.colors[28], width: 1)),
-                                                              contentPadding: EdgeInsets.all(3.0),
-                                                              labelStyle: TextStyle(fontSize: 10.sp),
-                                                              labelText: Txt.category,
-                                                            ),
+                                                            decoration: buildInputDecoration(Txt.category),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
                                                                 child: new Text(
@@ -287,21 +257,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
                                                           return DropdownButtonFormField(
                                                             value: managerBloc.usertypeId,
-                                                            decoration: InputDecoration(
-                                                              enabledBorder: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                borderSide: BorderSide(
-                                                                  color: Constants.colors[28],
-                                                                ),
-                                                              ),
-                                                              focusedBorder: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                  borderSide:
-                                                                      BorderSide(color: Constants.colors[28], width: 1)),
-                                                              contentPadding: EdgeInsets.all(3.0),
-                                                              labelStyle: TextStyle(fontSize: 10.sp),
-                                                              labelText: Txt.user_type,
-                                                            ),
+                                                            decoration: buildInputDecoration(Txt.user_type),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
                                                                 child: new Text(
@@ -343,20 +299,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           return DropdownButtonFormField(
                                                             isExpanded: true,
                                                             value: managerBloc.hospitalId,
-                                                            decoration: InputDecoration(
-                                                                enabledBorder: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                                  borderSide: BorderSide(
-                                                                    color: Constants.colors[28],
-                                                                  ),
-                                                                ),
-                                                                focusedBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                    borderSide:
-                                                                        BorderSide(color: Constants.colors[28], width: 1)),
-                                                                contentPadding: EdgeInsets.all(3.0),
-                                                                labelText: Txt.client,
-                                                                labelStyle: TextStyle(fontSize: 10.sp)),
+                                                            decoration: buildInputDecoration(Txt.client),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
                                                                 child: new Text(
@@ -406,19 +349,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                 return DropdownButtonFormField(
                                                   isExpanded: true,
                                                   value: managerBloc.unitId,
-                                                  decoration: InputDecoration(
-                                                      enabledBorder: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                                                        borderSide: BorderSide(
-                                                          color: Constants.colors[28],
-                                                        ),
-                                                      ),
-                                                      focusedBorder: OutlineInputBorder(
-                                                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                          borderSide: BorderSide(color: Constants.colors[28], width: 1)),
-                                                      contentPadding: EdgeInsets.all(3.0),
-                                                      labelText: Txt.unit_name,
-                                                      labelStyle: TextStyle(fontSize: 10.sp)),
+                                                  decoration: buildInputDecoration(Txt.unit_name),
                                                   items: snapshot.data?.map((item) {
                                                     return DropdownMenuItem(
                                                       child: new Text(
@@ -485,20 +416,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
                                                           return DropdownButtonFormField(
                                                             value: managerBloc.shiftTypeId,
-                                                            decoration: InputDecoration(
-                                                                enabledBorder: OutlineInputBorder(
-                                                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                                                  borderSide: BorderSide(
-                                                                    color: Constants.colors[28],
-                                                                  ),
-                                                                ),
-                                                                focusedBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                                                                    borderSide:
-                                                                        BorderSide(color: Constants.colors[28], width: 1)),
-                                                                contentPadding: EdgeInsets.all(3.0),
-                                                                labelText: Txt.shift_type,
-                                                                labelStyle: TextStyle(fontSize: 10.sp)),
+                                                            decoration: buildInputDecoration(Txt.shift_type),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
                                                                 child: new Text(
@@ -514,6 +432,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               );
                                                             }).toList(),
                                                             onChanged: (Object? value) {
+                                                              managerBloc.isShiftTypeChanged = true;
                                                               if (value is int?) {
                                                                 ShiftTimingList shiftValue =
                                                                     getItemFromId(value!, snapshot.data);
@@ -763,6 +682,22 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     );
   }
 
+  InputDecoration buildInputDecoration(String type) {
+    return InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderSide: BorderSide(
+            color: Constants.colors[28],
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+        contentPadding: EdgeInsets.all(3.0),
+        labelText: type,
+        labelStyle: TextStyle(fontSize: 10.sp));
+  }
+
   Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
     return ListView.builder(
       itemCount: snapshot.data?.length,
@@ -883,7 +818,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   void observerResponse() {
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
-
       if (event.response?.status?.statusCode == 200) {
         if (managerBloc.row_id == -1) {
           Navigator.pop(context);
@@ -894,6 +828,17 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         }
       } else {
         showAlertDialoge(context, title: Txt.failed, message: message!);
+      }
+    });
+
+    managerBloc.shifttimeStream.listen((event) {
+      if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 1) {
+        var shiftValue = event.first;
+        managerBloc.shiftTypeId = shiftValue.rowId!;
+        var timeFrom = shiftValue.startTime!;
+        var timeTo = shiftValue.endTime!;
+        dateFrom.text = convert24hrTo12hr(timeFrom, context);
+        dateTo.text = convert24hrTo12hr(timeTo, context);
       }
     });
   }

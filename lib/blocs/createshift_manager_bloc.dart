@@ -46,6 +46,7 @@ class CreateShiftmanagerBloc {
 
 
   bool isPricevisible = false;
+  bool isShiftTypeChanged = false;
   var buttonText = "Create Shift";
   var token;
 
