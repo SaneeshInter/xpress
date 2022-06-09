@@ -19,8 +19,7 @@ import '../../widgets/request_user_list.dart';
 class ShiftDetailManagerScreen extends StatefulWidget {
   final String shift_id;
 
-  const ShiftDetailManagerScreen({Key? key, required this.shift_id})
-      : super(key: key);
+  const ShiftDetailManagerScreen({Key? key, required this.shift_id}) : super(key: key);
 
   @override
   _CreateShiftState createState() => _CreateShiftState();
@@ -70,8 +69,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
           children: [
             StreamBuilder(
                 stream: managerviewrequestBloc.managerviewrequest,
-                builder: (context,
-                    AsyncSnapshot<ManagerViewRequestResponse> snapshot) {
+                builder: (context, AsyncSnapshot<ManagerViewRequestResponse> snapshot) {
                   if (snapshot.data?.response?.data != null) {
                     var data = snapshot.data?.response?.data;
                     if (null != data?.hospitalDetails) {
@@ -81,21 +79,16 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            padding: const EdgeInsets.only(
-                                left: 5, right: 5, top: 10),
+                            padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
                             child: Column(
                               children: [
                                 if (null != hospitalDetail)
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
+                                    padding: const EdgeInsets.only(left: 10, right: 10),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10)),
+                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                                       child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
+                                        width: MediaQuery.of(context).size.width,
                                         height: 30.h,
                                         child: SizedBox.fromSize(
                                             size: Size.fromRadius(10),
@@ -109,8 +102,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                   ),
                                 if (null != hospitalDetail)
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
+                                    padding: const EdgeInsets.only(left: 10, right: 10),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -126,35 +118,19 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                             Stack(
                                               children: [
                                                 Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 14,
-                                                              top: 10),
+                                                      padding: const EdgeInsets.only(left: 14, top: 10),
                                                       child: Text(
-                                                        hospitalDetail
-                                                            .hospitalName
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.sp,
-                                                            fontFamily:
-                                                                "SFProMedium",
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w700),
+                                                        hospitalDetail.hospitalName.toString(),
+                                                        style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: "SFProMedium", fontWeight: FontWeight.w700),
                                                       ),
                                                     ),
                                                     CustomRow(
                                                       onPressed: () {},
-                                                      label: Txt.address_dot +
-                                                          hospitalDetail.address
-                                                              .toString(),
-                                                      asset:
-                                                          "assets/images/icon/location.svg",
+                                                      label: Txt.address_dot + hospitalDetail.address.toString(),
+                                                      asset: "assets/images/icon/location.svg",
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
@@ -162,54 +138,36 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                       CustomRow(
                                                         onPressed: () {},
                                                         label: Txt.from +
-                                                            shiftDetails
-                                                                .timeFrom
-                                                                .toString() +
-                                                            Txt.am_to +
-                                                            shiftDetails
-                                                                .timeFrom
-                                                                .toString() +
-                                                            Txt.pm,
-                                                        asset:
-                                                            "assets/images/icon/time.svg",
-                                                        textColors:
-                                                            Colors.black,
+                                                            convert24hrTo12hr(shiftDetails.timeFrom.toString(), context) +
+                                                            Txt.to  +
+                                                            convert24hrTo12hr(shiftDetails.timeFrom.toString(), context),
+                                                        asset: "assets/images/icon/time.svg",
+                                                        textColors: Colors.black,
                                                         size: 9.sp,
                                                       ),
                                                     CustomRow(
                                                       onPressed: () {},
-                                                      label: hospitalDetail
-                                                          .hospitalName
-                                                          .toString(),
-                                                      asset:
-                                                          "assets/images/icon/ward.svg",
+                                                      label: hospitalDetail.hospitalName.toString(),
+                                                      asset: "assets/images/icon/ward.svg",
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
                                                     CustomRow(
                                                       onPressed: () {},
-                                                      label: hospitalDetail
-                                                          .email
-                                                          .toString(),
-                                                      asset:
-                                                          "assets/images/icon/email.svg",
+                                                      label: hospitalDetail.email.toString(),
+                                                      asset: "assets/images/icon/email.svg",
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
                                                     CustomRow(
                                                       onPressed: () {},
-                                                      label: hospitalDetail
-                                                          .phone
-                                                          .toString(),
-                                                      asset:
-                                                          "assets/images/icon/price-tag.svg",
+                                                      label: hospitalDetail.phone.toString(),
+                                                      asset: "assets/images/icon/price-tag.svg",
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              12.0),
+                                                      padding: const EdgeInsets.all(12.0),
                                                       child: Divider(
                                                         thickness: 1,
                                                         indent: 12,
@@ -219,15 +177,9 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                     if (null != shiftDetails)
                                                       CustomRowz(
                                                         onPressed: () {},
-                                                        label:
-                                                            Txt.job_details_dot +
-                                                                shiftDetails
-                                                                    .jobDetails
-                                                                    .toString(),
-                                                        asset:
-                                                            "assets/images/icon/check.svg",
-                                                        textColors:
-                                                            Colors.black,
+                                                        label: Txt.job_details_dot + shiftDetails.jobDetails.toString(),
+                                                        asset: "assets/images/icon/check.svg",
+                                                        textColors: Colors.black,
                                                       ),
                                                     SizedBox(
                                                       height: 3.h,
@@ -255,10 +207,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                 child: Container(
                                   child: Text(
                                     Txt.users_request,
-                                    style: TextStyle(
-                                        fontSize: 11.sp,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500),
+                                    style: TextStyle(fontSize: 11.sp, color: Colors.black, fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ),
@@ -266,8 +215,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                 height: 10,
                               ),
                               ListView.builder(
-                                itemCount: snapshot.data!.response!.data!
-                                    .jobRequestDetails!.length,
+                                itemCount: snapshot.data!.response!.data!.jobRequestDetails!.length,
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
@@ -281,12 +229,9 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                           print("Tapped");
                                           acceptJobRequest(item);
                                         },
-                                        item: snapshot.data!.response!.data!
-                                            .jobRequestDetails![index],
+                                        item: snapshot.data!.response!.data!.jobRequestDetails![index],
                                       ),
-                                      SizedBox(
-                                          height: screenHeight(context,
-                                              dividedBy: 100)),
+                                      SizedBox(height: screenHeight(context, dividedBy: 100)),
                                     ],
                                   );
                                 },
@@ -330,8 +275,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   }
 
   void acceptJobRequest(JobRequestDetails item) {
-    managerviewrequestBloc.fetchAcceptJobRequestResponse(
-        token!, item.rowId.toString());
+    managerviewrequestBloc.fetchAcceptJobRequestResponse(token!, item.rowId.toString());
   }
 
   Future<void> showInternetNotAvailable() async {

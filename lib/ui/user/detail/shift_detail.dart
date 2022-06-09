@@ -252,12 +252,12 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 if (null != shiftDetails)
                                                   CustomRow(
                                                     onPressed: () {},
-                                                    label:Txt.from+
-                                                        shiftDetails.timeFrom
-                                                            .toString() +
-                                                        Txt.to +
-                                                        shiftDetails.timeFrom
-                                                            .toString(),
+                                                    label:Txt.from +
+                                                        convert24hrTo12hr( shiftDetails.timeFrom
+                                                            .toString(), context)  +
+                                                        Txt.to+
+                                                        convert24hrTo12hr ( shiftDetails.timeTo
+                                                            .toString(), context),
                                                     asset:
                                                         "assets/images/icon/time.svg",
                                                     textColors: Colors.black,
