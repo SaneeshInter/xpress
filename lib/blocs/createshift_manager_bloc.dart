@@ -21,6 +21,26 @@ import '../model/user_type_list.dart';
 import '../utils/utils.dart';
 
 class CreateShiftmanagerBloc {
+
+
+
+
+  var row_id = -1;
+  var typeId = 1;
+  var categoryId = 1;
+  var usertypeId = 2; //default
+  var shiftType = 1;
+  var hospitalId = 1;
+  var shiftTypeId = 1;
+  var unitId = 1;
+  var allowanceCategroyId = 1;
+  var allowanceId = 1;
+  var allowanceCategroy = "Food Item";
+  var allowance = "Break Fast";
+  var shiftItem;
+
+
+
   final _repo = Repository();
   final _db = Db();
   final _manager = PublishSubject<GetAvailableUserByDate>();

@@ -135,18 +135,22 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   List<Event> _getEventsForDay(DateTime day) {
     List<Event> eventList = [];
 
-    var itemList = managercalendarBloc.itemlListALl!.where((element) {
-      DateTime itemDay = DateTime.parse(element.date.toString());
-      return isSameDay(itemDay, day);
-    });
+    if(null!=managercalendarBloc.itemlListALl)
+      {
+        var itemList = managercalendarBloc.itemlListALl?.where((element) {
+          DateTime itemDay = DateTime.parse(element.date.toString());
+          return isSameDay(itemDay, day);
+        });
 
-    if (itemList.isNotEmpty) {
-      var listItem = itemList.first;
-      eventList.clear();
-      for (var item in listItem.items!) {
-        eventList.add(Event(item.jobTitle!));
+        if (itemList!.isNotEmpty) {
+          var listItem = itemList.first;
+          eventList.clear();
+          for (var item in listItem.items!) {
+            eventList.add(Event(item.jobTitle!));
+          }
+        }
       }
-    }
+
 
     return eventList;
   }
