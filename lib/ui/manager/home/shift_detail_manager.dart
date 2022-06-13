@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -17,9 +16,9 @@ import '../../user/detail/drawable_custom_row.dart';
 import '../../widgets/request_user_list.dart';
 
 class ShiftDetailManagerScreen extends StatefulWidget {
-  final String shift_id;
+  final String shiftId;
 
-  const ShiftDetailManagerScreen({Key? key, required this.shift_id}) : super(key: key);
+  const ShiftDetailManagerScreen({Key? key, required this.shiftId}) : super(key: key);
 
   @override
   _CreateShiftState createState() => _CreateShiftState();
@@ -28,7 +27,7 @@ class ShiftDetailManagerScreen extends StatefulWidget {
 class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   String? token;
   bool visibility = false;
-  String? job_request_row_id;
+  String? jobRequestRowId;
   bool visible = false;
 
   @override
@@ -49,10 +48,10 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
     if (await isNetworkAvailable()) {
       SharedPreferences shdPre = await SharedPreferences.getInstance();
       token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
-      print("token inn deta");
-      print(token);
-      print(widget.shift_id);
-      managerviewrequestBloc.fetchManagerViewRequest(token!, widget.shift_id);
+      debugPrint("token inn deta");
+      debugPrint(token);
+      debugPrint(widget.shiftId);
+      managerviewrequestBloc.fetchManagerViewRequest(token!, widget.shiftId);
     } else {
       showInternetNotAvailable();
     }
@@ -86,12 +85,12 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 10, right: 10),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                                      child: Container(
+                                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                                      child: SizedBox(
                                         width: MediaQuery.of(context).size.width,
                                         height: 30.h,
                                         child: SizedBox.fromSize(
-                                            size: Size.fromRadius(10),
+                                            size: const Size.fromRadius(10),
                                             // Image radius
                                             child: Image.network(
                                               hospitalDetail.photo!,
@@ -104,7 +103,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 10, right: 10),
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.only(
                                           bottomRight: Radius.circular(30),
@@ -166,8 +165,8 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(12.0),
+                                                    const Padding(
+                                                      padding: EdgeInsets.all(12.0),
                                                       child: Divider(
                                                         thickness: 1,
                                                         indent: 12,
@@ -204,11 +203,9 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 16.0),
-                                child: Container(
-                                  child: Text(
-                                    Txt.users_request,
-                                    style: TextStyle(fontSize: 11.sp, color: Colors.black, fontWeight: FontWeight.w500),
-                                  ),
+                                child: Text(
+                                  Txt.users_request,
+                                  style: TextStyle(fontSize: 11.sp, color: Colors.black, fontWeight: FontWeight.w500),
                                 ),
                               ),
                               const SizedBox(
@@ -217,7 +214,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                               ListView.builder(
                                 itemCount: snapshot.data!.response!.data!.jobRequestDetails!.length,
                                 shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
                                   return Column(
                                     children: [
@@ -226,7 +223,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                         onTapCall: () {},
                                         onTapMap: () {},
                                         onTapBooking: (JobRequestDetails item) {
-                                          print("Tapped");
+                                          debugPrint("Tapped");
                                           acceptJobRequest(item);
                                         },
                                         item: snapshot.data!.response!.data!.jobRequestDetails![index],
@@ -250,7 +247,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                     return Container();
                   }
                 }),
-            Container(
+            SizedBox(
               width: 100.w,
               height: 70.h,
               child: StreamBuilder(
@@ -260,10 +257,10 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                     if (snapshot.data!) {
                       return const Center(child: LoadingWidget());
                     } else {
-                      return Container();
+                      return const SizedBox();
                     }
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),

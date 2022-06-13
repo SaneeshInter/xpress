@@ -21,7 +21,7 @@ class TextInputFileds extends StatefulWidget {
       required this.keyboadType,
       required this.isPwd,
       required this.onChange,
-      required this.onTapDate});
+      required this.onTapDate}) : super(key: key);
 
   @override
   _BuildButtonState createState() => _BuildButtonState();
@@ -30,7 +30,7 @@ class _BuildButtonState extends State<TextInputFileds> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        child: Container(
+        child: SizedBox(
       height: 7.3.h,
       width: screenWidth(context, dividedBy: 1),
       child: TextFormField(
@@ -48,9 +48,9 @@ class _BuildButtonState extends State<TextInputFileds> {
         },
         keyboardType: widget.keyboadType,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(5),
+            contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 8),
             errorBorder:  OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
             labelStyle: TextStyle(
@@ -59,11 +59,11 @@ class _BuildButtonState extends State<TextInputFileds> {
                 fontSize: 10.sp,
               color: Colors.grey),
             enabledBorder:  OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
             focusedBorder:  OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
             hintText: widget.hintText,

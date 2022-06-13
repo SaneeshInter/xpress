@@ -7,12 +7,12 @@ class ManagerScheduleListResponse {
 
   ManagerScheduleListResponse.fromJson(Map<String, dynamic> json) {
     response = json['Response'] != null
-        ? new Response.fromJson(json['Response'])
+        ?  Response.fromJson(json['Response'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.response != null) {
       data['Response'] = this.response!.toJson();
     }
@@ -27,13 +27,13 @@ class Response {
   Response({this.data, this.status});
 
   Response.fromJson(Map<String, dynamic> json) {
-    data = json['Data'] != null ? new Data.fromJson(json['Data']) : null;
+    data = json['Data'] != null ?  Data.fromJson(json['Data']) : null;
     status =
-    json['status'] != null ? new Status.fromJson(json['status']) : null;
+    json['status'] != null ?  Status.fromJson(json['status']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.data != null) {
       data['Data'] = this.data!.toJson();
     }
@@ -53,13 +53,13 @@ class Data {
     if (json['items'] != null) {
       items = <Items>[];
       json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
+        items!.add( Items.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     if (this.items != null) {
       data['items'] = this.items!.map((v) => v.toJson()).toList();
     }
@@ -83,7 +83,7 @@ class Status {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data =  Map<String, dynamic>();
     data['count'] = this.count;
     data['status_code'] = this.statusCode;
     data['status_message'] = this.statusMessage;

@@ -52,7 +52,6 @@ class Repository {
   Future<UserShoiftCompletedResponse> fetchComplete(String token) =>
       apiProvider.fetchUserCompleteShift(token);
 
-  Future<SliftListRepso> fetchConfirm() => apiProvider.fetchConfirm();
 
   // Future<ManagerScheduleListResponse> fetchUserListByDate(
   //         String token, String date) =>
@@ -60,7 +59,7 @@ class Repository {
 
   Future<ManagerScheduleListResponse> fetchViewbooking(
           String token, String date) =>
-      apiProvider.fetchViewbooking(token, date);
+      apiProvider.fetchViewBooking(token, date);
 
   Future<UserTimeSheetRespo> fetchUserGetTimeSheet(String token) =>
       apiProvider.userGetTimesheet(token);
@@ -124,11 +123,11 @@ class Repository {
 
   Future<UserCancelJobRequestResponse> cancelJobRequest(
           String token, String job_request_row_id) =>
-      apiProvider.canceljobrequest(token, job_request_row_id);
+      apiProvider.cancelJobRequest(token, job_request_row_id);
 
   Future<AddUserAvailabilityResponse> addUserAvailability(
           String token, String date, String availability) =>
-      apiProvider.getaddUserAvailability(token, date, availability);
+      apiProvider.getAddUserAvailability(token, date, availability);
 
   Future<UserAvailabilitydateResponse> UserAvailability(
           String token, String from_date, String to_date) =>
@@ -229,7 +228,7 @@ class Repository {
     String allowances,
     String unit_name,
   ) =>
-      apiFileProvider.CreateShiftManagers(
+      apiFileProvider.createShiftManagers(
           token,
           type.toString(),
           row_id,

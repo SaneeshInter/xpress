@@ -1,12 +1,9 @@
 import 'dart:core';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/blocs/createshift_manager_bloc.dart';
 import 'package:xpresshealthdev/model/allowance_model.dart';
@@ -17,7 +14,6 @@ import 'package:xpresshealthdev/utils/validator.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../Constants/strings.dart';
-import '../../../Constants/toast.dart';
 import '../../../blocs/shift_dropdown.dart';
 import '../../../model/user_type_list.dart';
 import '../../../resources/token_provider.dart';
@@ -43,24 +39,24 @@ class CreateShiftScreenUpdate extends StatefulWidget {
 
 class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = false;
-  TextEditingController location = new TextEditingController();
-  TextEditingController jobtitle = new TextEditingController();
-  TextEditingController jobDescri = new TextEditingController();
-  TextEditingController date = new TextEditingController();
-  TextEditingController dateFrom = new TextEditingController();
-  TextEditingController dateTo = new TextEditingController();
-  TextEditingController price = new TextEditingController();
-  TextEditingController allowanceprice = new TextEditingController();
-  TextEditingController job_title = new TextEditingController();
-  TextEditingController resourceType = new TextEditingController();
-  TextEditingController type = new TextEditingController();
-  TextEditingController user_type = new TextEditingController();
-  TextEditingController category = new TextEditingController();
-  TextEditingController hospital = new TextEditingController();
-  TextEditingController assigned_to = new TextEditingController();
-  TextEditingController shift = new TextEditingController();
+  TextEditingController location = TextEditingController();
+  TextEditingController jobtitle = TextEditingController();
+  TextEditingController jobDescri = TextEditingController();
+  TextEditingController date = TextEditingController();
+  TextEditingController dateFrom = TextEditingController();
+  TextEditingController dateTo = TextEditingController();
+  TextEditingController price = TextEditingController();
+  TextEditingController allowanceprice = TextEditingController();
+  TextEditingController job_title = TextEditingController();
+  TextEditingController resourceType = TextEditingController();
+  TextEditingController type = TextEditingController();
+  TextEditingController user_type = TextEditingController();
+  TextEditingController category = TextEditingController();
+  TextEditingController hospital = TextEditingController();
+  TextEditingController assigned_to = TextEditingController();
+  TextEditingController shift = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
   TextEditingController controller = TextEditingController();
@@ -162,7 +158,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                             decoration: buildInputDecoration(Txt.type),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
-                                                                child: new Text(
+                                                                child: Text(
                                                                   item.type!,
                                                                   style: TextStyle(
                                                                     fontWeight: FontWeight.w500,
@@ -210,7 +206,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                             decoration: buildInputDecoration(Txt.category),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
-                                                                child: new Text(
+                                                                child: Text(
                                                                   item.category!,
                                                                   style: TextStyle(
                                                                     fontWeight: FontWeight.w500,
@@ -259,7 +255,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                             decoration: buildInputDecoration(Txt.user_type),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
-                                                                child: new Text(
+                                                                child: Text(
                                                                   item.type!,
                                                                   style: TextStyle(
                                                                     fontWeight: FontWeight.w500,
@@ -301,7 +297,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                             decoration: buildInputDecoration(Txt.client),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
-                                                                child: new Text(
+                                                                child: Text(
                                                                   item.name!,
                                                                   overflow: TextOverflow.clip,
                                                                   style: TextStyle(
@@ -351,7 +347,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                   decoration: buildInputDecoration(Txt.unit_name),
                                                   items: snapshot.data?.map((item) {
                                                     return DropdownMenuItem(
-                                                      child: new Text(
+                                                      child: Text(
                                                         item.unitName!,
                                                         overflow: TextOverflow.clip,
                                                         style: TextStyle(
@@ -418,7 +414,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                             decoration: buildInputDecoration(Txt.shift_type),
                                                             items: snapshot.data?.map((item) {
                                                               return DropdownMenuItem(
-                                                                child: new Text(
+                                                                child: Text(
                                                                   item.shift!,
                                                                   style: TextStyle(
                                                                     fontWeight: FontWeight.w500,
@@ -601,7 +597,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                   ),
                                                 ),
                                               ),
-                                              RaisedButton(
+                                              ElevatedButton(
                                                 onPressed: () {
                                                   showModalBottomSheet(
                                                       context: context,
@@ -613,8 +609,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         );
                                                       });
                                                 },
-                                                padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                                                color: Colors.blueAccent,
+                                                // padding: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                                                // color: Colors.blueAccent,
                                                 child: Text(
                                                   Txt.add_allowances,
                                                   style: TextStyle(
@@ -705,7 +701,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       itemBuilder: (BuildContext context, int index) {
         var items = snapshot.data?[index];
         String? allowace = items?.allowance.toString();
-        print(allowace);
+        debugPrint(allowace);
         String? category = items?.category.toString();
         String? amount = items?.amount.toString();
         return Container(
@@ -740,7 +736,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                     )),
                 GestureDetector(
                   onTap: () {
-                    print("Delete");
+                    debugPrint("Delete");
                     managerBloc.deleteAllowance(index);
                   },
                   child: SvgPicture.asset(
@@ -781,8 +777,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                               return;
                             }
 
-                            print("managerBloc.typeId");
-                            print(managerBloc.typeId);
+                            debugPrint("managerBloc.typeId");
+                            debugPrint(managerBloc.typeId.toString());
                             managerBloc.createShiftManager(
                                 auth_tokn,
                                 managerBloc.row_id,
@@ -863,10 +859,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     if (null != item.allowances) {
       managerBloc.setAllowance(item.allowances!);
     }
-    print(item.type);
-    print("item.hospitalId");
-    print(item.hospitalId);
-    print(item.type == "Premium");
+    debugPrint(item.type);
+    debugPrint("item.hospitalId");
+    debugPrint(item.hospitalId.toString());
+    debugPrint("${item.type == "Premium"}");
     if (item.type == "Premium") {
       setState(() {
         managerBloc.typeId = 1;
@@ -890,8 +886,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         managerBloc.usertypeId = item.userTypeId!;
       });
     }
-    print("item.hospitalId");
-    print(item.hospitalId);
+    debugPrint("item.hospitalId");
+    debugPrint(item.hospitalId.toString());
     if (item.hospitalId != 0 && null != item.hospitalId) {
       setState(() {
         managerBloc.hospitalId = item.hospitalId!;

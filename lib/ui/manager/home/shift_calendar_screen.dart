@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-import '../../user/common/app_bar.dart';
-import '../../user/common/side_menu.dart';
 import '../../../utils/constants.dart';
 
 
@@ -18,7 +15,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 class _ProfileState extends State<ShiftCalendarScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   CalendarFormat format = CalendarFormat.month;
-  DateTime SelectedDay = DateTime.now();
+  DateTime selectedDay = DateTime.now();
   DateTime focusDay = DateTime.now();
   @override
   void didUpdateWidget(covariant ShiftCalendarScreen oldWidget) {
@@ -46,7 +43,7 @@ class _ProfileState extends State<ShiftCalendarScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Container(
               child: TableCalendar(
-                focusedDay: SelectedDay,
+                focusedDay: selectedDay,
                 firstDay: DateTime.now(),
                 lastDay: DateTime(2030),
                 calendarFormat: format,
@@ -59,10 +56,10 @@ class _ProfileState extends State<ShiftCalendarScreen> {
                 daysOfWeekVisible: true,
                 onDaySelected: (DateTime selectDay, DateTime focusDay) {
                   setState(() {
-                    SelectedDay = selectDay;
+                    selectedDay = selectDay;
                     focusDay = focusDay;
                   });
-                  print(focusDay);
+                  debugPrint(focusDay.toString());
                 },
                 calendarStyle: CalendarStyle(
                   isTodayHighlighted: true,
@@ -74,7 +71,7 @@ class _ProfileState extends State<ShiftCalendarScreen> {
                   ),
                 ),
                 selectedDayPredicate: (DateTime date) {
-                  return isSameDay(SelectedDay, date);
+                  return isSameDay(selectedDay, date);
                 },
               ),
             ),

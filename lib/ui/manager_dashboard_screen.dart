@@ -4,20 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import '../Constants/AppColors.dart';
 import '../Constants/strings.dart';
 import '../ui/manager/home/approved_timesheet_screen.dart';
 import '../ui/manager/home/manager_home_screen.dart';
 import '../ui/splash/user_or_manager.dart';
-
 import '../utils/constants.dart';
-
 import '../db/database.dart';
 import '../utils/colors_util.dart';
 
-
 import 'manager/home/completed_approvel.dart';
 import 'manager/home/manager_calendar_screen.dart';
-import 'manager/home/my_shifts_screen.dart';
 
 class ManagerDashBoard extends StatefulWidget {
   const ManagerDashBoard({Key? key}) : super(key: key);
@@ -28,11 +25,11 @@ class ManagerDashBoard extends StatefulWidget {
 
 class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   static  final List<Widget> _widgetOptions = <Widget>[
-    ManagerHomeScreen(),
-    ManagerfindshiftCalendar(),
+    const ManagerHomeScreen(),
+    const ManagerfindshiftCalendar(),
     // ManagerShiftsScreen(),
-    ApprovedTimeSheetScreen(),
-    CompletedApprovelScreen(),
+    const ApprovedTimeSheetScreen(),
+    const CompletedApprovelScreen(),
   ];
   late PersistentTabController _controller;
 
@@ -43,12 +40,6 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   }
 
 
-
-  void _onItemTapped(int index) {
-    setState(() {
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +49,7 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
         iconTheme: IconThemeData(
           color:Constants.colors[1],
         ),
-        backgroundColor: HexColor("#ffffff"),
+        backgroundColor: white,
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -104,11 +95,11 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
         ),
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: ItemAnimationProperties(
+        itemAnimationProperties: const ItemAnimationProperties(
           duration: Duration(milliseconds: 200),
           curve: Curves.ease,
         ),
-        screenTransitionAnimation: ScreenTransitionAnimation(
+        screenTransitionAnimation: const ScreenTransitionAnimation(
           animateTabTransition: true,
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
@@ -123,14 +114,14 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
 List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.home),
+      icon: const Icon(CupertinoIcons.home),
       title: (Txt.home),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.shift),
+      icon: const Icon(CupertinoIcons.shift),
       title: (Txt.shifts),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
@@ -144,14 +135,14 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     //   inactiveColorPrimary: CupertinoColors.systemGrey,
     // ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar_badge_plus),
+      icon: const Icon(CupertinoIcons.calendar_badge_plus),
       title: (Txt.time_sheets),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar_badge_plus),
+      icon: const Icon(CupertinoIcons.calendar_badge_plus),
       title: (Txt.approved),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],

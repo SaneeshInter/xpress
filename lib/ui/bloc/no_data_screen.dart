@@ -26,7 +26,7 @@ class NoDataWidget extends StatelessWidget {
               85.width,
               16.height,
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 32),
+                padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Text(description,
                     style: primaryTextStyle(size: 15),
                     textAlign: TextAlign.center),

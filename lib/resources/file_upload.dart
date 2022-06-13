@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/manager_approve_timesheet_respo.dart';
@@ -9,11 +10,11 @@ import '../model/time_sheet_upload_respo.dart';
 import '../model/user_documents_response.dart';
 
 class ApiFileProvider {
-  String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
+  String baseURL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
 
   Future<TimeSheetUploadRespo> asyncFileUpload(
       String token, String ids, File file) async {
-    var uri = Uri.parse(BASE_URL + '/user/add-time-sheet');
+    var uri = Uri.parse('$baseURL/user/add-time-sheet');
     //create multipart request for POST or PATCH method
     var request = http.MultipartRequest("POST", uri);
     var headers = <String, String>{
@@ -40,8 +41,8 @@ class ApiFileProvider {
   }
 
   Future<UserDocumentsResponse> uploadUserDocuments(
-      String token, File files, String type, String expiry_date) async {
-    var uri = Uri.parse(BASE_URL + '/account/upload-user-documents');
+      String token, File files, String type, String expiryDate) async {
+    var uri = Uri.parse('$baseURL/account/upload-user-documents');
     //create multipart request for POST or PATCH method
     var request = http.MultipartRequest("POST", uri);
     var headers = <String, String>{
@@ -69,8 +70,8 @@ class ApiFileProvider {
     var responseString = String.fromCharCodes(responseData);
     print("response.statusCode");
     print(response.statusCode);
-    print(response);
-    print(responseString);
+    debugPrint(response.toString());
+    debugPrint(responseString);
 
     if (response.statusCode == 200) {
       return UserDocumentsResponse.fromJson(json.decode(responseString));
@@ -79,77 +80,51 @@ class ApiFileProvider {
     }
   }
 
-  Future<ManagerShift> CreateShiftManagers(
+  Future<ManagerShift> createShiftManagers(
     String token,
     String type,
-    int row_id,
+    int rowId,
     String category,
-    String user_type,
-    String job_title,
+    String userType,
+    String jobTitle,
     String hospital,
     String date,
-    String time_from,
-    String time_to,
-    String job_details,
+    String timeFrom,
+    String timeTo,
+    String jobDetails,
     String price,
     String shift,
     String allowances,
-    String unit_name,
+    String unitName,
   ) async {
-    print("type :" +
-        type +
-        " " +
-        "row_id : " +
-        row_id.toString() +
-        "category :" +
-        category +
-        "user_type :" +
-        user_type +
-        "job_title :" +
-        job_title +
-        "hospital :" +
-        hospital +
-        "time_from :" +
-        time_from +
-        "time_to :" +
-        time_to +
-        "job_details :" +
-        job_details +
-        "price :" +
-        price +
-        "shift :" +
-        shift +
-        "allowances :" +
-        allowances +
-        "unit_name :" +
-        unit_name);
+    debugPrint("type :$type row_id : ${rowId}category :${category}user_type :${userType}job_title :${jobTitle}hospital :${hospital}time_from :${timeFrom}time_to :${timeTo}job_details :${jobDetails}price :${price}shift :${shift}allowances :${allowances}unit_name :$unitName");
 
-    var uri = Uri.parse(BASE_URL + '/manager/add-schedule');
+    var uri = Uri.parse('$baseURL/manager/add-schedule');
 
-    if (row_id != -1) {
-      uri = Uri.parse(BASE_URL + '/manager/edit-schedule');
+    if (rowId != -1) {
+      uri = Uri.parse('$baseURL/manager/edit-schedule');
     }
     var request = http.MultipartRequest("POST", uri);
 
     request.fields["type"] = type;
-    if (row_id != -1) {
-      print("edit");
-      request.fields["row_id"] = row_id.toString();
+    if (rowId != -1) {
+      debugPrint("edit");
+      request.fields["row_id"] = rowId.toString();
     }
     request.fields["category"] = category;
-    request.fields["user_type"] = user_type;
-    request.fields["job_title"] = job_title;
+    request.fields["user_type"] = userType;
+    request.fields["job_title"] = jobTitle;
     request.fields["hospital"] = hospital;
     request.fields["date"] = date;
-    request.fields["time_from"] = time_from;
-    request.fields["time_to"] = time_to;
-    request.fields["job_details"] = job_details;
+    request.fields["time_from"] = timeFrom;
+    request.fields["time_to"] = timeTo;
+    request.fields["job_details"] = jobDetails;
     request.fields["price"] = price;
     request.fields["allowances"] = allowances;
     request.fields["assigned_to"] = "";
     request.fields["shift"] = shift;
-    request.fields["unit_name"] = unit_name;
-    print(uri.toString());
+    request.fields["unit_name"] = unitName;
+    debugPrint(uri.toString());
     var headers = <String, String>{
       "Accept": "application/json",
       "Content-Type": "multipart/form-data",
@@ -172,7 +147,7 @@ class ApiFileProvider {
     String token,
     String data,
   ) async {
-    var uri = Uri.parse(BASE_URL + '/manager/approve-timesheet');
+    var uri = Uri.parse('$baseURL/manager/approve-timesheet');
     var request = http.MultipartRequest("POST", uri);
     var headers = <String, String>{
       "Accept": "application/json",
@@ -181,15 +156,15 @@ class ApiFileProvider {
       'token': token,
     };
     request.fields["data"] = data;
-    print(uri.toString());
-    print(token);
-    print(data);
+    debugPrint(uri.toString());
+    debugPrint(token);
+    debugPrint(data);
 
     request.headers.addAll(headers);
     var response = await request.send();
     var responseData = await response.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
-    print(responseString);
+    debugPrint(responseString);
     if (response.statusCode == 200) {
       return ManagerApproveResponse.fromJson(json.decode(responseString));
     } else {

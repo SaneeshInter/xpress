@@ -74,6 +74,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
         .copyWith(statusBarBrightness: Brightness.dark));
     return Scaffold(
@@ -88,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Center(
           child: SvgPicture.asset(
             "assets/images/icon/whitelogo.svg",
-            width: MediaQuery.of(context).size.width / 1.4,
+            width:  71.5.w,
           ),
         ),
       ),

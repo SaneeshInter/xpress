@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:xpresshealthdev/model/login_response.dart';
 import 'package:xpresshealthdev/model/user_get_shift_details.dart';
@@ -38,11 +39,11 @@ import '../model/viewbooking_response.dart';
 
 class ApiProvider {
   Client client = Client();
-  String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
+  String baseURL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
 
   Future<LoginUserRespo?> loginUser(
-      String username, String password, String user_type) async {
-    var uri = Uri.parse(BASE_URL + '/account/login');
+      String username, String password, String userType) async {
+    var uri = Uri.parse('$baseURL/account/login');
     try {
       final response = await client.post(uri,
           headers: <String, String>{
@@ -51,15 +52,15 @@ class ApiProvider {
           body: jsonEncode(<String, String>{
             'email': username,
             'password': password,
-            'user_type': user_type,
+            'user_type': userType,
           }));
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         'email': username,
         'password': password,
-        'user_type': user_type,
+        'user_type': userType,
       }).toString());
 
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return LoginUserRespo.fromJson(json.decode(response.body));
@@ -73,45 +74,45 @@ class ApiProvider {
 
   Future<UserGetResponse> getUserInfo(String token) async {
     try {
-      print("token");
-      print(token);
-      var uri = Uri.parse(BASE_URL + '/account/get-user-info');
-      print(uri);
+      debugPrint("token");
+      debugPrint(token);
+      var uri = Uri.parse('$baseURL/account/get-user-info');
+      debugPrint(uri.toString());
       final response = await client.get(
         uri,
         headers: <String, String>{
           'Token': token,
         },
       );
-      print(response.body);
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         return UserGetResponse.fromJson(json.decode(response.body));
       } else {
         return UserGetResponse();
       }
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return UserGetResponse();
     }
   }
 
   Future<UtilityResop> fetchUtility() async {
     try {
-      var uri = Uri.parse(BASE_URL + '/account/get-utilities');
+      var uri = Uri.parse('$baseURL/account/get-utilities');
       final response = await client.get(
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      print(response.body);
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         return UtilityResop.fromJson(json.decode(response.body));
       } else {
         return UtilityResop();
       }
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return UtilityResop();
     }
   }
@@ -119,7 +120,7 @@ class ApiProvider {
   Future<ProfileQuestionResponse> geProfileQuestions(
       String token, String key, String value) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/account/update-questions');
+      var uri = Uri.parse('$baseURL/account/update-questions');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -130,12 +131,12 @@ class ApiProvider {
             'value': value,
           }));
 
-      print("Print Update questions" + token);
+      debugPrint("debugPrint Update questions$token");
 
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         'key': key,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ProfileQuestionResponse.fromJson(json.decode(response.body));
@@ -143,25 +144,25 @@ class ApiProvider {
         return ProfileQuestionResponse();
       }
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return ProfileQuestionResponse();
     }
   }
 
   Future<SliftListRepso> fetchShiftList(String date) async {
     try{
-      print("date");
-      print(date);
-      var uri = Uri.parse(BASE_URL + '/account/login');
+      debugPrint("date");
+      debugPrint(date);
+      var uri = Uri.parse('$baseURL/account/login');
       final response = await client.get(uri);
-      print(response);
+      debugPrint(response.toString());
       if (response.statusCode == 200) {
         return SliftListRepso.fromJson(json.decode(response.body));
       } else {
         return SliftListRepso();
       }
     }catch(e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return SliftListRepso();
     }
 
@@ -173,69 +174,69 @@ class ApiProvider {
 
   Future<ProfileUpdateRespo> ProfileUser(
       String token,
-      String first_name,
-      String last_name,
+      String firstName,
+      String lastName,
       String dob,
       String gender,
       String nationality,
-      String home_address,
-      String permission_to_work_in_ireland,
-      String visa_type,
-      String phone_number,
+      String homeAddress,
+      String permissionToWorkInIreland,
+      String visaType,
+      String phoneNumber,
       String email,
-      String pps_number,
-      String bank_iban,
-      String bank_bic) async {
+      String ppsNumber,
+      String bankIban,
+      String bankBic) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + '/account/update-profile');
+      var uri = Uri.parse('$baseURL/account/update-profile');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             "token": token,
           },
           body: jsonEncode(<String, String>{
-            "first_name": first_name,
-            "last_name": last_name,
+            "first_name": firstName,
+            "last_name": lastName,
             "dob": dob,
             "gender": gender,
             "nationality": nationality,
-            "home_address": home_address,
-            "permission_to_work_in_ireland": permission_to_work_in_ireland,
-            "visa_type": visa_type,
-            "phone_number": phone_number,
+            "home_address": homeAddress,
+            "permission_to_work_in_ireland": permissionToWorkInIreland,
+            "visa_type": visaType,
+            "phone_number": phoneNumber,
             "email": email,
-            "pps_number": pps_number,
-            "bank_iban": bank_iban,
-            "bank_bic": bank_bic,
+            "pps_number": ppsNumber,
+            "bank_iban": bankIban,
+            "bank_bic": bankBic,
           }));
 
-      print(jsonEncode(<String, String>{
-        "first_name": first_name,
-        "last_name": last_name,
+      debugPrint(jsonEncode(<String, String>{
+        "first_name": firstName,
+        "last_name": lastName,
         "dob": dob,
         "nationality": nationality,
-        "home_address": home_address,
-        "permission_to_work_in_ireland": permission_to_work_in_ireland,
-        "visa_type": visa_type,
-        "phone_number": phone_number,
+        "home_address": homeAddress,
+        "permission_to_work_in_ireland": permissionToWorkInIreland,
+        "visa_type": visaType,
+        "phone_number": phoneNumber,
         "email": email,
-        "pps_number": pps_number,
-        "bank_iban": bank_iban,
-        "bank_bic": bank_bic,
+        "pps_number": ppsNumber,
+        "bank_iban": bankIban,
+        "bank_bic": bankBic,
       }).toString());
-      print(response.body);
-      print(response.statusCode);
-      print(response.toString());
+      debugPrint(response.body);
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.toString());
 
-      print(response.body);
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         return ProfileUpdateRespo.fromJson(json.decode(response.body));
       } else {
         return ProfileUpdateRespo();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ProfileUpdateRespo();
     }
 
@@ -244,7 +245,7 @@ class ApiProvider {
   Future<UserTimeSheetRespo> userGetTimesheet(String token) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/user/get-time-sheet");
+      var uri = Uri.parse("$baseURL/user/get-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -252,10 +253,10 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT User_Get_Timesheet" + token);
+      debugPrint("debugPrint User_Get_Timesheet$token");
 
-      print(jsonEncode(<String, String>{}).toString());
-      print(response.body);
+      debugPrint(jsonEncode(<String, String>{}).toString());
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserTimeSheetRespo.fromJson(json.decode(response.body));
@@ -263,7 +264,7 @@ class ApiProvider {
         return UserTimeSheetRespo();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserTimeSheetRespo();
     }
 
@@ -276,7 +277,7 @@ class ApiProvider {
   Future<ManagerTimeSheetResponse> managerApprovel(String token) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/manager/get-completed-time-sheet");
+      var uri = Uri.parse("$baseURL/manager/get-completed-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -284,11 +285,11 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("Completed approvel" + token);
-      print("Completed approvel " + uri.toString());
+      debugPrint("Completed approvel$token");
+      debugPrint("Completed approvel $uri");
 
-      print(jsonEncode(<String, String>{}).toString());
-      print(response.body);
+      debugPrint(jsonEncode(<String, String>{}).toString());
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ManagerTimeSheetResponse.fromJson(json.decode(response.body));
@@ -296,7 +297,7 @@ class ApiProvider {
         return ManagerTimeSheetResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerTimeSheetResponse();
     }
 
@@ -311,25 +312,25 @@ class ApiProvider {
 
 
   Future<UserTimeSheetDetailsRespo> userGetTimeDetails(
-      String token, String time_shhet_id) async {
+      String token, String timeShhetId) async {
     try{
 
-      var uri = Uri.parse(BASE_URL + "/user/get-time-sheet-details");
+      var uri = Uri.parse("$baseURL/user/get-time-sheet-details");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            "time_shhet_id": time_shhet_id,
+            "time_shhet_id": timeShhetId,
           }));
 
-      print("PRINT User_Get_Timesheet_Details" + token);
+      debugPrint("debugPrint User_Get_Timesheet_Details$token");
 
-      print(jsonEncode(<String, String>{
-        "time_shhet_id": time_shhet_id,
+      debugPrint(jsonEncode(<String, String>{
+        "time_shhet_id": timeShhetId,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserTimeSheetDetailsRespo.fromJson(json.decode(response.body));
@@ -337,7 +338,7 @@ class ApiProvider {
         return UserTimeSheetDetailsRespo();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserTimeSheetDetailsRespo();
     }
 
@@ -346,25 +347,25 @@ class ApiProvider {
   ///////////////////// MANAGER API
 
   Future<AcceptJobRequestResponse> AcceptJobRequest(
-      String token, String job_request_row_id) async {
+      String token, String jobRequestRowId) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/manager/accept-job-request");
+      var uri = Uri.parse("$baseURL/manager/accept-job-request");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            'job_request_row_id': job_request_row_id,
+            'job_request_row_id': jobRequestRowId,
           }));
 
-      print("PRINT ACCEPT VIEW JOB REQUEST" + token);
+      debugPrint("debugPrint ACCEPT VIEW JOB REQUEST$token");
 
-      print(jsonEncode(<String, String>{
-        'job_request_row_id': job_request_row_id,
+      debugPrint(jsonEncode(<String, String>{
+        'job_request_row_id': jobRequestRowId,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return AcceptJobRequestResponse.fromJson(json.decode(response.body));
@@ -372,7 +373,7 @@ class ApiProvider {
         return AcceptJobRequestResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return AcceptJobRequestResponse();
     }
 
@@ -381,7 +382,7 @@ class ApiProvider {
   Future<ManagerHomeResponse> getManagerHome(String token) async {
 
     try {
-      var uri = Uri.parse(BASE_URL + "/home/get-manager-updates");
+      var uri = Uri.parse("$baseURL/home/get-manager-updates");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -389,10 +390,10 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("Print ManagerHome ImportantUpdates " + token);
+      debugPrint("debugPrint ManagerHome ImportantUpdates $token");
 
-      print(jsonEncode(<String, String>{}).toString());
-      print(response.body);
+      debugPrint(jsonEncode(<String, String>{}).toString());
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ManagerHomeResponse.fromJson(json.decode(response.body));
@@ -401,32 +402,32 @@ class ApiProvider {
       }
 
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerHomeResponse();
     }
 
   }
 
   Future<ManagerViewRequestResponse> getManagerViewRequest(
-      String token, String shift_id) async {
+      String token, String shiftId) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/manager/view-request");
+      var uri = Uri.parse("$baseURL/manager/view-request");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            'shift_id': shift_id,
+            'shift_id': shiftId,
           }));
-      print("PRINT VIEW REQUEST" + uri.toString());
-      print("PRINT VIEW REQUEST Id" + shift_id);
-      print("PRINT VIEW REQUEST" + token);
-      print(jsonEncode(<String, String>{
-        'shift_id': shift_id,
+      debugPrint("debugPrint VIEW REQUEST$uri");
+      debugPrint("debugPrint VIEW REQUEST Id$shiftId");
+      debugPrint("debugPrint VIEW REQUEST$token");
+      debugPrint(jsonEncode(<String, String>{
+        'shift_id': shiftId,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ManagerViewRequestResponse.fromJson(json.decode(response.body));
@@ -434,7 +435,7 @@ class ApiProvider {
         return ManagerViewRequestResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerViewRequestResponse();
     }
 
@@ -445,7 +446,7 @@ class ApiProvider {
 
     try{
 
-      var uri = Uri.parse(BASE_URL + '/manager/remove-schedule');
+      var uri = Uri.parse('$baseURL/manager/remove-schedule');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -455,12 +456,12 @@ class ApiProvider {
             'row_id': rowId,
           }));
 
-      print("PRINT TOKEN" + token);
+      debugPrint("debugPrint TOKEN$token");
 
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         'row_id': rowId,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return RemoveManagerScheduleResponse.fromJson(json.decode(response.body));
@@ -468,33 +469,33 @@ class ApiProvider {
         return RemoveManagerScheduleResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return RemoveManagerScheduleResponse();
     }
 
   }
 
   Future<ManagerTimeDetailsResponse> timeDetails(
-      String token, String time_shhet_id) async {
+      String token, String timeShhetId) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + '/manager/get-time-sheet-details');
+      var uri = Uri.parse('$baseURL/manager/get-time-sheet-details');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            'time_shhet_id': time_shhet_id,
+            'time_shhet_id': timeShhetId,
           }));
 
-      print("PRINT GET MANAGER TIME DETAILS" + token);
-      print("PRINT GET MANAGER TIME " + uri.toString());
+      debugPrint("debugPrint GET MANAGER TIME DETAILS$token");
+      debugPrint("debugPrint GET MANAGER TIME $uri");
 
-      print(jsonEncode(<String, String>{
-        'time_shhet_id': time_shhet_id,
+      debugPrint(jsonEncode(<String, String>{
+        'time_sheet_id': timeShhetId,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ManagerTimeDetailsResponse.fromJson(json.decode(response.body));
@@ -502,7 +503,7 @@ class ApiProvider {
         return ManagerTimeDetailsResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerTimeDetailsResponse();
     }
 
@@ -512,7 +513,7 @@ class ApiProvider {
 
     try
     {
-      var uri = Uri.parse(BASE_URL + "/manager/get-time-sheet");
+      var uri = Uri.parse("$baseURL/manager/get-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -520,10 +521,10 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT USERHOME RESPONSE" + token);
+      debugPrint("debugPrint USERHOME RESPONSE$token");
 
-      print(jsonEncode(<String, String>{}).toString());
-      print(response.body);
+      debugPrint(jsonEncode(<String, String>{}).toString());
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ManagerTimeSheetResponse.fromJson(json.decode(response.body));
@@ -531,7 +532,7 @@ class ApiProvider {
         return ManagerTimeSheetResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString().toString());
       return ManagerTimeSheetResponse();
     }
 
@@ -540,7 +541,7 @@ class ApiProvider {
   Future<ManagerGetClientsResponse> managerGetClients(String token) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/manager/get-clients");
+      var uri = Uri.parse("$baseURL/manager/get-clients");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -548,10 +549,10 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT Manager get clients" + token);
+      debugPrint("debugPrint Manager get clients$token");
 
-      print(jsonEncode(<String, String>{}).toString());
-      print(response.body);
+      debugPrint(jsonEncode(<String, String>{}).toString());
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ManagerGetClientsResponse.fromJson(json.decode(response.body));
@@ -559,7 +560,7 @@ class ApiProvider {
         return ManagerGetClientsResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerGetClientsResponse();
     }
 
@@ -569,7 +570,7 @@ class ApiProvider {
       String token, String clients) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + '/manager/get-unit-name');
+      var uri = Uri.parse('$baseURL/manager/get-unit-name');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -579,12 +580,12 @@ class ApiProvider {
             'client': clients,
           }));
 
-      print("PRINT unit Nmae" + token);
+      debugPrint("debugPrint unit Name $token");
 
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         'client': clients,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ManagerUnitNameResponse.fromJson(json.decode(response.body));
@@ -592,7 +593,7 @@ class ApiProvider {
         return ManagerUnitNameResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerUnitNameResponse();
     }
 
@@ -601,13 +602,13 @@ class ApiProvider {
 
 
 
-  Future<ManagerScheduleListResponse> fetchViewbooking(
+  Future<ManagerScheduleListResponse> fetchViewBooking(
       String token, String date) async {
 
     try{
-      print("View Booking");
+      debugPrint("View Booking");
 
-      var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-date');
+      var uri = Uri.parse('$baseURL/manager/get-schedule-by-date');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -617,17 +618,17 @@ class ApiProvider {
             "date": date,
           }));
 
-      print(uri.toString());
-      print(response.body);
-      print(response.statusCode);
-      print(response.toString());
+      debugPrint(uri.toString());
+      debugPrint(response.body);
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.toString());
       if (response.statusCode == 200) {
         return ManagerScheduleListResponse.fromJson(json.decode(response.body));
       } else {
         return ManagerScheduleListResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerScheduleListResponse();
     }
 
@@ -638,24 +639,24 @@ class ApiProvider {
       String token) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/user/get-completed-shifts");
+      var uri = Uri.parse("$baseURL/user/get-completed-shifts");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{}));
-      print("fetchUserCompleteShift" + uri.toString());
-      print("PRINT USERHOME RESPONSE" + token);
-      print(jsonEncode(<String, String>{}).toString());
-      print(response.body);
+      debugPrint("fetchUserCompleteShift$uri");
+      debugPrint("debugPrint USERNAME RESPONSE$token");
+      debugPrint(jsonEncode(<String, String>{}).toString());
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         return UserShoiftCompletedResponse.fromJson(json.decode(response.body));
       } else {
         return UserShoiftCompletedResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserShoiftCompletedResponse();
     }
 
@@ -664,7 +665,7 @@ class ApiProvider {
   Future<UserHomeResponse> getUserHome(String token) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/home/get-user-updates");
+      var uri = Uri.parse("$baseURL/home/get-user-updates");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -672,10 +673,10 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT USERHOME RESPONSE" + token);
+      debugPrint("debugPrint USERHOME RESPONSE$token");
 
-      print(jsonEncode(<String, String>{}).toString());
-      print(response.body);
+      debugPrint(jsonEncode(<String, String>{}).toString());
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserHomeResponse.fromJson(json.decode(response.body));
@@ -683,24 +684,24 @@ class ApiProvider {
         return UserHomeResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserHomeResponse();
     }
 
   }
 
-  Future<ManagerShift> CreateShiftManager(
+  Future<ManagerShift> createShiftManager(
     String token,
     String type,
-    int row_id,
+    int rowId,
     String category,
-    String user_type,
-    String job_title,
+    String userType,
+    String jobTitle,
     String hospital,
     String date,
-    String time_from,
-    String time_to,
-    String job_details,
+    String timeFrom,
+    String timeTo,
+    String jobDetails,
     String price,
     String shift,
     String allowances,
@@ -708,9 +709,9 @@ class ApiProvider {
 
     try {
       var response;
-      var uri = Uri.parse(BASE_URL + '/manager/add-schedule');
-      if (row_id != -1) {
-        uri = Uri.parse(BASE_URL + '/manager/edit-schedule');
+      var uri = Uri.parse('$baseURL/manager/add-schedule');
+      if (rowId != -1) {
+        uri = Uri.parse('$baseURL/manager/edit-schedule');
         response = await client.post(uri,
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
@@ -718,15 +719,15 @@ class ApiProvider {
             },
             body: jsonEncode(<String, String>{
               "type": type,
-              "row_id": row_id.toString(),
+              "row_id": rowId.toString(),
               "category": category,
-              "user_type": user_type,
-              "job_title": job_title,
+              "user_type": userType,
+              "job_title": jobTitle,
               "hospital": hospital,
               "date": date,
-              "time_from": time_from,
-              "time_to": time_to,
-              "job_details": job_details,
+              "time_from": timeFrom,
+              "time_to": timeTo,
+              "job_details": jobDetails,
               "price": price,
               "allowances": allowances,
               "assigned_to": "",
@@ -741,13 +742,13 @@ class ApiProvider {
             body: jsonEncode(<String, String>{
               "type": type,
               "category": category,
-              "user_type": user_type,
-              "job_title": job_title,
+              "user_type": userType,
+              "job_title": jobTitle,
               "hospital": hospital,
               "date": date,
-              "time_from": time_from,
-              "time_to": time_to,
-              "job_details": job_details,
+              "time_from": timeFrom,
+              "time_to": timeTo,
+              "job_details": jobDetails,
               "price": price,
               "allowances": allowances,
               "assigned_to": "",
@@ -755,25 +756,25 @@ class ApiProvider {
             }));
       }
 
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         "type": type,
-        "row_id": row_id.toString(),
+        "row_id": rowId.toString(),
         "category": category,
-        "user_type": user_type,
-        "job_title": job_title,
+        "user_type": userType,
+        "job_title": jobTitle,
         "hospital": hospital,
         "date": date,
-        "time_from": time_from,
-        "time_to": time_to,
-        "job_details": job_details,
+        "time_from": timeFrom,
+        "time_to": timeTo,
+        "job_details": jobDetails,
         "price": price,
         "allowances": "",
         "assigned_to": "",
         "shift": shift,
       }));
-      print(response.body);
-      print(response.statusCode);
-      print(response.toString());
+      debugPrint(response.body);
+      debugPrint(response.statusCode);
+      debugPrint(response.toString());
 
       if (response.statusCode == 200) {
         return ManagerShift.fromJson(json.decode(response.body));
@@ -781,7 +782,7 @@ class ApiProvider {
         return ManagerShift();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerShift();
     }
 
@@ -790,9 +791,9 @@ class ApiProvider {
   Future<GetAvailableUserByDate> fetchGetAvailableUserByDate(
       String token, String date, String shifttype) async {
     try{
-      print("GetAvailableUserByDate  CALLING");
+      debugPrint("GetAvailableUserByDate  CALLING");
 
-      var uri = Uri.parse(BASE_URL + '/manager/get-available-user-by-date');
+      var uri = Uri.parse('$baseURL/manager/get-available-user-by-date');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -803,16 +804,16 @@ class ApiProvider {
             "shifttype": shifttype,
           }));
 
-      print(response.body);
-      print(response.statusCode);
-      print(response.toString());
+      debugPrint(response.body);
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.toString());
       if (response.statusCode == 200) {
         return GetAvailableUserByDate.fromJson(json.decode(response.body));
       } else {
         return GetAvailableUserByDate();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return GetAvailableUserByDate();
     }
 
@@ -823,7 +824,7 @@ class ApiProvider {
 
     try
     {
-      var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-date');
+      var uri = Uri.parse('$baseURL/user/get-schedule-by-date');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -833,12 +834,12 @@ class ApiProvider {
             'date': date,
           }));
 
-      print("PRINT DATE" + token);
+      debugPrint("debugPrint DATE$token");
 
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         'date': date,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserGetScheduleByDate.fromJson(json.decode(response.body));
@@ -847,7 +848,7 @@ class ApiProvider {
       }
 
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserGetScheduleByDate();
     }
 
@@ -857,7 +858,7 @@ class ApiProvider {
       String token, String month, String year) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-month');
+      var uri = Uri.parse('$baseURL/manager/get-schedule-by-month');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -868,13 +869,13 @@ class ApiProvider {
             'year': year,
           }));
 
-      print("PRINT MONTH YEAR" + token);
+      debugPrint("debugPrint MONTH YEAR $token");
 
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         'month': month,
         'year': year,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserGetScheduleByMonthYear.fromJson(json.decode(response.body));
@@ -882,7 +883,7 @@ class ApiProvider {
         return UserGetScheduleByMonthYear();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserGetScheduleByMonthYear();
     }
 
@@ -894,9 +895,9 @@ class ApiProvider {
 
     try{
 
-      var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-year');
+      var uri = Uri.parse('$baseURL/user/get-schedule-by-year');
 
-      print(uri);
+      debugPrint(uri.toString());
 
       final response = await client.post(uri,
           headers: <String, String>{
@@ -907,12 +908,12 @@ class ApiProvider {
             'year': year,
           }));
 
-      print("PRINT  YEAR" + token);
-      print(jsonEncode(<String, String>{
+      debugPrint("debugPrint  YEAR $token");
+      debugPrint(jsonEncode(<String, String>{
         'year': year,
       }).toString());
 
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserGetScheduleByYear.fromJson(json.decode(response.body));
@@ -920,7 +921,7 @@ class ApiProvider {
         return UserGetScheduleByYear();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserGetScheduleByYear();
     }
 
@@ -931,7 +932,7 @@ class ApiProvider {
 
     try{
 
-      var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-year');
+      var uri = Uri.parse('$baseURL/manager/get-schedule-by-year');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -940,13 +941,13 @@ class ApiProvider {
           body: jsonEncode(<String, String>{
             'year': year,
           }));
-      print("PRINT  YEAR" + token);
-      print(jsonEncode(<String, String>{
+      debugPrint("debugPrint  YEAR $token");
+      debugPrint(jsonEncode(<String, String>{
         'year': year,
       }).toString());
 
-      print(uri.toString());
-      print(response.body);
+      debugPrint(uri.toString());
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return ManagerGetScheduleByYear.fromJson(json.decode(response.body));
@@ -954,38 +955,38 @@ class ApiProvider {
         return ManagerGetScheduleByYear();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return ManagerGetScheduleByYear();
     }
 
   }
 
   Future<UserJobRequestResponse> getUserJobRequest(
-      String token, String job_id) async {
+      String token, String jobId) async {
 
     try{
 
-      var uri = Uri.parse(BASE_URL + "/user/job-request");
+      var uri = Uri.parse("$baseURL/user/job-request");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            'job_id': job_id,
+            'job_id': jobId,
           }));
-      print("PRINT JOB REQUEST" + token);
-      print(jsonEncode(<String, String>{
-        'job_id': job_id,
+      debugPrint("debugPrint JOB REQUEST $token");
+      debugPrint(jsonEncode(<String, String>{
+        'job_id': jobId,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         return UserJobRequestResponse.fromJson(json.decode(response.body));
       } else {
         return UserJobRequestResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserJobRequestResponse();
     }
 
@@ -994,7 +995,7 @@ class ApiProvider {
   Future<UserViewRequestResponse> getUserViewRequest(String token) async {
     try{
 
-      var uri = Uri.parse(BASE_URL + "/user/view-request");
+      var uri = Uri.parse("$baseURL/user/view-request");
 
 
       final response = await client.post(
@@ -1004,16 +1005,16 @@ class ApiProvider {
           'token': token,
         },
       );
-      print(uri.toString());
-      print(token);
-      print(response.body);
+      debugPrint(uri.toString());
+      debugPrint(token);
+      debugPrint(response.body);
       if (response.statusCode == 200) {
         return UserViewRequestResponse.fromJson(json.decode(response.body));
       } else {
         return UserViewRequestResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserViewRequestResponse();
     }
 
@@ -1023,25 +1024,25 @@ class ApiProvider {
   }
 
   Future<GetUserShiftDetailsResponse> getUserShiftDetails(
-      String token, String shift_id) async {
+      String token, String shiftId) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/user/get-shift-details");
+      var uri = Uri.parse("$baseURL/user/get-shift-details");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            'shift_id': shift_id,
+            'shift_id': shiftId,
           }));
 
-      print("PRINT GET USER SHIFT DETAILS" + token);
+      debugPrint("debugPrint GET USER SHIFT DETAILS $token");
 
-      print(jsonEncode(<String, String>{
-        'shift_id': shift_id,
+      debugPrint(jsonEncode(<String, String>{
+        'shift_id': shiftId,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return GetUserShiftDetailsResponse.fromJson(json.decode(response.body));
@@ -1049,32 +1050,32 @@ class ApiProvider {
         return GetUserShiftDetailsResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return GetUserShiftDetailsResponse();
     }
 
   }
 
-  Future<UserCancelJobRequestResponse> canceljobrequest(
-      String token, String job_request_row_id) async {
+  Future<UserCancelJobRequestResponse> cancelJobRequest(
+      String token, String jobRequestRowId) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/user/cancel-request");
+      var uri = Uri.parse("$baseURL/user/cancel-request");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            'job_request_row_id': job_request_row_id,
+            'job_request_row_id': jobRequestRowId,
           }));
 
-      print("PRINT USER CANCEL JOB REQUEST" + token);
+      debugPrint("debugPrint USER CANCEL JOB REQUEST$token");
 
-      print(jsonEncode(<String, String>{
-        'job_request_row_id': job_request_row_id,
+      debugPrint(jsonEncode(<String, String>{
+        'job_request_row_id': jobRequestRowId,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserCancelJobRequestResponse.fromJson(json.decode(response.body));
@@ -1082,17 +1083,17 @@ class ApiProvider {
         return UserCancelJobRequestResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserCancelJobRequestResponse();
     }
 
   }
 
-  Future<AddUserAvailabilityResponse> getaddUserAvailability(
+  Future<AddUserAvailabilityResponse> getAddUserAvailability(
       String token, String date, String availability) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/user/add-availability");
+      var uri = Uri.parse("$baseURL/user/add-availability");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -1103,13 +1104,13 @@ class ApiProvider {
             'availability': availability,
           }));
 
-      print("PRINT ADD USER AVAILABILTY" + token);
+      debugPrint("debugPrint ADD USER AVAILABILITY$token");
 
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         'date': date,
         'availability': availability,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return AddUserAvailabilityResponse.fromJson(json.decode(response.body));
@@ -1117,34 +1118,34 @@ class ApiProvider {
         return AddUserAvailabilityResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return AddUserAvailabilityResponse();
     }
 
   }
 
   Future<UserAvailabilitydateResponse> getUserAvailability(
-      String token, String from_date, String to_date) async {
+      String token, String fromDate, String toDate) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/user/get-available-user-between-date");
+      var uri = Uri.parse("$baseURL/user/get-available-user-between-date");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            'from_date': from_date,
-            'to_date': to_date,
+            'from_date': fromDate,
+            'to_date': toDate,
           }));
 
-      print("PRINT USER AVAILABILTY BETWEEN DATE" + token);
+      debugPrint("debugPrint USER AVAILABILITY BETWEEN DATE $token");
 
-      print(jsonEncode(<String, String>{
-        'from_date': from_date,
-        'to_date': to_date,
+      debugPrint(jsonEncode(<String, String>{
+        'from_date': fromDate,
+        'to_date': toDate,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserAvailabilitydateResponse.fromJson(json.decode(response.body));
@@ -1153,7 +1154,7 @@ class ApiProvider {
       }
 
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserAvailabilitydateResponse();
     }
 
@@ -1161,35 +1162,35 @@ class ApiProvider {
 
   Future<UserWorkingHoursResponse> addUserWorkingHours(
       String token,
-      String shift_id,
-      String start_time,
-      String end_time,
-      String working_hours) async {
+      String shiftId,
+      String startTime,
+      String endTime,
+      String workingHours) async {
 
     try{
 
-      var uri = Uri.parse(BASE_URL + "/user/add-working-hours");
+      var uri = Uri.parse("$baseURL/user/add-working-hours");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{
-            'shift_id': shift_id,
-            'start_time': start_time,
-            'end_time': end_time,
-            'working_hours': working_hours,
+            'shift_id': shiftId,
+            'start_time': startTime,
+            'end_time': endTime,
+            'working_hours': workingHours,
           }));
 
-      print("ADD USER WORKING HOURS" + token);
+      debugPrint("ADD USER WORKING HOURS $token");
 
-      print(jsonEncode(<String, String>{
-        'shift_id': shift_id,
-        'start_time': start_time,
-        'end_time': end_time,
-        'working_hours': working_hours,
+      debugPrint(jsonEncode(<String, String>{
+        'shift_id': shiftId,
+        'start_time': startTime,
+        'end_time': endTime,
+        'working_hours': workingHours,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserWorkingHoursResponse.fromJson(json.decode(response.body));
@@ -1197,19 +1198,19 @@ class ApiProvider {
         return UserWorkingHoursResponse();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserWorkingHoursResponse();
     }
 
   }
 
   Future<UserDocumentsResponse> uploadUserDocuments(
-      String token, String files, String type, String expiry_date) async {
+      String token, String files, String type, String expiryDate) async {
 
     try{
 
 
-      var uri = Uri.parse(BASE_URL + "/account/upload-user-documents");
+      var uri = Uri.parse("$baseURL/account/upload-user-documents");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -1218,17 +1219,17 @@ class ApiProvider {
           body: jsonEncode(<String, String>{
             'files': files,
             'type': type,
-            'expiry_date': expiry_date,
+            'expiry_date': expiryDate,
           }));
 
-      print("UPLOAD USER DOCUMENTS" + token);
+      debugPrint("UPLOAD USER DOCUMENTS $token");
 
-      print(jsonEncode(<String, String>{
+      debugPrint(jsonEncode(<String, String>{
         'files': files,
         'type': type,
-        'expiry_date': expiry_date,
+        'expiry_date': expiryDate,
       }).toString());
-      print(response.body);
+      debugPrint(response.body);
 
       if (response.statusCode == 200) {
         return UserDocumentsResponse.fromJson(json.decode(response.body));
@@ -1237,7 +1238,7 @@ class ApiProvider {
       }
 
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return UserDocumentsResponse();
     }
 
@@ -1249,12 +1250,12 @@ class ApiProvider {
 
     try{
 
-      print("CONFIRMED");
+      debugPrint("CONFIRMED");
 
       var uri = Uri.parse(
           'https://agasthyapix.yodser.com/api/categories.asmx/fillCategories');
       final response = await client.get(uri);
-      print(response);
+      debugPrint(response.toString());
       if (response.statusCode == 200) {
         return SliftListRepso.fromJson(json.decode(response.body));
       } else {
@@ -1263,7 +1264,7 @@ class ApiProvider {
     }
 
     catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return SliftListRepso();
     }
 
@@ -1272,20 +1273,18 @@ class ApiProvider {
   Future<SliftListRepso> fetchNotification() async {
 
     try{
-
-      print("date");
-
+      debugPrint("date");
       var uri = Uri.parse(
           'https://agasthyapix.yodser.com/api/categories.asmx/fillCategories');
       final response = await client.get(uri);
-      print(response);
+      debugPrint(response.toString());
       if (response.statusCode == 200) {
         return SliftListRepso.fromJson(json.decode(response.body));
       } else {
         return SliftListRepso();
       }
     }catch(e){
-      print(e.toString());
+      debugPrint(e.toString());
       return SliftListRepso();
     }
     }

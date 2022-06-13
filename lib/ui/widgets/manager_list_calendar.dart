@@ -164,7 +164,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                               MaterialPageRoute(
                                   builder: (context) =>
                                       ShiftDetailManagerScreen(
-                                        shift_id: widget.items.rowId.toString(),
+                                        shiftId: widget.items.rowId.toString(),
                                       )),
                             );
                           },

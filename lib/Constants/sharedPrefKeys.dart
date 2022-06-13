@@ -17,6 +17,4 @@ class SharedPrefKey {
   static const EMPLOYEE_NO= "employeeNo";
   static const USER_TYPE_NAME = "user_type_name";
   static const PROFILE_SRC = "profileSrc";
-
-
 }

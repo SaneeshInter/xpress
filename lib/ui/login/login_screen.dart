@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -49,8 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Image.asset(
             'assets/images/icon/Bg2.png',
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .5,
+            width: 100.w,
+            height: 50.h,
             fit: BoxFit.fill,
           ),
           Stack(
@@ -59,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  width:90.w,
                   height: 70.h,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               ClipRRect(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
+                                const BorderRadius.all( Radius.circular(20)),
                                 child: Container(
                                   color: Colors.white,
                                   child: Padding(
@@ -110,23 +108,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   const EdgeInsets.only(
                                                       left: 16.0,
                                                       right: 16),
-                                              child: Container(
-                                                child: TextInputFileds(
-                                                  controlr: email,
-                                                  onChange: () {},
-                                                  validator: (email) {
-                                                    if (validEmail(email)) {
-                                                      return null;
-                                                    } else {
-                                                      return Txt.enter_valid_email;
-                                                    }
-                                                  },
-                                                  hintText: Txt.email,
-                                                  keyboadType: TextInputType
-                                                      .emailAddress,
-                                                  isPwd: false,
-                                                  onTapDate: () {},
-                                                ),
+                                              child: TextInputFileds(
+                                                controlr: email,
+                                                onChange: () {},
+                                                validator: (email) {
+                                                  if (validEmail(email)) {
+                                                    return null;
+                                                  } else {
+                                                    return Txt.enter_valid_email;
+                                                  }
+                                                },
+                                                hintText: Txt.email,
+                                                keyboadType: TextInputType
+                                                    .emailAddress,
+                                                isPwd: false,
+                                                onTapDate: () {},
                                               ),
                                             ),
                                           ],
@@ -141,24 +137,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   const EdgeInsets.only(
                                                       left: 16.0,
                                                       right: 16),
-                                              child: Container(
-                                                child: TextInputFileds(
-                                                  controlr: pwd,
-                                                  onChange: () {},
-                                                  validator: (password) {
-                                                    if (validPassword(
-                                                        password))
-                                                      return null;
-                                                    else {
-                                                      return Txt.enter_valid_password;
-                                                    }
-                                                  },
-                                                  hintText: Txt.pwd,
-                                                  keyboadType: TextInputType
-                                                      .visiblePassword,
-                                                  isPwd: true,
-                                                  onTapDate: () {},
-                                                ),
+                                              child: TextInputFileds(
+                                                controlr: pwd,
+                                                onChange: () {},
+                                                validator: (password) {
+                                                  if (validPassword(
+                                                      password)) {
+                                                    return null;
+                                                  } else {
+                                                    return Txt.enter_valid_password;
+                                                  }
+                                                },
+                                                hintText: Txt.pwd,
+                                                keyboadType: TextInputType
+                                                    .visiblePassword,
+                                                isPwd: true,
+                                                onTapDate: () {},
                                               ),
                                             ),
                                           ],
@@ -228,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.only(top: 5),
           child: Center(
               child: Padding(
-            padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+            padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
             child: Stack(
               children: [
                 LoginButton(
@@ -270,9 +264,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 10, left: 0, right: 0, bottom: 0),
-                child: Container(
-                    height: MediaQuery.of(context).size.width / 5,
-                    width: MediaQuery.of(context).size.width / 2,
+                child: SizedBox(
+                    height: 20.w,
+                    width: 50.w,
                     child: SvgPicture.asset(
                       'assets/images/icon/logo.svg',
                     )),
@@ -285,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _loginResponse() {
-    loginBloc.loginStream.listen((event) async {
+    loginBloc.loginStream.listen((event)  async{
       if (null != event.response) {
         var message = event.response?.status?.statusMessage;
         if (event.response?.status?.statusCode == 200) {
@@ -298,31 +292,32 @@ class _LoginScreenState extends State<LoginScreen> {
           var userType = event.response?.data?.userType;
           var profileSrc = event.response?.data?.profileSrc;
           if (null == token) {
-            showAlertDialoge(context, title: Txt.login_failed, message: message!);
+            if (!mounted) return;
+             showAlertDialoge(context, title: Txt.login_failed, message: message!);
             return;
           }
-          if (null == role) {
+          if (null == role||null == firstname||null == lastName ||null == employeeNo ||null == userType||null == profileSrc) {
             return;
           }
-          if (null == firstname) {
-            return;
-          }
-
-          if (null == lastName) {
-            return;
-          }
-
-          if (null == employeeNo) {
-            return;
-          }
-
-          if (null == userType) {
-            return;
-          }
-
-          if (null == profileSrc) {
-            return;
-          }
+          // if () {
+          //   return;
+          // }
+          //
+          // if () {
+          //   return;
+          // }
+          //
+          // if () {
+          //   return;
+          // }
+          //
+          // if () {
+          //   return;
+          // }
+          //
+          // if () {
+          //   return;
+          // }
 
           prefs.setString(SharedPrefKey.AUTH_TOKEN, token);
 
@@ -339,11 +334,13 @@ class _LoginScreenState extends State<LoginScreen> {
           prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc);
 
           if (role == 0) {
+            if (!mounted) return;
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const DashBoard()),
             );
           } else {
+            if (!mounted) return;
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => const ManagerDashBoard()),

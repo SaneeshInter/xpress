@@ -12,11 +12,11 @@ class AcceptJobRequestBloc {
       _shiftAcceptJobRequest.stream;
 
   fetchAcceptJobRequestResponse(
-      String token,
-      String job_request_row_id,
-      ) async {
+    String token,
+    String job_request_row_id,
+  ) async {
     AcceptJobRequestResponse list =
-        await _repo.fetchAcceptJobRequestResponse( token, job_request_row_id);
+        await _repo.fetchAcceptJobRequestResponse(token, job_request_row_id);
     _shiftAcceptJobRequest.sink.add(list);
   }
 
