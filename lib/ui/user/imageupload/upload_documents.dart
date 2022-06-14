@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'dart:io';
 
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -113,7 +114,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
               ListTile(
                 onTap: () async {
                   Navigator.pop(context);
-                  final response = await getImageFromCamera();
+                  final response = await getImage(ImageSource.camera);
                   if (response != null) {
                     _image = response;
                     setState(() {});
@@ -136,7 +137,8 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                 ),
                 onTap: () async {
                   Navigator.pop(context);
-                  final response = await getImageFromGallery();
+                  // final response = await  getImage(ImageSource.gallery);
+                  final response = await  getFile();
                   if (response != null) {
                     _image = response;
                     setState(() {});
@@ -247,36 +249,38 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                       imageUri != "" &&
                       null == _image)
                     SizedBox(
-                        height: 68.h,
+                        height: 65.h,
                         width: 100.w,
                         child: imageUri != null
-                            ? InteractiveViewer(
-                          child:CachedNetworkImage(
-                            imageUrl: imageUri,
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                    ),
-                              ),
-                            ),
-                            placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                          ),
-
-
-                          // FadeInImage.assetNetwork(
-                          //   placeholder:
-                          //   'assets/images/icon/loading_bar.gif',
-                          //   image: imageUri,
-                          //   placeholderScale: 4,
+                            ?
+                        InteractiveViewer(
+                          child:
+                          // CachedNetworkImage(
+                          //   useOldImageOnUrlChange: false,
+                          //   imageUrl: imageUri,
+                          //   imageBuilder: (context, imageProvider) => Container(
+                          //     decoration: BoxDecoration(
+                          //       image: DecorationImage(
+                          //           image: imageProvider,
+                          //           fit: BoxFit.cover,
+                          //           ),
+                          //     ),
+                          //   ),
+                          //   placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
+                          //   errorWidget: (context, url, error) => const Icon(Icons.error),
                           // ),
+
+                          FadeInImage.assetNetwork(
+                            placeholder:
+                            'assets/images/icon/loading_bar.gif',
+                            image: imageUri,
+                            placeholderScale: 4,
+                          ),
                         )
-                            : Container()),
+                            : const SizedBox()),
                   if (null != _image)
                     SizedBox(
-                        height: 68.h,
+                        height: 65.h,
                         width: 100.w,
                         child: _image != null
                             ? InteractiveViewer(
@@ -285,7 +289,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                             fit: BoxFit.fill,
                           ),
                         )
-                            : Container()),
+                            : const SizedBox()),
                   const SizedBox(
                     height: 20,
                   ),
@@ -369,10 +373,10 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),
@@ -383,14 +387,4 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   }
 }
 
-Color getColor(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return Colors.blue;
-  }
-  return Colors.red;
-}
+
