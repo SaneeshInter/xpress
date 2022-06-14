@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -250,12 +251,27 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                         width: 100.w,
                         child: imageUri != null
                             ? InteractiveViewer(
-                          child: FadeInImage.assetNetwork(
-                            placeholder:
-                            'assets/images/icon/loading_bar.gif',
-                            image: imageUri,
-                            placeholderScale: 4,
+                          child:CachedNetworkImage(
+                            imageUrl: imageUri,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                    ),
+                              ),
+                            ),
+                            placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
                           ),
+
+
+                          // FadeInImage.assetNetwork(
+                          //   placeholder:
+                          //   'assets/images/icon/loading_bar.gif',
+                          //   image: imageUri,
+                          //   placeholderScale: 4,
+                          // ),
                         )
                             : Container()),
                   if (null != _image)

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -109,17 +110,22 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Center(
-                                child: Container(
+                                child: SizedBox(
 width:100.w,
                                     child: imageUrl != null
                                         ? InteractiveViewer(
-                                            child: FadeInImage.assetNetwork(
-                                              placeholder:
-                                                  'assets/images/icon/loading_bar.gif',
-                                              image: imageUrl,
-                                              placeholderScale: 4,
-                                              fit: BoxFit.contain,
-                                              height: 60.h,
+                                            child: CachedNetworkImage(
+                                              imageUrl: imageUrl,
+                                              imageBuilder: (context, imageProvider) => Container(
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
+                                              errorWidget: (context, url, error) => const Icon(Icons.error),
                                             ),
                                           )
                                         : Container(

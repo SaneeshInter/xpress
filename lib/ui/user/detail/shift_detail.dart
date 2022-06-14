@@ -1,7 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../../Constants/strings.dart';
 
@@ -85,25 +85,31 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                   padding: const EdgeInsets.only(
                                       left: 10, right: 10),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(10),
                                         topRight: Radius.circular(10)),
                                     child: Stack(
                                       alignment: Alignment.bottomCenter,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width:
                                               MediaQuery.of(context).size.width,
                                           height: 30.h,
                                           child: SizedBox.fromSize(
-                                            size: Size.fromRadius(10),
+                                            size: const Size.fromRadius(10),
                                             // Image radius
-                                            child: FadeInImage.assetNetwork(
-                                              placeholder:
-                                                  'assets/images/icon/loading_bar.gif',
-                                              image: hospitalDetail.photo!,
-                                              placeholderScale: 4,
-                                              fit: BoxFit.cover,
+                                            child:CachedNetworkImage(
+                                              imageUrl: hospitalDetail.photo!,
+                                              imageBuilder: (context, imageProvider) => Container(
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
+                                              errorWidget: (context, url, error) => const Icon(Icons.error),
                                             ),
                                           ),
                                         ),
