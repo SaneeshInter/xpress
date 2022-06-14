@@ -10,9 +10,10 @@ class LoginBloc {
   final _visibility = PublishSubject<bool>();
   Stream<bool> get visible => _visibility.stream;
   Stream<LoginUserRespo> get loginStream => _loginbloc.stream;
-  fetchLogin(String username,String  password,String user_type) async {
+  fetchLogin(String username,String  password,String user_type,String device_id) async {
     _visibility.add(true);
-    LoginUserRespo? respo = await _repo.fetchLogin(username, password,user_type);
+
+    LoginUserRespo? respo = await _repo.fetchLogin(username, password,user_type, device_id);
     if(null!=respo)
       {
         _visibility.add(false);

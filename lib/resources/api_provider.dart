@@ -39,7 +39,7 @@ class ApiProvider {
   String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
 
   Future<LoginUserRespo?> loginUser(
-      String username, String password, String user_type) async {
+      String username, String password, String user_type,String device_id) async {
     var uri = Uri.parse(BASE_URL + '/account/login');
     try {
       final response = await client.post(uri,
@@ -50,11 +50,13 @@ class ApiProvider {
             'email': username,
             'password': password,
             'user_type': user_type,
+            'device_id': device_id,
           }));
       print(jsonEncode(<String, String>{
         'email': username,
         'password': password,
         'user_type': user_type,
+        'device_id': device_id,
       }).toString());
 
       print(response.body);
