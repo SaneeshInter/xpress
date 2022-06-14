@@ -23,9 +23,7 @@ class ShiftDetailScreen extends StatefulWidget {
   final String shift_id;
   final bool isCompleted;
 
-  const ShiftDetailScreen(
-      {Key? key, required this.shift_id, required this.isCompleted})
-      : super(key: key);
+  const ShiftDetailScreen({Key? key, required this.shift_id, required this.isCompleted}) : super(key: key);
 
   @override
   State<ShiftDetailScreen> createState() => _ShiftDetailScreenState();
@@ -67,8 +65,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
           SingleChildScrollView(
             child: StreamBuilder(
                 stream: usershiftdetailsBloc.usershiftdetailsStream,
-                builder: (context,
-                    AsyncSnapshot<GetUserShiftDetailsResponse> snapshot) {
+                builder: (context, AsyncSnapshot<GetUserShiftDetailsResponse> snapshot) {
                   if (snapshot.data?.response?.data != null) {
                     var data = snapshot.data?.response?.data;
                     var hospitalDetail = data?.hospitalDetails![0];
@@ -77,31 +74,26 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          padding:
-                              const EdgeInsets.only(left: 5, right: 5, top: 10),
+                          padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
                           child: Column(
                             children: [
                               if (null != hospitalDetail)
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10)),
+                                    borderRadius:
+                                        BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                                     child: Stack(
                                       alignment: Alignment.bottomCenter,
                                       children: [
                                         Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
+                                          width: MediaQuery.of(context).size.width,
                                           height: 30.h,
                                           child: SizedBox.fromSize(
                                             size: Size.fromRadius(10),
                                             // Image radius
                                             child: FadeInImage.assetNetwork(
-                                              placeholder:
-                                                  'assets/images/icon/loading_bar.gif',
+                                              placeholder: 'assets/images/icon/loading_bar.gif',
                                               image: hospitalDetail.photo!,
                                               placeholderScale: 4,
                                               fit: BoxFit.cover,
@@ -113,80 +105,53 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                           child: Container(
                                             color: Colors.black,
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
+                                                crossAxisAlignment: CrossAxisAlignment.end,
                                                 children: [
                                                   if (null != shiftDetails)
                                                     Expanded(
                                                       flex: 1,
-                                                      child: Text(
-                                                          shiftDetails.date
-                                                              .toString(),
+                                                      child: Text(shiftDetails.date.toString(),
                                                           style: TextStyle(
                                                             fontSize: 9.sp,
                                                             color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontFamily:
-                                                                "SFProMedium",
+                                                            fontWeight: FontWeight.bold,
+                                                            fontFamily: "SFProMedium",
                                                           )),
                                                     ),
                                                   Expanded(
                                                     flex: 1,
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        hospitalDetail
-                                                                .latitude =
-                                                            "27.2046";
-                                                        hospitalDetail
-                                                                .longitude =
-                                                            "77.4977";
-                                                        navigateTo(
-                                                            double.parse(
-                                                                hospitalDetail
-                                                                    .latitude!),
-                                                            double.parse(
-                                                                hospitalDetail
-                                                                    .longitude!));
+                                                        // hospitalDetail
+                                                        //         .latitude =
+                                                        //     "27.2046";
+                                                        // hospitalDetail
+                                                        //         .longitude =
+                                                        //     "77.4977";
+                                                        navigateTo(double.parse(hospitalDetail.latitude!),
+                                                            double.parse(hospitalDetail.longitude!));
                                                       },
                                                       child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
+                                                        mainAxisAlignment: MainAxisAlignment.end,
                                                         children: [
                                                           Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 8.0),
-                                                            child: SvgPicture
-                                                                .asset(
+                                                            padding: const EdgeInsets.only(right: 8.0),
+                                                            child: SvgPicture.asset(
                                                               "assets/images/icon/google_map.svg",
                                                               height: 4.w,
                                                               width: 4.w,
                                                             ),
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 8.0),
-                                                            child: Text(
-                                                                Txt.view_map,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      9.sp,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontFamily:
-                                                                      "SFProMedium",
+                                                            padding: const EdgeInsets.only(right: 8.0),
+                                                            child: Text(Txt.view_map,
+                                                                style: TextStyle(
+                                                                  fontSize: 9.sp,
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontFamily: "SFProMedium",
                                                                 )),
                                                           ),
                                                         ],
@@ -204,8 +169,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                 ),
                               if (null != hospitalDetail)
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -220,90 +184,65 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                         children: [
                                           Stack(children: [
                                             Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 14, top: 10),
+                                                  padding: const EdgeInsets.only(left: 14, top: 10),
                                                   child: Text(
-                                                    hospitalDetail.hospitalName
-                                                        .toString(),
+                                                    hospitalDetail.hospitalName.toString(),
                                                     style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16.sp,
-                                                        fontFamily:
-                                                            "SFProMedium",
-                                                        fontWeight:
-                                                            FontWeight.w700),
+                                                        fontFamily: "SFProMedium",
+                                                        fontWeight: FontWeight.w700),
                                                   ),
                                                 ),
                                                 CustomRow(
                                                   onPressed: () {},
-                                                  label: Txt.address_dot +
-                                                      hospitalDetail.address
-                                                          .toString(),
-                                                  asset:
-                                                      "assets/images/icon/location.svg",
+                                                  label: Txt.address_dot + hospitalDetail.address.toString(),
+                                                  asset: "assets/images/icon/location.svg",
                                                   textColors: Colors.black,
                                                   size: 9.sp,
                                                 ),
                                                 if (null != shiftDetails)
                                                   CustomRow(
                                                     onPressed: () {},
-                                                    label:Txt.from +
-                                                        convert24hrTo12hr( shiftDetails.timeFrom
-                                                            .toString(), context)  +
-                                                        Txt.to+
-                                                        convert24hrTo12hr ( shiftDetails.timeTo
-                                                            .toString(), context),
-                                                    asset:
-                                                        "assets/images/icon/time.svg",
+                                                    label: Txt.from +
+                                                        convert24hrTo12hr(shiftDetails.timeFrom.toString(), context) +
+                                                        Txt.to +
+                                                        convert24hrTo12hr(shiftDetails.timeTo.toString(), context),
+                                                    asset: "assets/images/icon/time.svg",
                                                     textColors: Colors.black,
                                                     size: 9.sp,
                                                   ),
                                                 CustomRow(
                                                   onPressed: () {},
-                                                  label: hospitalDetail
-                                                      .hospitalName
-                                                      .toString(),
-                                                  asset:
-                                                      "assets/images/icon/ward.svg",
+                                                  label: hospitalDetail.hospitalName.toString(),
+                                                  asset: "assets/images/icon/ward.svg",
                                                   textColors: Colors.black,
                                                   size: 9.sp,
                                                 ),
                                                 CustomRow(
                                                   onPressed: () {
-                                                    sendingMails(
-                                                        hospitalDetail.email!);
+                                                    sendingMails(hospitalDetail.email!);
                                                   },
-                                                  label: hospitalDetail.email
-                                                      .toString(),
-                                                  asset:
-                                                      "assets/images/icon/email.svg",
+                                                  label: hospitalDetail.email.toString(),
+                                                  asset: "assets/images/icon/email.svg",
                                                   textColors: Colors.black,
                                                   size: 9.sp,
                                                 ),
-                                                if (null !=
-                                                        hospitalDetail.phone &&
-                                                    hospitalDetail
-                                                        .phone!.isNotEmpty)
+                                                if (null != hospitalDetail.phone && hospitalDetail.phone!.isNotEmpty)
                                                   CustomRow(
                                                     onPressed: () {
-                                                      dialCall(hospitalDetail
-                                                          .phone!);
+                                                      dialCall(hospitalDetail.phone!);
                                                     },
-                                                    label: hospitalDetail.phone
-                                                        .toString(),
-                                                    asset:
-                                                        "assets/images/icon/price-tag.svg",
+                                                    label: hospitalDetail.phone.toString(),
+                                                    asset: "assets/images/icon/price-tag.svg",
                                                     textColors: Colors.black,
                                                     size: 9.sp,
                                                   ),
                                                 Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      12.0),
+                                                  padding: const EdgeInsets.all(12.0),
                                                   child: Divider(
                                                     thickness: 1,
                                                     indent: 12,
@@ -313,9 +252,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                 if (null != shiftDetails)
                                                   CustomRowz(
                                                     onPressed: () {},
-                                                    label:Txt.job_details_dot +
-                                                        shiftDetails.jobDetails
-                                                            .toString(),
+                                                    label: Txt.job_details_dot + shiftDetails.jobDetails.toString(),
                                                     asset: "",
                                                     textColors: Colors.black,
                                                   ),
@@ -351,11 +288,9 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                       ),
                                       Expanded(
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 15.0),
+                                          padding: const EdgeInsets.only(left: 15.0),
                                           child: CallButtons(onPressed: () {
-                                            dialCall(usershiftdetailsBloc
-                                                .hospitalNumber);
+                                            dialCall(usershiftdetailsBloc.hospitalNumber);
                                           }),
                                         ),
                                         flex: 1,

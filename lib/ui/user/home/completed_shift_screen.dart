@@ -96,7 +96,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
   void initState() {
     super.initState();
     observe();
-    WidgetsBinding.instance?.addPostFrameCallback((_) => getData());
+    WidgetsBinding.instance.addPostFrameCallback((_) => getData());
   }
 
   void observe() {

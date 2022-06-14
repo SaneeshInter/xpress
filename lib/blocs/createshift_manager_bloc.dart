@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:xpresshealthdev/db/database.dart';
-import 'package:xpresshealthdev/dbmodel/allowance_category_model.dart';
-import 'package:xpresshealthdev/model/allowance_model.dart';
-import 'package:xpresshealthdev/model/schedule_hospital_list.dart';
-import 'package:xpresshealthdev/resources/respository.dart';
+import '../db/database.dart';
+import '../dbmodel/allowance_category_model.dart';
+import '../model/allowance_model.dart';
+import '../model/schedule_hospital_list.dart';
+import '../resources/respository.dart';
 
 import '../dbmodel/allowance_mode.dart';
 import '../model/gender_list.dart';
@@ -25,7 +25,7 @@ class CreateShiftmanagerBloc {
   var typeId = 1;
   var categoryId = 1;
   var usertypeId = 2; //default
-  var shiftType = 0;
+  var shiftType = 1;
   var hospitalId = 1;
   var shiftTypeId = 1;
   var unitId = 1;
@@ -36,7 +36,7 @@ class CreateShiftmanagerBloc {
   var shiftItem;
   var buttonText = "Create Shift";
   var token;
-  bool isPricevisible = false;
+  bool isPricevisible = true;
   bool isShiftTypeChanged = false;
   final _visibility = PublishSubject<bool>();
 

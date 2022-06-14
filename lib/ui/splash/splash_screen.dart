@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../Constants/sharedPrefKeys.dart';
 import '../../blocs/utility_bloc.dart';
 import '../../db/database.dart';
@@ -32,7 +31,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var token;
-
   Future changeScreen() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     bool _isLoggedin = shdPre.getString(SharedPrefKey.AUTH_TOKEN) != null;
@@ -40,10 +38,10 @@ class _SplashScreenState extends State<SplashScreen> {
     if (_isLoggedin && _loginType != null) {
       if (_loginType == 0) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => DashBoard()));
+            context, MaterialPageRoute(builder: (context) => const DashBoard()));
       } else {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => ManagerDashBoard()));
+            MaterialPageRoute(builder: (context) => const ManagerDashBoard()));
       }
     } else {
       Navigator.pushReplacement(
@@ -54,8 +52,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    getData();
     observe();
+    getData();
+
   }
 
   @override
@@ -102,7 +101,6 @@ class _SplashScreenState extends State<SplashScreen> {
         if (event.response?.status?.statusCode == 200) {
           var db = Db();
           db.clearDb();
-
           var countryList = event.response?.data?.countryList;
           if (null != countryList) {
             for (var item in countryList) {
@@ -111,7 +109,6 @@ class _SplashScreenState extends State<SplashScreen> {
               db.insertCountryList(obj);
             }
           }
-
           var categroryList = event.response?.data?.scheduleCategoryList;
           if (null != categroryList) {
             for (var item in categroryList) {
@@ -122,7 +119,6 @@ class _SplashScreenState extends State<SplashScreen> {
               db.insertCategegoryList(obj);
             }
           }
-
           var hospitaist = event.response?.data?.hospitalList;
           if (null != hospitaist) {
             for (var item in hospitaist) {

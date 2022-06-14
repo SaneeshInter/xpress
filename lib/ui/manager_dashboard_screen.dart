@@ -28,11 +28,11 @@ class ManagerDashBoard extends StatefulWidget {
 
 class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   static  final List<Widget> _widgetOptions = <Widget>[
-    ManagerHomeScreen(),
-    ManagerfindshiftCalendar(),
+    const ManagerHomeScreen(),
+    const ManagerfindshiftCalendar(),
     // ManagerShiftsScreen(),
-    ApprovedTimeSheetScreen(),
-    CompletedApprovelScreen(),
+    const ApprovedTimeSheetScreen(),
+    const CompletedApprovelScreen(),
   ];
   late PersistentTabController _controller;
 
