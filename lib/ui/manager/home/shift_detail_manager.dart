@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../../Constants/strings.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../Constants/sharedPrefKeys.dart';

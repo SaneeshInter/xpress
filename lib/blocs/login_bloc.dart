@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:xpresshealthdev/model/login_response.dart';
-import 'package:xpresshealthdev/resources/respository.dart';
+import '../model/login_response.dart';
+import '../resources/respository.dart';
 
 
 

@@ -3,7 +3,6 @@ import 'dart:core';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import '../../../Constants/strings.dart';
@@ -65,34 +64,6 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
     }
   }
 
-  Future getImage(ImgSource source) async {
-    var image = await ImagePickerGC.pickImage(
-        enableCloseButton: true,
-        closeIcon: Icon(
-          Icons.close,
-          color: Colors.red,
-          size: 12,
-        ),
-        context: context,
-        source: source,
-        barrierDismissible: true,
-        cameraIcon: Icon(
-          Icons.camera_alt,
-          color: Colors.red,
-        ),
-        //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
-        cameraText: Text(
-          Txt.frm_camera,
-          style: TextStyle(color: Colors.red),
-        ),
-        galleryText: Text(
-          Txt.frm_gallery,
-          style: TextStyle(color: Colors.blue),
-        ));
-    setState(() {
-      _image = image;
-    });
-  }
 
   @override
   void initState() {

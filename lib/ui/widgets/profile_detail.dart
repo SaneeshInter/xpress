@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xpresshealthdev/model/user_get_response.dart';
-import 'package:xpresshealthdev/ui/user/detail/profile_details_row.dart';
+import '../../model/user_get_response.dart';
+import '../../ui/user/detail/profile_details_row.dart';
 
 import '../../Constants/app_defaults.dart';
 import '../../Constants/strings.dart';

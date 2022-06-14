@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../Constants/strings.dart';
 
 import '../../Constants/AppColors.dart';
 
@@ -23,16 +21,16 @@ class _LoadingState extends State<LoadingWidget> {
     return AlertDialog(
       elevation: .1,
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      contentPadding: EdgeInsets.all(0.0),
+      contentPadding: const EdgeInsets.all(0.0),
       content: Padding(
-        padding: EdgeInsets.only(top: 20, bottom: 20),
+        padding: const EdgeInsets.only(top: 20, bottom: 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(color: appColorPrimary),
-            SizedBox(height: 16),
+            const CircularProgressIndicator(color: appColorPrimary),
+            const SizedBox(height: 16),
             Text(Txt.plz_wait,
                 style: primaryTextStyle(color: cardBackgroundBlackDark)),
           ],

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
@@ -250,4 +253,40 @@ void showActionAlert(
       );
     },
   );
+}
+
+
+final _picker = ImagePicker();
+Future <dynamic> getImageFromGallery() async {
+  final pickedFile =
+  await _picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
+  if (pickedFile != null) {
+    return File(pickedFile.path);
+  } else if (pickedFile!.path.isEmpty) {
+    return retrieveLostData();
+  } else {
+    return;
+  }
+}
+
+Future <dynamic> getImageFromCamera() async {
+  final pickedFile =
+  await _picker.pickImage(source: ImageSource.camera, imageQuality: 15);
+  if (pickedFile != null) {
+    return File(pickedFile.path);
+  } else if (pickedFile!.path.isEmpty) {
+    return retrieveLostData();
+  } else {
+    return;
+  }
+}
+
+Future<dynamic> retrieveLostData() async {
+  final LostDataResponse response = await _picker.retrieveLostData();
+
+  if (response.file != null) {
+    return File(response.file!.path);
+  } else {
+    return null;
+  }
 }

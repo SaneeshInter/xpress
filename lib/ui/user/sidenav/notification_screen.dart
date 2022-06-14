@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../../Constants/strings.dart';
 import '../../../blocs/shift_notification_bloc.dart';
 import '../../../model/shift_list_response.dart';
 import '../../../utils/constants.dart';

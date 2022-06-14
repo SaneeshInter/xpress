@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:xpresshealthdev/blocs/manager_shift_calendar.dart';
-import 'package:xpresshealthdev/ui/error/ErrorScreen.dart';
+import '../../../blocs/manager_shift_calendar.dart';
+import '../../../ui/error/ErrorScreen.dart';
 
 import '../../../eventutil/eventutil.dart';
 import '../../../model/common/manager_shift.dart';

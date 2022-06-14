@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../Constants/strings.dart';
 
 import '../../model/user_get_timesheet.dart';
 import '../../utils/constants.dart';

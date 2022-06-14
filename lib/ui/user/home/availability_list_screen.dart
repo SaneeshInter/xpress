@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/blocs/user_availability_bloc.dart';
-import 'package:xpresshealthdev/main.dart';
+import '../../../blocs/user_availability_bloc.dart';
+import '../../../main.dart';
 import '../../../Constants/strings.dart';
 import '../../../model/user_availability_btw_date.dart';
 import '../../../resources/token_provider.dart';
@@ -105,6 +105,8 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                   child: Stack(
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -175,6 +177,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                 child: Row(
                                                   children: [
                                                     Expanded(
+                                                      flex: 1,
                                                       child: Column(
                                                         children: [
                                                           Radio<Availability>(
@@ -206,9 +209,9 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                           Text(Txt.morning),
                                                         ],
                                                       ),
-                                                      flex: 1,
                                                     ),
                                                     Expanded(
+                                                      flex: 1,
                                                       child: Column(
                                                         children: [
                                                           Radio<Availability>(
@@ -240,9 +243,9 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                           Text(Txt.day),
                                                         ],
                                                       ),
-                                                      flex: 1,
                                                     ),
                                                     Expanded(
+                                                      flex: 1,
                                                       child: Column(
                                                         children: [
                                                           Radio<Availability>(
@@ -274,9 +277,9 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                           Text(Txt.after_noon),
                                                         ],
                                                       ),
-                                                      flex: 1,
                                                     ),
                                                     Expanded(
+                                                      flex: 1,
                                                       child: Column(
                                                         children: [
                                                           Radio<Availability>(
@@ -308,7 +311,6 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                           Text(Txt.night),
                                                         ],
                                                       ),
-                                                      flex: 1,
                                                     ),
                                                     Expanded(
                                                       child: Column(
@@ -359,8 +361,6 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 return Container();
                               }),
                         ],
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
                       ),
                     ],
                   ),

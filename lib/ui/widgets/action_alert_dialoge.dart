@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../../Constants/strings.dart';
 
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';

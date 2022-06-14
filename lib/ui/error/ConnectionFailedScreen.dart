@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../Constants/strings.dart';
 
 class ConnectionFailedScreen extends StatefulWidget {
   const ConnectionFailedScreen({Key? key}) : super(key: key);

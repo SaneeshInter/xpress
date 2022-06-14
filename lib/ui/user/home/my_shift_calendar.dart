@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../../Constants/strings.dart';
 
 import '../../../blocs/shift_confirmed_bloc.dart';
 

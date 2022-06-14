@@ -5,7 +5,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:nb_utils/nb_utils.dart';
+
+// import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../Constants/strings.dart';
@@ -37,8 +40,9 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var token;
   var _image;
+
   List<String> list = [];
-  TextEditingController date = new TextEditingController();
+  TextEditingController date = TextEditingController();
 
   @override
   void didUpdateWidget(covariant UploadDocumentsScreen oldWidget) {
@@ -58,37 +62,89 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
     );
   }
 
-  Future getImage(ImgSource source) async {
-    var image = await ImagePickerGC.pickImage(
-        enableCloseButton: true,
-        closeIcon: Icon(
-          Icons.close,
-          color: Constants.colors[14],
-          size: 12,
-        ),
+  // Future getImage(ImgSource source) async {
+  //   var image = await ImagePickerGC.pickImage(
+  //       enableCloseButton: true,
+  //       closeIcon: Icon(
+  //         Icons.close,
+  //         color: Constants.colors[14],
+  //         size: 12,
+  //       ),
+  //       context: context,
+  //       source: source,
+  //       barrierDismissible: true,
+  //       cameraIcon: Icon(
+  //         Icons.camera_alt,
+  //         color: Constants.colors[14],
+  //       ),
+  //       galleryIcon: Icon(
+  //         Icons.image,
+  //         color: Constants.colors[14],
+  //       ),
+  //       //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
+  //       cameraText: Text(
+  //         Txt.frm_camera,
+  //         style: TextStyle(color: Constants.colors[14]),
+  //       ),
+  //       galleryText: Text(
+  //         Txt.frm_gallery,
+  //         style: TextStyle(color: Constants.colors[14]),
+  //       ));
+  //   setState(() {
+  //     _image = image;
+  //   });
+  // }
+
+
+  void funcBottomSheet(BuildContext context, String type) {
+    showModalBottomSheet(
+        elevation: 10,
+        backgroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            )),
         context: context,
-        source: source,
-        barrierDismissible: true,
-        cameraIcon: Icon(
-          Icons.camera_alt,
-          color: Constants.colors[14],
-        ),
-        galleryIcon: Icon(
-          Icons.image,
-          color: Constants.colors[14],
-        ),
-        //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
-        cameraText: Text(
-          Txt.frm_camera,
-          style: TextStyle(color: Constants.colors[14]),
-        ),
-        galleryText: Text(
-          Txt.frm_gallery,
-          style: TextStyle(color: Constants.colors[14]),
-        ));
-    setState(() {
-      _image = image;
-    });
+        builder: (BuildContext bc) {
+          return Wrap(
+            children: <Widget>[
+              ListTile(
+                onTap: () async {
+                  Navigator.pop(context);
+                  final response = await getImageFromCamera();
+                  if (response != null) {
+                    _image = response;
+                    setState(() {});
+                  }
+                },
+                leading: const Icon(
+                  Icons.camera_enhance_sharp,
+                  color: black,
+                ),
+                title: const Text(
+                  'Camera',
+                  softWrap: true,
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo, color: black),
+                title: const Text(
+                  'Gallery',
+
+                ),
+                onTap: () async {
+                  Navigator.pop(context);
+                  final response = await getImageFromGallery();
+                  if (response != null) {
+                    _image = response;
+                    setState(() {});
+                  }
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -100,8 +156,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
 
   Future<void> getToken() async {
     token = await TokenProvider().getToken();
-    if (null != token) {
-    } else {
+    if (null != token) {} else {
       return;
     }
   }
@@ -122,7 +177,10 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    final args = ModalRoute
+        .of(context)!
+        .settings
+        .arguments as ScreenArguments;
     type = args.type;
     imageUri = args.imgUrl;
     date.text = args.expiry;
@@ -130,7 +188,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
     print(type);
     print(imageUri);
     final FixedExtentScrollController itemController =
-        FixedExtentScrollController();
+    FixedExtentScrollController();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -145,7 +203,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         ),
         bottomOpacity: 0.0,
         elevation: 0.0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
           //change your color here
         ),
@@ -160,8 +218,8 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {
-              getImage(ImgSource.Both);
+            onPressed: () async {
+              funcBottomSheet(context, "Image");
             },
             icon: Image.asset(
               'assets/images/icon/add.png',
@@ -174,144 +232,136 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
       ),
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: screenWidth(context, dividedBy: 35)),
-                      child: Column(children: [
-                        SizedBox(height: screenHeight(context, dividedBy: 60)),
-                        if (null != imageUri &&
-                            imageUri != "" &&
-                            null == _image)
-                          Container(
-                              height: 70.h,
-                              width: 100.w,
-                              child: imageUri != null
-                                  ? InteractiveViewer(
-                                      child: FadeInImage.assetNetwork(
-                                        placeholder:
-                                            'assets/images/icon/loading_bar.gif',
-                                        image: imageUri,
-                                        placeholderScale: 4,
-                                      ),
-                                    )
-                                  : Container()),
-                        if (null != _image)
-                          SizedBox(
-                              height: 70.h,
-                              width: 100.w,
-                              child: _image != null
-                                  ? InteractiveViewer(
-                                      child: Image.file(
-                                        File(_image.path),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    )
-                                  : Container()),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        if (type != "signature")
-                          Container(
-                            width: 100.w,
-                            height: 5.3.h,
-                            child: TextInputFileds(
-                                controlr: date,
-                                onChange: () {},
-                                validator: (date) {
-                                  if (validDate(date))
-                                    return null;
-                                  else
-                                    return Txt.select_date;
-                                },
-                                onTapDate: () {
-                                  selectDate(context, date);
-                                },
-                                hintText: Txt.expiry_date,
-                                keyboadType: TextInputType.none,
-                                isPwd: false),
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                color: Colors.white,
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth(context, dividedBy: 35)),
+                child: Column(children: [
+                  SizedBox(height: screenHeight(context, dividedBy: 60)),
+                  if (null != imageUri &&
+                      imageUri != "" &&
+                      null == _image)
+                    SizedBox(
+                        height: 68.h,
+                        width: 100.w,
+                        child: imageUri != null
+                            ? InteractiveViewer(
+                          child: FadeInImage.assetNetwork(
+                            placeholder:
+                            'assets/images/icon/loading_bar.gif',
+                            image: imageUri,
+                            placeholderScale: 4,
                           ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        if (null != _image)
-                          DottedBorder(
-                            borderType: BorderType.RRect,
-                            dashPattern: [10, 10],
-                            color: Colors.green,
-                            strokeWidth: 1,
-                            child: GestureDetector(
-                              onTap: () {
-                                if (_image != null) {
-                                  if (date.text != "" || type == "signature") {
-                                    profileBloc.uploadUserDoc(token,
-                                        File(_image.path), type, date.text);
-                                  } else {
-                                    showAlertDialoge(context,
-                                        title: Txt.expiry_date,
-                                        message: Txt.expiry_date_req);
-                                  }
-                                } else {
-                                  showAlertDialoge(context,
-                                      title: Txt.alert,
-                                      message: Txt.uplod_timesht);
-                                }
-                              },
-                              child: Container(
-                                color: Colors.white,
-                                width: 100.w,
-                                height: 10.w,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/icon/notification.svg',
-                                      color: Colors.green,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text(Txt.upload_docs),
-                                  ],
-                                ),
+                        )
+                            : Container()),
+                  if (null != _image)
+                    SizedBox(
+                        height: 68.h,
+                        width: 100.w,
+                        child: _image != null
+                            ? InteractiveViewer(
+                          child: Image.file(
+                            _image,
+                            fit: BoxFit.fill,
+                          ),
+                        )
+                            : Container()),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  if (type != "signature")
+                    SizedBox(
+                      width: 100.w,
+                      height: 5.3.h,
+                      child: TextInputFileds(
+                          controlr: date,
+                          onChange: () {},
+                          validator: (date) {
+                            if (validDate(date))
+                              return null;
+                            else
+                              return Txt.select_date;
+                          },
+                          onTapDate: () {
+                            selectDate(context, date);
+                          },
+                          hintText: Txt.expiry_date,
+                          keyboadType: TextInputType.none,
+                          isPwd: false),
+                    ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  if (null != _image)
+                    DottedBorder(
+                      borderType: BorderType.RRect,
+                      dashPattern: [10, 10],
+                      color: Colors.green,
+                      strokeWidth: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          if (_image != null) {
+                            if (date.text != "" || type == "signature") {
+                              profileBloc.uploadUserDoc(token,
+                                  File(_image.path), type, date.text);
+                            } else {
+                              showAlertDialoge(context,
+                                  title: Txt.expiry_date,
+                                  message: Txt.expiry_date_req);
+                            }
+                          } else {
+                            showAlertDialoge(context,
+                                title: Txt.alert,
+                                message: Txt.uplod_timesht);
+                          }
+                        },
+                        child: Container(
+                          color: Colors.white,
+                          width: 100.w,
+                          height: 10.w,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/icon/notification.svg',
+                                color: Colors.green,
                               ),
-                            ),
+                              const SizedBox(width: 10),
+                              const Text(Txt.upload_docs),
+                            ],
                           ),
-                        SizedBox(height: screenHeight(context, dividedBy: 60)),
-                        SizedBox(
-                          height: 10,
                         ),
-                      ])),
-                ),
-              ],
-            ),
-            Container(
-              width: 100.w,
-              height: 70.h,
-              child: StreamBuilder(
-                stream: profileBloc.visible,
-                builder: (context, AsyncSnapshot<bool> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!) {
-                      return const Center(child: LoadingWidget());
-                    } else {
-                      return Container();
-                    }
+                      ),
+                    ),
+                  SizedBox(height: screenHeight(context, dividedBy: 60)),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ])),
+          ),
+          SizedBox(
+            width: 100.w,
+            height: 70.h,
+            child: StreamBuilder(
+              stream: profileBloc.visible,
+              builder: (context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!) {
+                    return const Center(child: LoadingWidget());
                   } else {
                     return Container();
                   }
-                },
-              ),
+                } else {
+                  return Container();
+                }
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../Constants/strings.dart';
 
 import '../../model/manager_get_time.dart';
 import '../../utils/constants.dart';

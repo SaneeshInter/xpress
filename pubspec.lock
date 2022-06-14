@@ -437,12 +437,19 @@ packages:
     source: hosted
     version: "4.0.0"
   image_picker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.5+4"
+    version: "0.8.5+3"
+  image_picker_android:
+    dependency: transitive
+    description:
+      name: image_picker_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.5"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -450,13 +457,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.6"
-  image_picker_gallery_camera:
-    dependency: "direct main"
+  image_picker_ios:
+    dependency: transitive
     description:
-      name: image_picker_gallery_camera
+      name: image_picker_ios
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.2"
+    version: "0.8.5+5"
   image_picker_platform_interface:
     dependency: transitive
     description:

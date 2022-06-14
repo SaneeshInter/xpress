@@ -1,11 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/user/home/profile_edit.dart';
-import 'package:xpresshealthdev/utils/utils.dart';
+import '../../../ui/user/home/profile_edit.dart';
+import '../../../utils/utils.dart';
 
 import '../../../Constants/app_defaults.dart';
 import '../../../Constants/sharedPrefKeys.dart';
@@ -66,30 +65,7 @@ class _ProfileState extends State<ProfileScreen> {
     }
   }
 
-  Future getImage(ImgSource source) async {
-    var image = await ImagePickerGC.pickImage(
-        enableCloseButton: true,
-        closeIcon: Icon(
-          Icons.close,
-          color: Colors.black,
-          size: 12,
-        ),
-        context: context,
-        source: source,
-        barrierDismissible: true,
-        cameraIcon: Icon(
-          Icons.camera_alt,
-          color: Colors.black,
-        ),
-        cameraText: Text(
-          Txt.ppCamera,
-          style: TextStyle(color: Colors.black),
-        ),
-        galleryText: Text(
-          Txt.ppGallery,
-          style: TextStyle(color: Colors.blue),
-        ));
-  }
+
 
   @override
   void initState() {
@@ -347,7 +323,7 @@ class _ProfileState extends State<ProfileScreen> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => ProfileEditScreen()),
+                                            builder: (context) => const ProfileEditScreen()),
                                       ).then((value) => getData());
                                       
                                     },),

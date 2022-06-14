@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:xpresshealthdev/resources/respository.dart';
+import '../resources/respository.dart';
 
 import '../model/user_shift_calender.dart';
 

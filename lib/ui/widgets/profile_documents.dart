@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
-import 'package:xpresshealthdev/blocs/profile_update_bloc.dart';
-import 'package:xpresshealthdev/model/user_get_response.dart';
-import 'package:xpresshealthdev/ui/user/detail/profile_doc_row.dart';
-import 'package:xpresshealthdev/ui/user/detail/profile_question_row.dart';
+import '../../blocs/profile_update_bloc.dart';
+import '../../model/user_get_response.dart';
+import '../../ui/user/detail/profile_doc_row.dart';
+import '../../ui/user/detail/profile_question_row.dart';
 
 import '../../Constants/strings.dart';
 import '../../main.dart';
@@ -45,12 +44,16 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
     super.didUpdateWidget(oldWidget);
   }
 
-  Future getImage(ImgSource source, var type, var imagefile, var expiry) async {
+  Future getImage( var type, var imagefile, var expiry) async {
     Navigator.pushNamed(
       context,
       '/upload_screen',
       arguments: ScreenArguments(type, imagefile, expiry),
-    ).then((value) => getData());
+    ).then((value) {
+      observe();
+
+       getData();
+    });
   }
 
   @override
@@ -69,8 +72,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
 
 
     profileBloc.getProfileQuestions.listen((event) {
-
-      print("Listen refresh");
+      debugPrint("Listen refresh");
       widget.onRefresh();
     });
   }
@@ -122,241 +124,215 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "signature",
+                getImage( "signature",
                     widget.items.signatureSrc!, "");
               },
-              child: Container(
-                child: ProfileDocRow(
-                  label:Txt.signature ,
-                  asset: "assets/images/icon/check.svg",
-                  image: signaturePic,
-                  url: widget.items.signatureSrc!,
-                ),
+              child: ProfileDocRow(
+                label:Txt.signature ,
+                asset: "assets/images/icon/check.svg",
+                image: signaturePic,
+                url: widget.items.signatureSrc!,
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "phd", widget.items.phdLink!,
+                getImage( "phd", widget.items.phdLink!,
                     widget.items.phdExpiry);
               },
-              child: Container(
-                child: ProfileDocRow(
-                  label:Txt.p_h_d ,
-                  asset: "assets/images/icon/check.svg",
-                  image: phpdocument,
-                  url: widget.items.phdLink!,
-                ),
+              child: ProfileDocRow(
+                label:Txt.p_h_d ,
+                asset: "assets/images/icon/check.svg",
+                image: phpdocument,
+                url: widget.items.phdLink!,
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "qqqi", widget.items.qqqiLink!,
+                getImage( "qqqi", widget.items.qqqiLink!,
                     widget.items.qqqiExpiry);
               },
-              child: Container(
-                child: ProfileDocRow(
-                  label: Txt.level,
-                  asset: "assets/images/icon/check.svg",
-                  image: qqqidocument,
-                  url: widget.items.qqqiLink!,
-                ),
+              child: ProfileDocRow(
+                label: Txt.level,
+                asset: "assets/images/icon/check.svg",
+                image: qqqidocument,
+                url: widget.items.qqqiLink!,
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "ipcc", widget.items.ipccLink!,
+                getImage( "ipcc", widget.items.ipccLink!,
                     widget.items.ipccExpiry);
               },
-              child: Container(
-                child: ProfileDocRow(
-                  label: Txt.infection,
-                  asset: "assets/images/icon/check.svg",
-                  image: ipcccdocument,
-                  url: widget.items.ipccLink!,
-                ),
+              child: ProfileDocRow(
+                label: Txt.infection,
+                asset: "assets/images/icon/check.svg",
+                image: ipcccdocument,
+                url: widget.items.ipccLink!,
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "ecs", widget.items.ecsLink!,
+                getImage( "ecs", widget.items.ecsLink!,
                     widget.items.ecsExpiry);
               },
-              child: Container(
-                child: ProfileDocRow(
-                  label: Txt.employe,
-                  asset: "assets/images/icon/check.svg",
-                  image: ecsdocument,
-                  url: widget.items.ecsLink!,
-                ),
+              child: ProfileDocRow(
+                label: Txt.employe,
+                asset: "assets/images/icon/check.svg",
+                image: ecsdocument,
+                url: widget.items.ecsLink!,
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage(ImgSource.Both, "pid", widget.items.ecsLink!,
+                getImage( "pid", widget.items.ecsLink!,
                     widget.items.ecsExpiry);
               },
-              child: Container(
-                child: ProfileDocRow(
-                  label:Txt.pass_id ,
-                  asset: "assets/images/icon/check.svg",
-                  image: piddocument,
-                  url: widget.items.ecsLink!,
-                ),
+              child: ProfileDocRow(
+                label:Txt.pass_id ,
+                asset: "assets/images/icon/check.svg",
+                image: piddocument,
+                url: widget.items.ecsLink!,
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {},
-              child: Container(
-                child: ProfileQuestionRow(
-                  label: Txt.drive + doYouDrive,
-                  asset: "assets/images/icon/check.svg",
-                  status: widget.items.doYouDrive!,
-                  onChanged: (value) {
-                    var status = 0;
-                    bool isVal = value;
-                    if (isVal) {
-                      status = 1;
-                    }
+              child: ProfileQuestionRow(
+                label: Txt.drive + doYouDrive,
+                asset: "assets/images/icon/check.svg",
+                status: widget.items.doYouDrive!,
+                onChanged: (value) {
+                  var status = 0;
+                  bool isVal = value;
+                  if (isVal) {
+                    status = 1;
+                  }
 
 
-                    profileBloc.profileQuestions(
-                        token, "drive", status.toString());
-                  },
-                ),
+                  profileBloc.profileQuestions(
+                      token, "drive", status.toString());
+                },
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {},
-              child: Container(
-                child: ProfileQuestionRow(
-                  label: Txt.ireland +
-                      permissionToWorkInIreland,
-                  asset: "assets/images/icon/check.svg",
-                  status: widget.items.permissionToWorkInIreland!,
-                  onChanged: (value) {
-                    var status = 0;
-                    bool isVal = value;
-                    if (isVal) {
-                      status = 1;
-                    }
+              child: ProfileQuestionRow(
+                label: Txt.ireland +
+                    permissionToWorkInIreland,
+                asset: "assets/images/icon/check.svg",
+                status: widget.items.permissionToWorkInIreland!,
+                onChanged: (value) {
+                  var status = 0;
+                  bool isVal = value;
+                  if (isVal) {
+                    status = 1;
+                  }
 
 
-                    profileBloc.profileQuestions(
-                        token, "work_ireland", status.toString());
-                  },
-                ),
+                  profileBloc.profileQuestions(
+                      token, "work_ireland", status.toString());
+                },
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {},
-              child: Container(
-                child: ProfileQuestionRow(
-                  label:Txt.covid+
-                      haveYouGotCovid19Vaccination,
-                  asset: "assets/images/icon/check.svg",
-                  status: widget.items.haveYouGotCovid19Vaccination!,
-                  onChanged: (value) {
-                    var status = 0;
-                    bool isVal = value;
-                    if (isVal) {
-                      status = 1;
-                    }
+              child: ProfileQuestionRow(
+                label:Txt.covid+
+                    haveYouGotCovid19Vaccination,
+                asset: "assets/images/icon/check.svg",
+                status: widget.items.haveYouGotCovid19Vaccination!,
+                onChanged: (value) {
+                  var status = 0;
+                  bool isVal = value;
+                  if (isVal) {
+                    status = 1;
+                  }
 
 
 
-                    profileBloc.profileQuestions(
-                        token, "covid_vaccine", status.toString());
-                  },
-                ),
+                  profileBloc.profileQuestions(
+                      token, "covid_vaccine", status.toString());
+                },
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {},
-              child: Container(
-                child: ProfileQuestionRow(
-                  label:Txt.garda_vetting+
-                      doYouConsentGardaVettingToBeCompleted,
-                  asset: "assets/images/icon/check.svg",
-                  status: widget.items.doYouConsentGardaVettingToBeCompleted!,
-                  onChanged: (value) {
-                    var status = 0;
-                    bool isVal = value;
-                    if (isVal) {
-                      status = 1;
-                    }
-                    profileBloc.profileQuestions(
-                        token, "garda_vetting", status.toString());
-                  },
-                ),
+              child: ProfileQuestionRow(
+                label:Txt.garda_vetting+
+                    doYouConsentGardaVettingToBeCompleted,
+                asset: "assets/images/icon/check.svg",
+                status: widget.items.doYouConsentGardaVettingToBeCompleted!,
+                onChanged: (value) {
+                  var status = 0;
+                  bool isVal = value;
+                  if (isVal) {
+                    status = 1;
+                  }
+                  profileBloc.profileQuestions(
+                      token, "garda_vetting", status.toString());
+                },
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {},
-              child: Container(
-                child: ProfileQuestionRow(
-                  label:  Txt.tuberculosis+ tuberculosisVaccination,
-                  asset: "assets/images/icon/check.svg",
-                  status: widget.items.tuberculosisVaccination!,
-                  onChanged: (value) {
-                    var status = 0;
-                    bool isVal = value;
-                    if (isVal) {
-                      status = 1;
-                    }
-                    profileBloc.profileQuestions(
-                        token, "tuberculosis", status.toString());
-                  },
-                ),
+              child: ProfileQuestionRow(
+                label:  Txt.tuberculosis+ tuberculosisVaccination,
+                asset: "assets/images/icon/check.svg",
+                status: widget.items.tuberculosisVaccination!,
+                onChanged: (value) {
+                  var status = 0;
+                  bool isVal = value;
+                  if (isVal) {
+                    status = 1;
+                  }
+                  profileBloc.profileQuestions(
+                      token, "tuberculosis", status.toString());
+                },
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {},
-              child: Container(
-                child: ProfileQuestionRow(
-                  label:Txt.hepatits + hepatitisBAntibody,
-                  asset: "assets/images/icon/check.svg",
-                  status: widget.items.hepatitisBAntibody!,
-                  onChanged: (value) {
-                    var status = 0;
-                    bool isVal = value;
-                    if (isVal) {
-                      status = 1;
-                    }
-                    profileBloc.profileQuestions(
-                        token, "hepatitis", status.toString());
-                  },
-                ),
+              child: ProfileQuestionRow(
+                label:Txt.hepatits + hepatitisBAntibody,
+                asset: "assets/images/icon/check.svg",
+                status: widget.items.hepatitisBAntibody!,
+                onChanged: (value) {
+                  var status = 0;
+                  bool isVal = value;
+                  if (isVal) {
+                    status = 1;
+                  }
+                  profileBloc.profileQuestions(
+                      token, "hepatitis", status.toString());
+                },
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {},
-              child: Container(
-                child: ProfileQuestionRow(
-                  label:Txt.id_card + idCardReceived,
-                  asset: "assets/images/icon/check.svg",
-                  status: widget.items.idCardReceived!,
-                  onChanged: (value) {
-                    var status = 0;
-                    bool isVal = value;
-                    if (isVal) {
-                      status = 1;
-                    }
-                    profileBloc.profileQuestions(
-                        token, "id_card", status.toString());
-                  },
-                ),
+              child: ProfileQuestionRow(
+                label:Txt.id_card + idCardReceived,
+                asset: "assets/images/icon/check.svg",
+                status: widget.items.idCardReceived!,
+                onChanged: (value) {
+                  var status = 0;
+                  bool isVal = value;
+                  if (isVal) {
+                    status = 1;
+                  }
+                  profileBloc.profileQuestions(
+                      token, "id_card", status.toString());
+                },
               ),
             ),
             const SizedBox(height: 10),

@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:xpresshealthdev/model/visa_type_list.dart';
+import '../model/visa_type_list.dart';
 
 import '../dbmodel/allowance_category_model.dart';
 import '../dbmodel/allowance_mode.dart';

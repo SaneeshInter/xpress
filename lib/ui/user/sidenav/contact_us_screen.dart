@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -8,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/strings.dart';
+import '../../../Constants/strings.dart';
 
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';

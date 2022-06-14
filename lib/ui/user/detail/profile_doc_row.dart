@@ -58,7 +58,7 @@ class _CustomRowState extends State<ProfileDocRow> {
                     if(widget.url.isNotEmpty )
                     Expanded(
                       flex: 1,
-                      child: Container(
+                      child: SizedBox(
                           height: 4.w,
                           width: 4.w,
                           child: SvgPicture.asset(
@@ -68,7 +68,7 @@ class _CustomRowState extends State<ProfileDocRow> {
                     if(widget.url.isEmpty)
                     Expanded(
                       flex: 1,
-                      child: Container(
+                      child: SizedBox(
                           height: 4.w,
                           width: 4.w,
                           child: SvgPicture.asset(
@@ -78,7 +78,7 @@ class _CustomRowState extends State<ProfileDocRow> {
                 if(widget.url.isEmpty)
                   Expanded(
                     flex: 1,
-                    child: Container(
+                    child: SizedBox(
                         height: 4.w,
                         width: 4.w,
                         child: SvgPicture.asset(
@@ -93,7 +93,7 @@ class _CustomRowState extends State<ProfileDocRow> {
               height: 3.w,
             ),
             if (widget.image.isNotEmpty)
-              Container(
+              SizedBox(
                   height: 50.w,
                   width: 100.w,
                   child: widget.image.isNotEmpty
