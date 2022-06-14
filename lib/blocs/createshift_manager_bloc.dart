@@ -25,7 +25,7 @@ class CreateShiftmanagerBloc {
   var typeId = 1;
   var categoryId = 1;
   var usertypeId = 2; //default
-  var shiftType = 0;
+  var shiftType = 1;
   var hospitalId = 1;
   var shiftTypeId = 1;
   var unitId = 1;
@@ -36,7 +36,7 @@ class CreateShiftmanagerBloc {
   var shiftItem;
   var buttonText = "Create Shift";
   var token;
-  bool isPricevisible = false;
+  bool isPricevisible = true;
   bool isShiftTypeChanged = false;
   final _visibility = PublishSubject<bool>();
 

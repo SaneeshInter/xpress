@@ -20,24 +20,18 @@ class ProfileBloc {
   var genderId = 1;
   var nationalityId = 1;
   var visatypeId = 1;
-
-
   final _visibility = PublishSubject<bool>();
+
   Stream<bool> get visible => _visibility.stream;
-
-
   final _profileUser = PublishSubject<ProfileUpdateRespo>();
   final _getUser = PublishSubject<UserGetResponse>();
   final _documents = PublishSubject<UserDocumentsResponse>();
   final _questions = PublishSubject<ProfileQuestionResponse>();
   final _db = Db();
-
   List<String> genders = [];
   final _gender = PublishSubject<List<GenderList>>();
 
   Stream<List<GenderList>> get genderStream => _gender.stream;
-
-
   List<String> country = [];
   final _country = PublishSubject<List<CountryList>>();
 
@@ -71,7 +65,6 @@ class ProfileBloc {
 
   Stream<ProfileQuestionResponse> get getProfileQuestions => _questions.stream;
 
-
   getUserInfo() async {
     _visibility.add(true);
     UserGetResponse response = await _repo.fetchUserInfo(token);
@@ -97,31 +90,17 @@ class ProfileBloc {
     String bank_bic,
   ) async {
     _visibility.add(true);
-    ProfileUpdateRespo respo = await _repo.ProfileUser(
-        token,
-        first_name,
-        last_name,
-        dob,
-        gender,
-        nationality,
-        home_address,
-        permission_to_work_in_ireland,
-        visa_type,
-        phone_number,
-        email,
-        pps_number,
-        bank_iban,
-        bank_bic);
-    if(!_profileUser.isClosed)
-      {
-        _profileUser.sink.add(respo);
-        _visibility.add(false);
-      }
-
+    ProfileUpdateRespo respo = await _repo.ProfileUser(token, first_name, last_name, dob, gender, nationality, home_address,
+        permission_to_work_in_ireland, visa_type, phone_number, email, pps_number, bank_iban, bank_bic);
+    if (!_profileUser.isClosed) {
+      _profileUser.sink.add(respo);
+      _visibility.add(false);
+    }
   }
 
   uploadUserDoc(
-    String token, File  files,
+    String token,
+    File files,
     String type,
     String expiry_date,
   ) async {
@@ -136,15 +115,13 @@ class ProfileBloc {
     _visibility.add(false);
   }
 
-
-
   profileQuestions(
-      String token,
-      String key,
-      String value,
-      ) async {
+    String token,
+    String key,
+    String value,
+  ) async {
     _visibility.add(true);
-    ProfileQuestionResponse respo = await _repo.fetchProfileQuestions(token, key,value);
+    ProfileQuestionResponse respo = await _repo.fetchProfileQuestions(token, key, value);
     _questions.sink.add(respo);
     _visibility.add(false);
   }
@@ -153,9 +130,6 @@ class ProfileBloc {
     // _profileUser.close();
     // _documents.close();
   }
-
-
-
 }
 
 final profileBloc = ProfileBloc();

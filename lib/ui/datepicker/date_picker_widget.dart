@@ -98,7 +98,7 @@ class DatePicker extends StatefulWidget {
 
 class _DatePickerState extends State<DatePicker> {
   DateTime? _currentDate;
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
 
   late final TextStyle selectedDateStyle;
   late final TextStyle selectedMonthStyle;

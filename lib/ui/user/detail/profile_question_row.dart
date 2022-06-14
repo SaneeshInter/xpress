@@ -35,7 +35,7 @@ class _CustomRowState extends State<ProfileQuestionRow> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         boxShadow: const [
@@ -81,7 +81,6 @@ class _CustomRowState extends State<ProfileQuestionRow> {
                           widget.status == 1;
                           // });
                         }
-
                         widget.onChanged(value);
                       }),
                 ),

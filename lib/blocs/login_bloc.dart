@@ -7,15 +7,8 @@ import '../resources/respository.dart';
 class LoginBloc {
   final _repo = Repository();
   final _loginbloc = PublishSubject<LoginUserRespo>();
-
-
   final _visibility = PublishSubject<bool>();
   Stream<bool> get visible => _visibility.stream;
-
-
-
-
-
   Stream<LoginUserRespo> get loginStream => _loginbloc.stream;
   fetchLogin(String username,String  password,String user_type) async {
     _visibility.add(true);

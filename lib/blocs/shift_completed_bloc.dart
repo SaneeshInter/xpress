@@ -1,27 +1,19 @@
 import 'dart:io';
 
 import 'package:rxdart/rxdart.dart';
-
 import '../model/time_sheet_upload_respo.dart';
 import '../model/user_complted_shift.dart';
 import '../resources/respository.dart';
 
 class ShiftCompletedBloc {
   final _repo = Repository();
-
   bool visibility = false;
   bool buttonVisibility = false;
   var token;
   var image;
   List<String> list = [];
-
   final _visibility = PublishSubject<bool>();
-
   Stream<bool> get visible => _visibility.stream;
-
-
-
-
   final _shiftComplete = PublishSubject<UserShoiftCompletedResponse>();
   final _uploadRespo= PublishSubject<TimeSheetUploadRespo>();
 

@@ -61,7 +61,7 @@ void showBookingAlert(
     context: context,
     barrierColor: Colors.transparent,
     builder: (BuildContext context) {
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         // Navigator.of(context).pop(true);
       });
       return Center(

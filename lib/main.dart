@@ -81,9 +81,9 @@ class MyApp extends StatelessWidget {
           // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => SplashScreen(),
           // When navigating to the "/second" route, build the SecondScreen widget.
-          '/nw_error': (context) => const ConnectionFailedScreen(),
-          '/upload_screen': (context) => const UploadDocumentsScreen(),
-          '/error_screen': (context) => const ErrorScreen(),
+          '/nw_error': (context) =>const ConnectionFailedScreen(),
+          '/upload_screen': (context) =>const UploadDocumentsScreen(),
+          '/error_screen': (context) =>const ErrorScreen(),
           '/profile': (context) => const ProfileScreen(),
         },
       );
@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   debugPrint('Handling a background message: ${message.messageId}');
 
   if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
