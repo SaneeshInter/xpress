@@ -71,6 +71,8 @@ dependencies:
   badges: ^2.0.3
   cached_network_image: ^3.2.1
   image_picker: ^0.8.5+3
+  internet_file: ^1.0.0+2
+  pdfx: ^2.0.1+2
 
 
 dev_dependencies:

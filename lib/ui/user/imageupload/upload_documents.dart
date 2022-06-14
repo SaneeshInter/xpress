@@ -7,7 +7,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:internet_file/internet_file.dart';
+import 'package:internet_file/internet_file.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:pdfx/pdfx.dart';
 
 // import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:sizer/sizer.dart';
@@ -41,7 +44,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var token;
   var _image;
-
+  late PdfController _pdfController;
   List<String> list = [];
   TextEditingController date = TextEditingController();
 
@@ -50,6 +53,9 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
+
+
+
 
   @override
   void dispose() {
@@ -151,6 +157,9 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   @override
   void initState() {
     super.initState();
+    _pdfController = PdfController(
+      document: PdfDocument.openData(InternetFile.get('https://github.com/rbcprolabs/packages.flutter/raw/fd0c92ac83ee355255acb306251b1adfeb2f2fd6/packages/native_pdf_renderer/example/assets/sample.pdf')),
+    );
     observe();
     getToken();
   }
@@ -250,7 +259,18 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                         height: 68.h,
                         width: 100.w,
                         child: imageUri != null
-                            ? InteractiveViewer(
+                            ?1==1?PdfView(
+                          builders: PdfViewBuilders<DefaultBuilderOptions>(
+                            options: const DefaultBuilderOptions(),
+                            documentLoaderBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                            pageLoaderBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                            pageBuilder: _pageBuilder,
+                          ),
+                          controller: _pdfController,
+                        )
+                    : InteractiveViewer(
                           child:CachedNetworkImage(
                             imageUrl: imageUri,
                             imageBuilder: (context, imageProvider) => Container(
@@ -374,6 +394,24 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
       ),
     );
   }
+  PhotoViewGalleryPageOptions _pageBuilder(
+      BuildContext context,
+      Future<PdfPageImage> pageImage,
+      int index,
+      PdfDocument document,
+      ) {
+    return PhotoViewGalleryPageOptions(
+      imageProvider: PdfPageImageProvider(
+        pageImage,
+        index,
+        document.id,
+      ),
+      minScale: PhotoViewComputedScale.contained * 1,
+      maxScale: PhotoViewComputedScale.contained * 2,
+      initialScale: PhotoViewComputedScale.contained * 1.0,
+      heroAttributes: PhotoViewHeroAttributes(tag: '${document.id}-$index'),
+    );
+  }
 }
 
 Color getColor(Set<MaterialState> states) {
@@ -387,3 +425,4 @@ Color getColor(Set<MaterialState> states) {
   }
   return Colors.red;
 }
+
