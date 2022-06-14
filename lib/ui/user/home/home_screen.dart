@@ -270,7 +270,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              Container(
+                                              SizedBox(
                                                 width: screenWidth(context,
                                                     dividedBy: 2),
                                                 child: Column(
@@ -297,7 +297,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                       height: 1.w,
                                                     ),
                                                     AutoSizeText(
-                                                      getDateString(
+                                                      "${getDateString(
                                                               homepageBloc
                                                                   .shiftDetails
                                                                   .date,
@@ -311,8 +311,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                           " | " +
                                                           homepageBloc
                                                               .shiftDetails
-                                                              .timeFrom! +
-                                                          " " +
+                                                              .timeFrom!} " +
                                                           homepageBloc
                                                               .shiftDetails
                                                               .timeTo!,
@@ -373,7 +372,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                       Alignment.centerRight,
                                                   child: SvgPicture.asset(
                                                       'assets/images/icon/righarrow.svg')),
-                                              SizedBox(width: 5),
+                                              const SizedBox(width: 5),
                                             ],
                                           ),
                                         ),
@@ -405,7 +404,7 @@ class _HomeScreentate extends State<HomeScreen> {
                               imageCard(),
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
-                                child: Container(
+                                child: SizedBox(
                                   width: MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
                                     Txt.important_update,
@@ -424,7 +423,7 @@ class _HomeScreentate extends State<HomeScreen> {
                           ),
                         );
                       } else {
-                        return Container();
+                        return const SizedBox();
                       }
                     }),
               ),
@@ -436,10 +435,10 @@ class _HomeScreentate extends State<HomeScreen> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),
@@ -486,11 +485,11 @@ class _HomeScreentate extends State<HomeScreen> {
                   location: late.hospital!,
                   startDate: DateTime.parse(late.date!),
                   endDate: DateTime.parse(late.date!),
-                  iosParams: IOSParams(
+                  iosParams: const IOSParams(
                     reminder: Duration(
                         /* Ex. hours:1 */), // on iOS, you can set alarm notification after your event.
                   ),
-                  androidParams: AndroidParams(
+                  androidParams: const AndroidParams(
                     emailInvites: [], // on Android, you can add invite emails to your event.
                   ),
                 );
@@ -509,13 +508,13 @@ class _HomeScreentate extends State<HomeScreen> {
   }
 
   Widget imageCard() {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         child: Row(
           children: [
-            Container(
+            SizedBox(
                 width: 93.w,
                 child: Image.asset('assets/images/icon/premium_home_icon.png')),
           ],
@@ -527,13 +526,11 @@ class _HomeScreentate extends State<HomeScreen> {
   Widget horizontalList(AsyncSnapshot<UserHomeResponse> snapshot) {
     return Column(
       children: [
-        Container(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: 35.w,
-            ),
-            child: buildList(snapshot),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: 35.w,
           ),
+          child: buildList(snapshot),
         ),
       ],
     );
@@ -542,7 +539,7 @@ class _HomeScreentate extends State<HomeScreen> {
   Widget buildList(AsyncSnapshot<UserHomeResponse> snapshot) {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
       var itemcount = snapshot.data?.response?.data?.importantUpdates!.length;
-      return Container(
+      return SizedBox(
         height: 35.w,
         child: Column(
           children: [
@@ -552,7 +549,7 @@ class _HomeScreentate extends State<HomeScreen> {
                 padEnds: false,
                 onPageChanged: (page) {
                   print("page");
-                  print(page);
+
                   setState(() {
                     homepageBloc.currentPage = page.toDouble();
                   });
@@ -566,63 +563,59 @@ class _HomeScreentate extends State<HomeScreen> {
                     var name = list.title!;
                     var date = list.date!;
                     var description = list.description!;
-                    return Container(
-                      child: Card(
-                        elevation: 0.0,
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(13.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                AutoSizeText(
-                                  name,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontFamily: "SFProMedium",
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                  child: Container(
-                                      width:
-                                          screenHeight(context, dividedBy: 2.2),
-                                      child: AutoSizeText(
-                                        description,
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8.sp,
-                                        ),
-                                      )),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                  child: SizedBox(
-                                      width:
-                                          screenHeight(context, dividedBy: 2.2),
-                                      child: AutoSizeText(
-                                        date,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8.sp,
-                                        ),
-                                      )),
-                                ),
-                              ],
+                    return Card(
+                      elevation: 0.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AutoSizeText(
+                              name,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontFamily: "SFProMedium",
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                              child: SizedBox(
+                                  width:
+                                      screenHeight(context, dividedBy: 2.2),
+                                  child: AutoSizeText(
+                                    description,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 8.sp,
+                                    ),
+                                  )),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                              child: SizedBox(
+                                  width:
+                                      screenHeight(context, dividedBy: 2.2),
+                                  child: AutoSizeText(
+                                    date,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 8.sp,
+                                    ),
+                                  )),
+                            ),
+                          ],
                         ),
                       ),
                     );
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),
@@ -639,7 +632,7 @@ class _HomeScreentate extends State<HomeScreen> {
         ),
       );
     } else {
-      return Container();
+      return const SizedBox();
     }
   }
 
@@ -659,11 +652,11 @@ class _HomeScreentate extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AvailabilityListScreen(),
+                  builder: (context) => const AvailabilityListScreen(),
                 ),
               );
             },
-            child: HomeCardItem(
+            child: const HomeCardItem(
                 label: Txt.my_availability,
                 asset: "assets/images/icon/availability.svg"),
           ),
@@ -674,11 +667,11 @@ class _HomeScreentate extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CompletedShiftScreen(),
+                  builder: (context) => const CompletedShiftScreen(),
                 ),
               );
             },
-            child: HomeCardItem(
+            child: const HomeCardItem(
                 label: Txt.submit_timesheets,
                 asset: "assets/images/icon/Page-1.svg"),
           ),
@@ -689,11 +682,11 @@ class _HomeScreentate extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FindshiftCalendar(),
+                  builder: (context) => const FindshiftCalendar(),
                 ),
               );
             },
-            child: HomeCardItem(
+            child: const HomeCardItem(
                 label: Txt.find_shift, asset: "assets/images/icon/shift.svg"),
           ),
           GestureDetector(
@@ -703,11 +696,11 @@ class _HomeScreentate extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MyBookingScreen(),
+                  builder: (context) => const MyBookingScreen(),
                 ),
               );
             },
-            child: HomeCardItem(
+            child: const HomeCardItem(
                 label: Txt.my_booking, asset: "assets/images/icon/booking.svg"),
           )
         ],

@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -14,7 +13,6 @@ import '../../../model/manager_get_time.dart';
 import '../../../model/manager_timesheet.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/utils.dart';
-import '../../Widgets/buttons/book_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
 
@@ -244,13 +242,11 @@ width:100.w,
     );
   }
 
-  Widget bookingList(
-      int position, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
+  Widget bookingList(int position, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
     return buildList(snapshot, position);
   }
 
-  FilterShiftList getFilterList(
-      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
+  FilterShiftList getFilterList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
     FilterShiftList list = FilterShiftList();
 
     List<TimeSheetDetails>? allList =
@@ -267,8 +263,7 @@ width:100.w,
     return list;
   }
 
-  Widget buildList(
-      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
+  Widget buildList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
     var allList = getFilterList(snapshot, position);
     var list = [];
     if (position == 0) {

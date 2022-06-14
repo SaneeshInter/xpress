@@ -265,13 +265,6 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                             errorWidget: (context, url, error) => const Icon(Icons.error),
                           ),
 
-
-                          // FadeInImage.assetNetwork(
-                          //   placeholder:
-                          //   'assets/images/icon/loading_bar.gif',
-                          //   image: imageUri,
-                          //   placeholderScale: 4,
-                          // ),
                         )
                             : Container()),
                   if (null != _image)
