@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:xpresshealthdev/resources/respository.dart';
+import '../resources/respository.dart';
 
 import '../model/utility_respo.dart';
 

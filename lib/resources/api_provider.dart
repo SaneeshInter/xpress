@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
-import 'package:xpresshealthdev/model/login_response.dart';
-import 'package:xpresshealthdev/model/user_get_shift_details.dart';
-import 'package:xpresshealthdev/model/user_home_response.dart';
-
+import '../model/login_response.dart';
+import '../model/user_get_shift_details.dart';
+import '../model/user_home_response.dart';
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
 import '../model/manager_get_clients.dart';
@@ -270,7 +268,7 @@ class ApiProvider {
   }
 
 
-//new   approvel
+//new   approval
 
 
   Future<ManagerTimeSheetResponse> managerApprovel(String token) async {
@@ -301,13 +299,6 @@ class ApiProvider {
     }
 
   }
-
-
-
-
-
-
-
 
 
   Future<UserTimeSheetDetailsRespo> userGetTimeDetails(
