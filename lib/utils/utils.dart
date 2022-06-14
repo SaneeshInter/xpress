@@ -283,6 +283,19 @@ Future<dynamic> getFile() async {
     return;
   }
 }
+// get extension of file
+String getExtension(String path) {
+  var ext = path.split(".").last;
+  return ext;
+}
+//get extension of url
+String getExtensionFromUrl(String url) {
+  var ext = url.split(".").last;
+  return ext;
+}
+
+
+
 //
 // Future<String> getDeviceId() async {
 //

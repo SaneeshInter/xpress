@@ -55,8 +55,6 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   }
 
 
-
-
   @override
   void dispose() {
     super.dispose();
@@ -142,9 +140,12 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                 ),
                 onTap: () async {
                   Navigator.pop(context);
-                  final response = await getImageFromGallery();
+                  final response = await getFile();
+                  debugPrint(response.toString());
                   if (response != null) {
                     _image = response;
+                    debugPrint(_image.toString());
+                    debugPrint("path ${_image.path.toString()}");
                     setState(() {});
                   }
                 },
@@ -259,7 +260,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                         height: 65.h,
                         width: 100.w,
                         child: imageUri != null
-                            ?1==1?PdfView(
+                            ?getExtensionFromUrl(imageUri)=="pdf"?PdfView(
                           builders: PdfViewBuilders<DefaultBuilderOptions>(
                             options: const DefaultBuilderOptions(),
                             documentLoaderBuilder: (_) =>
@@ -271,19 +272,25 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                           controller: _pdfController,
                         )
                     : InteractiveViewer(
-                          child:CachedNetworkImage(
-                            imageUrl: imageUri,
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
-                                    ),
-                              ),
-                            ),
-                            placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                          child:FadeInImage.assetNetwork(
+                            placeholder:
+                            'assets/images/icon/loading_bar.gif',
+                            image: imageUri,
+                            placeholderScale: 4,
                           ),
+                          // CachedNetworkImage(
+                          //   imageUrl: imageUri,
+                          //   imageBuilder: (context, imageProvider) => Container(
+                          //     decoration: BoxDecoration(
+                          //       image: DecorationImage(
+                          //           image: imageProvider,
+                          //           fit: BoxFit.cover,
+                          //           ),
+                          //     ),
+                          //   ),
+                          //   placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
+                          //   errorWidget: (context, url, error) => const Icon(Icons.error),
+                          // ),
 
                         )
                             : const SizedBox()),
@@ -292,7 +299,19 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                         height: 65.h,
                         width: 100.w,
                         child: _image != null
-                            ? InteractiveViewer(
+                            ?getExtension(_image.path.toString())=="pdf"?PdfView(
+                          builders: PdfViewBuilders<DefaultBuilderOptions>(
+                            options: const DefaultBuilderOptions(),
+                            documentLoaderBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                            pageLoaderBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                            pageBuilder: _pageBuilder,
+                          ),
+                          controller: PdfController(
+                            document: PdfDocument.openFile(_image.path.toString()),
+                          ),
+                        ): InteractiveViewer(
                           child: Image.file(
                             _image,
                             fit: BoxFit.fill,

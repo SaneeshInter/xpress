@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import '../../../blocs/shift_completed_bloc.dart';
@@ -106,7 +107,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
               ListTile(
                 onTap: () async {
                   Navigator.pop(context);
-                  final response = await getImageFromCamera();
+                  final response = await getImage(ImageSource.gallery);
                   if (response != null) {
                     completeBloc.image = response;
                     setState(() {});
@@ -129,7 +130,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                 ),
                 onTap: () async {
                   Navigator.pop(context);
-                  final response = await getImageFromGallery();
+                  final response = await getImage(ImageSource.gallery);
                   if (response != null) {
                     completeBloc.image = response;
                     setState(() {});
