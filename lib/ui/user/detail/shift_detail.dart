@@ -138,19 +138,29 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     flex: 1,
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        hospitalDetail
-                                                                .latitude =
-                                                            "27.2046";
-                                                        hospitalDetail
-                                                                .longitude =
-                                                            "77.4977";
-                                                        navigateTo(
-                                                            double.parse(
-                                                                hospitalDetail
-                                                                    .latitude!),
-                                                            double.parse(
-                                                                hospitalDetail
-                                                                    .longitude!));
+                                                        // hospitalDetail
+                                                        //         .latitude =
+                                                        //     "27.2046";
+                                                        // hospitalDetail
+                                                        //         .longitude =
+                                                        //     "77.4977";
+                                                        if(null!=hospitalDetail
+                                                            .latitude && null!= hospitalDetail
+                                                            .longitude && "" != hospitalDetail
+                                                            .latitude && ""!= hospitalDetail
+                                                            .longitude)
+                                                          {
+                                                            navigateTo(
+                                                                double.parse(
+                                                                    hospitalDetail
+                                                                        .latitude!),
+                                                                double.parse(
+                                                                    hospitalDetail
+                                                                        .longitude!));
+                                                          }else{
+                                                          Fluttertoast.showToast(msg: 'Location not found');
+                                                        }
+
                                                       },
                                                       child: Row(
                                                         mainAxisAlignment:
