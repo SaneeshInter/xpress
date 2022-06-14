@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../Constants/strings.dart';
@@ -14,7 +15,6 @@ import '../../../eventutil/eventutil.dart';
 import '../../../model/user_shift_calender.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
-import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
@@ -216,26 +216,40 @@ class _FindshiftState extends State<FindshiftCalendar> {
                               eventLoader: _getEventsForDay,
                               startingDayOfWeek: StartingDayOfWeek.sunday,
                               daysOfWeekVisible: true,
-                              headerStyle: HeaderStyle(
+                              headerStyle: const HeaderStyle(
                                 formatButtonVisible: false,
                                 titleCentered: true,
                               ),
                               calendarStyle: CalendarStyle(
                                 isTodayHighlighted: true,
                                 markerSize: 4,
-
-                                cellMargin: EdgeInsets.all(11),
+                                cellMargin: const EdgeInsets.all(11),
                                 canMarkersOverflow: false,
-                                selectedDecoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Constants.colors[4],
-                                        Constants.colors[3],
-                                      ]),
+                                markersAutoAligned: true,
+                                disabledDecoration: const BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                holidayDecoration: const BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                todayDecoration: const BoxDecoration(
+                                  color: Color(0xFFAACFE5),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                defaultDecoration: const BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                selectedDecoration: BoxDecoration(
+                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                    Constants.colors[4],
+                                    Constants.colors[3],
+                                  ]),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                                 ),
                               ),
                             ),
@@ -395,4 +409,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
       Items data = items;
       bloc.fetchuserJobRequest(data.rowId.toString());
   }
+
+
 }

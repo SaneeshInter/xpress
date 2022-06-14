@@ -119,7 +119,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
               ListTile(
                 onTap: () async {
                   Navigator.pop(context);
-                  final response = await getImageFromCamera();
+                  final response = await getImage(ImageSource.camera);
                   if (response != null) {
                     _image = response;
                     setState(() {});
@@ -256,7 +256,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                       imageUri != "" &&
                       null == _image)
                     SizedBox(
-                        height: 68.h,
+                        height: 65.h,
                         width: 100.w,
                         child: imageUri != null
                             ?1==1?PdfView(
@@ -286,10 +286,10 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                           ),
 
                         )
-                            : Container()),
+                            : const SizedBox()),
                   if (null != _image)
                     SizedBox(
-                        height: 68.h,
+                        height: 65.h,
                         width: 100.w,
                         child: _image != null
                             ? InteractiveViewer(
@@ -298,7 +298,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                             fit: BoxFit.fill,
                           ),
                         )
-                            : Container()),
+                            : const SizedBox()),
                   const SizedBox(
                     height: 20,
                   ),
@@ -382,10 +382,10 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),
@@ -414,15 +414,4 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   }
 }
 
-Color getColor(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return Colors.blue;
-  }
-  return Colors.red;
-}
 

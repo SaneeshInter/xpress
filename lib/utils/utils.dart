@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -217,10 +218,9 @@ String convert12hrTo24hr(String date) {
 }
 
 String convert24hrTo12hr(String time, BuildContext context) {
-  if(time.contains("PM")||time.contains("AM"))
-    {
-      return time;
-    }
+  if (time.contains("PM") || time.contains("AM")) {
+    return time;
+  }
 
   TimeOfDay _startTime = TimeOfDay(hour: int.parse(time.split(":")[0]), minute: int.parse(time.split(":")[1]));
   var time12 = _startTime.format(context);
@@ -233,8 +233,6 @@ void showActionAlert(
   required String message,
 }) {
   showDialog(
-
-
     context: context,
     barrierColor: Colors.transparent,
     builder: (BuildContext context) {
@@ -255,38 +253,46 @@ void showActionAlert(
   );
 }
 
-
 final _picker = ImagePicker();
-Future <dynamic> getImageFromGallery() async {
-  final pickedFile =
-  await _picker.pickImage(source: ImageSource.gallery, imageQuality: 15);
-  if (pickedFile != null) {
-    return File(pickedFile.path);
-  } else if (pickedFile!.path.isEmpty) {
-    return retrieveLostData();
-  } else {
-    return;
-  }
-}
 
-Future <dynamic> getImageFromCamera() async {
-  final pickedFile =
-  await _picker.pickImage(source: ImageSource.camera, imageQuality: 15);
-  if (pickedFile != null) {
-    return File(pickedFile.path);
-  } else if (pickedFile!.path.isEmpty) {
-    return retrieveLostData();
-  } else {
-    return;
-  }
-}
-
-Future<dynamic> retrieveLostData() async {
-  final LostDataResponse response = await _picker.retrieveLostData();
-
-  if (response.file != null) {
-    return File(response.file!.path);
-  } else {
+Future<dynamic> getImage(ImageSource type) async {
+  final pickedFile = await _picker.pickImage(source: type, imageQuality: 15);
+  if (pickedFile == null) {
     return null;
+  } else if (pickedFile.path.isEmpty) {
+    final LostDataResponse response = await _picker.retrieveLostData();
+    if (response.file == null) {
+      return null;
+    } else {
+      return File(response.file!.path);
+    }
+  } else {
+    return File(pickedFile.path);
   }
 }
+
+Future<dynamic> getFile() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.custom,
+    allowedExtensions: ['jpg', 'pdf'],
+  );
+
+  if (result != null) {
+    return File(result.files.single.path!);
+  } else {
+    return;
+  }
+}
+//
+// Future<String> getDeviceId() async {
+//
+//   var deviceInfo = DeviceInfoPlugin();
+//   if (Platform.isIOS) { // import 'dart:io'
+//     var iosDeviceInfo = await deviceInfo.iosInfo;
+//     return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+//   } else if(Platform.isAndroid) {
+//     var androidDeviceInfo = await deviceInfo.androidInfo;
+//     return androidDeviceInfo.androidId; // unique ID on Android
+//   }
+//
+// }

@@ -1,17 +1,16 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../../blocs/manager_shift_calendar.dart';
-import '../../../ui/error/ErrorScreen.dart';
 
+import '../../../blocs/manager_shift_calendar.dart';
 import '../../../eventutil/eventutil.dart';
 import '../../../model/common/manager_shift.dart';
 import '../../../resources/token_provider.dart';
+import '../../../ui/error/ErrorScreen.dart';
 import '../../../utils/constants.dart';
-import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
@@ -76,14 +75,13 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
   }
 
   void observe() {
-
     // managercalendarBloc.removeshift.listen((event) {
     //   var message = event.response?.status?.statusMessage;
     //   Fluttertoast.showToast(msg: '$message');
     // });
 
     managercalendarBloc.removeshift.listen((event) {
-      print(event.response?.status?.statusCode);
+      debugPrint(event.response?.status?.statusCode.toString());
       setState(() {
         visibility = false;
       });
@@ -179,8 +177,8 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-                            child: Container(
-                              decoration: BoxDecoration(
+                            child: DecoratedBox(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(10),
@@ -194,17 +192,16 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                 firstDay: DateTime(2022),
                                 lastDay: DateTime(2050),
                                 calendarFormat: format,
-                                onFormatChanged: (CalendarFormat _format) {
+                                onFormatChanged: (CalendarFormat format) {
                                   setState(() {
-                                    format = _format;
+                                    format = format;
                                   });
                                 },
                                 onDaySelected: _onDaySelected,
                                 selectedDayPredicate: (day) {
                                   return _selectedDays.contains(day);
                                 },
-                                calendarBuilders: CalendarBuilders(
-                                    markerBuilder: (BuildContext context, DateTime datetime, List<Event> list) {
+                                calendarBuilders: CalendarBuilders(markerBuilder: (BuildContext context, DateTime datetime, List<Event> list) {
                                   if (list.isNotEmpty) {
                                     return Stack(
                                       children: [
@@ -215,11 +212,8 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                               child: Padding(
                                                 padding: const EdgeInsets.symmetric(horizontal: 4),
                                                 child: Text(
-                                                  list.length.toString() + " Shift",
-                                                  style: TextStyle(
-                                                      fontSize: 7.sp,
-                                                      color: Constants.colors[38],
-                                                      fontWeight: FontWeight.w600),
+                                                  "${list.length} Shift",
+                                                  style: TextStyle(fontSize: 7.sp, color: Constants.colors[38], fontWeight: FontWeight.w600),
                                                 ),
                                               )),
                                         ),
@@ -230,23 +224,40 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                 eventLoader: _getEventsForDay,
                                 startingDayOfWeek: StartingDayOfWeek.sunday,
                                 daysOfWeekVisible: true,
-                                headerStyle: HeaderStyle(
+                                headerStyle: const HeaderStyle(
                                   formatButtonVisible: false,
                                   titleCentered: true,
                                 ),
                                 calendarStyle: CalendarStyle(
                                   isTodayHighlighted: true,
                                   markerSize: 4,
-                                  cellMargin: EdgeInsets.all(11),
+                                  cellMargin: const EdgeInsets.all(11),
                                   canMarkersOverflow: false,
+                                  markersAutoAligned: true,
+                                  disabledDecoration: const BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  ),
+                                  holidayDecoration: const BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  ),
+                                  todayDecoration: const BoxDecoration(
+                                    color: Color(0xFF1CB34F),
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  ),
+                                  defaultDecoration: const BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  ),
                                   selectedDecoration: BoxDecoration(
-                                    gradient:
-                                        LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
                                       Constants.colors[4],
                                       Constants.colors[3],
                                     ]),
                                     shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                                   ),
                                 ),
                               ),
@@ -288,12 +299,12 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                                           shiftItem: items,
                                                         ))).then((value) => getData());
                                           },
-                                          onTapDelete: (row_id) {
-                                            print(row_id);
+                                          onTapDelete: (rowId) {
+                                            print(rowId);
                                             setState(() {
                                               visibility = true;
                                             });
-                                            deleteShift(row_id);
+                                            deleteShift(rowId);
                                           },
                                           onTapBook: () {},
                                           onTapViewMap: () {},
@@ -302,7 +313,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                       ],
                                     );
                                   } else {
-                                    print("items.hospital");
+                                    debugPrint("items.hospital");
 
                                     return Container();
                                   }
@@ -315,7 +326,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                           }),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                 ],
@@ -324,7 +335,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
             Center(
               child: Visibility(
                 visible: visibility,
-                child: Container(
+                child: SizedBox(
                   width: 100.w,
                   height: 80.h,
                   child: const Center(
@@ -333,7 +344,7 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
           ],
@@ -344,10 +355,10 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => CreateShiftScreenUpdate()),
+              MaterialPageRoute(builder: (context) => const CreateShiftScreenUpdate()),
             ).then((value) => getData());
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
     );
@@ -362,8 +373,8 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
     setState(() {
       _focusedDay = focusedDay;
       selectedCalenderDay = focusedDay;
-      print("selectedDay");
-      print(selectedDay);
+      debugPrint("selectedDay");
+      debugPrint(selectedDay.toString());
       managercalendarBloc.filterItemByDates(selectedDay);
     });
   }
