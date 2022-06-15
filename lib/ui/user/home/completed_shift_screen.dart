@@ -116,7 +116,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                   ListTile(
                     onTap: () async {
                       Navigator.pop(context);
-                      final response = await getImage(ImageSource.gallery);
+                      final response = await getImage(ImageSource.camera);
                       if (response != null) {
                         completeBloc.image = response;
                         setState(() {});

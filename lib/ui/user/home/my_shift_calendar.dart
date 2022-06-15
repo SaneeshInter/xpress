@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -59,7 +58,8 @@ class _FindshiftState extends State<FindshiftCalendar> {
     confirmBloc.token = await TokenProvider().getToken();
     if (null != shiftcalenderBloc.token) {
       if (await isNetworkAvailable()) {
-        shiftcalenderBloc.userGetScheduleByYear(shiftcalenderBloc.token, "2022");
+        shiftcalenderBloc.userGetScheduleByYear(
+            shiftcalenderBloc.token, "2022");
       } else {
         showInternetNotAvailable();
       }
@@ -74,17 +74,15 @@ class _FindshiftState extends State<FindshiftCalendar> {
         hashCode: getHashCode,
       );
 
-      if(null!=itemList)
-        {
-          for (var item in itemList) {
-            selectedDay.add(DateTime.parse(item.date.toString()));
-          }
-          getSelectedDayEvent(selectedDate);
-          setState(() {
-            _selectedDays.addAll(selectedDay);
-          });
+      if (null != itemList) {
+        for (var item in itemList) {
+          selectedDay.add(DateTime.parse(item.date.toString()));
         }
-
+        getSelectedDayEvent(selectedDate);
+        setState(() {
+          _selectedDays.addAll(selectedDay);
+        });
+      }
     });
 
     bloc.jobrequest.listen((event) {
@@ -116,19 +114,18 @@ class _FindshiftState extends State<FindshiftCalendar> {
 
   List<Event> _getEventsForDay(DateTime day) {
     List<Event> eventList = [];
-    if(null!=shiftcalenderBloc.itemListAll)
-      {
-        var itemList = shiftcalenderBloc.itemListAll?.where((element) {
-          DateTime itemDay = DateTime.parse(element.date.toString());
-          return isSameDay(itemDay, day);
-        });
-        if (itemList!.isNotEmpty) {
-          var listItem = itemList.first;
-          for (var item in listItem.items!) {
-            eventList.add(Event(item.jobTitle!));
-          }
+    if (null != shiftcalenderBloc.itemListAll) {
+      var itemList = shiftcalenderBloc.itemListAll?.where((element) {
+        DateTime itemDay = DateTime.parse(element.date.toString());
+        return isSameDay(itemDay, day);
+      });
+      if (itemList!.isNotEmpty) {
+        var listItem = itemList.first;
+        for (var item in listItem.items!) {
+          eventList.add(Event(item.jobTitle!));
         }
       }
+    }
     return eventList;
   }
 
@@ -147,11 +144,9 @@ class _FindshiftState extends State<FindshiftCalendar> {
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
-
-
           NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate([
@@ -189,7 +184,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                               },
                               calendarBuilders: CalendarBuilders(markerBuilder:
                                   (BuildContext context, DateTime datetime,
-                                  List<Event> list) {
+                                      List<Event> list) {
                                 if (list.isNotEmpty) {
                                   return Stack(
                                     children: [
@@ -198,20 +193,24 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                         child: Container(
                                             color: Colors.transparent,
                                             child: Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 4),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 4),
                                               child: Text(
-                                                list.length.toString() +Txt.shifts,
+                                                list.length.toString() +
+                                                    Txt.shifts,
                                                 style: TextStyle(
                                                     fontSize: 7.sp,
                                                     color: Constants.colors[38],
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
                                             )),
                                       ),
                                     ],
                                   );
                                 }
+                                return null;
                               }),
                               eventLoader: _getEventsForDay,
                               startingDayOfWeek: StartingDayOfWeek.sunday,
@@ -228,42 +227,77 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                 markersAutoAligned: true,
                                 disabledDecoration: const BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
                                 ),
+                                rowDecoration: const BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                ),
+                                outsideDecoration: const BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                ),
+
+                                weekendDecoration: const BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                ),markerDecoration: const BoxDecoration(
+
+                                  shape: BoxShape.rectangle,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                ),
+
                                 holidayDecoration: const BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
                                 ),
                                 todayDecoration: const BoxDecoration(
                                   color: Color(0xFFAACFE5),
                                   shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
                                 ),
                                 defaultDecoration: const BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
                                 ),
-                                selectedDecoration: BoxDecoration(
-                                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                                    Constants.colors[4],
-                                    Constants.colors[3],
-                                  ]),
+
+                                rangeStartDecoration: const BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                ),
+
+                                selectedDecoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Constants.colors[4],
+                                        Constants.colors[3],
+                                      ]),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5.0)),
                                 ),
                               ),
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   ]),
                 ),
               ];
-
             },
-            body:     NotificationListener(
+            body: NotificationListener(
               onNotification: (notification) {
                 //print(_scrollController.position);
                 // Return true to cancel the notification bubbling. Return false (or null) to
@@ -286,7 +320,6 @@ class _FindshiftState extends State<FindshiftCalendar> {
                             if (null != items) {
                               return Column(
                                 children: [
-
                                   ShiftListCalenderWidget(
                                     items: items,
                                     token: shiftcalenderBloc.token,
@@ -300,8 +333,8 @@ class _FindshiftState extends State<FindshiftCalendar> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   ShiftDetailScreen(
-                                                    shift_id: data.rowId
-                                                        .toString(),
+                                                    shift_id:
+                                                        data.rowId.toString(),
                                                     isCompleted: false,
                                                   )),
                                         );
@@ -333,13 +366,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
                     }),
               ),
             ),
-
           ),
-
-
-
-
-
           Center(
             child: StreamBuilder(
               stream: shiftcalenderBloc.visible,
@@ -406,9 +433,7 @@ class _FindshiftState extends State<FindshiftCalendar> {
   }
 
   void requestShift(Items items) {
-      Items data = items;
-      bloc.fetchuserJobRequest(data.rowId.toString());
+    Items data = items;
+    bloc.fetchuserJobRequest(data.rowId.toString());
   }
-
-
 }

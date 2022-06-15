@@ -219,13 +219,20 @@ String convert12hrTo24hr(String date) {
 }
 
 String convert24hrTo12hr(String time, BuildContext context) {
-  if (time.contains("PM") || time.contains("AM")) {
-    return time;
+  if(time.isEmpty) {
+    return "";
   }
+    print("time: $time ${time.length} ${time.isEmpty}  ${time == ""} ${time ==
+        "null"}");
+    if (time.contains("PM") || time.contains("AM")) {
+      return time;
+    }
 
-  TimeOfDay _startTime = TimeOfDay(hour: int.parse(time.split(":")[0]), minute: int.parse(time.split(":")[1]));
-  var time12 = _startTime.format(context);
-  return time12;
+    TimeOfDay _startTime = TimeOfDay(hour: int.parse(time.split(":")[0]),
+        minute: int.parse(time.split(":")[1]));
+    var time12 = _startTime.format(context);
+    return time12;
+
 }
 
 void showActionAlert(
