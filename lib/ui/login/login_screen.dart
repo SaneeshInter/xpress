@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../../blocs/login_bloc.dart';
-import '../../ui/manager_dashboard_screen.dart';
-import '../../utils/utils.dart';
+
 import '../../Constants/sharedPrefKeys.dart';
 import '../../Constants/strings.dart';
+import '../../blocs/login_bloc.dart';
+import '../../ui/manager_dashboard_screen.dart';
 import '../../utils/constants.dart';
+import '../../utils/utils.dart';
 import '../../utils/validator.dart';
 import '../dashboard_screen.dart';
 import '../widgets/buttons/login_button.dart';
 import '../widgets/input_text.dart';
 import '../widgets/loading_widget.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -56,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   alignment: Alignment.center,
-                  width:90.w,
+                  width: 90.w,
                   height: 70.h,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,29 +74,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 2.h,
                               ),
                               ClipRRect(
-                                borderRadius:
-                                const BorderRadius.all( Radius.circular(20)),
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
                                 child: Container(
                                   color: Colors.white,
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         logoImage(),
                                         Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20.0, 0, 0, 0),
+                                          padding: const EdgeInsets.fromLTRB(20.0, 0, 0, 0),
                                           child: AutoSizeText(
                                             Txt.login,
                                             textAlign: TextAlign.start,
                                             maxLines: 3,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 18.sp,
-                                                fontWeight: FontWeight.w800,
-                                                fontFamily: "SFProBold"),
+                                            style: TextStyle(color: Colors.black, fontSize: 18.sp, fontWeight: FontWeight.w800, fontFamily: "SFProBold"),
                                           ),
                                         ),
                                         SizedBox(
@@ -103,10 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Column(
                                           children: [
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(
-                                                      left: 16.0,
-                                                      right: 16),
+                                              padding: const EdgeInsets.only(left: 16.0, right: 16),
                                               child: TextInputFileds(
                                                 controlr: email,
                                                 onChange: () {},
@@ -118,8 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   }
                                                 },
                                                 hintText: Txt.email,
-                                                keyboadType: TextInputType
-                                                    .emailAddress,
+                                                keyboadType: TextInputType.emailAddress,
                                                 isPwd: false,
                                                 onTapDate: () {},
                                               ),
@@ -132,24 +123,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                         Column(
                                           children: [
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(
-                                                      left: 16.0,
-                                                      right: 16),
+                                              padding: const EdgeInsets.only(left: 16.0, right: 16),
                                               child: TextInputFileds(
                                                 controlr: pwd,
                                                 onChange: () {},
                                                 validator: (password) {
-                                                  if (validPassword(
-                                                      password)) {
+                                                  if (validPassword(password)) {
                                                     return null;
                                                   } else {
                                                     return Txt.enter_valid_password;
                                                   }
                                                 },
                                                 hintText: Txt.pwd,
-                                                keyboadType: TextInputType
-                                                    .visiblePassword,
+                                                keyboadType: TextInputType.visiblePassword,
                                                 isPwd: true,
                                                 onTapDate: () {},
                                               ),
@@ -186,10 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.only(bottom: 25, top: 0),
                   child: Text(
                     Txt.powered_by,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: "SFProMedium"),
+                    style: TextStyle(color: Colors.black, fontSize: 12, fontFamily: "SFProMedium"),
                   ),
                 ),
               ),
@@ -230,14 +213,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       var validate = formKey.currentState?.validate();
                       if (null != validate) {
                         if (validate) {
-                          SharedPreferences shdPre =
-                              await SharedPreferences.getInstance();
+                          SharedPreferences shdPre = await SharedPreferences.getInstance();
                           bool isuser = shdPre.getBool("user")!;
                           var userType = "1";
                           if (isuser) {
                             userType = "0";
                           }
-                          loginBloc.fetchLogin(email.text, pwd.text, userType);
+
+                          String? deviceId = await getDeviceId();
+                          print("DEVICE Id : ");
+                          print(deviceId);
+
+                          if (deviceId == null) {
+                            return;
+                          }
+
+                          loginBloc.fetchLogin(email.text, pwd.text, userType, deviceId);
                         }
                       }
                     },
@@ -261,8 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Visibility(
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 10, left: 0, right: 0, bottom: 0),
+                padding: const EdgeInsets.only(top: 10, left: 0, right: 0, bottom: 0),
                 child: SizedBox(
                     height: 20.w,
                     width: 50.w,
@@ -278,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _loginResponse() {
-    loginBloc.loginStream.listen((event)  async{
+    loginBloc.loginStream.listen((event) async {
       if (null != event.response) {
         var message = event.response?.status?.statusMessage;
         if (event.response?.status?.statusCode == 200) {
@@ -292,10 +282,10 @@ class _LoginScreenState extends State<LoginScreen> {
           var profileSrc = event.response?.data?.profileSrc;
           if (null == token) {
             if (!mounted) return;
-             showAlertDialoge(context, title: Txt.login_failed, message: message!);
+            showAlertDialoge(context, title: Txt.login_failed, message: message!);
             return;
           }
-          if (null == role||null == firstname||null == lastName ||null == employeeNo ||null == userType||null == profileSrc) {
+          if (null == role || null == firstname || null == lastName || null == employeeNo || null == userType || null == profileSrc) {
             return;
           }
           // if () {
@@ -349,9 +339,7 @@ class _LoginScreenState extends State<LoginScreen> {
           showAlertDialoge(context, title: Txt.login_failed, message: message!);
         }
       } else {
-        showAlertDialoge(context,
-            title: Txt.login_failed,
-            message: Txt.someting_went_wrong);
+        showAlertDialoge(context, title: Txt.login_failed, message: Txt.someting_went_wrong);
       }
     });
   }
