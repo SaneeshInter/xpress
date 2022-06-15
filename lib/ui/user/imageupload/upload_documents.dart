@@ -44,6 +44,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var token;
   var _image;
+  var _buildContext;
   late PdfController _pdfController;
   List<String> list = [];
   TextEditingController date = TextEditingController();
@@ -101,7 +102,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   // }
 
 
-  void funcBottomSheet(BuildContext context, String type) {
+  void funcBottomSheet(BuildContext context) {
     showModalBottomSheet(
         elevation: 10,
         backgroundColor: Colors.white,
@@ -112,45 +113,63 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
             )),
         context: context,
         builder: (BuildContext bc) {
-          return Wrap(
-            children: <Widget>[
-              ListTile(
-                onTap: () async {
-                  Navigator.pop(context);
-                  final response = await getImage(ImageSource.camera);
-                  if (response != null) {
-                    _image = response;
-                    setState(() {});
-                  }
-                },
-                leading: const Icon(
-                  Icons.camera_enhance_sharp,
-                  color: black,
-                ),
-                title: const Text(
-                  'Camera',
-                  softWrap: true,
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.photo, color: black),
-                title: const Text(
-                  'Gallery',
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  const Text("Select source",
+                      style: TextStyle(
+                          fontSize: 18,
 
-                ),
-                onTap: () async {
-                  Navigator.pop(context);
-                  final response = await getFile();
-                  debugPrint(response.toString());
-                  if (response != null) {
-                    _image = response;
-                    debugPrint(_image.toString());
-                    debugPrint("path ${_image.path.toString()}");
-                    setState(() {});
-                  }
-                },
+                          color: Colors.black)),
+                  ListTile(
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final response = await getImage(ImageSource.camera);
+                      if (response != null) {
+                        _image = response;
+                        setState(() {});
+                      }
+                    },
+                    leading: const Icon(
+                      Icons.camera_enhance_sharp,
+                      color: black,
+                    ),
+                    title: const Text(
+                      'Camera',
+                      softWrap: true,
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.photo, color: black),
+                    title: const Text(
+                      'Gallery',
+
+                    ),
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final response;
+                      print("type $type");
+                      if(type == 'signature'){
+                        response = await getImage(ImageSource.gallery);
+                      }else{
+                        response = await getFile();
+                      }
+                      debugPrint(response.toString());
+                      if (response != null) {
+                        _image = response;
+                        debugPrint(_image.toString());
+                        debugPrint("path ${_image.path.toString()}");
+                        setState(() {});
+                      }
+                    },
+                  ),
+                  const Spacer(),
+                ],
               ),
-            ],
+            ),
           );
         });
   }
@@ -158,12 +177,11 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   @override
   void initState() {
     super.initState();
-    _pdfController = PdfController(
-      document: PdfDocument.openData(InternetFile.get('https://github.com/rbcprolabs/packages.flutter/raw/fd0c92ac83ee355255acb306251b1adfeb2f2fd6/packages/native_pdf_renderer/example/assets/sample.pdf')),
-    );
+
     observe();
     getToken();
   }
+
 
   Future<void> getToken() async {
     token = await TokenProvider().getToken();
@@ -174,7 +192,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
 
   void observe() {
     profileBloc.userdocuments.listen((event) {
-      print("event");
+      debugPrint("event");
       print(event.response);
       var message = event.response?.status?.statusMessage;
       if (mounted) {
@@ -182,12 +200,18 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
           _image = null;
         });
       }
-      showMessageAndPop(message, context);
+      if(event.response?.status?.statusCode == 200){
+        if (mounted) showMessageAndPop(message, _buildContext);
+      }else{
+        if (mounted) Fluttertoast.showToast(msg: '$message');
+      }
+
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _buildContext= context;
     final args = ModalRoute
         .of(context)!
         .settings
@@ -230,7 +254,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         actions: [
           IconButton(
             onPressed: () async {
-              funcBottomSheet(context, "Image");
+              funcBottomSheet(context);
             },
             icon: Image.asset(
               'assets/images/icon/add.png',
@@ -269,7 +293,9 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                             const Center(child: CircularProgressIndicator()),
                             pageBuilder: _pageBuilder,
                           ),
-                          controller: _pdfController,
+                          controller: PdfController(
+                            document: PdfDocument.openData(InternetFile.get(imageUri)),
+                          ),
                         )
                     : InteractiveViewer(
                           child:FadeInImage.assetNetwork(

@@ -115,7 +115,7 @@ class _ProfileState extends State<ProfileScreen> {
         ),
         bottomOpacity: 0.0,
         elevation: 0.0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
           //change your color here
         ),

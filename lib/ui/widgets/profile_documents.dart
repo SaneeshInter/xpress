@@ -51,7 +51,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
       arguments: ScreenArguments(type, imagefile, expiry),
     ).then((value) {
       observe();
-
+      widget.onRefresh();
        getData();
     });
   }
@@ -124,6 +124,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
+                // getImage( "profilepic",
                 getImage( "signature",
                     widget.items.signatureSrc!, "");
               },
