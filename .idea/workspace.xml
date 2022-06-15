@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/approved_timesheet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/approved_timesheet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/completed_approvel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/completed_approvel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/availability_list_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/availability_list_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator" />
     <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
       <change afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" afterDir="false" />
@@ -1070,13 +1061,6 @@
       <option name="presentableId" value="Default" />
       <updated>1650947288890</updated>
     </task>
-    <task id="LOCAL-00003" summary="Update ui issues">
-      <created>1650956650662</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1650956650662</updated>
-    </task>
     <task id="LOCAL-00004" summary="Release Verion 1.0.0 on :- 26/04/2022">
       <created>1650966773691</created>
       <option name="number" value="00004" />
@@ -1413,7 +1397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655297370070</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator">
+      <created>1655298563134</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1655298563134</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -1440,7 +1431,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Firebase push notfication" />
     <MESSAGE value="Update slider" />
     <MESSAGE value="Update projects" />
     <MESSAGE value="Release build" />
@@ -1465,6 +1455,7 @@
     <MESSAGE value="add pdf and file picker" />
     <MESSAGE value="Implemented profile image Upload" />
     <MESSAGE value="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized" />
+    <MESSAGE value="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator" />
+    <option name="LAST_COMMIT_MESSAGE" value="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator" />
   </component>
 </project>
