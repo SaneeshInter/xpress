@@ -24,14 +24,14 @@ class FindShiftCalendar extends StatelessWidget {
     shiftCalenderBloc.initState(context);
     return Scaffold(
       key: shiftCalenderBloc.scaffoldKey,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          shiftCalenderBloc.getData(context);
-        },
-        label: const Text(Txt.refresh),
-        icon: const Icon(Icons.refresh),
-        backgroundColor: Colors.green,
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     shiftCalenderBloc.getData(context);
+      //   },
+      //   label: const Text(Txt.refresh),
+      //   icon: const Icon(Icons.refresh),
+      //   backgroundColor: Colors.green,
+      // ),
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
@@ -209,54 +209,57 @@ class FindShiftCalendar extends StatelessWidget {
                           overScroll.disallowIndicator();
                           return false;
                         },
-                        child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: snapshot.data?.length,
-                          shrinkWrap: true,
+                        child: RefreshIndicator(
+                          onRefresh: () => shiftCalenderBloc.getData(context),
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: snapshot.data?.length,
+                            shrinkWrap: true,
 
-                          itemBuilder: (BuildContext context, int index) {
-                            var items = snapshot.data?[index];
-                            if (null != items) {
-                              return Column(
-                                children: [
-                                  ShiftListCalenderWidget(
-                                    items: items,
-                                    token: shiftCalenderBloc.token,
-                                    onTapDelete: () {},
-                                    onTapViewMap: () {},
-                                    onTapView: (item) {
-                                      if (item is Items) {
-                                        Items data = item;
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ShiftDetailScreen(
-                                                    shift_id:
-                                                    data.rowId.toString(),
-                                                    isCompleted: false,
-                                                  )),
-                                        );
-                                      }
-                                    },
-                                    onTapBook: (item) {
-                                      shiftCalenderBloc.requestShift(items);
-                                    },
-                                    onTapEdit: () {
-                                      debugPrint("Tapped calendar");
-                                    },
-                                    key: null,
-                                  ),
-                                  SizedBox(
-                                      height: screenHeight(context,
-                                          dividedBy: 100)),
-                                ],
-                              );
-                            } else {
-                              debugPrint("items.hospital");
-                              return const SizedBox();
-                            }
-                          },
+                            itemBuilder: (BuildContext context, int index) {
+                              var items = snapshot.data?[index];
+                              if (null != items) {
+                                return Column(
+                                  children: [
+                                    ShiftListCalenderWidget(
+                                      items: items,
+                                      token: shiftCalenderBloc.token,
+                                      onTapDelete: () {},
+                                      onTapViewMap: () {},
+                                      onTapView: (item) {
+                                        if (item is Items) {
+                                          Items data = item;
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ShiftDetailScreen(
+                                                      shift_id:
+                                                      data.rowId.toString(),
+                                                      isCompleted: false,
+                                                    )),
+                                          );
+                                        }
+                                      },
+                                      onTapBook: (item) {
+                                        shiftCalenderBloc.requestShift(items);
+                                      },
+                                      onTapEdit: () {
+                                        debugPrint("Tapped calendar");
+                                      },
+                                      key: null,
+                                    ),
+                                    SizedBox(
+                                        height: screenHeight(context,
+                                            dividedBy: 100)),
+                                  ],
+                                );
+                              } else {
+                                debugPrint("items.hospital");
+                                return const SizedBox();
+                              }
+                            },
+                          ),
                         ),
                       );
                     } else if (snapshot.hasError) {

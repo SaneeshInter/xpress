@@ -4,45 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="Implemented profile image Upload">
+    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Constants/strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Constants/strings.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/manager_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/manager_shift_calendar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/bloc/no_data_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/bloc/no_data_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/login/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/login/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/create_shift_screen_update.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/create_shift_screen_update.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/approved_timesheet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/approved_timesheet_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/completed_approvel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/completed_approvel.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/completed_time_sheet_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/completed_time_sheet_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/manager_calendar_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/manager_calendar_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/manager_home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/manager_home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/manager_time_sheet_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/manager_time_sheet_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/my_shifts_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/my_shifts_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/shift_detail_manager.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/shift_detail_manager.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager_dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager_dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/detail/profile_doc_row.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/detail/profile_doc_row.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/user/home/availability_list_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/availability_list_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/find_shift_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/find_shift_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/my_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/my_shift_calendar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/profile_edit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/profile_edit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/completed_shifts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/completed_shifts.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/submit_timesheets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/submit_timesheets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/user_time_sheet_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/user_time_sheet_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/allowance_bottom_sheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/allowance_bottom_sheet.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/availability_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/availability_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/buttons/book_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/buttons/book_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/my_booking_list_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/my_booking_list_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/profile_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/profile_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/request_user_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/request_user_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/shift_list_calender_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/shift_list_calender_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
       <change afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
@@ -1069,6 +1039,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="flutter.view.tool.window.visible" value="true" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images/icon" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -1098,13 +1069,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650947288890</updated>
-    </task>
-    <task id="LOCAL-00002" summary="update loaders">
-      <created>1650950113392</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1650950113392</updated>
     </task>
     <task id="LOCAL-00003" summary="Update ui issues">
       <created>1650956650662</created>
@@ -1442,7 +1406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655283188812</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized">
+      <created>1655297370069</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1655297370070</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -1469,7 +1440,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Calender update" />
     <MESSAGE value="Firebase push notfication" />
     <MESSAGE value="Update slider" />
     <MESSAGE value="Update projects" />
@@ -1494,6 +1464,7 @@
     <MESSAGE value="code optimized" />
     <MESSAGE value="add pdf and file picker" />
     <MESSAGE value="Implemented profile image Upload" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented profile image Upload" />
+    <MESSAGE value="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized" />
   </component>
 </project>

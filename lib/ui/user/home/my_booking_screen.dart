@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
@@ -129,11 +128,11 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
               backgroundColor: Colors.green,
             ),
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(65),
+              preferredSize: const Size.fromHeight(65),
               child: Container(
                 color: Constants.colors[0],
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: TabBar(
                       isScrollable: true,
                       unselectedLabelColor: Colors.black,
@@ -141,27 +140,21 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                       labelColor: Colors.black,
                       tabs: [
                         Tab(
-                          child: Container(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(Txt.requested_shift),
-                            ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(Txt.requested_shift),
                           ),
                         ),
                         Tab(
-                          child: Container(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(Txt.confirmed_shift),
-                            ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(Txt.confirmed_shift),
                           ),
                         ),
                         Tab(
-                          child: Container(
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(Txt.completed_shift),
-                            ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(Txt.completed_shift),
                           ),
                         ),
                       ]),
@@ -176,8 +169,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                       builder: (BuildContext context,
                           AsyncSnapshot<UserViewRequestResponse> snapshot) {
                         if (snapshot.hasData) {
-                          if (snapshot.data?.response?.data?.items?.length !=
-                              0) {
+                          if (snapshot.data?.response?.data?.items?.length != 0) {
                             return TabBarView(children: [
                               bookingList(0, snapshot),
                               bookingList(1, snapshot),
@@ -221,7 +213,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
         builder: (context) {
           return Center(
             child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -349,7 +341,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                             fontFamily: "SFProMedium",
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         TextInputFileds(
@@ -368,7 +360,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                           keyboadType: TextInputType.none,
                                           isPwd: false,
                                           onChange: (text) {
-                                            print(text);
+                                            debugPrint(text);
                                           },
                                         ),
                                       ],
@@ -378,7 +370,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                             StreamBuilder(
@@ -407,7 +399,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                           Padding(
                             padding:
                                 const EdgeInsets.only(left: 15.0, bottom: 15.0),
-                            child: Container(
+                            child: SizedBox(
                               width: 20.w,
                               child: SubmitButton(
                                   onPressed: () {
@@ -428,7 +420,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                   color2: Constants.colors[4]),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                         ],
@@ -479,14 +471,14 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
 
     if (list.isNotEmpty) {
       return Expanded(
-        child: LiquidPullToRefresh(
+        child: RefreshIndicator(
           onRefresh: () async {
             getDataitems();
           },
           child: ListView.builder(
             itemCount: list.length,
             shrinkWrap: true,
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               var items = list[index];
               return Column(
@@ -522,7 +514,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
               85.width,
               16.height,
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 32),
+                padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Text(Txt.no_shift,
                     style: primaryTextStyle(size: 15),
                     textAlign: TextAlign.center),
@@ -543,8 +535,8 @@ FilterBookingList getFilterList(
   List<Items>? allList = snapshot.data?.response?.data?.items;
   if (null != allList) {
     for (var item in allList) {
-      print("item.status");
-      print(item.status);
+      debugPrint("item.status");
+      debugPrint(item.status);
       if (item.status == Txt.accepted) {
         list.confirmed.add(item);
       }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../Constants/strings.dart';
 import '../../../blocs/manager_completed_approvel.dart';
-import '../../../blocs/shift_timesheet_bloc.dart';
 import '../../../model/manager_timesheet.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
@@ -13,7 +11,6 @@ import '../../Widgets/approve_timesheet_list_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import 'completed_time_sheet_details.dart';
-import 'manager_time_sheet_details.dart';
 
 class CompletedApprovelScreen extends StatefulWidget {
   const CompletedApprovelScreen({Key? key}) : super(key: key);
@@ -70,7 +67,7 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
-          LiquidPullToRefresh(
+          RefreshIndicator(
             onRefresh: () async {
               getData();
             },

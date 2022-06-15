@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
@@ -67,7 +66,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
-          LiquidPullToRefresh(
+          RefreshIndicator(
             onRefresh: () async {
               getData();
             },
