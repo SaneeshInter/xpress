@@ -293,7 +293,6 @@ Future<dynamic> getFile() async {
 }
 
 Future<String?> getDeviceId() async {
-
   var deviceInfo = DeviceInfoPlugin();
   if (Platform.isIOS) { // import 'dart:io'
     var iosDeviceInfo = await deviceInfo.iosInfo;
@@ -302,6 +301,7 @@ Future<String?> getDeviceId() async {
     var androidDeviceInfo = await deviceInfo.androidInfo;
     return androidDeviceInfo.androidId; // unique ID on Android
   }
+  return null;
 
 }
 // get extension of file
@@ -314,6 +314,3 @@ String getExtensionFromUrl(String url) {
   var ext = url.split(".").last;
   return ext;
 }
-
-
-
