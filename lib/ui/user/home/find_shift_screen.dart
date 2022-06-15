@@ -121,10 +121,10 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),
@@ -177,7 +177,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
             );
           } else {
             print("items.hospital");
-            return Container();
+            return const SizedBox();
           }
         },
       );

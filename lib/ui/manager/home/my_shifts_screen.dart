@@ -141,7 +141,7 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                                 snapshot) {
                           if(!snapshot.hasData || null==snapshot.data  || null == snapshot.data?.response?.data?.items)
                             {
-                              return Container();
+                              return const SizedBox();
                             }
                           return buildList(snapshot);
 
@@ -158,10 +158,10 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                         if (snapshot.data!) {
                           return const Center(child: LoadingWidget());
                         } else {
-                          return Container();
+                          return const SizedBox();
                         }
                       } else {
-                        return Container();
+                        return const SizedBox();
                       }
                     },
                   ),

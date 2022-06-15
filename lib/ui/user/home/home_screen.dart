@@ -682,7 +682,7 @@ class _HomeScreentate extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const FindshiftCalendar(),
+                  builder: (context) => const FindShiftCalendar(),
                 ),
               );
             },

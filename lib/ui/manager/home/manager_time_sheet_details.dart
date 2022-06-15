@@ -87,7 +87,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 10),
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width * .4,
                             child: AutoSizeText(
                               Txt.time_sheet,
@@ -114,7 +114,7 @@ width:100.w,
                                         ? InteractiveViewer(
                                             child: CachedNetworkImage(
                                               imageUrl: imageUrl,
-                                              imageBuilder: (context, imageProvider) => Container(
+                                              imageBuilder: (context, imageProvider) => DecoratedBox(
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
                                                     image: imageProvider,
@@ -135,7 +135,7 @@ width:100.w,
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 16, top: 10),
-                                child: Container(
+                                child: SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
@@ -165,7 +165,7 @@ width:100.w,
                 const SizedBox(height: 10),
                 PreferredSize(
                   preferredSize: const Size.fromHeight(65),
-                  child: Container(
+                  child: ColoredBox(
                     color: Constants.colors[0],
                     child: TabBar(
                         unselectedLabelColor: Colors.black,
@@ -206,7 +206,7 @@ width:100.w,
                               null ==
                                   snapshot.data?.response?.data
                                       ?.timeSheetDetails) {
-                            return Container();
+                            return const SizedBox();
                           }
                           return TabBarView(
                               controller:_tabController,children: [
@@ -229,10 +229,10 @@ width:100.w,
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),

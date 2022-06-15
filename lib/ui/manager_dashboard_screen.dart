@@ -26,7 +26,7 @@ class ManagerDashBoard extends StatefulWidget {
 class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   static  final List<Widget> _widgetOptions = <Widget>[
     const ManagerHomeScreen(),
-    const ManagerfindshiftCalendar(),
+    const ManagerFindShiftCalendar(),
     // ManagerShiftsScreen(),
     const ApprovedTimeSheetScreen(),
     const CompletedApprovelScreen(),

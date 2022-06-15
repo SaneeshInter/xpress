@@ -75,14 +75,13 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(
-                            child: SvgPicture.asset(
-                                'assets/images/icon/sunny-day.svg'),
-                          ),
                           flex: 1,
+                          child: SvgPicture.asset(
+                              'assets/images/icon/sunny-day.svg'),
                         ),
-                        Expanded(
-                            child: Container(
+                        const Expanded(
+                            flex: 2,
+                            child: Padding(
                               padding: EdgeInsets.only(left: 15),
                               child: AutoSizeText(
                                 Txt.day,
@@ -92,24 +91,21 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-                            ),
-                            flex: 2),
+                            )),
                         Expanded(
+                            flex: 1,
                             child: Visibility(
                               visible: selectedValue == 1,
-                              child: Container(
-                                child: SvgPicture.asset(
-                                    'assets/images/icon/check.svg'),
-                              ),
-                            ),
-                            flex: 1)
+                              child: SvgPicture.asset(
+                                  'assets/images/icon/check.svg'),
+                            ))
                       ],
                     ),
                   )
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             GestureDetector(
@@ -127,14 +123,12 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(
-                            child:
-                                SvgPicture.asset('assets/images/icon/moon.svg'),
-                          ),
                           flex: 1,
+                          child: SvgPicture.asset('assets/images/icon/moon.svg'),
                         ),
-                        Expanded(
-                            child: Container(
+                        const Expanded(
+                            flex: 2,
+                            child: Padding(
                               padding: EdgeInsets.only(left: 15),
                               child: AutoSizeText(
                                 Txt.night,
@@ -144,24 +138,21 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-                            ),
-                            flex: 2),
+                            )),
                         Expanded(
+                            flex: 1,
                             child: Visibility(
                               visible: selectedValue == 2,
-                              child: Container(
-                                child: SvgPicture.asset(
-                                    'assets/images/icon/check.svg'),
-                              ),
-                            ),
-                            flex: 1)
+                              child: SvgPicture.asset(
+                                  'assets/images/icon/check.svg'),
+                            ))
                       ],
                     ),
                   )
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             GestureDetector(
@@ -179,14 +170,13 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Container(
-                            child: SvgPicture.asset(
-                                'assets/images/icon/turn-off.svg'),
-                          ),
                           flex: 1,
+                          child: SvgPicture.asset(
+                              'assets/images/icon/turn-off.svg'),
                         ),
-                        Expanded(
-                            child: Container(
+                        const Expanded(
+                            flex: 2,
+                            child: Padding(
                               padding: EdgeInsets.only(left: 15),
                               //color: Colors.green,
                               child: AutoSizeText(
@@ -197,17 +187,14 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
-                            ),
-                            flex: 2),
+                            )),
                         Expanded(
+                            flex: 1,
                             child: Visibility(
                               visible: selectedValue == 0,
-                              child: Container(
-                                child: SvgPicture.asset(
-                                    'assets/images/icon/check.svg'),
-                              ),
-                            ),
-                            flex: 1)
+                              child: SvgPicture.asset(
+                                  'assets/images/icon/check.svg'),
+                            ))
                       ],
                     ),
                   )

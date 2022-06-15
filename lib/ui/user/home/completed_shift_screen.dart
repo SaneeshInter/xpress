@@ -238,10 +238,10 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                 if (snapshot.data!) {
                   return const Center(child: LoadingWidget());
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               } else {
-                return Container();
+                return const SizedBox();
               }
             },
           ),
@@ -260,7 +260,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
           Container(
               child: completeBloc.image != null
                   ? Image.file(File(completeBloc.image.path))
-                  : Container()),
+                  : const SizedBox()),
           SizedBox(
             height: 20,
           ),

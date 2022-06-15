@@ -1,173 +1,33 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../blocs/manager_shift_calendar.dart';
 import '../../../eventutil/eventutil.dart';
 import '../../../model/common/manager_shift.dart';
-import '../../../resources/token_provider.dart';
-import '../../../ui/error/ErrorScreen.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
-import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/manager_list_calendar.dart';
 import '../create_shift_screen_update.dart';
 
-class ManagerfindshiftCalendar extends StatefulWidget {
-  const ManagerfindshiftCalendar({Key? key}) : super(key: key);
-
-  @override
-  _FindshiftStates createState() => _FindshiftStates();
-}
-
-class _FindshiftStates extends State<ManagerfindshiftCalendar> {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  int devicePixelRatio = 3;
-  int perPageItem = 3;
-  int pageCount = 0;
-  var token;
-  bool visibility = false;
-  int selectedIndex = 0;
-  int lastPageItemLength = 0;
-  var selected = 0;
-  var itemSelected = 0;
-  late PageController pageController;
-
-  DateTime focusDay = DateTime.now();
-  CalendarFormat format = CalendarFormat.twoWeeks;
-  final ScrollController _controller = ScrollController();
-  DateTime _focusedDay = DateTime.now();
-  DateTime selectedCalenderDay = DateTime.now();
-  final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
-    equals: isSameDay,
-    hashCode: getHashCode,
-  );
-
-  @override
-  void didUpdateWidget(covariant ManagerfindshiftCalendar oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-  }
-
-  Future getData() async {
-    token = await TokenProvider().getToken();
-    if (null != token) {
-      if (await isNetworkAvailable()) {
-        setState(() {
-          visibility = true;
-        });
-        managercalendarBloc.managerGetScheduleByYear(token, "2022");
-      } else {
-        showInternetNotAvailable();
-      }
-    }
-  }
-
-  void showError() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ErrorScreen()),
-    );
-  }
-
-  void observe() {
-    // managercalendarBloc.removeshift.listen((event) {
-    //   var message = event.response?.status?.statusMessage;
-    //   Fluttertoast.showToast(msg: '$message');
-    // });
-
-    managercalendarBloc.removeshift.listen((event) {
-      debugPrint(event.response?.status?.statusCode.toString());
-      setState(() {
-        visibility = false;
-      });
-
-      var message = event.response?.status?.statusMessage;
-      Fluttertoast.showToast(msg: '$message');
-      if (event.response?.status?.statusCode == 200) {
-        getData();
-      }
-    });
-    managercalendarBloc.managercalendar.listen((event) {
-      if (null != event.response?.data) {
-        var itemList = event.response?.data?.item;
-        final Set<DateTime> selectedDay = LinkedHashSet<DateTime>(
-          equals: isSameDay,
-          hashCode: getHashCode,
-        );
-        for (var item in itemList!) {
-          selectedDay.add(DateTime.parse(item.date.toString()));
-        }
-        setState(() {
-          visibility = false;
-          _selectedDays.addAll(selectedDay);
-        });
-        _onDaySelected(selectedCalenderDay, selectedCalenderDay);
-      } else {
-        setState(() {
-          visibility = false;
-        });
-        showError();
-      }
-    });
-  }
-
-  Future<void> showInternetNotAvailable() async {
-    int respo = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
-    );
-    if (respo == 1) {
-      getData();
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    observe();
-    getData();
-    pageController = PageController(initialPage: 0);
-    pageCount = 3;
-  }
-
-  List<Event> _getEventsForDay(DateTime day) {
-    List<Event> eventList = [];
-
-    if (null != managercalendarBloc.itemlListALl) {
-      var itemList = managercalendarBloc.itemlListALl?.where((element) {
-        DateTime itemDay = DateTime.parse(element.date.toString());
-        return isSameDay(itemDay, day);
-      });
-
-      if (itemList!.isNotEmpty) {
-        var listItem = itemList.first;
-        eventList.clear();
-        for (var item in listItem.items!) {
-          eventList.add(Event(item.jobTitle!));
-        }
-      }
-    }
-
-    return eventList;
-  }
+class ManagerFindShiftCalendar extends StatelessWidget {
+  const ManagerFindShiftCalendar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    managercalendarBloc.initState(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        key: scaffoldKey,
+        key: managercalendarBloc.scaffoldKey,
         backgroundColor: Constants.colors[9],
         //backgroundColor: Constants.colors[9],
         body: Stack(
           children: [
             NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverList(
                     delegate: SliverChildListDelegate([
@@ -176,7 +36,11 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+                            padding: const EdgeInsets.only(
+                                left: 10.0,
+                                right: 10.0,
+                                top: 10.0,
+                                bottom: 10.0),
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -187,79 +51,107 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                                   topRight: Radius.circular(20),
                                 ),
                               ),
-                              child: TableCalendar(
-                                focusedDay: _focusedDay,
-                                firstDay: DateTime(2022),
-                                lastDay: DateTime(2050),
-                                calendarFormat: format,
-                                onFormatChanged: (CalendarFormat format) {
-                                  setState(() {
-                                    format = format;
-                                  });
-                                },
-                                onDaySelected: _onDaySelected,
-                                selectedDayPredicate: (day) {
-                                  return _selectedDays.contains(day);
-                                },
-                                calendarBuilders: CalendarBuilders(markerBuilder: (BuildContext context, DateTime datetime, List<Event> list) {
-                                  if (list.isNotEmpty) {
-                                    return Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Container(
-                                              color: Colors.transparent,
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 4),
-                                                child: Text(
-                                                  "${list.length} Shift",
-                                                  style: TextStyle(fontSize: 7.sp, color: Constants.colors[38], fontWeight: FontWeight.w600),
-                                                ),
-                                              )),
+                              child: StreamBuilder(
+                                stream: managercalendarBloc.managercalendar,
+                                builder: (context, snapshot) {
+                                  return StreamBuilder(
+                                    stream: managercalendarBloc.visible,
+                                    builder: (context, snapshot) {
+                                      return TableCalendar(
+                                        focusedDay: managercalendarBloc.focusedDay,
+                                        firstDay: DateTime(2022),
+                                        lastDay: DateTime(2050),
+                                        calendarFormat: managercalendarBloc.format,
+                                        onFormatChanged: (CalendarFormat format) {
+                                            managercalendarBloc.update(format);
+                                        },
+                                        onDaySelected:
+                                        managercalendarBloc.onDaySelected,
+                                        selectedDayPredicate: (day) {
+                                          return managercalendarBloc.selectedDays
+                                              .contains(day);
+                                        },
+                                        calendarBuilders: CalendarBuilders(
+                                            markerBuilder: (BuildContext context,
+                                                DateTime datetime, List<Event> list) {
+                                              if (list.isNotEmpty) {
+                                                return Stack(
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment.topCenter,
+                                                      child: Container(
+                                                          color: Colors.transparent,
+                                                          child: Padding(
+                                                            padding:
+                                                            const EdgeInsets.symmetric(
+                                                                horizontal: 4),
+                                                            child: Text(
+                                                              "${list.length} Shift",
+                                                              style: TextStyle(
+                                                                  fontSize: 7.sp,
+                                                                  color:
+                                                                  Constants.colors[38],
+                                                                  fontWeight:
+                                                                  FontWeight.w600),
+                                                            ),
+                                                          )),
+                                                    ),
+                                                  ],
+                                                );
+                                              }
+                                            }),
+                                        eventLoader:
+                                        managercalendarBloc.getEventsForDay,
+                                        startingDayOfWeek: StartingDayOfWeek.sunday,
+                                        daysOfWeekVisible: true,
+                                        headerStyle: const HeaderStyle(
+                                          formatButtonVisible: false,
+                                          titleCentered: true,
                                         ),
-                                      ],
-                                    );
-                                  }
-                                }),
-                                eventLoader: _getEventsForDay,
-                                startingDayOfWeek: StartingDayOfWeek.sunday,
-                                daysOfWeekVisible: true,
-                                headerStyle: const HeaderStyle(
-                                  formatButtonVisible: false,
-                                  titleCentered: true,
-                                ),
-                                calendarStyle: CalendarStyle(
-                                  isTodayHighlighted: true,
-                                  markerSize: 4,
-                                  cellMargin: const EdgeInsets.all(11),
-                                  canMarkersOverflow: false,
-                                  markersAutoAligned: true,
-                                  disabledDecoration: const BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                  ),
-                                  holidayDecoration: const BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                  ),
-                                  todayDecoration: const BoxDecoration(
-                                    color: Color(0xFF1CB34F),
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                  ),
-                                  defaultDecoration: const BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                  ),
-                                  selectedDecoration: BoxDecoration(
-                                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-                                      Constants.colors[4],
-                                      Constants.colors[3],
-                                    ]),
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                                  ),
-                                ),
+                                        calendarStyle: CalendarStyle(
+                                          isTodayHighlighted: true,
+                                          markerSize: 4,
+                                          cellMargin: const EdgeInsets.all(11),
+                                          canMarkersOverflow: false,
+                                          markersAutoAligned: true,
+                                          disabledDecoration: const BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(5.0)),
+                                          ),
+                                          holidayDecoration: const BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(5.0)),
+                                          ),
+                                          todayDecoration: const BoxDecoration(
+                                            color: Color(0xFF1CB34F),
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(5.0)),
+                                          ),
+                                          defaultDecoration: const BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(5.0)),
+                                          ),
+                                          selectedDecoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Constants.colors[4],
+                                                  Constants.colors[3],
+                                                ]),
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: const BorderRadius.all(
+                                                Radius.circular(5.0)),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  );
+                                }
                               ),
                             ),
                           ),
@@ -276,53 +168,71 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
                       padding: const EdgeInsets.all(10.0),
                       child: StreamBuilder(
                           stream: managercalendarBloc.filtered,
-                          builder: (BuildContext context, AsyncSnapshot<List<Items>> snapshot) {
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Items>> snapshot) {
                             if (snapshot.hasData) {
-                              return ListView.builder(
-                                itemCount: snapshot.data?.length,
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  var items = snapshot.data![index];
-                                  if (null != items) {
-                                    return Column(
-                                      children: [
-                                        ManagerListCalenderWidget(
-                                          items: items,
-                                          onTapView: () {},
-                                          key: null,
-                                          onTapEdit: (item) {
-                                            print(item);
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => CreateShiftScreenUpdate(
-                                                          shiftItem: items,
-                                                        ))).then((value) => getData());
-                                          },
-                                          onTapDelete: (rowId) {
-                                            print(rowId);
-                                            setState(() {
-                                              visibility = true;
-                                            });
-                                            deleteShift(rowId);
-                                          },
-                                          onTapBook: () {},
-                                          onTapViewMap: () {},
-                                        ),
-                                        SizedBox(height: screenHeight(context, dividedBy: 100)),
-                                      ],
-                                    );
-                                  } else {
-                                    debugPrint("items.hospital");
-
-                                    return Container();
-                                  }
+                              return NotificationListener<OverscrollIndicatorNotification>(
+                                onNotification: (overScroll) {
+                                  overScroll.disallowIndicator();
+                                  return false;
                                 },
+                                child: RefreshIndicator(
+                                  onRefresh: () async {
+                                    managercalendarBloc.getData(context);
+                                  },
+                                  child: ListView.builder(
+                                    itemCount: snapshot.data?.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      var items = snapshot.data![index];
+                                      if (null != items) {
+                                        return Column(
+                                          children: [
+                                            ManagerListCalenderWidget(
+                                              items: items,
+                                              onTapView: () {},
+                                              key: null,
+                                              onTapEdit: (item) {
+                                                print(item);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            CreateShiftScreenUpdate(
+                                                              shiftItem: items,
+                                                            ))).then((value) =>
+                                                    managercalendarBloc
+                                                        .getData(context));
+                                              },
+                                              onTapDelete: (rowId) {
+                                                print(rowId);
+
+                                                  // managercalendarBloc.visibility=true;
+
+                                                managercalendarBloc
+                                                    .deleteShift(rowId);
+                                              },
+                                              onTapBook: () {},
+                                              onTapViewMap: () {},
+                                            ),
+                                            SizedBox(
+                                                height: screenHeight(context,
+                                                    dividedBy: 100)),
+                                          ],
+                                        );
+                                      } else {
+                                        debugPrint("items.hospital");
+
+                                        return const SizedBox();
+                                      }
+                                    },
+                                  ),
+                                ),
                               );
                             } else if (snapshot.hasError) {
                               return Text(snapshot.error.toString());
                             }
-                            return Container();
+                            return const SizedBox();
                           }),
                     ),
                   ),
@@ -333,15 +243,19 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
               ),
             ),
             Center(
-              child: Visibility(
-                visible: visibility,
-                child: SizedBox(
-                  width: 100.w,
-                  height: 80.h,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                ),
+              child: StreamBuilder(
+                stream: managercalendarBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return const SizedBox();
+                    }
+                  } else {
+                    return const SizedBox();
+                  }
+                },
               ),
             ),
             const SizedBox(
@@ -355,27 +269,32 @@ class _FindshiftStates extends State<ManagerfindshiftCalendar> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CreateShiftScreenUpdate()),
-            ).then((value) => getData());
+              MaterialPageRoute(
+                  builder: (context) => const CreateShiftScreenUpdate()),
+            ).then((value) => managercalendarBloc.getData(context));
           },
           child: const Icon(Icons.add),
         ),
       ),
     );
   }
-
-  Future deleteShift(rowId) async {
-    String? token = await TokenProvider().getToken();
-    managercalendarBloc.fetchRemoveManager(token!, rowId.toString());
-  }
-
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    setState(() {
-      _focusedDay = focusedDay;
-      selectedCalenderDay = focusedDay;
-      debugPrint("selectedDay");
-      debugPrint(selectedDay.toString());
-      managercalendarBloc.filterItemByDates(selectedDay);
-    });
-  }
 }
+
+
+
+// class ManagerfindshiftCalendar extends StatefulWidget {
+//   const ManagerfindshiftCalendar({Key? key}) : super(key: key);
+//
+//   @override
+//   _FindshiftStates createState() => _FindshiftStates();
+// }
+//
+// class _FindshiftStates extends State<ManagerfindshiftCalendar> {
+//   // @override
+//   // void didUpdateWidget(covariant ManagerfindshiftCalendar oldWidget) {
+//   //   // TODO: implement didUpdateWidget
+//   //   super.didUpdateWidget(oldWidget);
+//   // }
+//
+//
+// }

@@ -324,7 +324,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                             snapshot.data
                                                                     ?.length ==
                                                                 0) {
-                                                          return Container();
+                                                          return const SizedBox();
                                                         }
 
                                                         return DropdownButtonFormField(
@@ -424,7 +424,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                 snapshot.data
                                                                         ?.length ==
                                                                     0) {
-                                                              return Container();
+                                                              return const SizedBox();
                                                             }
 
                                                             return DropdownButtonFormField(
@@ -516,7 +516,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                 snapshot.data
                                                                         ?.length ==
                                                                     0) {
-                                                              return Container();
+                                                              return const SizedBox();
                                                             }
 
                                                             return DropdownButtonFormField(
@@ -811,10 +811,10 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),

@@ -89,7 +89,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
                                   null ==
                                       snapshot.data?.response?.data
                                           ?.timeSheetInfo) {
-                                return Container();
+                                return const SizedBox();
                               }
                               return buildList(snapshot);
                             })
@@ -106,10 +106,10 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),

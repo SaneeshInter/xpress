@@ -174,7 +174,7 @@ class _CompletedShiftState extends State<CompletedShift> {
                         } else if (snapshot.hasError) {
                           return Text(snapshot.error.toString());
                         }
-                        return Container();
+                        return const SizedBox();
                       }),
                   SizedBox(
                     height: 10,
@@ -190,10 +190,10 @@ class _CompletedShiftState extends State<CompletedShift> {
                     if (snapshot.data!) {
                       return const Center(child: LoadingWidget());
                     } else {
-                      return Container();
+                      return const SizedBox();
                     }
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),

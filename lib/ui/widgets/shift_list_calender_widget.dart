@@ -126,11 +126,19 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
-                if (widget.items.if_requested! == 0)
+                (widget.items.if_requested! == 0)?
                   BookButton(
                     label: Txt.request_now,
                     onPressed: () {
                       widget.onTapBook(widget.items);
+                      print("Tapped");
+                    },
+                    key: null,
+                  ): BookButton(
+                    label: Txt.requested,
+                    isEnabled: true,
+                    onPressed: () {
+                      // widget.onTapBook(widget.items);
                       print("Tapped");
                     },
                     key: null,

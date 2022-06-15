@@ -159,6 +159,7 @@ class Txt {
   static const empty_shifts = 'Empty Shifts';
   static const no_shift = 'There are no shift found.';
   static const request_now = "Request Now";
+  static const requested = "Requested";
 
   static const profile = "Profile";
   static const emp_no = "Emp No :";

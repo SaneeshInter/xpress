@@ -30,7 +30,7 @@ class ProfileDetailCard extends StatelessWidget {
       borderRadius: AppDefaults.borderRadius,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: AppDefaults.borderRadius,
             boxShadow: const [

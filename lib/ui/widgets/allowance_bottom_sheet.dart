@@ -166,10 +166,10 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                             },
                           );
                         } else {
-                          return Container();
+                          return const SizedBox();
                         }
                       } else {
-                        return Container();
+                        return const SizedBox();
                       }
                     },
                   ),

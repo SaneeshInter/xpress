@@ -176,7 +176,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                     } else if (snapshot.hasError) {
                       return Text(snapshot.error.toString());
                     }
-                    return Container();
+                    return const SizedBox();
                   }),
             ]),
           ),
@@ -187,10 +187,10 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
                 if (snapshot.data!) {
                   return const Center(child: LoadingWidget());
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               } else {
-                return Container();
+                return const SizedBox();
               }
             },
           ),

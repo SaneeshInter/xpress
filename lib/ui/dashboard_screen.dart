@@ -59,7 +59,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    FindshiftCalendar(),
+    FindShiftCalendar(),
     MyBookingScreen(),
     AvailabilityListScreen(),
     CompletedShiftScreen(),

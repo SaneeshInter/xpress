@@ -27,7 +27,7 @@ class _CustomRowState extends State<ProfileDocRow> {
   Widget build(BuildContext context) {
     print("widget.url");
     print(widget.url);
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         boxShadow: const [
@@ -101,7 +101,7 @@ class _CustomRowState extends State<ProfileDocRow> {
                           File(widget.image),
                           fit: BoxFit.cover,
                         )
-                      : Container()),
+                      : const SizedBox()),
           ],
         ),
       ),

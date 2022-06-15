@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               ClipRRect(
                                 borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                child: Container(
+                                child: ColoredBox(
                                   color: Colors.white,
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         // Platform.isIOS ? AppleSignInButton(
                                         // //style: ButtonStyle.black,
                                         // type: ButtonType.continueButton,
-                                        // onPressed: appleLogIn,):Container(),
+                                        // onPressed: appleLogIn,):const SizedBox(),
                                       ],
                                     ),
                                   ),
@@ -183,10 +183,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (snapshot.data!) {
                       return const Center(child: LoadingWidget());
                     } else {
-                      return Container();
+                      return const SizedBox();
                     }
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),

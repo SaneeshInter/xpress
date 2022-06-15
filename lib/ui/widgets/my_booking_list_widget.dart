@@ -68,7 +68,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 70.w,
                           child: AutoSizeText.rich(
                             TextSpan(

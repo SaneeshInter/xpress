@@ -187,7 +187,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                         } else if (snapshot.hasError) {
                           return Text(snapshot.error.toString());
                         }
-                        return Container();
+                        return const SizedBox();
                       }),
                 ),
                 StreamBuilder(
@@ -197,10 +197,10 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                       if (snapshot.data!) {
                         return const Center(child: LoadingWidget());
                       } else {
-                        return Container();
+                        return const SizedBox();
                       }
                     } else {
-                      return Container();
+                      return const SizedBox();
                     }
                   },
                 ),
@@ -387,7 +387,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                   AsyncSnapshot<dynamic> snapshot) {
                                 if(!snapshot.hasData)
                                   {
-                                    return Container();
+                                    return const SizedBox();
                                   }
                                 return Padding(
                                   padding: const EdgeInsets.only(

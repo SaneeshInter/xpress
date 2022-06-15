@@ -82,7 +82,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 10),
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width * .4,
                             child: AutoSizeText(
                               Txt.time_sheet,
@@ -103,13 +103,13 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Center(
-                                child: Container(
+                                child: SizedBox(
                                     height: 60.h,
                                     child: imageUrl != null
                                         ? InteractiveViewer(
                                             child: CachedNetworkImage(
                                               imageUrl: imageUrl,
-                                              imageBuilder: (context, imageProvider) => Container(
+                                              imageBuilder: (context, imageProvider) => DecoratedBox(
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
                                                     image: imageProvider,
@@ -130,7 +130,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 16, top: 10),
-                                child: Container(
+                                child: SizedBox(
                                   width: MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
                                     Txt.shifts,
@@ -159,27 +159,25 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                 const SizedBox(height: 10),
                 Flexible(
                   fit: FlexFit.loose,
-                  child: Container(
-                    child: StreamBuilder(
-                        stream: completedTimesheetBloc.timesheetdetails,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<ManagerTimeDetailsResponse>
-                                snapshot) {
-                          if (!snapshot.hasData ||
-                              null == snapshot.data ||
-                              null ==
-                                  snapshot
-                                      .data?.response?.data?.timeSheetDetails) {
-                            return Container();
-                          }
-                          return buildList(snapshot);
-                        }),
-                  ),
+                  child: StreamBuilder(
+                      stream: completedTimesheetBloc.timesheetdetails,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<ManagerTimeDetailsResponse>
+                              snapshot) {
+                        if (!snapshot.hasData ||
+                            null == snapshot.data ||
+                            null ==
+                                snapshot
+                                    .data?.response?.data?.timeSheetDetails) {
+                          return const SizedBox();
+                        }
+                        return buildList(snapshot);
+                      }),
                 ),
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: 100.w,
             height: 70.h,
             child: StreamBuilder(
@@ -189,10 +187,10 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),
@@ -232,7 +230,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
             ],
           );
         } else {
-          return Container();
+          return const SizedBox();
         }
       },
     );

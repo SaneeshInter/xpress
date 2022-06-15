@@ -92,7 +92,7 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
                                   null ==
                                       snapshot.data?.response?.data
                                           ?.timeSheetInfo) {
-                                return Container();
+                                return const SizedBox();
                               }
                               return buildList(snapshot);
                             })
@@ -109,10 +109,10 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),
