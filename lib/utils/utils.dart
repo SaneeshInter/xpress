@@ -294,6 +294,8 @@ String getExtensionFromUrl(String url) {
   return ext;
 }
 
+//get Device id android and ios
+
 
 
 //
