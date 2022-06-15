@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,6 @@ import '../../../model/manager_get_time.dart';
 import '../../../model/manager_timesheet.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/utils.dart';
-import '../../Widgets/buttons/book_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/timesheet_details_list_widget.dart';
 
@@ -110,11 +107,12 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Center(
-                                child: SizedBox(
-width:100.w,
+                                child: Container(     height: 60.h,
+
                                     child: imageUrl != null
                                         ? InteractiveViewer(
                                             child: CachedNetworkImage(
+                                              useOldImageOnUrlChange: false,
                                               imageUrl: imageUrl,
                                               imageBuilder: (context, imageProvider) => Container(
                                                 decoration: BoxDecoration(
