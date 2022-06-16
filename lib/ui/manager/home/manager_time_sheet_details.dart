@@ -24,8 +24,7 @@ class ManagerTimeSheetDetails extends StatefulWidget {
   _CreateShiftState createState() => _CreateShiftState();
 }
 
-class _CreateShiftState extends State<ManagerTimeSheetDetails>
-    with SingleTickerProviderStateMixin {
+class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   var scrollController = ScrollController();
 
@@ -58,6 +57,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
       createApproveData(event);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     String? imageUrl = widget.item?.timeSheetLink;
@@ -68,15 +68,13 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
           timesheetBloc.approveTimeSheet();
         },
         label: const Text(Txt.approve),
-
         backgroundColor: Colors.green,
       ),
       body: Stack(
         children: [
           NestedScrollView(
             controller: scrollController,
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate([
@@ -101,14 +99,13 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.only(
-                              left: 5, right: 5, top: 10),
+                          padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Center(
-                                child: Container(     height: 60.h,
-
+                                child: SizedBox(
+                                    height: 60.h,
                                     child: imageUrl != null
                                         ? InteractiveViewer(
                                             child: CachedNetworkImage(
@@ -130,14 +127,11 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                                             height: 10,
                                             color: Colors.red,
                                           )),
-
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 16, top: 10),
+                                padding: const EdgeInsets.only(left: 16, top: 10),
                                 child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * .4,
+                                  width: MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
                                     Txt.shifts,
                                     maxLines: 1,
@@ -167,29 +161,24 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                   preferredSize: const Size.fromHeight(65),
                   child: Container(
                     color: Constants.colors[0],
-                    child: TabBar(
-                        unselectedLabelColor: Colors.black,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        labelColor: Colors.black,
-                        controller: _tabController,
-                        tabs: [
-                          Tab(
-                            child: Container(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(Txt.pending),
-                              ),
-                            ),
+                    child: TabBar(unselectedLabelColor: Colors.black, indicatorSize: TabBarIndicatorSize.tab, labelColor: Colors.black, controller: _tabController, tabs: [
+                      Tab(
+                        child: Container(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(Txt.pending),
                           ),
-                          Tab(
-                            child: Container(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(Txt.completed),
-                              ),
-                            ),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(Txt.completed),
                           ),
-                        ]),
+                        ),
+                      ),
+                    ]),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -198,18 +187,11 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                   child: Container(
                     child: StreamBuilder(
                         stream: timesheetBloc.timesheetdetails,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<ManagerTimeDetailsResponse>
-                                snapshot) {
-                          if (!snapshot.hasData ||
-                              null == snapshot.data ||
-                              null ==
-                                  snapshot.data?.response?.data
-                                      ?.timeSheetDetails) {
+                        builder: (BuildContext context, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
+                          if (!snapshot.hasData || null == snapshot.data || null == snapshot.data?.response?.data?.timeSheetDetails) {
                             return Container();
                           }
-                          return TabBarView(
-                              controller:_tabController,children: [
+                          return TabBarView(controller: _tabController, children: [
                             bookingList(0, snapshot),
                             bookingList(1, snapshot),
                           ]);
@@ -242,17 +224,14 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
     );
   }
 
-  Widget bookingList(
-      int position, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
+  Widget bookingList(int position, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
     return buildList(snapshot, position);
   }
 
-  FilterShiftList getFilterList(
-      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
+  FilterShiftList getFilterList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
     FilterShiftList list = FilterShiftList();
 
-    List<TimeSheetDetails>? allList =
-        snapshot.data?.response?.data?.timeSheetDetails;
+    List<TimeSheetDetails>? allList = snapshot.data?.response?.data?.timeSheetDetails;
     if (null != allList) {
       for (var item in allList) {
         if (item.time_sheet_detail_status == 0) {
@@ -265,8 +244,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
     return list;
   }
 
-  Widget buildList(
-      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
+  Widget buildList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
     var allList = getFilterList(snapshot, position);
     var list = [];
     if (position == 0) {
@@ -281,11 +259,10 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
       shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
-
-          TimeSheetDetails? timeSheetDetails = list[index];
-          return Column(
-            children: [
-              if(null!=timeSheetDetails)
+        TimeSheetDetails? timeSheetDetails = list[index];
+        return Column(
+          children: [
+            if (null != timeSheetDetails)
               TimeSheetDetailsListWidget(
                 items: timeSheetDetails,
                 index: index,
@@ -300,13 +277,13 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                   timesheetBloc.approveData[index].comment = comment;
                 },
               ),
-              SizedBox(height: screenHeight(context, dividedBy: 100)),
-            ],
-          );
-
+            SizedBox(height: screenHeight(context, dividedBy: 100)),
+          ],
+        );
       },
     );
   }
+
   void createApproveData(ManagerTimeDetailsResponse event) {
     var listItem = event.response?.data?.timeSheetDetails;
     if (null != listItem) {

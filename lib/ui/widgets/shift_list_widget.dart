@@ -77,7 +77,7 @@ class _HomePageCardState extends State<ShiftListWidget> {
                     style: TextStyle(fontSize: 13, color: Constants.colors[3], fontWeight: FontWeight.w500),
                   ),
               ]),
-              Spacer(),
+              const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -111,7 +111,7 @@ class _HomePageCardState extends State<ShiftListWidget> {
                   key: null,
                 ),
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
-                Spacer(),
+                const Spacer(),
                 if (widget.items.type == "Premium")
                   Container(
                       width: 7.w,
