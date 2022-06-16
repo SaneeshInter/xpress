@@ -57,12 +57,12 @@ class _DashBoardWidgetState extends State<DashBoard> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    FindShiftCalendar(),
-    MyBookingScreen(),
-    AvailabilityListScreen(),
-    CompletedShiftScreen(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const HomeScreen(),
+    const FindShiftCalendar(),
+    const MyBookingScreen(),
+    const AvailabilityListScreen(),
+    const CompletedShiftScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -182,7 +182,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
         ),
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: ItemAnimationProperties(
+        itemAnimationProperties: const ItemAnimationProperties(
           duration: Duration(milliseconds: 200),
           curve: Curves.ease,
         ),

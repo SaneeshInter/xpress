@@ -119,11 +119,15 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: <Widget>[
-                  const Text("Select source",
-                      style: TextStyle(
-                          fontSize: 18,
+                  const Padding(
+                    padding: EdgeInsets.only(top: 14.0),
+                    child: Text("Select source",
+                        style: TextStyle(
+                            fontSize: 18,
 
-                          color: Colors.black)),
+                            color: Colors.black)),
+                  ),
+                  const Spacer(),
                   ListTile(
                     onTap: () async {
                       Navigator.pop(context);
@@ -281,7 +285,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                       imageUri != "" &&
                       null == _image)
                     SizedBox(
-                        height: 65.h,
+                        height: 60.h,
                         width: 100.w,
                         child: imageUri != null
                             ?getExtensionFromUrl(imageUri)=="pdf"?PdfView(
@@ -322,7 +326,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                             : const SizedBox()),
                   if (null != _image)
                     SizedBox(
-                        height: 65.h,
+                        height: 60.h,
                         width: 100.w,
                         child: _image != null
                             ?getExtension(_image.path.toString())=="pdf"?PdfView(

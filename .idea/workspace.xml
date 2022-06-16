@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator">
+    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="code optimized">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/my_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/my_shift_calendar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/profile_edit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/profile_edit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/imageupload/upload_documents.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/imageupload/upload_documents.dart" afterDir="false" />
     </list>
     <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
       <change afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
@@ -1035,6 +1039,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="flutter.view.tool.window.visible" value="true" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images/icon" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -1064,13 +1069,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650947288890</updated>
-    </task>
-    <task id="LOCAL-00006" summary="release build to client">
-      <created>1652072002151</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1652072002151</updated>
     </task>
     <task id="LOCAL-00007" summary="Pre release">
       <created>1652099780443</created>
@@ -1408,7 +1406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655299340341</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="code optimized">
+      <created>1655355021653</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1655355021653</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -1455,11 +1460,11 @@
     <MESSAGE value="Empty screen widget&#10;Availability screen setstate removed &#10;Time sheet setstate removed" />
     <MESSAGE value="Format all package name in import&#10;Change package : image_picker_gallery_camera: ^0.2.2 → image_picker: ^0.8.5+3" />
     <MESSAGE value="Change : FadeInImage → package: cached_network_image: ^3.2.1" />
-    <MESSAGE value="code optimized" />
     <MESSAGE value="add pdf and file picker" />
     <MESSAGE value="Implemented profile image Upload" />
     <MESSAGE value="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized" />
     <MESSAGE value="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator" />
+    <MESSAGE value="code optimized" />
+    <option name="LAST_COMMIT_MESSAGE" value="code optimized" />
   </component>
 </project>

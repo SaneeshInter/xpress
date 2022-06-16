@@ -119,14 +119,14 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
         child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Constants.colors[9],
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                getDataitems();
-              },
-              label: const Text(Txt.refresh),
-              icon: const Icon(Icons.refresh),
-              backgroundColor: Colors.green,
-            ),
+            // floatingActionButton: FloatingActionButton.extended(
+            //   onPressed: () {
+            //     getDataitems();
+            //   },
+            //   label: const Text(Txt.refresh),
+            //   icon: const Icon(Icons.refresh),
+            //   backgroundColor: Colors.green,
+            // ),
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(65),
               child: Container(
@@ -163,25 +163,23 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
             ),
             body: Stack(
               children: [
-                Container(
-                  child: StreamBuilder(
-                      stream: confirmBloc.viewrequest,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<UserViewRequestResponse> snapshot) {
-                        if (snapshot.hasData) {
-                          if (snapshot.data?.response?.data?.items?.length != 0) {
-                            return TabBarView(children: [
-                              bookingList(0, snapshot),
-                              bookingList(1, snapshot),
-                              bookingList(2, snapshot),
-                            ]);
-                          }
-                        } else if (snapshot.hasError) {
-                          return Text(snapshot.error.toString());
+                StreamBuilder(
+                    stream: confirmBloc.viewrequest,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data?.response?.data?.items?.length != 0) {
+                          return TabBarView(children: [
+                            bookingList(0, snapshot),
+                            bookingList(1, snapshot),
+                            bookingList(2, snapshot),
+                          ]);
                         }
-                        return const SizedBox();
-                      }),
-                ),
+                      } else if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      }
+                      return const SizedBox();
+                    }),
                 StreamBuilder(
                   stream: confirmBloc.visible,
                   builder: (context, AsyncSnapshot<bool> snapshot) {
@@ -225,54 +223,52 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10)),
+                          ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 11.w,
+                              color: Constants.colors[20],
                               child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 11.w,
-                                color: Constants.colors[20],
-                                child: Container(
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 4,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(Txt.add_time_sheet,
-                                              style: TextStyle(
-                                                fontSize: 13.sp,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "SFProMedium",
-                                              )),
-                                        ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 4,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(Txt.add_time_sheet,
+                                            style: TextStyle(
+                                              fontSize: 13.sp,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "SFProMedium",
+                                            )),
                                       ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Container(
-                                            child: SvgPicture.asset(
-                                              "assets/images/icon/close.svg",
-                                              height: 3.w,
-                                              width: 3.w,
-                                              color: Constants.colors[0],
-                                            ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(
+                                          child: SvgPicture.asset(
+                                            "assets/images/icon/close.svg",
+                                            height: 3.w,
+                                            width: 3.w,
+                                            color: Constants.colors[0],
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Form(
@@ -300,7 +296,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                                 fontFamily: "SFProMedium",
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             TextInputFileds(
@@ -469,63 +465,92 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
       list = allList.completed;
     }
 
-    if (list.isNotEmpty) {
+    // if (list.isNotEmpty) {
       return Expanded(
         child: RefreshIndicator(
           onRefresh: () async {
             getDataitems();
           },
-          child: ListView.builder(
-            itemCount: list.length,
-            shrinkWrap: true,
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              var items = list[index];
-              return Column(
-                children: [
-                  MyBookingListWidget(
-                    items: items!,
-                    position: 12,
-                    onTapView: (item) {
-                      showTimeUpdateAlert(context, item);
-                    },
-                    onTapCancel: (item) {
-                      cancelJob(items);
-                    },
-                    onTapCall: () {},
-                    onTapMap: () {},
-                    onTapBooking: () {},
-                    key: null,
+          child: SingleChildScrollView(
+            child:list.isNotEmpty?
+            ListView.builder(
+              itemCount: list.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                var items = list[index];
+                return Column(
+                  children: [
+                    MyBookingListWidget(
+                      items: items!,
+                      position: 12,
+                      onTapView: (item) {
+                        showTimeUpdateAlert(context, item);
+                      },
+                      onTapCancel: (item) {
+                        cancelJob(items);
+                      },
+                      onTapCall: () {},
+                      onTapMap: () {},
+                      onTapBooking: () {},
+                      key: null,
+                    ),
+                  ],
+                );
+              },
+            )
+                : SizedBox(
+              width: 100.w,
+                  child: Column(
+              children: [
+                  20.height,
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
+                      100.width,
+                      16.height,
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Text(Txt.no_shift,
+                            style: primaryTextStyle(size: 15),
+                            textAlign: TextAlign.center),
+                      ),
+                    ],
                   ),
-                ],
-              );
-            },
+                  100.height,
+                  Image.asset('assets/images/error/empty_task.png', height: 250),
+                  const SizedBox(height: 250,)
+              ],
+            ),
+                ),
           ),
         ),
       );
-    } else {
-      return Column(
-        children: [
-          20.height,
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
-              85.width,
-              16.height,
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Text(Txt.no_shift,
-                    style: primaryTextStyle(size: 15),
-                    textAlign: TextAlign.center),
-              ),
-            ],
-          ),
-          100.height,
-          Image.asset('assets/images/error/empty_task.png', height: 250),
-        ],
-      );
-    }
+    // } else {
+    //   return Column(
+    //     children: [
+    //       20.height,
+    //       Column(
+    //         mainAxisAlignment: MainAxisAlignment.start,
+    //         children: [
+    //           Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
+    //           85.width,
+    //           16.height,
+    //           Container(
+    //             padding: const EdgeInsets.symmetric(horizontal: 32),
+    //             child: Text(Txt.no_shift,
+    //                 style: primaryTextStyle(size: 15),
+    //                 textAlign: TextAlign.center),
+    //           ),
+    //         ],
+    //       ),
+    //       100.height,
+    //       Image.asset('assets/images/error/empty_task.png', height: 250),
+    //     ],
+    //   );
+    // }
   }
 }
 

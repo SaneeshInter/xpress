@@ -103,16 +103,20 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         context: context,
         builder: (BuildContext bc) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: MediaQuery.of(context).size.height * 0.3,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: <Widget>[
-                  const Text("Select source",
-                      style: TextStyle(
-                          fontSize: 18,
+                  const Padding(
+                    padding: EdgeInsets.only(top: 14.0),
+                    child: Text("Select source",
+                        style: TextStyle(
+                            fontSize: 18,
 
-                          color: Colors.black)),
+                            color: Colors.black)),
+                  ),
+                  const Spacer(),
                   ListTile(
                     onTap: () async {
                       Navigator.pop(context);

@@ -135,222 +135,216 @@ class _ProfileState extends State<ProfileScreen> {
         child: Stack(
           children: [
             SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: StreamBuilder<UserGetResponse>(
-                        stream: profileBloc.getProfileStream,
-                        builder:
-                            (context, AsyncSnapshot<UserGetResponse> snapshot) {
-                          if (snapshot.hasData) {
-                            var data = snapshot.data?.response?.data;
-                            String? firstName = data?.items?[0].firstName;
-                            String? lastName = data?.items?[0].lastName;
-                            String? employeeNo = data?.items?[0].employeeNo;
-                            String? profileImage = "";
-                            profileImage = data?.items?[0].profileSrc;
-                            String? categroy = data?.items?[0].userType;
-                            String? hourlyRate =
-                                data?.items?[0].hourlyRate.toString();
-                            Items? item = data?.items?[0];
-                            String? fullName = firstName.toString() +
-                                " " +
-                                lastName.toString();
-                            return Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (null != data)
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: [
-                                                Constants.colors[31],
-                                                Constants.colors[32],
-                                              ]),
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      padding: const EdgeInsets.all(
-                                        AppDefaults.padding,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.12,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.22),
-                                                  child: AspectRatio(
-                                                    aspectRatio: 1 / 1,
-                                                    child: Stack(
-                                                      children: [
-                                                        if (profileImage ==
-                                                                "" ||
-                                                            null ==
-                                                                profileImage)
-                                                          Image.asset(
-                                                            'assets/images/icon/man_ava.png',
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                        if (profileImage !=
-                                                                "" &&
-                                                            null !=
-                                                                profileImage)
-                                                          Image.network(
-                                                            profileImage,
-                                                            fit: BoxFit.fill,
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.22,
-                                                            height: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.22,
-                                                          ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                  width: AppDefaults.margin),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: StreamBuilder<UserGetResponse>(
+                    stream: profileBloc.getProfileStream,
+                    builder:
+                        (context, AsyncSnapshot<UserGetResponse> snapshot) {
+                      if (snapshot.hasData) {
+                        var data = snapshot.data?.response?.data;
+                        String? firstName = data?.items?[0].firstName;
+                        String? lastName = data?.items?[0].lastName;
+                        String? employeeNo = data?.items?[0].employeeNo;
+                        String? profileImage = "";
+                        profileImage = data?.items?[0].profileSrc;
+                        String? categroy = data?.items?[0].userType;
+                        String? hourlyRate =
+                            data?.items?[0].hourlyRate.toString();
+                        Items? item = data?.items?[0];
+                        String? fullName = firstName.toString() +
+                            " " +
+                            lastName.toString();
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (null != data)
+                              Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Constants.colors[31],
+                                          Constants.colors[32],
+                                        ]),
+                                    borderRadius:
+                                        BorderRadius.circular(20)),
+                                padding: const EdgeInsets.all(
+                                  AppDefaults.padding,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.12,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.22),
+                                            child: AspectRatio(
+                                              aspectRatio: 1 / 1,
+                                              child: Stack(
                                                 children: [
-                                                  if (fullName != null)
-                                                    Text(
-                                                      fullName,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16.sp,
-                                                          fontFamily:
-                                                              "SFProMedium",
-                                                          fontWeight:
-                                                              FontWeight.w500),
+                                                  if (profileImage ==
+                                                          "" ||
+                                                      null ==
+                                                          profileImage)
+                                                    Image.asset(
+                                                      'assets/images/icon/man_ava.png',
+                                                      fit: BoxFit.fill,
                                                     ),
-                                                  const SizedBox(height: 5),
-                                                  if (null != categroy)
-                                                    Text(
-                                                      categroy,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 11.sp,
-                                                          fontFamily: "S",
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                  const SizedBox(height: 5),
-                                                  if (employeeNo != null)
-                                                    Text(
-                                                      Txt.emp_no + employeeNo,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 10.sp,
-                                                          fontFamily: "S",
-                                                          fontWeight:
-                                                              FontWeight.w400),
+                                                  if (profileImage !=
+                                                          "" &&
+                                                      null !=
+                                                          profileImage)
+                                                    Image.network(
+                                                      profileImage,
+                                                      fit: BoxFit.fill,
+                                                      width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width *
+                                                          0.22,
+                                                      height: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width *
+                                                          0.22,
                                                     ),
                                                 ],
                                               ),
-                                              const Spacer(),
-                                              Column(
-                                                children: [
-                                                  if (hourlyRate != null)
-                                                    Text(
-                                                      hourlyRate + Txt.hr,
-                                                      style: TextStyle(
-                                                          fontSize: 14.sp,
-                                                          color: Constants
-                                                              .colors[33],
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                  SizedBox(
-                                                    height: 2.h,
-                                                  ),
-                                                  DrawableButton(
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                ProfileEditScreen()),
-                                                      );
-                                                    },
-                                                    label: Txt.edit,
-                                                    asset:
-                                                        "assets/images/icon/edit.svg",
-                                                    backgroundColor:
-                                                        Constants.colors[4],
-                                                    textColors:
-                                                        Constants.colors[0],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                          const SizedBox(
-                                              height: AppDefaults.margin),
-                                          // Actions
-                                        ],
-                                      ),
-                                    ),
-                                  const SizedBox(height: 10),
-                                  if (null != item)
-                                    ProfileDetailCard(items: item, onPressed: (){
-
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => const ProfileEditScreen()),
-                                      ).then((value) => getData());
-                                      
-                                    },),
-                                  Column(
-                                    children: [
-                                      if (null != item)
-                                        ProfileDocumentsCard(
-                                          items: item,
-                                          onRefresh: () {
-                                            print("Refresh item");
-                                            getData();
-                                          },
                                         ),
-                                    ],
-                                  ),
-                                ],
+                                        const SizedBox(
+                                            width: AppDefaults.margin),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            if (fullName != null)
+                                              Text(
+                                                fullName,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.sp,
+                                                    fontFamily:
+                                                        "SFProMedium",
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            const SizedBox(height: 5),
+                                            if (null != categroy)
+                                              Text(
+                                                categroy,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 11.sp,
+                                                    fontFamily: "S",
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            const SizedBox(height: 5),
+                                            if (employeeNo != null)
+                                              Text(
+                                                Txt.emp_no + employeeNo,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10.sp,
+                                                    fontFamily: "S",
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                          ],
+                                        ),
+                                        const Spacer(),
+                                        Column(
+                                          children: [
+                                            if (hourlyRate != null)
+                                              Text(
+                                                hourlyRate + Txt.hr,
+                                                style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color: Constants
+                                                        .colors[33],
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            DrawableButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const ProfileEditScreen()),
+                                                );
+                                              },
+                                              label: Txt.edit,
+                                              asset:
+                                                  "assets/images/icon/edit.svg",
+                                              backgroundColor:
+                                                  Constants.colors[4],
+                                              textColors:
+                                                  Constants.colors[0],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                        height: AppDefaults.margin),
+                                    // Actions
+                                  ],
+                                ),
                               ),
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
-                        }),
-                  ),
-                ],
+                            const SizedBox(height: 10),
+                            if (null != item)
+                              ProfileDetailCard(items: item, onPressed: (){
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const ProfileEditScreen()),
+                                ).then((value) => getData());
+
+                              },),
+                            Column(
+                              children: [
+                                if (null != item)
+                                  ProfileDocumentsCard(
+                                    items: item,
+                                    onRefresh: () {
+                                      print("Refresh item");
+                                      getData();
+                                    },
+                                  ),
+                              ],
+                            ),
+                          ],
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    }),
               ),
             ),
-            Container(
+            SizedBox(
               width: 100.w,
               height: 70.h,
               child: StreamBuilder(
