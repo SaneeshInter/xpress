@@ -210,6 +210,7 @@ class FindShiftCalendar extends StatelessWidget {
                           return false;
                         },
                         child: RefreshIndicator(
+
                           onRefresh: () => shiftCalenderBloc.getData(context),
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
@@ -223,7 +224,7 @@ class FindShiftCalendar extends StatelessWidget {
                                   children: [
                                     ShiftListCalenderWidget(
                                       items: items,
-                                      token: shiftCalenderBloc.token,
+                                      token: shiftCalenderBloc.token!,
                                       onTapDelete: () {},
                                       onTapViewMap: () {},
                                       onTapView: (item) {

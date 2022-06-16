@@ -23,7 +23,7 @@ class ShiftCalendarBloc {
   DateTime focusedDay = DateTime.now();
   DateTime selectedDate = DateTime.now();
 
-  var token;
+  String? token="";
   int devicePixelRatio = 3;
   int perPageItem = 3;
   int pageCount = 0;
@@ -104,9 +104,11 @@ class ShiftCalendarBloc {
     if (null != token) {
       if (await isNetworkAvailable()) {
         userGetScheduleByYear(
-            token, "2022");
+            token!, "2022");
       } else {
-        showInternetNotAvailable(context);
+        Future.delayed(Duration.zero, () async{
+          showInternetNotAvailable(context);
+        });
       }
     }
   }

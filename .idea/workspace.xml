@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator" />
+    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/my_shift_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/my_shift_calendar.dart" afterDir="false" />
+    </list>
     <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
       <change afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" afterDir="false" />
@@ -1030,7 +1035,6 @@
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="flutter.view.tool.window.visible" value="true" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images/icon" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -1060,20 +1064,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650947288890</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Release Verion 1.0.0 on :- 26/04/2022">
-      <created>1650966773691</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1650966773691</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Update bug list">
-      <created>1651816448014</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1651816448014</updated>
     </task>
     <task id="LOCAL-00006" summary="release build to client">
       <created>1652072002151</created>
@@ -1404,7 +1394,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655298563134</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator">
+      <created>1655299193148</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1655299193148</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator">
+      <created>1655299340341</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1655299340341</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
