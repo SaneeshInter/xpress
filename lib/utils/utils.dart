@@ -8,7 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
+import '../db/database.dart';
 import '../ui/Widgets/booking_alert_box.dart';
+import '../ui/splash/user_or_manager.dart';
 import '../ui/widgets/action_alert_dialoge.dart';
 import '../ui/widgets/add_time_sheet_alert_box.dart';
 import '../ui/widgets/login_invalid_alert.dart';
@@ -325,4 +327,20 @@ Future<bool> onWillPopFunction() {
     return Future.value(false);
   }
   return Future.value(true);
+}
+
+Future<void> logOut(BuildContext context) async {
+  var db = Db();
+  db.clearDb();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.clear();
+  Navigator.pop(context);
+  Navigator.pop(context);
+  Navigator.pushAndRemoveUntil<dynamic>(
+    context,
+    MaterialPageRoute<dynamic>(
+      builder: (BuildContext context) => UserOrManager(),
+    ),
+        (route) => false, //if you want to disable back feature set to false
+  );
 }

@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
 import '../ui/error/ConnectionFailedScreen.dart';
 import '../ui/error/ErrorScreen.dart';
 import '../ui/splash/splash_screen.dart';
@@ -38,15 +39,15 @@ Future<void> main() async {
             channelKey: 'basic_channel',
             channelName: 'Basic notifications',
             channelDescription: 'Notification channel for basic tests',
-            defaultColor: Color(0xFF9D50DD),
+            defaultColor: const Color(0xFF9D50DD),
             ledColor: Colors.white),
         NotificationChannel(
             channelGroupKey: 'image_tests',
             channelKey: 'big_picture',
             channelName: 'Big pictures',
             channelDescription: 'Notifications with big and beautiful images',
-            defaultColor: Color(0xFF9D50DD),
-            ledColor: Color(0xFF9D50DD),
+            defaultColor: const Color(0xFF9D50DD),
+            ledColor: const Color(0xFF9D50DD),
             vibrationPattern: lowVibrationPattern,
             importance: NotificationImportance.High),
       ],
@@ -78,13 +79,12 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => SplashScreen(),
-          // When navigating to the "/second" route, build the SecondScreen widget.
           '/nw_error': (context) =>const ConnectionFailedScreen(),
           '/upload_screen': (context) =>const UploadDocumentsScreen(),
           '/error_screen': (context) =>const ErrorScreen(),
           '/profile': (context) => const ProfileScreen(),
+          '/NotificationScreen': (context) => const NotificationScreen(),
         },
       );
     });
@@ -92,8 +92,7 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
+
   await Firebase.initializeApp();
   debugPrint('Handling a background message: ${message.messageId}');
 

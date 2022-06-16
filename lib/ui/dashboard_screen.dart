@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/widgets/double_back_to_close.dart';
 
 import '../Constants/strings.dart';
 import '../ui/user/common/app_bar.dart';
@@ -156,43 +157,45 @@ class _DashBoardWidgetState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     _controller = PersistentTabController(initialIndex: 0);
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: Drawer(
-        child: SideMenu(),
-      ),
-      appBar: AppBarCommon(
-        _scaffoldKey,
-        scaffoldKey: _scaffoldKey,
-      ),
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: _widgetOptions,
-        items: _navBarsItems(),
-        confineInSafeArea: true,
-        backgroundColor: Colors.white,
-        handleAndroidBackButtonPress: true,
-        resizeToAvoidBottomInset: true,
-        stateManagement: true,
-        hideNavigationBarWhenKeyboardShows: true,
-        decoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          colorBehindNavBar: Colors.white,
+    return DoubleBack(
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawer: Drawer(
+          child: SideMenu(),
         ),
-        popAllScreensOnTapOfSelectedTab: true,
-        popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: const ItemAnimationProperties(
-          duration: Duration(milliseconds: 200),
-          curve: Curves.ease,
+        appBar: AppBarCommon(
+          _scaffoldKey,
+          scaffoldKey: _scaffoldKey,
         ),
-        screenTransitionAnimation: ScreenTransitionAnimation(
-          animateTabTransition: true,
-          curve: Curves.ease,
-          duration: Duration(milliseconds: 200),
+        body: PersistentTabView(
+          context,
+          controller: _controller,
+          screens: _widgetOptions,
+          items: _navBarsItems(),
+          confineInSafeArea: true,
+          backgroundColor: Colors.white,
+          handleAndroidBackButtonPress: true,
+          resizeToAvoidBottomInset: true,
+          stateManagement: true,
+          hideNavigationBarWhenKeyboardShows: true,
+          decoration: NavBarDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            colorBehindNavBar: Colors.white,
+          ),
+          popAllScreensOnTapOfSelectedTab: true,
+          popActionScreens: PopActionScreensType.all,
+          itemAnimationProperties: const ItemAnimationProperties(
+            duration: Duration(milliseconds: 200),
+            curve: Curves.ease,
+          ),
+          screenTransitionAnimation: ScreenTransitionAnimation(
+            animateTabTransition: true,
+            curve: Curves.ease,
+            duration: Duration(milliseconds: 200),
+          ),
+          navBarStyle:
+              NavBarStyle.style3, // Choose the nav bar style with this property.
         ),
-        navBarStyle:
-            NavBarStyle.style3, // Choose the nav bar style with this property.
       ),
     );
   }

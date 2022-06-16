@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/widgets/double_back_to_close.dart';
+import 'package:xpresshealthdev/ui/widgets/logout_warning.dart';
 import '../Constants/AppColors.dart';
 import '../Constants/strings.dart';
 import '../ui/manager/home/approved_timesheet_screen.dart';
@@ -42,70 +44,72 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        bottomOpacity: 0.0,
-        elevation: 0.0,
-        iconTheme: IconThemeData(
-          color:Constants.colors[1],
-        ),
-        backgroundColor: white,
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-                alignment: Alignment.centerLeft,
-                child: SvgPicture.asset(
-                  'assets/images/icon/logo.svg',
-                  fit: BoxFit.contain,
-                  height: 8.w,
-                )),
+    return DoubleBack(
+      child: Scaffold(
+        appBar: AppBar(
+          bottomOpacity: 0.0,
+          elevation: 0.0,
+          iconTheme: IconThemeData(
+            color:Constants.colors[1],
+          ),
+          backgroundColor: white,
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                  alignment: Alignment.centerLeft,
+                  child: SvgPicture.asset(
+                    'assets/images/icon/logo.svg',
+                    fit: BoxFit.contain,
+                    height: 8.w,
+                  )),
+            ],
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                showDialog( builder: (BuildContext context) { return  const LogoutWarning(); }, context: context);
+              },
+              icon: SvgPicture.asset(
+                'assets/images/icon/logout.svg',
+                width: 5.w,
+                color: Colors.black,
+                height: 5.w,
+              ),
+            ),
           ],
         ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-               logOut(context);
-            },
-            icon: SvgPicture.asset(
-              'assets/images/icon/logout.svg',
-              width: 5.w,
-              color: Colors.black,
-              height: 5.w,
-            ),
+        body: PersistentTabView(
+          context,
+          controller: _controller,
+          screens: _widgetOptions,
+          items: _navBarsItems(),
+          confineInSafeArea: true,
+          backgroundColor: Colors.white,
+          handleAndroidBackButtonPress: true,
+          resizeToAvoidBottomInset: true,
+          stateManagement: true,
+          hideNavigationBarWhenKeyboardShows: true,
+          decoration: NavBarDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            colorBehindNavBar: Colors.white,
           ),
-        ],
-      ),
-      body: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: _widgetOptions,
-        items: _navBarsItems(),
-        confineInSafeArea: true,
-        backgroundColor: Colors.white,
-        handleAndroidBackButtonPress: true,
-        resizeToAvoidBottomInset: true,
-        stateManagement: true,
-        hideNavigationBarWhenKeyboardShows: true,
-        decoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          colorBehindNavBar: Colors.white,
+          popAllScreensOnTapOfSelectedTab: true,
+          popActionScreens: PopActionScreensType.all,
+          itemAnimationProperties: const ItemAnimationProperties(
+            duration: Duration(milliseconds: 200),
+            curve: Curves.ease,
+          ),
+          screenTransitionAnimation: const ScreenTransitionAnimation(
+            animateTabTransition: true,
+            curve: Curves.ease,
+            duration: Duration(milliseconds: 200),
+          ),
+          navBarStyle:
+              NavBarStyle.style3, // Choose the nav bar style with this property.
         ),
-        popAllScreensOnTapOfSelectedTab: true,
-        popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: const ItemAnimationProperties(
-          duration: Duration(milliseconds: 200),
-          curve: Curves.ease,
-        ),
-        screenTransitionAnimation: const ScreenTransitionAnimation(
-          animateTabTransition: true,
-          curve: Curves.ease,
-          duration: Duration(milliseconds: 200),
-        ),
-        navBarStyle:
-            NavBarStyle.style3, // Choose the nav bar style with this property.
       ),
     );
   }
@@ -152,17 +156,4 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
 
 
 }
-Future<void> logOut(BuildContext context) async {
-  var db = Db();
-  db.clearDb();
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  await preferences.clear();
-  Navigator.pop(context);
-  Navigator.pushAndRemoveUntil<dynamic>(
-    context,
-    MaterialPageRoute<dynamic>(
-      builder: (BuildContext context) => UserOrManager(),
-    ),
-        (route) => false, //if you want to disable back feature set to false
-  );
-}
+
