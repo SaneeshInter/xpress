@@ -82,8 +82,8 @@ class ShiftCalendarBloc {
     return eventList;
   }
 
-  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    focusedDay = focusedDay;
+  void onDaySelected(DateTime selectedDay, DateTime focused) {
+    focusedDay = focused;
     selectedDate = selectedDay;
     getSelectedDayEvent(selectedDate);
   }

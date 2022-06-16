@@ -78,27 +78,30 @@ class _HomeScreentate extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Constants.colors[9],
-      body: ScrollConfiguration(
-        behavior: MyBehavior(),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: StreamBuilder<UserHomeResponse>(
-                    stream: homepageBloc.userhomeStream,
-                    builder:
-                        (context, AsyncSnapshot<UserHomeResponse> snapshot) {
-                      var data = snapshot.data?.response?.data;
-                      if (data != null) {
-                        if (data.latestShift!.length != 0) {
-                          homepageBloc.shiftDetails = data.latestShift![0];
-                        }
-                        return Container(
-                          child: Column(
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: Constants.colors[9],
+        body: ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: StreamBuilder<UserHomeResponse>(
+                      stream: homepageBloc.userhomeStream,
+                      builder:
+                          (context, AsyncSnapshot<UserHomeResponse> snapshot) {
+                        var data = snapshot.data?.response?.data;
+                        if (data != null) {
+                          if (data.latestShift!.length != 0) {
+                            homepageBloc.shiftDetails = data.latestShift![0];
+                          }
+                          return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (null != homepageBloc.shiftDetails)
@@ -420,29 +423,29 @@ class _HomeScreentate extends State<HomeScreen> {
                               horizontalList(snapshot),
                               gridView(),
                             ],
-                          ),
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    }),
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      }),
+                ),
               ),
-            ),
-            StreamBuilder(
-              stream: homepageBloc.visible,
-              builder: (context, AsyncSnapshot<bool> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data!) {
-                    return const Center(child: LoadingWidget());
+              StreamBuilder(
+                stream: homepageBloc.visible,
+                builder: (context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return const Center(child: LoadingWidget());
+                    } else {
+                      return const SizedBox();
+                    }
                   } else {
                     return const SizedBox();
                   }
-                } else {
-                  return const SizedBox();
-                }
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

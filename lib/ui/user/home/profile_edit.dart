@@ -363,22 +363,25 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                           items: snapshot.data
                                                               ?.map((item) {
                                                             return DropdownMenuItem(
-                                                              child: new Text(
-                                                                item.countryName!,
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontSize:
-                                                                        8.sp,
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .none,
-                                                                    color: Colors
-                                                                        .grey),
-                                                              ),
                                                               value:
                                                                   item.rowId,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.only(left: 5),
+                                                                child: Text(
+                                                                  item.countryName!,
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontSize:
+                                                                          8.sp,
+                                                                      decoration:
+                                                                          TextDecoration
+                                                                              .none,
+                                                                      color: Colors
+                                                                          .grey),
+                                                                ),
+                                                              ),
                                                             );
                                                           }).toList(),
                                                           onChanged: (Object?
@@ -463,21 +466,24 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                   ?.map(
                                                                       (item) {
                                                                 return DropdownMenuItem(
-                                                                  child:
-                                                                      new Text(
-                                                                    item.gender!,
-                                                                    style: TextStyle(
-                                                                        fontWeight: FontWeight
-                                                                            .w500,
-                                                                        fontSize: 8
-                                                                            .sp,
-                                                                        decoration: TextDecoration
-                                                                            .none,
-                                                                        color:
-                                                                            Colors.grey),
-                                                                  ),
                                                                   value: item
                                                                       .rowId,
+                                                                  child:
+                                                                      Padding(
+                                                                        padding: const EdgeInsets.only(left: 5),
+                                                                        child: Text(
+                                                                    item.gender!,
+                                                                    style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .w500,
+                                                                          fontSize: 8
+                                                                              .sp,
+                                                                          decoration: TextDecoration
+                                                                              .none,
+                                                                          color:
+                                                                              Colors.grey),
+                                                                  ),
+                                                                      ),
                                                                 );
                                                               }).toList(),
                                                               onChanged:
@@ -500,7 +506,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                     ),
                                                     Expanded(
                                                       flex: 1,
-                                                      child: Container(
+                                                      child: SizedBox(
                                                         width: 50.w,
                                                         child: StreamBuilder(
                                                           stream: profileBloc
@@ -523,7 +529,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                               value: profileBloc
                                                                   .visatypeId,
                                                               decoration:
-                                                                  InputDecoration(
+                                                                  const InputDecoration(
                                                                 enabledBorder:
                                                                     OutlineInputBorder(
                                                                   borderRadius:
@@ -555,8 +561,10 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                   ?.map(
                                                                       (item) {
                                                                 return DropdownMenuItem(
+                                                                  value: item
+                                                                      .rowId,
                                                                   child:
-                                                                      new Text(
+                                                                      Text(
                                                                     item.type!,
                                                                     style: TextStyle(
                                                                         fontWeight: FontWeight
@@ -568,8 +576,6 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                         color:
                                                                             Colors.grey),
                                                                   ),
-                                                                  value: item
-                                                                      .rowId,
                                                                 );
                                                               }).toList(),
                                                               onChanged:

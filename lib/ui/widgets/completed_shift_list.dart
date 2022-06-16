@@ -34,10 +34,7 @@ class _TimeSheetListState extends State<CompletedBookingWidget> {
     return GestureDetector(
       onTap: () {
         widget.onTapView(widget.items);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ShiftDetailScreen(shift_id: widget.items.rowId.toString(),isCompleted: true,)),
-        );
+
       },
       child: Container(
         width: screenWidth(context, dividedBy: 1),

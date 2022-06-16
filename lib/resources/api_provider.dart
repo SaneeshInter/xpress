@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import '../model/login_response.dart';
 import '../model/user_get_shift_details.dart';
@@ -40,7 +41,7 @@ class ApiProvider {
 
   Future<LoginUserRespo?> loginUser(
       String username, String password, String user_type,String device_id) async {
-    var uri = Uri.parse(BASE_URL + '/account/login');
+    var uri = Uri.parse('$BASE_URL/account/login');
     try {
       final response = await client.post(uri,
           headers: <String, String>{
@@ -967,7 +968,7 @@ class ApiProvider {
           body: jsonEncode(<String, String>{
             'job_id': job_id,
           }));
-      print("PRINT JOB REQUEST" + token);
+      print("PRINT JOB REQUEST$token");
       print(jsonEncode(<String, String>{
         'job_id': job_id,
       }).toString());
@@ -987,7 +988,7 @@ class ApiProvider {
   Future<UserViewRequestResponse> getUserViewRequest(String token) async {
     try{
 
-      var uri = Uri.parse(BASE_URL + "/user/view-request");
+      var uri = Uri.parse("$BASE_URL/user/view-request");
 
 
       final response = await client.post(
@@ -1019,7 +1020,7 @@ class ApiProvider {
       String token, String shift_id) async {
 
     try{
-      var uri = Uri.parse(BASE_URL + "/user/get-shift-details");
+      var uri = Uri.parse("$BASE_URL/user/get-shift-details");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -1029,12 +1030,13 @@ class ApiProvider {
             'shift_id': shift_id,
           }));
 
-      print("PRINT GET USER SHIFT DETAILS" + token);
+      print("PRINT GET USER SHIFT DETAILS$token");
+      print("uri  $uri");
 
       print(jsonEncode(<String, String>{
         'shift_id': shift_id,
       }).toString());
-      print(response.body);
+      debugPrint("here  ${response.body}");
 
       if (response.statusCode == 200) {
         return GetUserShiftDetailsResponse.fromJson(json.decode(response.body));

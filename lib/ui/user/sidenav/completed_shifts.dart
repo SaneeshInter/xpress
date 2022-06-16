@@ -209,7 +209,7 @@ class _CompletedShiftState extends State<CompletedShift> {
     return ListView.builder(
       itemCount: data?.items?.length,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         var items = data?.items![index];
         return Column(

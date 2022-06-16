@@ -70,7 +70,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                     AsyncSnapshot<GetUserShiftDetailsResponse> snapshot) {
                   if (snapshot.data?.response?.data != null) {
                     var data = snapshot.data?.response?.data;
-                    var hospitalDetail = data?.hospitalDetails![0];
+                    var hospitalDetail = data?.hospitalDetails?[0]??HospitalDetails();
                     var shiftDetails = data?.shiftDetails![0];
                     return Column(
                       children: [
@@ -418,7 +418,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     });
 
     usershiftdetailsBloc.usershiftdetailsStream.listen((event) {
-      var hospitalDetail = event.response?.data?.hospitalDetails![0];
+      var hospitalDetail = event.response?.data?.hospitalDetails?[0]??HospitalDetails();
       if (null != hospitalDetail) {
         usershiftdetailsBloc.hospitalNumber = hospitalDetail.phone!;
       }

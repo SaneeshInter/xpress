@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../../model/user_getschedule_bydate.dart';
 import '../../../Constants/sharedPrefKeys.dart';
@@ -55,7 +54,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                     width: 18.w,
                     height: 22.w,
                     deactivatedColor: Colors.blue,
-                    monthTextStyle: TextStyle(color: Colors.transparent),
+                    monthTextStyle: const TextStyle(color: Colors.transparent),
                     dateTextStyle: TextStyle(
                         color: Constants.colors[7],
                         fontWeight: FontWeight.w800,
@@ -98,7 +97,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
                                 85.width,
                                 16.height,
                                 Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 32),
+                                  padding: const EdgeInsets.symmetric(horizontal: 32),
                                   child: Text(Txt.no_shift,
                                       style: primaryTextStyle(size: 15),
                                       textAlign: TextAlign.center),
@@ -140,7 +139,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
       return ListView.builder(
         itemCount: snapshot.data?.response?.data?.items?.length,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           var items = snapshot.data?.response?.data?.items?[index];
           if (null != items) {
@@ -176,7 +175,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
               ],
             );
           } else {
-            print("items.hospital");
+            debugPrint("items.hospital");
             return const SizedBox();
           }
         },
@@ -200,10 +199,6 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
             ],
           ),
           150.height,
-
-
-
-
           Image.asset('assets/images/error/empty_task.png', height: 250),
         ],
       );

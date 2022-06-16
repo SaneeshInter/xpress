@@ -68,6 +68,7 @@ class ManagerFindShiftCalendar extends StatelessWidget {
                                         onDaySelected:
                                         managercalendarBloc.onDaySelected,
                                         selectedDayPredicate: (day) {
+
                                           return managercalendarBloc.selectedDays
                                               .contains(day);
                                         },

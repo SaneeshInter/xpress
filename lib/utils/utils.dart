@@ -314,3 +314,15 @@ String getExtensionFromUrl(String url) {
   var ext = url.split(".").last;
   return ext;
 }
+late DateTime currentBackPressTime;
+
+Future<bool> onWillPopFunction() {
+  DateTime now = DateTime.now();
+  if (currentBackPressTime == null ||
+      now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
+    currentBackPressTime = now;
+    Fluttertoast.showToast(msg: "Double tap to exit");
+    return Future.value(false);
+  }
+  return Future.value(true);
+}

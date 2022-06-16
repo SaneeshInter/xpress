@@ -78,9 +78,9 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
       var data = event.response?.data;
       if (data?.timeSheetInfo != null) {
         if (data?.timeSheetInfo?.length != 0) {
-          setState(() {
+          // setState(() {
             buttonVisibility = true;
-          });
+          // });
         }
       }
     });
@@ -115,7 +115,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
         ),
         bottomOpacity: 0.0,
         elevation: 0.0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
           //change your color here
         ),
@@ -204,7 +204,7 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
     return ListView.builder(
       itemCount: data?.timeSheetInfo?.length,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         TimeSheetInfo items = data!.timeSheetInfo![index];
         return Column(

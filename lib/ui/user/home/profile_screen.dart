@@ -152,9 +152,7 @@ class _ProfileState extends State<ProfileScreen> {
                         String? hourlyRate =
                             data?.items?[0].hourlyRate.toString();
                         Items? item = data?.items?[0];
-                        String? fullName = firstName.toString() +
-                            " " +
-                            lastName.toString();
+                        String? fullName = "$firstName $lastName";
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -275,7 +273,7 @@ class _ProfileState extends State<ProfileScreen> {
                                           children: [
                                             if (hourlyRate != null)
                                               Text(
-                                                hourlyRate + Txt.hr,
+                                               " ${hourlyRate=="null"?"0":hourlyRate}${Txt.hr}",
                                                 style: TextStyle(
                                                     fontSize: 14.sp,
                                                     color: Constants
@@ -330,7 +328,7 @@ class _ProfileState extends State<ProfileScreen> {
                                   ProfileDocumentsCard(
                                     items: item,
                                     onRefresh: () {
-                                      print("Refresh item");
+                                      debugPrint("Refresh item");
                                       getData();
                                     },
                                   ),

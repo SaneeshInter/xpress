@@ -57,10 +57,10 @@ class ManagerShiftCalendarBloc {
     format = f;
     _visibility.sink.add(false);
   }
-  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+  void onDaySelected(DateTime selectedDay, DateTime selected) {
 
-      focusedDay = focusedDay;
-      selectedCalenderDay = focusedDay;
+    focusedDay = selected;
+      selectedCalenderDay = selected;
       debugPrint("selectedDay");
       debugPrint(selectedDay.toString());
       filterItemByDates(selectedDay);
