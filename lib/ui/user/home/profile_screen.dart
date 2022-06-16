@@ -115,7 +115,7 @@ class _ProfileState extends State<ProfileScreen> {
         ),
         bottomOpacity: 0.0,
         elevation: 0.0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
           //change your color here
         ),
@@ -343,7 +343,7 @@ class _ProfileState extends State<ProfileScreen> {
                               ),
                             );
                           } else {
-                            return Container();
+                            return const SizedBox();
                           }
                         }),
                   ),
@@ -360,10 +360,10 @@ class _ProfileState extends State<ProfileScreen> {
                     if (snapshot.data!) {
                       return const Center(child: LoadingWidget());
                     } else {
-                      return Container();
+                      return const SizedBox();
                     }
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),

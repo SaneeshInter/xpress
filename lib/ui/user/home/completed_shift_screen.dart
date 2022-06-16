@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import '../../../blocs/shift_completed_bloc.dart';
@@ -101,42 +102,54 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
             )),
         context: context,
         builder: (BuildContext bc) {
-          return Wrap(
-            children: <Widget>[
-              ListTile(
-                onTap: () async {
-                  Navigator.pop(context);
-                  final response = await getImageFromCamera();
-                  if (response != null) {
-                    completeBloc.image = response;
-                    setState(() {});
-                  }
-                },
-                leading: const Icon(
-                  Icons.camera_enhance_sharp,
-                  color: black,
-                ),
-                title: const Text(
-                  'Camera',
-                  softWrap: true,
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.photo, color: black),
-                title: const Text(
-                  'Gallery',
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  const Text("Select source",
+                      style: TextStyle(
+                          fontSize: 18,
 
-                ),
-                onTap: () async {
-                  Navigator.pop(context);
-                  final response = await getImageFromGallery();
-                  if (response != null) {
-                    completeBloc.image = response;
-                    setState(() {});
-                  }
-                },
+                          color: Colors.black)),
+                  ListTile(
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final response = await getImage(ImageSource.camera);
+                      if (response != null) {
+                        completeBloc.image = response;
+                        setState(() {});
+                      }
+                    },
+                    leading: const Icon(
+                      Icons.camera_enhance_sharp,
+                      color: black,
+                    ),
+                    title: const Text(
+                      'Camera',
+                      softWrap: true,
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.photo, color: black),
+                    title: const Text(
+                      'Gallery',
+
+                    ),
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final response = await getImage(ImageSource.gallery);
+                      if (response != null) {
+                        completeBloc.image = response;
+                        setState(() {});
+                      }
+                    },
+                  ),
+                  const Spacer(),
+                ],
               ),
-            ],
+            ),
           );
         });
   }
@@ -225,10 +238,10 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                 if (snapshot.data!) {
                   return const Center(child: LoadingWidget());
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               } else {
-                return Container();
+                return const SizedBox();
               }
             },
           ),
@@ -247,7 +260,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
           Container(
               child: completeBloc.image != null
                   ? Image.file(File(completeBloc.image.path))
-                  : Container()),
+                  : const SizedBox()),
           SizedBox(
             height: 20,
           ),

@@ -1,14 +1,16 @@
 import 'dart:core';
 import 'dart:io';
 
-import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:internet_file/internet_file.dart';
+import 'package:internet_file/internet_file.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:pdfx/pdfx.dart';
 
 // import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:sizer/sizer.dart';
@@ -42,7 +44,8 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var token;
   var _image;
-
+  var _buildContext;
+  late PdfController _pdfController;
   List<String> list = [];
   TextEditingController date = TextEditingController();
 
@@ -51,6 +54,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
+
 
   @override
   void dispose() {
@@ -98,7 +102,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   // }
 
 
-  void funcBottomSheet(BuildContext context, String type) {
+  void funcBottomSheet(BuildContext context) {
     showModalBottomSheet(
         elevation: 10,
         backgroundColor: Colors.white,
@@ -109,43 +113,63 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
             )),
         context: context,
         builder: (BuildContext bc) {
-          return Wrap(
-            children: <Widget>[
-              ListTile(
-                onTap: () async {
-                  Navigator.pop(context);
-                  final response = await getImage(ImageSource.camera);
-                  if (response != null) {
-                    _image = response;
-                    setState(() {});
-                  }
-                },
-                leading: const Icon(
-                  Icons.camera_enhance_sharp,
-                  color: black,
-                ),
-                title: const Text(
-                  'Camera',
-                  softWrap: true,
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.photo, color: black),
-                title: const Text(
-                  'Gallery',
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  const Text("Select source",
+                      style: TextStyle(
+                          fontSize: 18,
 
-                ),
-                onTap: () async {
-                  Navigator.pop(context);
-                  // final response = await  getImage(ImageSource.gallery);
-                  final response = await  getFile();
-                  if (response != null) {
-                    _image = response;
-                    setState(() {});
-                  }
-                },
+                          color: Colors.black)),
+                  ListTile(
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final response = await getImage(ImageSource.camera);
+                      if (response != null) {
+                        _image = response;
+                        setState(() {});
+                      }
+                    },
+                    leading: const Icon(
+                      Icons.camera_enhance_sharp,
+                      color: black,
+                    ),
+                    title: const Text(
+                      'Camera',
+                      softWrap: true,
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.photo, color: black),
+                    title: const Text(
+                      'Gallery',
+
+                    ),
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final response;
+                      print("type $type");
+                      if(type == 'signature'){
+                        response = await getImage(ImageSource.gallery);
+                      }else{
+                        response = await getFile();
+                      }
+                      debugPrint(response.toString());
+                      if (response != null) {
+                        _image = response;
+                        debugPrint(_image.toString());
+                        debugPrint("path ${_image.path.toString()}");
+                        setState(() {});
+                      }
+                    },
+                  ),
+                  const Spacer(),
+                ],
               ),
-            ],
+            ),
           );
         });
   }
@@ -153,9 +177,11 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   @override
   void initState() {
     super.initState();
+
     observe();
     getToken();
   }
+
 
   Future<void> getToken() async {
     token = await TokenProvider().getToken();
@@ -166,7 +192,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
 
   void observe() {
     profileBloc.userdocuments.listen((event) {
-      print("event");
+      debugPrint("event");
       print(event.response);
       var message = event.response?.status?.statusMessage;
       if (mounted) {
@@ -174,12 +200,18 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
           _image = null;
         });
       }
-      showMessageAndPop(message, context);
+      if(event.response?.status?.statusCode == 200){
+        if (mounted) showMessageAndPop(message, _buildContext);
+      }else{
+        if (mounted) Fluttertoast.showToast(msg: '$message');
+      }
+
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _buildContext= context;
     final args = ModalRoute
         .of(context)!
         .settings
@@ -222,7 +254,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         actions: [
           IconButton(
             onPressed: () async {
-              funcBottomSheet(context, "Image");
+              funcBottomSheet(context);
             },
             icon: Image.asset(
               'assets/images/icon/add.png',
@@ -252,11 +284,27 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                         height: 65.h,
                         width: 100.w,
                         child: imageUri != null
-                            ?
-                        InteractiveViewer(
-                          child:
+                            ?getExtensionFromUrl(imageUri)=="pdf"?PdfView(
+                          builders: PdfViewBuilders<DefaultBuilderOptions>(
+                            options: const DefaultBuilderOptions(),
+                            documentLoaderBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                            pageLoaderBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                            pageBuilder: _pageBuilder,
+                          ),
+                          controller: PdfController(
+                            document: PdfDocument.openData(InternetFile.get(imageUri)),
+                          ),
+                        )
+                    : InteractiveViewer(
+                          child:FadeInImage.assetNetwork(
+                            placeholder:
+                            'assets/images/icon/loading_bar.gif',
+                            image: imageUri,
+                            placeholderScale: 4,
+                          ),
                           // CachedNetworkImage(
-                          //   useOldImageOnUrlChange: false,
                           //   imageUrl: imageUri,
                           //   imageBuilder: (context, imageProvider) => Container(
                           //     decoration: BoxDecoration(
@@ -270,12 +318,6 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                           //   errorWidget: (context, url, error) => const Icon(Icons.error),
                           // ),
 
-                          FadeInImage.assetNetwork(
-                            placeholder:
-                            'assets/images/icon/loading_bar.gif',
-                            image: imageUri,
-                            placeholderScale: 4,
-                          ),
                         )
                             : const SizedBox()),
                   if (null != _image)
@@ -283,7 +325,19 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                         height: 65.h,
                         width: 100.w,
                         child: _image != null
-                            ? InteractiveViewer(
+                            ?getExtension(_image.path.toString())=="pdf"?PdfView(
+                          builders: PdfViewBuilders<DefaultBuilderOptions>(
+                            options: const DefaultBuilderOptions(),
+                            documentLoaderBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                            pageLoaderBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                            pageBuilder: _pageBuilder,
+                          ),
+                          controller: PdfController(
+                            document: PdfDocument.openFile(_image.path.toString()),
+                          ),
+                        ): InteractiveViewer(
                           child: Image.file(
                             _image,
                             fit: BoxFit.fill,
@@ -383,6 +437,24 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
           ),
         ],
       ),
+    );
+  }
+  PhotoViewGalleryPageOptions _pageBuilder(
+      BuildContext context,
+      Future<PdfPageImage> pageImage,
+      int index,
+      PdfDocument document,
+      ) {
+    return PhotoViewGalleryPageOptions(
+      imageProvider: PdfPageImageProvider(
+        pageImage,
+        index,
+        document.id,
+      ),
+      minScale: PhotoViewComputedScale.contained * 1,
+      maxScale: PhotoViewComputedScale.contained * 2,
+      initialScale: PhotoViewComputedScale.contained * 1.0,
+      heroAttributes: PhotoViewHeroAttributes(tag: '${document.id}-$index'),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 import '../../../blocs/user_availability_bloc.dart';
 import '../../../main.dart';
@@ -92,8 +91,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
-      body: LiquidPullToRefresh(
-        animSpeedFactor: 1.5,
+      body: RefreshIndicator(
         onRefresh: () async {
           getData();
         },
@@ -358,7 +356,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 } else if (snapshot.hasError) {
                                   return Text(snapshot.error.toString());
                                 }
-                                return Container();
+                                return const SizedBox();
                               }),
                         ],
                       ),
@@ -374,10 +372,10 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),

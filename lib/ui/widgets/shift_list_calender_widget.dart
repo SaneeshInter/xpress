@@ -75,19 +75,18 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                       fontWeight: FontWeight.w400),
                 ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
-                if (null != widget.items.timeFrom &&
-                    null != widget.items.timeTo)
-
-                  Text(
-                    Txt.from +
-                     convert24hrTo12hr( widget.items.timeFrom!, context)   +
-                        Txt.to +
-                       convert24hrTo12hr(widget.items.timeTo!, context) ,
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w400),
-                  ),
+              (widget.items.timeFrom.toString().isEmpty &&
+                    widget.items.timeTo.toString().isEmpty)?
+                Text(""):  Text(
+                Txt.from +
+                    convert24hrTo12hr( widget.items.timeFrom.toString().trim(), context)   +
+                    Txt.to +
+                    convert24hrTo12hr(widget.items.timeTo.toString().trim(), context) ,
+                style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w400),
+              ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
                 if (null != widget.items.type)
                   Text(
@@ -127,11 +126,19 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
-                if (widget.items.if_requested! == 0)
+                (widget.items.if_requested! == 0)?
                   BookButton(
                     label: Txt.request_now,
                     onPressed: () {
                       widget.onTapBook(widget.items);
+                      print("Tapped");
+                    },
+                    key: null,
+                  ): BookButton(
+                    label: Txt.requested,
+                    isEnabled: true,
+                    onPressed: () {
+                      // widget.onTapBook(widget.items);
                       print("Tapped");
                     },
                     key: null,

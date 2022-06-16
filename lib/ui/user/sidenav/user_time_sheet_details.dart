@@ -119,7 +119,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                                     imageUrl,
                                     fit: BoxFit.cover,
                                   )
-                                : Container()),
+                                : const SizedBox()),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 16, top: 10),
@@ -149,7 +149,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                       } else if (snapshot.hasError) {
                         return Text(snapshot.error.toString());
                       }
-                      return Container();
+                      return const SizedBox();
                     }),
                 SizedBox(
                   height: 5.w,
@@ -169,10 +169,10 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                     if (snapshot.data!) {
                       return const Center(child: LoadingWidget());
                     } else {
-                      return Container();
+                      return const SizedBox();
                     }
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),
@@ -212,7 +212,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
             ],
           );
         } else {
-          return Container();
+          return const SizedBox();
         }
       },
     );

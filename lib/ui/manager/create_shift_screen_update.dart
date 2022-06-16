@@ -151,7 +151,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         stream: managerBloc.typeStream,
                                                         builder: (context, AsyncSnapshot<List<ShiftTypeList>> snapshot) {
                                                           if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                            return Container();
+                                                            return const SizedBox();
                                                           }
                                                           return DropdownButtonFormField(
                                                             value: managerBloc.typeId,
@@ -199,7 +199,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         builder:
                                                             (context, AsyncSnapshot<List<ScheduleCategoryList>> snapshot) {
                                                           if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                            return Container();
+                                                            return const SizedBox();
                                                           }
                                                           return DropdownButtonFormField(
                                                             value: managerBloc.categoryId,
@@ -247,7 +247,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         stream: managerBloc.usertypeStream,
                                                         builder: (context, AsyncSnapshot<List<UserTypeList>> snapshot) {
                                                           if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                            return Container();
+                                                            return const SizedBox();
                                                           }
 
                                                           return DropdownButtonFormField(
@@ -288,7 +288,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         stream: managerBloc.hospitalStream,
                                                         builder: (context, AsyncSnapshot<List<HospitalList>> snapshot) {
                                                           if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                            return Container();
+                                                            return const SizedBox();
                                                           }
 
                                                           return DropdownButtonFormField(
@@ -338,7 +338,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                               stream: managerBloc.managerunitStream,
                                               builder: (context, AsyncSnapshot<List<UnitItems>> snapshot) {
                                                 if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                  return Container();
+                                                  return const SizedBox();
                                                 }
 
                                                 return DropdownButtonFormField(
@@ -406,7 +406,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         stream: managerBloc.shifttimeStream,
                                                         builder: (context, AsyncSnapshot<List<ShiftTimingList>> snapshot) {
                                                           if (null == snapshot.data || snapshot.data?.length == 0) {
-                                                            return Container();
+                                                            return const SizedBox();
                                                           }
 
                                                           return DropdownButtonFormField(
@@ -629,10 +629,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                               stream: managerBloc.allowancesList,
                                               builder: (context, snapshot) {
                                                 if (null == snapshot.data) {
-                                                  return Container();
+                                                  return const SizedBox();
                                                 }
                                                 if (null == snapshot.data) {
-                                                  return Container();
+                                                  return const SizedBox();
                                                 }
                                                 return buildAllowanceList(snapshot, context);
                                               }),
@@ -664,10 +664,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             ),

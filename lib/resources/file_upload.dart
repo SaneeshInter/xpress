@@ -56,7 +56,7 @@ class ApiFileProvider {
     print(files.path);
     print(type);
     print(token);
-    print(uri.toString());
+    print("Url: ${uri.toString()} header: ${headers.toString()} ${files.path}");
     request.fields["type"] = type;
     // request.fields["expiry_date"] = expiry_date;
     //create multipart using filepath, string or bytes

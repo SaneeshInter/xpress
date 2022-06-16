@@ -1,74 +1,178 @@
+import 'dart:collection';
+
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../blocs/shift_confirmed_bloc.dart';
+import '../blocs/shift_list_bloc.dart';
+import '../eventutil/eventutil.dart';
 import '../resources/respository.dart';
 
 import '../model/user_shift_calender.dart';
+import '../resources/token_provider.dart';
+import '../ui/error/ConnectionFailedScreen.dart';
+import '../utils/network_utils.dart';
 
 class ShiftCalendarBloc {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  late PageController pageController;
+  DateTime selectedDay = DateTime.now();
+  DateTime focusDay = DateTime.now();
+  CalendarFormat format = CalendarFormat.twoWeeks;
+  DateTime focusedDay = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+
   var token;
   int devicePixelRatio = 3;
   int perPageItem = 3;
   int pageCount = 0;
-  bool visibility = false;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
   var selected = 0;
   var itemSelected = 0;
   final _repo = Repository();
-  final _shiftcalender = PublishSubject<UserGetScheduleByYear>();
+  final _shiftCalender = PublishSubject<UserGetScheduleByYear>();
   final _filterItem = PublishSubject<List<Items>>();
-
   final _visibility = PublishSubject<bool>();
-
   Stream<bool> get visible => _visibility.stream;
-
   List<Item>? itemListAll = [];
-
   List<Items>? eventListByDate = [];
+  Stream<UserGetScheduleByYear> get shiftCalendar => _shiftCalender.stream;
+  Stream<List<Items>> get filteredByDate => _filterItem.stream;
 
-  Stream<UserGetScheduleByYear> get shiftcalendar => _shiftcalender.stream;
+  final Set<DateTime> selectedDays = LinkedHashSet<DateTime>(
+    equals: isSameDay,
+    hashCode: getHashCode,
+  );
 
-  Stream<List<Items>> get filteredBydate => _filterItem.stream;
+  void initState(BuildContext context)  {
+    Future.delayed(Duration.zero, () async{
+      observe(context);
+      getData(context);
+      pageController = PageController(initialPage: 0);
+      confirmBloc.pageCount = 3;
+    });
 
-  userGetScheduleByYear(String token, String year) async {
-    _visibility.add(true);
-    UserGetScheduleByYear respo =
-        await _repo.fetchuserscheduleyear(token, year);
-    itemListAll = respo.response?.data?.item;
-    if (!_shiftcalender.isClosed) {
-      _visibility.add(false);
-      _shiftcalender.sink.add(respo);
+  }
+
+  void update(CalendarFormat f){
+    format = f;
+    _visibility.sink.add(false);
+  }
+
+  void dispose() {
+    _shiftCalender.close();
+  }
+
+  List<Event> getEventsForDay(DateTime day) {
+    List<Event> eventList = [];
+    if (null != itemListAll) {
+      var itemList = itemListAll?.where((element) {
+        DateTime itemDay = DateTime.parse(element.date.toString());
+        return isSameDay(itemDay, day);
+      });
+      if (itemList!.isNotEmpty) {
+        var listItem = itemList.first;
+        for (var item in listItem.items!) {
+          eventList.add(Event(item.jobTitle!));
+        }
+      }
+    }
+    return eventList;
+  }
+
+  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    focusedDay = focusedDay;
+    selectedDate = selectedDay;
+    getSelectedDayEvent(selectedDate);
+  }
+
+  getSelectedDayEvent(DateTime selectedDay) {
+    filterItemByDate(selectedDay);
+  }
+
+  void requestShift(Items items) {
+    Items data = items;
+    bloc.fetchuserJobRequest(data.rowId.toString());
+  }
+
+  Future getData(BuildContext context) async {
+    token = await TokenProvider().getToken();
+    bloc.token = await TokenProvider().getToken();
+    confirmBloc.token = await TokenProvider().getToken();
+    if (null != token) {
+      if (await isNetworkAvailable()) {
+        userGetScheduleByYear(
+            token, "2022");
+      } else {
+        showInternetNotAvailable(context);
+      }
     }
   }
 
-  dispose() {
-    _shiftcalender.close();
+  Future<void> showInternetNotAvailable(BuildContext context) async {
+    int res = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
+    );
+    if (res == 1) {
+      Future.delayed(Duration.zero).then((_) {
+        getData(context);
+      });
+    }
+  }
+
+  void observe(BuildContext context) {
+    shiftCalendar.listen((event) {
+      var itemList = event.response?.data?.item;
+      final Set<DateTime> selectedDay = LinkedHashSet<DateTime>(
+        equals: isSameDay,
+        hashCode: getHashCode,
+      );
+
+      if (null != itemList) {
+        for (var item in itemList) {
+          selectedDay.add(DateTime.parse(item.date.toString()));
+        }
+        getSelectedDayEvent(selectedDate);
+
+          selectedDays.addAll(selectedDay);
+
+      }
+    });
+
+    bloc.jobrequest.listen((event) {
+      getData(context);
+      String? message = event.response?.status?.statusMessage;
+      Fluttertoast.showToast(msg: '$message');
+    });
+  }
+
+  userGetScheduleByYear(String token, String year) async {
+   _visibility.sink.add(true);
+    UserGetScheduleByYear respo = await _repo.fetchuserscheduleyear(token, year);
+    itemListAll = respo.response?.data?.item;
+    if (!_shiftCalender.isClosed) {
+     _visibility.sink.add(false);
+      _shiftCalender.sink.add(respo);
+    }
   }
 
   filterItemByDate(DateTime selectedDay) {
-    _visibility.add(true);
+   _visibility.sink.add(true);
     var itemList = itemListAll!.where((element) {
       DateTime itemDay = DateTime.parse(element.date.toString());
       return isSameDay(itemDay, selectedDay);
     });
     if (itemList.isNotEmpty) {
       _filterItem.sink.add(itemList.first.items ?? []);
-      _visibility.add(false);
+     _visibility.sink.add(false);
     } else {
       _filterItem.sink.add([]);
-      _visibility.add(false);
+     _visibility.sink.add(false);
     }
   }
 
-
-
-
-
-
-
-
-
-
 }
-
-final shiftcalenderBloc = ShiftCalendarBloc();
+final shiftCalenderBloc = ShiftCalendarBloc();

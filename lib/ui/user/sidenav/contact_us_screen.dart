@@ -60,9 +60,8 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
         bottomOpacity: 0.0,
         elevation: 0.0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
-
         ),
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
@@ -94,7 +93,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         85.width,
                         16.height,
                         Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 32),
                           child: Text(
                             Txt.under_devlpmnt,

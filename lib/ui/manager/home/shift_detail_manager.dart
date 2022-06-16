@@ -102,7 +102,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                 if (null != hospitalDetail)
                                   Padding(
                                     padding: const EdgeInsets.only(left: 10, right: 10),
-                                    child: Container(
+                                    child: DecoratedBox(
                                       decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.only(
@@ -241,10 +241,10 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                         ],
                       );
                     } else {
-                      return Container();
+                      return const SizedBox();
                     }
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 }),
             SizedBox(

@@ -117,10 +117,10 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                         if (snapshot.data!) {
                           return const Center(child: LoadingWidget());
                         } else {
-                          return Container();
+                          return const SizedBox();
                         }
                       } else {
-                        return Container();
+                        return const SizedBox();
                       }
                     },
                   ),
@@ -192,7 +192,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
             } else if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             }
-            return Container();
+            return const SizedBox();
           }),
     );
   }
@@ -280,7 +280,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                       ),
                     );
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),
@@ -297,7 +297,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
         ),
       );
     } else {
-      return Container();
+      return const SizedBox();
     }
   }
 
