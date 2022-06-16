@@ -109,7 +109,8 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                                         ? InteractiveViewer(
                                             child: CachedNetworkImage(
                                               imageUrl: imageUrl,
-                                              imageBuilder: (context, imageProvider) => DecoratedBox(
+                                              imageBuilder: (context, imageProvider) => Container
+                                                (
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
                                                     image: imageProvider,
