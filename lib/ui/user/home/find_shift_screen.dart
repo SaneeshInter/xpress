@@ -192,7 +192,7 @@ class _FindShiftScreenState extends State<FindShiftScreen> {
               85.width,
               16.height,
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 32),
+                padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Text(Txt.no_shift,
                     style: primaryTextStyle(size: 15),
                     textAlign: TextAlign.center),

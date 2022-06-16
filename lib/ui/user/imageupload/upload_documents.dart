@@ -114,7 +114,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
         context: context,
         builder: (BuildContext bc) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: MediaQuery.of(context).size.height * 0.3,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -130,7 +130,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                       final response = await getImage(ImageSource.camera);
                       if (response != null) {
                         _image = response;
-                        setState(() {});
+                         setState(() {});
                       }
                     },
                     leading: const Icon(

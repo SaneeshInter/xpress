@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +24,7 @@ class ManagerTimeSheetDetails extends StatefulWidget {
   _CreateShiftState createState() => _CreateShiftState();
 }
 
-class _CreateShiftState extends State<ManagerTimeSheetDetails>
-    with SingleTickerProviderStateMixin {
+class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   var scrollController = ScrollController();
 
@@ -59,6 +57,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
       createApproveData(event);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     String? imageUrl = widget.item?.timeSheetLink;
@@ -69,15 +68,13 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
           timesheetBloc.approveTimeSheet();
         },
         label: const Text(Txt.approve),
-
         backgroundColor: Colors.green,
       ),
       body: Stack(
         children: [
           NestedScrollView(
             controller: scrollController,
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate([
@@ -87,7 +84,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 10),
-                          child: SizedBox(
+                          child: Container(
                             width: MediaQuery.of(context).size.width * .4,
                             child: AutoSizeText(
                               Txt.time_sheet,
@@ -102,19 +99,19 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.only(
-                              left: 5, right: 5, top: 10),
+                          padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Center(
                                 child: SizedBox(
-width:100.w,
+                                    height: 60.h,
                                     child: imageUrl != null
                                         ? InteractiveViewer(
                                             child: CachedNetworkImage(
+                                              useOldImageOnUrlChange: false,
                                               imageUrl: imageUrl,
-                                              imageBuilder: (context, imageProvider) => DecoratedBox(
+                                              imageBuilder: (context, imageProvider) => Container(
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
                                                     image: imageProvider,
@@ -130,14 +127,11 @@ width:100.w,
                                             height: 10,
                                             color: Colors.red,
                                           )),
-
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 16, top: 10),
-                                child: SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * .4,
+                                padding: const EdgeInsets.only(left: 16, top: 10),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
                                     Txt.shifts,
                                     maxLines: 1,
@@ -165,31 +159,26 @@ width:100.w,
                 const SizedBox(height: 10),
                 PreferredSize(
                   preferredSize: const Size.fromHeight(65),
-                  child: ColoredBox(
+                  child: Container(
                     color: Constants.colors[0],
-                    child: TabBar(
-                        unselectedLabelColor: Colors.black,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        labelColor: Colors.black,
-                        controller: _tabController,
-                        tabs: [
-                          Tab(
-                            child: Container(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(Txt.pending),
-                              ),
-                            ),
+                    child: TabBar(unselectedLabelColor: Colors.black, indicatorSize: TabBarIndicatorSize.tab, labelColor: Colors.black, controller: _tabController, tabs: [
+                      Tab(
+                        child: Container(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(Txt.pending),
                           ),
-                          Tab(
-                            child: Container(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(Txt.completed),
-                              ),
-                            ),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(Txt.completed),
                           ),
-                        ]),
+                        ),
+                      ),
+                    ]),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -198,18 +187,11 @@ width:100.w,
                   child: Container(
                     child: StreamBuilder(
                         stream: timesheetBloc.timesheetdetails,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<ManagerTimeDetailsResponse>
-                                snapshot) {
-                          if (!snapshot.hasData ||
-                              null == snapshot.data ||
-                              null ==
-                                  snapshot.data?.response?.data
-                                      ?.timeSheetDetails) {
-                            return const SizedBox();
+                        builder: (BuildContext context, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
+                          if (!snapshot.hasData || null == snapshot.data || null == snapshot.data?.response?.data?.timeSheetDetails) {
+                            return Container();
                           }
-                          return TabBarView(
-                              controller:_tabController,children: [
+                          return TabBarView(controller: _tabController, children: [
                             bookingList(0, snapshot),
                             bookingList(1, snapshot),
                           ]);
@@ -229,10 +211,10 @@ width:100.w,
                   if (snapshot.data!) {
                     return const Center(child: LoadingWidget());
                   } else {
-                    return const SizedBox();
+                    return Container();
                   }
                 } else {
-                  return const SizedBox();
+                  return Container();
                 }
               },
             ),
@@ -249,8 +231,7 @@ width:100.w,
   FilterShiftList getFilterList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
     FilterShiftList list = FilterShiftList();
 
-    List<TimeSheetDetails>? allList =
-        snapshot.data?.response?.data?.timeSheetDetails;
+    List<TimeSheetDetails>? allList = snapshot.data?.response?.data?.timeSheetDetails;
     if (null != allList) {
       for (var item in allList) {
         if (item.time_sheet_detail_status == 0) {
@@ -278,11 +259,10 @@ width:100.w,
       shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
-
-          TimeSheetDetails? timeSheetDetails = list[index];
-          return Column(
-            children: [
-              if(null!=timeSheetDetails)
+        TimeSheetDetails? timeSheetDetails = list[index];
+        return Column(
+          children: [
+            if (null != timeSheetDetails)
               TimeSheetDetailsListWidget(
                 items: timeSheetDetails,
                 index: index,
@@ -297,13 +277,13 @@ width:100.w,
                   timesheetBloc.approveData[index].comment = comment;
                 },
               ),
-              SizedBox(height: screenHeight(context, dividedBy: 100)),
-            ],
-          );
-
+            SizedBox(height: screenHeight(context, dividedBy: 100)),
+          ],
+        );
       },
     );
   }
+
   void createApproveData(ManagerTimeDetailsResponse event) {
     var listItem = event.response?.data?.timeSheetDetails;
     if (null != listItem) {
