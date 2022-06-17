@@ -30,7 +30,7 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
     const CompletedApprovelScreen(),
   ];
   late PersistentTabController controller;
-
+int _index=0;
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,8 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   @override
   Widget build(BuildContext context) {
     return DoubleBack(
-      index: 0,
+      context: context,
+      index: _index,
       child: Scaffold(
         appBar: AppBar(
           bottomOpacity: 0.0,
@@ -82,6 +83,11 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
           context,
           controller: controller,
           screens: _widgetOptions,
+          onItemSelected: (index) {
+            _index=index;
+            print(index);
+            setState(() {});
+          },
           items: _navBarsItems(),
           confineInSafeArea: true,
           backgroundColor: Colors.white,

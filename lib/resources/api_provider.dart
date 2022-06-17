@@ -91,6 +91,7 @@ class ApiProvider {
         return UserGetResponse();
       }
     } catch (e) {
+
       print(e.toString());
       return UserGetResponse();
     }

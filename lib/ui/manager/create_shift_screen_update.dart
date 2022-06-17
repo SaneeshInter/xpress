@@ -198,21 +198,17 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           }).toList(),
                                                           onChanged: (Object?
                                                               value) {
-                                                            managerBloc
-                                                                    .typeId =
-                                                                value as int;
-                                                            setState(() {
-                                                              if (value ==
-                                                                  1) {
-                                                                managerBloc
-                                                                        .isPricevisible =
-                                                                    true;
-                                                              } else {
-                                                                managerBloc
-                                                                        .isPricevisible =
-                                                                    false;
-                                                              }
-                                                            });
+                                                            print("dkfjdgvj  ${value as int}");
+
+
+                                                              managerBloc
+                                                                  .typeId =
+                                                              value;
+                                                              setState(() {
+
+                                                              });
+
+
                                                           },
                                                         );
                                                       },
@@ -672,7 +668,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                           children: [
                                             Visibility(
                                               visible:
-                                                  managerBloc.isPricevisible,
+                                              managerBloc
+                                                  .typeId==1,
                                               child: TextInputFileds(
                                                   onChange: () {},
                                                   controlr: price,
@@ -897,8 +894,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         labelStyle: TextStyle(fontSize: 10.sp));
   }
 
-  Widget buildAllowanceList(
-      AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
+  Widget buildAllowanceList( AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
     return ListView.builder(
       itemCount: snapshot.data?.length,
       shrinkWrap: true,
@@ -1082,13 +1078,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     if (item.type == "Premium") {
       setState(() {
         managerBloc.typeId = 1;
-        managerBloc.isPricevisible = true;
       });
     } else {
       setState(() {
         managerBloc.typeId = 0;
-        managerBloc.isPricevisible = false;
-      });
+     });
     }
 
     if (item.categoryId != 0 && null != item.categoryId) {

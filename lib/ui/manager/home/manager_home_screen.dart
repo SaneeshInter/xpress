@@ -17,6 +17,7 @@ import '../../../utils/utils.dart';
 import '../../user/detail/home_card_item.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../create_shift_screen_update.dart';
+import 'manager_calendar_screen.dart';
 
 class ManagerHomeScreen extends StatefulWidget {
   const ManagerHomeScreen({Key? key}) : super(key: key);
@@ -308,6 +309,11 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                   MaterialPageRoute(
                       builder: (context) => const CreateShiftScreenUpdate()),
                 );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const CreateShiftScreenUpdate()),
+                // );
               },
               child: const HomeCardItem(
                   label: Txt.create_shifts,
@@ -316,7 +322,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ManagerShiftsScreen()),
+                MaterialPageRoute(builder: (context) => const ManagerFindShiftCalendar()),
               );
             },
             child: const HomeCardItem(

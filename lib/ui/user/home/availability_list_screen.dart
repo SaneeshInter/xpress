@@ -89,7 +89,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      // key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
       body: RefreshIndicator(
         onRefresh: () async {

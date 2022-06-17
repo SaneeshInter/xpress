@@ -5,6 +5,7 @@ import 'toast.dart';
 
 class DoubleBack extends StatefulWidget {
   final Widget child;
+  final BuildContext context;
   final String message;
   final int waitForSecondBackPress;
   final Function? onFirstBackPress;
@@ -22,7 +23,7 @@ class DoubleBack extends StatefulWidget {
     this.textStyle = const TextStyle(fontSize: 14, color: Colors.white),
     this.background = const Color(0xAA000000),
     this.backgroundRadius = 20,
-    required this.index,
+    required this.index, required this.context,
   }) : super(key: key);
 
   @override
@@ -39,7 +40,7 @@ class _DoubleBackState extends State<DoubleBack> {
       return WillPopScope(
         onWillPop: () async {
           debugPrint("onWillPop ${widget.index}");
-         if(widget.index==0){
+         if(widget.index==0&&!Navigator.canPop(context)){
              if (tapped) {
                return true;
              }

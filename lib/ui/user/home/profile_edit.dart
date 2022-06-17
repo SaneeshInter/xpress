@@ -865,9 +865,9 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                       message: Txt.expiry_date_req);
                                 }
                               } else {
-                                showAlertDialoge(context,
-                                    title: Txt.alert,
-                                    message: Txt.uplod_timesht);
+                                // showAlertDialoge(context,
+                                //     title: Txt.alert,
+                                //     message: Txt.uplod_timesht);
                               }
 
                               profileBloc.ProfileUser(

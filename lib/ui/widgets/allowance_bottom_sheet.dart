@@ -33,12 +33,12 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
   var allowanceId = 1;
   var allowanceCategroy = "Food Item";
   var allowance = "Break Fast";
-  TextEditingController allowanceprice = new TextEditingController();
+  TextEditingController allowanceprice =  TextEditingController();
 
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     managerBloc.getModelDropDown();
   }
@@ -67,7 +67,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
             children: [
               Expanded(
                 flex: 1,
-                child: Container(
+                child: SizedBox(
                   width: 50.w,
                   child: StreamBuilder(
                     stream: managerBloc.typeAllowancesCategroys,
@@ -85,7 +85,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                     BorderRadius.all(Radius.circular(8.0)),
                                 borderSide:
                                     BorderSide(color: Colors.grey, width: 1)),
-                            contentPadding: EdgeInsets.all(3.0),
+                            contentPadding: const EdgeInsets.all(3.0),
                             labelText:Txt.category,
                             labelStyle: TextStyle(fontSize: 10.sp)),
                         items: snapshot.data?.map((item) {
@@ -104,6 +104,8 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                         onChanged: (Object? value) {
                           print("value");
                           if (value is AllowanceCategoryList) {
+                             allowanceId = 1;
+                             allowanceCategroy = "Food Item";
                             print("value ");
                             print(value.category);
                             managerBloc.typeAllowancesList.drain();
@@ -122,14 +124,14 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
               ),
               Expanded(
                 flex: 1,
-                child: Container(
+                child: SizedBox(
                   width: 50.w,
                   child: StreamBuilder(
                     stream: managerBloc.typeAllowancesList,
                     builder:
                         (context, AsyncSnapshot<List<AllowanceList>> snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data?.length != 0) {
+                      if (snapshot.hasData&&snapshot.data?.length != 0&&snapshot.data?.length != 0) {
+
                           return DropdownButtonFormField(
                             decoration: InputDecoration(
                                 enabledBorder: const OutlineInputBorder(
@@ -144,6 +146,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                         color: Colors.grey, width: 1)),
                                 contentPadding: const EdgeInsets.all(3.0),
                                 labelText:Txt.allowances,
+
                                 labelStyle: TextStyle(fontSize: 10.sp)),
                             items: snapshot.data?.map((item) {
                               return DropdownMenuItem(
@@ -157,7 +160,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                       color: Colors.grey),
                                 ),
                               );
-                            }).toList(),
+                            }).toSet().toList(),
                             onChanged: (Object? value) {
                               if (value is AllowanceList) {
                                 allowanceId = value.rowId!;
@@ -168,9 +171,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                         } else {
                           return const SizedBox();
                         }
-                      } else {
-                        return const SizedBox();
-                      }
+
                     },
                   ),
                 ),
@@ -182,33 +183,27 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
           ),
           Column(
             children: [
-              Container(
-                child: TextInputFileds(
-                    controlr: allowanceprice,
-                    onChange: (){},   validator: (date) {
-                      if (validDate(date))
-                        return null;
-                      else
-                        return Txt.enter_price;
-                    },
-                    onTapDate: () {},
-                    hintText: Txt.price,
-                    keyboadType: TextInputType.number,
-                    isPwd: false),
-              ),
+              TextInputFileds(
+                  controlr: allowanceprice,
+                  onChange: (){},   validator: (date) {
+                    if (validDate(date))
+                      return null;
+                    else
+                      return Txt.enter_price;
+                  },
+                  onTapDate: () {},
+                  hintText: Txt.price,
+                  keyboadType: TextInputType.number,
+                  isPwd: false),
             ],
           ),
           ElevatedButton(
             onPressed: () {
-
                 managerBloc.addAllowances(allowanceId, allowanceCategroyId,
                     allowance, allowanceCategroy, allowanceprice.text);
                 pop(context);
 
-
             },
-
-
             child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(

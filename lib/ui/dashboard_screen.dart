@@ -17,7 +17,7 @@ import '../ui/user/home/home_screen.dart';
 import '../ui/user/home/my_booking_screen.dart';
 import '../ui/user/home/my_shift_calendar.dart';
 import '../utils/constants.dart';
-
+late PersistentTabController userController;
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
 
@@ -28,14 +28,14 @@ class DashBoard extends StatefulWidget {
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _DashBoardWidgetState extends State<DashBoard> {
-  late PersistentTabController _controller;
+
   String _firebaseAppToken = '';
   int pageIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
+    userController = PersistentTabController(initialIndex: 0);
     AwesomeNotifications().createNotification(
         content: NotificationContent(
           id: 10,
@@ -158,6 +158,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
   Widget build(BuildContext context) {
     // _controller = PersistentTabController(initialIndex: 0);
     return DoubleBack(
+      context: context,
       index: _selectedIndex,
       child: Scaffold(
         key: _scaffoldKey,
@@ -170,7 +171,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
         ),
         body: PersistentTabView(
           context,
-          controller: _controller,
+          controller: userController,
           screens: _widgetOptions,
           items: _navBarsItems(),
           confineInSafeArea: true,

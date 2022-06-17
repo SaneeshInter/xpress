@@ -4,6 +4,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../Constants/AppColors.dart';
@@ -12,14 +13,15 @@ import '../../../blocs/shift_homepage_bloc.dart';
 import '../../../model/user_home_response.dart';
 import '../../../resources/token_provider.dart';
 import '../../../ui/user/detail/home_card_item.dart';
-import '../../../ui/user/home/availability_list_screen.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
+import '../../dashboard_screen.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../detail/shift_detail.dart';
+import 'availability_list_screen.dart';
 import 'completed_shift_screen.dart';
 import 'my_booking_screen.dart';
 import 'my_shift_calendar.dart';
@@ -627,13 +629,14 @@ class _HomeScreentate extends State<HomeScreen> {
           GestureDetector(
             onTap: () {
               // widget.onTapMap;
-
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const AvailabilityListScreen(),
                 ),
               );
+              // userController = PersistentTabController(initialIndex: 3);
+              // setState(() {});
             },
             child: const HomeCardItem(
                 label: Txt.my_availability,
