@@ -33,10 +33,10 @@ class _SplashScreenState extends State<SplashScreen> {
   var token;
   Future changeScreen() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
-    bool _isLoggedin = shdPre.getString(SharedPrefKey.AUTH_TOKEN) != null;
-    var _loginType = shdPre.getInt(SharedPrefKey.USER_TYPE);
-    if (_isLoggedin && _loginType != null) {
-      if (_loginType == 0) {
+    bool isLoggedIn = shdPre.getString(SharedPrefKey.AUTH_TOKEN) != null;
+    var loginType = shdPre.getInt(SharedPrefKey.USER_TYPE);
+    if (isLoggedIn && loginType != null) {
+      if (loginType == 0) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const DashBoard()));
       } else {
@@ -97,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void observe() {
     utility_bloc.utilStream.listen((event) {
-      print(event.toString());
+      debugPrint(event.toString());
       if (null != event.response) {
         if (event.response?.status?.statusCode == 200) {
           var db = Db();

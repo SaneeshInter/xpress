@@ -1032,8 +1032,8 @@ _selectDate(BuildContext context, TextEditingController dateController) async {
     context: context,
     initialDatePickerMode: DatePickerMode.day,
     initialDate: DateTime.now(),
-    firstDate: DateTime.now(),
-    lastDate: DateTime(2025),
+    firstDate: DateTime(1900),
+    lastDate: DateTime.now(),
     helpText: Txt.select_date,
     fieldHintText: "dd-MM-yyyy",
   );

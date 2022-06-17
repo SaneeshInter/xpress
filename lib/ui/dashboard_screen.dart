@@ -156,8 +156,9 @@ class _DashBoardWidgetState extends State<DashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    _controller = PersistentTabController(initialIndex: 0);
+    // _controller = PersistentTabController(initialIndex: 0);
     return DoubleBack(
+      index: _selectedIndex,
       child: Scaffold(
         key: _scaffoldKey,
         drawer: Drawer(
@@ -182,13 +183,18 @@ class _DashBoardWidgetState extends State<DashBoard> {
             borderRadius: BorderRadius.circular(10.0),
             colorBehindNavBar: Colors.white,
           ),
-          popAllScreensOnTapOfSelectedTab: true,
+          onItemSelected: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          popAllScreensOnTapOfSelectedTab: false,
           popActionScreens: PopActionScreensType.all,
           itemAnimationProperties: const ItemAnimationProperties(
             duration: Duration(milliseconds: 200),
             curve: Curves.ease,
           ),
-          screenTransitionAnimation: ScreenTransitionAnimation(
+          screenTransitionAnimation: const ScreenTransitionAnimation(
             animateTabTransition: true,
             curve: Curves.ease,
             duration: Duration(milliseconds: 200),
@@ -298,35 +304,35 @@ class _DashBoardWidgetState extends State<DashBoard> {
 List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.home),
+      icon: const Icon(CupertinoIcons.home),
       title: (Txt.home),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.shift),
+      icon: const Icon(CupertinoIcons.shift),
       iconSize: 6.w,
       title: (Txt.find_shift),
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar),
+      icon: const Icon(CupertinoIcons.calendar),
       title: (Txt.booking),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar_badge_plus),
+      icon: const Icon(CupertinoIcons.calendar_badge_plus),
       title: (Txt.availability),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar_badge_plus),
+      icon: const Icon(CupertinoIcons.calendar_badge_plus),
       title: (Txt.time_sheet),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],

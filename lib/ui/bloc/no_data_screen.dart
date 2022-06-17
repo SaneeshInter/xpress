@@ -35,6 +35,7 @@ class NoDataWidget extends StatelessWidget {
           ),
           150.height,
           Image.asset(asset_image, height: 250),
+          150.height,150.height,
         ],
       ),
     );

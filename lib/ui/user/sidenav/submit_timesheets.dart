@@ -132,53 +132,65 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Column(children: [
-              StreamBuilder(
-                  stream: usertimesheetBloc.timesheetstream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<UserTimeSheetRespo> snapshot) {
-                    if (snapshot.hasData) {
-                      var data = snapshot.data?.response?.data;
-                      if (data?.timeSheetInfo != null) {
-                        if (data?.timeSheetInfo?.length != 0) {
-                          return buildList(snapshot);
-                        } else {
-                          return Center(
-                            child: Column(
-                              children: [
-                                20.height,
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+          RefreshIndicator(
+            onRefresh: () async {
+              getData();
+            },
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (overScroll) {
+                overScroll.disallowIndicator();
+                return false;
+              },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(children: [
+                  StreamBuilder(
+                      stream: usertimesheetBloc.timesheetstream,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<UserTimeSheetRespo> snapshot) {
+                        if (snapshot.hasData) {
+                          var data = snapshot.data?.response?.data;
+                          if (data?.timeSheetInfo != null) {
+                            if (data?.timeSheetInfo?.length != 0) {
+                              return buildList(snapshot);
+                            } else {
+                              return Center(
+                                child: Column(
                                   children: [
-                                    Text(Txt.submtd_timsht,
-                                        style: boldTextStyle(size: 20)),
-                                    85.width,
-                                    16.height,
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 32),
-                                      child: Text(Txt.no_completd_shfts,
-                                          style: primaryTextStyle(size: 15),
-                                          textAlign: TextAlign.center),
+                                    20.height,
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(Txt.submtd_timsht,
+                                            style: boldTextStyle(size: 20)),
+                                        85.width,
+                                        16.height,
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 32),
+                                          child: Text(Txt.no_completd_shfts,
+                                              style: primaryTextStyle(size: 15),
+                                              textAlign: TextAlign.center),
+                                        ),
+                                      ],
                                     ),
+                                    150.height,
+                                    Image.asset(
+                                        'assets/images/error/empty_task.png',
+                                        height: 250),
                                   ],
                                 ),
-                                150.height,
-                                Image.asset(
-                                    'assets/images/error/empty_task.png',
-                                    height: 250),
-                              ],
-                            ),
-                          );
+                              );
+                            }
+                          }
+                        } else if (snapshot.hasError) {
+                          return Text(snapshot.error.toString());
                         }
-                      }
-                    } else if (snapshot.hasError) {
-                      return Text(snapshot.error.toString());
-                    }
-                    return const SizedBox();
-                  }),
-            ]),
+                        return const SizedBox();
+                      }),
+                ]),
+              ),
+            ),
           ),
           StreamBuilder(
             stream: usertimesheetBloc.visible,
