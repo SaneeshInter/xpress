@@ -21,8 +21,9 @@ import '../model/user_type_list.dart';
 import '../utils/utils.dart';
 
 class CreateShiftmanagerBloc {
+
   var row_id = -1;
-  var typeId = -1;
+  var typeId = 1;
   var categoryId = 1;
   var usertypeId = 2; //default
   var shiftType = 1;
@@ -36,7 +37,6 @@ class CreateShiftmanagerBloc {
   var shiftItem;
   var buttonText = "Create Shift";
   var token;
-  bool isPricevisible = true;
   bool isShiftTypeChanged = false;
   final _visibility = PublishSubject<bool>();
 
@@ -114,7 +114,7 @@ class CreateShiftmanagerBloc {
 
   reset() {
     row_id = -1;
-    typeId = -1;
+    typeId = 1;
     categoryId = 1;
     usertypeId = 2; //default
     shiftType = 0;
@@ -126,7 +126,6 @@ class CreateShiftmanagerBloc {
     allowanceCategroy = "Food Item";
     allowance = "Break Fast";
     buttonText = "Create Shift";
-    isPricevisible = false;
     isShiftTypeChanged = false;
   }
 
@@ -138,7 +137,6 @@ class CreateShiftmanagerBloc {
     var shifttiming = await _db.getShiftTimingList();
     List<ShiftTypeList> typeList = [];
 
-    typeList.add(ShiftTypeList(rowId: -1, type: "--select--"));
     typeList.add(ShiftTypeList(rowId: 0, type: "Regular"));
     typeList.add(ShiftTypeList(rowId: 1, type: "Premium"));
     List<ShiftTypeList> shifttype = [];
@@ -167,8 +165,8 @@ class CreateShiftmanagerBloc {
 
   getAllowanceList(int id) async {
     _typeAllowances.drain();
+
     var typeList = await _db.getAllowanceList(id);
-    print(typeList.length);
     _typeAllowances.add(typeList);
   }
 

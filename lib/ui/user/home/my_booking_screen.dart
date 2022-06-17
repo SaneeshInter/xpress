@@ -117,7 +117,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
-            key: scaffoldKey,
+            // key: scaffoldKey,
             backgroundColor: Constants.colors[9],
             // floatingActionButton: FloatingActionButton.extended(
             //   onPressed: () {

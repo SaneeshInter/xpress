@@ -139,7 +139,6 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     leading: const Icon(Icons.photo, color: black),
                     title: const Text(
                       'Gallery',
-
                     ),
                     onTap: () async {
                       Navigator.pop(context);
@@ -193,9 +192,9 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ;
+
     return Scaffold(
-      key: _scaffoldKey,
+      // key: _scaffoldKey,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           getData();
@@ -212,10 +211,10 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
               getData();
             },
             child: NotificationListener<OverscrollIndicatorNotification>(
-              onNotification: (overScroll) {
-                overScroll.disallowIndicator();
-                return false;
-              },
+                onNotification: (overScroll) {
+                  overScroll.disallowIndicator();
+                  return false;
+                },
               child: SingleChildScrollView(
                 child: Container(
                     padding: EdgeInsets.symmetric(
@@ -268,106 +267,113 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
   Widget buildList(AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
     var data = snapshot.data?.response?.data;
 
-    return Column(
-      children: [
-        SizedBox(height: screenHeight(context, dividedBy: 60)),
-        Container(
-            child: completeBloc.image != null
-                ? Image.file(File(completeBloc.image.path))
-                : const SizedBox()),
-        const SizedBox(
-          height: 20,
-        ),
-        if (completeBloc.buttonVisibility)
-
-          DottedBorder(
-            borderType: BorderType.RRect,
-            dashPattern: const [10, 10],
-            color: Colors.green,
-            strokeWidth: 1,
-
-            child: GestureDetector(
-              onTap: () {
-                funcBottomSheet(context,"Image");
-              },
-              child: Container(
-                color: Colors.white,
-                width: 100.w,
-                height: 10.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      'assets/images/icon/notification.svg',
-                      color: Colors.green,
-                    ),
-                    const SizedBox(width: 10),
-                    const Text(Txt.uplaod_shift_doc),
-                  ],
+    return NotificationListener<OverscrollIndicatorNotification>(
+      onNotification: (overScroll) {
+        overScroll.disallowIndicator();
+        return false;
+      },
+      child: Column(
+        children: [
+          SizedBox(height: screenHeight(context, dividedBy: 60)),
+          Container(
+              child: completeBloc.image != null
+                  ? Image.file(File(completeBloc.image.path))
+                  : const SizedBox()),
+          const SizedBox(
+            height: 20,
+          ),
+          if (completeBloc.buttonVisibility)
+            DottedBorder(
+              borderType: BorderType.RRect,
+              dashPattern: const [10, 10],
+              color: Colors.green,
+              strokeWidth: 1,
+              child: GestureDetector(
+                onTap: () {
+                  funcBottomSheet(context,"Image");
+                },
+                child: Container(
+                  color: Colors.white,
+                  width: 100.w,
+                  height: 10.w,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/images/icon/notification.svg',
+                        color: Colors.green,
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(Txt.uplaod_shift_doc),
+                    ],
+                  ),
                 ),
               ),
             ),
+          SizedBox(height: screenHeight(context, dividedBy: 60)),
+          ListView.builder(
+            itemCount: data?.items?.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              var items = data?.items![index];
+              return Column(
+                children: [
+                  TimeSheetListWidget(
+                    onTapView: () {},
+                    onTapCall: () {},
+                    onTapMap: () {},
+                    onTapBooking: () {},
+                    items: items!,
+                    onCheckBoxClicked: (rowId, isSelect) {
+                      // debugPrint(rowId);
+                      // debugPrint(isSelect);
+                      print("dfs ${rowId} $isSelect");
+                      if (isSelect) {
+                        completeBloc.list.add(rowId.toString());
+                        print("dfs ${completeBloc.list.length} $isSelect");
+                      } else {
+                        completeBloc.list.remove(rowId.toString());
+                        print("dfs ${completeBloc.list.length} $isSelect");
+                      }
+                    },
+                  ),
+                  SizedBox(height: screenHeight(context, dividedBy: 100)),
+                ],
+              );
+            },
           ),
-        SizedBox(height: screenHeight(context, dividedBy: 60)),
-        ListView.builder(
-          itemCount: data?.items?.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            var items = data?.items![index];
-            return Column(
-              children: [
+          if (completeBloc.buttonVisibility)
+            BuildButton(
+              label: Txt.upload_timesheets,
+              onPressed: () {
+                String shiftid = "";
+                print("dfs ${completeBloc.list.length} completeBloc.list");
+                for (var item in completeBloc.list) {
 
-                TimeSheetListWidget(
-                  onTapView: () {},
-                  onTapCall: () {},
-                  onTapMap: () {},
-                  onTapBooking: () {},
-                  items: items!,
-                  onCheckBoxClicked: (rowId, isSelect) {
-                    debugPrint(rowId);
-                    debugPrint(isSelect);
-                    if (isSelect) {
-                      completeBloc.list.add(rowId.toString());
-                    } else {
-                      completeBloc.list.remove(rowId.toString());
-                    }
-                  },
-                ),
-                SizedBox(height: screenHeight(context, dividedBy: 100)),
-              ],
-            );
-          },
-        ),
-        if (completeBloc.buttonVisibility)
-          BuildButton(
-            label: Txt.upload_timesheets,
-            onPressed: () {
-              String shiftid = "";
-
-              for (var item in completeBloc.list) {
-                shiftid = "$shiftid$item,";
-              }
-              debugPrint(shiftid);
-              if (completeBloc.image != null) {
-                if (shiftid.isNotEmpty) {
-                  completeBloc.uploadTimeSheet(
-                      shiftid, File(completeBloc.image.path));
+                  shiftid = "$shiftid$item,";
+                }
+                debugPrint(shiftid);
+                if (completeBloc.image != null) {
+                  if (shiftid.isNotEmpty) {
+                    completeBloc.uploadTimeSheet(
+                        shiftid, File(completeBloc.image.path));
+                  } else {
+                    showAlertDialoge(context,
+                        title: Txt.alert, message: Txt.select_shift);
+                  }
                 } else {
                   showAlertDialoge(context,
-                      title: Txt.alert, message: Txt.select_shift);
+                      title: Txt.alert, message: Txt.uplod_timesht);
                 }
-              } else {
-                showAlertDialoge(context,
-                    title: Txt.alert, message: Txt.uplod_timesht);
-              }
-            },
-            key: null,
+              },
+              key: null,
+            ),
+          const SizedBox(
+            height: 20,
           ),
-        const SizedBox(
-          height: 20,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
