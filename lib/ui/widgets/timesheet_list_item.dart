@@ -58,6 +58,7 @@ class _TimeSheetListState extends State<TimeSheetListWidget> {
                   setState(() {
                     isChecked = value!;
                   });
+
                   widget.onCheckBoxClicked(widget.items.rowId.toString(), value);
                 },
               ),

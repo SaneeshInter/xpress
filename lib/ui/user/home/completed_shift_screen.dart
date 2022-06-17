@@ -211,33 +211,39 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
             onRefresh: () async {
               getData();
             },
-            child: SingleChildScrollView(
-              child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth(context, dividedBy: 35)),
-                  child: Column(children: [
-                    StreamBuilder(
-                        stream: completeBloc.allShift,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
-                          if (snapshot.hasError) {
-                            return Text(snapshot.error.toString());
-                          }
-                          if (!snapshot.hasData ||
-                              null == snapshot.data?.response?.data?.items ||
-                              snapshot.data?.response?.data?.items?.length == 0) {
-                            return const NoDataWidget(
-                                tittle: Txt.empty,
-                                description: Txt.no_shifts_working_hrs,
-                                asset_image:
-                                    "assets/images/error/empty_task.png");
-                          }
-                          return buildList(snapshot);
-                        }),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ])),
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (overScroll) {
+                overScroll.disallowIndicator();
+                return false;
+              },
+              child: SingleChildScrollView(
+                child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context, dividedBy: 35)),
+                    child: Column(children: [
+                      StreamBuilder(
+                          stream: completeBloc.allShift,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text(snapshot.error.toString());
+                            }
+                            if (!snapshot.hasData ||
+                                null == snapshot.data?.response?.data?.items ||
+                                snapshot.data?.response?.data?.items?.length == 0) {
+                              return const NoDataWidget(
+                                  tittle: Txt.empty,
+                                  description: Txt.no_shifts_working_hrs,
+                                  asset_image:
+                                      "assets/images/error/empty_task.png");
+                            }
+                            return buildList(snapshot);
+                          }),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ])),
+              ),
             ),
           ),
           StreamBuilder(
@@ -262,117 +268,106 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
   Widget buildList(AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
     var data = snapshot.data?.response?.data;
 
-    return RefreshIndicator(
-      onRefresh: () async {
-        getData();
-      },
-      child: NotificationListener<OverscrollIndicatorNotification>(
-        onNotification: (overScroll) {
-          overScroll.disallowIndicator();
-          return false;
-        },
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(height: screenHeight(context, dividedBy: 60)),
-              Container(
-                  child: completeBloc.image != null
-                      ? Image.file(File(completeBloc.image.path))
-                      : const SizedBox()),
-              const SizedBox(
-                height: 20,
-              ),
-              if (completeBloc.buttonVisibility)
-                DottedBorder(
-                  borderType: BorderType.RRect,
-                  dashPattern: const [10, 10],
-                  color: Colors.green,
-                  strokeWidth: 1,
-                  child: GestureDetector(
-                    onTap: () {
-                      funcBottomSheet(context,"Image");
-                    },
-                    child: Container(
-                      color: Colors.white,
-                      width: 100.w,
-                      height: 10.w,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icon/notification.svg',
-                            color: Colors.green,
-                          ),
-                          const SizedBox(width: 10),
-                          const Text(Txt.uplaod_shift_doc),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              SizedBox(height: screenHeight(context, dividedBy: 60)),
-              ListView.builder(
-                itemCount: data?.items?.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  var items = data?.items![index];
-                  return Column(
-                    children: [
-                      TimeSheetListWidget(
-                        onTapView: () {},
-                        onTapCall: () {},
-                        onTapMap: () {},
-                        onTapBooking: () {},
-                        items: items!,
-                        onCheckBoxClicked: (rowId, isSelect) {
-                          debugPrint(rowId);
-                          debugPrint(isSelect);
-                          if (isSelect) {
-                            completeBloc.list.add(rowId.toString());
-                          } else {
-                            completeBloc.list.remove(rowId.toString());
-                          }
-                        },
-                      ),
-                      SizedBox(height: screenHeight(context, dividedBy: 100)),
-                    ],
-                  );
-                },
-              ),
-              if (completeBloc.buttonVisibility)
-                BuildButton(
-                  label: Txt.upload_timesheets,
-                  onPressed: () {
-                    String shiftid = "";
+    return Column(
+      children: [
+        SizedBox(height: screenHeight(context, dividedBy: 60)),
+        Container(
+            child: completeBloc.image != null
+                ? Image.file(File(completeBloc.image.path))
+                : const SizedBox()),
+        const SizedBox(
+          height: 20,
+        ),
+        if (completeBloc.buttonVisibility)
 
-                    for (var item in completeBloc.list) {
-                      shiftid = "$shiftid$item,";
-                    }
-                    debugPrint(shiftid);
-                    if (completeBloc.image != null) {
-                      if (shiftid.isNotEmpty) {
-                        completeBloc.uploadTimeSheet(
-                            shiftid, File(completeBloc.image.path));
-                      } else {
-                        showAlertDialoge(context,
-                            title: Txt.alert, message: Txt.select_shift);
-                      }
+          DottedBorder(
+            borderType: BorderType.RRect,
+            dashPattern: const [10, 10],
+            color: Colors.green,
+            strokeWidth: 1,
+
+            child: GestureDetector(
+              onTap: () {
+                funcBottomSheet(context,"Image");
+              },
+              child: Container(
+                color: Colors.white,
+                width: 100.w,
+                height: 10.w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/icon/notification.svg',
+                      color: Colors.green,
+                    ),
+                    const SizedBox(width: 10),
+                    const Text(Txt.uplaod_shift_doc),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        SizedBox(height: screenHeight(context, dividedBy: 60)),
+        ListView.builder(
+          itemCount: data?.items?.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            var items = data?.items![index];
+            return Column(
+              children: [
+
+                TimeSheetListWidget(
+                  onTapView: () {},
+                  onTapCall: () {},
+                  onTapMap: () {},
+                  onTapBooking: () {},
+                  items: items!,
+                  onCheckBoxClicked: (rowId, isSelect) {
+                    debugPrint(rowId);
+                    debugPrint(isSelect);
+                    if (isSelect) {
+                      completeBloc.list.add(rowId.toString());
                     } else {
-                      showAlertDialoge(context,
-                          title: Txt.alert, message: Txt.uplod_timesht);
+                      completeBloc.list.remove(rowId.toString());
                     }
                   },
-                  key: null,
                 ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
+                SizedBox(height: screenHeight(context, dividedBy: 100)),
+              ],
+            );
+          },
         ),
-      ),
+        if (completeBloc.buttonVisibility)
+          BuildButton(
+            label: Txt.upload_timesheets,
+            onPressed: () {
+              String shiftid = "";
+
+              for (var item in completeBloc.list) {
+                shiftid = "$shiftid$item,";
+              }
+              debugPrint(shiftid);
+              if (completeBloc.image != null) {
+                if (shiftid.isNotEmpty) {
+                  completeBloc.uploadTimeSheet(
+                      shiftid, File(completeBloc.image.path));
+                } else {
+                  showAlertDialoge(context,
+                      title: Txt.alert, message: Txt.select_shift);
+                }
+              } else {
+                showAlertDialoge(context,
+                    title: Txt.alert, message: Txt.uplod_timesht);
+              }
+            },
+            key: null,
+          ),
+        const SizedBox(
+          height: 20,
+        ),
+      ],
     );
   }
 }

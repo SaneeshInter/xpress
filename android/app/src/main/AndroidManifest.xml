@@ -32,7 +32,7 @@
 
 
     <application
-        android:label="xpresshealthdev"
+        android:label="Xpress Health"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
