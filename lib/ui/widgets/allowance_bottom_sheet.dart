@@ -75,12 +75,12 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                         AsyncSnapshot<List<AllowanceCategoryList>> snapshot) {
                       return DropdownButtonFormField(
                         decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5)),
                               borderSide: BorderSide(color: Colors.grey),
                             ),
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8.0)),
                                 borderSide:
@@ -90,7 +90,8 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                             labelStyle: TextStyle(fontSize: 10.sp)),
                         items: snapshot.data?.map((item) {
                           return DropdownMenuItem(
-                            child: new Text(
+                            value: item,
+                            child: Text(
                               item.category!,
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
@@ -98,7 +99,6 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                   decoration: TextDecoration.none,
                                   color: Colors.grey),
                             ),
-                            value: item,
                           );
                         }).toList(),
                         onChanged: (Object? value) {
@@ -132,22 +132,23 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                         if (snapshot.data?.length != 0) {
                           return DropdownButtonFormField(
                             decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
+                                enabledBorder: const OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
                                   borderSide: BorderSide(color: Colors.grey),
                                 ),
-                                focusedBorder: OutlineInputBorder(
+                                focusedBorder: const OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(8.0)),
                                     borderSide: BorderSide(
                                         color: Colors.grey, width: 1)),
-                                contentPadding: EdgeInsets.all(3.0),
+                                contentPadding: const EdgeInsets.all(3.0),
                                 labelText:Txt.allowances,
                                 labelStyle: TextStyle(fontSize: 10.sp)),
                             items: snapshot.data?.map((item) {
                               return DropdownMenuItem(
-                                child: new Text(
+                                value: item,
+                                child: Text(
                                   item.allowance!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
@@ -155,7 +156,6 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                       decoration: TextDecoration.none,
                                       color: Colors.grey),
                                 ),
-                                value: item,
                               );
                             }).toList(),
                             onChanged: (Object? value) {
@@ -209,8 +209,8 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
             },
 
 
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
               Txt.add_allowances  ,
                 style: TextStyle(

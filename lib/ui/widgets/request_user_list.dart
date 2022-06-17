@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/AppColors.dart';
 import '../../Constants/strings.dart';
 
 import '../../model/manager_view_request.dart';
@@ -48,17 +49,16 @@ class _RequestuserListState extends State<RequestuserListWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: AspectRatio(
-                        aspectRatio: 1 / 1,
-                        child: Image.network(
-                          'https://i.imgur.com/PJpPD6S.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+
+                  CircleAvatar(
+                    backgroundColor: appColorPrimary,
+                    radius: 28,
+                    child: Text(
+                      widget.item.userName!.substring(0, 1),
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                   SizedBox(

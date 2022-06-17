@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import '../../../ui/user/sidenav/notification_screen.dart';
 
+import '../../../Constants/strings.dart';
 import '../../../utils/colors_util.dart';
 
 class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
@@ -26,7 +27,7 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
       ),
       bottomOpacity: 0.0,
       elevation: 0.0,
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: Colors.black,
         //change your color here
       ),
@@ -48,17 +49,29 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NotificationScreen()),
-            );
-          },
-          icon: SvgPicture.asset(
-            'assets/images/icon/notification.svg',
+            const newRouteName = "/NotificationScreen";
+            bool isNewRouteSameAsCurrent = false;
+            Navigator.popUntil(context, (route) {
+              if (route.settings.name == newRouteName) {
+                isNewRouteSameAsCurrent = true;
+              }
+              return true;
+            });
 
-            width: 5.w,
-            color: Colors.black,
-            height: 5.w,
+            if (!isNewRouteSameAsCurrent) {
+              Navigator.pushNamed(context, newRouteName);
+            }
+
+          },
+          icon: Badge(
+            badgeContent: const Text('0',style: TextStyle(color: white,fontSize: 10),),
+            child: SvgPicture.asset(
+              'assets/images/icon/notification.svg',
+
+              width: 5.w,
+              color: Colors.black,
+              height: 5.w,
+            ),
           ), //Image.asset('assets/images/icon/searchicon.svg',width: 20,height: 20,fit: BoxFit.contain,),
         ),
       ],
@@ -67,5 +80,6 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(60.0);
+  Size get preferredSize => const Size.fromHeight(60.0);
 }
+//logout warning

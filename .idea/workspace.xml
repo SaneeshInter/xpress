@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="code optimized">
+    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="add keystore">
+      <change afterPath="$PROJECT_DIR$/lib/ui/widgets/double_back_to_close.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ui/widgets/logout_warning.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ui/widgets/toast.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/manager_dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager_dashboard_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/common/app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/common/app_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/common/side_menu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/common/side_menu.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/allowance_bottom_sheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/allowance_bottom_sheet.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/request_user_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/request_user_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/utils.dart" afterDir="false" />
     </list>
     <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
       <change afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/0636cb608c99cbdb47f26dd402951bb4/.filecache" afterDir="false" />
@@ -1102,28 +1113,16 @@
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/.idea/workspace.xml">
       <ranges>
-        <range start1="7" end1="8" start2="7" end2="7" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="9" end1="15" start2="8" end2="9" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="17" end1="17" start2="11" end2="43" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="23" end1="23" start2="49" end2="50" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="26" end1="26" start2="53" end2="55" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="27" end1="28" start2="56" end2="57" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="29" end1="30" start2="58" end2="59" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="184" end1="185" start2="213" end2="214" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="233" end1="233" start2="262" end2="264" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="244" end1="244" start2="275" end2="276" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="259" end1="259" start2="291" end2="292" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="268" end1="268" start2="301" end2="302" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="269" end1="269" start2="303" end2="304" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="545" end1="545" start2="580" end2="581" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="719" end1="727" start2="755" end2="809" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="1018" end1="1018" start2="1100" end2="1128" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="1041" end1="1042" start2="1151" end2="1151" changelist="974fbbd4-a10d-4709-af50-1de5b539c69f" />
-        <range start1="1044" end1="1045" start2="1153" end2="1154" changelist="974fbbd4-a10d-4709-af50-1de5b539c69f" />
-        <range start1="1054" end1="1054" start2="1163" end2="1167" changelist="974fbbd4-a10d-4709-af50-1de5b539c69f" />
-        <range start1="1071" end1="1078" start2="1184" end2="1184" changelist="974fbbd4-a10d-4709-af50-1de5b539c69f" />
-        <range start1="1079" end1="1086" start2="1185" end2="1185" changelist="9857d224-d805-44de-907c-ed91424f5762" />
-        <range start1="1415" end1="1416" start2="1514" end2="1529" changelist="9857d224-d805-44de-907c-ed91424f5762" />
+        <range start1="6" end1="7" start2="6" end2="10" changelist="9857d224-d805-44de-907c-ed91424f5762" />
+        <range start1="8" end1="9" start2="11" end2="20" changelist="9857d224-d805-44de-907c-ed91424f5762" />
+        <range start1="1104" end1="1126" start2="1115" end2="1125" changelist="9857d224-d805-44de-907c-ed91424f5762" />
+        <range start1="1154" end1="1155" start2="1153" end2="1154" changelist="974fbbd4-a10d-4709-af50-1de5b539c69f" />
+        <range start1="1164" end1="1164" start2="1163" end2="1167" changelist="974fbbd4-a10d-4709-af50-1de5b539c69f" />
+        <range start1="1181" end1="1188" start2="1184" end2="1184" changelist="974fbbd4-a10d-4709-af50-1de5b539c69f" />
+        <range start1="1189" end1="1196" start2="1185" end2="1185" changelist="9857d224-d805-44de-907c-ed91424f5762" />
+        <range start1="1532" end1="1533" start2="1521" end2="1529" changelist="9857d224-d805-44de-907c-ed91424f5762" />
+        <range start1="1559" end1="1560" start2="1555" end2="1555" changelist="9857d224-d805-44de-907c-ed91424f5762" />
+        <range start1="1584" end1="1585" start2="1579" end2="1581" changelist="9857d224-d805-44de-907c-ed91424f5762" />
       </ranges>
     </file>
   </component>
@@ -1186,13 +1185,6 @@
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
       <updated>1652099780443</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Update bug fix email">
-      <created>1652187388601</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1652187388601</updated>
     </task>
     <task id="LOCAL-00010" summary="Pre release build">
       <created>1652190269490</created>
@@ -1530,7 +1522,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655380340517</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="add keystore">
+      <created>1655380639324</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1655380639324</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -1557,7 +1556,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Update slider" />
     <MESSAGE value="Update projects" />
     <MESSAGE value="Release build" />
     <MESSAGE value="Update build" />
@@ -1582,6 +1580,7 @@
     <MESSAGE value="1. Convert calendar screen(s) StatefulWidget -&gt; statelessWidget&#10;2. code Optimized" />
     <MESSAGE value="Replace liquid_pull_to_refresh: ^3.0.1 -&gt; default RefreshIndicator" />
     <MESSAGE value="code optimized" />
-    <option name="LAST_COMMIT_MESSAGE" value="code optimized" />
+    <MESSAGE value="add keystore" />
+    <option name="LAST_COMMIT_MESSAGE" value="add keystore" />
   </component>
 </project>
