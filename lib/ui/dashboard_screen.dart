@@ -185,6 +185,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
             colorBehindNavBar: Colors.white,
           ),
           onItemSelected: (index) {
+            userController.jumpToTab(index);
             setState(() {
               _selectedIndex = index;
             });

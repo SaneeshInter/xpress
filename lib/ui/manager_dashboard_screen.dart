@@ -13,7 +13,7 @@ import '../utils/constants.dart';
 
 import 'manager/home/completed_approvel.dart';
 import 'manager/home/manager_calendar_screen.dart';
-
+late PersistentTabController controller;
 class ManagerDashBoard extends StatefulWidget {
   const ManagerDashBoard({Key? key}) : super(key: key);
 
@@ -29,7 +29,7 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
     const ApprovedTimeSheetScreen(),
     const CompletedApprovelScreen(),
   ];
-  late PersistentTabController controller;
+
 int _index=0;
   @override
   void initState() {

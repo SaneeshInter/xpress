@@ -14,6 +14,7 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    const newRouteName = "/NotificationScreen";
     return AppBar(
       leading: IconButton(
         icon: SvgPicture.asset(
@@ -22,7 +23,19 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
           height: 4.2.w,
         ),
         onPressed: () {
-          scaffoldKey.currentState?.openDrawer();
+
+          bool isNewRouteSameAsCurrent = false;
+          Navigator.popUntil(context, (route) {
+            if (route.settings.name == newRouteName) {
+              isNewRouteSameAsCurrent = true;
+            }
+            return true;
+          });
+
+          if (!isNewRouteSameAsCurrent) {
+            scaffoldKey.currentState?.openDrawer();
+
+          }
         },
       ),
       bottomOpacity: 0.0,

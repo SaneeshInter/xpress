@@ -629,12 +629,13 @@ class _HomeScreentate extends State<HomeScreen> {
           GestureDetector(
             onTap: () {
               // widget.onTapMap;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AvailabilityListScreen(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const AvailabilityListScreen(),
+              //   ),
+              // );
+              userController.jumpToTab(3);
               // userController = PersistentTabController(initialIndex: 3);
               // setState(() {});
             },
@@ -645,13 +646,13 @@ class _HomeScreentate extends State<HomeScreen> {
           GestureDetector(
             onTap: () {
               // widget.onTapMap;
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const CompletedShiftScreen(),
-                ),
-              );
+              userController.jumpToTab(4);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const CompletedShiftScreen(),
+              //   ),
+              // );
             },
             child: const HomeCardItem(
                 label: Txt.submit_timesheets,
@@ -660,13 +661,13 @@ class _HomeScreentate extends State<HomeScreen> {
           GestureDetector(
             onTap: () {
               // widget.onTapMap;
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const FindShiftCalendar(),
-                ),
-              );
+              userController.jumpToTab(1);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const FindShiftCalendar(),
+              //   ),
+              // );
             },
             child: const HomeCardItem(
                 label: Txt.find_shift, asset: "assets/images/icon/shift.svg"),
@@ -674,7 +675,7 @@ class _HomeScreentate extends State<HomeScreen> {
           GestureDetector(
             onTap: () {
               // widget.onTapMap;
-
+              userController.jumpToTab(2);
               Navigator.push(
                 context,
                 MaterialPageRoute(

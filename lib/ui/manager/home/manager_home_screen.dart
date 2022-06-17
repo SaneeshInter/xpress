@@ -14,6 +14,8 @@ import '../../../resources/token_provider.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
+import '../../dashboard_screen.dart';
+import '../../manager_dashboard_screen.dart';
 import '../../user/detail/home_card_item.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../create_shift_screen_update.dart';
@@ -320,10 +322,11 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                   asset:"assets/images/icon/shift.svg")),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ManagerFindShiftCalendar()),
-              );
+              controller.jumpToTab(1);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const ManagerFindShiftCalendar()),
+              // );
             },
             child: const HomeCardItem(
                 label: Txt.view_booking,
@@ -331,11 +334,12 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ApprovedTimeSheetScreen()),
-              );
+              controller.jumpToTab(3);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => const ApprovedTimeSheetScreen()),
+              // );
             },
             child: const HomeCardItem(
                 label: Txt.approve_timesheets,

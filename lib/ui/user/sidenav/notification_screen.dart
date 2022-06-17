@@ -35,9 +35,9 @@ class _NotificationState extends State<NotificationScreen> {
         FixedExtentScrollController();
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        child: SideMenu(),
-      ),
+      // drawer: Drawer(
+      //   child: SideMenu(),
+      // ),
       appBar: AppBarCommon(
         _scaffoldKey,
         scaffoldKey: _scaffoldKey,
