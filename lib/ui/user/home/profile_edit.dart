@@ -42,7 +42,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
   TextEditingController gender = TextEditingController();
   TextEditingController dob = TextEditingController();
   TextEditingController controller = TextEditingController();
-  TextEditingController phonenumber = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
   TextEditingController ppsnumber = TextEditingController();
   TextEditingController bank_iban = TextEditingController();
   TextEditingController bank_bic = TextEditingController();
@@ -185,8 +185,15 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                                   1 / 1,
                                                               child: Stack(
                                                                 children: [
-                                                                _image!=null? Image.file(_image, fit: BoxFit
-                                                                      .fill,): profileBloc.profileImage == "" || null == profileBloc.profileImage?
+                                                                _image!=null? Image.file(_image ,fit: BoxFit.fill,
+                                                                  width: MediaQuery.of(context)
+                                                                      .size
+                                                                      .width *
+                                                                      0.22,
+                                                                  height: MediaQuery.of(context)
+                                                                      .size
+                                                                      .width *
+                                                                      0.22,): profileBloc.profileImage == "" || null == profileBloc.profileImage?
                                                                     Image.asset(
                                                                       'assets/images/icon/man_ava.png',
                                                                       fit: BoxFit
@@ -602,7 +609,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                               height: 15,
                                             ),
                                             TextInputFileds(
-                                                controlr: phonenumber,
+                                                controlr: phoneNumber,
                                                 onTapDate: () {},
                                                 onChange: () {},
                                                 validator: (number) {
@@ -873,7 +880,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                   home_address.text,
                                   "NO",
                                   profileBloc.visatypeId.toString(),
-                                  phonenumber.text,
+                                  phoneNumber.text,
                                   email.text,
                                   ppsnumber.text,
                                   bank_iban.text,
@@ -992,7 +999,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
           last_name.text = item.lastName!;
           date.text = item.dob!;
           email.text = item.email!;
-          phonenumber.text = item.phoneNumber!;
+          phoneNumber.text = item.phoneNumber!;
           ppsnumber.text = item.ppsNumber!;
           bank_iban.text = item.bankIban!;
           bank_bic.text = item.bankBic!;

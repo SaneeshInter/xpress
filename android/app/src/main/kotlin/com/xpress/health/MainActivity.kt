@@ -1,4 +1,4 @@
-package com.intersmart.xpresshealthdev
+package com.xpress.health
 
 import io.flutter.embedding.android.FlutterActivity
 

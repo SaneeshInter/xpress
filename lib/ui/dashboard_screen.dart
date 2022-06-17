@@ -42,7 +42,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
           notificationLayout: NotificationLayout.BigPicture,
           channelKey: 'big_picture',
           title: 'Notification Test',
-          body: 'Test Notification fot xpress',
+          body: 'Test Notification fot health',
           bigPicture:
               'https://tecnoblog.net/wp-content/uploads/2019/09/emoji.jpg',
         ),

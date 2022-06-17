@@ -22,7 +22,7 @@ import '../utils/utils.dart';
 
 class CreateShiftmanagerBloc {
   var row_id = -1;
-  var typeId = 1;
+  var typeId = -1;
   var categoryId = 1;
   var usertypeId = 2; //default
   var shiftType = 1;
@@ -114,7 +114,7 @@ class CreateShiftmanagerBloc {
 
   reset() {
     row_id = -1;
-    typeId = 1;
+    typeId = -1;
     categoryId = 1;
     usertypeId = 2; //default
     shiftType = 0;
@@ -137,10 +137,10 @@ class CreateShiftmanagerBloc {
 
     var shifttiming = await _db.getShiftTimingList();
     List<ShiftTypeList> typeList = [];
-    var type1 = ShiftTypeList(rowId: 0, type: "Regular");
-    var type2 = ShiftTypeList(rowId: 1, type: "Premium");
-    typeList.add(type1);
-    typeList.add(type2);
+
+    typeList.add(ShiftTypeList(rowId: -1, type: "--select--"));
+    typeList.add(ShiftTypeList(rowId: 0, type: "Regular"));
+    typeList.add(ShiftTypeList(rowId: 1, type: "Premium"));
     List<ShiftTypeList> shifttype = [];
     var shifttype1 = ShiftTypeList(rowId: 1, type: "Day");
     var shifttype2 = ShiftTypeList(rowId: 2, type: "Night");

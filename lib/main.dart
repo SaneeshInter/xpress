@@ -29,7 +29,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   AwesomeNotifications().initialize(
       // set the icon to null if you want to use the default app icon
       null,
@@ -72,7 +74,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
-        title: 'xpress health',
+        title: 'health health',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -93,7 +95,7 @@ class MyApp extends StatelessWidget {
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   debugPrint('Handling a background message: ${message.messageId}');
 
   if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,

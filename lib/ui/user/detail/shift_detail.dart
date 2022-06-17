@@ -70,6 +70,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                     AsyncSnapshot<GetUserShiftDetailsResponse> snapshot) {
                   if (snapshot.data?.response?.data != null) {
                     var data = snapshot.data?.response?.data;
+
                     var hospitalDetail = data?.hospitalDetails?[0]??HospitalDetails();
                     var shiftDetails = data?.shiftDetails![0];
                     return Column(
@@ -234,6 +235,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                       child: Column(
                                         children: [
                                           Stack(children: [
+
                                             Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -242,6 +244,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                   padding:
                                                       const EdgeInsets.only(
                                                           left: 14, top: 10),
+
                                                   child: Text(
                                                     hospitalDetail.hospitalName
                                                         .toString(),

@@ -139,7 +139,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
       children: <Widget>[
         Expanded(
           child: HomeButton(
-              onPressed: () => sendingMails("manager@xpress.in"),
+              onPressed: () => sendingMails("manager@health.in"),
               label: Txt.send_mail,
               asset: "assets/images/icon/email.svg",
               textColors: Constants.colors[0],
