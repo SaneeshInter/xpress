@@ -156,8 +156,9 @@ class _DashBoardWidgetState extends State<DashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    _controller = PersistentTabController(initialIndex: 0);
+    // _controller = PersistentTabController(initialIndex: 0);
     return DoubleBack(
+      index: _selectedIndex,
       child: Scaffold(
         key: _scaffoldKey,
         drawer: Drawer(
@@ -182,7 +183,12 @@ class _DashBoardWidgetState extends State<DashBoard> {
             borderRadius: BorderRadius.circular(10.0),
             colorBehindNavBar: Colors.white,
           ),
-          popAllScreensOnTapOfSelectedTab: true,
+          onItemSelected: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          popAllScreensOnTapOfSelectedTab: false,
           popActionScreens: PopActionScreensType.all,
           itemAnimationProperties: const ItemAnimationProperties(
             duration: Duration(milliseconds: 200),

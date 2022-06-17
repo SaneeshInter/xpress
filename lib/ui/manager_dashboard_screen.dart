@@ -41,6 +41,7 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   @override
   Widget build(BuildContext context) {
     return DoubleBack(
+      index: 0,
       child: Scaffold(
         appBar: AppBar(
           bottomOpacity: 0.0,
