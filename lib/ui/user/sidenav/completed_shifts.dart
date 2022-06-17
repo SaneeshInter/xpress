@@ -70,9 +70,9 @@ class _CompletedShiftState extends State<CompletedShift> {
       var data = event.response?.data;
       if (data?.items != null) {
         if (data?.items?.length != 0) {
-          setState(() {
+
             completeBloc.buttonVisibility = true;
-          });
+
         }
       }
     });
@@ -108,7 +108,7 @@ class _CompletedShiftState extends State<CompletedShift> {
         ),
         bottomOpacity: 0.0,
         elevation: 0.0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         backgroundColor: HexColor("#ffffff"),
@@ -122,83 +122,95 @@ class _CompletedShiftState extends State<CompletedShift> {
         centerTitle: true,
       ),
       backgroundColor: Constants.colors[9],
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, dividedBy: 35)),
-                child: Column(children: [
-                  SizedBox(height: screenHeight(context, dividedBy: 60)),
-                  StreamBuilder(
-                      stream: completeBloc.allShift,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
-                        if (snapshot.hasData) {
-                          var data = snapshot.data?.response?.data;
-                          if (data?.items != null) {
-                            if (data?.items?.length != 0) {
-                              return buildList(snapshot);
-                            } else {
-                              return Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    20.height,
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          getData();
+        },
+        child: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (overScroll) {
+              overScroll.disallowIndicator();
+              return false;
+            },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Stack(
+              children: [
+                Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context, dividedBy: 35)),
+                    child: Column(children: [
+                      SizedBox(height: screenHeight(context, dividedBy: 60)),
+                      StreamBuilder(
+                          stream: completeBloc.allShift,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
+                            if (snapshot.hasData) {
+                              var data = snapshot.data?.response?.data;
+                              if (data?.items != null) {
+                                if (data?.items?.length != 0) {
+                                  return buildList(snapshot);
+                                } else {
+                                  return Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(Txt.completed_shift,
-                                            style: boldTextStyle(size: 20)),
-                                        85.width,
-                                        16.height,
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 32),
-                                          child: Text(Txt.no_shift,
-                                              style: primaryTextStyle(size: 15),
-                                              textAlign: TextAlign.center),
+                                        20.height,
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(Txt.completed_shift,
+                                                style: boldTextStyle(size: 20)),
+                                            85.width,
+                                            16.height,
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 32),
+                                              child: Text(Txt.no_shift,
+                                                  style: primaryTextStyle(size: 15),
+                                                  textAlign: TextAlign.center),
+                                            ),
+                                          ],
                                         ),
+                                        150.height,
+                                        Image.asset(
+                                            'assets/images/error/empty_task.png',
+                                            height: 250),
                                       ],
                                     ),
-                                    150.height,
-                                    Image.asset(
-                                        'assets/images/error/empty_task.png',
-                                        height: 250),
-                                  ],
-                                ),
-                              );
+                                  );
+                                }
+                              }
+                            } else if (snapshot.hasError) {
+                              return Text(snapshot.error.toString());
                             }
-                          }
-                        } else if (snapshot.hasError) {
-                          return Text(snapshot.error.toString());
+                            return const SizedBox();
+                          }),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ])),
+                Container(
+                  width: 100.w,
+                  height: 70.h,
+                  child: StreamBuilder(
+                    stream: completeBloc.visible,
+                    builder: (context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!) {
+                          return const Center(child: LoadingWidget());
+                        } else {
+                          return const SizedBox();
                         }
+                      } else {
                         return const SizedBox();
-                      }),
-                  SizedBox(
-                    height: 10,
+                      }
+                    },
                   ),
-                ])),
-            Container(
-              width: 100.w,
-              height: 70.h,
-              child: StreamBuilder(
-                stream: completeBloc.visible,
-                builder: (context, AsyncSnapshot<bool> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!) {
-                      return const Center(child: LoadingWidget());
-                    } else {
-                      return const SizedBox();
-                    }
-                  } else {
-                    return const SizedBox();
-                  }
-                },
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

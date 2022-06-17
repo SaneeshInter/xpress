@@ -1,25 +1,23 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import '../../../model/user_home_response.dart';
-import '../../../ui/user/detail/home_card_item.dart';
-import '../../../ui/user/home/availability_list_screen.dart';
+
 import '../../../Constants/AppColors.dart';
 import '../../../Constants/strings.dart';
 import '../../../blocs/shift_homepage_bloc.dart';
+import '../../../model/user_home_response.dart';
 import '../../../resources/token_provider.dart';
+import '../../../ui/user/detail/home_card_item.dart';
+import '../../../ui/user/home/availability_list_screen.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/buttons/home_button.dart';
-import '../../widgets/double_back_to_close.dart';
 import '../../widgets/loading_widget.dart';
 import '../detail/shift_detail.dart';
 import 'completed_shift_screen.dart';
@@ -59,12 +57,12 @@ class _HomeScreentate extends State<HomeScreen> {
   }
 
   Future<void> showInternetNotAvailable() async {
-    int respo = await Navigator.push(
+    int repo = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
     );
 
-    if (respo == 1) {
+    if (repo == 1) {
       getData();
     }
   }
@@ -78,7 +76,6 @@ class _HomeScreentate extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
@@ -86,71 +83,75 @@ class _HomeScreentate extends State<HomeScreen> {
         behavior: MyBehavior(),
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: StreamBuilder<UserHomeResponse>(
-                    stream: homepageBloc.userhomeStream,
-                    builder:
-                        (context, AsyncSnapshot<UserHomeResponse> snapshot) {
-                      var data = snapshot.data?.response?.data;
-                      if (data != null) {
-                        if (data.latestShift!.length != 0) {
-                          homepageBloc.shiftDetails = data.latestShift![0];
-                        }
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (null != homepageBloc.shiftDetails)
-                              AutoSizeText(
-                                Txt.next_shift,
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "SFProMedium",
+            RefreshIndicator(
+              onRefresh: () async {
+                homepageBloc.fetchUserHomepage();
+              },
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: StreamBuilder<UserHomeResponse>(
+                      stream: homepageBloc.userhomeStream,
+                      builder:
+                          (context, AsyncSnapshot<UserHomeResponse> snapshot) {
+                        var data = snapshot.data?.response?.data;
+                        if (data != null) {
+                          if (data.latestShift!.isNotEmpty) {
+                            homepageBloc.shiftDetails = data.latestShift![0];
+                          }
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (null != homepageBloc.shiftDetails)
+                                AutoSizeText(
+                                  Txt.next_shift,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "SFProMedium",
+                                  ),
                                 ),
-                              ),
-                            if (null == homepageBloc.shiftDetails)
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: GestureDetector(
-                                    onTap: () {
-                                      ScaffoldMessenger.of(context)
-                                          .showMaterialBanner(MaterialBanner(
-                                        padding: EdgeInsets.all(20),
-                                        leading: Icon(Icons.info_outline,
-                                            color: Colors.white),
-                                        backgroundColor: appColorPrimary,
-                                        content: Text(
-                                            Txt.you_have_no_shifts_booked,
-                                            style: primaryTextStyle(
-                                                color: Colors.white)),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: Text(Txt.cancel,
-                                                style: secondaryTextStyle(
-                                                    size: 16,
-                                                    color: Colors.white
-                                                        .withOpacity(0.5))),
-                                            onPressed: () {
-                                              ScaffoldMessenger.of(context)
-                                                  .hideCurrentMaterialBanner();
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: Text(Txt.done,
-                                                style: primaryTextStyle(
-                                                    color: Colors.white)),
-                                            onPressed: () {
-                                              ScaffoldMessenger.of(context)
-                                                  .hideCurrentMaterialBanner();
-                                            },
-                                          ),
-                                        ],
-                                      ));
-                                    },
-                                    child: Container(
+                              if (null == homepageBloc.shiftDetails)
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        ScaffoldMessenger.of(context)
+                                            .showMaterialBanner(MaterialBanner(
+                                          padding: const EdgeInsets.all(20),
+                                          leading: const Icon(
+                                              Icons.info_outline,
+                                              color: Colors.white),
+                                          backgroundColor: appColorPrimary,
+                                          content: Text(
+                                              Txt.you_have_no_shifts_booked,
+                                              style: primaryTextStyle(
+                                                  color: Colors.white)),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: Text(Txt.cancel,
+                                                  style: secondaryTextStyle(
+                                                      size: 16,
+                                                      color: Colors.white
+                                                          .withOpacity(0.5))),
+                                              onPressed: () {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentMaterialBanner();
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: Text(Txt.done,
+                                                  style: primaryTextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentMaterialBanner();
+                                              },
+                                            ),
+                                          ],
+                                        ));
+                                      },
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -163,268 +164,251 @@ class _HomeScreentate extends State<HomeScreen> {
                                               fontFamily: "SFProMedium",
                                             ),
                                           ),
-                                          Icon(Icons.info_outline,
+                                          const Icon(Icons.info_outline,
                                               color: Colors.black)
                                         ],
+                                      )),
+                                ),
+                              if (null != homepageBloc.shiftDetails)
+                                SizedBox(
+                                    height:
+                                        screenHeight(context, dividedBy: 100)),
+                              if (null != homepageBloc.shiftDetails)
+                                Column(
+                                  children: [
+                                    Card(
+                                      shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                            color: Colors.white70, width: 1),
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                    )),
-                              ),
-                            if (null != homepageBloc.shiftDetails)
-                              SizedBox(
-                                  height:
-                                      screenHeight(context, dividedBy: 100)),
-                            if (null != homepageBloc.shiftDetails)
-                              Column(
-                                children: [
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          color: Colors.white70, width: 1),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    elevation: 0.0,
-                                    child: GestureDetector(
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            5, 22, 5, 22),
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      5, 0, 10, 0.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                                child: Container(
-                                                  height: 18.w,
-                                                  width: 18.w,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                        begin: Alignment
-                                                            .topCenter,
-                                                        end: Alignment
-                                                            .bottomCenter,
-                                                        colors: [
-                                                          Constants.colors[4],
-                                                          Constants.colors[3],
-                                                        ]),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            13.0),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        AutoSizeText(
-                                                          getDateString(
-                                                              homepageBloc
-                                                                  .shiftDetails!
-                                                                  .date!,
-                                                              "d"),
-                                                          textAlign: TextAlign
-                                                              .center,
-                                                          minFontSize: 0,
-                                                          stepGranularity:
-                                                              0.2,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 15.sp,
-                                                              fontFamily:
-                                                                  "SFProBold",
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w800),
-                                                        ),
-                                                        AutoSizeText(
-                                                          getDateString(
-                                                              homepageBloc
-                                                                  .shiftDetails!
-                                                                  .date!,
-                                                              "yy MMM"),
-                                                          minFontSize: 2,
-                                                          stepGranularity: 1,
-                                                          textAlign: TextAlign
-                                                              .center,
-                                                          maxLines: 2,
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 10.sp,
-                                                              fontFamily:
-                                                                  "SFProMedium",
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500),
-                                                        ),
-                                                      ],
+                                      elevation: 0.0,
+                                      child: GestureDetector(
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              5, 22, 5, 22),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        5, 0, 10, 0.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  child: Container(
+                                                    height: 18.w,
+                                                    width: 18.w,
+                                                    decoration: BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                          begin: Alignment
+                                                              .topCenter,
+                                                          end: Alignment
+                                                              .bottomCenter,
+                                                          colors: [
+                                                            Constants.colors[4],
+                                                            Constants.colors[3],
+                                                          ]),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              13.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          AutoSizeText(
+                                                            getDateString(
+                                                                homepageBloc
+                                                                    .shiftDetails!
+                                                                    .date!,
+                                                                "d"),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            minFontSize: 0,
+                                                            stepGranularity:
+                                                                0.2,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15.sp,
+                                                                fontFamily:
+                                                                    "SFProBold",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w800),
+                                                          ),
+                                                          AutoSizeText(
+                                                            getDateString(
+                                                                homepageBloc
+                                                                    .shiftDetails!
+                                                                    .date!,
+                                                                "yy MMM"),
+                                                            minFontSize: 2,
+                                                            stepGranularity: 1,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            maxLines: 2,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 10.sp,
+                                                                fontFamily:
+                                                                    "SFProMedium",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: screenWidth(context,
-                                                  dividedBy: 2),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  AutoSizeText(
-                                                    homepageBloc.shiftDetails!
-                                                        .hospital!,
-                                                    textAlign: TextAlign.left,
-                                                    maxLines: 1,
-                                                    style: TextStyle(
-                                                        color: Constants
-                                                            .colors[11],
-                                                        fontSize: 16.sp,
-                                                        fontFamily:
-                                                            "SFProMedium",
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 1.w,
-                                                  ),
-                                                  AutoSizeText(
-                                                    "${getDateString(
-                                                            homepageBloc
-                                                                .shiftDetails
-                                                                .date,
-                                                            "MMMd") +
-                                                        " " +
-                                                        getDateString(
-                                                            homepageBloc
-                                                                .shiftDetails
-                                                                .date,
-                                                            "yyyy") +
-                                                        " | " +
-                                                        homepageBloc
-                                                            .shiftDetails
-                                                            .timeFrom!} " +
-                                                        homepageBloc
-                                                            .shiftDetails
-                                                            .timeTo!,
-                                                    maxLines: 1,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color:
-                                                            Colors.blueGrey,
-                                                        fontSize: 10.sp,
-                                                        fontFamily: "S",
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2.w,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      DrawableButton(
-                                                        onPressed: () {},
-                                                        label: homepageBloc
-                                                            .shiftDetails!
-                                                            .type!,
-                                                        asset:
-                                                            "assets/images/icon/swipe-to-right.svg",
-                                                        backgroundColor:
-                                                            Constants
-                                                                .colors[2],
-                                                        textColors: Constants
-                                                            .colors[4],
-                                                      ),
-                                                      SizedBox(
-                                                        width: 2.w,
-                                                      ),
-                                                      DrawableButton(
-                                                        onPressed: () {},
-                                                        label: homepageBloc
-                                                            .shiftDetails!
-                                                            .category!,
-                                                        asset:
-                                                            "assets/images/icon/ward.svg",
-                                                        backgroundColor:
-                                                            Constants
-                                                                .colors[2],
-                                                        textColors: Constants
-                                                            .colors[6],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                              SizedBox(
+                                                width: screenWidth(context,
+                                                    dividedBy: 2),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    AutoSizeText(
+                                                      homepageBloc.shiftDetails!
+                                                          .hospital!,
+                                                      textAlign: TextAlign.left,
+                                                      maxLines: 1,
+                                                      style: TextStyle(
+                                                          color: Constants
+                                                              .colors[11],
+                                                          fontSize: 16.sp,
+                                                          fontFamily:
+                                                              "SFProMedium",
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.w,
+                                                    ),
+                                                    AutoSizeText(
+                                                      "${getDateString(homepageBloc.shiftDetails.date, "MMMd")} ${getDateString(homepageBloc.shiftDetails.date, "yyyy")} | ${homepageBloc.shiftDetails.timeFrom!} ${homepageBloc.shiftDetails.timeTo!}",
+                                                      maxLines: 1,
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.blueGrey,
+                                                          fontSize: 10.sp,
+                                                          fontFamily: "S",
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 2.w,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        DrawableButton(
+                                                          onPressed: () {},
+                                                          label: homepageBloc
+                                                              .shiftDetails!
+                                                              .type!,
+                                                          asset:
+                                                              "assets/images/icon/swipe-to-right.svg",
+                                                          backgroundColor:
+                                                              Constants
+                                                                  .colors[2],
+                                                          textColors: Constants
+                                                              .colors[4],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.w,
+                                                        ),
+                                                        DrawableButton(
+                                                          onPressed: () {},
+                                                          label: homepageBloc
+                                                              .shiftDetails!
+                                                              .category!,
+                                                          asset:
+                                                              "assets/images/icon/ward.svg",
+                                                          backgroundColor:
+                                                              Constants
+                                                                  .colors[2],
+                                                          textColors: Constants
+                                                              .colors[6],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            const Spacer(),
-                                            Container(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                transformAlignment:
-                                                    Alignment.centerRight,
-                                                child: SvgPicture.asset(
-                                                    'assets/images/icon/righarrow.svg')),
-                                            const SizedBox(width: 5),
-                                          ],
+                                              const Spacer(),
+                                              Container(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  transformAlignment:
+                                                      Alignment.centerRight,
+                                                  child: SvgPicture.asset(
+                                                      'assets/images/icon/righarrow.svg')),
+                                              const SizedBox(width: 5),
+                                            ],
+                                          ),
                                         ),
+                                        onTap: () {
+                                          LatestShift late =
+                                              homepageBloc.shiftDetails;
+                                          var shiftId = late.rowId.toString();
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ShiftDetailScreen(
+                                                      shift_id: shiftId,
+                                                      isCompleted: false,
+                                                    )),
+                                          );
+                                        },
                                       ),
-                                      onTap: () {
-                                        LatestShift late =
-                                            homepageBloc.shiftDetails;
-                                        var shiftId = late.rowId.toString();
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ShiftDetailScreen(
-                                                    shift_id: shiftId,
-                                                    isCompleted: false,
-                                                  )),
-                                        );
-                                      },
                                     ),
-                                  ),
-                                  SizedBox(
-                                      height: screenHeight(context,
-                                          dividedBy: 100)),
-                                  equalSizeButtons(),
-                                  SizedBox(
-                                      height: screenHeight(context,
-                                          dividedBy: 100)),
-                                ],
-                              ),
-                            imageCard(),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * .4,
-                                child: AutoSizeText(
-                                  Txt.important_update,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16.sp,
-                                    fontFamily: "SFProMedium",
+                                    SizedBox(
+                                        height: screenHeight(context,
+                                            dividedBy: 100)),
+                                    equalSizeButtons(),
+                                    SizedBox(
+                                        height: screenHeight(context,
+                                            dividedBy: 100)),
+                                  ],
+                                ),
+                              imageCard(),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width * .4,
+                                  child: AutoSizeText(
+                                    Txt.important_update,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16.sp,
+                                      fontFamily: "SFProMedium",
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            horizontalList(snapshot),
-                            gridView(),
-                          ],
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    }),
+                              horizontalList(snapshot),
+                              gridView(),
+                            ],
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      }),
+                ),
               ),
             ),
             StreamBuilder(
@@ -450,8 +434,8 @@ class _HomeScreentate extends State<HomeScreen> {
   Widget equalSizeButtons() {
     LatestShift late = homepageBloc.shiftDetails;
     var shiftId = late.rowId.toString();
-    print("shiftId");
-    print(shiftId);
+    debugPrint("shiftId");
+    debugPrint(shiftId);
     return Row(
       children: <Widget>[
         Expanded(
@@ -476,7 +460,7 @@ class _HomeScreentate extends State<HomeScreen> {
         Expanded(
           child: HomeButton(
               onPressed: () {
-                print("HomeButton");
+                debugPrint("HomeButton");
                 LatestShift late = homepageBloc.shiftDetails;
                 final Event event = Event(
                   title: late.jobTitle!,
@@ -492,8 +476,8 @@ class _HomeScreentate extends State<HomeScreen> {
                     emailInvites: [], // on Android, you can add invite emails to your event.
                   ),
                 );
-                print(event.location);
-                print(event.endDate);
+                debugPrint(event.location);
+                debugPrint(event.endDate.toString());
                 Add2Calendar.addEvent2Cal(event);
               },
               label: Txt.calendar,
@@ -547,7 +531,7 @@ class _HomeScreentate extends State<HomeScreen> {
                 controller: ctrl,
                 padEnds: false,
                 onPageChanged: (page) {
-                  print("page");
+                  debugPrint("page");
 
                   setState(() {
                     homepageBloc.currentPage = page.toDouble();
@@ -580,11 +564,9 @@ class _HomeScreentate extends State<HomeScreen> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                               child: SizedBox(
-                                  width:
-                                      screenHeight(context, dividedBy: 2.2),
+                                  width: screenHeight(context, dividedBy: 2.2),
                                   child: AutoSizeText(
                                     description,
                                     maxLines: 2,
@@ -595,11 +577,9 @@ class _HomeScreentate extends State<HomeScreen> {
                                   )),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                               child: SizedBox(
-                                  width:
-                                      screenHeight(context, dividedBy: 2.2),
+                                  width: screenHeight(context, dividedBy: 2.2),
                                   child: AutoSizeText(
                                     date,
                                     maxLines: 1,

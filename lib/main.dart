@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
+
 import '../ui/error/ConnectionFailedScreen.dart';
 import '../ui/error/ErrorScreen.dart';
 import '../ui/splash/splash_screen.dart';
 import '../ui/user/home/profile_screen.dart';
 import '../ui/user/imageupload/upload_documents.dart';
-
 import 'firebase_options.dart';
 
 class ScreenArguments {
@@ -20,7 +20,7 @@ class ScreenArguments {
   final String imgUrl;
   final String expiry;
 
-  ScreenArguments(this.type, this.imgUrl,this.expiry);
+  ScreenArguments(this.type, this.imgUrl, this.expiry);
 }
 
 enum Availability { morning, day, afternoon, night, sleepover }
@@ -76,13 +76,15 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
+
         initialRoute: '/',
         routes: {
           '/': (context) => SplashScreen(),
-          '/nw_error': (context) =>const ConnectionFailedScreen(),
-          '/upload_screen': (context) =>const UploadDocumentsScreen(),
-          '/error_screen': (context) =>const ErrorScreen(),
+          '/nw_error': (context) => const ConnectionFailedScreen(),
+          '/upload_screen': (context) => const UploadDocumentsScreen(),
+          '/error_screen': (context) => const ErrorScreen(),
           '/profile': (context) => const ProfileScreen(),
           '/NotificationScreen': (context) => const NotificationScreen(),
         },
@@ -92,7 +94,6 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-
   await Firebase.initializeApp();
   debugPrint('Handling a background message: ${message.messageId}');
 
@@ -100,7 +101,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
           considerWhiteSpaceAsEmpty: true) ||
       !AwesomeStringUtils.isNullOrEmpty(message.notification?.body,
           considerWhiteSpaceAsEmpty: true)) {
-    debugPrint('message also contained a notification: ${message.notification}');
+    debugPrint(
+        'message also contained a notification: ${message.notification}');
 
     String? imageUrl;
     imageUrl ??= message.notification!.android?.imageUrl;

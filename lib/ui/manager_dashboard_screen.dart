@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/widgets/double_back_to_close.dart';
 import 'package:xpresshealthdev/ui/widgets/logout_warning.dart';
@@ -10,10 +9,7 @@ import '../Constants/AppColors.dart';
 import '../Constants/strings.dart';
 import '../ui/manager/home/approved_timesheet_screen.dart';
 import '../ui/manager/home/manager_home_screen.dart';
-import '../ui/splash/user_or_manager.dart';
 import '../utils/constants.dart';
-import '../db/database.dart';
-import '../utils/colors_util.dart';
 
 import 'manager/home/completed_approvel.dart';
 import 'manager/home/manager_calendar_screen.dart';
@@ -33,12 +29,12 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
     const ApprovedTimeSheetScreen(),
     const CompletedApprovelScreen(),
   ];
-  late PersistentTabController _controller;
+  late PersistentTabController controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
+    controller = PersistentTabController(initialIndex: 0);
   }
 
 
@@ -83,7 +79,7 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
         ),
         body: PersistentTabView(
           context,
-          controller: _controller,
+          controller: controller,
           screens: _widgetOptions,
           items: _navBarsItems(),
           confineInSafeArea: true,

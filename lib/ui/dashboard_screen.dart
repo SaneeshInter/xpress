@@ -188,7 +188,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
             duration: Duration(milliseconds: 200),
             curve: Curves.ease,
           ),
-          screenTransitionAnimation: ScreenTransitionAnimation(
+          screenTransitionAnimation: const ScreenTransitionAnimation(
             animateTabTransition: true,
             curve: Curves.ease,
             duration: Duration(milliseconds: 200),
@@ -298,35 +298,35 @@ class _DashBoardWidgetState extends State<DashBoard> {
 List<PersistentBottomNavBarItem> _navBarsItems() {
   return [
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.home),
+      icon: const Icon(CupertinoIcons.home),
       title: (Txt.home),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.shift),
+      icon: const Icon(CupertinoIcons.shift),
       iconSize: 6.w,
       title: (Txt.find_shift),
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar),
+      icon: const Icon(CupertinoIcons.calendar),
       title: (Txt.booking),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar_badge_plus),
+      icon: const Icon(CupertinoIcons.calendar_badge_plus),
       title: (Txt.availability),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.calendar_badge_plus),
+      icon: const Icon(CupertinoIcons.calendar_badge_plus),
       title: (Txt.time_sheet),
       iconSize: 6.w,
       activeColorPrimary: Constants.colors[6],

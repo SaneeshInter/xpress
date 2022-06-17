@@ -1,8 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 import '../../../ui/manager/home/approved_timesheet_screen.dart';
 import '../../../ui/manager/home/my_shifts_screen.dart';
@@ -72,7 +70,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Constants.colors[9],
       body: ScrollConfiguration(
@@ -82,32 +79,30 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Stack(
               children: [
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * .4,
-                          child: AutoSizeText(
-                            Txt.important_update,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Constants.colors[1],
-                              fontSize: 16.sp,
-                              fontFamily: "SFProMedium",
-                            ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * .4,
+                        child: AutoSizeText(
+                          Txt.important_update,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 16.sp,
+                            fontFamily: "SFProMedium",
                           ),
                         ),
                       ),
-                      horizontalList(),
-                      gridView(),
-                      equalSizeButtons()
-                    ],
-                  ),
+                    ),
+                    horizontalList(),
+                    gridView(),
+                    equalSizeButtons()
+                  ],
                 ),
-                Container(
+                SizedBox(
                   width: 100.w,
                   height: 70.h,
                   child: StreamBuilder(
@@ -160,7 +155,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
   }
 
   Widget imageCard() {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Card(
         elevation: 0.0,
@@ -168,9 +163,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Row(
             children: [
-              Container(
-                  child:
-                      Image.asset('assets/images/icon/premium_home_icon.png')),
+              Image.asset('assets/images/icon/premium_home_icon.png'),
             ],
           ),
         ),
@@ -192,15 +185,17 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
             } else if (snapshot.hasError) {
               return Text(snapshot.error.toString());
             }
-            return const SizedBox();
+            return SizedBox(
+                height: 35.w,
+                child: const Center(child: CircularProgressIndicator()));
           }),
     );
   }
 
   Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
-      var itemcount = snapshot.data?.response?.data?.importantUpdates!.length;
-      return Container(
+      var itemCount = snapshot.data?.response?.data?.importantUpdates!.length;
+      return SizedBox(
         height: 35.w,
         child: Column(
           children: [
@@ -209,14 +204,13 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                 controller: ctrl,
                 padEnds: false,
                 onPageChanged: (page) {
-                  print("page");
-                  print(page);
+                  debugPrint("page $page");
                   setState(() {
                     currentPage = page.toDouble();
                   });
                 },
                 pageSnapping: true,
-                itemCount: itemcount,
+                itemCount: itemCount,
                 itemBuilder: (BuildContext context, int index) {
                   var list =
                       snapshot.data?.response?.data?.importantUpdates![index];
@@ -224,58 +218,54 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                     var name = list.title!;
                     var date = list.date!;
                     var description = list.description!;
-                    return Container(
-                      child: Card(
-                        elevation: 0.0,
-                        child: Container(
-                          child: Padding(
-                            padding: const EdgeInsets.all(13.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                AutoSizeText(
-                                  name,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontFamily: "SFProMedium",
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                  child: Container(
-                                      width:
-                                          screenHeight(context, dividedBy: 2.2),
-                                      child: AutoSizeText(
-                                        description,
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8.sp,
-                                        ),
-                                      )),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                  child: SizedBox(
-                                      width:
-                                          screenHeight(context, dividedBy: 2.2),
-                                      child: AutoSizeText(
-                                        date,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8.sp,
-                                        ),
-                                      )),
-                                ),
-                              ],
+                    return Card(
+                      elevation: 0.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AutoSizeText(
+                              name,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontFamily: "SFProMedium",
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                              child: SizedBox(
+                                  width:
+                                      screenHeight(context, dividedBy: 2.2),
+                                  child: AutoSizeText(
+                                    description,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 8.sp,
+                                    ),
+                                  )),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                              child: SizedBox(
+                                  width:
+                                      screenHeight(context, dividedBy: 2.2),
+                                  child: AutoSizeText(
+                                    date,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 8.sp,
+                                    ),
+                                  )),
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -286,7 +276,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
               ),
             ),
             DotsIndicator(
-              dotsCount: itemcount!,
+              dotsCount: itemCount!,
               position: currentPage!,
               decorator: DotsDecorator(
                 color: Colors.white, // Inactive color
@@ -312,24 +302,24 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
         children: [
           GestureDetector(
               onTap: () {
-                print("ON TAP");
+                debugPrint("ON TAP");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CreateShiftScreenUpdate()),
+                      builder: (context) => const CreateShiftScreenUpdate()),
                 );
               },
-              child: HomeCardItem(
+              child: const HomeCardItem(
                   label: Txt.create_shifts,
                   asset:"assets/images/icon/shift.svg")),
           GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ManagerShiftsScreen()),
+                MaterialPageRoute(builder: (context) => const ManagerShiftsScreen()),
               );
             },
-            child: HomeCardItem(
+            child: const HomeCardItem(
                 label: Txt.view_booking,
                 asset: "assets/images/icon/booking.svg"),
           ),
@@ -338,10 +328,10 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ApprovedTimeSheetScreen()),
+                    builder: (context) => const ApprovedTimeSheetScreen()),
               );
             },
-            child: HomeCardItem(
+            child: const HomeCardItem(
                 label: Txt.approve_timesheets,
                 asset: "assets/images/icon/availability.svg"),
           ),
