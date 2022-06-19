@@ -344,3 +344,11 @@ Future<void> logOut(BuildContext context) async {
         (route) => false, //if you want to disable back feature set to false
   );
 }
+
+
+
+convert24hrTo12hrTime(String time) {
+  var time24 = DateFormat("HH:mm").parse(time);
+  var time12 = DateFormat("hh:mm a").format(time24);
+  return time12;
+}
