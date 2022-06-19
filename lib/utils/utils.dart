@@ -93,7 +93,7 @@ void showAddTimeSheet(
     context: context,
     barrierColor: Colors.transparent,
     builder: (BuildContext context) {
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         // Navigator.of(context).pop(true);
       });
       return Center(
@@ -220,21 +220,30 @@ String convert12hrTo24hr(String date) {
   return date24;
 }
 
-String convert24hrTo12hr(String time, BuildContext context) {
+// String convert24hrTo12hr(String time, BuildContext context) {
+//   if(time.isEmpty) {
+//     return "";
+//   }
+//     print("time: $time ${time.length} ${time.isEmpty}  ${time == ""} ${time ==
+//         "null"}");
+//     if (time.contains("PM") || time.contains("AM")) {
+//       return time;
+//     }
+//
+//     TimeOfDay startTime = TimeOfDay(hour: int.parse(time.split(":")[0]),
+//         minute: int.parse(time.split(":")[1]));
+//     var time12 = startTime.format(context);
+//     return time12;
+//
+// }
+
+convert24hrTo12hr(String time) {
   if(time.isEmpty) {
     return "";
   }
-    print("time: $time ${time.length} ${time.isEmpty}  ${time == ""} ${time ==
-        "null"}");
-    if (time.contains("PM") || time.contains("AM")) {
-      return time;
-    }
-
-    TimeOfDay _startTime = TimeOfDay(hour: int.parse(time.split(":")[0]),
-        minute: int.parse(time.split(":")[1]));
-    var time12 = _startTime.format(context);
-    return time12;
-
+  var time24 = DateFormat("HH:mm").parse(time);
+  var time12 = DateFormat("hh:mm a").format(time24);
+  return time12;
 }
 
 void showActionAlert(
@@ -246,7 +255,7 @@ void showActionAlert(
     context: context,
     barrierColor: Colors.transparent,
     builder: (BuildContext context) {
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         // Navigator.of(context).pop(true);
       });
       return Center(
@@ -320,8 +329,7 @@ late DateTime currentBackPressTime;
 
 Future<bool> onWillPopFunction() {
   DateTime now = DateTime.now();
-  if (currentBackPressTime == null ||
-      now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
+  if (now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
     currentBackPressTime = now;
     Fluttertoast.showToast(msg: "Double tap to exit");
     return Future.value(false);
@@ -334,21 +342,22 @@ Future<void> logOut(BuildContext context) async {
   db.clearDb();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   await preferences.clear();
-  Navigator.pop(context);
-  Navigator.pop(context);
-  Navigator.pushAndRemoveUntil<dynamic>(
-    context,
-    MaterialPageRoute<dynamic>(
-      builder: (BuildContext context) => UserOrManager(),
-    ),
-        (route) => false, //if you want to disable back feature set to false
-  );
+  Future.delayed(Duration.zero, () async{
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.pushAndRemoveUntil<dynamic>(
+      context,
+      MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => UserOrManager(),
+      ),
+          (route) => false,
+    );
+  });
+
+}
+void showInternetNotAvailable(BuildContext context,Function onBack) {
+  Navigator.pushNamed(context, '/nw_error').then((_) {
+    onBack();
+  });
 }
 
-
-
-convert24hrTo12hrTime(String time) {
-  var time24 = DateFormat("HH:mm").parse(time);
-  var time12 = DateFormat("hh:mm a").format(time24);
-  return time12;
-}

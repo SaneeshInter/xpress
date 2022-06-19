@@ -38,6 +38,8 @@ class CreateShiftmanagerBloc {
   var buttonText = "Create Shift";
   var token;
   bool isShiftTypeChanged = false;
+ late AllowanceList selectedAllowance;
+ late AllowanceCategoryList selectedAllowanceCategory;
   final _visibility = PublishSubject<bool>();
 
   Stream<bool> get visible => _visibility.stream;
@@ -160,6 +162,14 @@ class CreateShiftmanagerBloc {
     for (var list in typeList) {
       print(list.category);
     }
+    selectedAllowanceCategory = typeList[0];
+    allowanceId = 1;
+    allowanceCategroy = "Food Item";
+
+    managerBloc.typeAllowancesList.drain();
+    managerBloc.getAllowanceList(selectedAllowanceCategory.rowId!);
+    allowanceCategroyId = selectedAllowanceCategory.rowId!;
+    allowanceCategroy = selectedAllowanceCategory.category!;
     _typeAllowancesCategroy.add(typeList);
   }
 
@@ -167,7 +177,9 @@ class CreateShiftmanagerBloc {
     _typeAllowances.drain();
 
     var typeList = await _db.getAllowanceList(id);
+    selectedAllowance = typeList[0];
     _typeAllowances.add(typeList);
+
   }
 
   Stream<ManagerShift> get getmanagerStream => _getmanager.stream;
@@ -220,9 +232,7 @@ class CreateShiftmanagerBloc {
 
   Stream<GetAvailableUserByDate> get managerStream => _manager.stream;
 
-  getManagerClient(
-    String token,
-  ) async {
+  getManagerClient( String token,) async {
     _visibility.add(true);
     ManagerGetClientsResponse respo = await _repo.fetchManagerGetClients(token);
     var list = respo.response?.data?.items;

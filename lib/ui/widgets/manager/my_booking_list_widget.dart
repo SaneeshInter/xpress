@@ -85,9 +85,9 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
                         padding: const EdgeInsets.only(top: 3.0),
                         child: Text(
                           Txt.from +
-                             convert24hrTo12hr(widget.items.timeFrom!, context)  +
+                             convert24hrTo12hr(widget.items.timeFrom!)  +
                               Txt.to +
-                            convert24hrTo12hr( widget.items.timeTo!, context) ,
+                            convert24hrTo12hr( widget.items.timeTo!) ,
                           style: TextStyle(
                               fontSize: 9.sp,
                               color: Constants.colors[13],

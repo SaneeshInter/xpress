@@ -16,6 +16,7 @@ import '../../../utils/constants.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/loading_widget.dart';
+import '../../widgets/my_scroll_behavior.dart';
 import '../../widgets/profile_detail.dart';
 import '../../widgets/profile_documents.dart';
 
@@ -89,6 +90,8 @@ class _ProfileState extends State<ProfileScreen> {
           prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo!);
           prefs.setString(SharedPrefKey.USER_TYPE_NAME, userType!);
           prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc!);
+        }else{
+          showInternetNotAvailable();
         }
       },
     );
@@ -368,12 +371,6 @@ class _ProfileState extends State<ProfileScreen> {
       ),
     );
   }
+
 }
 
-class MyBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
-}

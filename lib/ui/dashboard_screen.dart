@@ -190,6 +190,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
               _selectedIndex = index;
             });
           },
+
           popAllScreensOnTapOfSelectedTab: false,
           popActionScreens: PopActionScreensType.all,
           itemAnimationProperties: const ItemAnimationProperties(

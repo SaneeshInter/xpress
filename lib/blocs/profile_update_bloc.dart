@@ -68,7 +68,6 @@ class ProfileBloc {
   getUserInfo() async {
     _visibility.add(true);
     UserGetResponse response = await _repo.fetchUserInfo(token);
-
     _getUser.sink.add(response);
     _visibility.add(false);
   }

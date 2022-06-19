@@ -79,9 +79,9 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                     widget.items.timeTo.toString().isEmpty)?
                 Text(""):  Text(
                 Txt.from +
-                    convert24hrTo12hr( widget.items.timeFrom.toString().trim(), context)   +
+                    convert24hrTo12hr( widget.items.timeFrom.toString().trim())   +
                     Txt.to +
-                    convert24hrTo12hr(widget.items.timeTo.toString().trim(), context) ,
+                    convert24hrTo12hr(widget.items.timeTo.toString().trim()) ,
                 style: TextStyle(
                     fontSize: 13,
                     color: Colors.grey,

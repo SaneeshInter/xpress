@@ -39,7 +39,7 @@ class _DoubleBackState extends State<DoubleBack> {
     if (_isAndroid) {
       return WillPopScope(
         onWillPop: () async {
-          debugPrint("onWillPop ${widget.index}");
+          debugPrint("onWillPop ${widget.index} ${Navigator.canPop(context)}");
          if(widget.index==0&&!Navigator.canPop(context)){
              if (tapped) {
                return true;
