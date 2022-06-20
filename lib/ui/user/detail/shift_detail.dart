@@ -272,10 +272,10 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     onPressed: () {},
                                                     label:Txt.from +
                                                         convert24hrTo12hr( shiftDetails.timeFrom
-                                                            .toString(), context)  +
+                                                            .toString())  +
                                                         Txt.to+
                                                         convert24hrTo12hr ( shiftDetails.timeTo
-                                                            .toString(), context),
+                                                            .toString()),
                                                     asset:
                                                         "assets/images/icon/time.svg",
                                                     textColors: Colors.black,

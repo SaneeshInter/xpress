@@ -595,11 +595,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               dateFrom.text =
                                                                   convert24hrTo12hr(
                                                                       timeFrom,
-                                                                      context);
+                                                                      );
                                                               dateTo.text =
                                                                   convert24hrTo12hr(
                                                                       timeTo,
-                                                                      context);
+                                                                      );
                                                             }
                                                           },
                                                         );
@@ -1025,8 +1025,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         managerBloc.shiftTypeId = shiftValue.rowId!;
         var timeFrom = shiftValue.startTime!;
         var timeTo = shiftValue.endTime!;
-        dateFrom.text = convert24hrTo12hr(timeFrom, context);
-        dateTo.text = convert24hrTo12hr(timeTo, context);
+        dateFrom.text = convert24hrTo12hr(timeFrom);
+        dateTo.text = convert24hrTo12hr(timeTo);
       }
     });
   }
@@ -1041,11 +1041,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       jobtitle.text = item.jobTitle!;
       managerBloc.row_id = item.rowId!;
       date.text = item.date!;
-      dateTo.text = convert24hrTo12hr(item.timeTo!, context);
+      dateTo.text = convert24hrTo12hr(item.timeTo!);
       if (item.price != null) {
         price.text = item.price.toString();
       }
-      dateFrom.text = convert24hrTo12hr(item.timeFrom!, context);
+      dateFrom.text = convert24hrTo12hr(item.timeFrom!);
       jobDescri.text = item.jobDetails!;
       category.text = item.category!;
       managerBloc.buttonText = "Edit Shift";

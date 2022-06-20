@@ -294,47 +294,47 @@ class _SideMenuState extends State<SideMenu> {
               );
             },
           ),
-          ListTile(
-            title: const Text(
-             Txt.faqs,
-              style: TextStyle(color: Colors.white),
-            ),
-            leading: Container(
-              width: 5.w,
-              height: 5.w,
-              child: SvgPicture.asset('assets/images/icon/conversation.svg', color: Colors.white,),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              pushNewScreen(
-                context,
-                screen: FaqsShitsScreen(),
-                withNavBar: true,
-                pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              );
-            },
-          ),
-
-          ListTile(
-            title: const Text(
-             Txt.contact_us ,
-              style: TextStyle(color: Colors.white),
-            ),
-            leading: Container(
-              width: 5.w,
-              height: 5.w,
-              child:  SvgPicture.asset('assets/images/icon/contact-book.svg', color: Colors.white,),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              pushNewScreen(
-                context,
-                screen: ContactScreen(),
-                withNavBar: true,
-                pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              );
-            },
-          ),
+          // ListTile(
+          //   title: const Text(
+          //    Txt.faqs,
+          //     style: TextStyle(color: Colors.white),
+          //   ),
+          //   leading: Container(
+          //     width: 5.w,
+          //     height: 5.w,
+          //     child: SvgPicture.asset('assets/images/icon/conversation.svg', color: Colors.white,),
+          //   ),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     pushNewScreen(
+          //       context,
+          //       screen: FaqsShitsScreen(),
+          //       withNavBar: true,
+          //       pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          //     );
+          //   },
+          // ),
+          //
+          // ListTile(
+          //   title: const Text(
+          //    Txt.contact_us ,
+          //     style: TextStyle(color: Colors.white),
+          //   ),
+          //   leading: SizedBox(
+          //     width: 5.w,
+          //     height: 5.w,
+          //     child:  SvgPicture.asset('assets/images/icon/contact-book.svg', color: Colors.white,),
+          //   ),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     pushNewScreen(
+          //       context,
+          //       screen: const ContactScreen(),
+          //       withNavBar: true,
+          //       pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          //     );
+          //   },
+          // ),
           ListTile(
             title: const Text(
              Txt.log_out,

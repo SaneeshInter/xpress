@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../utils/constants.dart';
+import '../../widgets/my_scroll_behavior.dart';
 
 
 class ShiftCalendarScreen extends StatefulWidget {
@@ -41,39 +42,37 @@ class _ProfileState extends State<ShiftCalendarScreen> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Container(
-              child: TableCalendar(
-                focusedDay: selectedDay,
-                firstDay: DateTime.now(),
-                lastDay: DateTime(2030),
-                calendarFormat: format,
-                onFormatChanged: (CalendarFormat _format) {
-                  setState(() {
-                    format = _format;
-                  });
-                },
-                startingDayOfWeek: StartingDayOfWeek.sunday,
-                daysOfWeekVisible: true,
-                onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                  setState(() {
-                    selectedDay = selectDay;
-                    focusDay = focusDay;
-                  });
-                  debugPrint(focusDay.toString());
-                },
-                calendarStyle: CalendarStyle(
-                  isTodayHighlighted: true,
+            child: TableCalendar(
+              focusedDay: selectedDay,
+              firstDay: DateTime.now(),
+              lastDay: DateTime(2030),
+              calendarFormat: format,
+              onFormatChanged: (CalendarFormat _format) {
+                setState(() {
+                  format = _format;
+                });
+              },
+              startingDayOfWeek: StartingDayOfWeek.sunday,
+              daysOfWeekVisible: true,
+              onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                setState(() {
+                  selectedDay = selectDay;
+                  focusDay = focusDay;
+                });
+                debugPrint(focusDay.toString());
+              },
+              calendarStyle: CalendarStyle(
+                isTodayHighlighted: true,
 
-                  selectedDecoration: BoxDecoration(
-                    color: Colors.green,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
+                selectedDecoration: BoxDecoration(
+                  color: Colors.green,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                selectedDayPredicate: (DateTime date) {
-                  return isSameDay(selectedDay, date);
-                },
               ),
+              selectedDayPredicate: (DateTime date) {
+                return isSameDay(selectedDay, date);
+              },
             ),
           ),
         ),
@@ -84,10 +83,4 @@ class _ProfileState extends State<ShiftCalendarScreen> {
 
 
 
-class MyBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
-}
+

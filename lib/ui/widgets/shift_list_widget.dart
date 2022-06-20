@@ -67,7 +67,7 @@ class _HomePageCardState extends State<ShiftListWidget> {
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
                 if (null != widget.items.timeFrom && null != widget.items.timeTo)
                   Text(
-                    Txt.from + convert24hrTo12hr(widget.items.timeFrom!, context) + Txt.to + convert24hrTo12hr(widget.items.timeTo!, context),
+                    Txt.from + convert24hrTo12hr(widget.items.timeFrom!) + Txt.to + convert24hrTo12hr(widget.items.timeTo!),
                     style: TextStyle(fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w400),
                   ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),

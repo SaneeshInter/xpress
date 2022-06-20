@@ -4,7 +4,6 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../Constants/AppColors.dart';
@@ -20,11 +19,9 @@ import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../../widgets/loading_widget.dart';
+import '../../widgets/my_scroll_behavior.dart';
 import '../detail/shift_detail.dart';
-import 'availability_list_screen.dart';
-import 'completed_shift_screen.dart';
 import 'my_booking_screen.dart';
-import 'my_shift_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,25 +46,11 @@ class _HomeScreentate extends State<HomeScreen> {
 
   Future getData() async {
     homepageBloc.token = await TokenProvider().getToken();
-    if (null != homepageBloc.token) {
-      if (await isNetworkAvailable()) {
-        homepageBloc.fetchUserHomepage();
-      } else {
-        showInternetNotAvailable();
-      }
+     if (null != homepageBloc.token) {
+      homepageBloc.fetchUserHomepage(context);
     }
   }
 
-  Future<void> showInternetNotAvailable() async {
-    int repo = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ConnectionFailedScreen()),
-    );
-
-    if (repo == 1) {
-      getData();
-    }
-  }
 
   @override
   void initState() {
@@ -87,7 +70,7 @@ class _HomeScreentate extends State<HomeScreen> {
           children: [
             RefreshIndicator(
               onRefresh: () async {
-                homepageBloc.fetchUserHomepage();
+                homepageBloc.fetchUserHomepage(context);
               },
               child: SingleChildScrollView(
                 child: Padding(
@@ -696,10 +679,4 @@ class _HomeScreentate extends State<HomeScreen> {
   }
 }
 
-class MyBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
-}
+

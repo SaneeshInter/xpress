@@ -18,6 +18,7 @@ import '../../dashboard_screen.dart';
 import '../../manager_dashboard_screen.dart';
 import '../../user/detail/home_card_item.dart';
 import '../../widgets/buttons/home_button.dart';
+import '../../widgets/my_scroll_behavior.dart';
 import '../create_shift_screen_update.dart';
 import 'manager_calendar_screen.dart';
 
@@ -351,10 +352,4 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
   }
 }
 
-class MyBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
-}
+
