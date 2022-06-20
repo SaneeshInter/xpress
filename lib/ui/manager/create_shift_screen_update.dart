@@ -90,6 +90,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     observerResponse();
     getToken();
     managerBloc.row_id = -1;
+    managerBloc.getModelDropDown();
     managerBloc.isShiftTypeChanged = false;
   }
 
@@ -160,8 +161,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       ShiftTypeList>>
                                                               snapshot) {
                                                         if (null ==
-                                                                snapshot
-                                                                    .data ||
+                                                                snapshot.data ||
                                                             snapshot.data
                                                                     ?.length ==
                                                                 0) {
@@ -176,39 +176,36 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           items: snapshot.data
                                                               ?.map((item) {
                                                             return DropdownMenuItem(
-                                                              value:
-                                                                  item.rowId,
-                                                              child: Text(
-                                                                item.type!,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize:
-                                                                      10.sp,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                  color: Constants
-                                                                      .colors[29],
+                                                              value: item.rowId,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.only(left: 4),
+                                                                child: Text(
+                                                                  item.type!,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .none,
+                                                                    color: Constants
+                                                                        .colors[29],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged: (Object?
-                                                              value) {
-                                                            print("dkfjdgvj  ${value as int}");
+                                                          onChanged:
+                                                              (Object? value) {
+                                                            print(
+                                                                "dkfjdgvj  ${value as int}");
 
-
-                                                              managerBloc
-                                                                  .typeId =
-                                                              value;
-                                                              setState(() {
-
-                                                              });
-
-
+                                                            managerBloc.typeId =
+                                                                value;
+                                                            setState(() {});
                                                           },
                                                         );
                                                       },
@@ -231,8 +228,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       ScheduleCategoryList>>
                                                               snapshot) {
                                                         if (null ==
-                                                                snapshot
-                                                                    .data ||
+                                                                snapshot.data ||
                                                             snapshot.data
                                                                     ?.length ==
                                                                 0) {
@@ -247,30 +243,31 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           items: snapshot.data
                                                               ?.map((item) {
                                                             return DropdownMenuItem(
-                                                              value:
-                                                                  item.rowId,
-                                                              child: Text(
-                                                                item.category!,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize:
-                                                                      10.sp,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                  color: Constants
-                                                                      .colors[29],
+                                                              value: item.rowId,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.only(left: 4),
+                                                                child: Text(
+                                                                  item.category!,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .none,
+                                                                    color: Constants
+                                                                        .colors[29],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged: (Object?
-                                                              value) {
-                                                            if (value
-                                                                is int?) {
+                                                          onChanged:
+                                                              (Object? value) {
+                                                            if (value is int?) {
                                                               managerBloc
                                                                       .categoryId =
                                                                   value!;
@@ -305,8 +302,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       UserTypeList>>
                                                               snapshot) {
                                                         if (null ==
-                                                                snapshot
-                                                                    .data ||
+                                                                snapshot.data ||
                                                             snapshot.data
                                                                     ?.length ==
                                                                 0) {
@@ -322,30 +318,31 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           items: snapshot.data
                                                               ?.map((item) {
                                                             return DropdownMenuItem(
-                                                              value:
-                                                                  item.rowId,
-                                                              child: Text(
-                                                                item.type!,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize:
-                                                                      10.sp,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                  color: Constants
-                                                                      .colors[29],
+                                                              value: item.rowId,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.only(left: 4),
+                                                                child: Text(
+                                                                  item.type!,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .none,
+                                                                    color: Constants
+                                                                        .colors[29],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged: (Object?
-                                                              value) {
-                                                            if (value
-                                                                is int?) {
+                                                          onChanged:
+                                                              (Object? value) {
+                                                            if (value is int?) {
                                                               managerBloc
                                                                       .usertypeId =
                                                                   value!;
@@ -372,8 +369,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       HospitalList>>
                                                               snapshot) {
                                                         if (null ==
-                                                                snapshot
-                                                                    .data ||
+                                                                snapshot.data ||
                                                             snapshot.data
                                                                     ?.length ==
                                                                 0) {
@@ -390,33 +386,34 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           items: snapshot.data
                                                               ?.map((item) {
                                                             return DropdownMenuItem(
-                                                              value:
-                                                                  item.rowId,
-                                                              child: Text(
-                                                                item.name!,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .clip,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize:
-                                                                      8.sp,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                  color: Constants
-                                                                      .colors[29],
+                                                              value: item.rowId,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.only(left: 4),
+                                                                child: Text(
+                                                                  item.name!,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .clip,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        8.sp,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .none,
+                                                                    color: Constants
+                                                                        .colors[29],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged: (Object?
-                                                              value) {
-                                                            if (value
-                                                                is int?) {
+                                                          onChanged:
+                                                              (Object? value) {
+                                                            if (value is int?) {
                                                               managerBloc
                                                                       .hospitalId =
                                                                   value!;
@@ -453,8 +450,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                 AsyncSnapshot<List<UnitItems>>
                                                     snapshot) {
                                               if (null == snapshot.data ||
-                                                  snapshot.data?.length ==
-                                                      0) {
+                                                  snapshot.data?.length == 0) {
                                                 return const SizedBox();
                                               }
 
@@ -464,31 +460,32 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                 decoration:
                                                     buildInputDecoration(
                                                         Txt.unit_name),
-                                                items: snapshot.data
-                                                    ?.map((item) {
+                                                items:
+                                                    snapshot.data?.map((item) {
                                                   return DropdownMenuItem(
                                                     value: item.unitRowId,
-                                                    child: Text(
-                                                      item.unitName!,
-                                                      overflow:
-                                                          TextOverflow.clip,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 9.sp,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .none,
-                                                        color: Constants
-                                                            .colors[29],
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(left: 4),
+                                                      child: Text(
+                                                        item.unitName!,
+                                                        overflow:
+                                                            TextOverflow.clip,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 9.sp,
+                                                          decoration:
+                                                              TextDecoration.none,
+                                                          color: Constants
+                                                              .colors[29],
+                                                        ),
                                                       ),
                                                     ),
                                                   );
                                                 }).toList(),
                                                 onChanged: (Object? value) {
                                                   if (value is int?) {
-                                                    managerBloc.unitId =
-                                                        value!;
+                                                    managerBloc.unitId = value!;
                                                   }
                                                 },
                                               );
@@ -510,8 +507,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                     return Txt.enter_job;
                                                 },
                                                 hintText: Txt.jobtitle,
-                                                keyboadType:
-                                                    TextInputType.text,
+                                                keyboadType: TextInputType.text,
                                                 isPwd: false,
                                                 onTapDate: () {}),
                                           ],
@@ -536,8 +532,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                                       ShiftTimingList>>
                                                               snapshot) {
                                                         if (null ==
-                                                                snapshot
-                                                                    .data ||
+                                                                snapshot.data ||
                                                             snapshot.data
                                                                     ?.length ==
                                                                 0) {
@@ -553,33 +548,34 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           items: snapshot.data
                                                               ?.map((item) {
                                                             return DropdownMenuItem(
-                                                              value:
-                                                                  item.rowId,
-                                                              child: Text(
-                                                                item.shift!,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize:
-                                                                      10.sp,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .none,
-                                                                  color: Constants
-                                                                      .colors[29],
+                                                              value: item.rowId,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.only(left: 4),
+                                                                child: Text(
+                                                                  item.shift!,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .none,
+                                                                    color: Constants
+                                                                        .colors[29],
+                                                                  ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged: (Object?
-                                                              value) {
+                                                          onChanged:
+                                                              (Object? value) {
                                                             managerBloc
                                                                     .isShiftTypeChanged =
                                                                 true;
-                                                            if (value
-                                                                is int?) {
+                                                            if (value is int?) {
                                                               ShiftTimingList
                                                                   shiftValue =
                                                                   getItemFromId(
@@ -632,8 +628,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         onTapDate: () {
                                                           selectDate(
                                                               context, date);
-                                                          var dates =
-                                                              date.text;
+                                                          var dates = date.text;
                                                           if (managerBloc
                                                                       .token !=
                                                                   null &&
@@ -652,8 +647,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         },
                                                         hintText: Txt.date,
                                                         keyboadType:
-                                                            TextInputType
-                                                                .none,
+                                                            TextInputType.none,
                                                         isPwd: false),
                                                   ),
                                                 ),
@@ -667,9 +661,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                         Column(
                                           children: [
                                             Visibility(
-                                              visible:
-                                              managerBloc
-                                                  .typeId==1,
+                                              visible: managerBloc.typeId == 1,
                                               child: TextInputFileds(
                                                   onChange: () {},
                                                   controlr: price,
@@ -677,8 +669,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                     if (validDate(date))
                                                       return null;
                                                     else
-                                                      return Txt
-                                                          .enter_price;
+                                                      return Txt.enter_price;
                                                   },
                                                   onTapDate: () {},
                                                   hintText: Txt.price,
@@ -704,25 +695,20 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                     child: TextInputFileds(
                                                         onChange: () {},
                                                         controlr: dateFrom,
-                                                        validator:
-                                                            (dateTo) {
-                                                          if (validDate(
-                                                              dateTo))
+                                                        validator: (dateTo) {
+                                                          if (validDate(dateTo))
                                                             return null;
                                                           else
                                                             return Txt
                                                                 .select_time;
                                                         },
                                                         onTapDate: () {
-                                                          selectTime(
-                                                              context,
+                                                          selectTime(context,
                                                               dateFrom);
                                                         },
-                                                        hintText:
-                                                            Txt.timeFrom,
+                                                        hintText: Txt.timeFrom,
                                                         keyboadType:
-                                                            TextInputType
-                                                                .none,
+                                                            TextInputType.none,
                                                         isPwd: false),
                                                   ),
                                                 ),
@@ -769,13 +755,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                       jobDescri))
                                                     return null;
                                                   else
-                                                    return Txt
-                                                        .enter_job_descri;
+                                                    return Txt.enter_job_descri;
                                                 },
                                                 hintText: Txt.jobDescri,
-                                                keyboadType:
-                                                    TextInputType
-                                                        .visiblePassword,
+                                                keyboadType: TextInputType
+                                                    .visiblePassword,
                                                 isPwd: false),
                                           ],
                                         ),
@@ -815,8 +799,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                 style: TextStyle(
                                                     fontSize: 10.sp,
                                                     color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.w500,
+                                                    fontWeight: FontWeight.w500,
                                                     letterSpacing: 0.6),
                                               ),
                                             ),
@@ -826,8 +809,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                           height: 15,
                                         ),
                                         StreamBuilder<List<Allowances>>(
-                                            stream:
-                                                managerBloc.allowancesList,
+                                            stream: managerBloc.allowancesList,
                                             builder: (context, snapshot) {
                                               if (null == snapshot.data) {
                                                 return const SizedBox();
@@ -894,7 +876,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         labelStyle: TextStyle(fontSize: 10.sp));
   }
 
-  Widget buildAllowanceList( AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
+  Widget buildAllowanceList(
+      AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
     return ListView.builder(
       itemCount: snapshot.data?.length,
       shrinkWrap: true,
@@ -1082,7 +1065,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     } else {
       setState(() {
         managerBloc.typeId = 0;
-     });
+      });
     }
 
     if (item.categoryId != 0 && null != item.categoryId) {
