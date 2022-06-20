@@ -12,14 +12,14 @@ class LogoutWarning extends StatelessWidget {
 
     return AlertDialog(
       title: Text(
-        "Logout?",
+        "Logout",
         style: TextStyle(
             fontSize: 16.sp,
             color: Colors.black,
             fontWeight: FontWeight.w700),
       ),
       content: Text(
-        "Are you sure, do you want to logout?",
+        "Are you sure, Do you want to logout !",
         style: TextStyle(
             fontSize: 12.sp,
             color: Colors.black,),
@@ -30,7 +30,7 @@ class LogoutWarning extends StatelessWidget {
             'No',
             style: TextStyle(
                 fontSize: 10.sp,
-                color: Colors.blue,
+                color: Colors.green,
                 fontWeight: FontWeight.w400),
           ),
           onPressed: () {
@@ -42,7 +42,7 @@ class LogoutWarning extends StatelessWidget {
             'Yes',
             style: TextStyle(
                 fontSize: 10.sp,
-                color: Colors.blue,
+                color: Colors.green,
                 fontWeight: FontWeight.w400),
           ),
           onPressed: () async{
