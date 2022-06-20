@@ -93,7 +93,7 @@ void showAddTimeSheet(
     context: context,
     barrierColor: Colors.transparent,
     builder: (BuildContext context) {
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         // Navigator.of(context).pop(true);
       });
       return Center(
@@ -343,4 +343,9 @@ Future<void> logOut(BuildContext context) async {
     ),
         (route) => false, //if you want to disable back feature set to false
   );
+}
+convert24hrTo12hrTime(String time) {
+  var time24 = DateFormat("HH:mm").parse(time);
+  var time12 = DateFormat("hh:mm a").format(time24);
+  return time12;
 }
