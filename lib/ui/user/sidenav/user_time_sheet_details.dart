@@ -1,12 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import '../../../blocs/user_timesheet_bloc.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../Constants/strings.dart';
+import '../../../blocs/user_timesheet_bloc.dart';
 import '../../../model/user_get_timesheet.dart';
 import '../../../model/user_time_sheet_details_respo.dart';
 import '../../../resources/token_provider.dart';
@@ -72,10 +73,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
           Txt.timesht_details,
-          style: TextStyle(
-              fontSize: 17,
-              color: Constants.colors[1],
-              fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: 17, color: Constants.colors[1], fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
       ),
@@ -100,10 +98,6 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                       ),
                     ),
                   ),
-
-
-
-
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
@@ -113,12 +107,28 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                     children: [
                       Center(
                         child: Container(
-
                             child: imageUrl != null
-                                ? Image.network(
-                                    imageUrl,
-                                    fit: BoxFit.cover,
+                                ?
+                            CachedNetworkImage(
+                              width:double.infinity,
+                              height:300,
+                                    useOldImageOnUrlChange: true,
+                                    imageUrl: imageUrl,
+                                    imageBuilder: (context, imageProvider) => DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
+                                    errorWidget: (context, url, error) => const Icon(Icons.error),
                                   )
+                                // Image.network(
+                                //                 imageUrl,
+                                //                 fit: BoxFit.cover,
+                                //               )
                                 : const SizedBox()),
                       ),
                       Padding(
@@ -142,8 +152,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                 SizedBox(height: screenHeight(context, dividedBy: 60)),
                 StreamBuilder(
                     stream: usertimesheetBloc.timedetailststream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<UserTimeSheetDetailsRespo> snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot<UserTimeSheetDetailsRespo> snapshot) {
                       if (snapshot.hasData) {
                         return buildList(snapshot);
                       } else if (snapshot.hasError) {
@@ -190,8 +199,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         if (null != snapshot.data?.response?.data?.timeSheetDetails) {
-          TimeSheetDetails? timeSheetDetails =
-              snapshot.data?.response?.data?.timeSheetDetails![index];
+          TimeSheetDetails? timeSheetDetails = snapshot.data?.response?.data?.timeSheetDetails![index];
 
           return Column(
             children: [
