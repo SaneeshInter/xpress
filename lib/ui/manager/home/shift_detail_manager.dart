@@ -139,7 +139,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                         label: Txt.from +
                                                             convert24hrTo12hr(shiftDetails.timeFrom.toString()) +
                                                             Txt.to  +
-                                                            convert24hrTo12hr(shiftDetails.timeFrom.toString()),
+                                                            convert24hrTo12hr(shiftDetails.timeTo.toString()),
                                                         asset: "assets/images/icon/time.svg",
                                                         textColors: Colors.black,
                                                         size: 9.sp,

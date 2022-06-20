@@ -199,6 +199,7 @@ class CreateShiftmanagerBloc {
     String price,
     String shift,
     String unit_name,
+    String poCode,
   ) async {
     _visibility.add(true);
     var timeFrom = convert12hrTo24hr(time_from);
@@ -220,6 +221,7 @@ class CreateShiftmanagerBloc {
       shift,
       json,
       unit_name,
+        poCode
     );
     _getmanager.sink.add(respo);
     _visibility.add(false);

@@ -185,13 +185,12 @@ class _DashBoardWidgetState extends State<DashBoard> {
             colorBehindNavBar: Colors.white,
           ),
           onItemSelected: (index) {
-            userController.jumpToTab(index);
-            setState(() {
-              _selectedIndex = index;
-            });
+            _selectedIndex=index;
+            print(index);
+            setState(() {});
           },
 
-          popAllScreensOnTapOfSelectedTab: false,
+          popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
           itemAnimationProperties: const ItemAnimationProperties(
             duration: Duration(milliseconds: 200),

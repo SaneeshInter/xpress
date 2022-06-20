@@ -96,6 +96,7 @@ class ApiFileProvider {
     String shift,
     String allowances,
     String unitName,
+    String poCode,
   ) async {
     debugPrint("type :$type row_id : ${rowId}category :${category}user_type :${userType}job_title :${jobTitle}hospital :${hospital}time_from :${timeFrom}time_to :${timeTo}job_details :${jobDetails}price :${price}shift :${shift}allowances :${allowances}unit_name :$unitName");
 
@@ -124,6 +125,7 @@ class ApiFileProvider {
     request.fields["assigned_to"] = "";
     request.fields["shift"] = shift;
     request.fields["unit_name"] = unitName;
+    request.fields["po_code"] = poCode;
     debugPrint(uri.toString());
     var headers = <String, String>{
       "Accept": "application/json",

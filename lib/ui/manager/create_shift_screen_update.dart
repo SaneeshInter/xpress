@@ -48,6 +48,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   TextEditingController dateFrom = TextEditingController();
   TextEditingController dateTo = TextEditingController();
   TextEditingController price = TextEditingController();
+  TextEditingController poCode = TextEditingController();
   TextEditingController allowanceprice = TextEditingController();
   TextEditingController job_title = TextEditingController();
   TextEditingController resourceType = TextEditingController();
@@ -90,8 +91,14 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     observerResponse();
     getToken();
     managerBloc.row_id = -1;
+
     managerBloc.getModelDropDown();
     managerBloc.isShiftTypeChanged = false;
+    Future.delayed(const Duration(seconds: 4), () {
+      setState(() {
+
+      });
+    });
   }
 
   @override
@@ -766,6 +773,24 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                         const SizedBox(
                                           height: 15,
                                         ),
+                                        Column(
+                                          children: [
+                                            TextInputFileds(
+                                                onChange: () {},
+                                                controlr: poCode,
+                                                validator: (date) {
+
+                                                },
+                                                onTapDate: () {},
+                                                hintText: Txt.po_code,
+                                                keyboadType:
+                                                TextInputType.text,
+                                                isPwd: false),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
                                         Row(
                                           children: [
                                             Expanded(
@@ -987,7 +1012,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                 jobDescri.text,
                                 price.text,
                                 managerBloc.shiftTypeId.toString(),
-                                managerBloc.unitId.toString());
+                                managerBloc.unitId.toString(),
+                                poCode.text,);
                           }
                         }
                       },
@@ -1044,6 +1070,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       dateTo.text = convert24hrTo12hr(item.timeTo!);
       if (item.price != null) {
         price.text = item.price.toString();
+      } if (item.poCode != null) {
+        poCode.text = item.poCode.toString();
       }
       dateFrom.text = convert24hrTo12hr(item.timeFrom!);
       jobDescri.text = item.jobDetails!;

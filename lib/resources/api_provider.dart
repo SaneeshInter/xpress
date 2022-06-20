@@ -1086,7 +1086,7 @@ class ApiProvider {
 
   Future<AddUserAvailabilityResponse> getaddUserAvailability(
       String token, String date, String availability) async {
-
+    print("availability" + availability);
     try{
       var uri = Uri.parse(BASE_URL + "/user/add-availability");
       final response = await client.post(uri,

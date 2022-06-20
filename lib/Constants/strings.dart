@@ -286,6 +286,7 @@ class Txt {
 
   static const enter_price =    "Enter Price";
   static const price =  "Price";
+  static const po_code =  "PO code";
   static const allowances =  "Allowances";
   static const add_allowances ='Add Allowances';
   static const user="User";

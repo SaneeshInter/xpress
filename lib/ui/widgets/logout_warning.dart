@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/utils/utils.dart';
 
-import '../../Constants/strings.dart';
 
 class LogoutWarning extends StatelessWidget {
   const LogoutWarning({Key? key}) : super(key: key);
