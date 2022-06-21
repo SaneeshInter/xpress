@@ -201,7 +201,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           onChanged:
                                                               (Object? value) {
                                                             print(
-                                                                "dkfjdgvj  ${value as int}");
+                                                                " ${value as int}");
 
                                                             managerBloc.typeId =
                                                                 value;
@@ -235,6 +235,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           return const SizedBox();
                                                         }
                                                         return DropdownButtonFormField(
+                                                          isExpanded: true,
                                                           value: managerBloc
                                                               .categoryId,
                                                           decoration:
