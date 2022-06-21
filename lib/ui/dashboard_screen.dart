@@ -36,23 +36,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
   void initState() {
     super.initState();
     userController = PersistentTabController(initialIndex: 0);
-    AwesomeNotifications().createNotification(
-        content: NotificationContent(
-          id: 10,
-          notificationLayout: NotificationLayout.BigPicture,
-          channelKey: 'big_picture',
-          title: 'Notification Test',
-          body: 'Test Notification fot health',
-          bigPicture:
-              'https://tecnoblog.net/wp-content/uploads/2019/09/emoji.jpg',
-        ),
-        actionButtons: [
-          NotificationActionButton(
-            key: "STOP",
-            label: "STOP",
-          ),
-        ]);
-    initializeFirebaseService();
+
   }
 
   int _selectedIndex = 0;
@@ -73,86 +57,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initializeFirebaseService() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    String firebaseAppToken = await messaging.getToken(
-          vapidKey: '',
-        ) ??
-        '';
 
-    if (AwesomeStringUtils.isNullOrEmpty(firebaseAppToken,
-        considerWhiteSpaceAsEmpty: true)) return;
-    if (!mounted) {
-      _firebaseAppToken = firebaseAppToken;
-    } else {
-      setState(() {
-        _firebaseAppToken = firebaseAppToken;
-      });
-    }
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-      if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
-              considerWhiteSpaceAsEmpty: true) ||
-          !AwesomeStringUtils.isNullOrEmpty(message.notification?.body,
-              considerWhiteSpaceAsEmpty: true)) {
-        print('Message also contained a notification: ${message.notification}');
-
-        String? imageUrl;
-        imageUrl ??= message.notification!.android?.imageUrl;
-        imageUrl ??= message.notification!.apple?.imageUrl;
-        Map<String, dynamic> notificationAdapter = {
-          NOTIFICATION_CONTENT: {
-            NOTIFICATION_ID: Random().nextInt(2147483647),
-            NOTIFICATION_CHANNEL_KEY: 'basic_channel',
-            NOTIFICATION_TITLE: message.notification!.title,
-            NOTIFICATION_BODY: message.notification!.body,
-            NOTIFICATION_LAYOUT: AwesomeStringUtils.isNullOrEmpty(imageUrl)
-                ? 'Default'
-                : 'BigPicture',
-            NOTIFICATION_BIG_PICTURE: imageUrl
-          }
-        };
-
-        AwesomeNotifications()
-            .createNotificationFromJsonData(notificationAdapter);
-      } else {
-        AwesomeNotifications().createNotificationFromJsonData(message.data);
-      }
-    });
-  }
-
-  void setUpNotification() {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
-    AwesomeNotifications().createdStream.listen((receivedNotification) {
-      String? createdSourceText = AwesomeAssertUtils.toSimpleEnumString(
-          receivedNotification.createdSource);
-    });
-
-    AwesomeNotifications().actionStream.listen((receivedAction) {
-      if (receivedAction.channelKey == 'call_channel') {
-        switch (receivedAction.buttonKeyPressed) {
-          case 'UPDATE':
-            print("REJECT");
-            break;
-          case 'STOP':
-            print("STOP");
-            break;
-          case 'ACCEPT':
-            print("ACCEPT");
-            break;
-          default:
-            print("default");
-            break;
-        }
-        return;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

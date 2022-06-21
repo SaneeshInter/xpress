@@ -1,26 +1,25 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import '../../../ui/manager/home/approved_timesheet_screen.dart';
-import '../../../ui/manager/home/my_shifts_screen.dart';
-import '../../../ui/widgets/loading_widget.dart';
-import '../../../utils/network_utils.dart';
 
 import '../../../Constants/strings.dart';
 import '../../../blocs/manager_home_bloc.dart';
 import '../../../model/manager_home_response.dart';
 import '../../../resources/token_provider.dart';
+import '../../../ui/widgets/loading_widget.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
-import '../../dashboard_screen.dart';
 import '../../manager_dashboard_screen.dart';
 import '../../user/detail/home_card_item.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../../widgets/my_scroll_behavior.dart';
+import '../../widgets/shift_detail_card.dart';
+import '../../widgets/shift_status_chip.dart';
 import '../create_shift_screen_update.dart';
-import 'manager_calendar_screen.dart';
 
 class ManagerHomeScreen extends StatefulWidget {
   const ManagerHomeScreen({Key? key}) : super(key: key);
@@ -37,6 +36,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
   int pageCount = 0;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
+  String currentStatus = "Daily";
   var token;
   double? currentPage = 0;
   late PageController pageController;
@@ -102,7 +102,11 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                       ),
                     ),
                     horizontalList(),
-                    gridView(),
+                    shiftDetails(),
+                    // gridView(),
+                    SizedBox(
+                      height: 30,
+                    ),
                     equalSizeButtons()
                   ],
                 ),
@@ -129,6 +133,92 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget shiftDetails() {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                child: AutoSizeText(
+                  Txt.shift_status,
+                  maxLines: 1,
+                  style: TextStyle(
+                    color: Constants.colors[1],
+                    fontSize: 16.sp,
+                    fontFamily: "SFProMedium",
+                  ),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ShiftStatusChip(
+                  label: 'Daily',
+                  selected: currentStatus == "Daily",
+                  selectedColor: greenColor,
+                  textColor: white,
+                  onPressed: () {
+                    currentStatus = "Daily";
+                    setState(() {});
+                  },
+                ),
+                ShiftStatusChip(
+                  label: 'Weekly',
+                  selected: currentStatus == "Weekly",
+                  selectedColor: greenColor,
+                  textColor: white,
+                  onPressed: () {
+                    currentStatus = "Weekly";
+                    setState(() {});
+                  },
+                ),
+                ShiftStatusChip(
+                  label: 'Monthly',
+                  selected: currentStatus == "Monthly",
+                  selectedColor: greenColor,
+                  textColor: white,
+                  onPressed: () {
+                    currentStatus = "Monthly";
+                    setState(() {});
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ShiftDetailCard(
+              label: "500",
+                hint: "Pending", height: 45.w, svgPath: 'assets/images/icon/shift.svg',
+
+            ),
+            ShiftDetailCard(
+              label: "500",
+              hint: "Approved", height: 45.w, svgPath: 'assets/images/icon/check.svg',
+
+            ),
+
+          ],
+        ),
+        ShiftDetailCard(
+          label: "1000",
+          hint: "Total Shifts", height: 45.w, svgPath: 'assets/images/icon/price-tag.svg',
+
+        ),
+      ]),
     );
   }
 
@@ -223,6 +313,9 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                     var date = list.date!;
                     var description = list.description!;
                     return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       elevation: 0.0,
                       child: Padding(
                         padding: const EdgeInsets.all(13.0),
@@ -240,11 +333,9 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                               child: SizedBox(
-                                  width:
-                                      screenHeight(context, dividedBy: 2.2),
+                                  width: screenHeight(context, dividedBy: 2.2),
                                   child: AutoSizeText(
                                     description,
                                     maxLines: 2,
@@ -255,11 +346,9 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                                   )),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                               child: SizedBox(
-                                  width:
-                                      screenHeight(context, dividedBy: 2.2),
+                                  width: screenHeight(context, dividedBy: 2.2),
                                   child: AutoSizeText(
                                     date,
                                     maxLines: 1,
@@ -320,7 +409,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
               },
               child: const HomeCardItem(
                   label: Txt.create_shifts,
-                  asset:"assets/images/icon/shift.svg")),
+                  asset: "assets/images/icon/shift.svg")),
           GestureDetector(
             onTap: () {
               controller.jumpToTab(1);
@@ -351,5 +440,3 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
     );
   }
 }
-
-

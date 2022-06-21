@@ -71,7 +71,7 @@ class Items {
     if (json['allowances'] != null) {
       allowances = <Allowances>[];
       json['allowances'].forEach((v) {
-        allowances!.add(new Allowances.fromJson(v));
+        allowances!.add( Allowances.fromJson(v));
       });
     }
     createdDate = json['created_date'];
@@ -80,31 +80,31 @@ class Items {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['row_id'] = this.rowId;
-    data['type'] = this.type;
-    data['user_type'] = this.userType;
-    data['user_type_id'] = this.userTypeId;
-    data['category'] = this.category;
-    data['category_id'] = this.categoryId;
-    data['job_title'] = this.jobTitle;
-    data['hospital'] = this.hospital;
-    data['hospital_id'] = this.hospitalId;
-    data['date'] = this.date;
-    data['unit_name'] = this.unitName;
-    data['unit_name_id'] = this.unitNameId;
-    data['shift_type_id'] = this.shiftTypeId;
-    data['shift_type'] = this.shiftType;
-    data['time_from'] = this.timeFrom;
-    data['time_to'] = this.timeTo;
-    data['job_details'] = this.jobDetails;
-    data['price'] = this.price;
-    if (this.allowances != null) {
-      data['allowances'] = this.allowances!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data =  <String, dynamic>{};
+    data['row_id'] = rowId;
+    data['type'] = type;
+    data['user_type'] = userType;
+    data['user_type_id'] = userTypeId;
+    data['category'] = category;
+    data['category_id'] = categoryId;
+    data['job_title'] = jobTitle;
+    data['hospital'] = hospital;
+    data['hospital_id'] = hospitalId;
+    data['date'] = date;
+    data['unit_name'] = unitName;
+    data['unit_name_id'] = unitNameId;
+    data['shift_type_id'] = shiftTypeId;
+    data['shift_type'] = shiftType;
+    data['time_from'] = timeFrom;
+    data['time_to'] = timeTo;
+    data['job_details'] = jobDetails;
+    data['price'] = price;
+    if (allowances != null) {
+      data['allowances'] = allowances!.map((v) => v.toJson()).toList();
     }
-    data['created_date'] = this.createdDate;
-    data['requested_count'] = this.requested_count;
-    data['po_code'] = this.poCode;
+    data['created_date'] = createdDate;
+    data['requested_count'] = requested_count;
+    data['po_code'] = poCode;
     return data;
   }
 }

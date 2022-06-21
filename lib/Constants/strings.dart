@@ -152,6 +152,7 @@ class Txt {
   static const to = " To ";
   static const important_update = "Important Update";
   static const shift_details = "Shift Details";
+  static const shift_status = "Shift Status";
   static const calendar = "Add to Calender";
   static const my_availability = "My\nAvailability ";
   static const submit_timesheets = "Submit\nTimeSheets ";

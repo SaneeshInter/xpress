@@ -15,11 +15,12 @@ import '../../../ui/user/detail/home_card_item.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../dashboard_screen.dart';
-import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/my_scroll_behavior.dart';
+import '../../widgets/shift_detail_card.dart';
+import '../../widgets/shift_status_chip.dart';
 import '../detail/shift_detail.dart';
 import 'my_booking_screen.dart';
 
@@ -33,6 +34,7 @@ class HomeScreen extends StatefulWidget {
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _HomeScreentate extends State<HomeScreen> {
+  String currentStatus = "Daily";
   final PageController ctrl = PageController(
     viewportFraction: .7,
   );
@@ -47,7 +49,9 @@ class _HomeScreentate extends State<HomeScreen> {
   Future getData() async {
     homepageBloc.token = await TokenProvider().getToken();
      if (null != homepageBloc.token) {
-      homepageBloc.fetchUserHomepage(context);
+       Future.delayed(Duration.zero).then((_) {
+         homepageBloc.fetchUserHomepage(context);
+       });
     }
   }
 
@@ -386,7 +390,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                 ),
                               ),
                               horizontalList(snapshot),
-                              gridView(),
+                              // gridView(),
+                              shiftDetails(),
                             ],
                           );
                         } else {
@@ -413,6 +418,92 @@ class _HomeScreentate extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget shiftDetails() {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                child: AutoSizeText(
+                  Txt.shift_status,
+                  maxLines: 1,
+                  style: TextStyle(
+                    color: Constants.colors[1],
+                    fontSize: 16.sp,
+                    fontFamily: "SFProMedium",
+                  ),
+                ),
+              ),
+            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     ShiftStatusChip(
+            //       label: 'Daily',
+            //       selected: currentStatus == "Daily",
+            //       selectedColor: greenColor,
+            //       textColor: Colors.white,
+            //       onPressed: () {
+            //         currentStatus = "Daily";
+            //         setState(() {});
+            //       },
+            //     ),
+            //     ShiftStatusChip(
+            //       label: 'Weekly',
+            //       selected: currentStatus == "Weekly",
+            //       selectedColor: greenColor,
+            //       textColor: Colors.white,
+            //       onPressed: () {
+            //         currentStatus = "Weekly";
+            //         setState(() {});
+            //       },
+            //     ),
+            //     ShiftStatusChip(
+            //       label: 'Monthly',
+            //       selected: currentStatus == "Monthly",
+            //       selectedColor: greenColor,
+            //       textColor: Colors.white,
+            //       onPressed: () {
+            //         currentStatus = "Monthly";
+            //         setState(() {});
+            //       },
+            //     ),
+            //   ],
+            // )
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ShiftDetailCard(
+              label: "500",
+              hint: "Requested Shift", height: 45.w, svgPath: 'assets/images/icon/shift.svg',
+
+            ),
+            ShiftDetailCard(
+              label: "500",
+              hint: "Confirmed Shift", height: 45.w, svgPath: 'assets/images/icon/check.svg',
+
+            ),
+
+          ],
+        ),
+        ShiftDetailCard(
+          label: "1000",
+          hint: "Completed Shift", height: 45.w, svgPath: 'assets/images/icon/price-tag.svg',
+
+        ),
+      ]),
     );
   }
 

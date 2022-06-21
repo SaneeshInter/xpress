@@ -48,7 +48,8 @@ class _HomeButtonState extends State<HomeButton> {
                 colors: [
                   widget.color1,
                   widget.color2,
-                ]),
+                ],
+            ),
             color: Constants.colors[3],
             borderRadius: BorderRadius.circular(10)),
         child: Row(

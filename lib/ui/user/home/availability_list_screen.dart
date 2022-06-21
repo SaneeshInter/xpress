@@ -167,7 +167,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 padding: const EdgeInsets.only(
                                     left: 8.0, right: 8.0),
                                 child: Card(
-                                  elevation: 1,
+                                  elevation: 0,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
