@@ -290,8 +290,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                                       AutoSizeText(
                                                         "${getDateString(homepageBloc.shiftDetails.date, "MMMd")}"
                                                             " ${getDateString(homepageBloc.shiftDetails.date, "yyyy")} "
-                                                            "| ${convert24hrTo12hrTime(homepageBloc.shiftDetails.timeFrom!)}-"
-                                                            " ${convert24hrTo12hrTime(homepageBloc.shiftDetails.timeTo!)}",
+                                                            "| ${convert24hrTo12hr(homepageBloc.shiftDetails.timeFrom!)}-"
+                                                            " ${convert24hrTo12hr(homepageBloc.shiftDetails.timeTo!)}",
                                                         maxLines: 1,
                                                         textAlign: TextAlign.justify,
                                                         style: TextStyle(
