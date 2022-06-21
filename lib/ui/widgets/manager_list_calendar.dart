@@ -54,125 +54,126 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
           padding: const EdgeInsets.all(8.0),
           child: Stack(
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+              Padding(
+                padding: const EdgeInsets.only(top: 18),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Badge(
-                      padding: EdgeInsets.all(4),
-                      position: const BadgePosition(bottom: 10, start: 30),
-                      badgeColor: Colors.green,
-                      badgeContent: Text(
-                        widget.items.requested_count.toString(),
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.white,
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 0.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+
+                            Badge(
+                              padding: const EdgeInsets.all(4),
+                              position: const BadgePosition(bottom: 10, start: 30),
+                              badgeColor: Colors.green,
+                              badgeContent: Text(
+                                widget.items.requested_count.toString(),
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 1.w,
+                            ),
+                            Text(
+                              "Request",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.green,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 1.w,
+                    const SizedBox(height: 6,),
+                    ViewButton(
+                      label: Txt.view,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ShiftDetailManagerScreen(
+                                    shiftId: widget.items.rowId.toString(),
+                                  )),
+                        );
+                      },
+                      key: null,
                     ),
-                    Text(
-                      "Request",
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.green,
-                      ),
-                    )
                   ],
                 ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(children: [
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              AutoSizeText(
-                                Txt.at + widget.items.hospital!,
-                                textAlign: TextAlign.start,
-                                maxLines: 3,
-                                style: TextStyle(
-                                    color: Constants.colors[14],
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "SFProBold"),
-                              ),
-                              SizedBox(
-                                width: 1.w,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height: screenHeight(context, dividedBy: 120)),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 1.0),
-                                child: Text(
-                                  Txt.on_dot + widget.items.date!,
-                                  style: TextStyle(
-                                      fontSize: 9.sp,
-                                      color: Constants.colors[13],
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ),
-
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3.0),
-                                child: Text(
-                                  Txt.from +
-                                     convert24hrTo12hr(widget.items.timeFrom!) +
-                                      Txt.to +
-                                     convert24hrTo12hr( widget.items.timeTo!),
-                                  style: TextStyle(
-                                      fontSize: 9.sp,
-                                      color: Constants.colors[13],
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height: screenHeight(context, dividedBy: 120)),
-                          if (null != widget.items.userType)
-                            Text(
-                              widget.items.userType!,
-                              style: TextStyle(
-                                  fontSize: 11.sp,
-                                  color: Constants.colors[3],
-                                  fontWeight: FontWeight.w500),
-                            ),
-                        ]),
-                    Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ViewButton(
-                          label: Txt.view,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ShiftDetailManagerScreen(
-                                        shiftId: widget.items.rowId.toString(),
-                                      )),
-                            );
-                          },
-                          key: null,
+                        AutoSizeText(
+                          softWrap:true,
+                          Txt.at + widget.items.hospital!,
+                          textAlign: TextAlign.start,
+                          maxLines: 3,
+                          style: TextStyle(
+                              color: Constants.colors[14],
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "SFProBold"),
+
                         ),
-                      ],
-                    )
-                  ]),
+                        SizedBox(
+                            height: screenHeight(context, dividedBy: 120)),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 1.0),
+                              child: Text(
+                                Txt.on_dot + widget.items.date!,
+                                style: TextStyle(
+                                    fontSize: 9.sp,
+                                    color: Constants.colors[13],
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.only(top: 3.0),
+                              child: Text(
+                                Txt.from +
+                                    convert24hrTo12hr(widget.items.timeFrom!) +
+                                    Txt.to +
+                                    convert24hrTo12hr( widget.items.timeTo!),
+                                style: TextStyle(
+                                    fontSize: 9.sp,
+                                    color: Constants.colors[13],
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                            height: screenHeight(context, dividedBy: 120)),
+                        if (null != widget.items.userType)
+                          Text(
+                            widget.items.userType!,
+                            style: TextStyle(
+                                fontSize: 11.sp,
+                                color: Constants.colors[3],
+                                fontWeight: FontWeight.w500),
+                          ),
+                      ]),
                   SizedBox(height: screenHeight(context, dividedBy: 120)),
                   Row(
                     children: [

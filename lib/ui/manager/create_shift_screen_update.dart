@@ -121,606 +121,566 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                               child: Container(
                                 color: Colors.white,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 18, right: 18),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        const SizedBox(
-                                          height: 25,
+                                  padding: const EdgeInsets.only(
+                                      left: 14, right: 14),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children:[
+                                      const SizedBox(
+                                        height: 25,
+                                      ),
+                                      AutoSizeText(
+                                        managerBloc.buttonText,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "SFProMedium",
                                         ),
-                                        AutoSizeText(
-                                          managerBloc.buttonText,
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: "SFProMedium",
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 25,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: SizedBox(
-                                                    width: 50.w,
-                                                    child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .typeStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                                  List<
-                                                                      ShiftTypeList>>
-                                                              snapshot) {
-                                                        if (null ==
-                                                                snapshot.data ||
-                                                            snapshot.data
-                                                                    ?.length ==
-                                                                0) {
-                                                          return const SizedBox();
-                                                        }
-                                                        return DropdownButtonFormField(
-                                                          value: managerBloc
-                                                              .typeId,
-                                                          decoration:
-                                                              buildInputDecoration(
-                                                                  Txt.type),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
-                                                            return DropdownMenuItem(
-                                                              value: item.rowId,
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.only(left: 4),
-                                                                child: Text(
-                                                                  item.type!,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .none,
-                                                                    color: Constants
-                                                                        .colors[29],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
-                                                            print(
-                                                                " ${value as int}");
-
-                                                            managerBloc.typeId =
-                                                                value;
-                                                            setState(() {});
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: SizedBox(
-                                                    width: 50.w,
-                                                    child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .categoryStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                                  List<
-                                                                      ScheduleCategoryList>>
-                                                              snapshot) {
-                                                        if (null ==
-                                                                snapshot.data ||
-                                                            snapshot.data
-                                                                    ?.length ==
-                                                                0) {
-                                                          return const SizedBox();
-                                                        }
-                                                        return DropdownButtonFormField(
-                                                          isExpanded: true,
-                                                          value: managerBloc
-                                                              .categoryId,
-                                                          decoration:
-                                                              buildInputDecoration(
-                                                                  Txt.category),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
-                                                            return DropdownMenuItem(
-                                                              value: item.rowId,
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.only(left: 4),
-                                                                child: Text(
-                                                                  item.category!,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .none,
-                                                                    color: Constants
-                                                                        .colors[29],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
-                                                            if (value is int?) {
-                                                              managerBloc
-                                                                      .categoryId =
-                                                                  value!;
-                                                            }
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: SizedBox(
-                                                    width: 50.w,
-                                                    child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .usertypeStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                                  List<
-                                                                      UserTypeList>>
-                                                              snapshot) {
-                                                        if (null ==
-                                                                snapshot.data ||
-                                                            snapshot.data
-                                                                    ?.length ==
-                                                                0) {
-                                                          return const SizedBox();
-                                                        }
-
-                                                        return DropdownButtonFormField(
-                                                          value: managerBloc
-                                                              .usertypeId,
-                                                          decoration:
-                                                              buildInputDecoration(
-                                                                  Txt.user_type),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
-                                                            return DropdownMenuItem(
-                                                              value: item.rowId,
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.only(left: 4),
-                                                                child: Text(
-                                                                  item.type!,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .none,
-                                                                    color: Constants
-                                                                        .colors[29],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
-                                                            if (value is int?) {
-                                                              managerBloc
-                                                                      .usertypeId =
-                                                                  value!;
-                                                            }
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: SizedBox(
-                                                    width: 50.w,
-                                                    child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .hospitalStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                                  List<
-                                                                      HospitalList>>
-                                                              snapshot) {
-                                                        if (null ==
-                                                                snapshot.data ||
-                                                            snapshot.data
-                                                                    ?.length ==
-                                                                0) {
-                                                          return const SizedBox();
-                                                        }
-
-                                                        return DropdownButtonFormField(
-                                                          isExpanded: true,
-                                                          value: managerBloc
-                                                              .hospitalId,
-                                                          decoration:
-                                                              buildInputDecoration(
-                                                                  Txt.client),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
-                                                            return DropdownMenuItem(
-                                                              value: item.rowId,
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.only(left: 4),
-                                                                child: Text(
-                                                                  item.name!,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .clip,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontSize:
-                                                                        8.sp,
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .none,
-                                                                    color: Constants
-                                                                        .colors[29],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
-                                                            if (value is int?) {
-                                                              managerBloc
-                                                                      .hospitalId =
-                                                                  value!;
-                                                              setState(() {
-                                                                managerBloc
-                                                                    .unitId = 1;
-                                                              });
-                                                              managerBloc.getManagerUnitName(
-                                                                  managerBloc
-                                                                      .token,
-                                                                  managerBloc
-                                                                      .hospitalId
-                                                                      .toString());
-                                                            }
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        SizedBox(
-                                          width: 100.w,
-                                          child: StreamBuilder(
-                                            stream:
-                                                managerBloc.managerunitStream,
-                                            builder: (context,
-                                                AsyncSnapshot<List<UnitItems>>
+                                      ),
+                                      const SizedBox(
+                                        height: 25,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              width: 50.w,
+                                              child: StreamBuilder(
+                                                stream: managerBloc
+                                                    .typeStream,
+                                                builder: (context,
+                                                    AsyncSnapshot<
+                                                        List<
+                                                            ShiftTypeList>>
                                                     snapshot) {
-                                              if (null == snapshot.data ||
-                                                  snapshot.data?.length == 0) {
-                                                return const SizedBox();
-                                              }
-
-                                              return DropdownButtonFormField(
-                                                isExpanded: true,
-                                                value: managerBloc.unitId,
-                                                decoration:
+                                                  if (null ==
+                                                      snapshot.data ||
+                                                      snapshot.data
+                                                          ?.length ==
+                                                          0) {
+                                                    return const SizedBox();
+                                                  }
+                                                  return DropdownButtonFormField(
+                                                    value: managerBloc
+                                                        .typeId,
+                                                    decoration:
                                                     buildInputDecoration(
-                                                        Txt.unit_name),
-                                                items:
-                                                    snapshot.data?.map((item) {
-                                                  return DropdownMenuItem(
-                                                    value: item.unitRowId,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(left: 4),
-                                                      child: Text(
-                                                        item.unitName!,
-                                                        overflow:
-                                                            TextOverflow.clip,
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 9.sp,
-                                                          decoration:
-                                                              TextDecoration.none,
-                                                          color: Constants
-                                                              .colors[29],
+                                                        Txt.type),
+                                                    items: snapshot.data
+                                                        ?.map((item) {
+                                                      return DropdownMenuItem(
+                                                        value: item.rowId,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 4),
+                                                          child: Text(
+                                                            item.type!,
+                                                            style:
+                                                            TextStyle(
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w500,
+                                                              fontSize:
+                                                              10.sp,
+                                                              decoration:
+                                                              TextDecoration
+                                                                  .none,
+                                                              color: Constants
+                                                                  .colors[29],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                    onChanged:
+                                                        (Object? value) {
+                                                      print(
+                                                          " ${value as int}");
+
+                                                      managerBloc.typeId =
+                                                          value;
+                                                      setState(() {});
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              width: 50.w,
+                                              child: StreamBuilder(
+                                                stream: managerBloc
+                                                    .categoryStream,
+                                                builder: (context,
+                                                    AsyncSnapshot<
+                                                        List<
+                                                            ScheduleCategoryList>>
+                                                    snapshot) {
+                                                  if (null ==
+                                                      snapshot.data ||
+                                                      snapshot.data
+                                                          ?.length ==
+                                                          0) {
+                                                    return const SizedBox();
+                                                  }
+                                                  return DropdownButtonFormField(
+                                                    isExpanded: true,
+                                                    value: managerBloc
+                                                        .categoryId,
+                                                    decoration:
+                                                    buildInputDecoration(
+                                                        Txt.category),
+                                                    items: snapshot.data
+                                                        ?.map((item) {
+                                                      return DropdownMenuItem(
+                                                        value: item.rowId,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(left: 4),
+                                                          child: Text(
+                                                            item.category!,
+                                                            style:
+                                                            TextStyle(
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w500,
+                                                              fontSize:
+                                                              10.sp,
+                                                              decoration:
+                                                              TextDecoration
+                                                                  .none,
+                                                              color: Constants
+                                                                  .colors[29],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                    onChanged:
+                                                        (Object? value) {
+                                                      if (value is int?) {
+                                                        managerBloc
+                                                            .categoryId =
+                                                        value!;
+                                                      }
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: StreamBuilder(
+                                              stream: managerBloc
+                                                  .usertypeStream,
+                                              builder: (context,
+                                                  AsyncSnapshot<
+                                                      List<
+                                                          UserTypeList>>
+                                                  snapshot) {
+                                                if (null ==
+                                                    snapshot.data ||
+                                                    snapshot.data
+                                                        ?.length ==
+                                                        0) {
+                                                  return const SizedBox();
+                                                }
+
+                                                return DropdownButtonFormField(
+                                                  value: managerBloc
+                                                      .usertypeId,
+                                                  decoration:
+                                                  buildInputDecoration(
+                                                      Txt.user_type),
+                                                  items: snapshot.data
+                                                      ?.map((item) {
+                                                    return DropdownMenuItem(
+                                                      value: item.rowId,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(left: 4),
+                                                        child: Text(
+                                                          item.type!,
+                                                          style:
+                                                          TextStyle(
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w500,
+                                                            fontSize:
+                                                            10.sp,
+                                                            decoration:
+                                                            TextDecoration
+                                                                .none,
+                                                            color: Constants
+                                                                .colors[29],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                                onChanged: (Object? value) {
-                                                  if (value is int?) {
-                                                    managerBloc.unitId = value!;
-                                                  }
-                                                },
-                                              );
-                                            },
+                                                    );
+                                                  }).toList(),
+                                                  onChanged:
+                                                      (Object? value) {
+                                                    if (value is int?) {
+                                                      managerBloc
+                                                          .usertypeId =
+                                                      value!;
+                                                    }
+                                                  },
+                                                );
+                                              },
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Column(
-                                          children: [
-                                            TextInputFileds(
-                                                onChange: () {},
-                                                controlr: jobtitle,
-                                                validator: (jobtitle) {
-                                                  if (validJob(jobtitle))
-                                                    return null;
-                                                  else
-                                                    return Txt.enter_job;
-                                                },
-                                                hintText: Txt.jobtitle,
-                                                keyboadType: TextInputType.text,
-                                                isPwd: false,
-                                                onTapDate: () {}),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: SizedBox(
-                                                    width: 50.w,
-                                                    child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .shifttimeStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                                  List<
-                                                                      ShiftTimingList>>
-                                                              snapshot) {
-                                                        if (null ==
-                                                                snapshot.data ||
-                                                            snapshot.data
-                                                                    ?.length ==
-                                                                0) {
-                                                          return const SizedBox();
-                                                        }
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: StreamBuilder(
+                                              stream: managerBloc
+                                                  .hospitalStream,
+                                              builder: (context,
+                                                  AsyncSnapshot<
+                                                      List<
+                                                          HospitalList>>
+                                                  snapshot) {
+                                                if (null ==
+                                                    snapshot.data ||
+                                                    snapshot.data
+                                                        ?.length ==
+                                                        0) {
+                                                  return const SizedBox();
+                                                }
 
-                                                        return DropdownButtonFormField(
-                                                          value: managerBloc
-                                                              .shiftTypeId,
-                                                          decoration:
-                                                              buildInputDecoration(
-                                                                  Txt.shift_type),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
-                                                            return DropdownMenuItem(
-                                                              value: item.rowId,
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.only(left: 4),
-                                                                child: Text(
-                                                                  item.shift!,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontSize:
-                                                                        10.sp,
-                                                                    decoration:
-                                                                        TextDecoration
-                                                                            .none,
-                                                                    color: Constants
-                                                                        .colors[29],
-                                                                  ),
+                                                return DropdownButtonFormField(
+                                                  isExpanded: true,
+                                                  value: managerBloc
+                                                      .hospitalId,
+                                                  decoration:
+                                                  buildInputDecoration(
+                                                      Txt.client),
+                                                  items: snapshot.data
+                                                      ?.map((item) {
+                                                    return DropdownMenuItem(
+                                                      value: item.rowId,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(left: 4),
+                                                        child: Text(
+                                                          item.name!,
+                                                          overflow:
+                                                          TextOverflow
+                                                              .clip,
+                                                          style:
+                                                          TextStyle(
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w500,
+                                                            fontSize:
+                                                            8.sp,
+                                                            decoration:
+                                                            TextDecoration
+                                                                .none,
+                                                            color: Constants
+                                                                .colors[29],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                  onChanged:
+                                                      (Object? value) {
+                                                    if (value is int?) {
+                                                      managerBloc
+                                                          .hospitalId =
+                                                      value!;
+                                                      setState(() {
+                                                        managerBloc
+                                                            .unitId = 1;
+                                                      });
+                                                      managerBloc.getManagerUnitName(
+                                                          managerBloc
+                                                              .token,
+                                                          managerBloc
+                                                              .hospitalId
+                                                              .toString());
+                                                    }
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      SizedBox(
+                                        width: 100.w,
+                                        child: StreamBuilder(
+                                          stream:
+                                              managerBloc.managerunitStream,
+                                          builder: (context,
+                                              AsyncSnapshot<List<UnitItems>>
+                                                  snapshot) {
+                                            if (null == snapshot.data ||
+                                                snapshot.data?.length == 0) {
+                                              return const SizedBox();
+                                            }
+
+                                            return DropdownButtonFormField(
+                                              isExpanded: true,
+                                              value: managerBloc.unitId,
+                                              decoration:
+                                                  buildInputDecoration(
+                                                      Txt.unit_name),
+                                              items:
+                                                  snapshot.data?.map((item) {
+                                                return DropdownMenuItem(
+                                                  value: item.unitRowId,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(left: 4),
+                                                    child: Text(
+                                                      item.unitName!,
+                                                      overflow:
+                                                          TextOverflow.clip,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontSize: 9.sp,
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                        color: Constants
+                                                            .colors[29],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: (Object? value) {
+                                                if (value is int?) {
+                                                  managerBloc.unitId = value!;
+                                                }
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Column(
+                                        children: [
+                                          TextInputFileds(
+                                              onChange: () {},
+                                              controlr: jobtitle,
+                                              validator: (jobtitle) {
+                                                if (validJob(jobtitle))
+                                                  return null;
+                                                else
+                                                  return Txt.enter_job;
+                                              },
+                                              hintText: Txt.jobtitle,
+                                              keyboadType: TextInputType.text,
+                                              isPwd: false,
+                                              onTapDate: () {}),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: SizedBox(
+                                                  width: 50.w,
+                                                  child: StreamBuilder(
+                                                    stream: managerBloc
+                                                        .shifttimeStream,
+                                                    builder: (context,
+                                                        AsyncSnapshot<
+                                                                List<
+                                                                    ShiftTimingList>>
+                                                            snapshot) {
+                                                      if (null ==
+                                                              snapshot.data ||
+                                                          snapshot.data
+                                                                  ?.length ==
+                                                              0) {
+                                                        return const SizedBox();
+                                                      }
+
+                                                      return DropdownButtonFormField(
+                                                        isExpanded: true,
+                                                        value: managerBloc
+                                                            .shiftTypeId,
+                                                        decoration:
+                                                            buildInputDecoration(
+                                                                Txt.shift_type),
+                                                        items: snapshot.data
+                                                            ?.map((item) {
+                                                          return DropdownMenuItem(
+                                                            value: item.rowId,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.only(left: 4),
+                                                              child: Text(
+                                                                item.shift!,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize:
+                                                                      10.sp,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .none,
+                                                                  color: Constants
+                                                                      .colors[29],
                                                                 ),
                                                               ),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                        onChanged:
+                                                            (Object? value) {
+                                                          managerBloc
+                                                                  .isShiftTypeChanged =
+                                                              true;
+                                                          if (value is int?) {
+                                                            ShiftTimingList
+                                                                shiftValue =
+                                                                getItemFromId(
+                                                                    value!,
+                                                                    snapshot
+                                                                        .data);
                                                             managerBloc
-                                                                    .isShiftTypeChanged =
-                                                                true;
-                                                            if (value is int?) {
-                                                              ShiftTimingList
-                                                                  shiftValue =
-                                                                  getItemFromId(
-                                                                      value!,
-                                                                      snapshot
-                                                                          .data);
-                                                              managerBloc
-                                                                      .shiftTypeId =
-                                                                  shiftValue
-                                                                      .rowId!;
-                                                              var timeFrom =
-                                                                  shiftValue
-                                                                      .startTime!;
-                                                              var timeTo =
-                                                                  shiftValue
-                                                                      .endTime!;
-                                                              dateFrom.text =
-                                                                  convert24hrTo12hr(
-                                                                      timeFrom,
-                                                                      );
-                                                              dateTo.text =
-                                                                  convert24hrTo12hr(
-                                                                      timeTo,
-                                                                      );
-                                                            }
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: SizedBox(
-                                                    width: 50.w,
-                                                    height: 5.3.h,
-                                                    child: TextInputFileds(
-                                                        onChange: () {},
-                                                        controlr: date,
-                                                        validator: (date) {
-                                                          if (validDate(date))
-                                                            return null;
-                                                          else
-                                                            return Txt
-                                                                .select_date;
-                                                        },
-                                                        onTapDate: () {
-                                                          selectDate(
-                                                              context, date);
-                                                          var dates = date.text;
-                                                          if (managerBloc
-                                                                      .token !=
-                                                                  null &&
-                                                              dates != "") {
-                                                            var shifttype =
-                                                                managerBloc
-                                                                    .shiftType;
-                                                            managerBloc
-                                                                .getUserListByDate(
-                                                                    managerBloc
-                                                                        .token,
-                                                                    dates,
-                                                                    shifttype
-                                                                        .toString());
+                                                                    .shiftTypeId =
+                                                                shiftValue
+                                                                    .rowId!;
+                                                            var timeFrom =
+                                                                shiftValue
+                                                                    .startTime!;
+                                                            var timeTo =
+                                                                shiftValue
+                                                                    .endTime!;
+                                                            dateFrom.text =
+                                                                convert24hrTo12hr(
+                                                                    timeFrom,
+                                                                    );
+                                                            dateTo.text =
+                                                                convert24hrTo12hr(
+                                                                    timeTo,
+                                                                    );
                                                           }
                                                         },
-                                                        hintText: Txt.date,
-                                                        keyboadType:
-                                                            TextInputType.none,
-                                                        isPwd: false),
+                                                      );
+                                                    },
                                                   ),
                                                 ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Visibility(
-                                              visible: managerBloc.typeId == 1,
-                                              child: TextInputFileds(
-                                                  onChange: () {},
-                                                  controlr: price,
-                                                  validator: (date) {
-                                                    if (validDate(date))
-                                                      return null;
-                                                    else
-                                                      return Txt.enter_price;
-                                                  },
-                                                  onTapDate: () {},
-                                                  hintText: Txt.price,
-                                                  keyboadType:
-                                                      TextInputType.number,
-                                                  isPwd: false),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 2),
-                                                    child: TextInputFileds(
-                                                        onChange: () {},
-                                                        controlr: dateFrom,
-                                                        validator: (dateTo) {
-                                                          if (validDate(dateTo))
-                                                            return null;
-                                                          else
-                                                            return Txt
-                                                                .select_time;
-                                                        },
-                                                        onTapDate: () {
-                                                          selectTime(context,
-                                                              dateFrom);
-                                                        },
-                                                        hintText: Txt.timeFrom,
-                                                        keyboadType:
-                                                            TextInputType.none,
-                                                        isPwd: false),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Expanded(
-                                                  flex: 1,
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: SizedBox(
+                                                  width: 50.w,
+                                                  height: 5.3.h,
                                                   child: TextInputFileds(
                                                       onChange: () {},
-                                                      controlr: dateTo,
+                                                      controlr: date,
+                                                      validator: (date) {
+                                                        if (validDate(date))
+                                                          return null;
+                                                        else
+                                                          return Txt
+                                                              .select_date;
+                                                      },
+                                                      onTapDate: () {
+                                                        selectDate(
+                                                            context, date);
+                                                        var dates = date.text;
+                                                        if (managerBloc
+                                                                    .token !=
+                                                                null &&
+                                                            dates != "") {
+                                                          var shifttype =
+                                                              managerBloc
+                                                                  .shiftType;
+                                                          managerBloc
+                                                              .getUserListByDate(
+                                                                  managerBloc
+                                                                      .token,
+                                                                  dates,
+                                                                  shifttype
+                                                                      .toString());
+                                                        }
+                                                      },
+                                                      hintText: Txt.date,
+                                                      keyboadType:
+                                                          TextInputType.none,
+                                                      isPwd: false),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Visibility(
+                                            visible: managerBloc.typeId == 1,
+                                            child: TextInputFileds(
+                                                onChange: () {},
+                                                controlr: price,
+                                                validator: (date) {
+                                                  if (validDate(date))
+                                                    return null;
+                                                  else
+                                                    return Txt.enter_price;
+                                                },
+                                                onTapDate: () {},
+                                                hintText: Txt.price,
+                                                keyboadType:
+                                                    TextInputType.number,
+                                                isPwd: false),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 2),
+                                                  child: TextInputFileds(
+                                                      onChange: () {},
+                                                      controlr: dateFrom,
                                                       validator: (dateTo) {
                                                         if (validDate(dateTo))
                                                           return null;
@@ -729,104 +689,128 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                               .select_time;
                                                       },
                                                       onTapDate: () {
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                        selectTime(
-                                                            context, dateTo);
+                                                        selectTime(context,
+                                                            dateFrom);
                                                       },
-                                                      hintText: Txt.timeTo,
+                                                      hintText: Txt.timeFrom,
                                                       keyboadType:
                                                           TextInputType.none,
                                                       isPwd: false),
                                                 ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Column(
-                                          children: [
-                                            TextInputFiledDescription(
-                                                controlr: jobDescri,
-                                                onTapDate: () {},
-                                                validator: (jobDescri) {
-                                                  if (validDescription(
-                                                      jobDescri))
-                                                    return null;
-                                                  else
-                                                    return Txt.enter_job_descri;
-                                                },
-                                                hintText: Txt.jobDescri,
-                                                keyboadType: TextInputType
-                                                    .visiblePassword,
-                                                isPwd: false),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: AutoSizeText(
-                                                Txt.allowances,
-                                                style: TextStyle(
-                                                  fontSize: 13.sp,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily: "SFProMedium",
-                                                ),
                                               ),
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                showModalBottomSheet(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return AllowanceBottomSheet(
-                                                        onSumbmit: () {},
-                                                        onTapView: () {},
-                                                        value: 1,
-                                                      );
-                                                    });
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: TextInputFileds(
+                                                    onChange: () {},
+                                                    controlr: dateTo,
+                                                    validator: (dateTo) {
+                                                      if (validDate(dateTo))
+                                                        return null;
+                                                      else
+                                                        return Txt
+                                                            .select_time;
+                                                    },
+                                                    onTapDate: () {
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                      selectTime(
+                                                          context, dateTo);
+                                                    },
+                                                    hintText: Txt.timeTo,
+                                                    keyboadType:
+                                                        TextInputType.none,
+                                                    isPwd: false),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Column(
+                                        children: [
+                                          TextInputFiledDescription(
+                                              controlr: jobDescri,
+                                              onTapDate: () {},
+                                              validator: (jobDescri) {
+                                                if (validDescription(
+                                                    jobDescri))
+                                                  return null;
+                                                else
+                                                  return Txt.enter_job_descri;
                                               },
-                                              // padding: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                                              // color: Colors.blueAccent,
-                                              child: Text(
-                                                Txt.add_allowances,
-                                                style: TextStyle(
-                                                    fontSize: 10.sp,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                    letterSpacing: 0.6),
+                                              hintText: Txt.jobDescri,
+                                              keyboadType: TextInputType
+                                                  .visiblePassword,
+                                              isPwd: false),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: AutoSizeText(
+                                              Txt.allowances,
+                                              style: TextStyle(
+                                                fontSize: 13.sp,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: "SFProMedium",
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        StreamBuilder<List<Allowances>>(
-                                            stream: managerBloc.allowancesList,
-                                            builder: (context, snapshot) {
-                                              if (null == snapshot.data) {
-                                                return const SizedBox();
-                                              }
-                                              if (null == snapshot.data) {
-                                                return const SizedBox();
-                                              }
-                                              return buildAllowanceList(
-                                                  snapshot, context);
-                                            }),
-                                        createShiftButton(),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AllowanceBottomSheet(
+                                                      onSumbmit: () {},
+                                                      onTapView: () {},
+                                                      value: 1,
+                                                    );
+                                                  });
+                                            },
+                                            // padding: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                                            // color: Colors.blueAccent,
+                                            child: Text(
+                                              Txt.add_allowances,
+                                              style: TextStyle(
+                                                  fontSize: 10.sp,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 0.6),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      StreamBuilder<List<Allowances>>(
+                                          stream: managerBloc.allowancesList,
+                                          builder: (context, snapshot) {
+                                            if (null == snapshot.data) {
+                                              return const SizedBox();
+                                            }
+                                            if (null == snapshot.data) {
+                                              return const SizedBox();
+                                            }
+                                            return buildAllowanceList(
+                                                snapshot, context);
+                                          }),
+                                      createShiftButton(),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
