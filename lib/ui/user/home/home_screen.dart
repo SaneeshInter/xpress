@@ -177,6 +177,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                           padding: const EdgeInsets.fromLTRB(
                                               5, 22, 5, 22),
                                           child: Row(
+                                            
                                             children: [
                                               Padding(
                                                 padding:
@@ -259,84 +260,89 @@ class _HomeScreentate extends State<HomeScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(
-                                                width: screenWidth(context,
-                                                    dividedBy: 2),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    AutoSizeText(
-                                                      homepageBloc.shiftDetails!
-                                                          .hospital!,
-                                                      textAlign: TextAlign.left,
-                                                      maxLines: 1,
-                                                      style: TextStyle(
-                                                          color: Constants
-                                                              .colors[11],
-                                                          fontSize: 16.sp,
-                                                          fontFamily:
-                                                              "SFProMedium",
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 1.w,
-                                                    ),
-                                                    AutoSizeText(
-                                                      "${getDateString(homepageBloc.shiftDetails.date, "MMMd")} ${getDateString(homepageBloc.shiftDetails.date, "yyyy")} | ${homepageBloc.shiftDetails.timeFrom!} ${homepageBloc.shiftDetails.timeTo!}",
-                                                      maxLines: 1,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.blueGrey,
-                                                          fontSize: 10.sp,
-                                                          fontFamily: "S",
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 2.w,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        DrawableButton(
-                                                          onPressed: () {},
-                                                          label: homepageBloc
-                                                              .shiftDetails!
-                                                              .type!,
-                                                          asset:
-                                                              "assets/images/icon/swipe-to-right.svg",
-                                                          backgroundColor:
-                                                              Constants
-                                                                  .colors[2],
-                                                          textColors: Constants
-                                                              .colors[4],
-                                                        ),
-                                                        SizedBox(
-                                                          width: 2.w,
-                                                        ),
-                                                        DrawableButton(
-                                                          onPressed: () {},
-                                                          label: homepageBloc
-                                                              .shiftDetails!
-                                                              .category!,
-                                                          asset:
-                                                              "assets/images/icon/ward.svg",
-                                                          backgroundColor:
-                                                              Constants
-                                                                  .colors[2],
-                                                          textColors: Constants
-                                                              .colors[6],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
+                                              Expanded(
+                                                child: SizedBox(
+                                                  // width: screenWidth(context,
+                                                  //     dividedBy: 2),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      AutoSizeText(
+                                                        homepageBloc.shiftDetails!
+                                                            .hospital!,
+                                                        textAlign: TextAlign.left,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                            color: Constants
+                                                                .colors[11],
+                                                            fontSize: 16.sp,
+                                                            fontFamily:
+                                                                "SFProMedium",
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 1.w,
+                                                      ),
+                                                      AutoSizeText(
+                                                        "${getDateString(homepageBloc.shiftDetails.date, "MMMd")}"
+                                                            " ${getDateString(homepageBloc.shiftDetails.date, "yyyy")} "
+                                                            "| ${convert24hrTo12hrTime(homepageBloc.shiftDetails.timeFrom!)}-"
+                                                            " ${convert24hrTo12hrTime(homepageBloc.shiftDetails.timeTo!)}",
+                                                        maxLines: 1,
+                                                        textAlign: TextAlign.justify,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.blueGrey,
+                                                            fontSize: 10.sp,
+                                                            fontFamily: "S",
+                                                            fontWeight:
+                                                                FontWeight.w400),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 2.w,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          DrawableButton(
+                                                            onPressed: () {},
+                                                            label: homepageBloc
+                                                                .shiftDetails!
+                                                                .type!,
+                                                            asset:
+                                                                "assets/images/icon/swipe-to-right.svg",
+                                                            backgroundColor:
+                                                                Constants
+                                                                    .colors[2],
+                                                            textColors: Constants
+                                                                .colors[4],
+                                                          ),
+                                                          SizedBox(
+                                                            width: 2.w,
+                                                          ),
+                                                          DrawableButton(
+                                                            onPressed: () {},
+                                                            label: homepageBloc
+                                                                .shiftDetails!
+                                                                .category!,
+                                                            asset:
+                                                                "assets/images/icon/ward.svg",
+                                                            backgroundColor:
+                                                                Constants
+                                                                    .colors[2],
+                                                            textColors: Constants
+                                                                .colors[6],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                              const Spacer(),
+                                             
                                               Container(
                                                   alignment:
                                                       Alignment.centerRight,
