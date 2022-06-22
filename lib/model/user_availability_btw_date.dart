@@ -68,19 +68,19 @@ class Data {
 
 class AvailabilityList {
   String? date;
-  int? availability;
+  String? availability;
 
   AvailabilityList({this.date, this.availability});
 
   AvailabilityList.fromJson(Map<String, dynamic> json) {
     date = json['date'];
-    availability = json['availability'];
+    availability = json['availability'].toString();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['date'] = this.date;
-    data['availability'] = this.availability;
+    data['availability'] = availability;
     return data;
   }
 }

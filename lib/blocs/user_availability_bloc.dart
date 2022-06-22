@@ -58,7 +58,7 @@ class UserAvailiability {
     for (var dates in datelist) {
       AvailabilityList item = AvailabilityList();
       item.date = formatDate(dates);
-      item.availability = 0;
+      item.availability = "0";
       availableMokeList.add(item);
     }
     List<AvailabilityList>? listItem =

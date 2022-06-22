@@ -88,344 +88,347 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
-          NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (overScroll) {
-              overScroll.disallowIndicator();
-              return false;
+          RefreshIndicator(
+            onRefresh: () async {
+              await availabilitybloc.fetchuserAvailability();
             },
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: AutoSizeText(
-                        Txt.availability,
-                        maxLines: 1,
-                        style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 16.sp,
-                          fontFamily: "SFProMedium",
-                        ),
-                      )),
-                  StreamBuilder(
-                      stream: availabilitybloc.useravailabilitiydate,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<AvailabilityList>> snapshot) {
-                        print("stream");
-                        if (snapshot.hasData) {
-                          return ListView.builder(
-                            itemCount: snapshot.data!.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, int index) {
-                              List<String> slot = [
-                                "Off",
-                                "morning",
-                                "Day",
-                                "Afternoon",
-                                "Night",
-                                "Sleepover",
-                              ];
-                              var item = snapshot.data![index];
-                              //String to list of strings
-                              List<String> list = item.availability.toString().split(",");
-                              List<bool> listOfSlot = [];
-                              for (var i = 0; i < slot.length; i++) {
-
-                                if (list.contains((i).toString())) {
-
-                                  listOfSlot.add(true);
-                                } else {
-                                  listOfSlot.add(false);
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (overScroll) {
+                overScroll.disallowIndicator();
+                return false;
+              },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AutoSizeText(
+                          Txt.availability,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 16.sp,
+                            fontFamily: "SFProMedium",
+                          ),
+                        )),
+                    StreamBuilder(
+                        stream: availabilitybloc.useravailabilitiydate,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<AvailabilityList>> snapshot) {
+                          print("stream");
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (BuildContext context, int index) {
+                                List<String> slot = [
+                                  "morning",
+                                  "Day",
+                                  "Afternoon",
+                                  "Night",
+                                  "Sleepover",
+                                  "Off",
+                                ];
+                                var item = snapshot.data![index];
+                                //String to list of strings
+                                List<String> list = item.availability!.split(",");
+                                List<bool> listOfSlot = [];
+                                for (var i = 1; i < slot.length+1; i++) {
+                                  if (list.contains((i).toString())) {
+                                    listOfSlot.add(true);
+                                  } else {
+                                    listOfSlot.add(false);
+                                  }
                                 }
-                              }
-                              // if (item.availability == 1) {
-                              //   availabilitybloc.availability =
-                              //       Availability.morning;
-                              // }
+                                // if (item.availability == 1) {
+                                //   availabilitybloc.availability =
+                                //       Availability.morning;
+                                // }
 
-                              // else if (item.availability == 2) {
-                              //   availabilitybloc.availability =
-                              //       Availability.day;
-                              // }
-                              // else if (item.availability == 3) {
-                              //   availabilitybloc.availability =
-                              //       Availability.afternoon;
-                              // }
-                              // else if (item.availability == 4) {
-                              //   availabilitybloc.availability =
-                              //       Availability.night;
-                              // }
-                              // else {
-                              //   availabilitybloc.availability =
-                              //       Availability.sleepover;
-                              // }
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 8.0),
-                                child: Card(
-                                  elevation: 0,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              const Icon(Icons.calendar_month,color: greenColor,),const SizedBox(width: 10,),
-                                              AutoSizeText(
-                                                item.date.toString(),
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                  color: Constants.colors[1],
-                                                  fontSize: 12.sp,
-                                                  fontFamily: "SFProMedium",
+                                // else if (item.availability == 2) {
+                                //   availabilitybloc.availability =
+                                //       Availability.day;
+                                // }
+                                // else if (item.availability == 3) {
+                                //   availabilitybloc.availability =
+                                //       Availability.afternoon;
+                                // }
+                                // else if (item.availability == 4) {
+                                //   availabilitybloc.availability =
+                                //       Availability.night;
+                                // }
+                                // else {
+                                //   availabilitybloc.availability =
+                                //       Availability.sleepover;
+                                // }
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8.0),
+                                  child: Card(
+                                    elevation: 0,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                const Icon(Icons.calendar_month,color: greenColor,),const SizedBox(width: 10,),
+                                                AutoSizeText(
+                                                  item.date.toString(),
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    color: Constants.colors[1],
+                                                    fontSize: 12.sp,
+                                                    fontFamily: "SFProMedium",
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          )),
-                                      const Divider(
-                                        height: 1,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SizedBox(
-                                          height: 80,
-                                          child: ListView.builder(
-                                            itemCount: slot.length,
-                                            scrollDirection: Axis.horizontal,
-                                            shrinkWrap: true,
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemBuilder: (BuildContext context,
-                                                int position) {
-                                              return LabeledCheckbox(
-                                                label: slot[position],
-                                                padding:
-                                                    const EdgeInsets.all(2),
-                                                value: listOfSlot[position],
-                                                onChanged: (bool newValue) {
-                                                  listOfSlot[position] =
-                                                      newValue;
-                                                  String value = "";
-                                                  for (int i = 0; i < listOfSlot.length;
-                                                      i++) {
-                                                    if (listOfSlot[i]) {
-                                                      value += "$i,";
-                                                      list.add(i.toString());
-                                                    }
-                                                  }
-                                                  updateShiftAvailabaity(value,
-                                                      item.date.toString());
-
-                                                  setState(() {
-                                                    availabilitybloc
-                                                            .availability =
-                                                        Availability.afternoon;
-                                                  });
-                                                },
-                                              );
-                                            },
-                                          ),
+                                              ],
+                                            )),
+                                        const Divider(
+                                          height: 1,
                                         ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            height: 80,
+                                            child: ListView.builder(
+                                              itemCount: slot.length,
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemBuilder: (BuildContext context,
+                                                  int position) {
+                                                return LabeledCheckbox(
+                                                  label: slot[position],
+                                                  padding:
+                                                      const EdgeInsets.all(2),
+                                                  value: listOfSlot[position],
+                                                  onChanged: (bool newValue) {
+                                                    listOfSlot[position] =
+                                                        newValue;
+                                                    String value = "";
+                                                    for (int i = 1; i < listOfSlot.length;
+                                                        i++) {
+                                                      if (listOfSlot[i]) {
+                                                        value += "$i,";
+                                                        list.add(i.toString());
+                                                      }
+                                                    }
+                                                    updateShiftAvailabaity(value,
+                                                        item.date.toString());
 
-                                        // Row(
-                                        //   children: [
-                                        //     Expanded(
-                                        //       flex: 1,
-                                        //       child: Column(
-                                        //         children: [
-                                        //           LabeledCheckbox(label: Txt.morning,padding: const EdgeInsets.all(4),value:true, onChanged: (bool newValue) {
-                                        //             setState(() {
-                                        //              debugPrint("value");
-                                        //             });
-                                        //           },)
-                                        //           // Radio<Availability>(
-                                        //           //   fillColor: MaterialStateColor
-                                        //           //       .resolveWith(
-                                        //           //           (states) =>
-                                        //           //               Colors
-                                        //           //                   .green),
-                                        //           //   focusColor: MaterialStateColor
-                                        //           //       .resolveWith(
-                                        //           //           (states) =>
-                                        //           //               Colors
-                                        //           //                   .green),
-                                        //           //   value: Availability
-                                        //           //       .morning,
-                                        //           //   groupValue:
-                                        //           //   availabilitybloc.availability,
-                                        //           //   onChanged: (value) {
-                                        //           //     updateShiftAvailabaity(
-                                        //           //         1,
-                                        //           //         item.date
-                                        //           //             .toString());
-                                        //           //     setState(() {
-                                        //           //       availabilitybloc.availability =
-                                        //           //           value;
-                                        //           //     });
-                                        //           //   },
-                                        //           // ),
-                                        //           // Text(Txt.morning),
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //     Expanded(
-                                        //       flex: 1,
-                                        //       child: Column(
-                                        //         children: [
-                                        //           Radio<Availability>(
-                                        //             fillColor: MaterialStateColor
-                                        //                 .resolveWith(
-                                        //                     (states) =>
-                                        //                         Colors
-                                        //                             .green),
-                                        //             focusColor: MaterialStateColor
-                                        //                 .resolveWith(
-                                        //                     (states) =>
-                                        //                         Colors
-                                        //                             .green),
-                                        //             value: Availability
-                                        //                 .day,
-                                        //             groupValue:
-                                        //             availabilitybloc.availability,
-                                        //             onChanged: (value) {
-                                        //               updateShiftAvailabaity(
-                                        //                   2,
-                                        //                   item.date
-                                        //                       .toString());
-                                        //               setState(() {
-                                        //                 availabilitybloc.availability =
-                                        //                     value;
-                                        //               });
-                                        //             },
-                                        //           ),
-                                        //           Text(Txt.day),
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //     Expanded(
-                                        //       flex: 1,
-                                        //       child: Column(
-                                        //         children: [
-                                        //           Radio<Availability>(
-                                        //             fillColor: MaterialStateColor
-                                        //                 .resolveWith(
-                                        //                     (states) =>
-                                        //                         Colors
-                                        //                             .green),
-                                        //             focusColor: MaterialStateColor
-                                        //                 .resolveWith(
-                                        //                     (states) =>
-                                        //                         Colors
-                                        //                             .green),
-                                        //             value: Availability
-                                        //                 .afternoon,
-                                        //             groupValue:
-                                        //             availabilitybloc.availability,
-                                        //             onChanged: (value) {
-                                        //               updateShiftAvailabaity(
-                                        //                   3,
-                                        //                   item.date
-                                        //                       .toString());
-                                        //               setState(() {
-                                        //                 availabilitybloc.availability =
-                                        //                     value;
-                                        //               });
-                                        //             },
-                                        //           ),
-                                        //           Text(Txt.after_noon),
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //     Expanded(
-                                        //       flex: 1,
-                                        //       child: Column(
-                                        //         children: [
-                                        //           Radio<Availability>(
-                                        //             fillColor: MaterialStateColor
-                                        //                 .resolveWith(
-                                        //                     (states) =>
-                                        //                         Colors
-                                        //                             .green),
-                                        //             focusColor: MaterialStateColor
-                                        //                 .resolveWith(
-                                        //                     (states) =>
-                                        //                         Colors
-                                        //                             .green),
-                                        //             value: Availability
-                                        //                 .night,
-                                        //             groupValue:
-                                        //             availabilitybloc.availability,
-                                        //             onChanged: (value) {
-                                        //               updateShiftAvailabaity(
-                                        //                   4,
-                                        //                   item.date
-                                        //                       .toString());
-                                        //               setState(() {
-                                        //                 availabilitybloc.availability =
-                                        //                     value;
-                                        //               });
-                                        //             },
-                                        //           ),
-                                        //           Text(Txt.night),
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //     Expanded(
-                                        //       flex: 1,
-                                        //       child: Column(
-                                        //         children: [
-                                        //           Radio<Availability>(
-                                        //             fillColor: MaterialStateColor
-                                        //                 .resolveWith(
-                                        //                     (states) =>
-                                        //                         Colors
-                                        //                             .green),
-                                        //             focusColor: MaterialStateColor
-                                        //                 .resolveWith(
-                                        //                     (states) =>
-                                        //                         Colors
-                                        //                             .green),
-                                        //             value: Availability
-                                        //                 .sleepover,
-                                        //             groupValue:
-                                        //             availabilitybloc.availability,
-                                        //             onChanged: (value) {
-                                        //               setState(() {
-                                        //                 availabilitybloc.availability =
-                                        //                     value;
-                                        //               });
-                                        //               updateShiftAvailabaity(
-                                        //                   0,
-                                        //                   item.date
-                                        //                       .toString());
-                                        //             },
-                                        //           ),
-                                        //           const Text(Txt.sleep_over),
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
-                                      ),
-                                    ],
+                                                    setState(() {
+                                                      availabilitybloc
+                                                              .availability =
+                                                          Availability.afternoon;
+                                                    });
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+
+                                          // Row(
+                                          //   children: [
+                                          //     Expanded(
+                                          //       flex: 1,
+                                          //       child: Column(
+                                          //         children: [
+                                          //           LabeledCheckbox(label: Txt.morning,padding: const EdgeInsets.all(4),value:true, onChanged: (bool newValue) {
+                                          //             setState(() {
+                                          //              debugPrint("value");
+                                          //             });
+                                          //           },)
+                                          //           // Radio<Availability>(
+                                          //           //   fillColor: MaterialStateColor
+                                          //           //       .resolveWith(
+                                          //           //           (states) =>
+                                          //           //               Colors
+                                          //           //                   .green),
+                                          //           //   focusColor: MaterialStateColor
+                                          //           //       .resolveWith(
+                                          //           //           (states) =>
+                                          //           //               Colors
+                                          //           //                   .green),
+                                          //           //   value: Availability
+                                          //           //       .morning,
+                                          //           //   groupValue:
+                                          //           //   availabilitybloc.availability,
+                                          //           //   onChanged: (value) {
+                                          //           //     updateShiftAvailabaity(
+                                          //           //         1,
+                                          //           //         item.date
+                                          //           //             .toString());
+                                          //           //     setState(() {
+                                          //           //       availabilitybloc.availability =
+                                          //           //           value;
+                                          //           //     });
+                                          //           //   },
+                                          //           // ),
+                                          //           // Text(Txt.morning),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //     Expanded(
+                                          //       flex: 1,
+                                          //       child: Column(
+                                          //         children: [
+                                          //           Radio<Availability>(
+                                          //             fillColor: MaterialStateColor
+                                          //                 .resolveWith(
+                                          //                     (states) =>
+                                          //                         Colors
+                                          //                             .green),
+                                          //             focusColor: MaterialStateColor
+                                          //                 .resolveWith(
+                                          //                     (states) =>
+                                          //                         Colors
+                                          //                             .green),
+                                          //             value: Availability
+                                          //                 .day,
+                                          //             groupValue:
+                                          //             availabilitybloc.availability,
+                                          //             onChanged: (value) {
+                                          //               updateShiftAvailabaity(
+                                          //                   2,
+                                          //                   item.date
+                                          //                       .toString());
+                                          //               setState(() {
+                                          //                 availabilitybloc.availability =
+                                          //                     value;
+                                          //               });
+                                          //             },
+                                          //           ),
+                                          //           Text(Txt.day),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //     Expanded(
+                                          //       flex: 1,
+                                          //       child: Column(
+                                          //         children: [
+                                          //           Radio<Availability>(
+                                          //             fillColor: MaterialStateColor
+                                          //                 .resolveWith(
+                                          //                     (states) =>
+                                          //                         Colors
+                                          //                             .green),
+                                          //             focusColor: MaterialStateColor
+                                          //                 .resolveWith(
+                                          //                     (states) =>
+                                          //                         Colors
+                                          //                             .green),
+                                          //             value: Availability
+                                          //                 .afternoon,
+                                          //             groupValue:
+                                          //             availabilitybloc.availability,
+                                          //             onChanged: (value) {
+                                          //               updateShiftAvailabaity(
+                                          //                   3,
+                                          //                   item.date
+                                          //                       .toString());
+                                          //               setState(() {
+                                          //                 availabilitybloc.availability =
+                                          //                     value;
+                                          //               });
+                                          //             },
+                                          //           ),
+                                          //           Text(Txt.after_noon),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //     Expanded(
+                                          //       flex: 1,
+                                          //       child: Column(
+                                          //         children: [
+                                          //           Radio<Availability>(
+                                          //             fillColor: MaterialStateColor
+                                          //                 .resolveWith(
+                                          //                     (states) =>
+                                          //                         Colors
+                                          //                             .green),
+                                          //             focusColor: MaterialStateColor
+                                          //                 .resolveWith(
+                                          //                     (states) =>
+                                          //                         Colors
+                                          //                             .green),
+                                          //             value: Availability
+                                          //                 .night,
+                                          //             groupValue:
+                                          //             availabilitybloc.availability,
+                                          //             onChanged: (value) {
+                                          //               updateShiftAvailabaity(
+                                          //                   4,
+                                          //                   item.date
+                                          //                       .toString());
+                                          //               setState(() {
+                                          //                 availabilitybloc.availability =
+                                          //                     value;
+                                          //               });
+                                          //             },
+                                          //           ),
+                                          //           Text(Txt.night),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //     Expanded(
+                                          //       flex: 1,
+                                          //       child: Column(
+                                          //         children: [
+                                          //           Radio<Availability>(
+                                          //             fillColor: MaterialStateColor
+                                          //                 .resolveWith(
+                                          //                     (states) =>
+                                          //                         Colors
+                                          //                             .green),
+                                          //             focusColor: MaterialStateColor
+                                          //                 .resolveWith(
+                                          //                     (states) =>
+                                          //                         Colors
+                                          //                             .green),
+                                          //             value: Availability
+                                          //                 .sleepover,
+                                          //             groupValue:
+                                          //             availabilitybloc.availability,
+                                          //             onChanged: (value) {
+                                          //               setState(() {
+                                          //                 availabilitybloc.availability =
+                                          //                     value;
+                                          //               });
+                                          //               updateShiftAvailabaity(
+                                          //                   0,
+                                          //                   item.date
+                                          //                       .toString());
+                                          //             },
+                                          //           ),
+                                          //           const Text(Txt.sleep_over),
+                                          //         ],
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          );
-                        } else if (snapshot.hasError) {
-                          return Text(snapshot.error.toString());
-                        }
-                        return const SizedBox();
-                      }),
-                ],
+                                );
+                              },
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text(snapshot.error.toString());
+                          }
+                          return const SizedBox();
+                        }),
+                  ],
+                ),
               ),
             ),
           ),

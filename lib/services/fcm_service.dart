@@ -1,7 +1,9 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 
 class FCM {
   Future<void> init() async {
@@ -10,14 +12,16 @@ class FCM {
     //:TODO: add FCM Token to server
     final fcmToken = await FirebaseMessaging.instance.getToken();
     print("FCM Token: $fcmToken");
+
     if (AwesomeStringUtils.isNullOrEmpty(fcmToken,considerWhiteSpaceAsEmpty: true)) return;
 
 
     await FirebaseMessaging.instance.subscribeToTopic("All_Devices");
-
+    setUpNotification();
     FirebaseMessaging.onBackgroundMessage(backgroundListen);
     FirebaseMessaging.onMessage.listen(foregroundListen);
     FirebaseMessaging.onMessageOpenedApp.listen(onMessageOpen);
+
   }
 
 
@@ -31,57 +35,129 @@ class FCM {
       showNotification(message);
 
   showNotification(RemoteMessage message) async {
-    if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
-        considerWhiteSpaceAsEmpty: true) ||
-        !AwesomeStringUtils.isNullOrEmpty(message.notification?.body,
-            considerWhiteSpaceAsEmpty: true)) {
-      String? imageUrl;
-      imageUrl ??= message.notification!.android?.imageUrl;
-      imageUrl ??= message.notification!.apple?.imageUrl;
 
-      Map<String, dynamic> notificationAdapter = {
-        NOTIFICATION_CHANNEL_KEY: 'Xpress Health',
-        NOTIFICATION_ID: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_ID] ??
-            message.messageId ??
-            Random().nextInt(2147483647),
-        NOTIFICATION_TITLE: message.data[NOTIFICATION_CONTENT]
-        ?[NOTIFICATION_TITLE] ??
-            message.notification?.title,
-        NOTIFICATION_BODY: message.data[NOTIFICATION_CONTENT]
-        ?[NOTIFICATION_BODY] ??
-            message.notification?.body,
-        NOTIFICATION_LAYOUT: AwesomeStringUtils.isNullOrEmpty(imageUrl)
-            ? 'Default'
-            : 'BigPicture',
-        NOTIFICATION_BIG_PICTURE: imageUrl
-      };
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: Random().nextInt(2147483647),
+          notificationLayout: NotificationLayout.Inbox,
+           channelKey: 'basic_channel',
+            title: message.data[NOTIFICATION_CONTENT]
+            ?[NOTIFICATION_TITLE] ??
+                message.notification?.title,
+            body: message.data[NOTIFICATION_CONTENT]
+            ?[NOTIFICATION_BODY] ??
+                message.notification?.body,
+            payload: message.data["payload"] ,
+            category: message.data["category"] ,
+          bigPicture:
+          'https://tecnoblog.net/wp-content/uploads/2019/09/emoji.jpg',
+            wakeUpScreen: true,
+            fullScreenIntent: true,
 
-      AwesomeNotifications()
-          .createNotificationFromJsonData(notificationAdapter);
-    } else {
-      AwesomeNotifications().createNotificationFromJsonData(message.data);
-    }
-    setUpNotification();
+            criticalAlert: true,
+            showWhen: true,
+            displayOnForeground: true,
+            displayOnBackground: true,
+            locked: true,
+
+
+        ),
+        actionButtons: [
+          NotificationActionButton(
+            key: "STOP",
+            label: "STOP",
+          ),
+        ]
+    );
+
+
+    // if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
+    //     considerWhiteSpaceAsEmpty: true) ||
+    //     !AwesomeStringUtils.isNullOrEmpty(message.notification?.body,
+    //         considerWhiteSpaceAsEmpty: true)) {
+    //   String? imageUrl;
+    //   imageUrl ??= message.notification!.android?.imageUrl;
+    //   imageUrl ??= message.notification!.apple?.imageUrl;
+    //
+    //   Map<String, dynamic> notificationAdapter = {
+    //     NOTIFICATION_CHANNEL_KEY: 'basic_channel',
+    //     NOTIFICATION_ID: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_ID] ??
+    //         message.messageId ??
+    //         Random().nextInt(2147483647),
+    //     NOTIFICATION_TITLE: message.data[NOTIFICATION_CONTENT]
+    //     ?[NOTIFICATION_TITLE] ??
+    //         message.notification?.title,
+    //     NOTIFICATION_BODY: message.data[NOTIFICATION_CONTENT]
+    //     ?[NOTIFICATION_BODY] ??
+    //         message.notification?.body,
+    //     NOTIFICATION_LAYOUT: AwesomeStringUtils.isNullOrEmpty(imageUrl)
+    //         ? 'Default'
+    //         : 'BigPicture',
+    //     NOTIFICATION_BIG_PICTURE: imageUrl
+    //   };
+    //
+    //   AwesomeNotifications()
+    //       .createNotificationFromJsonData(notificationAdapter);
+    // } else {
+    //   AwesomeNotifications().createNotificationFromJsonData(message.data);
+    // }
+
   }
 
 
   void setUpNotification() {
+    AwesomeNotifications().initialize(
+        null,
+        [
+          NotificationChannel(
+              channelGroupKey: 'basic_channel_group',
+              channelKey: 'basic_channel', /* same name */
+              channelName: 'Basic notifications',
+              channelDescription: 'Notification channel for basic tests',
+              defaultColor: const Color(0xFF9D50DD),
+              groupSort: GroupSort.Desc,
+              groupAlertBehavior: GroupAlertBehavior.Children,
+              importance: NotificationImportance.Max,
+              channelShowBadge: true,
+              criticalAlerts: true,
+              defaultPrivacy: NotificationPrivacy.Public,
+              ledColor: Colors.white)
+        ],
+        // Channel groups are only visual and are not required
+        channelGroups: [
+          NotificationChannelGroup(
+              channelGroupkey: 'basic_channel_group',
+              channelGroupName: 'Basic group')
+        ],
+        debug: true);
+
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
+        // This is just a basic example. For real apps, you must show some
+        // friendly dialog box before call the request method.
+        // This is very important to not harm the user experience
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
+    });
+
+    ////Notification Listener
+
+    AwesomeNotifications()
+        .actionStream
+        .listen((ReceivedNotification receivedNotification) {
+
     });
     AwesomeNotifications().createdStream.listen((receivedNotification) {
       String? createdSourceText = AwesomeAssertUtils.toSimpleEnumString(
           receivedNotification.createdSource);
     });
 
-    AwesomeNotifications().actionStream.listen((receivedAction) {
-      if (receivedAction.channelKey == 'call_channel') {
-        onclick(receivedAction.payload!["action"]!);
-        return;
-      }
-    });
+    // AwesomeNotifications().actionStream.listen((receivedAction) {
+    //   if (receivedAction.channelKey == 'basic_channel') {
+    //     onclick(receivedAction.payload!["action"]!);
+    //     return;
+    //   }
+    // });
   }
 
   void onclick(String message) {
