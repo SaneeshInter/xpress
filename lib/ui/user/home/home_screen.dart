@@ -396,8 +396,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                 ),
                               ),
                               horizontalList(snapshot),
-                              // gridView(),
-                              shiftDetails(),
+                              gridView(),
+                              // shiftDetails(),
                             ],
                           );
                         } else {

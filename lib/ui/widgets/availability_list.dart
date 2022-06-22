@@ -29,7 +29,7 @@ class AvailabilityListWidget extends StatefulWidget {
 }
 
 class _AvailabilityState extends State<AvailabilityListWidget> {
-  var selectedValue = 0;
+  var selectedValue = "0";
   bool isClicked = false;
 
   @override
@@ -63,7 +63,7 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
             InkWell(
               onTap: () {
                 setState(() {
-                  selectedValue = 1;
+                  selectedValue = "1";
                 });
               },
               child: Row(
@@ -112,7 +112,7 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
               onTap: () {
                 setState(() {
                   isClicked = true;
-                  selectedValue = 2;
+                  selectedValue = "2";
                 });
               },
               child: Row(
@@ -159,7 +159,7 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
               onTap: () {
                 setState(() {
                   isClicked = true;
-                  selectedValue = 0;
+                  selectedValue = "0";
                 });
               },
               child: Row(

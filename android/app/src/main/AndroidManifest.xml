@@ -35,7 +35,8 @@
         android:label="Xpress Health"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true">
 
 
 
@@ -53,6 +54,10 @@
                  the Android process has started. This theme is visible to the user
                  while the Flutter ui initializes. After that, this theme continues
                  to determine the Window background behind the Flutter ui. -->
+
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_channel_id"
+                android:value="basic_channel" />
             <meta-data
                 android:name="firebase_messaging_auto_init_enabled"
                 android:value="false" />

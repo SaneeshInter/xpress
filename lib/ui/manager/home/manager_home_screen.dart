@@ -102,9 +102,9 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                       ),
                     ),
                     horizontalList(),
-                    shiftDetails(),
-                    // gridView(),
-                    SizedBox(
+                    // shiftDetails(),
+                    gridView(),
+                    const SizedBox(
                       height: 30,
                     ),
                     equalSizeButtons()
