@@ -355,9 +355,4 @@ Future<void> logOut(BuildContext context) async {
   });
 
 }
-void showInternetNotAvailable(BuildContext context,Function onBack) {
-  Navigator.pushNamed(context, '/nw_error').then((_) {
-    onBack();
-  });
-}
 

@@ -60,7 +60,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
         availabilitybloc.fetchuserAvailability();
       } else {
         Future.delayed(Duration.zero, () {
-          showInternetNotAvailable(context, getData);
+          showInternetNotAvailable();
         });
       }
     }
@@ -76,8 +76,13 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
           showAlertDialoge(context, title: Txt.availability, message: message!);
         }
       } else {
-        showInternetNotAvailable(context, getData);
+        showInternetNotAvailable();
       }
+    });
+  }
+  void showInternetNotAvailable() {
+    Navigator.pushNamed(context, '/nw_error').then((_) {
+      getData();
     });
   }
 
@@ -137,13 +142,15 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 //String to list of strings
                                 List<String> list = item.availability!.split(",");
                                 List<bool> listOfSlot = [];
-                                for (var i = 1; i < slot.length+1; i++) {
+                                for (var i = 1; i <= slot.length; i++) {
                                   if (list.contains((i).toString())) {
                                     listOfSlot.add(true);
                                   } else {
                                     listOfSlot.add(false);
                                   }
                                 }
+
+                                print("asadad ${item.date} ${item.availability}");
                                 // if (item.availability == 1) {
                                 //   availabilitybloc.availability =
                                 //       Availability.morning;
@@ -212,14 +219,14 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                       const EdgeInsets.all(2),
                                                   value: listOfSlot[position],
                                                   onChanged: (bool newValue) {
-                                                    listOfSlot[position] =
-                                                        newValue;
+                                                    listOfSlot[position] =newValue;
                                                     String value = "";
-                                                    for (int i = 1; i < listOfSlot.length;
+                                                    for (int i = 0; i < slot.length;
                                                         i++) {
+                                                      print("${listOfSlot[i]}");
                                                       if (listOfSlot[i]) {
-                                                        value += "$i,";
-                                                        list.add(i.toString());
+                                                        value += "${i + 1},";
+                                                        list.add({i + 1}.toString());
                                                       }
                                                     }
                                                     updateShiftAvailabaity(value,
