@@ -101,7 +101,6 @@ class Allowances {
   String? allowance;
   int? allowanceId;
   String? amount;
-  String? price;
 
   Allowances(
       {this.category,
@@ -109,7 +108,7 @@ class Allowances {
         this.allowance,
         this.allowanceId,
         this.amount,
-        this.price});
+        });
 
   Allowances.fromJson(Map<String, dynamic> json) {
     category = json['category'];
@@ -117,7 +116,7 @@ class Allowances {
     allowance = json['allowance'];
     allowanceId = json['allowanceId'];
     amount = json['amount'];
-    price = json['price'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -127,7 +126,7 @@ class Allowances {
     data['allowance'] = this.allowance;
     data['allowanceId'] = this.allowanceId;
     data['amount'] = this.amount;
-    data['price'] = this.price;
+
     return data;
   }
 }
