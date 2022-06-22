@@ -5,16 +5,17 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+import '../resources/api_provider.dart';
+import '../resources/token_provider.dart';
+
 class FCM {
+  String fcmToken="";
+  late Stream<String> _tokenStream;
+
   Future<void> init() async {
     await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
-    //:TODO: add FCM Token to server
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    print("FCM Token: $fcmToken");
-
-    if (AwesomeStringUtils.isNullOrEmpty(fcmToken,considerWhiteSpaceAsEmpty: true)) return;
-
+    getFCMToken();
 
     await FirebaseMessaging.instance.subscribeToTopic("All_Devices");
     setUpNotification();
@@ -24,6 +25,25 @@ class FCM {
 
   }
 
+
+  getFCMToken() async{
+    FirebaseMessaging.instance
+        .getToken()
+        .then(setToken);
+    _tokenStream = FirebaseMessaging.instance.onTokenRefresh;
+    _tokenStream.listen(setToken);
+  }
+
+  void setToken(String? token) async {
+    print('FCM Token: $token');
+
+    fcmToken = token!;
+    String auth = await TokenProvider().getToken()??"";
+    if (auth != "") {
+      var respose =await ApiProvider().updateFCMToken( auth, fcmToken);
+      print("FCM Token Updated: $respose");
+    }
+  }
 
   Future<void> onMessageOpen(RemoteMessage message) async =>
       showNotification(message);
@@ -35,7 +55,6 @@ class FCM {
       showNotification(message);
 
   showNotification(RemoteMessage message) async {
-
     AwesomeNotifications().createNotification(
         content: NotificationContent(
             id: Random().nextInt(2147483647),

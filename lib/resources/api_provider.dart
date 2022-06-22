@@ -1289,5 +1289,30 @@ class ApiProvider {
       return SliftListRepso();
     }
     }
+  Future<dynamic> updateFCMToken(
+      String token,String fcm) async {
+    try{
+
+      var uri = Uri.parse(BASE_URL + "/account/add-device-token");
+      final response = await client.post(uri,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'token': token,
+          },
+          body: jsonEncode(<String, String>{
+            "device_token": fcm,
+          }));
+
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return response.body;
+      }
+    }catch(e){
+      print(e.toString());
+      return e.toString();
+    }
+
+  }
 
 }

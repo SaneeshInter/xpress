@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/services/fcm_service.dart';
 
 import '../../Constants/sharedPrefKeys.dart';
 import '../../Constants/strings.dart';
@@ -335,6 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
               MaterialPageRoute(builder: (context) => const ManagerDashBoard()),
             );
           }
+          FCM().getFCMToken();
         } else {
           showAlertDialoge(context, title: Txt.login_failed, message: message!);
         }
