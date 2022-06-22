@@ -125,6 +125,7 @@ class ApiFileProvider {
     request.fields["assigned_to"] = "";
     request.fields["shift"] = shift;
     request.fields["unit_name"] = unitName;
+
     request.fields["po_code"] = poCode;
     debugPrint(uri.toString());
     var headers = <String, String>{
@@ -141,6 +142,7 @@ class ApiFileProvider {
     if (response.statusCode == 200) {
       return ManagerShift.fromJson(json.decode(responseString));
     } else {
+      print("asdhxgahjg ${response.statusCode} $responseString");
       throw Exception('Failed to load post');
     }
   }
