@@ -96,7 +96,7 @@ class ManagerShiftCalendarBloc {
 
 
       var message = event.response?.status?.statusMessage;
-      Fluttertoast.showToast(msg: '$message');
+      // Fluttertoast.showToast(msg: '$message');
       if (event.response?.status?.statusCode == 200) {
         getData(context);
       }

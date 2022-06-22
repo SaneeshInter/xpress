@@ -271,6 +271,7 @@ class Txt {
   static const timesheet_updated = "Timesheet Updated";
   static const approve = 'APPROVE';
   static const enter_job_descri = "enter job decscription";
+  static const enter_post_code = "enter post code";
 
 
   static const connection_failed = 'Connection Failed';

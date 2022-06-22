@@ -94,7 +94,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
     managerBloc.getModelDropDown();
     managerBloc.isShiftTypeChanged = false;
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
 
       });
@@ -927,7 +927,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
       if (event.response?.status?.statusCode == 200) {
-        Navigator.pop(context);
+        Future.delayed(Duration.zero, () {
+          Navigator.pop(context);
+        });
+
+
         managerBloc.reset();
         Fluttertoast.showToast(
           msg: '$message',
@@ -951,6 +955,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   getItemFromId(int value, List<ShiftTimingList>? data) {
+
     int? index = data?.indexWhere((element) => element.rowId == value);
     return data![index!];
   }
