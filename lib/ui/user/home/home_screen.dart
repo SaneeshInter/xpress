@@ -20,7 +20,7 @@ import '../../widgets/buttons/home_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/my_scroll_behavior.dart';
 import '../../widgets/shift_detail_card.dart';
-import '../../widgets/shift_status_chip.dart';
+
 import '../detail/shift_detail.dart';
 import 'my_booking_screen.dart';
 
@@ -398,6 +398,7 @@ class _HomeScreentate extends State<HomeScreen> {
                               horizontalList(snapshot),
                               gridView(),
                               // shiftDetails(),
+
                             ],
                           );
                         } else {
@@ -751,6 +752,19 @@ class _HomeScreentate extends State<HomeScreen> {
             },
             child: const HomeCardItem(
                 label: Txt.find_shift, asset: "assets/images/icon/shift.svg"),
+          ),     GestureDetector(
+            onTap: () {
+              // widget.onTapMap;
+              userController.jumpToTab(2);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const FindShiftCalendar(),
+              //   ),
+              // );
+            },
+            child: const HomeCardItem(
+                label: Txt.my_booking, asset: "assets/images/icon/booking.svg"),
           ),
 
         ],
