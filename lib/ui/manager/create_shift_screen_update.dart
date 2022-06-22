@@ -670,13 +670,16 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                             TextInputFileds(
                                                 onChange: () {},
                                                 controlr: poCode,
-                                                validator: (date) {
-
+                                                validator: (poCode) {
+                                                    if(validDescription(poCode))
+                                                      return null;
+                                                    else
+                                                      return Txt.enter_post_code;
                                                 },
                                                 onTapDate: () {},
                                                 hintText: Txt.po_code,
                                                 keyboadType:
-                                                TextInputType.number,
+                                                TextInputType.visiblePassword,
                                                 isPwd: false),
                                           ],
                                         ),
