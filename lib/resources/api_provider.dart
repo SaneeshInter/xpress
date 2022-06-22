@@ -753,7 +753,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         "type": type,
         "row_id": row_id.toString(),
-        "category": category,
+        "category":"null",
         "user_type": user_type,
         "job_title": job_title,
         "hospital": hospital,

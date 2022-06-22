@@ -719,7 +719,7 @@ class _HomeScreentate extends State<HomeScreen> {
               // userController = PersistentTabController(initialIndex: 3);
               // setState(() {});
             },
-            child: const HomeCardItem(
+            child:  HomeCardItem(
                 label: Txt.my_availability,
                 asset: "assets/images/icon/availability.svg"),
           ),
@@ -752,20 +752,7 @@ class _HomeScreentate extends State<HomeScreen> {
             child: const HomeCardItem(
                 label: Txt.find_shift, asset: "assets/images/icon/shift.svg"),
           ),
-          GestureDetector(
-            onTap: () {
-              // widget.onTapMap;
-              userController.jumpToTab(2);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MyBookingScreen(),
-                ),
-              );
-            },
-            child: const HomeCardItem(
-                label: Txt.my_booking, asset: "assets/images/icon/booking.svg"),
-          )
+
         ],
       ),
     );

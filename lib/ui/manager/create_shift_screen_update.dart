@@ -901,8 +901,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         labelStyle: TextStyle(fontSize: 10.sp));
   }
 
-  Widget buildAllowanceList(
-      AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
+  Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
     return ListView.builder(
       itemCount: snapshot.data?.length,
       shrinkWrap: true,
