@@ -924,8 +924,12 @@ class ApiProvider {
   Future<ManagerGetScheduleByYear?> managerScheduleByYears(
       String token, String year) async {
 
-    try{
 
+
+
+
+
+    try{
       var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-year');
       final response = await client.post(uri,
           headers: <String, String>{

@@ -55,7 +55,7 @@ class Items {
     userType = json['user_type'];
     userTypeId = json['user_type_id'];
     category = json['category'];
-    categoryId = json['category_id'];
+    categoryId = -3;
     jobTitle = json['job_title'];
     hospital = json['hospital'];
     hospitalId = json['hospital_id'];
@@ -68,6 +68,14 @@ class Items {
     timeTo = json['time_to'];
     jobDetails = json['job_details'];
     price = json['price'];
+    if (json['price'] != null) {
+      price = json['price'];
+
+    }
+    if (json['po_code'] != null) {
+      poCode = json['po_code'];
+
+    }
     if (json['allowances'] != null) {
       allowances = <Allowances>[];
       json['allowances'].forEach((v) {
@@ -76,7 +84,7 @@ class Items {
     }
     createdDate = json['created_date'];
     requested_count = json['requested_count'];
-    poCode = json['po_code'] ?? "";
+
   }
 
   Map<String, dynamic> toJson() {
@@ -98,13 +106,19 @@ class Items {
     data['time_from'] = timeFrom;
     data['time_to'] = timeTo;
     data['job_details'] = jobDetails;
-    data['price'] = price;
+    if (price != null) {
+      data['price'] = price;
+    }
+    if (poCode != null) {
+      data['po_code'] = poCode;
+    }
+
     if (allowances != null) {
       data['allowances'] = allowances!.map((v) => v.toJson()).toList();
     }
     data['created_date'] = createdDate;
     data['requested_count'] = requested_count;
-    data['po_code'] = poCode;
+
     return data;
   }
 }
