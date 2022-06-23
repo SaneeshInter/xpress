@@ -99,6 +99,8 @@ int _index=0;
             borderRadius: BorderRadius.circular(10.0),
             colorBehindNavBar: Colors.white,
           ),
+
+
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
           itemAnimationProperties: const ItemAnimationProperties(

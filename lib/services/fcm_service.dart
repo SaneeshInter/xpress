@@ -39,8 +39,9 @@ class FCM {
 
     fcmToken = token!;
     String auth = await TokenProvider().getToken()??"";
+    String user_type = await TokenProvider().getUserId()??"";
     if (auth != "") {
-      var respose =await ApiProvider().updateFCMToken( auth, fcmToken);
+      var respose =await ApiProvider().updateFCMToken( auth, fcmToken,user_type);
       print("FCM Token Updated: $respose");
     }
   }
@@ -77,14 +78,14 @@ class FCM {
             showWhen: true,
             displayOnForeground: true,
             displayOnBackground: true,
-            locked: true,
+            locked: false,
 
 
         ),
         actionButtons: [
           NotificationActionButton(
-            key: "STOP",
-            label: "STOP",
+            key: "Open",
+            label: "Open",
           ),
         ]
     );
@@ -138,8 +139,7 @@ class FCM {
               groupAlertBehavior: GroupAlertBehavior.Children,
               importance: NotificationImportance.Max,
               channelShowBadge: true,
-              criticalAlerts: true,
-              defaultPrivacy: NotificationPrivacy.Public,
+              criticalAlerts: false,
               ledColor: Colors.white)
         ],
         // Channel groups are only visual and are not required
@@ -148,7 +148,7 @@ class FCM {
               channelGroupkey: 'basic_channel_group',
               channelGroupName: 'Basic group')
         ],
-        debug: true);
+        debug: false);
 
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {

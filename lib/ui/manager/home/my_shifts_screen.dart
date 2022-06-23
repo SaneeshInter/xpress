@@ -191,10 +191,10 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
     });
   }
 
-  Future deleteShift(rowId) async {
-    String? token = await TokenProvider().getToken();
-    viewbookingBloc.fetchRemoveManager(token!, rowId.toString());
-  }
+  // Future deleteShift(rowId) async {
+  //   String? token = await TokenProvider().getToken();
+  //   viewbookingBloc.fetchRemoveManager(token!, rowId.toString());
+  // }
 
   Widget buildList(AsyncSnapshot<ManagerScheduleListResponse> snapshot) {
     return ListView.builder(
@@ -226,7 +226,7 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
                 setState(() {
                   visible = true;
                 });
-                deleteShift(row_id);
+              //  deleteShift(row_id);
               },
             ),
           ],

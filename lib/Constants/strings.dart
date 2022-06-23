@@ -271,6 +271,7 @@ class Txt {
   static const timesheet_updated = "Timesheet Updated";
   static const approve = 'APPROVE';
   static const enter_job_descri = "enter job decscription";
+  static const enter_post_code = "enter post code";
 
 
   static const connection_failed = 'Connection Failed';
@@ -287,7 +288,7 @@ class Txt {
 
   static const enter_price =    "Enter Price";
   static const price =  "Price";
-  static const po_code =  "PO code";
+  static const po_code =  "Po Code";
   static const allowances =  "Allowances";
   static const add_allowances ='Add Allowances';
   static const user="User";

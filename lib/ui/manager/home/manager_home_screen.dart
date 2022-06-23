@@ -435,6 +435,19 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                 label: Txt.approve_timesheets,
                 asset: "assets/images/icon/availability.svg"),
           ),
+          GestureDetector(
+            onTap: () {
+              controller.jumpToTab(3);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => const ApprovedTimeSheetScreen()),
+              // );
+            },
+            child: const HomeCardItem(
+                label: Txt.time_sheets,
+                asset: "assets/images/icon/availability.svg"),
+          ),
         ],
       ),
     );

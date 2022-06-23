@@ -20,7 +20,7 @@ import '../../widgets/buttons/home_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/my_scroll_behavior.dart';
 import '../../widgets/shift_detail_card.dart';
-import '../../widgets/shift_status_chip.dart';
+
 import '../detail/shift_detail.dart';
 import 'my_booking_screen.dart';
 
@@ -77,6 +77,7 @@ class _HomeScreentate extends State<HomeScreen> {
                 homepageBloc.fetchUserHomepage(context);
               },
               child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: StreamBuilder<UserHomeResponse>(
@@ -323,19 +324,23 @@ class _HomeScreentate extends State<HomeScreen> {
                                                           SizedBox(
                                                             width: 2.w,
                                                           ),
-                                                          DrawableButton(
-                                                            onPressed: () {},
-                                                            label: homepageBloc
-                                                                .shiftDetails!
-                                                                .category!,
-                                                            asset:
-                                                                "assets/images/icon/ward.svg",
-                                                            backgroundColor:
-                                                                Constants
-                                                                    .colors[2],
-                                                            textColors: Constants
-                                                                .colors[6],
-                                                          ),
+
+                                                          //Category is not passing so commented
+
+
+                                                          // DrawableButton(
+                                                          //   onPressed: () {},
+                                                          //   label: homepageBloc
+                                                          //       .shiftDetails!
+                                                          //       .!,
+                                                          //   asset:
+                                                          //       "assets/images/icon/ward.svg",
+                                                          //   backgroundColor:
+                                                          //       Constants
+                                                          //           .colors[2],
+                                                          //   textColors: Constants
+                                                          //       .colors[6],
+                                                          // ),
                                                         ],
                                                       ),
                                                     ],
@@ -398,6 +403,7 @@ class _HomeScreentate extends State<HomeScreen> {
                               horizontalList(snapshot),
                               gridView(),
                               // shiftDetails(),
+
                             ],
                           );
                         } else {
@@ -719,7 +725,7 @@ class _HomeScreentate extends State<HomeScreen> {
               // userController = PersistentTabController(initialIndex: 3);
               // setState(() {});
             },
-            child: const HomeCardItem(
+            child:  HomeCardItem(
                 label: Txt.my_availability,
                 asset: "assets/images/icon/availability.svg"),
           ),
@@ -751,21 +757,21 @@ class _HomeScreentate extends State<HomeScreen> {
             },
             child: const HomeCardItem(
                 label: Txt.find_shift, asset: "assets/images/icon/shift.svg"),
-          ),
-          GestureDetector(
+          ),     GestureDetector(
             onTap: () {
               // widget.onTapMap;
               userController.jumpToTab(2);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MyBookingScreen(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const FindShiftCalendar(),
+              //   ),
+              // );
             },
             child: const HomeCardItem(
                 label: Txt.my_booking, asset: "assets/images/icon/booking.svg"),
-          )
+          ),
+
         ],
       ),
     );

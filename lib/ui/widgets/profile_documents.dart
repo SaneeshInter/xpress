@@ -190,14 +190,14 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "pid", widget.items.ecsLink!,
-                    widget.items.ecsExpiry);
+                getImage( "pid", widget.items.pidLink!,
+                    widget.items.pidExpiry);
               },
               child: ProfileDocRow(
                 label:Txt.pass_id ,
                 asset: "assets/images/icon/check.svg",
                 image: piddocument,
-                url: widget.items.ecsLink!,
+                url: widget.items.pidLink!,
               ),
             ),
             const SizedBox(height: 10),

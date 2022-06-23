@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class LabeledCheckbox extends StatelessWidget {
   const LabeledCheckbox({
@@ -21,26 +22,30 @@ class LabeledCheckbox extends StatelessWidget {
       onTap: () {
         onChanged(!value);
       },
-      child: Padding(
-        padding: padding,
-        child: Column(
-          children: <Widget>[
-            Checkbox(
-              fillColor: MaterialStateColor
-                    .resolveWith(
-                        (states) =>
-                            Colors
-                                .green),
-              activeColor: Colors.green,
-              checkColor: Colors.white,
-              value: value,
-              onChanged: (bool? newValue) {
-                onChanged(newValue!);
-              },
-            ),
+      child: SizedBox(
+        width: 16.w,
+        child: Padding(
+          padding: padding,
+          child: Column(
+            children: <Widget>[
+              Checkbox(
+                fillColor: MaterialStateColor
+                      .resolveWith(
+                          (states) =>
+                              Colors
+                                  .green),
+                activeColor: Colors.green,
+                checkColor: Colors.white,
+                value: value,
+                onChanged: (bool? newValue) {
+                  onChanged(newValue!);
+                },
+              ),
 
-            AutoSizeText(label,style: const TextStyle(fontSize: 8),),
-          ],
+              AutoSizeText(label,style: const TextStyle(fontSize: 7)),
+
+            ],
+          ),
         ),
       ),
     );

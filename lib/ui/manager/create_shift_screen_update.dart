@@ -71,6 +71,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     dropdownBloc.addItem();
     managerBloc.getDropDownValues();
     if (widget.shiftItem != null && null != managerBloc.token) {
+
       var item = widget.shiftItem;
       WidgetsBinding.instance
           .addPostFrameCallback((_) => updateAllowances(context, item!));
@@ -94,7 +95,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
     managerBloc.getModelDropDown();
     managerBloc.isShiftTypeChanged = false;
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
 
       });
@@ -222,69 +223,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                 const SizedBox(
                                                   width: 10,
                                                 ),
-                                                Expanded(
-                                                  flex: 1,
-                                                  child: SizedBox(
-                                                    width: 50.w,
-                                                    child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .categoryStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                              List<
-                                                                  ScheduleCategoryList>>
-                                                          snapshot) {
-                                                        if (null ==
-                                                            snapshot.data ||
-                                                            snapshot.data
-                                                                ?.length ==
-                                                                0) {
-                                                          return const SizedBox();
-                                                        }
-                                                        return DropdownButtonFormField(
-                                                          value: managerBloc
-                                                              .categoryId,
-                                                          decoration:
-                                                          buildInputDecoration(
-                                                              Txt.category),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
-                                                            return DropdownMenuItem(
-                                                              value: item.rowId,
-                                                              child: Padding(
-                                                                padding: const EdgeInsets.only(left: 4),
-                                                                child: Text(
-                                                                  item.category!,
-                                                                  style:
-                                                                  TextStyle(
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    fontSize:
-                                                                    10.sp,
-                                                                    decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                                    color: Constants
-                                                                        .colors[29],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
-                                                            if (value is int?) {
-                                                              managerBloc
-                                                                  .categoryId =
-                                                              value!;
-                                                            }
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
+
                                               ],
                                             )
                                           ],
@@ -317,6 +256,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         }
 
                                                         return DropdownButtonFormField(
+                                                          isExpanded: true,
                                                           value: managerBloc
                                                               .usertypeId,
                                                           decoration:
@@ -450,54 +390,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                         ),
                                         SizedBox(
                                           width: 100.w,
-                                          child: StreamBuilder(
-                                            stream:
-                                            managerBloc.managerunitStream,
-                                            builder: (context,
-                                                AsyncSnapshot<List<UnitItems>>
-                                                snapshot) {
-                                              if (null == snapshot.data ||
-                                                  snapshot.data?.length == 0) {
-                                                return const SizedBox();
-                                              }
 
-                                              return DropdownButtonFormField(
-                                                isExpanded: true,
-                                                value: managerBloc.unitId,
-                                                decoration:
-                                                buildInputDecoration(
-                                                    Txt.unit_name),
-                                                items:
-                                                snapshot.data?.map((item) {
-                                                  return DropdownMenuItem(
-                                                    value: item.unitRowId,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.only(left: 4),
-                                                      child: Text(
-                                                        item.unitName!,
-                                                        overflow:
-                                                        TextOverflow.clip,
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.w500,
-                                                          fontSize: 9.sp,
-                                                          decoration:
-                                                          TextDecoration.none,
-                                                          color: Constants
-                                                              .colors[29],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                                onChanged: (Object? value) {
-                                                  if (value is int?) {
-                                                    managerBloc.unitId = value!;
-                                                  }
-                                                },
-                                              );
-                                            },
-                                          ),
                                         ),
                                         const SizedBox(
                                           height: 15,
@@ -778,13 +671,16 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                             TextInputFileds(
                                                 onChange: () {},
                                                 controlr: poCode,
-                                                validator: (date) {
-
-                                                },
+                                                // validator: (poCode) {
+                                                //     if(validDescription(poCode))
+                                                //       return null;
+                                                //     else
+                                                //       return Txt.enter_post_code;
+                                                // },
                                                 onTapDate: () {},
                                                 hintText: Txt.po_code,
                                                 keyboadType:
-                                                TextInputType.number,
+                                                TextInputType.visiblePassword,
                                                 isPwd: false),
                                           ],
                                         ),
@@ -808,9 +704,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                             ElevatedButton(
                                               onPressed: () {
                                                 showModalBottomSheet(
+                                                    isScrollControlled:true,
                                                     context: context,
                                                     builder: (context) {
                                                       return AllowanceBottomSheet(
+
                                                         onSumbmit: () {},
                                                         onTapView: () {},
                                                         value: 1,
@@ -901,8 +799,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         labelStyle: TextStyle(fontSize: 10.sp));
   }
 
-  Widget buildAllowanceList(
-      AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
+  Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
     return ListView.builder(
       itemCount: snapshot.data?.length,
       shrinkWrap: true,
@@ -980,46 +877,43 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
           child: Visibility(
             // visible: !visible,
             child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-                  child: Stack(
-                    children: [
-                      LoginButton(
-                          onPressed: () async {
-                            var validate = formKey.currentState?.validate();
-                            if (null != validate) {
-                              if (validate) {
-                                final prefs = await SharedPreferences.getInstance();
-                                var auth_tokn =
-                                prefs.getString(SharedPrefKey.AUTH_TOKEN);
-                                if (null == auth_tokn) {
-                                  return;
-                                }
-
-                                debugPrint("managerBloc.typeId");
-                                debugPrint(managerBloc.typeId.toString());
-                                managerBloc.createShiftManager(
-                                  auth_tokn,
-                                  managerBloc.row_id,
-                                  managerBloc.typeId,
-                                  managerBloc.categoryId,
-                                  managerBloc.usertypeId,
-                                  jobtitle.text,
-                                  managerBloc.hospitalId,
-                                  date.text,
-                                  dateFrom.text,
-                                  dateTo.text,
-                                  jobDescri.text,
-                                  price.text,
-                                  managerBloc.shiftTypeId.toString(),
-                                  managerBloc.unitId.toString(),
-                                  poCode.text,);
+                child: Stack(
+                  children: [
+                    LoginButton(
+                        onPressed: () async {
+                          var validate = formKey.currentState?.validate();
+                          if (null != validate) {
+                            if (validate) {
+                              final prefs = await SharedPreferences.getInstance();
+                              var auth_tokn =
+                              prefs.getString(SharedPrefKey.AUTH_TOKEN);
+                              if (null == auth_tokn) {
+                                return;
                               }
+
+                              debugPrint("managerBloc.typeId");
+                              debugPrint(managerBloc.typeId.toString());
+                              managerBloc.createShiftManager(
+                                auth_tokn,
+                                managerBloc.row_id,
+                                managerBloc.typeId,
+                                managerBloc.categoryId,
+                                managerBloc.usertypeId,
+                                jobtitle.text,
+                                managerBloc.hospitalId,
+                                date.text,
+                                dateFrom.text,
+                                dateTo.text,
+                                jobDescri.text,
+                                price.text,
+                                managerBloc.shiftTypeId.toString(),
+                                managerBloc.unitId.toString(),
+                                poCode.text,);
                             }
-                          },
-                          label: managerBloc.buttonText)
-                    ],
-                  ),
+                          }
+                        },
+                        label: managerBloc.buttonText)
+                  ],
                 )),
           ),
         ),
@@ -1034,7 +928,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getmanagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
       if (event.response?.status?.statusCode == 200) {
-        Navigator.pop(context);
+        Future.delayed(Duration.zero, () {
+          Navigator.pop(context);
+        });
+
+
         managerBloc.reset();
         Fluttertoast.showToast(
           msg: '$message',
@@ -1058,6 +956,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   getItemFromId(int value, List<ShiftTimingList>? data) {
+
     int? index = data?.indexWhere((element) => element.rowId == value);
     return data![index!];
   }
@@ -1075,6 +974,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       jobDescri.text = item.jobDetails!;
       category.text = item.category!;
       managerBloc.buttonText = "Edit Shift";
+    }else{
+      managerBloc.buttonText = "Create Shift";
     }
 
     if (null != item.allowances) {
