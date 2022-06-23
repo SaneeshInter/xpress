@@ -77,6 +77,7 @@ class _HomeScreentate extends State<HomeScreen> {
                 homepageBloc.fetchUserHomepage(context);
               },
               child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: StreamBuilder<UserHomeResponse>(
@@ -323,19 +324,19 @@ class _HomeScreentate extends State<HomeScreen> {
                                                           SizedBox(
                                                             width: 2.w,
                                                           ),
-                                                          DrawableButton(
-                                                            onPressed: () {},
-                                                            label: homepageBloc
-                                                                .shiftDetails!
-                                                                .category!,
-                                                            asset:
-                                                                "assets/images/icon/ward.svg",
-                                                            backgroundColor:
-                                                                Constants
-                                                                    .colors[2],
-                                                            textColors: Constants
-                                                                .colors[6],
-                                                          ),
+                                                          // DrawableButton(
+                                                          //   onPressed: () {},
+                                                          //   label: homepageBloc
+                                                          //       .shiftDetails!
+                                                          //       .!,
+                                                          //   asset:
+                                                          //       "assets/images/icon/ward.svg",
+                                                          //   backgroundColor:
+                                                          //       Constants
+                                                          //           .colors[2],
+                                                          //   textColors: Constants
+                                                          //       .colors[6],
+                                                          // ),
                                                         ],
                                                       ),
                                                     ],
