@@ -71,6 +71,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     dropdownBloc.addItem();
     managerBloc.getDropDownValues();
     if (widget.shiftItem != null && null != managerBloc.token) {
+
       var item = widget.shiftItem;
       WidgetsBinding.instance
           .addPostFrameCallback((_) => updateAllowances(context, item!));
@@ -670,12 +671,12 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                             TextInputFileds(
                                                 onChange: () {},
                                                 controlr: poCode,
-                                                validator: (poCode) {
-                                                    if(validDescription(poCode))
-                                                      return null;
-                                                    else
-                                                      return Txt.enter_post_code;
-                                                },
+                                                // validator: (poCode) {
+                                                //     if(validDescription(poCode))
+                                                //       return null;
+                                                //     else
+                                                //       return Txt.enter_post_code;
+                                                // },
                                                 onTapDate: () {},
                                                 hintText: Txt.po_code,
                                                 keyboadType:
@@ -973,6 +974,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       jobDescri.text = item.jobDetails!;
       category.text = item.category!;
       managerBloc.buttonText = "Edit Shift";
+    }else{
+      managerBloc.buttonText = "Create Shift";
     }
 
     if (null != item.allowances) {

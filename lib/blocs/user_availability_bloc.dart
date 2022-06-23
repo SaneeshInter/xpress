@@ -88,8 +88,6 @@ class UserAvailiability {
   }
 
   bool compareValue(AvailabilityList element, AvailabilityList avalilability) {
-    print(element.date);
-    print(avalilability.date);
 
     return element.date == avalilability.date;
   }

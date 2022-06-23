@@ -109,7 +109,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 4),
                         child: AutoSizeText(
                           Txt.availability,
                           maxLines: 1,
@@ -150,7 +150,6 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                   }
                                 }
 
-                                print("asadad ${item.date} ${item.availability}");
                                 // if (item.availability == 1) {
                                 //   availabilitybloc.availability =
                                 //       Availability.morning;
@@ -174,7 +173,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 // }
                                 return Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0),
+                                      left: 4.0, right: 4.0),
                                   child: Card(
                                     elevation: 0,
                                     child: Column(
@@ -202,7 +201,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                           height: 1,
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 4),
                                           child: SizedBox(
                                             height: 80,
                                             child: ListView.builder(
@@ -216,26 +215,31 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                 return LabeledCheckbox(
                                                   label: slot[position],
                                                   padding:
-                                                      const EdgeInsets.all(2),
+                                                      const EdgeInsets.all(0),
                                                   value: listOfSlot[position],
                                                   onChanged: (bool newValue) {
                                                     listOfSlot[position] =newValue;
-                                                    String value = "";
-                                                    for (int i = 0; i < slot.length;
-                                                        i++) {
-                                                      print("${listOfSlot[i]}");
-                                                      if (listOfSlot[i]) {
-                                                        value += "${i + 1},";
-                                                        list.add({i + 1}.toString());
+                                                    if(position==5){
+                                                      updateShiftAvailabaity("6",
+                                                          item.date.toString());
+                                                    }else{
+                                                      String value = "";
+                                                      for (int i = 0; i < slot.length;
+                                                      i++) {
+                                                        if (listOfSlot[i]) {
+                                                          if(i!=5){
+                                                            value += "${i + 1},";
+                                                            list.add({i + 1}.toString());
+                                                          }
+                                                        }
                                                       }
+                                                      updateShiftAvailabaity(value,
+                                                          item.date.toString());
+
                                                     }
-                                                    updateShiftAvailabaity(value,
-                                                        item.date.toString());
 
                                                     setState(() {
-                                                      availabilitybloc
-                                                              .availability =
-                                                          Availability.afternoon;
+
                                                     });
                                                   },
                                                 );

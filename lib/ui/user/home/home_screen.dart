@@ -324,6 +324,10 @@ class _HomeScreentate extends State<HomeScreen> {
                                                           SizedBox(
                                                             width: 2.w,
                                                           ),
+
+                                                          //Category is not passing so commented
+
+
                                                           // DrawableButton(
                                                           //   onPressed: () {},
                                                           //   label: homepageBloc

@@ -37,7 +37,8 @@ import '../model/viewbooking_response.dart';
 
 class ApiProvider {
   Client client = Client();
-  String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
+  // String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
+  String BASE_URL = "http://www.xpresshealthapp.ie/api";
 
   Future<LoginUserRespo?> loginUser(
       String username, String password, String user_type,String device_id) async {
@@ -98,6 +99,20 @@ class ApiProvider {
   }
 
   Future<UtilityResop> fetchUtility() async {
+    var uri = Uri.parse(BASE_URL + '/account/get-utilities');
+    final response = await client.get(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    print("url $uri  respose ${response.body.toString()}  resposeCode ${response.statusCode.toString()}");
+    print("resposeCode ${response.contentLength.toString()}");
+    if (response.statusCode == 200) {
+      return UtilityResop.fromJson(json.decode(response.body));
+    } else {
+      return UtilityResop();
+    }
     try {
       var uri = Uri.parse(BASE_URL + '/account/get-utilities');
       final response = await client.get(
@@ -973,7 +988,11 @@ class ApiProvider {
           body: jsonEncode(<String, String>{
             'job_id': job_id,
           }));
-      print("PRINT JOB REQUEST$token");
+      debugPrint("API RESPONSE\n"
+          "url: $uri \n"
+          " token: $token\n"
+          "body:${jsonEncode(<String, String>{'job_id': job_id,}).toString()}\n"
+          "response: ${response.body}");
       print(jsonEncode(<String, String>{
         'job_id': job_id,
       }).toString());
@@ -1290,7 +1309,7 @@ class ApiProvider {
     }
     }
   Future<dynamic> updateFCMToken(
-      String token,String fcm) async {
+      String token,String fcm,String user_type) async {
     try{
 
       var uri = Uri.parse(BASE_URL + "/account/add-device-token");
@@ -1301,6 +1320,7 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{
             "device_token": fcm,
+            'user_type': user_type
           }));
 
       if (response.statusCode == 200) {

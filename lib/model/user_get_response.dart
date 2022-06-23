@@ -95,6 +95,7 @@ class Items {
   String? ipccExpiry;
   String? ecsLink;
   String? ecsExpiry;
+  String? pidLink;
   String? pidExpiry;
   int? permissionToWorkInIreland;
   int? doYouDrive;
@@ -134,6 +135,7 @@ class Items {
         this.signatureSrc,
         this.phdLink,
         this.phdExpiry,
+        this.pidLink,
         this.qqqiLink,
         this.qqqiExpiry,
         this.ipccLink,
@@ -185,6 +187,7 @@ class Items {
     ipccExpiry = json['ipcc_expiry'];
     ecsLink = json['ecs_link'];
     ecsExpiry = json['ecs_expiry'];
+    pidLink = json['pid_link'];
     pidExpiry = json['pid_expiry'];
     permissionToWorkInIreland = json['permission_to_work_in_ireland'];
     doYouDrive = json['do_you_drive'];
@@ -233,6 +236,7 @@ class Items {
     data['ipcc_expiry'] = this.ipccExpiry;
     data['ecs_link'] = this.ecsLink;
     data['ecs_expiry'] = this.ecsExpiry;
+    data['pid_link'] = this.pidLink;
     data['pid_expiry'] = this.pidExpiry;
     data['permission_to_work_in_ireland'] = this.permissionToWorkInIreland;
     data['do_you_drive'] = this.doYouDrive;
