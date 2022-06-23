@@ -141,6 +141,11 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 var item = snapshot.data![index];
                                 //String to list of strings
                                 List<String> list = item.availability!.split(",");
+                                list.remove("0");
+                                print("list length: ${item.availability}  ${list.isEmpty} ${list.toString()} ");
+                                if(list.isEmpty){
+                                    list.add("6");
+                                }
                                 List<bool> listOfSlot = [];
                                 for (var i = 1; i <= slot.length; i++) {
                                   if (list.contains((i).toString())) {
@@ -233,7 +238,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                                           }
                                                         }
                                                       }
-                                                      updateShiftAvailabaity(value,
+                                                      updateShiftAvailabaity(value!=""?value:"6",
                                                           item.date.toString());
 
                                                     }
