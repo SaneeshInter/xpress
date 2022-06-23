@@ -48,7 +48,7 @@ class UserAvailiability {
     return days;
   }
 
-  fetchuserAvailability() async {
+  fetchUserAvailability() async {
     _visibility.add(true);
     UserAvailabilitydateResponse availabilityList =
         await _repo.UserAvailability(
