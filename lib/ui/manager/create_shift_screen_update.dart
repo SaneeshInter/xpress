@@ -926,7 +926,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     });
 
     managerBloc.shifttimeStream.listen((event) {
-      if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 1
+      if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 0
       ) {
 
 
