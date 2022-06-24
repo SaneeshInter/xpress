@@ -472,8 +472,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           }).toList(),
                                                           onChanged:
                                                               (Object? value) {
-                                                            managerBloc.isShiftTypeChanged = true;
-                                                            if (value is int?) {ShiftTimingList shiftValue = getItemFromId(value!, snapshot.data);
+                                                            managerBloc
+                                                                .isShiftTypeChanged =
+                                                            true;
+                                                            if (value is int?) {ShiftTimingList shiftValue =
+                                                              getItemFromId(value!, snapshot.data);
                                                               managerBloc.shiftTypeId = shiftValue.rowId!;
                                                               var timeFrom = shiftValue.startTime!;
                                                               var timeTo = shiftValue.endTime!;
@@ -923,7 +926,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     });
 
     managerBloc.shifttimeStream.listen((event) {
-      if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 1) {
+      if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 1
+      ) {
+
+
         var shiftValue = event.first;
         managerBloc.shiftTypeId = shiftValue.rowId!;
         var timeFrom = shiftValue.startTime!;
@@ -953,7 +959,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       jobDescri.text = item.jobDetails!;
       category.text = item.category!;
       managerBloc.buttonText = "Edit Shift";
+
       poCode.text=item.poCode!;
+      managerBloc.shiftTypeId=item.shiftTypeId!;
     }else{
       managerBloc.buttonText = "Create Shift";
     }
