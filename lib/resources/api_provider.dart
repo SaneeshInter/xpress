@@ -27,6 +27,7 @@ import '../model/user_get_timesheet.dart';
 import '../model/user_getschedule_by_month_year.dart';
 import '../model/user_getschedule_bydate.dart';
 import '../model/user_job_request.dart';
+import '../model/user_notification_model.dart';
 import '../model/user_profile_update.dart';
 import '../model/user_shift_calender.dart';
 import '../model/user_time_sheet_details_respo.dart';
@@ -1288,24 +1289,32 @@ class ApiProvider {
 
   }
 
-  Future<SliftListRepso> fetchNotification() async {
+  Future<UserNotificationModel> fetchNotification(token) async {
+    var uri = Uri.parse(
+        '$BASE_URL/user/get-notification-list');
+    final response = await client.get(uri,          headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'token': token,
+    },);
+    debugPrint("dsfs ${uri} ${response.statusCode}   ${response.body}");
 
+    if (response.statusCode == 200) {
+
+      UserNotificationModel userNotificationModel =
+          UserNotificationModel.fromJson(json.decode(response.body.toString()));
+      print("sadasddsq2 ${userNotificationModel.response?.data?.items?.length}");
+      return userNotificationModel;
+    } else {
+      return UserNotificationModel();
+    }
     try{
 
       print("date");
 
-      var uri = Uri.parse(
-          'https://agasthyapix.yodser.com/api/categories.asmx/fillCategories');
-      final response = await client.get(uri);
-      print(response);
-      if (response.statusCode == 200) {
-        return SliftListRepso.fromJson(json.decode(response.body));
-      } else {
-        return SliftListRepso();
-      }
+
     }catch(e){
       print(e.toString());
-      return SliftListRepso();
+      return UserNotificationModel();
     }
     }
   Future<dynamic> updateFCMToken(
