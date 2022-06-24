@@ -196,16 +196,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     return Scaffold(
       // key: _scaffoldKey,
 
-      //
 
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     getData();
-      //   },
-      //   label: const Text(Txt.refresh),
-      //   icon: const Icon(Icons.refresh),
-      //   backgroundColor: Colors.green,
-      // ),
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [

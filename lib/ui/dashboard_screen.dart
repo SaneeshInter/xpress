@@ -43,7 +43,9 @@ class _DashBoardWidgetState extends State<DashBoard> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
-    const HomeScreen(),
+    const HomeScreen(
+
+    ),
     const FindShiftCalendar(),
     const MyBookingScreen(),
     const AvailabilityListScreen(),

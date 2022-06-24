@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 
 import '../resources/api_provider.dart';
 import '../resources/token_provider.dart';
-
+import '../ui/user/detail/shift_detail.dart';
+late BuildContext globalContext;
 class FCM {
   String fcmToken="";
   late Stream<String> _tokenStream;
@@ -56,6 +57,7 @@ class FCM {
       showNotification(message);
 
   showNotification(RemoteMessage message) async {
+    print("sdfcddrgdg ${message.toMap().toString()}");
     AwesomeNotifications().createNotification(
         content: NotificationContent(
             id: Random().nextInt(2147483647),
@@ -170,19 +172,29 @@ class FCM {
       String? createdSourceText = AwesomeAssertUtils.toSimpleEnumString(
           receivedNotification.createdSource);
     });
-
-    // AwesomeNotifications().actionStream.listen((receivedAction) {
+    //
+    // AwesomeNotifications().actionStream.listen((ReceivedAction receivedAction) {
+    //   onclick(receivedAction.payload.toString(),"");
     //   if (receivedAction.channelKey == 'basic_channel') {
-    //     onclick(receivedAction.payload!["action"]!);
+    //     onclick(receivedAction.payload.toString(),"");
     //     return;
     //   }
     // });
   }
 
-  void onclick(String message) {
-    switch(message) {
-      case 'UPDATE':
-      print("REJECT");
+  void onclick(String action,id) {
+    print("zdscfdsfsf  $action  $id");;
+    switch(action) {
+      case 'SHIFT_DETAILS':
+        Navigator.push(
+          globalContext,
+          MaterialPageRoute(
+              builder: (context) =>
+                  ShiftDetailScreen(
+                    shift_id: id,
+                    isCompleted: false,
+                  )),
+        );
       break;
       default:
       print("default");
