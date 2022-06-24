@@ -32,12 +32,14 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  static final navigatorKey=GlobalKey<NavigatorState>();
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    globalContext =context;
+
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
+        navigatorKey: navigatorKey,
         title: 'xpress health',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

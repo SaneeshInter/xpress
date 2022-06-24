@@ -1,4 +1,4 @@
-import 'package:rxdart/rxdart.dart';
+import 'package:/rxdart/rxdart.dart';
 
 import '../model/accept_job_request.dart';
 import '../resources/respository.dart';

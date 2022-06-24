@@ -29,6 +29,8 @@ class HomeScreen extends StatefulWidget {
 
   @override
   _HomeScreentate createState() => _HomeScreentate();
+
+  void callshift(String id) {}
 }
 
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

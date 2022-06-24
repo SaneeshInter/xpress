@@ -57,7 +57,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
     availabilitybloc.token = await TokenProvider().getToken();
     if (null != availabilitybloc.token) {
       if (await isNetworkAvailable()) {
-        availabilitybloc.fetchuserAvailability();
+        availabilitybloc.fetchUserAvailability();
       } else {
         Future.delayed(Duration.zero, () {
           showInternetNotAvailable();
@@ -95,7 +95,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
         children: [
           RefreshIndicator(
             onRefresh: () async {
-              await availabilitybloc.fetchuserAvailability();
+              await availabilitybloc.fetchUserAvailability();
             },
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (overScroll) {

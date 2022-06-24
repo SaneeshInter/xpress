@@ -7,6 +7,7 @@ import '../model/user_get_response.dart';
 import '../model/user_get_shift_details.dart';
 import '../model/user_home_response.dart';
 import '../model/user_job_request.dart';
+import '../model/user_notification_model.dart';
 import '../resources/api_provider.dart';
 
 import '../model/accept_job_request.dart';
@@ -49,7 +50,7 @@ class Repository {
   Future<SliftListRepso> fetchAllShift(String date) =>
       apiProvider.fetchShiftList(date);
 
-  Future<SliftListRepso> fetchNotification() => apiProvider.fetchNotification();
+  Future<UserNotificationModel> fetchNotification(String token) => apiProvider.fetchNotification(token);
 
   Future<UserShoiftCompletedResponse> fetchComplete(String token) =>
       apiProvider.fetchUserCompleteShift(token);
