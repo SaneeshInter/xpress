@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    globalContext =context;
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
         title: 'xpress health',

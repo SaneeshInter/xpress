@@ -2,8 +2,11 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:xpresshealthdev/ui/widgets/toast.dart';
+import '../Constants/strings.dart';
 import '../eventutil/eventutil.dart';
 import '../resources/respository.dart';
 
@@ -14,6 +17,7 @@ import '../resources/token_provider.dart';
 import '../ui/error/ConnectionFailedScreen.dart';
 import '../ui/error/ErrorScreen.dart';
 import '../utils/network_utils.dart';
+import '../utils/utils.dart';
 
 class ManagerShiftCalendarBloc {
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -49,9 +53,10 @@ class ManagerShiftCalendarBloc {
     equals: isSameDay,
     hashCode: getHashCode,
   );
-  Future deleteShift(rowId) async {
+  Future deleteShift(rowId,context) async {
+    print("hereejwaebdjhbes 2 $rowId");
     String? token = await TokenProvider().getToken();
-    managercalendarBloc.fetchRemoveManager(token!, rowId.toString());
+    managercalendarBloc.fetchRemoveManager(token!, rowId.toString(),context);
   }
   void update(CalendarFormat f){
     format = f;
@@ -96,9 +101,11 @@ class ManagerShiftCalendarBloc {
 
 
       var message = event.response?.status?.statusMessage;
-      // Fluttertoast.showToast(msg: '$message');
+      Fluttertoast.showToast(msg: '$message');
       if (event.response?.status?.statusCode == 200) {
         getData(context);
+      }else{
+        showAlertDialoge(context, title: Txt.failed, message: message!);
       }
     });
     managercalendar.listen((event) {
@@ -193,10 +200,12 @@ class ManagerShiftCalendarBloc {
     }
   }
 
-  fetchRemoveManager(String token, String rowid) async {
+  fetchRemoveManager(String token, String rowid,BuildContext context) async {
+    print("hereejwaebdjhbes 3 $rowid");
     debugPrint(rowid);
     RemoveManagerScheduleResponse list =
     await _repo.fetchRemoveManager(token, rowid);
+
     _removeManagerSchedule.sink.add(list);
   }
 }

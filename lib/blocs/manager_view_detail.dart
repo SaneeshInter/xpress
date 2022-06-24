@@ -25,7 +25,7 @@ class ManagerViewRequestBloc {
   fetchManagerViewRequest(String token, String shift_id) async {
     _visibility.add(true);
     ManagerViewRequestResponse respo =
-        await _repo.fetchManagerViewRequest(token, shift_id);
+    await _repo.fetchManagerViewRequest(token, shift_id);
     _managerviewrequest.sink.add(respo);
     _visibility.add(false);
   }

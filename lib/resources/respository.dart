@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+
 import '../model/login_response.dart';
 import '../model/user_get_response.dart';
 import '../model/user_get_shift_details.dart';
@@ -86,7 +88,7 @@ class Repository {
 
   Future<RemoveManagerScheduleResponse> fetchRemoveManager(
           String token, String row_id) =>
-      apiProvider.removeManager(token, row_id);
+      apiProvider.removeManager(token, row_id,);
 
   Future<UserGetScheduleByDate> fetchGetUserScheduleByDate(
           String token, String date) =>
