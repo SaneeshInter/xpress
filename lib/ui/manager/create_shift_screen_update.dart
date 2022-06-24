@@ -472,34 +472,13 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                           }).toList(),
                                                           onChanged:
                                                               (Object? value) {
-                                                            managerBloc
-                                                                .isShiftTypeChanged =
-                                                            true;
-                                                            if (value is int?) {
-                                                              ShiftTimingList
-                                                              shiftValue =
-                                                              getItemFromId(
-                                                                  value!,
-                                                                  snapshot
-                                                                      .data);
-                                                              managerBloc
-                                                                  .shiftTypeId =
-                                                              shiftValue
-                                                                  .rowId!;
-                                                              var timeFrom =
-                                                              shiftValue
-                                                                  .startTime!;
-                                                              var timeTo =
-                                                              shiftValue
-                                                                  .endTime!;
-                                                              dateFrom.text =
-                                                                  convert24hrTo12hr(
-                                                                    timeFrom,
-                                                                  );
-                                                              dateTo.text =
-                                                                  convert24hrTo12hr(
-                                                                    timeTo,
-                                                                  );
+                                                            managerBloc.isShiftTypeChanged = true;
+                                                            if (value is int?) {ShiftTimingList shiftValue = getItemFromId(value!, snapshot.data);
+                                                              managerBloc.shiftTypeId = shiftValue.rowId!;
+                                                              var timeFrom = shiftValue.startTime!;
+                                                              var timeTo = shiftValue.endTime!;
+                                                              dateFrom.text = convert24hrTo12hr(timeFrom,);
+                                                              dateTo.text = convert24hrTo12hr(timeTo,);
                                                             }
                                                           },
                                                         );
@@ -974,6 +953,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       jobDescri.text = item.jobDetails!;
       category.text = item.category!;
       managerBloc.buttonText = "Edit Shift";
+      poCode.text=item.poCode!;
     }else{
       managerBloc.buttonText = "Create Shift";
     }
