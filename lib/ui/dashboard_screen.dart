@@ -80,7 +80,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
       index: _selectedIndex,
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: Drawer(
+        drawer: const Drawer(
           child: SideMenu(),
         ),
         appBar: AppBarCommon(
