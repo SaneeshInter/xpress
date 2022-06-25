@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,20 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAGQ0FH-ZfLHbBs9jnsMspi_PWhEZanBQA',
-    appId: '1:1062824973534:web:d6f020475a6cb3d2445e4f',
-    messagingSenderId: '1062824973534',
-    projectId: 'xpress-ee4f6',
-    authDomain: 'xpress-ee4f6.firebaseapp.com',
-    databaseURL: 'https://xpress-ee4f6-default-rtdb.firebaseio.com',
-    storageBucket: 'xpress-ee4f6.appspot.com',
-    measurementId: 'G-Z49FJFNWJL',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCxqwddF8iJwhi4audaZOjQO4G1Ga9jmBo',
-    appId: '1:1062824973534:android:0bdfb06b507e0c45445e4f',
+    appId: '1:1062824973534:android:06ba368889113958445e4f',
     messagingSenderId: '1062824973534',
     projectId: 'xpress-ee4f6',
     databaseURL: 'https://xpress-ee4f6-default-rtdb.firebaseio.com',
@@ -65,23 +60,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDyu3Bmtv5n4B4GQpz_TKm_vioHkZ5D9ME',
-    appId: '1:1062824973534:ios:1cd8ff8e02a4fb39445e4f',
+    appId: '1:1062824973534:ios:f6e4c8c824fd67d0445e4f',
     messagingSenderId: '1062824973534',
     projectId: 'xpress-ee4f6',
     databaseURL: 'https://xpress-ee4f6-default-rtdb.firebaseio.com',
     storageBucket: 'xpress-ee4f6.appspot.com',
-    iosClientId: '1062824973534-3lav7j8sqsip463a20m4evfbqt37hjp1.apps.googleusercontent.com',
-    iosBundleId: 'com.intersmart.xpresshealthdev',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDyu3Bmtv5n4B4GQpz_TKm_vioHkZ5D9ME',
-    appId: '1:1062824973534:ios:9c3d29f1e0e48151445e4f',
-    messagingSenderId: '1062824973534',
-    projectId: 'xpress-ee4f6',
-    databaseURL: 'https://xpress-ee4f6-default-rtdb.firebaseio.com',
-    storageBucket: 'xpress-ee4f6.appspot.com',
-    iosClientId: '1062824973534-4fkvihfn0pm88tr69394essdd4o0af9s.apps.googleusercontent.com',
-    iosBundleId: 'com.intersmart.xpress',
+    iosClientId: '1062824973534-dhh4mk2tjl5o7crqd3u2836v530igt2g.apps.googleusercontent.com',
+    iosBundleId: 'com.xpress.health',
   );
 }

@@ -68,7 +68,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        Container(
                           width: 70.w,
                           child: AutoSizeText.rich(
                             TextSpan(
@@ -94,7 +94,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
                         Text(
                           Txt.from +
-                            convert24hrTo12hr( widget.items.timeFrom!)  +
+                            convert24hrTo12hr( widget.items.timeFrom!, )  +
                              Txt.to +
                         convert24hrTo12hr( widget.items.timeTo!)     ,
                           style: TextStyle(

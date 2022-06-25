@@ -239,11 +239,16 @@ String convert12hrTo24hr(String date) {
 
 convert24hrTo12hr(String time) {
   if(time.isEmpty) {
-    return "";
+    return time;
   }
-  var time24 = DateFormat("HH:mm").parse(time);
-  var time12 = DateFormat("hh:mm a").format(time24);
-  return time12;
+ try{
+   var time24 = DateFormat("HH:mm").parse(time);
+   var time12 = DateFormat("hh:mm a").format(time24);
+   return time12;
+ }catch(e){
+    return time;
+ }
+
 }
 
 void showActionAlert(

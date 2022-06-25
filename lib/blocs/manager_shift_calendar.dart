@@ -49,19 +49,23 @@ class ManagerShiftCalendarBloc {
   Stream<RemoveManagerScheduleResponse> get removeshift => _removeManagerSchedule.stream;
 
   Stream<List<Items>> get filtered => _filterItems.stream;
+
   final Set<DateTime> selectedDays = LinkedHashSet<DateTime>(
     equals: isSameDay,
     hashCode: getHashCode,
   );
+
   Future deleteShift(rowId,context) async {
     print("hereejwaebdjhbes 2 $rowId");
     String? token = await TokenProvider().getToken();
     managercalendarBloc.fetchRemoveManager(token!, rowId.toString(),context);
   }
+
   void update(CalendarFormat f){
     format = f;
     _visibility.sink.add(false);
   }
+
   void onDaySelected(DateTime selectedDay, DateTime selected) {
 
     focusedDay = selected;
@@ -71,6 +75,7 @@ class ManagerShiftCalendarBloc {
       filterItemByDates(selectedDay);
       _visibility.sink.add(false);
   }
+
   Future getData(BuildContext context) async {
     token = await TokenProvider().getToken();
     if (null != token) {
@@ -101,9 +106,10 @@ class ManagerShiftCalendarBloc {
 
 
       var message = event.response?.status?.statusMessage;
-      Fluttertoast.showToast(msg: '$message');
+
       if (event.response?.status?.statusCode == 200) {
         getData(context);
+        Fluttertoast.showToast(msg: '$message');
       }else{
         showAlertDialoge(context, title: Txt.failed, message: message!);
       }

@@ -183,6 +183,7 @@ class _ManagerShiftsState extends State<ManagerShiftsScreen> {
       print(event.response?.status?.statusCode);
 
       var message = event.response?.status?.statusMessage;
+
       if (event.response?.status?.statusCode == 200) {
         getDataFromUi();
       } else {

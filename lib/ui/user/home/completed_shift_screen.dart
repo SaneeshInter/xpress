@@ -210,6 +210,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                   return false;
                 },
               child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
                 child: Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: screenWidth(context, dividedBy: 35)),

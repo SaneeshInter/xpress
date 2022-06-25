@@ -231,40 +231,38 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                               width: MediaQuery.of(context).size.width,
                               height: 11.w,
                               color: Constants.colors[20],
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(Txt.add_time_sheet,
-                                            style: TextStyle(
-                                              fontSize: 13.sp,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "SFProMedium",
-                                            )),
-                                      ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(Txt.add_time_sheet,
+                                          style: TextStyle(
+                                            fontSize: 13.sp,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "SFProMedium",
+                                          )),
                                     ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Container(
-                                          child: SvgPicture.asset(
-                                            "assets/images/icon/close.svg",
-                                            height: 3.w,
-                                            width: 3.w,
-                                            color: Constants.colors[0],
-                                          ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        child: SvgPicture.asset(
+                                          "assets/images/icon/close.svg",
+                                          height: 3.w,
+                                          width: 3.w,
+                                          color: Constants.colors[0],
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -471,60 +469,67 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
           onRefresh: () async {
             getDataitems();
           },
-          child: SingleChildScrollView(
-            child:list.isNotEmpty?
-            ListView.builder(
-              itemCount: list.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                var items = list[index];
-                return Column(
-                  children: [
-                    MyBookingListWidget(
-                      items: items!,
-                      position: 12,
-                      onTapView: (item) {
-                        showTimeUpdateAlert(context, item);
-                      },
-                      onTapCancel: (item) {
-                        cancelJob(items);
-                      },
-                      onTapCall: () {},
-                      onTapMap: () {},
-                      onTapBooking: () {},
-                      key: null,
-                    ),
-                  ],
-                );
-              },
-            )
-                : SizedBox(
-              width: 100.w,
-                  child: Column(
-              children: [
-                  20.height,
-
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+          child: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (overScroll) {
+              overScroll.disallowIndicator();
+              return false;
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child:list.isNotEmpty?
+              ListView.builder(
+                itemCount: list.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  var items = list[index];
+                  return Column(
                     children: [
-                      Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
-                      100.width,
-                      16.height,
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        child: Text(Txt.no_shift,
-                            style: primaryTextStyle(size: 15),
-                            textAlign: TextAlign.center),
+                      MyBookingListWidget(
+                        items: items!,
+                        position: 12,
+                        onTapView: (item) {
+                          showTimeUpdateAlert(context, item);
+                        },
+                        onTapCancel: (item) {
+                          cancelJob(items);
+                        },
+                        onTapCall: () {},
+                        onTapMap: () {},
+                        onTapBooking: () {},
+                        key: null,
                       ),
                     ],
+                  );
+                },
+              )
+                  : SizedBox(
+                width: 100.w,
+                    child: Column(
+                children: [
+                    20.height,
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
+                        100.width,
+                        16.height,
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Text(Txt.no_shift,
+                              style: primaryTextStyle(size: 15),
+                              textAlign: TextAlign.center),
+                        ),
+                      ],
+                    ),
+                    100.height,
+                    Image.asset('assets/images/error/empty_task.png', height: 250),
+                    const SizedBox(height: 250,)
+                ],
+              ),
                   ),
-                  100.height,
-                  Image.asset('assets/images/error/empty_task.png', height: 250),
-                  const SizedBox(height: 250,)
-              ],
             ),
-                ),
           ),
         ),
       );
