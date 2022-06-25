@@ -399,7 +399,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const CreateShiftScreenUpdate()),
+                      builder: (context) => const CreateShiftScreenUpdate(buttonTxt: "Create Shift",)),
                 );
                 // Navigator.push(
                 //   context,

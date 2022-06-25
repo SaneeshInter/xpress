@@ -1,14 +1,17 @@
 import 'dart:math';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:badges/badges.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/widgets/double_back_to_close.dart';
 
+import '../Constants/AppColors.dart';
 import '../Constants/sharedPrefKeys.dart';
 import '../Constants/strings.dart';
 import '../services/fcm_service.dart';
@@ -19,6 +22,7 @@ import '../ui/user/home/completed_shift_screen.dart';
 import '../ui/user/home/home_screen.dart';
 import '../ui/user/home/my_booking_screen.dart';
 import '../ui/user/home/my_shift_calendar.dart';
+import '../utils/colors_util.dart';
 import '../utils/constants.dart';
 late PersistentTabController userController;
 class DashBoard extends StatefulWidget {
@@ -28,13 +32,13 @@ class DashBoard extends StatefulWidget {
   State<DashBoard> createState() => _DashBoardWidgetState();
 }
 
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
 class _DashBoardWidgetState extends State<DashBoard> {
   int notificationCount = 0;
   String _firebaseAppToken = '';
   int pageIndex = 0;
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
@@ -80,13 +84,70 @@ class _DashBoardWidgetState extends State<DashBoard> {
       index: _selectedIndex,
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: Drawer(
+        drawer: const Drawer(
           child: SideMenu(),
         ),
-        appBar: AppBarCommon(
-          _scaffoldKey,
-          scaffoldKey: _scaffoldKey,
-          notificationCount: notificationCount.toString(),
+        appBar: AppBar(
+          leading: IconButton(
+            icon: SvgPicture.asset(
+              'assets/images/icon/menu.svg',
+              width: 5.w,
+              height: 4.2.w,
+            ),
+            onPressed: () {
+              _scaffoldKey.currentState?.openDrawer();
+            },
+          ),
+          bottomOpacity: 0.0,
+          elevation: 0.0,
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+            //change your color here
+          ),
+          backgroundColor: HexColor("#ffffff"),
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset(
+                    'assets/images/icon/logo.svg',
+                    fit: BoxFit.contain,
+                    height: 8.w,
+                  )),
+            ],
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                const newRouteName = "/NotificationScreen";
+                bool isNewRouteSameAsCurrent = false;
+                Navigator.popUntil(context, (route) {
+                  if (route.settings.name == newRouteName) {
+                    isNewRouteSameAsCurrent = true;
+                  }
+                  return true;
+                });
+
+                if (!isNewRouteSameAsCurrent) {
+                  Navigator.pushNamed(context, newRouteName);
+                }
+
+              },
+              icon: Badge(
+                badgeContent:  Text(notificationCount.toString(),style: const TextStyle(color: white,fontSize: 10),),
+                child: SvgPicture.asset(
+                  'assets/images/icon/notification.svg',
+
+                  width: 5.w,
+                  color: Colors.black,
+                  height: 5.w,
+                ),
+              ), //Image.asset('assets/images/icon/searchicon.svg',width: 20,height: 20,fit: BoxFit.contain,),
+            ),
+          ],
         ),
         body: PersistentTabView(
           context,

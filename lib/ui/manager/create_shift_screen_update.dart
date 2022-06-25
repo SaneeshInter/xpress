@@ -30,8 +30,8 @@ import '../widgets/loading_widget.dart';
 
 class CreateShiftScreenUpdate extends StatefulWidget {
   final Items? shiftItem;
-
-  const CreateShiftScreenUpdate({Key? key, this.shiftItem}) : super(key: key);
+final String buttonTxt;
+  const CreateShiftScreenUpdate({Key? key, this.shiftItem,this.buttonTxt="Edit Shift"}) : super(key: key);
 
   @override
   _CreateShiftStateUpdate createState() => _CreateShiftStateUpdate();
@@ -894,7 +894,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                             }
                           }
                         },
-                        label: managerBloc.buttonText)
+                        label: widget.buttonTxt)
                   ],
                 )),
           ),
