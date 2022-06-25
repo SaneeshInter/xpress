@@ -1,19 +1,25 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/services/fcm_service.dart';
 import 'package:xpresshealthdev/ui/widgets/double_back_to_close.dart';
 import 'package:xpresshealthdev/ui/widgets/logout_warning.dart';
+
 import '../Constants/AppColors.dart';
+import '../Constants/sharedPrefKeys.dart';
 import '../Constants/strings.dart';
 import '../ui/manager/home/approved_timesheet_screen.dart';
 import '../ui/manager/home/manager_home_screen.dart';
 import '../utils/constants.dart';
-
 import 'manager/home/completed_approvel.dart';
 import 'manager/home/manager_calendar_screen.dart';
+
 late PersistentTabController controller;
+
 class ManagerDashBoard extends StatefulWidget {
   const ManagerDashBoard({Key? key}) : super(key: key);
 
@@ -22,7 +28,7 @@ class ManagerDashBoard extends StatefulWidget {
 }
 
 class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
-  static  final List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     const ManagerHomeScreen(),
     const ManagerFindShiftCalendar(),
     // ManagerShiftsScreen(),
@@ -30,14 +36,25 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
     const CompletedApprovelScreen(),
   ];
 
-int _index=0;
+  int _index = 0;
+
   @override
   void initState() {
     super.initState();
     controller = PersistentTabController(initialIndex: 0);
+    FCM().notificationCount.listen((event) {
+      getNotificationCount();
+    }).onError((error) {
+      print("vxvcxbcfvb $error");
+    });
+    getNotificationCount();
   }
-
-
+  var notificationCount = 0;
+getNotificationCount() async {
+  SharedPreferences shdPre = await SharedPreferences.getInstance();
+   notificationCount = shdPre.getInt(SharedPrefKey.USER_NOTIFICATION_COUNT) ?? 0;
+  setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return DoubleBack(
@@ -48,7 +65,7 @@ int _index=0;
           bottomOpacity: 0.0,
           elevation: 0.0,
           iconTheme: IconThemeData(
-            color:Constants.colors[1],
+            color: Constants.colors[1],
           ),
           backgroundColor: white,
           title: Row(
@@ -68,7 +85,50 @@ int _index=0;
           actions: [
             IconButton(
               onPressed: () {
-                showDialog( builder: (BuildContext context) { return  const LogoutWarning(); }, context: context);
+                const newRouteName = "/ManagerNotificationScreen";
+                bool isNewRouteSameAsCurrent = false;
+                Navigator.popUntil(context, (route) {
+                  if (route.settings.name == newRouteName) {
+                    isNewRouteSameAsCurrent = true;
+                  }
+                  return true;
+                });
+
+                if (!isNewRouteSameAsCurrent) {
+                  Navigator.pushNamed(context, newRouteName);
+                }
+              },
+              icon: Badge(
+                badgeContent: StreamBuilder(
+                    stream: FCM().notificationCount,
+                    builder: (context, snapshot) {
+                      print("dfdsf ${snapshot.connectionState}");
+                      if (snapshot.hasData) {
+                        return Text("${snapshot.data??"0"}",style: const TextStyle(color: white,fontSize: 10),);
+                      }else if (snapshot.hasError) {
+                        return Text("e");
+                      } else {
+                        return Text(
+                          "${notificationCount}",
+                          style: const TextStyle(color: white, fontSize: 10),
+                        );
+                      }
+                    }),
+                child: SvgPicture.asset(
+                  'assets/images/icon/notification.svg',
+                  width: 5.w,
+                  color: Colors.black,
+                  height: 5.w,
+                ),
+              ), //Image.asset('assets/images/icon/searchicon.svg',width: 20,height: 20,fit: BoxFit.contain,),
+            ),
+            IconButton(
+              onPressed: () {
+                showDialog(
+                    builder: (BuildContext context) {
+                      return const LogoutWarning();
+                    },
+                    context: context);
               },
               icon: SvgPicture.asset(
                 'assets/images/icon/logout.svg',
@@ -84,7 +144,7 @@ int _index=0;
           controller: controller,
           screens: _widgetOptions,
           onItemSelected: (index) {
-            _index=index;
+            _index = index;
             print(index);
             setState(() {});
           },
@@ -100,7 +160,6 @@ int _index=0;
             colorBehindNavBar: Colors.white,
           ),
 
-
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
           itemAnimationProperties: const ItemAnimationProperties(
@@ -112,8 +171,8 @@ int _index=0;
             curve: Curves.ease,
             duration: Duration(milliseconds: 200),
           ),
-          navBarStyle:
-              NavBarStyle.style3, // Choose the nav bar style with this property.
+          navBarStyle: NavBarStyle
+              .style3, // Choose the nav bar style with this property.
         ),
       ),
     );
@@ -158,7 +217,4 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
   ];
-
-
 }
-

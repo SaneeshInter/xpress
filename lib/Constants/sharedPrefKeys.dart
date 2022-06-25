@@ -17,4 +17,6 @@ class SharedPrefKey {
   static const EMPLOYEE_NO= "employeeNo";
   static const USER_TYPE_NAME = "user_type_name";
   static const PROFILE_SRC = "profileSrc";
+  static const USER_NOTIFICATION_COUNT = "USER_NOTIFICATION_COUNT";
+  static const MANAGER_NOTIFICATION_COUNT = "MANAGER_NOTIFICATION_COUNT";
 }

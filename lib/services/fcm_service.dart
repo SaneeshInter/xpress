@@ -1,12 +1,17 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xpresshealthdev/main.dart';
 
+import '../Constants/sharedPrefKeys.dart';
 import '../resources/api_provider.dart';
 import '../resources/token_provider.dart';
 import '../ui/manager/home/shift_detail_manager.dart';
@@ -16,10 +21,18 @@ import '../ui/widgets/screen_case.dart';
 
 
 class FCM {
+  final _userNotificationCounter = PublishSubject<int>();
+Stream<int> get notificationCount => _userNotificationCounter.stream;
   String fcmToken = "";
   late Stream<String> _tokenStream;
 
   Future<void> init() async {
+    SharedPreferences shdPre = await SharedPreferences.getInstance();
+    int notificationCount = shdPre.getInt(SharedPrefKey.USER_NOTIFICATION_COUNT) ?? 0;
+    _userNotificationCounter.sink.add(notificationCount);
+    _userNotificationCounter.listen((count) {
+      print("fsfd");
+    });
     await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
     getFCMToken();
@@ -60,6 +73,11 @@ class FCM {
       showNotification(message);
 
   showNotification(RemoteMessage message) async {
+    SharedPreferences shdPre = await SharedPreferences.getInstance();
+    int notificationCount = shdPre.getInt(SharedPrefKey.USER_NOTIFICATION_COUNT) ?? 0;
+    shdPre.setInt(SharedPrefKey.USER_NOTIFICATION_COUNT, notificationCount + 1);
+    _userNotificationCounter.sink.add(notificationCount + 1);
+    print("Notification Count: ${notificationCount + 1}");
     print("sdfcddrgdg ${jsonDecode(message.data["payload"]).toString()}");
     Map<String, String> payload = <String, String>{};
     if (message.data["payload"] != null) {

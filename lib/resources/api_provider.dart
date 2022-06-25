@@ -1317,7 +1317,35 @@ class ApiProvider {
       return UserNotificationModel();
     }
     }
-  Future<dynamic> updateFCMToken(
+  Future<UserNotificationModel> fetchManagerNotification(token) async {
+    var uri = Uri.parse('$BASE_URL/manager/get-notification-list');
+    final response = await client.get(uri,          headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'token': token,
+    },);
+    debugPrint("dsfs ${uri} ${response.statusCode}   ${response.body}");
+
+    if (response.statusCode == 200) {
+      UserNotificationModel userNotificationModel =
+          UserNotificationModel.fromJson(json.decode(response.body.toString()));
+      print("sadasddsq2 ${userNotificationModel.response?.data?.items?.length}");
+      return userNotificationModel;
+    } else {
+      return UserNotificationModel();
+    }
+    try{
+
+      print("date");
+
+
+    }catch(e){
+      print(e.toString());
+      return UserNotificationModel();
+    }
+    }
+
+
+    Future<dynamic> updateFCMToken(
       String token,String fcm,String user_type) async {
     try{
 

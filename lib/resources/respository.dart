@@ -51,6 +51,7 @@ class Repository {
       apiProvider.fetchShiftList(date);
 
   Future<UserNotificationModel> fetchNotification(String token) => apiProvider.fetchNotification(token);
+  Future<UserNotificationModel> fetchManagerNotification(String token) => apiProvider.fetchManagerNotification(token);
 
   Future<UserShoiftCompletedResponse> fetchComplete(String token) =>
       apiProvider.fetchUserCompleteShift(token);
