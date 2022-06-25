@@ -9,8 +9,9 @@ import '../../../utils/colors_util.dart';
 
 class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
   GlobalKey<ScaffoldState> scaffoldKey;
+  String notificationCount;
 
-  AppBarCommon(GlobalKey<ScaffoldState> key, {required this.scaffoldKey});
+  AppBarCommon(GlobalKey<ScaffoldState> key, {required this.scaffoldKey,required this.notificationCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +78,7 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
 
           },
           icon: Badge(
-            badgeContent: const Text('0',style: TextStyle(color: white,fontSize: 10),),
+            badgeContent:  Text(notificationCount,style: const TextStyle(color: white,fontSize: 10),),
             child: SvgPicture.asset(
               'assets/images/icon/notification.svg',
 

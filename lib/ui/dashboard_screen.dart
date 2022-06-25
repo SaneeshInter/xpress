@@ -5,9 +5,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/widgets/double_back_to_close.dart';
 
+import '../Constants/sharedPrefKeys.dart';
 import '../Constants/strings.dart';
 import '../services/fcm_service.dart';
 import '../ui/user/common/app_bar.dart';
@@ -29,7 +31,7 @@ class DashBoard extends StatefulWidget {
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _DashBoardWidgetState extends State<DashBoard> {
-
+  int notificationCount = 0;
   String _firebaseAppToken = '';
   int pageIndex = 0;
 
@@ -37,8 +39,16 @@ class _DashBoardWidgetState extends State<DashBoard> {
   void initState() {
     super.initState();
     userController = PersistentTabController(initialIndex: 0);
-
+    getNotificationCount();
   }
+
+  getNotificationCount() async {
+    SharedPreferences shdPre = await SharedPreferences.getInstance();
+    notificationCount = shdPre.getInt(SharedPrefKey.USER_NOTIFICATION_COUNT) ?? 0;
+    setState(() {});
+  }
+
+
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
@@ -76,6 +86,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
         appBar: AppBarCommon(
           _scaffoldKey,
           scaffoldKey: _scaffoldKey,
+          notificationCount: notificationCount.toString(),
         ),
         body: PersistentTabView(
           context,

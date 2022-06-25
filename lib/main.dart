@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/services/fcm_service.dart';
+import 'package:xpresshealthdev/ui/manager/home/manager_notification_screen.dart';
 import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
 import '../ui/error/ConnectionFailedScreen.dart';
 import '../ui/error/ErrorScreen.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
           '/error_screen': (context) =>const ErrorScreen(),
           '/profile': (context) => const ProfileScreen(),
           '/NotificationScreen': (context) => const NotificationScreen(),
+          '/ManagerNotificationScreen': (context) => const ManagerNotificationScreen(),
         },
       );
     });

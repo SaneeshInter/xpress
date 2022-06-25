@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -16,13 +15,13 @@ import '../../splash/user_or_manager.dart';
 import '../../widgets/logout_warning.dart';
 import '../home/profile_screen.dart';
 import '../sidenav/completed_shifts.dart';
-import '../sidenav/contact_us_screen.dart';
-import '../sidenav/faqs_screen.dart';
 
 import '../sidenav/notification_screen.dart';
 import '../sidenav/submit_timesheets.dart';
 
 class SideMenu extends StatefulWidget {
+  const SideMenu({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _SideMenuState();
@@ -45,14 +44,14 @@ class _SideMenuState extends State<SideMenu> {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     var firstName = shdPre.getString(SharedPrefKey.FIRST_NAME)!;
     var secondName = shdPre.getString(SharedPrefKey.LAST_NAME)!;
-    name = firstName + " " + secondName;
+    name = "$firstName $secondName";
     var image = shdPre.getString(SharedPrefKey.PROFILE_SRC);
     var empno = shdPre.getString(SharedPrefKey.EMPLOYEE_NO);
     var usertype = shdPre.getString(SharedPrefKey.USER_TYPE_NAME);
-    print("setProfileHeader");
-    print(image);
+    debugPrint("setProfileHeader");
+    debugPrint(image);
     setState(() {
-      name = firstName + " " + secondName;
+      name = "$firstName $secondName";
       profileImage = image!;
       empNo = empno!;
       type = usertype!;
@@ -75,106 +74,101 @@ class _SideMenuState extends State<SideMenu> {
 
         padding: EdgeInsets.zero,
         children: [
-          Container(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      SizedBox(height: screenHeight(context, dividedBy: 16)),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.12,
-                            child: ClipRRect(
-                              borderRadius:
-                              BorderRadius.circular(
-                                  MediaQuery.of(
-                                      context)
-                                      .size
-                                      .width *
-                                      0.22),
-                              child: AspectRatio(
-                                aspectRatio: 1 / 1,
-                                child: Stack(
-                                  children: [
-                                    if (profileImage == "" ||
-                                        null == profileImage)
-                                      Image.asset(
-                                        'assets/images/icon/man_ava.png',
-                                        fit: BoxFit.fill,
-                                      ),
-                                    if (profileImage != "" &&
-                                        null != profileImage)
-                                      Image.network(
-                                        profileImage,
-                                        fit: BoxFit.fill,
-                                        width: MediaQuery.of(
-                                            context)
-                                            .size
-                                            .width *
-                                            0.22,
-                                        height: MediaQuery.of(
-                                            context)
-                                            .size
-                                            .width *
-                                            0.22,
-                                      ),
-                                  ],
-                                ),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    SizedBox(height: screenHeight(context, dividedBy: 16)),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.12,
+                          child: ClipRRect(
+                            borderRadius:
+                            BorderRadius.circular(
+                                MediaQuery.of(
+                                    context)
+                                    .size
+                                    .width *
+                                    0.22),
+                            child: AspectRatio(
+                              aspectRatio: 1 / 1,
+                              child: Stack(
+                                children: [
+                                  if (profileImage == "")
+                                    Image.asset(
+                                      'assets/images/icon/man_ava.png',
+                                      fit: BoxFit.fill,
+                                    ),
+                                  if (profileImage != "")
+                                    Image.network(
+                                      profileImage,
+                                      fit: BoxFit.fill,
+                                      width: MediaQuery.of(
+                                          context)
+                                          .size
+                                          .width *
+                                          0.22,
+                                      height: MediaQuery.of(
+                                          context)
+                                          .size
+                                          .width *
+                                          0.22,
+                                    ),
+                                ],
                               ),
                             ),
                           ),
-                          const SizedBox(width: AppDefaults.margin),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                child: Text(
-                                  name,
-                                  textAlign: TextAlign.left,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.sp,
-                                      fontFamily: "SFProMedium",
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                width: 45.w,
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                type,
+                        ),
+                        const SizedBox(width: AppDefaults.margin),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 45.w,
+                              child: Text(
+                                name,
                                 textAlign: TextAlign.left,
+                                overflow: TextOverflow.clip,
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 11.sp,
-                                    fontFamily: "S",
-                                    fontWeight: FontWeight.w400),
+                                    fontSize: 16.sp,
+                                    fontFamily: "SFProMedium",
+                                    fontWeight: FontWeight.w700),
                               ),
-                              const SizedBox(height: 5),
-                              Text(
-                               Txt.emp_no + empNo,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12.sp,
-                                    fontFamily: "S",
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      // Actions
-                    ],
-                  ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              type,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11.sp,
+                                  fontFamily: "S",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                             Txt.emp_no + empNo,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12.sp,
+                                  fontFamily: "S",
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    // Actions
+                  ],
                 ),
-              ],
-            ),
-
+              ),
+            ],
           ),
           Divider(
             endIndent:20 ,
@@ -188,7 +182,7 @@ class _SideMenuState extends State<SideMenu> {
              Txt.home,
               style: TextStyle(color: Colors.white),
             ),
-            leading: Container(
+            leading: SizedBox(
               width: 5.w,
               height: 5.w,
               child: SvgPicture.asset(
@@ -206,7 +200,7 @@ class _SideMenuState extends State<SideMenu> {
             Txt.my_profile  ,
               style: TextStyle(color: Colors.white),
             ),
-            leading: Container(
+            leading: SizedBox(
               width: 5.w,
               height: 5.w,
               child: SvgPicture.asset(
@@ -218,7 +212,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               pushNewScreen(
                 context,
-                screen: ProfileScreen(),
+                screen: const ProfileScreen(),
                 withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
@@ -231,7 +225,7 @@ class _SideMenuState extends State<SideMenu> {
               Txt.submtd_timsht,
               style: TextStyle(color: Colors.white),
             ),
-            leading: Container(
+            leading: SizedBox(
               width: 5.w,
               height: 5.w,
               child: SvgPicture.asset(
@@ -244,7 +238,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               pushNewScreen(
                 context,
-                screen: SubmitTimeShift(),
+                screen: const SubmitTimeShift(),
                 withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
@@ -256,7 +250,7 @@ class _SideMenuState extends State<SideMenu> {
              Txt.notify ,
               style: TextStyle(color: Colors.white),
             ),
-            leading: Container(
+            leading: SizedBox(
               width: 5.w,
               height: 5.w,
               child: SvgPicture.asset('assets/images/icon/notification.svg', color: Colors.white,),
@@ -265,7 +259,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               pushNewScreen(
                 context,
-                screen: NotificationScreen(),
+                screen: const NotificationScreen(),
                 withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
@@ -276,7 +270,7 @@ class _SideMenuState extends State<SideMenu> {
               Txt.completed_shifts,
               style: TextStyle(color: Colors.white),
             ),
-            leading: Container(
+            leading: SizedBox(
               width: 5.w,
               height: 5.w,
               child: SvgPicture.asset(
@@ -288,7 +282,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               pushNewScreen(
                 context,
-                screen: CompletedShift(),
+                screen: const CompletedShift(),
                 withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );
@@ -363,15 +357,17 @@ class _SideMenuState extends State<SideMenu> {
     db.clearDb();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
+    Future.delayed(Duration.zero, () async{
+      Navigator.pop(context);
 
-    Navigator.pop(context);
+      Navigator.pushAndRemoveUntil<dynamic>(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => UserOrManager(),
+        ),
+            (route) => false,
+      );
+    });
 
-    Navigator.pushAndRemoveUntil<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => UserOrManager(),
-      ),
-      (route) => false,
-    );
   }
 }

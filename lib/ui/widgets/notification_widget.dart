@@ -5,26 +5,24 @@ import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/ui/widgets/screen_case.dart';
 import '../../services/fcm_service.dart';
 import '../../utils/utils.dart';
+import '../manager/home/shift_detail_manager.dart';
 import '../user/detail/shift_detail.dart';
 class NotificationWidget extends StatelessWidget {
   final String name;
   final String startTime;
   final String endTime;
   final String price;
-  final Function onTapBooking;
-  final Function onTapMap;
-  final Function onTapCall;
-  final Function onTapView;
+  final String type;
+
 
   const NotificationWidget(
       {Key? key,
         required this.name,
         required this.price,
-        required this.onTapView,
+
         required this.endTime,
-        required this.onTapBooking,
-        required this.onTapCall,
-        required this.onTapMap,
+        required this.type,
+
         required this.startTime})
       : super(key: key);
 
@@ -35,15 +33,31 @@ class NotificationWidget extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: GestureDetector(
         onTap: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (globalContext) =>ScreenCase(title: 'Shift Detail', child: ShiftDetailScreen(
-                  shift_id: price,
-                  isCompleted: true,
-                ),)
-            ),
-          );
+          if(type == 'USER') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (globalContext) =>
+                      ScreenCase(
+                        title: 'Shift Detail', child: ShiftDetailScreen(
+                        shift_id: price,
+                        isCompleted: true,
+                      ),)
+              ),
+            );
+          }else{
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (globalContext) =>
+                      ScreenCase(
+                        title: 'Shift Detail', child: ShiftDetailManagerScreen(
+                        shiftId: price,
+
+                      ),)
+              ),
+            );
+          }
         },
         child: Container(
           width: screenWidth(context, dividedBy: 1),

@@ -6,9 +6,8 @@ import 'package:sizer/sizer.dart';
 
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../Constants/strings.dart';
-import '../../../blocs/shift_notification_bloc.dart';
-import '../../../main.dart';
-import '../../../model/shift_list_response.dart';
+
+import '../../../blocs/manager_notification_bloc.dart';
 import '../../../model/user_notification_model.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
@@ -16,10 +15,10 @@ import '../../../utils/utils.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/notification_widget.dart';
 import '../../widgets/screen_case.dart';
-import '../detail/shift_detail.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({Key? key}) : super(key: key);
+
+class ManagerNotificationScreen extends StatefulWidget {
+  const ManagerNotificationScreen({Key? key}) : super(key: key);
 
   @override
   _NotificationState createState() => _NotificationState();
@@ -27,23 +26,22 @@ class NotificationScreen extends StatefulWidget {
 
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-class _NotificationState extends State<NotificationScreen> {
+class _NotificationState extends State<ManagerNotificationScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime _selectedValue;
 
   @override
-  void didUpdateWidget(covariant NotificationScreen oldWidget) {
+  void didUpdateWidget(covariant ManagerNotificationScreen oldWidget) {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void initState() {
-    notificationBloc.fetchNotification();
+    managerNotificationBloc.fetchNotification();
     super.initState();
     clearNotification();
   }
-
   clearNotification() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     shdPre.setInt(SharedPrefKey.USER_NOTIFICATION_COUNT,0);
@@ -51,16 +49,9 @@ class _NotificationState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     final FixedExtentScrollController itemController =
-        FixedExtentScrollController();
+    FixedExtentScrollController();
     return Scaffold(
-      // key: _scaffoldKey,
-      // drawer: Drawer(
-      //   child: SideMenu(),
-      // ),
-      // appBar: AppBarCommon(
-      //   _scaffoldKey,
-      //   scaffoldKey: _scaffoldKey,
-      // ),
+
       appBar: AppBar(
         leading: IconButton(
           icon: SvgPicture.asset(
@@ -90,7 +81,7 @@ class _NotificationState extends State<NotificationScreen> {
       ),
       backgroundColor: Constants.colors[2],
       body: RefreshIndicator(
-        onRefresh: () => notificationBloc.fetchNotification(),
+        onRefresh: () => managerNotificationBloc.fetchNotification(),
         child: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (overScroll) {
             overScroll.disallowIndicator();
@@ -104,7 +95,7 @@ class _NotificationState extends State<NotificationScreen> {
                 child: Column(children: [
                   SizedBox(height: screenHeight(context, dividedBy: 60)),
                   StreamBuilder(
-                      stream: notificationBloc.allShift,
+                      stream: managerNotificationBloc.allShift,
                       builder: (BuildContext context,
                           AsyncSnapshot<UserNotificationModel> snapshot) {
                         if (snapshot.hasData) {
@@ -155,28 +146,27 @@ class _NotificationState extends State<NotificationScreen> {
 
   Widget buildList(AsyncSnapshot<UserNotificationModel> snapshot) {
     return  ListView.builder(
-            itemCount: snapshot.data?.response?.data?.items?.length ?? 0,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              var name = "Shift Reminder";
-              var description = "Your shift at Beneavin Manor is in  1 hour";
+      itemCount: snapshot.data?.response?.data?.items?.length ?? 0,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        var name = "Shift Reminder";
+        var description = "Your shift at Beneavin Manor is in  1 hour";
 
-              print("asdsdf ${snapshot.data?.response?.data?.items?.length}");
-              var notification = snapshot.data?.response?.data?.items?[index];
-              // if (notification != null) {
-                name = notification?.notificationTypeName??" ";
-              description = notification?.shiftTitle??"";
-              // }
+        print("asdsdf ${snapshot.data?.response?.data?.items?.length}");
+        var notification = snapshot.data?.response?.data?.items?[index];
+        // if (notification != null) {
+        name = notification?.notificationTypeName??" ";
+        description = notification?.shiftTitle??"";
+        // }
 
-              return NotificationWidget(
-                name: name,
-                endTime: description,
-                type: "USER",
-                price: notification?.shiftId.toString()??"",
-                startTime: notification?.hospitalImage??"",
-              );
-            },
-          );
+        return NotificationWidget(
+          name: name,
+          endTime: description,
+          price: notification?.shiftId.toString()??"",
+          startTime: notification?.hospitalImage??"", type: 'MANAGER',
+        );
+      },
+    );
   }
 }
