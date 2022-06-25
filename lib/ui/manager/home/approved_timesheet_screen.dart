@@ -9,6 +9,7 @@ import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../Widgets/approve_timesheet_list_widget.dart';
+import '../../bloc/no_data_screen.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/loading_widget.dart';
 import 'manager_time_sheet_details.dart';
@@ -85,10 +86,12 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
                                     snapshot) {
                               if (!snapshot.hasData ||
                                   null == snapshot.data ||
-                                  null ==
-                                      snapshot.data?.response?.data
-                                          ?.timeSheetInfo) {
-                                return const SizedBox();
+                                  null == snapshot.data?.response?.data?.timeSheetInfo) {
+                                return const NoDataWidget(
+                                    tittle: Txt.empty,
+                                    description: Txt.no_shifts_working_hrs,
+                                    asset_image:
+                                    "assets/images/error/empty_task.png");
                               }
                               return buildList(snapshot);
                             })
@@ -119,7 +122,11 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
   }
 
   Widget buildList(AsyncSnapshot<ManagerTimeSheetResponse> snapshot) {
-    return ListView.builder(
+    return snapshot.data?.response?.data?.timeSheetInfo?.length==0? const NoDataWidget(
+        tittle: Txt.empty,
+        description: Txt.no_shifts_working_hrs,
+        asset_image:
+        "assets/images/error/empty_task.png"):ListView.builder(
       itemCount: snapshot.data?.response?.data?.timeSheetInfo?.length,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),

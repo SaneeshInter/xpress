@@ -73,6 +73,8 @@ class Txt {
 
   //Gallery
   static const ppGallery = "Gallery";
+  static const notfound = "Not Found";
+  static const noshift = "There are no shifts found";
 
   //Select image source
   static const ppSelectImgSource = "Select image source";

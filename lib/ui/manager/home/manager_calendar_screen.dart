@@ -273,7 +273,7 @@ class ManagerFindShiftCalendar extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const CreateShiftScreenUpdate()),
+                  builder: (context) => const CreateShiftScreenUpdate(buttonTxt: "Create Shift",)),
             ).then((value) => managercalendarBloc.getData(context));
           },
           child: const Icon(Icons.add),
