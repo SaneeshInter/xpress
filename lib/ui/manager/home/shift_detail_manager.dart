@@ -11,6 +11,7 @@ import '../../../ui/user/detail/shift_rows.dart';
 import '../../../ui/widgets/loading_widget.dart';
 import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
+import '../../bloc/no_data_screen.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../user/detail/drawable_custom_row.dart';
 import '../../widgets/request_user_list.dart';
@@ -241,7 +242,11 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                         ],
                       );
                     } else {
-                      return const SizedBox();
+                      return const  NoDataWidget(
+                          tittle: Txt.notfound,
+                          description: Txt.noshift,
+                          asset_image:
+                          "assets/images/error/empty_task.png");
                     }
                   } else {
                     return const SizedBox();
