@@ -377,6 +377,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                           flex: 4,
                                         ),
                                         Expanded(
+                                          flex: 1,
                                           child: Padding(
                                             padding:
                                                 const EdgeInsets.only(left: 15.0),
@@ -385,7 +386,6 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                   .hospitalNumber);
                                             }),
                                           ),
-                                          flex: 1,
                                         )
                                       ],
                                     ),
@@ -433,7 +433,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     usershiftdetailsBloc.usershiftdetailsStream.listen((event) {
       var hospitalDetail = event.response?.data?.hospitalDetails?[0]??HospitalDetails();
       if (null != hospitalDetail) {
-        usershiftdetailsBloc.hospitalNumber = hospitalDetail.phone!;
+        usershiftdetailsBloc.hospitalNumber = hospitalDetail.phone??"";
       }
     });
   }

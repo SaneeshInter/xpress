@@ -304,7 +304,7 @@ class _SideMenuState extends State<SideMenu> {
               Navigator.pop(context);
               pushNewScreen(
                 context,
-                screen: FaqsShitsScreen(),
+                screen: const FaqsShitsScreen(),
                 withNavBar: true,
                 pageTransitionAnimation: PageTransitionAnimation.cupertino,
               );

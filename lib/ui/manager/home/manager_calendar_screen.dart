@@ -7,6 +7,7 @@ import '../../../eventutil/eventutil.dart';
 import '../../../model/common/manager_shift.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
+import '../../widgets/drag_fab.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/manager_list_calendar.dart';
 import '../create_shift_screen_update.dart';
