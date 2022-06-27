@@ -15,6 +15,7 @@ import '../../../ui/widgets/loading_widget.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
+import '../../bloc/no_data_screen.dart';
 import '../../widgets/buttons/book_button_green.dart';
 import 'drawable_custom_row.dart';
 
@@ -399,7 +400,11 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                         ],
                       );
                     } else {
-                      return const SizedBox();
+                      return const  NoDataWidget(
+                          tittle: Txt.notfound,
+                          description: Txt.noshift,
+                          asset_image:
+                          "assets/images/error/empty_task.png");
                     }
                   }),
             ),
