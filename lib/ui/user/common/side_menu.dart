@@ -16,6 +16,8 @@ import '../../widgets/logout_warning.dart';
 import '../home/profile_screen.dart';
 import '../sidenav/completed_shifts.dart';
 
+import '../sidenav/contact_us_screen.dart';
+import '../sidenav/faqs_screen.dart';
 import '../sidenav/notification_screen.dart';
 import '../sidenav/submit_timesheets.dart';
 
@@ -302,7 +304,7 @@ class _SideMenuState extends State<SideMenu> {
           //     Navigator.pop(context);
           //     pushNewScreen(
           //       context,
-          //       screen: FaqsShitsScreen(),
+          //       screen: const FaqsShitsScreen(),
           //       withNavBar: true,
           //       pageTransitionAnimation: PageTransitionAnimation.cupertino,
           //     );

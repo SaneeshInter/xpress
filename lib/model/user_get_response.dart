@@ -104,12 +104,12 @@ class Items {
   int? tuberculosisVaccination;
   int? hepatitisBAntibody;
   String? uniformSize;
-  Null? uniformSizeId;
-  Null? termsAndConditions;
-  Null? uniqueStaffId;
+  dynamic uniformSizeId;
+  dynamic termsAndConditions;
+  dynamic uniqueStaffId;
   int? idCardReceived;
   String? location;
-  Null? locationId;
+  dynamic locationId;
 
   Items(
       {this.firstName,

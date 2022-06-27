@@ -192,7 +192,8 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                               children: [
                                                 const Icon(Icons.calendar_month,color: greenColor,),const SizedBox(width: 10,),
                                                 AutoSizeText(
-                                                  item.date.toString(),
+                                                  getStringFromDate(getDateFromString(item.date.toString(), "yyyy-MM-dd"),"dd-MMM-yyyy (EEEE)")
+                                                  ,
                                                   maxLines: 1,
                                                   style: TextStyle(
                                                     color: Constants.colors[1],

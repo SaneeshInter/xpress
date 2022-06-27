@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:math';
-import 'dart:ui';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:xpresshealthdev/main.dart';
+import '/main.dart';
 
 import '../Constants/sharedPrefKeys.dart';
 import '../resources/api_provider.dart';
@@ -72,6 +70,9 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
       showNotification(message);
 
   showNotification(RemoteMessage message) async {
+    String? imageUrl;
+    imageUrl ??= message.notification!.android?.imageUrl;
+    imageUrl ??= message.notification!.apple?.imageUrl;
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     int notificationCount = shdPre.getInt(SharedPrefKey.USER_NOTIFICATION_COUNT) ?? 0;
     shdPre.setInt(SharedPrefKey.USER_NOTIFICATION_COUNT, notificationCount + 1);
@@ -83,33 +84,66 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
       payload["type"] = jsonDecode(message.data["payload"])["type"];
       payload["id"] = jsonDecode(message.data["payload"])["id"];
     }
-    AwesomeNotifications().createNotification(
-        content: NotificationContent(
-          id: Random().nextInt(2147483647),
-          notificationLayout: NotificationLayout.Inbox,
-          channelKey: 'basic_channel',
-          title: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_TITLE] ??
-              message.notification?.title,
-          body: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_BODY] ??
-              message.notification?.body,
-          payload: payload,
-          category: message.data["category"],
-          bigPicture:
-              'https://tecnoblog.net/wp-content/uploads/2019/09/emoji.jpg',
-          wakeUpScreen: true,
-          fullScreenIntent: true,
-          criticalAlert: true,
-          showWhen: true,
-          displayOnForeground: true,
-          displayOnBackground: true,
-          locked: false,
-        ),
-        actionButtons: [
-          NotificationActionButton(
-            key: "Open",
-            label: "Open",
+    if("SHIFT_DETAILS"==jsonDecode(message.data["payload"])["type"]){
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: Random().nextInt(2147483647),
+            notificationLayout: AwesomeStringUtils.isNullOrEmpty(imageUrl)
+                ? NotificationLayout.Inbox
+                : NotificationLayout.BigPicture,
+            channelKey: 'basic_channel',
+            title: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_TITLE] ??
+                message.notification?.title,
+            body: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_BODY] ??
+                message.notification?.body,
+            payload: payload,
+            category: message.data["category"],
+            bigPicture: imageUrl,
+            wakeUpScreen: true,
+            fullScreenIntent: true,
+            criticalAlert: true,
+            showWhen: true,
+            displayOnForeground: true,
+            displayOnBackground: true,
+            locked: false,
           ),
-        ]);
+          actionButtons: [
+            NotificationActionButton(
+              key: "Open",
+              label: "Book Now!",
+            ),
+          ]);
+    }else{
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: Random().nextInt(2147483647),
+            notificationLayout: AwesomeStringUtils.isNullOrEmpty(imageUrl)
+                ? NotificationLayout.Inbox
+                : NotificationLayout.BigPicture,
+            channelKey: 'basic_channel',
+            title: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_TITLE] ??
+                message.notification?.title,
+            body: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_BODY] ??
+                message.notification?.body,
+            payload: payload,
+            category: message.data["category"],
+            bigPicture: imageUrl,
+            wakeUpScreen: true,
+            fullScreenIntent: true,
+            criticalAlert: true,
+            showWhen: true,
+            displayOnForeground: true,
+            displayOnBackground: true,
+            locked: false,
+          ),
+          actionButtons: [
+            NotificationActionButton(
+              key: "Open",
+              label: "View",
+            ),
+          ]);
+    }
+
 
     // if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
     //     considerWhiteSpaceAsEmpty: true) ||

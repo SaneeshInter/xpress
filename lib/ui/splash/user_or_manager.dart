@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../../ui/Login/login_screen.dart';
-import '../../utils/constants.dart';
 
 import '../../Constants/strings.dart';
 import '../../Constants/toast.dart';
+import '../../ui/Login/login_screen.dart';
+import '../../utils/constants.dart';
 import '../../utils/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserOrManager extends StatefulWidget {
   @override
@@ -29,12 +29,10 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
   void dispose() {
-
     super.dispose();
   }
 
@@ -51,31 +49,31 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                     fit: BoxFit.fill)),
             child: Stack(
               children: <Widget>[
-            Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    logoImage(),
-                    userButton(),
-                    managerButton(),
-                    SizedBox(
-                      height: screenWidth(context, dividedBy: 6),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 25, top: 0),
-                      child: Text(
-                        "Powered By Xpress Health",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontFamily: "SFProMedium"),
-                      ),
-                    ),
-                  ],
-                )),
+                Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        logoImage(),
+                        userButton(),
+                        managerButton(),
+                        SizedBox(
+                          height: screenWidth(context, dividedBy: 6),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 25, top: 0),
+                          child: Text(
+                            "Powered By Xpress Health",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontFamily: "SFProMedium"),
+                          ),
+                        ),
+                      ],
+                    )),
               ],
             ),
           ),
@@ -115,8 +113,8 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                           onPrimary: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
-                              side:
-                                  const BorderSide(color: Colors.white, width: 2.0))),
+                              side: const BorderSide(
+                                  color: Colors.white, width: 2.0))),
                       child: Text('Manager', style: TextStyle(fontSize: 12.sp)),
                     ),
                   ),
@@ -160,7 +158,6 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                   child: SizedBox(
                     height: commonButtonHeight(context),
                     width: screenWidth(context, dividedBy: 1),
-
                     child: ElevatedButton(
                       onPressed: () async {
                         final prefs = await SharedPreferences.getInstance();
@@ -176,12 +173,11 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                           primary: Colors.white,
                           onPrimary: Constants.colors[10],
                           shape: RoundedRectangleBorder(
-                              borderRadius:  BorderRadius.circular(5.0),
-                              side:
-                                  const BorderSide(color: Colors.white, width: 2.0))),
+                              borderRadius: BorderRadius.circular(5.0),
+                              side: const BorderSide(
+                                  color: Colors.white, width: 2.0))),
                       child: Text(Txt.user, style: TextStyle(fontSize: 12.sp)),
                     ),
-
                   ),
                 ),
                 Padding(
@@ -192,7 +188,7 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                         child: Container(
                             margin: const EdgeInsets.only(top: 0, bottom: 0),
                             child: CircularProgressIndicator(
-                              valueColor:  AlwaysStoppedAnimation<Color>(
+                              valueColor: AlwaysStoppedAnimation<Color>(
                                   Constants.colors[3]),
                             )),
                       )),

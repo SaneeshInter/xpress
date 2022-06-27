@@ -360,4 +360,11 @@ Future<void> logOut(BuildContext context) async {
   });
 
 }
-
+//String to date
+DateTime getDateFromString(String date, String format) {
+  return DateFormat(format).parse(date);
+}
+//Date to String
+String getStringFromDate(DateTime date, String format) {
+  return DateFormat(format).format(date);
+}
