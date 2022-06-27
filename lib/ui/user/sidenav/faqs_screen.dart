@@ -21,7 +21,9 @@ class FaqsShitsScreen extends StatefulWidget {
   const FaqsShitsScreen({Key? key}) : super(key: key);
 
   @override
-  _FaqsShitsScreenState createState() => _FaqsShitsScreenState();
+  State<StatefulWidget> createState() {
+    return _FaqsShitsScreenState();
+  }
 }
 
 class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
@@ -43,6 +45,19 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
   void initState() {
     super.initState();
   }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+  }
+
+
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 
 
   @override
@@ -80,10 +95,14 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
         centerTitle: true,
       ),
       backgroundColor: Constants.colors[9],
-      body: SingleChildScrollView(
-        child:ListView.builder(
+      body: NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (overScroll) {
+          overScroll.disallowIndicator();
+          return false;
+        },
+        child: ListView.builder(
           shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           itemCount: data.length,
 
           itemBuilder: (BuildContext context, int index) {
@@ -93,10 +112,10 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: ExpandableGroup(
-                isExpanded: indexExpanded != 0,
-                header:  Text("what is mean by this ?",
+                isExpanded: false,
+                header:  Text(data[index].question,
                     style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 14,
                         color: Constants.colors[1],
                         fontWeight: FontWeight.bold)),
                 items: Padding(
@@ -108,56 +127,7 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
             ),
           );
         },),
-
-        // Stack(
-        //   children: [
-        //     Container(
-        //         padding: EdgeInsets.symmetric(
-        //             horizontal: screenWidth(context, dividedBy: 5)),
-        //         child: Column(
-        //
-        //           children: [
-        //             20.height,
-        //             Column(
-        //               mainAxisAlignment:
-        //               MainAxisAlignment.start,
-        //               children: [
-        //                 Text( Txt.faqs,
-        //                     style: boldTextStyle(size: 20)),
-        //                 85.width,
-        //                 16.height,
-        //                 Container(
-        //                   padding: EdgeInsets.symmetric(
-        //                       horizontal: 32),
-        //                   child: Text(
-        //                       Txt.under_devlpmnt,
-        //                       style: primaryTextStyle(size: 15),
-        //                       textAlign: TextAlign.center),
-        //                 ),
-        //               ],
-        //             ),
-        //             150.height,
-        //             Image.asset(
-        //                 'assets/images/icon/work.png',
-        //                 height: 250),
-        //           ],
-        //         )),
-        //
-        //   ],
-        // ),
       ),
     );
-  }
-
-  Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return Colors.blue;
-    }
-    return Colors.red;
   }
 }

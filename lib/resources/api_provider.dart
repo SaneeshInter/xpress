@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import '../model/login_response.dart';
@@ -35,6 +36,7 @@ import '../model/user_view_request_response.dart';
 import '../model/user_working_hours.dart';
 import '../model/utility_respo.dart';
 import '../model/viewbooking_response.dart';
+import 'dart:developer' as developer;
 
 class ApiProvider {
   Client client = Client();
@@ -86,7 +88,7 @@ class ApiProvider {
           'Token': token,
         },
       );
-      print(response.body);
+      developer.log("${response.body}    :- ${response.statusCode}");
       if (response.statusCode == 200) {
         return UserGetResponse.fromJson(json.decode(response.body));
       } else {

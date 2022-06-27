@@ -1,84 +1,90 @@
 class FAQModel{
   String question;
   String answer;
+  bool isExpanded;
 
-  FAQModel({required this.question, required this.answer});
+  FAQModel({required this.question, required this.answer,this.isExpanded = false});
 }
 List<FAQModel> data = [
-  FAQModel(answer: '''Xpress Health LLC built the Xpress Health app as a Free app. This SERVICE is provided by Xpress Health LLC at no cost and is intended for use as is.
+  FAQModel(answer: '''It stands for frequently-asked questions, and it’s a page on a website that gives quick answers to customer questions. The idea is to keep the answers short and direct so that people find info quickly. We write it as “an FAQ”…(“an eff-ay-cue”) instead of “a FAQ” (a “fack”).''', question: 'What does FAQ mean?'),
+  FAQModel(answer: '''It saves you time. If you spend a lot of your time answering emails or social media queries, an FAQ can be a real timesaver. It can also help prevent costly and time-consuming returns in your online store. 
+It brings new website traffic and new customers. Google’s goal is to deliver answers to questions. If you put your text in a Q&A format, you’re doing half the work already. Even better, if you have a good answer to a question, you might get featured in one of Google’s answer boxes or feature snippets, which will give you a big traffic boost.
+It builds trust and shows that you get it: A well-written FAQ page shows experience. You know what customers are thinking and you’ve already got an answer. It’s a great way to increase the trust and professionalism of your website.''', question: 'What is the purpose of FAQs on your website?'),
+  FAQModel(answer: '''How do you decide what questions to answer? Here are some ideas:
 
-This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
+Look at your customers’ questions
+The first is pretty obvious: What do your customers ask you? Look at your email inbox or social media account and see which questions keep popping up. What usually makes people hesitate before purchasing? What doubts might they have? The more you can automate the answers to these questions, these easier you’ll make it for your customers to buy with confidence. And you’ll save yourself time too.
 
-If you choose to use our Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
+Look at your competitors’ websites
+If you’re a new business or don’t have a lot of customer queries yet, take a look at similar websites for ideas. Bonus points if you can answer the question better than they can.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Xpress Health unless otherwise defined in this Privacy Policy.
+Look at Google and Quora
+Use Google’s Autosuggest feature to start typing a question about your business into the search bar. You’ll see the commonly asked questions people search for. This can be a jumping off point to figure out what questions to put on your own FAQ page.
 
-Information Collection and Use
+Another idea is to browse Quora—a site built to answer people’s questions. Just type in a topic, select More Options and then choose All Questions. You’ll get a list of the most recent questions related to that topic.''', question: 'What questions belong on an FAQ page?'),
+  FAQModel(answer: '''Animal testing is an issue that we have considered deeply in our mission statement and business practices. We are part of the Leaping Bunny Certification programme, the gold standard for cruelty-free certification… ← boring, not a clear answer.''', question: 'Do you test on animals?'),
+  FAQModel(answer: '''8. Show some personality: Just because an FAQ section is direct doesn’t mean it has to be boring. Use it as a chance to write in your brand’s voice (humorous, casual, dignified, etc.) and even share some behind-the-scenes information about your company to add some color to your content. It’s a great chance to show that there’s a real human behind the website (you!) who is thinking about your customers and answering their questions personally.
 
-For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Email , Phone Number. The information that we request will be retained by us and used as described in this privacy policy.
+Example: Include some questions about your company’s quirks''', question: 'Do you issue pre-paid money cards to be used as an alternative to cash for purchases within your store?'),
+  FAQModel(answer: '''It stands for frequently-asked questions, and it’s a page on a website that gives quick answers to customer questions. The idea is to keep the answers short and direct so that people find info quickly. We write it as “an FAQ”…(“an eff-ay-cue”) instead of “a FAQ” (a “fack”).''', question: 'What does FAQ mean?'),
+  FAQModel(answer: '''It saves you time. If you spend a lot of your time answering emails or social media queries, an FAQ can be a real timesaver. It can also help prevent costly and time-consuming returns in your online store. 
+It brings new website traffic and new customers. Google’s goal is to deliver answers to questions. If you put your text in a Q&A format, you’re doing half the work already. Even better, if you have a good answer to a question, you might get featured in one of Google’s answer boxes or feature snippets, which will give you a big traffic boost.
+It builds trust and shows that you get it: A well-written FAQ page shows experience. You know what customers are thinking and you’ve already got an answer. It’s a great way to increase the trust and professionalism of your website.''', question: 'What is the purpose of FAQs on your website?'),
+  FAQModel(answer: '''How do you decide what questions to answer? Here are some ideas:
 
-The app does use third-party services that may collect information used to identify you.
+Look at your customers’ questions
+The first is pretty obvious: What do your customers ask you? Look at your email inbox or social media account and see which questions keep popping up. What usually makes people hesitate before purchasing? What doubts might they have? The more you can automate the answers to these questions, these easier you’ll make it for your customers to buy with confidence. And you’ll save yourself time too.
 
-Link to the privacy policy of third-party service providers used by the app''', question: 'dsfcc'),
-  FAQModel(answer: '''Xpress Health LLC built the Xpress Health app as a Free app. This SERVICE is provided by Xpress Health LLC at no cost and is intended for use as is.
+Look at your competitors’ websites
+If you’re a new business or don’t have a lot of customer queries yet, take a look at similar websites for ideas. Bonus points if you can answer the question better than they can.
 
-This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
+Look at Google and Quora
+Use Google’s Autosuggest feature to start typing a question about your business into the search bar. You’ll see the commonly asked questions people search for. This can be a jumping off point to figure out what questions to put on your own FAQ page.
 
-If you choose to use our Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
+Another idea is to browse Quora—a site built to answer people’s questions. Just type in a topic, select More Options and then choose All Questions. You’ll get a list of the most recent questions related to that topic.''', question: 'What questions belong on an FAQ page?'),
+  FAQModel(answer: '''Animal testing is an issue that we have considered deeply in our mission statement and business practices. We are part of the Leaping Bunny Certification programme, the gold standard for cruelty-free certification… ← boring, not a clear answer.''', question: 'Do you test on animals?'),
+  FAQModel(answer: '''8. Show some personality: Just because an FAQ section is direct doesn’t mean it has to be boring. Use it as a chance to write in your brand’s voice (humorous, casual, dignified, etc.) and even share some behind-the-scenes information about your company to add some color to your content. It’s a great chance to show that there’s a real human behind the website (you!) who is thinking about your customers and answering their questions personally.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Xpress Health unless otherwise defined in this Privacy Policy.
+Example: Include some questions about your company’s quirks''', question: 'Do you issue pre-paid money cards to be used as an alternative to cash for purchases within your store?'),
+  FAQModel(answer: '''It stands for frequently-asked questions, and it’s a page on a website that gives quick answers to customer questions. The idea is to keep the answers short and direct so that people find info quickly. We write it as “an FAQ”…(“an eff-ay-cue”) instead of “a FAQ” (a “fack”).''', question: 'What does FAQ mean?'),
+  FAQModel(answer: '''It saves you time. If you spend a lot of your time answering emails or social media queries, an FAQ can be a real timesaver. It can also help prevent costly and time-consuming returns in your online store. 
+It brings new website traffic and new customers. Google’s goal is to deliver answers to questions. If you put your text in a Q&A format, you’re doing half the work already. Even better, if you have a good answer to a question, you might get featured in one of Google’s answer boxes or feature snippets, which will give you a big traffic boost.
+It builds trust and shows that you get it: A well-written FAQ page shows experience. You know what customers are thinking and you’ve already got an answer. It’s a great way to increase the trust and professionalism of your website.''', question: 'What is the purpose of FAQs on your website?'),
+  FAQModel(answer: '''How do you decide what questions to answer? Here are some ideas:
 
-Information Collection and Use
+Look at your customers’ questions
+The first is pretty obvious: What do your customers ask you? Look at your email inbox or social media account and see which questions keep popping up. What usually makes people hesitate before purchasing? What doubts might they have? The more you can automate the answers to these questions, these easier you’ll make it for your customers to buy with confidence. And you’ll save yourself time too.
 
-For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Email , Phone Number. The information that we request will be retained by us and used as described in this privacy policy.
+Look at your competitors’ websites
+If you’re a new business or don’t have a lot of customer queries yet, take a look at similar websites for ideas. Bonus points if you can answer the question better than they can.
 
-The app does use third-party services that may collect information used to identify you.
+Look at Google and Quora
+Use Google’s Autosuggest feature to start typing a question about your business into the search bar. You’ll see the commonly asked questions people search for. This can be a jumping off point to figure out what questions to put on your own FAQ page.
 
-Link to the privacy policy of third-party service providers used by the app''', question: 'dsfcc'),
-  FAQModel(answer: '''Xpress Health LLC built the Xpress Health app as a Free app. This SERVICE is provided by Xpress Health LLC at no cost and is intended for use as is.
+Another idea is to browse Quora—a site built to answer people’s questions. Just type in a topic, select More Options and then choose All Questions. You’ll get a list of the most recent questions related to that topic.''', question: 'What questions belong on an FAQ page?'),
+  FAQModel(answer: '''Animal testing is an issue that we have considered deeply in our mission statement and business practices. We are part of the Leaping Bunny Certification programme, the gold standard for cruelty-free certification… ← boring, not a clear answer.''', question: 'Do you test on animals?'),
+  FAQModel(answer: '''8. Show some personality: Just because an FAQ section is direct doesn’t mean it has to be boring. Use it as a chance to write in your brand’s voice (humorous, casual, dignified, etc.) and even share some behind-the-scenes information about your company to add some color to your content. It’s a great chance to show that there’s a real human behind the website (you!) who is thinking about your customers and answering their questions personally.
 
-This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
+Example: Include some questions about your company’s quirks''', question: 'Do you issue pre-paid money cards to be used as an alternative to cash for purchases within your store?'),
+  FAQModel(answer: '''It stands for frequently-asked questions, and it’s a page on a website that gives quick answers to customer questions. The idea is to keep the answers short and direct so that people find info quickly. We write it as “an FAQ”…(“an eff-ay-cue”) instead of “a FAQ” (a “fack”).''', question: 'What does FAQ mean?'),
+  FAQModel(answer: '''It saves you time. If you spend a lot of your time answering emails or social media queries, an FAQ can be a real timesaver. It can also help prevent costly and time-consuming returns in your online store. 
+It brings new website traffic and new customers. Google’s goal is to deliver answers to questions. If you put your text in a Q&A format, you’re doing half the work already. Even better, if you have a good answer to a question, you might get featured in one of Google’s answer boxes or feature snippets, which will give you a big traffic boost.
+It builds trust and shows that you get it: A well-written FAQ page shows experience. You know what customers are thinking and you’ve already got an answer. It’s a great way to increase the trust and professionalism of your website.''', question: 'What is the purpose of FAQs on your website?'),
+  FAQModel(answer: '''How do you decide what questions to answer? Here are some ideas:
 
-If you choose to use our Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
+Look at your customers’ questions
+The first is pretty obvious: What do your customers ask you? Look at your email inbox or social media account and see which questions keep popping up. What usually makes people hesitate before purchasing? What doubts might they have? The more you can automate the answers to these questions, these easier you’ll make it for your customers to buy with confidence. And you’ll save yourself time too.
 
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Xpress Health unless otherwise defined in this Privacy Policy.
+Look at your competitors’ websites
+If you’re a new business or don’t have a lot of customer queries yet, take a look at similar websites for ideas. Bonus points if you can answer the question better than they can.
 
-Information Collection and Use
+Look at Google and Quora
+Use Google’s Autosuggest feature to start typing a question about your business into the search bar. You’ll see the commonly asked questions people search for. This can be a jumping off point to figure out what questions to put on your own FAQ page.
 
-For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Email , Phone Number. The information that we request will be retained by us and used as described in this privacy policy.
+Another idea is to browse Quora—a site built to answer people’s questions. Just type in a topic, select More Options and then choose All Questions. You’ll get a list of the most recent questions related to that topic.''', question: 'What questions belong on an FAQ page?'),
+  FAQModel(answer: '''Animal testing is an issue that we have considered deeply in our mission statement and business practices. We are part of the Leaping Bunny Certification programme, the gold standard for cruelty-free certification… ← boring, not a clear answer.''', question: 'Do you test on animals?'),
+  FAQModel(answer: '''8. Show some personality: Just because an FAQ section is direct doesn’t mean it has to be boring. Use it as a chance to write in your brand’s voice (humorous, casual, dignified, etc.) and even share some behind-the-scenes information about your company to add some color to your content. It’s a great chance to show that there’s a real human behind the website (you!) who is thinking about your customers and answering their questions personally.
 
-The app does use third-party services that may collect information used to identify you.
-
-Link to the privacy policy of third-party service providers used by the app''', question: 'dsfcc'),
-  FAQModel(answer: '''Xpress Health LLC built the Xpress Health app as a Free app. This SERVICE is provided by Xpress Health LLC at no cost and is intended for use as is.
-
-This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
-
-If you choose to use our Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
-
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Xpress Health unless otherwise defined in this Privacy Policy.
-
-Information Collection and Use
-
-For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Email , Phone Number. The information that we request will be retained by us and used as described in this privacy policy.
-
-The app does use third-party services that may collect information used to identify you.
-
-Link to the privacy policy of third-party service providers used by the app''', question: 'dsfcc'),
-  FAQModel(answer: '''Xpress Health LLC built the Xpress Health app as a Free app. This SERVICE is provided by Xpress Health LLC at no cost and is intended for use as is.
-
-This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
-
-If you choose to use our Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
-
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Xpress Health unless otherwise defined in this Privacy Policy.
-
-Information Collection and Use
-
-For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Email , Phone Number. The information that we request will be retained by us and used as described in this privacy policy.
-
-The app does use third-party services that may collect information used to identify you.
-
-Link to the privacy policy of third-party service providers used by the app''', question: 'dsfcc'),
+Example: Include some questions about your company’s quirks''', question: 'Do you issue pre-paid money cards to be used as an alternative to cash for purchases within your store?'),
 
 ];
