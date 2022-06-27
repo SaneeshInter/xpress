@@ -242,6 +242,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                         ],
                       );
                     } else {
+
                       return const  NoDataWidget(
                           tittle: Txt.notfound,
                           description: Txt.noshift,

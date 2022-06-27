@@ -24,19 +24,7 @@ class AppBarCommon extends StatelessWidget implements PreferredSizeWidget {
           height: 4.2.w,
         ),
         onPressed: () {
-
-          bool isNewRouteSameAsCurrent = false;
-          Navigator.popUntil(context, (route) {
-            if (route.settings.name == newRouteName) {
-              isNewRouteSameAsCurrent = true;
-            }
-            return true;
-          });
-
-          if (!isNewRouteSameAsCurrent) {
-            scaffoldKey.currentState?.openDrawer();
-
-          }
+          scaffoldKey.currentState?.openDrawer();
         },
       ),
       bottomOpacity: 0.0,
