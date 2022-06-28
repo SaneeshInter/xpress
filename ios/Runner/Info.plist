@@ -37,6 +37,8 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+    <key>NSCalendarsUsageDescription</key>
+        <string>$(PRODUCT_NAME) Used to add events to calendar.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) Used to update profile picture and documents </string>
 	<key>NSMicrophoneUsageDescription</key>

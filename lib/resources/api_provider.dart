@@ -533,7 +533,7 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT USERHOME RESPONSE" + token);
+      developer.log("$uri \n body :${jsonEncode(<String, String>{}).toString()}\n response :${response.body} token: $token");
 
       print(jsonEncode(<String, String>{}).toString());
       print(response.body);
