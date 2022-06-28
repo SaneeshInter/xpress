@@ -11,7 +11,6 @@ import '../../../Constants/strings.dart';
 
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
-import '../../../utils/utils.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({Key? key}) : super(key: key);

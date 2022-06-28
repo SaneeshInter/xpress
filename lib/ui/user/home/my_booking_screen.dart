@@ -252,13 +252,11 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Container(
-                                        child: SvgPicture.asset(
-                                          "assets/images/icon/close.svg",
-                                          height: 3.w,
-                                          width: 3.w,
-                                          color: Constants.colors[0],
-                                        ),
+                                      child: SvgPicture.asset(
+                                        "assets/images/icon/close.svg",
+                                        height: 3.w,
+                                        width: 3.w,
+                                        color: Constants.colors[0],
                                       ),
                                     ),
                                   ),
@@ -280,44 +278,42 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                     flex: 1,
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 2),
-                                      child: Container(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              Txt.start_time,
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                color: Constants.colors[22],
-                                                fontSize: 11.sp,
-                                                fontFamily: "SFProMedium",
-                                              ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            Txt.start_time,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              color: Constants.colors[22],
+                                              fontSize: 11.sp,
+                                              fontFamily: "SFProMedium",
                                             ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            TextInputFileds(
-                                                controlr: dateFrom,
-                                                onChange: (text) {},
-                                                validator: (dateTo) {
-                                                  if (validDate(dateTo))
-                                                    return null;
-                                                  else
-                                                    return Txt.select_time;
-                                                },
-                                                onTapDate: () {
-                                                  selectTime(context, dateFrom);
-                                                },
-                                                hintText: Txt.timeFrom,
-                                                keyboadType: TextInputType.none,
-                                                isPwd: false),
-                                          ],
-                                        ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          TextInputFileds(
+                                              controlr: dateFrom,
+                                              onChange: (text) {},
+                                              validator: (dateTo) {
+                                                if (validDate(dateTo))
+                                                  return null;
+                                                else
+                                                  return Txt.select_time;
+                                              },
+                                              onTapDate: () {
+                                                selectTime(context, dateFrom);
+                                              },
+                                              hintText: Txt.timeFrom,
+                                              keyboadType: TextInputType.none,
+                                              isPwd: false),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 6,
                                   ),
                                   Expanded(
@@ -430,10 +426,6 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
 
   void updateAndExit(Items item, BuildContext context) {
 
-
-
-
-
     confirmBloc.fetchUserWorkingHours(
       confirmBloc.token,
       item.shiftId.toString(),
@@ -443,7 +435,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
     );
     dateFrom.text = "";
     dateTo.text = "";
-    confirmBloc.working_hours = 0;
+    confirmBloc.working_hours = "0";
     Navigator.pop(context);
   }
 

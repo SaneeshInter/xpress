@@ -44,10 +44,10 @@ class ShiftTimeSheetBloc {
     _visibility.add(false);
   }
 
-  approveTimeSheet() async {
+  approveTimeSheet(List<ApproveData> data) async {
     _visibility.add(true);
     var json =
-        jsonEncode(approveData.map((e) => e.toJson()).toList()).toString();
+        jsonEncode(data.map((e) => e.toJson()).toList()).toString();
     ManagerApproveResponse list =
         await _repo.fetchapproveTimeSheet(token, json);
     _approvetimesheet.sink.add(list);

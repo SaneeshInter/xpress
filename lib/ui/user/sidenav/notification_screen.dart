@@ -154,7 +154,7 @@ class _NotificationState extends State<NotificationScreen> {
   }
 
   Widget buildList(AsyncSnapshot<UserNotificationModel> snapshot) {
-    return  ListView.builder(
+    return (snapshot.data?.response?.data?.items?.length ?? 0)!=0?  ListView.builder(
             itemCount: snapshot.data?.response?.data?.items?.length ?? 0,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -177,6 +177,35 @@ class _NotificationState extends State<NotificationScreen> {
                 startTime: notification?.hospitalImage??"",
               );
             },
-          );
+          ):Center(
+      child: Column(children: [
+        SizedBox(
+            height: screenHeight(context, dividedBy: 60)),
+        Column(
+          children: [
+            20.height,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(Txt.notify,
+                    style: boldTextStyle(size: 20)),
+                85.width,
+                16.height,
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 32),
+                  child: Text(Txt.no_notify,
+                      style: primaryTextStyle(size: 15),
+                      textAlign: TextAlign.center),
+                ),
+              ],
+            ),
+            150.height,
+            Image.asset('assets/images/icon/bell.png',
+                height: 250),
+          ],
+        ),
+      ]),
+    );
   }
 }

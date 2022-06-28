@@ -209,7 +209,8 @@ class Txt {
   static const faqs = 'FAQs';
   static const contact_us = 'Contact Us';
   static const log_out = 'Log Out';
-  static const under_devlpmnt = 'The screen is under development.';static const no_notify = 'There are no notifications found';
+  static const under_devlpmnt = 'The screen is under development.';
+  static const no_notify = 'There are no notifications found';
 
   static const morning = 'Morning';
   static const day = 'Day';
@@ -303,6 +304,8 @@ class Txt {
   static const sat_feb =  "Saturday 19th February 2022";
 
   static const close =   "CLOSE";
+  static const no =   "NO";
+  static const yes =   "YES";
   static const add_timesheets = "Add Timesheet";
   static const thnx_for_bokng =   "Thank You for Booking";
   static const booking_confirmed =  "Your booking has been confirmed for ";

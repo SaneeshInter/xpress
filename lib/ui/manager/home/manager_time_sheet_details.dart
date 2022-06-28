@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../utils/constants.dart';
@@ -24,7 +25,8 @@ class ManagerTimeSheetDetails extends StatefulWidget {
   _CreateShiftState createState() => _CreateShiftState();
 }
 
-class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTickerProviderStateMixin {
+class _CreateShiftState extends State<ManagerTimeSheetDetails>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   var scrollController = ScrollController();
 
@@ -51,8 +53,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
   void observe() {
     timesheetBloc.approvetimesheet.listen((event) {
       var message = event.response?.status?.statusMessage;
-
-      showMessageAndPop(message, context);
+      if (mounted) {
+        showMessageAndPop(message, context);
+      }
     });
     timesheetBloc.timesheetdetails.listen((event) {
       createApproveData(event);
@@ -64,18 +67,19 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
     String? imageUrl = widget.item?.timeSheetLink;
     return Scaffold(
       backgroundColor: Constants.colors[9],
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          timesheetBloc.approveTimeSheet();
-        },
-        label: const Text(Txt.approve),
-        backgroundColor: Colors.green,
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     timesheetBloc.approveTimeSheet(timesheetBloc.approveData);
+      //   },
+      //   label: const Text(Txt.approve),
+      //   backgroundColor: Colors.green,
+      // ),
       body: Stack(
         children: [
           NestedScrollView(
             controller: scrollController,
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate([
@@ -85,7 +89,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 10),
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width * .4,
                             child: AutoSizeText(
                               Txt.time_sheet,
@@ -100,7 +104,8 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
+                          padding:
+                              const EdgeInsets.only(left: 5, right: 5, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -112,7 +117,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
                                             child: CachedNetworkImage(
                                               useOldImageOnUrlChange: false,
                                               imageUrl: imageUrl,
-                                              imageBuilder: (context, imageProvider) => Container(
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
                                                     image: imageProvider,
@@ -120,8 +127,12 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
                                                   ),
                                                 ),
                                               ),
-                                              placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
-                                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                                              placeholder: (context, url) =>
+                                                  Image.asset(
+                                                      "assets/images/icon/loading_bar.gif"),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
                                             ),
                                           )
                                         : Container(
@@ -130,8 +141,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
                                           )),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 16, top: 10),
-                                child: Container(
+                                padding:
+                                    const EdgeInsets.only(left: 16, top: 10),
+                                child: SizedBox(
                                   width: MediaQuery.of(context).size.width * .4,
                                   child: AutoSizeText(
                                     Txt.shifts,
@@ -162,47 +174,53 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
                   preferredSize: const Size.fromHeight(65),
                   child: Container(
                     color: Constants.colors[0],
-                    child: TabBar(unselectedLabelColor: Colors.black, indicatorSize: TabBarIndicatorSize.tab, labelColor: Colors.black, controller: _tabController, tabs: [
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(Txt.pending),
+                    child: TabBar(
+                        unselectedLabelColor: Colors.black,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        labelColor: Colors.black,
+                        controller: _tabController,
+                        tabs: const [
+                          Tab(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(Txt.pending),
+                            ),
                           ),
-                        ),
-                      ),
-                      Tab(
-                        child: Container(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(Txt.completed),
+                          Tab(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(Txt.completed),
+                            ),
                           ),
-                        ),
-                      ),
-                    ]),
+                        ]),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Flexible(
                   fit: FlexFit.loose,
-                  child: Container(
-                    child: StreamBuilder(
-                        stream: timesheetBloc.timesheetdetails,
-                        builder: (BuildContext context, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
-                          if (!snapshot.hasData || null == snapshot.data || null == snapshot.data?.response?.data?.timeSheetDetails) {
-                            return Container();
-                          }
-                          return TabBarView(controller: _tabController, children: [
-                            bookingList(0, snapshot),
-                            bookingList(1, snapshot),
-                          ]);
-                        }),
-                  ),
+                  child: StreamBuilder(
+                      stream: timesheetBloc.timesheetdetails,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
+                        if (!snapshot.hasData ||
+                            null == snapshot.data ||
+                            null ==
+                                snapshot
+                                    .data?.response?.data?.timeSheetDetails) {
+                          return Container();
+                        }
+                        return TabBarView(
+                            controller: _tabController,
+                            children: [
+                              bookingList(0, snapshot),
+                              bookingList(1, snapshot),
+                            ]);
+                      }),
                 ),
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: 100.w,
             height: 70.h,
             child: StreamBuilder(
@@ -225,14 +243,17 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
     );
   }
 
-  Widget bookingList(int position, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
+  Widget bookingList(
+      int position, AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
     return buildList(snapshot, position);
   }
 
-  FilterShiftList getFilterList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
+  FilterShiftList getFilterList(
+      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
     FilterShiftList list = FilterShiftList();
 
-    List<TimeSheetDetails>? allList = snapshot.data?.response?.data?.timeSheetDetails;
+    List<TimeSheetDetails>? allList =
+        snapshot.data?.response?.data?.timeSheetDetails;
     if (null != allList) {
       for (var item in allList) {
         if (item.time_sheet_detail_status == 0) {
@@ -245,7 +266,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
     return list;
   }
 
-  Widget buildList(AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
+  Widget buildList(
+      AsyncSnapshot<ManagerTimeDetailsResponse> snapshot, int position) {
+    List<ApproveData> approveData = [];
     var allList = getFilterList(snapshot, position);
     var list = [];
     if (position == 0) {
@@ -255,39 +278,146 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails> with SingleTicker
       list = allList.completed;
     }
     var length = list.length;
-    return ListView.builder(
+    return length!=0? ListView.builder(
       itemCount: length,
       shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
+
+
         TimeSheetDetails? timeSheetDetails = list[index];
-        return Column(
-          children: [
-            if (null != timeSheetDetails)
-              TimeSheetDetailsListWidget(
-                items: timeSheetDetails,
-                index: index,
-                onTapBooking: () {
-                  showBookingAlert(context, date: Txt.show_timsheet);
-                },
-                key: null,
-                onCheckBoxClicked: (index, status) {
-                  timesheetBloc.approveData[index].status = status;
-                },
-                textChange: (comment, index) {
-                  timesheetBloc.approveData[index].comment = comment;
-                },
-              ),
-            SizedBox(height: screenHeight(context, dividedBy: 100)),
-          ],
-        );
+        approveData.add(ApproveData(
+          scheduleId: timeSheetDetails?.shiftRowId.toString(),
+          timesheetId: timesheetBloc.time_shhet_id,
+          status: timeSheetDetails?.time_sheet_detail_status.toString(),
+        ));
+        if (index == length - 1) {
+          return Column(
+            children: [
+              if (null != timeSheetDetails)
+                TimeSheetDetailsListWidget(
+                  items: timeSheetDetails,
+                  index: index,
+                  onTapBooking: () {
+                    showBookingAlert(context, date: Txt.show_timsheet);
+                  },
+                  key: null,
+                  onCheckBoxClicked: (index, status) {
+                    timesheetBloc.approveData[index].status = status;
+                    approveData[index].status = status;
+                  },
+                  textChange: (comment, index) {
+                    timesheetBloc.approveData[index].comment = comment;
+                    approveData[index].comment = comment;
+                  },
+                ),
+              SizedBox(height: screenHeight(context, dividedBy: 100)),
+              if (position == 0)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: GestureDetector(
+                    onTap: () {
+                      timesheetBloc.approveTimeSheet(approveData);
+                    },
+                    child: Container(
+                      width: 80.w,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 4.w),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Constants.colors[3],
+                                Constants.colors[4],
+                              ]),
+                          color: Constants.colors[3],
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Text(
+                        "PROCESSED",
+                        style: TextStyle(
+                            fontSize: 12.5.sp,
+                            color: Constants.colors[0],
+                            fontWeight: FontWeight.w400),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: MaterialButton(shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(10)),
+              //     minWidth: double.infinity,
+              //     onPressed: () {
+              //       timesheetBloc.approveTimeSheet(approveData);
+              //     },
+              //     color: Colors.green,
+              //     child: const Text(
+              //       "Submit", style: TextStyle(color: white),),),
+              // ),
+            ],
+          );
+        } else {
+          return Column(
+            children: [
+              if (null != timeSheetDetails)
+                TimeSheetDetailsListWidget(
+                  items: timeSheetDetails,
+                  index: index,
+                  onTapBooking: () {
+                    showBookingAlert(context, date: Txt.show_timsheet);
+                  },
+                  key: null,
+                  onCheckBoxClicked: (index, status) {
+                    timesheetBloc.approveData[index].status = status;
+                  },
+                  textChange: (comment, index) {
+                    timesheetBloc.approveData[index].comment = comment;
+                  },
+                ),
+              SizedBox(height: screenHeight(context, dividedBy: 100)),
+            ],
+          );
+        }
       },
+    ):  Center(
+      child: Column(children: [
+        SizedBox(
+            height: screenHeight(context, dividedBy: 60)),
+        Column(
+          children: [
+            20.height,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text("No Data Found",
+                    style: boldTextStyle(size: 20)),
+                85.width,
+                16.height,
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 32),
+                  child: Text(position==0?"No Pending Timesheet":"No Completed Timesheet",
+                      style: primaryTextStyle(size: 15),
+                      textAlign: TextAlign.center),
+                ),
+              ],
+            ),
+            150.height,
+            Image.asset('assets/images/error/empty_task.png',
+                height: 250),
+          ],
+        ),
+      ]),
     );
   }
 
   void createApproveData(ManagerTimeDetailsResponse event) {
     var listItem = event.response?.data?.timeSheetDetails;
     if (null != listItem) {
+      timesheetBloc.approveData.clear();
       for (TimeSheetDetails item in listItem) {
         ApproveData data = ApproveData();
         data.timesheetId = timesheetBloc.time_shhet_id;

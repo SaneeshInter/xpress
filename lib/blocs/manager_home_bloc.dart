@@ -14,7 +14,11 @@ class ManagaerHomeBloc {
 
   fetchManagerHome(token) async {  _visibility.add(true);
     ManagerHomeResponse list = await _repo.fetchManagerHomeResponse(token);
-    _managerhome.sink.add(list);
+    try{
+      _managerhome.sink.add(list);
+    }catch(e){
+      // _managerhome.sink.add(list);
+    }
   _visibility.add(false);
   }
 

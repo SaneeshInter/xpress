@@ -325,15 +325,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
           if (role == 0) {
             if (!mounted) return;
-            Navigator.pushReplacement(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const DashBoard()),
+              ModalRoute.withName('/'),
             );
           } else {
             if (!mounted) return;
-            Navigator.pushReplacement(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const ManagerDashBoard()),
+              ModalRoute.withName('/'),
             );
           }
           FCM().getFCMToken();

@@ -10,7 +10,7 @@ import '../utils/utils.dart';
 class ShiftConfirmedBloc {
   int devicePixelRatio = 3;
   int perPageItem = 3;
-  int working_hours = 0;
+  String working_hours = "0";
   int pageCount = 0;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
@@ -21,9 +21,9 @@ class ShiftConfirmedBloc {
   final _visibility = PublishSubject<bool>();
 
   Stream<bool> get visible => _visibility.stream;
-  final workingHours = PublishSubject<int>();
+  final workingHours = PublishSubject<String>();
 
-  Stream<int> get workTime => workingHours.stream;
+  Stream<String> get workTime => workingHours.stream;
 
   final _usercanceljob = PublishSubject<UserCancelJobRequestResponse>();
   final _userworkinghours = PublishSubject<UserWorkingHoursResponse>();
@@ -71,14 +71,52 @@ class ShiftConfirmedBloc {
     if (dateTo.isNotEmpty && dateFrom.isNotEmpty) {
       DateTime date = DateFormat.jm().parse(dateFrom);
       DateTime date1 = DateFormat.jm().parse(dateTo);
-      var time1 = DateFormat("HH:mm").format(date);
-      var time2 = DateFormat("HH:mm").format(date1);
-      var timeDiffrence = await getDifference(time1, time2);
-      working_hours = timeDiffrence;
+      working_hours = getDiffrenceBetweenDates(date,date1);
       workingHours.add(working_hours);
+      // if (dateFrom.compareTo(dateTo) < 0) {
+      //   var time1 = DateFormat("HH:mm").format(date);
+      //   var time2 = DateFormat("HH:mm").format(date1);
+      //
+      //   getDiffrenceBetweenDates(date,date1);
+      //
+      //
+      //   var timeDiffrence = await getDifference(time1, time2);
+      //
+      // }else{
+      //
+      //   var time1 = DateFormat("HH:mm").format(date);
+      //   var time2 = DateFormat("HH:mm").format(date1);
+      //   var timeDiffrence = await getDifference(time1, time2);
+      //   working_hours = timeDiffrence;
+      //   workingHours.add(working_hours);
+      // }
     }
 
   }
+  // Future<void> checkAndUpdateTimeDiffernce(String dateTo, String dateFrom) async {
+  //
+  //   if (dateTo.isNotEmpty && dateFrom.isNotEmpty) {
+  //     DateTime date = DateFormat.jm().parse(dateFrom);
+  //     DateTime date1 = DateFormat.jm().parse(dateTo);
+  //
+  //
+  //     if (dateFrom.compareTo(dateTo) < 0) {
+  //       var time1 = DateFormat("HH:mm").format(date);
+  //       var time2 = DateFormat("HH:mm").format(date1);
+  //       var timeDiffrence = await getDifference(time1, time2);
+  //       working_hours = timeDiffrence;
+  //       workingHours.add(working_hours);
+  //     }else{
+  //
+  //       var time1 = DateFormat("HH:mm").format(date);
+  //       var time2 = DateFormat("HH:mm").format(date1);
+  //       var timeDiffrence = await getDifference(time1, time2);
+  //       working_hours = timeDiffrence;
+  //       workingHours.add(working_hours);
+  //     }
+  //   }
+  //
+  // }
 
   dispose() {
 

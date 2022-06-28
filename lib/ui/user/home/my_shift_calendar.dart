@@ -210,7 +210,6 @@ class FindShiftCalendar extends StatelessWidget {
                           return false;
                         },
                         child: RefreshIndicator(
-
                           onRefresh: () => shiftCalenderBloc.getData(context),
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
