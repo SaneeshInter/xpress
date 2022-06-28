@@ -9,6 +9,7 @@ import '../../Constants/strings.dart';
 import '../../model/common/manager_shift.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
+import '../Widgets/action_alert_dialoge.dart';
 import '../Widgets/buttons/build_button.dart';
 import '../Widgets/buttons/view_button.dart';
 import '../manager/home/shift_detail_manager.dart';
@@ -74,7 +75,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                               badgeColor: Colors.green,
                               badgeContent: Text(
                                 widget.items.requested_count.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 10,
                                   color: Colors.white,
                                 ),
@@ -83,7 +84,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                             SizedBox(
                               width: 1.w,
                             ),
-                            Text(
+                            const Text(
                               "Request",
                               style: TextStyle(
                                 fontSize: 10,
@@ -188,7 +189,39 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                       DeleteButton(
                         label: Txt.delete,
                         onPressed: () {
-                          widget.onTapDelete(widget.items.rowId);
+                          showDialog(
+                            context: context,
+                            barrierColor: Colors.transparent,
+                            builder: (BuildContext context) {
+                              Future.delayed(const Duration(seconds: 2), () {
+                                // Navigator.of(context).pop(true);
+                              });
+                              return Center(
+                                child: AlertDialog(
+                                    elevation: 0,
+                                    backgroundColor: Colors.transparent,
+                                    insetPadding: EdgeInsets.symmetric(
+                                      horizontal: screenWidth(context, dividedBy: 30),
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8)),
+                                    content: ActionAlertBox(
+                                        tittle: "Delete Shift",
+                                        message:
+                                        "Are you sure you want to delete?",
+                                        positiveText: "YES",
+                                        negativeText: "NO",
+                                        onPositvieClick: () {
+                                          widget.onTapDelete(widget.items.rowId);
+                                          Navigator.of(context).pop(true);
+                                        },
+                                        onNegativeClick: () {
+                                          Navigator.of(context).pop(true);
+                                        })),
+                              );
+                            },
+                          );
+
                         },
                         key: null,
                       ),

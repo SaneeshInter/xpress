@@ -360,11 +360,55 @@ Future<void> logOut(BuildContext context) async {
   });
 
 }
-//String to date
 DateTime getDateFromString(String date, String format) {
   return DateFormat(format).parse(date);
 }
-//Date to String
 String getStringFromDate(DateTime date, String format) {
   return DateFormat(format).format(date);
+}
+
+String checkAndUpdateTimeDiffernce(String dateTo, String dateFrom) {
+
+  if (dateTo.isNotEmpty && dateFrom.isNotEmpty) {
+    DateTime date = DateFormat("HH:mm").parse(dateTo);
+    DateTime date1 = DateFormat("HH:mm").parse(dateFrom);
+
+    // print("Time :  ${ getDiffrenceBetweenDates(date,date1)}");
+    return getDiffrenceBetweenDates(date, date1);
+  }else{
+    return "";
+  }
+}
+String getDiffrenceBetweenDates(DateTime date, DateTime date2){
+  ("${date.toString()}     ${date2.toString()}");
+  DateTime fromDate=date;
+  DateTime toDate=date2;
+  var diff = date2.difference(date);
+  if(diff.inHours<0){
+    print("-");
+    print("${fromDate.toString()}     ${toDate.add(const Duration(days:1)).toString()}");
+    return getHoursAndMinutesToDouble(getHoursFromMinutes((toDate.add(const Duration(days:1)).difference(fromDate).inMinutes))).toStringAsFixed(2);
+  }else{
+    return getHoursAndMinutesToDouble(getHoursFromMinutes(diff.inMinutes)).toStringAsFixed(2) ;
+  }
+}
+
+String getHoursFromMinutes(int minutes) {
+  var hours = (minutes / 60).floor();
+  var minutesRemaining = minutes % 60;
+  return "$hours:$minutesRemaining";
+}
+
+double getHoursAndMinutesToDouble(String time) {
+  var timeSplit = time.split(":");
+  var hours = int.parse(timeSplit[0]);
+  var minutes = int.parse(timeSplit[1]);
+  var total = hours + (minutes / 60);
+  return total;
+}
+
+String getHoursAndMinutesFromDouble(double time) {
+  var hours = (time).floor();
+  var minutes = ((time - hours) * 60).floor();
+  return "$hours:$minutes";
 }

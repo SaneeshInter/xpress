@@ -1,13 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../Constants/strings.dart';
 import '../../model/user_view_request_response.dart';
-
 import '../../ui/Widgets/buttons/view_button.dart';
 import '../../ui/user/detail/shift_detail.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
+import 'action_alert_dialoge.dart';
 import 'buttons/book_button.dart';
 
 class MyBookingListWidget extends StatefulWidget {
@@ -68,7 +69,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 70.w,
                           child: AutoSizeText.rich(
                             TextSpan(
@@ -85,7 +86,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
                         Text(
-                         Txt.on_dot+ widget.items.date!,
+                          Txt.on_dot + widget.items.date!,
                           style: TextStyle(
                               fontSize: 9.sp,
                               color: Constants.colors[13],
@@ -94,9 +95,11 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
                         Text(
                           Txt.from +
-                            convert24hrTo12hr( widget.items.timeFrom!, )  +
-                             Txt.to +
-                        convert24hrTo12hr( widget.items.timeTo!)     ,
+                              convert24hrTo12hr(
+                                widget.items.timeFrom!,
+                              ) +
+                              Txt.to +
+                              convert24hrTo12hr(widget.items.timeTo!),
                           style: TextStyle(
                               fontSize: 9.sp,
                               color: Constants.colors[13],
@@ -116,9 +119,8 @@ class _MyBookingState extends State<MyBookingListWidget> {
                           maxLines: 3,
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 180)),
-
                       ]),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -151,20 +153,20 @@ class _MyBookingState extends State<MyBookingListWidget> {
 }
 
 Widget buttonList(BuildContext context, MyBookingListWidget widget) {
-  print("widget.items.workingTimeStatus");
-  print(widget.items.workingTimeStatus);
+  debugPrint("widget.items.workingTimeStatus");
+  debugPrint(widget.items.workingTimeStatus.toString());
   if (widget.position == 1) {
     return Row(
       children: [
         BookButton(
-          label:Txt.add_time_sheet,
+          label: Txt.add_time_sheet,
           onPressed: () {
             widget.onTapView(widget.items);
-            print("Cards booking");
+            debugPrint("Cards booking");
           },
           key: null,
         ),
-        Spacer(),
+        const Spacer(),
       ],
     );
   } else {
@@ -179,7 +181,39 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
                 BookButton(
                   label: Txt.cancel_req,
                   onPressed: () {
-                    widget.onTapCancel(widget.items);
+                    showDialog(
+                      context: context,
+                      barrierColor: Colors.transparent,
+                      builder: (BuildContext context) {
+                        Future.delayed(const Duration(seconds: 2), () {
+                          // Navigator.of(context).pop(true);
+                        });
+                        return Center(
+                          child: AlertDialog(
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
+                              insetPadding: EdgeInsets.symmetric(
+                                horizontal: screenWidth(context, dividedBy: 30),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              content: ActionAlertBox(
+                                  tittle: "Cancel",
+                                  message:
+                                      "Are you sure you want to cancel the request?",
+                                  positiveText: "YES",
+                                  negativeText: "NO",
+                                  onPositvieClick: () {
+                                    widget.onTapCancel(widget.items);
+                                    Navigator.of(context).pop(true);
+                                  },
+                                  onNegativeClick: () {
+                                    Navigator.of(context).pop(true);
+                                  })),
+                        );
+                      },
+                    );
+
                     print("Cards booking");
                   },
                   key: null,
@@ -201,7 +235,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
         if (widget.items.status == "Completed" &&
             widget.items.workingTimeStatus == 0)
           BookButton(
-            label:  Txt.add_wrkng_hrs,
+            label: Txt.add_wrkng_hrs,
             onPressed: () {
               widget.onTapView(widget.items);
               print("Cards booking");

@@ -54,7 +54,7 @@ class _RequestuserListState extends State<RequestuserListWidget> {
                     backgroundColor: appColorPrimary,
                     radius: 28,
                     child: Text(
-                      widget.item.userName!.substring(0, 1),
+                        (widget.item.userName!.length>1)? widget.item.userName!.substring(0, 1):"A",
                       style: TextStyle(
                           fontSize: 18.sp,
                           color: Colors.white,

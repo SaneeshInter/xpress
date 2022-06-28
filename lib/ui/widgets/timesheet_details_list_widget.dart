@@ -141,6 +141,7 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                         alignment: Alignment.topLeft,
                         transformAlignment: Alignment.topLeft,
                         child: Checkbox(
+
                           checkColor: Colors.white,
                           fillColor:
                               MaterialStateProperty.resolveWith(getColor),
@@ -163,23 +164,21 @@ class _NotificationState extends State<TimeSheetDetailsListWidget> {
                   Row(
                     children: [
                       const Text(Txt.reject),
-                      Container(
-                        child: Checkbox(
-                          checkColor: Colors.white,
-                          fillColor:
-                              MaterialStateProperty.resolveWith(getColor),
-                          value: isCheckedReject,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              isCheckedReject = value!;
-                              isChecked = !value;
-                            });
-                            if (isCheckedReject) {
-                              widget.onCheckBoxClicked(
-                                  widget.index, "0");
-                            }
-                          },
-                        ),
+                      Checkbox(
+                        checkColor: Colors.white,
+                        fillColor:
+                            MaterialStateProperty.resolveWith(getColor),
+                        value: isCheckedReject,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isCheckedReject = value!;
+                            isChecked = !value;
+                          });
+                          if (isCheckedReject) {
+                            widget.onCheckBoxClicked(
+                                widget.index, "0");
+                          }
+                        },
                       ),
                     ],
                   ),

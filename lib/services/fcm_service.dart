@@ -48,7 +48,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
   }
 
   void setToken(String? token) async {
-    print('FCM Token: $token');
+    debugPrint('FCM Token: $token');
 
     fcmToken = token!;
     String auth = await TokenProvider().getToken() ?? "";
@@ -56,7 +56,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
     if (auth != "") {
       var respose =
           await ApiProvider().updateFCMToken(auth, fcmToken, user_type);
-      print("FCM Token Updated: $respose");
+      debugPrint("FCM Token Updated: $respose");
     }
   }
 
@@ -77,10 +77,10 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
     int notificationCount = shdPre.getInt(SharedPrefKey.USER_NOTIFICATION_COUNT) ?? 0;
     shdPre.setInt(SharedPrefKey.USER_NOTIFICATION_COUNT, notificationCount + 1);
     _userNotificationCounter.sink.add(notificationCount + 1);
-    print("Notification Count: ${notificationCount + 1}");
-    print("sdfcddrgdg ${jsonDecode(message.data["payload"]).toString()}");
+    debugPrint("Notification Count: ${notificationCount + 1}");
     Map<String, String> payload = <String, String>{};
     if (message.data["payload"] != null) {
+      debugPrint("sdfcddrgdg ${jsonDecode(message.data["payload"]).toString()}");
       payload["type"] = jsonDecode(message.data["payload"])["type"];
       payload["id"] = jsonDecode(message.data["payload"])["id"];
     }
@@ -110,7 +110,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
           actionButtons: [
             NotificationActionButton(
               key: "Open",
-              label: "Book Now!",
+              label: "Open Now!",
             ),
           ]);
     }else{

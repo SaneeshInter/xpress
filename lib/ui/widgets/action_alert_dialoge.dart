@@ -12,6 +12,7 @@ class ActionAlertBox extends StatelessWidget {
   final String tittle;
   final String message;
   final String positiveText;
+  final String negativeText;
   final Function onPositvieClick;
   final Function onNegativeClick;
 
@@ -21,7 +22,8 @@ class ActionAlertBox extends StatelessWidget {
       required this.message,
       required this.positiveText,
       required this.onPositvieClick,
-      required this.onNegativeClick})
+      required this.onNegativeClick,
+      this.negativeText=Txt.close})
       : super(key: key);
 
   @override
@@ -36,7 +38,7 @@ class ActionAlertBox extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                offset: Offset(-2, 2),
+                offset: const Offset(-2, 2),
                 blurRadius: 2,
                 spreadRadius: 2,
                 color: Constants.colors[7].withOpacity(0.15))
@@ -69,14 +71,14 @@ class ActionAlertBox extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BuildButton(
-                    label: Txt.close,
+                    label: negativeText,
                     onPressed: () {
                       pop(context);
                       debugPrint("Cards booking");
                     },
                     key: null,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   BookButton(

@@ -78,57 +78,63 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
       backgroundColor: Constants.colors[9],
       body: ScrollConfiguration(
         behavior: MyBehavior(),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Stack(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * .4,
-                        child: AutoSizeText(
-                          Txt.important_update,
-                          maxLines: 1,
-                          style: TextStyle(
-                            color: Constants.colors[1],
-                            fontSize: 16.sp,
-                            fontFamily: "SFProMedium",
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await getData();
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * .4,
+                          child: AutoSizeText(
+                            Txt.important_update,
+                            maxLines: 1,
+                            style: TextStyle(
+                              color: Constants.colors[1],
+                              fontSize: 16.sp,
+                              fontFamily: "SFProMedium",
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    horizontalList(),
-                    // shiftDetails(),
-                    gridView(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    equalSizeButtons()
-                  ],
-                ),
-                SizedBox(
-                  width: 100.w,
-                  height: 70.h,
-                  child: StreamBuilder(
-                    stream: managerhomeBloc.visible,
-                    builder: (context, AsyncSnapshot<bool> snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data!) {
-                          return const Center(child: LoadingWidget());
+                      horizontalList(),
+                      // shiftDetails(),
+                      gridView(),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      equalSizeButtons()
+                    ],
+                  ),
+                  SizedBox(
+                    width: 100.w,
+                    height: 70.h,
+                    child: StreamBuilder(
+                      stream: managerhomeBloc.visible,
+                      builder: (context, AsyncSnapshot<bool> snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!) {
+                            return const Center(child: LoadingWidget());
+                          } else {
+                            return const SizedBox();
+                          }
                         } else {
                           return const SizedBox();
                         }
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -274,6 +280,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
           stream: managerhomeBloc.managerhomeStream,
           builder: (BuildContext context,
               AsyncSnapshot<ManagerHomeResponse> snapshot) {
+            print(snapshot.connectionState.toString());
             if (snapshot.hasData) {
               return buildList(snapshot);
             } else if (snapshot.hasError) {
