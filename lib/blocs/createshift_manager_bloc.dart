@@ -147,13 +147,13 @@ class CreateShiftmanagerBloc {
     shifttype.add(shifttype1);
 
     shifttype.add(shifttype2);
-    _shifttype.add(shifttype);
+    _shifttype.sink.add(shifttype);
 
-    _type.add(typeList);
-    _category.add(category);
-    _usertype.add(usertype);
-    _hospital.add(hospitals);
-    _shiftime.add(shifttiming);
+    _type.sink.add(typeList);
+    _category.sink.add(category);
+    _usertype.sink.add(usertype);
+    _hospital.sink.add(hospitals);
+    _shiftime.sink.add(shifttiming);
   }
 
   getModelDropDown() async {
@@ -162,20 +162,22 @@ class CreateShiftmanagerBloc {
     for (var list in typeList) {
       print(list.category);
     }
-    selectedAllowanceCategory = typeList[0];
-    allowanceId = 1;
-    allowanceCategroy = "Food Item";
+    if(typeList.isNotEmpty)
+      {
+        selectedAllowanceCategory = typeList[0];
+        allowanceId = 1;
+        allowanceCategroy = "Food Item";
+        managerBloc.typeAllowancesList.drain();
+        managerBloc.getAllowanceList(selectedAllowanceCategory.rowId!);
+        allowanceCategroyId = selectedAllowanceCategory.rowId!;
+        allowanceCategroy = selectedAllowanceCategory.category!;
+        _typeAllowancesCategroy.add(typeList);
+      }
 
-    managerBloc.typeAllowancesList.drain();
-    managerBloc.getAllowanceList(selectedAllowanceCategory.rowId!);
-    allowanceCategroyId = selectedAllowanceCategory.rowId!;
-    allowanceCategroy = selectedAllowanceCategory.category!;
-    _typeAllowancesCategroy.add(typeList);
   }
 
   getAllowanceList(int id) async {
     _typeAllowances.drain();
-
     var typeList = await _db.getAllowanceList(id);
     selectedAllowance = typeList[0];
     _typeAllowances.add(typeList);
@@ -251,9 +253,22 @@ class CreateShiftmanagerBloc {
   }
 
   dispose() {
-    _manager.close();
-    _managerclient.close();
-    _managerunit.close();
+    // _manager.close();
+    // _managerclient.close();
+    // _managerunit.close();
+    // _getmanager.close();
+    // _managerclients.close();
+    // _managerunits.close();
+    // _allowancesList.close();
+    // _typeAllowancesCategroy.close();
+    // _typeAllowances.close();
+    // _gender.close();
+    // _type.close();
+    // _category.close();
+    // _usertype.close();
+    // _hospital.close();
+    // _shifttype.close();
+    // _shiftime.close();
   }
 
   void addAllowances(int allowanceId, int allowanceCategroyId, String allowance, String allowanceCategroy, String amount) {

@@ -15,7 +15,7 @@ class UtilityBloc {
   }
 
   dispose() {
-    _utilbloc.close();
+    // _utilbloc.close();
   }
 }
 final utility_bloc = UtilityBloc();

@@ -5,14 +5,15 @@ import '../resources/respository.dart';
 
 class ManagaerHomeBloc {
   final _repo = Repository();
+
   final _managerhome = PublishSubject<ManagerHomeResponse>();
-
   final _visibility = PublishSubject<bool>();
-  Stream<bool> get visible => _visibility.stream;
 
+  Stream<bool> get visible => _visibility.stream;
   Stream<ManagerHomeResponse> get managerhomeStream => _managerhome.stream;
 
-  fetchManagerHome(token) async {  _visibility.add(true);
+  fetchManagerHome(token) async {
+    _visibility.add(true);
     ManagerHomeResponse list = await _repo.fetchManagerHomeResponse(token);
     try{
       _managerhome.sink.add(list);
@@ -23,7 +24,7 @@ class ManagaerHomeBloc {
   }
 
   dispose() {
-    _managerhome.close();
+    // _managerhome.close();
   }
 }
 

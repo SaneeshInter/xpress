@@ -8,8 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
+import '../blocs/utility_bloc.dart';
 import '../db/database.dart';
+import '../main.dart';
 import '../ui/Widgets/booking_alert_box.dart';
+import '../ui/splash/splash_screen.dart';
 import '../ui/splash/user_or_manager.dart';
 import '../ui/widgets/action_alert_dialoge.dart';
 import '../ui/widgets/add_time_sheet_alert_box.dart';
@@ -348,17 +351,27 @@ Future<void> logOut(BuildContext context) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   await preferences.clear();
   Future.delayed(Duration.zero, () async{
-    Navigator.pop(context);
-    Navigator.pop(context);
-    Navigator.pushAndRemoveUntil<dynamic>(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (BuildContext context) => UserOrManager(),
-      ),
-          (route) => false,
-    );
+    // utility_bloc.dispose();
+
+    _finishAccountCreation();
+    // Navigator.pop(context);
+    // Navigator.pop(context);
+    // Navigator.pushAndRemoveUntil<dynamic>(
+    //   context,
+    //   MaterialPageRoute<dynamic>(
+    //     builder: (BuildContext context) => UserOrManager(),
+    //   ),
+    //     ModalRoute.withName('/')
+    // );
   });
 
+}
+void _finishAccountCreation() {
+  Navigator.pushAndRemoveUntil (
+    MyApp.navigatorKey.currentContext!,
+    MaterialPageRoute (builder: (BuildContext context) =>  SplashScreen()),
+    ModalRoute.withName('/'),
+  );
 }
 DateTime getDateFromString(String date, String format) {
   return DateFormat(format).parse(date);

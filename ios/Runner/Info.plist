@@ -37,12 +37,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+    <key>NSCalendarsUsageDescription</key>
+        <string>$(PRODUCT_NAME) Used to add events to calendar.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Used to demonstrate image picker plugin</string>
+	<string>$(PRODUCT_NAME) Used to update profile picture and documents </string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Used to capture audio for image picker plugin</string>
+	<string>$(PRODUCT_NAME) Used to recod video for document verification</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to demonstrate image picker plugin</string>
+	<string>$(PRODUCT_NAME) Used to update profile picture and documents </string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
