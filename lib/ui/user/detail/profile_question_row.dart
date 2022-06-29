@@ -66,12 +66,14 @@ class _CustomRowState extends State<ProfileQuestionRow> {
                 Transform.scale(
                   scale: 0.7,
                   child: Switch(
+
                       inactiveTrackColor:  Constants.colors[39],
                       inactiveThumbColor:  Constants.colors[24],
                       activeColor:  Constants.colors[12],
                       activeTrackColor:  Constants.colors[16],
                       value: widget.status == 1,
                       onChanged: (value) {
+                        return null;
                         if (value) {
                           // setState(() {
                           widget.status == 0;
@@ -82,7 +84,10 @@ class _CustomRowState extends State<ProfileQuestionRow> {
                           // });
                         }
                         widget.onChanged(value);
-                      }),
+                      }
+
+
+                      ),
                 ),
                 if (widget.status == 1)
                   Expanded(

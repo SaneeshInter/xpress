@@ -126,23 +126,89 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
-                (widget.items.if_requested! == 0)?
-                  BookButton(
+                (widget.items.if_requested! == -1)? BookButton(
                     label: Txt.request_now,
                     onPressed: () {
                       widget.onTapBook(widget.items);
                       print("Tapped");
                     },
                     key: null,
-                  ): BookButton(
+                  ):
+                (widget.items.if_requested! == 0)? BookButton(
                     label: Txt.requested,
+                  isEnabled: true,
+                    onPressed: () {
+
+                      print("Tapped");
+                    },
+                    key: null,
+                  ):
+                (widget.items.if_requested! == 1)?BookButton(
+                  label: Txt.accepted,
+                  isEnabled: true,
+                  onPressed: () {
+
+                    print("Tapped");
+                  },
+                  key: null,
+                ):
+                (widget.items.if_requested! == 2)? BookButton(
+                    label: Txt.rejected,
                     isEnabled: true,
                     onPressed: () {
                       // widget.onTapBook(widget.items);
                       print("Tapped");
                     },
                     key: null,
-                  ),
+                  ):
+                (widget.items.if_requested! == 3)?BookButton(
+                  label: Txt.cancelled,
+                  isEnabled: true,
+                  onPressed: () {
+                    // widget.onTapBook(widget.items);
+                    print("Tapped");
+                  },
+                  key: null,
+                ):
+                (widget.items.if_requested! == 4)?BookButton(
+                  label: Txt.cancelled,
+                  isEnabled: true,
+                  onPressed: () {
+                    // widget.onTapBook(widget.items);
+                    print("Tapped");
+                  },
+                  key: null,
+                ):
+                (widget.items.if_requested! == 5)?BookButton(
+                  label: Txt.rejected,
+                  isEnabled: true,
+                  onPressed: () {
+                    // widget.onTapBook(widget.items);
+                    print("Tapped");
+                  },
+                  key: null,
+                ):
+                (widget.items.if_requested! == 6)?BookButton(
+                  label: Txt.past,
+                  isEnabled: true,
+                  onPressed: () {
+                    // widget.onTapBook(widget.items);
+                    print("Tapped");
+                  },
+                  key: null,
+                ):
+                (widget.items.if_requested! == 7)?BookButton(
+                  label: Txt.not_attended,
+                  isEnabled: true,
+                  onPressed: () {
+                    // widget.onTapBook(widget.items);
+                    print("Tapped");
+                  },
+                  key: null,
+                ):
+                SizedBox(
+                  child: Text("${widget.items.if_requested!}"),
+                ),
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
                 Spacer(),
                 if (widget.items.type == "Premium")

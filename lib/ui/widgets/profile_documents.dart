@@ -45,15 +45,15 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
   }
 
   Future getImage( var type, var imagefile, var expiry) async {
-    Navigator.pushNamed(
-      context,
-      '/upload_screen',
-      arguments: ScreenArguments(type, imagefile, expiry),
-    ).then((value) {
-      observe();
-      widget.onRefresh();
-       getData();
-    });
+    // Navigator.pushNamed(
+    //   context,
+    //   '/upload_screen',
+    //   arguments: ScreenArguments(type, imagefile, expiry),
+    // ).then((value) {
+    //   observe();
+    //   widget.onRefresh();
+    //    getData();
+    // });
   }
 
   @override

@@ -62,15 +62,15 @@ class ProfileDetailCard extends StatelessWidget {
                               fontWeight: FontWeight.w700),
                         ),
                         const Spacer(),
-                        DrawableButton(
-                          onPressed: () {
-                            onPressed();
-                          },
-                          label: Txt.edit,
-                          asset: "assets/images/icon/edit.svg",
-                          backgroundColor: Constants.colors[2],
-                          textColors: Constants.colors[4],
-                        ),
+                        // DrawableButton(
+                        //   onPressed: () {
+                        //     onPressed();
+                        //   },
+                        //   label: Txt.edit,
+                        //   asset: "assets/images/icon/edit.svg",
+                        //   backgroundColor: Constants.colors[2],
+                        //   textColors: Constants.colors[4],
+                        // ),
                       ],
                     ),
                     SizedBox(height: 5),

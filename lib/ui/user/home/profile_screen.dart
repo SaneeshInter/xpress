@@ -272,41 +272,41 @@ class _ProfileState extends State<ProfileScreen> {
                                               ],
                                             ),
                                             const Spacer(),
-                                            Column(
-                                              children: [
-                                                if (hourlyRate != null)
-                                                  Text(
-                                                    " ${hourlyRate == "null" ? "0" : hourlyRate}${Txt.hr}",
-                                                    style: TextStyle(
-                                                        fontSize: 14.sp,
-                                                        color: Constants
-                                                            .colors[33],
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
-                                                SizedBox(
-                                                  height: 2.h,
-                                                ),
-                                                DrawableButton(
-                                                  onPressed: () {
-                                                    Navigator.push(
-
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const ProfileEditScreen()),
-                                                    );
-                                                  },
-                                                  label: Txt.edit,
-                                                  asset:
-                                                      "assets/images/icon/edit.svg",
-                                                  backgroundColor:
-                                                      Constants.colors[4],
-                                                  textColors:
-                                                      Constants.colors[0],
-                                                ),
-                                              ],
-                                            ),
+                                            // Column(
+                                            //   children: [
+                                            //     if (hourlyRate != null)
+                                            //       Text(
+                                            //         " ${hourlyRate == "null" ? "0" : hourlyRate}${Txt.hr}",
+                                            //         style: TextStyle(
+                                            //             fontSize: 14.sp,
+                                            //             color: Constants
+                                            //                 .colors[33],
+                                            //             fontWeight:
+                                            //                 FontWeight.w400),
+                                            //       ),
+                                            //     SizedBox(
+                                            //       height: 2.h,
+                                            //     ),
+                                            //     // DrawableButton(
+                                            //     //   onPressed: () {
+                                            //     //     Navigator.push(
+                                            //     //
+                                            //     //       context,
+                                            //     //       MaterialPageRoute(
+                                            //     //           builder: (context) =>
+                                            //     //               const ProfileEditScreen()),
+                                            //     //     );
+                                            //     //   },
+                                            //     //   label: Txt.edit,
+                                            //     //   asset:
+                                            //     //       "assets/images/icon/edit.svg",
+                                            //     //   backgroundColor:
+                                            //     //       Constants.colors[4],
+                                            //     //   textColors:
+                                            //     //       Constants.colors[0],
+                                            //     // ),
+                                            //   ],
+                                            // ),
                                           ],
                                         ),
                                         const SizedBox(

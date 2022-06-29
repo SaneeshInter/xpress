@@ -83,6 +83,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
       debugPrint("sdfcddrgdg ${jsonDecode(message.data["payload"]).toString()}");
       payload["type"] = jsonDecode(message.data["payload"])["type"];
       payload["id"] = jsonDecode(message.data["payload"])["id"];
+      payload["action"] = jsonDecode(message.data["payload"])["action"]??"Open";
     }
     if("SHIFT_DETAILS"==jsonDecode(message.data["payload"])["type"]){
       AwesomeNotifications().createNotification(
@@ -110,7 +111,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
           actionButtons: [
             NotificationActionButton(
               key: "Open",
-              label: "Open Now!",
+              label:payload["action"]??"Open",
             ),
           ]);
     }else{

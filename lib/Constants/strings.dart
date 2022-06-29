@@ -165,6 +165,13 @@ class Txt {
   static const request_now = "Request Now";
   static const requested = "Requested";
 
+  static const cancelled = "Cancelled";
+  static const not_attended = "Not Attended";
+  static const past = "Past";
+  static const cancelled_before_approval = "Cancel Before Approval";
+  static const cancelled_after_approval = "Cancel After Approval";
+
+
   static const profile = "Profile";
   static const emp_no = "Emp No :";
   static const hr = "/hr";
