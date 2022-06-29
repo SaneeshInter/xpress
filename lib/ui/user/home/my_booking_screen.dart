@@ -115,7 +115,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
         return false;
       },
       child: DefaultTabController(
-        length: 3,
+        length:4,
         child: Scaffold(
             // key: scaffoldKey,
             backgroundColor: Constants.colors[9],
@@ -151,10 +151,16 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                             child: Text(Txt.confirmed_shift),
                           ),
                         ),
+                        // Tab(
+                        //   child: Align(
+                        //     alignment: Alignment.center,
+                        //     child: Text(Txt.completed_shift),
+                        //   ),
+                        // ),
                         Tab(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text(Txt.completed_shift),
+                            child: Text(Txt.history_shift),
                           ),
                         ),
                       ]),
@@ -172,7 +178,8 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                           return TabBarView(children: [
                             bookingList(0, snapshot),
                             bookingList(1, snapshot),
-                            bookingList(2, snapshot),
+                            // bookingList(2, snapshot),
+                            bookingList(-1, snapshot),
                           ]);
                         }
                       } else if (snapshot.hasError) {
@@ -454,6 +461,9 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
     if (position == 2) {
       list = allList.completed;
     }
+    if (position == -1) {
+      list = allList.history;
+    }
 
     // if (list.isNotEmpty) {
       return Expanded(
@@ -557,6 +567,7 @@ FilterBookingList getFilterList(
   List<Items>? allList = snapshot.data?.response?.data?.items;
   if (null != allList) {
     for (var item in allList) {
+      list.history.add(item);
       debugPrint("item.status");
       debugPrint(item.status);
       if (item.status == Txt.accepted) {
@@ -573,6 +584,5 @@ FilterBookingList getFilterList(
       }
     }
   }
-
   return list;
 }

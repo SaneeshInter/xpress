@@ -5,4 +5,5 @@ class FilterBookingList {
   List<Items> confirmed = [];
   List<Items> reject = [];
   List<Items> completed = [];
+  List<Items> history = [];
 }

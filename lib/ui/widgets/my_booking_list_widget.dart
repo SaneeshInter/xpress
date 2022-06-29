@@ -62,87 +62,121 @@ class _MyBookingState extends State<MyBookingListWidget> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                Row(children: [
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 70.w,
-                          child: AutoSizeText.rich(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 70.w,
+                            child: AutoSizeText.rich(
+                              TextSpan(
+                                text: widget.items.jobTitle,
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              minFontSize: 0,
+                              stepGranularity: 0.3,
+                              maxLines: 3,
+                            ),
+                          ),
+                          SizedBox(height: screenHeight(context, dividedBy: 180)),
+                          Text(
+                            Txt.on_dot + widget.items.date!,
+                            style: TextStyle(
+                                fontSize: 9.sp,
+                                color: Constants.colors[13],
+                                fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(height: screenHeight(context, dividedBy: 180)),
+                          Text(
+                            Txt.from +
+                                convert24hrTo12hr(
+                                  widget.items.timeFrom!,
+                                ) +
+                                Txt.to +
+                                convert24hrTo12hr(widget.items.timeTo!),
+                            style: TextStyle(
+                                fontSize: 9.sp,
+                                color: Constants.colors[13],
+                                fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(height: screenHeight(context, dividedBy: 180)),
+                          AutoSizeText.rich(
                             TextSpan(
-                              text: widget.items.jobTitle,
+                              text: Txt.at + widget.items.hospital!,
                               style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors.black,
+                                  fontSize: 10.sp,
+                                  color: Constants.colors[4],
                                   fontWeight: FontWeight.w700),
                             ),
                             minFontSize: 0,
                             stepGranularity: 0.3,
                             maxLines: 3,
                           ),
+                          SizedBox(height: screenHeight(context, dividedBy: 180)),
+                        ]),
+                    SizedBox(height: screenHeight(context, dividedBy: 180)),
+                    buttonList(context, widget)
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        ViewButton(
+                          label: Txt.view,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShiftDetailScreen(
+                                    shift_id: widget.items.jobId.toString(),
+                                    isCompleted: true,
+                                  )),
+                            );
+                          },
+                          key: null,
                         ),
-                        SizedBox(height: screenHeight(context, dividedBy: 180)),
-                        Text(
-                          Txt.on_dot + widget.items.date!,
-                          style: TextStyle(
-                              fontSize: 9.sp,
-                              color: Constants.colors[13],
-                              fontWeight: FontWeight.w400),
-                        ),
-                        SizedBox(height: screenHeight(context, dividedBy: 180)),
-                        Text(
-                          Txt.from +
-                              convert24hrTo12hr(
-                                widget.items.timeFrom!,
-                              ) +
-                              Txt.to +
-                              convert24hrTo12hr(widget.items.timeTo!),
-                          style: TextStyle(
-                              fontSize: 9.sp,
-                              color: Constants.colors[13],
-                              fontWeight: FontWeight.w400),
-                        ),
-                        SizedBox(height: screenHeight(context, dividedBy: 180)),
-                        AutoSizeText.rich(
-                          TextSpan(
-                            text: Txt.at + widget.items.hospital!,
-                            style: TextStyle(
-                                fontSize: 10.sp,
-                                color: Constants.colors[4],
-                                fontWeight: FontWeight.w700),
+                        SizedBox(height: screenHeight(context, dividedBy: 80)),
+                        Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth(context, dividedBy: 200),
+                              vertical: screenHeight(context, dividedBy: 200)),
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [Constants
+                                      .colors[9],Constants
+                                      .colors[9]]),
+                              color: Constants.colors[3],
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: AutoSizeText(
+                              widget.items.status!,
+                              style: TextStyle(
+                                  fontSize: 8.sp,
+                                  color: Constants
+                                      .colors[11],
+                                  fontFamily: "SFProMedium",
+                                  fontWeight: FontWeight.w400),
+                            ),
                           ),
-                          minFontSize: 0,
-                          stepGranularity: 0.3,
-                          maxLines: 3,
                         ),
-                        SizedBox(height: screenHeight(context, dividedBy: 180)),
-                      ]),
-                  const Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ViewButton(
-                        label: Txt.view,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ShiftDetailScreen(
-                                      shift_id: widget.items.jobId.toString(),
-                                      isCompleted: true,
-                                    )),
-                          );
-                        },
-                        key: null,
-                      ),
-                    ],
-                  )
-                ]),
-                SizedBox(height: screenHeight(context, dividedBy: 180)),
-                buttonList(context, widget)
+                      ],),
+                  ],
+                ),
               ],
             ),
           ),

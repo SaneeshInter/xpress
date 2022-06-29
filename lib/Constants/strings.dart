@@ -129,6 +129,7 @@ class Txt {
   static const requested_shift = "Requested Shift ";
   static const completed_shift = "Completed Shift ";
   static const confirmed_shift = "Confirmed Shift ";
+  static const history_shift = "History";
   static const add_time_sheet = "Add Timesheet ";
   static const start_time = "Start Time ";
   static const end_time = "End Time ";

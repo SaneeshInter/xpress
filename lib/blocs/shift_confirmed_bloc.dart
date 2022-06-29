@@ -8,8 +8,8 @@ import '../resources/respository.dart';
 import '../utils/utils.dart';
 
 class ShiftConfirmedBloc {
-  int devicePixelRatio = 3;
-  int perPageItem = 3;
+  int devicePixelRatio = 4;
+  int perPageItem = 4;
   String working_hours = "0";
   int pageCount = 0;
   int selectedIndex = 0;
