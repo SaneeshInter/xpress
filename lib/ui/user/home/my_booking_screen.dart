@@ -115,7 +115,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
         return false;
       },
       child: DefaultTabController(
-        length:4,
+        length:3,
         child: Scaffold(
             // key: scaffoldKey,
             backgroundColor: Constants.colors[9],

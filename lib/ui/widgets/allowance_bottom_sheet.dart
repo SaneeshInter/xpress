@@ -100,6 +100,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                     managerBloc.getAllowanceList(newValue.rowId!);
                                     allowanceCategroyId = newValue.rowId!;
                                     allowanceCategroy = newValue.category!;
+                                    setState(() {});
                                   }
                                 },
                                 items: snapshot.data

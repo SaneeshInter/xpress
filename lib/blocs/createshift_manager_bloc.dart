@@ -181,6 +181,9 @@ class CreateShiftmanagerBloc {
     var typeList = await _db.getAllowanceList(id);
     selectedAllowance = typeList[0];
     _typeAllowances.add(typeList);
+    // allowanceId = newValue.rowId!;
+    // allowance = newValue.allowance!;
+    // managerBloc.selectedAllowance= newValue;
 
   }
 
@@ -257,18 +260,6 @@ class CreateShiftmanagerBloc {
     // _managerclient.close();
     // _managerunit.close();
     // _getmanager.close();
-    // _managerclients.close();
-    // _managerunits.close();
-    // _allowancesList.close();
-    // _typeAllowancesCategroy.close();
-    // _typeAllowances.close();
-    // _gender.close();
-    // _type.close();
-    // _category.close();
-    // _usertype.close();
-    // _hospital.close();
-    // _shifttype.close();
-    // _shiftime.close();
   }
 
   void addAllowances(int allowanceId, int allowanceCategroyId, String allowance, String allowanceCategroy, String amount) {
