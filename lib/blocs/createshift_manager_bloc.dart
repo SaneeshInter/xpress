@@ -181,9 +181,8 @@ class CreateShiftmanagerBloc {
     var typeList = await _db.getAllowanceList(id);
     selectedAllowance = typeList[0];
     _typeAllowances.add(typeList);
-    // allowanceId = newValue.rowId!;
-    // allowance = newValue.allowance!;
-    // managerBloc.selectedAllowance= newValue;
+    allowanceId = typeList[0].rowId!;
+    allowance = typeList[0].allowance!;
 
   }
 

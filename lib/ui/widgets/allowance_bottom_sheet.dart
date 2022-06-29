@@ -96,6 +96,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                                     allowanceCategroy = "Food Item";
                                     print("value ");
                                     print(newValue.category);
+                                    managerBloc.selectedAllowanceCategory=newValue;
                                     managerBloc.typeAllowancesList.drain();
                                     managerBloc.getAllowanceList(newValue.rowId!);
                                     allowanceCategroyId = newValue.rowId!;
@@ -278,8 +279,8 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  managerBloc.addAllowances(allowanceId, allowanceCategroyId,
-                      allowance, allowanceCategroy, allowanceprice.text);
+                  managerBloc.addAllowances(managerBloc.allowanceId, allowanceCategroyId,
+                      managerBloc.allowance, allowanceCategroy, allowanceprice.text);
                   pop(context);
                 }
               },
