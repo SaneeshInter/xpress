@@ -233,7 +233,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                     padding: const EdgeInsets.only(
                                         left: 10, right: 10),
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.only(
                                           bottomRight: Radius.circular(30),
@@ -329,8 +329,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(
+                                                  const Padding(
+                                                    padding: EdgeInsets.all(
                                                         12.0),
                                                     child: Divider(
                                                       thickness: 1,
@@ -364,9 +364,10 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                     child: Row(
                                       children: [
                                         Expanded(
+                                          flex: 4,
                                           child: Column(
                                             children: [
-                                              if (shiftDetails?.if_requested == 0)
+                                              if (shiftDetails?.if_requested == -1)
                                                 BookButtonGreen(
                                                     onPressed: () async {
                                                       // use the information provided
@@ -375,7 +376,6 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     label: Txt.book_this_shift),
                                             ],
                                           ),
-                                          flex: 4,
                                         ),
                                         Expanded(
                                           flex: 1,
@@ -394,8 +394,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(16),
+                          const Padding(
+                            padding: EdgeInsets.all(16),
                           ),
                         ],
                       );
