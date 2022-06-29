@@ -35,18 +35,24 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     bool isLoggedIn = shdPre.getString(SharedPrefKey.AUTH_TOKEN) != null;
     var loginType = shdPre.getInt(SharedPrefKey.USER_TYPE);
-    if (isLoggedIn && loginType != null) {
-      if (loginType == 0) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const DashBoard()));
+    Future.delayed(Duration.zero, () {
+      if (isLoggedIn && loginType != null) {
+        if (loginType == 0) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const DashBoard()));
+        } else {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const ManagerDashBoard()));
+        }
       } else {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const ManagerDashBoard()));
+        if (mounted) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => UserOrManager()));
+        }
+
       }
-    } else {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => UserOrManager()));
-    }
+    });
+
   }
 
   @override

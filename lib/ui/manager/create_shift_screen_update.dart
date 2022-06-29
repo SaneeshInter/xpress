@@ -16,8 +16,6 @@ import '../../../utils/utils.dart';
 import '../../blocs/createshift_manager_bloc.dart';
 import '../../model/allowance_model.dart';
 import '../../model/common/manager_shift.dart';
-import '../../model/manager_unit_name.dart';
-import '../../model/schedule_categegory_list.dart';
 import '../../model/schedule_hospital_list.dart';
 import '../../model/shift_type_list.dart';
 import '../../model/user_shifttiming_list.dart';
@@ -66,15 +64,30 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getUserListByDate(managerBloc.token, date, shifttype);
   }
 
-  Future getToken() async {
-    managerBloc.token = await TokenProvider().getToken();
+
+   loadAllData(){
+
+    managerBloc.row_id = -1;
     dropdownBloc.addItem();
     managerBloc.getDropDownValues();
+    managerBloc.getModelDropDown();
+    managerBloc.isShiftTypeChanged = false;
+  }
+
+  Future getToken() async {
+    managerBloc.token = await TokenProvider().getToken();
+
+
+
+    loadAllData();
     if (widget.shiftItem != null && null != managerBloc.token) {
 
       var item = widget.shiftItem;
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => updateAllowances(context, item!));
+
+      updateAllowances(context, item!);
+
+      // WidgetsBinding.instance
+      //     .addPostFrameCallback((_) => updateAllowances(context, item!));
     } else if (null != managerBloc.token) {
       managerBloc.getManagerUnitName(
           managerBloc.token, managerBloc.hospitalId.toString());
@@ -90,18 +103,13 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   void initState() {
     super.initState();
     observerResponse();
-    getToken();
-    managerBloc.row_id = -1;
-
-    managerBloc.getModelDropDown();
-    managerBloc.isShiftTypeChanged = false;
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-
-      });
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) =>     getToken());
   }
-
+@override
+  void dispose() {
+    managerBloc.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -929,7 +937,6 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 0
       ) {
 
-
         var shiftValue = event.first;
         managerBloc.shiftTypeId = shiftValue.rowId!;
         var timeFrom = shiftValue.startTime!;
@@ -947,6 +954,9 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   updateAllowances(BuildContext context, Items item) {
+
+
+
     if (item != null) {
       jobtitle.text = item.jobTitle!;
       managerBloc.row_id = item.rowId!;

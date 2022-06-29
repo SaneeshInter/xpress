@@ -28,7 +28,7 @@ class ManagerHomeScreen extends StatefulWidget {
   _HomeScreentate createState() => _HomeScreentate();
 }
 
-class _HomeScreentate extends State<ManagerHomeScreen> {
+class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserver{
   var scaffoldKey = GlobalKey<ScaffoldState>();
   bool visibility = false;
   int devicePixelRatio = 3;
@@ -43,37 +43,44 @@ class _HomeScreentate extends State<ManagerHomeScreen> {
   final PageController ctrl = PageController(
     viewportFraction: .7,
   );
-
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      getData();
+    }
+  }
   @override
   void didUpdateWidget(covariant ManagerHomeScreen oldWidget) {
-    // TODO: implement didUpdateWidget
+    WidgetsBinding.instance.removeObserver(this);
     super.didUpdateWidget(oldWidget);
   }
 
   Future getData() async {
     token = await TokenProvider().getToken();
-
     managerhomeBloc.fetchManagerHome(token);
   }
 
   @override
   void initState() {
+    WidgetsBinding.instance.removeObserver(this);
     // TODO: implement initState
-    super.initState();
-
     getData();
     pageController = PageController(initialPage: 0);
     pageCount = 3;
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    ctrl.dispose();
     managerhomeBloc.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
       backgroundColor: Constants.colors[9],
       body: ScrollConfiguration(

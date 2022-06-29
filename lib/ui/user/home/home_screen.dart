@@ -87,6 +87,7 @@ class _HomeScreentate extends State<HomeScreen> {
                       builder:
                           (context, AsyncSnapshot<UserHomeResponse> snapshot) {
                         var data = snapshot.data?.response?.data;
+                        homepageBloc.shiftDetails = null;
                         if (data != null) {
                           if (data.latestShift!.isNotEmpty) {
                             homepageBloc.shiftDetails = data.latestShift![0];
