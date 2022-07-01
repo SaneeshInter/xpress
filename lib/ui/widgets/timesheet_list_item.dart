@@ -88,6 +88,12 @@ class _TimeSheetListState extends State<TimeSheetListWidget> {
                     child: Text(
                       "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                       style: TextStyle(
+
+
+
+
+
+
                           fontSize: 9.sp,
                           color: Constants.colors[13],
                           fontWeight: FontWeight.w400),
