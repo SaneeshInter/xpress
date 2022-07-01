@@ -11,6 +11,7 @@ import '../../../Constants/strings.dart';
 
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/utils.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({Key? key}) : super(key: key);
@@ -72,180 +73,134 @@ class _ContactScreenState extends State<ContactScreen> {
           centerTitle: true,
         ),
         backgroundColor: Constants.colors[9],
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            elevation: 0.0,
-            child: Column(children: [
-              SizedBox(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.1,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      Txt.contact_us,
-                      style: TextStyle(
-                          fontSize: 30,
-                          color: Constants.colors[1],
-                          fontWeight: FontWeight.w700),
-                    ),
-
-
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
+        body: SizedBox(
+          height: 35.h,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              elevation: 0.0,
+              child: Padding(
                 padding: const EdgeInsets.all(24.0),
-                child: SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    child: Column(
+                child: Column(children: [
+                  Text(
+                    Txt.contact_us,
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Constants.colors[1],
+                        fontWeight: FontWeight.w700),
+                  ),
 
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: ColoredBox(
-                                color: Constants.colors[12],
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.mail,color: white,),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "info@xpresshealth.ie",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Constants.colors[1],
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ]),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        launch("mailto:info@xpresshealth.ie?subject=&body=");
+                      },
+                      child: Row(children: [
+                        const SizedBox(
+                          width: 10,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [
-                            const SizedBox(
-                              width: 10,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: ColoredBox(
+                            color: Constants.colors[12],
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(Icons.mail,color: white,),
                             ),
-                             ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
-                               child: ColoredBox(
-                                 color: Constants.colors[12],
-                                 child: const Padding(
-                                   padding: EdgeInsets.all(8.0),
-                                   child: Icon(Icons.phone,color: white,),
-                                 ),
-                               ),
-                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "+35312118883",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Constants.colors[1],
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ]),
+                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: ColoredBox(
-                                color: Constants.colors[12],
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.location_on,color: white,),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                               '''Leopardstown Road, Stillorgan, Dublin, Ireland''',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Constants.colors[1],
-                                    fontWeight: FontWeight.normal),
-                                maxLines: 3,
-                                textAlign: TextAlign.justify,
-                              ),
-                            ),
-                          ]),
+                        const SizedBox(
+                          width: 10,
                         ),
-                      ],)
-
-                  // SingleChildScrollView(
-                  //   child: Stack(
-                  //     children: [
-                  //       Container(
-                  //           padding: EdgeInsets.symmetric(
-                  //               horizontal: screenWidth(context, dividedBy: 5)),
-                  //           child: Column(
-                  //
-                  //             children: [
-                  //               20.height,
-                  //               Column(
-                  //                 mainAxisAlignment:
-                  //                 MainAxisAlignment.start,
-                  //                 children: [
-                  //                   Text(Txt.contact_us,
-                  //                       style: boldTextStyle(size: 20)),
-                  //                   85.width,
-                  //                   16.height,
-                  //                   Container(
-                  //                     padding: const EdgeInsets.symmetric(
-                  //                         horizontal: 32),
-                  //                     child: Text(
-                  //                       Txt.under_devlpmnt,
-                  //                         style: primaryTextStyle(size: 15),
-                  //                         textAlign: TextAlign.center),
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //               150.height,
-                  //               Image.asset(
-                  //                   'assets/images/icon/work.png',
-                  //                   height: 250),
-                  //             ],
-                  //           )),
-                  //
-                  //     ],
-                  //   ),
-                  // ),
+                        Text(
+                          "info@xpresshealth.ie",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Constants.colors[6],
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ]),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: (){
+                        launch('tel:++35312118883');
+                      },
+                      child: Row(children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: ColoredBox(
+                            color: Constants.colors[12],
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(Icons.phone,color: white,),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "+35312118883",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Constants.colors[6],
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ]),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: (){
+                        launch('https://goo.gl/maps/7Mrii3wE9T4JcHC68');
+                      },
+                      child: Row(children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: ColoredBox(
+                            color: Constants.colors[12],
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(Icons.location_on,color: white,),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            '''Leopardstown Road, Stillorgan, Dublin, Ireland''',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Constants.colors[6],
+                                fontWeight: FontWeight.normal),
+                            maxLines: 3,
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ]),
+                    ),
+                  ),
+                ]
                 ),
-              )
-            ]
+              ),
             ),
           ),
         )

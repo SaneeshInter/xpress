@@ -62,7 +62,7 @@ class ShiftCalendarBloc {
   }
 
   void dispose() {
-    _shiftCalender.close();
+    // _shiftCalender.close();
   }
 
   List<Event> getEventsForDay(DateTime day) {
