@@ -85,7 +85,7 @@ class _RequestuserListState extends State<RequestuserListWidget> {
                         Row(
                           children: [
                             Text(
-                              "${Txt.date}: ${getStringFromDate(getDateFromString(widget.item.date!,"yyyy-MM-dd HH:mm"),"E dd-MM-yyyy hh:mm a")}",
+                              "${Txt.date}: ${getStringFromDate(getDateFromString(widget.item.date!,"yyyy-MM-dd HH:mm"),"dd-MM-yyyy hh:mm a")}",
 
                               style: TextStyle(
                                   fontSize: 10.sp,
