@@ -273,10 +273,6 @@ K
 0android/app/src/main/res/values-night/styles.xml,4/e/4e6983532b567702817f41cb4202cebaa69c60f5
 Y
 )lib/ui/manager/home/my_shifts_screen.dart,3/7/37a2e2f1356fb2fe255a25ccf85e4512c352e949
-]
--lib/ui/manager/home/shift_detail_manager.dart,d/1/d1f2dac3c22e8ee84a1ee2f4b5ffa01c46cd6b33
-U
-%lib/ui/widgets/request_user_list.dart,d/a/da0b6107ffb7edc7865676472570497920f3a71b
 J
 lib/Constants/strings.dart,6/5/65589a357cb488b0eaec7f603d3ed7909612d25e
 W
@@ -293,8 +289,6 @@ U
 %lib/model/user_get_shift_details.dart,a/3/a3cee736eff9abe0e70cbf288e4e415a813074c6
 [
 +lib/ui/user/detail/drawable_custom_row.dart,1/c/1c67f61d3860e3f05946858f5c028669a945ca29
-@
-.flutter-plugins,c/0/c0b6f935ef14af8fe1d6391eeee68e16ee6087eb
 R
 "lib/ui/widgets/loading_widget.dart,5/a/5a306b0c615afb67fe1d7dac84307011927aaf2a
 L
@@ -321,8 +315,6 @@ O
 assets/images/icon/surface1.svg,5/0/5061503c5b27de2c3d89384a0bc81e77a6a35556
 R
 "lib/ui/user/detail/shift_rows.dart,c/a/ca54d75207e827a71568480240ddbba33df0e7ea
-9
-	.packages,9/b/9b4bbe3dd58bdfaf2455c8d7f1db8e23fcd9bc95
 L
 assets/images/icon/arrow.svg,8/4/8489de1c134e3c3101d78f3e2e2b2d821bccab39
 S
@@ -361,8 +353,6 @@ K
 lib/blocs/utility_bloc.dart,a/9/a907bc84e210a198db30d5542972332ecce1748b
 =
 lib/main.dart,a/8/a8ea5273939a12e805641671b79e5eaeaab1e231
-M
-.flutter-plugins-dependencies,c/3/c35774685cffc620de767cda8fa01675e8685378
 <
 pubspec.lock,c/1/c1c78778a0cef1e5344166792d1d823fdcb8b109
 D
