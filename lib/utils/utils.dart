@@ -7,13 +7,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../blocs/utility_bloc.dart';
 import '../db/database.dart';
 import '../main.dart';
 import '../ui/Widgets/booking_alert_box.dart';
 import '../ui/splash/splash_screen.dart';
-import '../ui/splash/user_or_manager.dart';
 import '../ui/widgets/action_alert_dialoge.dart';
 import '../ui/widgets/add_time_sheet_alert_box.dart';
 import '../ui/widgets/login_invalid_alert.dart';
@@ -425,4 +424,7 @@ String getHoursAndMinutesFromDouble(double time) {
   var hours = (time).floor();
   var minutes = ((time - hours) * 60).floor();
   return "$hours:$minutes";
+}
+ launch(String url) async {
+  if (!await launchUrl(Uri.parse('$url'))) throw 'Could not launch $url';
 }

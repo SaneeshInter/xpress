@@ -120,9 +120,9 @@ class ShiftConfirmedBloc {
 
   dispose() {
 
-    _viewrequest.close();
-    _usercanceljob.close();
-    _userworkinghours.close();
+    // _viewrequest.close();
+    // _usercanceljob.close();
+    // _userworkinghours.close();
 
   }
 }

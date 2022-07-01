@@ -278,7 +278,8 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
       list = allList.completed;
     }
     var length = list.length;
-    return length!=0? ListView.builder(
+    return length!=0?
+    ListView.builder(
       itemCount: length,
       shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
@@ -382,35 +383,30 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
           );
         }
       },
-    ):  Center(
-      child: Column(children: [
-        SizedBox(
-            height: screenHeight(context, dividedBy: 60)),
-        Column(
+    ):
+    Center(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 50),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             20.height,
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("No Data Found",
-                    style: boldTextStyle(size: 20)),
-                85.width,
-                16.height,
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 32),
-                  child: Text(position==0?"No Pending Timesheet":"No Completed Timesheet",
-                      style: primaryTextStyle(size: 15),
-                      textAlign: TextAlign.center),
-                ),
-              ],
+            Text("No Data Found",
+                style: boldTextStyle(size: 20)),
+            16.height,
+            Container(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 32),
+              child: Text(position==0?"No Pending Timesheet":"No Completed Timesheet",
+                  style: primaryTextStyle(size: 15),
+                  textAlign: TextAlign.center),
             ),
-            150.height,
-            Image.asset('assets/images/error/empty_task.png',
-                height: 250),
+            50.height,
+            Image.asset('assets/images/error/empty_task.png',height: 250,),
+
           ],
         ),
-      ]),
+      ),
     );
   }
 
