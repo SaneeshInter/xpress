@@ -68,7 +68,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
                 Text(
-                  Txt.date + widget.items.date!,
+                 " ${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                   style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey,

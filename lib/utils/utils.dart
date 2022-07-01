@@ -392,6 +392,7 @@ String checkAndUpdateTimeDiffernce(String dateTo, String dateFrom) {
     return "";
   }
 }
+
 String getDiffrenceBetweenDates(DateTime date, DateTime date2){
   ("${date.toString()}     ${date2.toString()}");
   DateTime fromDate=date;

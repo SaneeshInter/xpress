@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1062824973534-erdlogtr24313oit56ajfs79k3r96kq2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1062824973534-erdlogtr24313oit56ajfs79k3r96kq2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDyu3Bmtv5n4B4GQpz_TKm_vioHkZ5D9ME</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1062824973534</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.xpressios.health</string>
+	<key>PROJECT_ID</key>
+	<string>xpress-ee4f6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>xpress-ee4f6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1062824973534:ios:5d08043bec16dc6c445e4f</string>
+	<key>DATABASE_URL</key>
+	<string>https://xpress-ee4f6-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
