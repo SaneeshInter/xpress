@@ -87,7 +87,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                           ),
                           SizedBox(height: screenHeight(context, dividedBy: 180)),
                           Text(
-                            Txt.on_dot + widget.items.date!,
+                            "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                             style: TextStyle(
                                 fontSize: 9.sp,
                                 color: Constants.colors[13],
