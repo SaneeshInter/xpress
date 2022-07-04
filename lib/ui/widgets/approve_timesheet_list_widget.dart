@@ -56,7 +56,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 Row(
                   children: [
                     Text(
-                      Txt.date_dot + widget.items.date!,
+                      "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd HH:mm:ss"),"dd-MM-yyyy hh:mm a")}",
                       style: TextStyle(
                           fontSize: 10.sp,
                           color: Colors.grey,

@@ -74,7 +74,7 @@ class _HomePageCardState extends State<ManagerBookingListWidget> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1.0),
                         child: Text(
-                          Txt.on + widget.items.date!,
+                          "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                           style: TextStyle(
                               fontSize: 9.sp,
                               color: Constants.colors[13],

@@ -86,8 +86,14 @@ class _TimeSheetListState extends State<TimeSheetListWidget> {
                   Padding(
                     padding: const EdgeInsets.only(top: 1.0),
                     child: Text(
-                      Txt.on_dot + widget.items.date!,
+                      "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                       style: TextStyle(
+
+
+
+
+
+
                           fontSize: 9.sp,
                           color: Constants.colors[13],
                           fontWeight: FontWeight.w400),
@@ -95,6 +101,9 @@ class _TimeSheetListState extends State<TimeSheetListWidget> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 3.0),
+
+
+
                     child: Text(
                       Txt.from+
                          convert24hrTo12hr(widget.items.timeFrom!)  +

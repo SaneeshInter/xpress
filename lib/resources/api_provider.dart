@@ -64,7 +64,7 @@ class ApiProvider {
         'device_id': device_id,
       }).toString());
 
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: \n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: \n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return LoginUserRespo.fromJson(json.decode(response.body));
@@ -124,7 +124,7 @@ class ApiProvider {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: \nbody: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: \nResponse: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       if (response.statusCode == 200) {
         return UtilityResop.fromJson(json.decode(response.body));
       } else {
@@ -155,7 +155,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'key': key,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ProfileQuestionResponse.fromJson(json.decode(response.body));
@@ -244,11 +244,11 @@ class ApiProvider {
         "bank_iban": bank_iban,
         "bank_bic": bank_bic,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       print(response.statusCode);
       print(response.toString());
 
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       if (response.statusCode == 200) {
         return ProfileUpdateRespo.fromJson(json.decode(response.body));
       } else {
@@ -275,7 +275,7 @@ class ApiProvider {
       print("PRINT User_Get_Timesheet" + token);
 
       print(jsonEncode(<String, String>{}).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserTimeSheetRespo.fromJson(json.decode(response.body));
@@ -308,7 +308,7 @@ class ApiProvider {
       print("Completed approvel " + uri.toString());
 
       print(jsonEncode(<String, String>{}).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ManagerTimeSheetResponse.fromJson(json.decode(response.body));
@@ -342,7 +342,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         "time_shhet_id": time_shhet_id,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserTimeSheetDetailsRespo.fromJson(json.decode(response.body));
@@ -377,7 +377,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'job_request_row_id': job_request_row_id,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return AcceptJobRequestResponse.fromJson(json.decode(response.body));
@@ -405,7 +405,7 @@ class ApiProvider {
       print("Print ManagerHome ImportantUpdates " + token);
 
       print(jsonEncode(<String, String>{}).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ManagerHomeResponse.fromJson(json.decode(response.body));
@@ -439,7 +439,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'shift_id': shift_id,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ManagerViewRequestResponse.fromJson(json.decode(response.body));
@@ -473,7 +473,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'row_id': rowId,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return RemoveManagerScheduleResponse.fromJson(json.decode(response.body));
@@ -507,7 +507,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'time_shhet_id': time_shhet_id,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ManagerTimeDetailsResponse.fromJson(json.decode(response.body));
@@ -534,9 +534,9 @@ class ApiProvider {
           body: jsonEncode(<String, String>{}));
 
       print("PRINT USERHOME RESPONSE" + token);
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       print(jsonEncode(<String, String>{}).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ManagerTimeSheetResponse.fromJson(json.decode(response.body));
@@ -564,7 +564,7 @@ class ApiProvider {
       print("PRINT Manager get clients" + token);
 
       print(jsonEncode(<String, String>{}).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ManagerGetClientsResponse.fromJson(json.decode(response.body));
@@ -597,7 +597,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'client': clients,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ManagerUnitNameResponse.fromJson(json.decode(response.body));
@@ -631,7 +631,7 @@ class ApiProvider {
           }));
 
       print(uri.toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       print(response.statusCode);
       print(response.toString());
       if (response.statusCode == 200) {
@@ -661,7 +661,7 @@ class ApiProvider {
       print("fetchUserCompleteShift" + uri.toString());
       print("PRINT USERHOME RESPONSE" + token);
       print(jsonEncode(<String, String>{}).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       if (response.statusCode == 200) {
         return UserShoiftCompletedResponse.fromJson(json.decode(response.body));
       } else {
@@ -688,7 +688,7 @@ class ApiProvider {
       print("PRINT USERHOME RESPONSE" + token);
 
       print(jsonEncode(<String, String>{}).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserHomeResponse.fromJson(json.decode(response.body));
@@ -784,7 +784,7 @@ class ApiProvider {
         "assigned_to": "",
         "shift": shift,
       }));
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       print(response.statusCode);
       print(response.toString());
 
@@ -816,7 +816,7 @@ class ApiProvider {
             "shifttype": shifttype,
           }));
 
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       print(response.statusCode);
       print(response.toString());
       if (response.statusCode == 200) {
@@ -851,7 +851,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'date': date,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserGetScheduleByDate.fromJson(json.decode(response.body));
@@ -887,7 +887,7 @@ class ApiProvider {
         'month': month,
         'year': year,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserGetScheduleByMonthYear.fromJson(json.decode(response.body));
@@ -925,7 +925,7 @@ class ApiProvider {
         'year': year,
       }).toString());
 
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserGetScheduleByYear.fromJson(json.decode(response.body));
@@ -963,7 +963,7 @@ class ApiProvider {
       }).toString());
 
       print(uri.toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return ManagerGetScheduleByYear.fromJson(json.decode(response.body));
@@ -999,7 +999,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'job_id': job_id,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       if (response.statusCode == 200) {
         return UserJobRequestResponse.fromJson(json.decode(response.body));
       } else {
@@ -1027,7 +1027,7 @@ class ApiProvider {
       );
       print(uri.toString());
       print(token);
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       if (response.statusCode == 200) {
         return UserViewRequestResponse.fromJson(json.decode(response.body));
       } else {
@@ -1096,7 +1096,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         'job_request_row_id': job_request_row_id,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserCancelJobRequestResponse.fromJson(json.decode(response.body));
@@ -1131,7 +1131,7 @@ class ApiProvider {
         'date': date,
         'availability': availability,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return AddUserAvailabilityResponse.fromJson(json.decode(response.body));
@@ -1166,7 +1166,7 @@ class ApiProvider {
         'from_date': from_date,
         'to_date': to_date,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserAvailabilitydateResponse.fromJson(json.decode(response.body));
@@ -1211,7 +1211,7 @@ class ApiProvider {
         'end_time': end_time,
         'working_hours': working_hours,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserWorkingHoursResponse.fromJson(json.decode(response.body));
@@ -1250,7 +1250,7 @@ class ApiProvider {
         'type': type,
         'expiry_date': expiry_date,
       }).toString());
-      developer.log("\n\n\nURI: $uri\nUserType: Manager\nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
 
       if (response.statusCode == 200) {
         return UserDocumentsResponse.fromJson(json.decode(response.body));
