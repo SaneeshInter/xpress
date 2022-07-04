@@ -192,7 +192,8 @@ selectTime(BuildContext context, TextEditingController anycontroller) async {
 
   if (timeOfDay != null) {
 
-    anycontroller.text = timeOfDay.format12Hour(context);
+    anycontroller.text = convert24hrTo12hr("${timeOfDay.hour}:${timeOfDay.minute}");
+    print("sefdsff  ${timeOfDay.format12Hour(context)}");
   }
 }
 
