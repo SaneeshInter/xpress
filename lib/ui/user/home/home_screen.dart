@@ -590,7 +590,7 @@ class _HomeScreentate extends State<HomeScreen> {
           children: [
             SizedBox(
                 width: 93.w,
-                child: Image.asset('assets/images/icon/premium_home_icon.png')),
+                child: Image.asset('assets/images/icon/homescreen.png')),
           ],
         ),
       ),
