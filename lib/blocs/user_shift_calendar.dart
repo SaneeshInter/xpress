@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import '../blocs/shift_confirmed_bloc.dart';
 import '../blocs/shift_list_bloc.dart';
 import '../eventutil/eventutil.dart';
-import '../resources/respository.dart';
-
 import '../model/user_shift_calender.dart';
+import '../resources/respository.dart';
 import '../resources/token_provider.dart';
 import '../ui/error/ConnectionFailedScreen.dart';
 import '../utils/network_utils.dart';
@@ -23,7 +23,7 @@ class ShiftCalendarBloc {
   DateTime focusedDay = DateTime.now();
   DateTime selectedDate = DateTime.now();
 
-  String? token="";
+  String? token = "";
   int devicePixelRatio = 3;
   int perPageItem = 3;
   int pageCount = 0;
@@ -35,10 +35,13 @@ class ShiftCalendarBloc {
   final _shiftCalender = PublishSubject<UserGetScheduleByYear>();
   final _filterItem = PublishSubject<List<Items>>();
   final _visibility = PublishSubject<bool>();
+
   Stream<bool> get visible => _visibility.stream;
   List<Item>? itemListAll = [];
   List<Items>? eventListByDate = [];
+
   Stream<UserGetScheduleByYear> get shiftCalendar => _shiftCalender.stream;
+
   Stream<List<Items>> get filteredByDate => _filterItem.stream;
 
   final Set<DateTime> selectedDays = LinkedHashSet<DateTime>(
@@ -46,17 +49,16 @@ class ShiftCalendarBloc {
     hashCode: getHashCode,
   );
 
-  void initState(BuildContext context)  {
-    Future.delayed(Duration.zero, () async{
+  void initState(BuildContext context) {
+    Future.delayed(Duration.zero, () async {
       observe(context);
       getData(context);
       pageController = PageController(initialPage: 0);
       confirmBloc.pageCount = 3;
     });
-
   }
 
-  void update(CalendarFormat f){
+  void update(CalendarFormat f) {
     format = f;
     _visibility.sink.add(false);
   }
@@ -103,10 +105,9 @@ class ShiftCalendarBloc {
     confirmBloc.token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
-        userGetScheduleByYear(
-            token!, "2022");
+        userGetScheduleByYear(token!, "2022");
       } else {
-        Future.delayed(Duration.zero, () async{
+        Future.delayed(Duration.zero, () async {
           showInternetNotAvailable(context);
         });
       }
@@ -135,12 +136,14 @@ class ShiftCalendarBloc {
 
       if (null != itemList) {
         for (var item in itemList) {
-          selectedDay.add(DateTime.parse(item.date.toString()));
+          if (item.items!.isNotEmpty) {
+            print("Date:${item.date.toString()} - ${item.items!.length}");
+            selectedDay.add(DateTime.parse(item.date.toString()));
+          }
         }
         getSelectedDayEvent(selectedDate);
-
-          selectedDays.addAll(selectedDay);
-
+        selectedDays.clear();
+        selectedDays.addAll(selectedDay);
       }
     });
 
@@ -152,29 +155,30 @@ class ShiftCalendarBloc {
   }
 
   userGetScheduleByYear(String token, String year) async {
-   _visibility.sink.add(true);
-    UserGetScheduleByYear respo = await _repo.fetchuserscheduleyear(token, year);
+    _visibility.sink.add(true);
+    UserGetScheduleByYear respo =
+        await _repo.fetchuserscheduleyear(token, year);
     itemListAll = respo.response?.data?.item;
     if (!_shiftCalender.isClosed) {
-     _visibility.sink.add(false);
+      _visibility.sink.add(false);
       _shiftCalender.sink.add(respo);
     }
   }
 
   filterItemByDate(DateTime selectedDay) {
-   _visibility.sink.add(true);
+    _visibility.sink.add(true);
     var itemList = itemListAll!.where((element) {
       DateTime itemDay = DateTime.parse(element.date.toString());
       return isSameDay(itemDay, selectedDay);
     });
     if (itemList.isNotEmpty) {
       _filterItem.sink.add(itemList.first.items ?? []);
-     _visibility.sink.add(false);
+      _visibility.sink.add(false);
     } else {
       _filterItem.sink.add([]);
-     _visibility.sink.add(false);
+      _visibility.sink.add(false);
     }
   }
-
 }
+
 final shiftCalenderBloc = ShiftCalendarBloc();

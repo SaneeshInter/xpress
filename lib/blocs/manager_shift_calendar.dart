@@ -122,10 +122,12 @@ class ManagerShiftCalendarBloc {
           hashCode: getHashCode,
         );
         for (var item in itemList!) {
-          selectedDay.add(DateTime.parse(item.date.toString()));
+          if(item.items!.isNotEmpty){
+            selectedDay.add(DateTime.parse(item.date.toString()));
+          }
         }
 
-
+        selectedDays.clear();
           selectedDays.addAll(selectedDay);
 
         onDaySelected(selectedCalenderDay, selectedCalenderDay);

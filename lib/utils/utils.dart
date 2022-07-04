@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:xpresshealthdev/utils/time_of_day_extensions.dart';
 import '../db/database.dart';
 import '../main.dart';
 import '../ui/Widgets/booking_alert_box.dart';
@@ -168,7 +168,7 @@ selectDate(BuildContext context, TextEditingController dateController) async {
 BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color? bgColor, var showShadow = false}) {
   return BoxDecoration(
     color: bgColor ?? Colors.white,
-    boxShadow: showShadow ? defaultBoxShadow(shadowColor: shadowColorGlobal) : [BoxShadow(color: Colors.transparent)],
+    boxShadow: showShadow ? defaultBoxShadow(shadowColor: shadowColorGlobal) : [const BoxShadow(color: Colors.transparent)],
     border: Border.all(color: color),
     borderRadius: BorderRadius.all(Radius.circular(radius)),
   );
@@ -179,13 +179,20 @@ selectTime(BuildContext context, TextEditingController anycontroller) async {
     context: context,
     initialTime: TimeOfDay.now(),
     initialEntryMode: TimePickerEntryMode.input,
+    builder: (BuildContext? context, Widget? child) {
+      return MediaQuery(
+        data: MediaQuery.of(context!).copyWith(alwaysUse24HourFormat: false),
+        child: child!,
+      );
+    },
     confirmText: "CONFIRM",
     cancelText: "NOT NOW",
     helpText: "BOOKING TIME",
   );
 
   if (timeOfDay != null) {
-    anycontroller.text = timeOfDay.format(context);
+
+    anycontroller.text = timeOfDay.format12Hour(context);
   }
 }
 
