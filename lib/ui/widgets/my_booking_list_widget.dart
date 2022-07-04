@@ -204,7 +204,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                                   children: [
                                     const Icon(Icons.hourglass_bottom,color: white,size: 15,),
                                     AutoSizeText(
-                                        '${hours.split(":")[0]}:${hours.split(":")[0]} ',
+                                        '${hours.split(":")[0]}:${hours.split(":")[1]} ',
                                       style: TextStyle(
                                           fontSize: 8.sp,
                                           letterSpacing: 2,
