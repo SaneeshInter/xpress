@@ -380,7 +380,11 @@ void _finishAccountCreation() {
   );
 }
 DateTime getDateFromString(String date, String format) {
+try{
   return DateFormat(format).parse(date);
+}catch(e){
+  return DateTime.now();
+}
 }
 String getStringFromDate(DateTime date, String format) {
   return DateFormat(format).format(date);
@@ -405,14 +409,21 @@ String getDiffrenceBetweenDates(DateTime date, DateTime date2){
   DateTime toDate=date2;
   var diff = date2.difference(date);
   if(diff.inHours<0){
-    print("-");
-    print("${fromDate.toString()}     ${toDate.add(const Duration(days:1)).toString()}");
     return getHoursAndMinutesToDouble(getHoursFromMinutes((toDate.add(const Duration(days:1)).difference(fromDate).inMinutes))).toStringAsFixed(2);
   }else{
     return getHoursAndMinutesToDouble(getHoursFromMinutes(diff.inMinutes)).toStringAsFixed(2) ;
   }
 }
+int getDiffrenceInMinutes(DateTime date, DateTime date2){
+  var diff = date2.difference(date);
+    return diff.inMinutes;
 
+}
+String getDiffrenceBetweenTwoDates(DateTime date2, DateTime date){
+  var diff = date2.difference(date);
+    return getHoursAndMinutesFromDouble(getHoursAndMinutesToDouble(getHoursFromMinutes(diff.inMinutes))) ;
+
+}
 String getHoursFromMinutes(int minutes) {
   var hours = (minutes / 60).floor();
   var minutesRemaining = minutes % 60;
@@ -420,6 +431,7 @@ String getHoursFromMinutes(int minutes) {
 }
 
 double getHoursAndMinutesToDouble(String time) {
+
   var timeSplit = time.split(":");
   var hours = int.parse(timeSplit[0]);
   var minutes = int.parse(timeSplit[1]);
@@ -430,7 +442,7 @@ double getHoursAndMinutesToDouble(String time) {
 String getHoursAndMinutesFromDouble(double time) {
   var hours = (time).floor();
   var minutes = ((time - hours) * 60).floor();
-  return "$hours:$minutes";
+  return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
 }
  launch(String url) async {
   if (!await launchUrl(Uri.parse('$url'))) throw 'Could not launch $url';

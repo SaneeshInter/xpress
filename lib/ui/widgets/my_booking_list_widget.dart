@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Constants/strings.dart';
@@ -36,8 +39,14 @@ class MyBookingListWidget extends StatefulWidget {
 }
 
 class _MyBookingState extends State<MyBookingListWidget> {
+
+
+
   @override
   Widget build(BuildContext context) {
+    String hours = getDiffrenceBetweenTwoDates(getDateFromString('${widget.items.date!} ${widget.items.timeTo}',"yyyy-MM-dd HH:mm"), DateTime.now());
+    int totalMinutes=getDiffrenceInMinutes( DateTime.now(),getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"));
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -174,6 +183,41 @@ class _MyBookingState extends State<MyBookingListWidget> {
                             ),
                           ),
                         ),
+                        SizedBox(height: screenHeight(context, dividedBy: 80)),
+                        if(totalMinutes>0)
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [Constants
+                                        .colors[4],Constants
+                                        .colors[4]]),
+                                color: Constants.colors[3],
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 2),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.hourglass_bottom,color: white,size: 15,),
+                                    AutoSizeText(
+                                        '${hours.split(":")[0]}:${hours.split(":")[0]} ',
+                                      style: TextStyle(
+                                          fontSize: 8.sp,
+                                          letterSpacing: 2,
+                                          color: Constants
+                                              .colors[0],
+                                          fontFamily: "SFProMedium",
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                       ],),
                   ],
                 ),
@@ -187,6 +231,8 @@ class _MyBookingState extends State<MyBookingListWidget> {
 }
 
 Widget buttonList(BuildContext context, MyBookingListWidget widget) {
+int totalWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"), DateTime.now()).split(':')[0]);
+int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${widget.items.date!} ${widget.items.timeTo}',"yyyy-MM-dd HH:mm"), DateTime.now()).split(':')[0]);
   debugPrint("widget.items.workingTimeStatus");
   debugPrint(widget.items.workingTimeStatus.toString());
   if (widget.position == 1) {
@@ -212,7 +258,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BookButton(
+              if(totalWorkHours>16)  BookButton(
                   label: Txt.cancel_req,
                   onPressed: () {
                     showDialog(
@@ -252,12 +298,13 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
                   },
                   key: null,
                 ),
+
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
               ],
             ),
         if (widget.items.status == "Accepted" &&
             widget.items.workingTimeStatus == 0)
-          BookButton(
+          if(afterWorkHours<0) BookButton(
             label: Txt.add_wrkng_hrs,
             onPressed: () {
               widget.onTapView(widget.items);
@@ -265,6 +312,7 @@ Widget buttonList(BuildContext context, MyBookingListWidget widget) {
             },
             key: null,
           ),
+
         //
         if (widget.items.status == "Completed" &&
             widget.items.workingTimeStatus == 0)
