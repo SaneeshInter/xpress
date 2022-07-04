@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/widgets/remaining_timer_widget.dart';
 
 import '../../Constants/strings.dart';
 import '../../model/user_view_request_response.dart';
@@ -43,9 +44,6 @@ class _MyBookingState extends State<MyBookingListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String hours = getDiffrenceBetweenTwoDates(getDateFromString('${widget.items.date!} ${widget.items.timeTo}',"yyyy-MM-dd HH:mm"), DateTime.now());
-    int totalMinutes=getDiffrenceInMinutes( DateTime.now(),getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"));
-
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -183,40 +181,8 @@ class _MyBookingState extends State<MyBookingListWidget> {
                           ),
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 80)),
-                        if(totalMinutes>0)
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: [Constants
-                                        .colors[4],Constants
-                                        .colors[4]]),
-                                color: Constants.colors[3],
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(3.0),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 2),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.hourglass_bottom,color: white,size: 15,),
-                                    AutoSizeText(
-                                        '${hours.split(":")[0]}:${hours.split(":")[1]} ',
-                                      style: TextStyle(
-                                          fontSize: 8.sp,
-                                          letterSpacing: 2,
-                                          color: Constants
-                                              .colors[0],
-                                          fontFamily: "SFProMedium",
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                        if(widget.items.status == "Accepted" ||
+                            widget.items.status == "Pending") RemainingTimerWidget(date: getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"),),
                       ],),
                   ],
                 ),

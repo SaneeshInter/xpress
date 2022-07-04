@@ -415,24 +415,31 @@ String getDiffrenceBetweenDates(DateTime date, DateTime date2){
     return getHoursAndMinutesToDouble(getHoursFromMinutes(diff.inMinutes)).toStringAsFixed(2) ;
   }
 }
-int getDiffrenceInMinutes(DateTime date, DateTime date2){
+int getDiffrenceInSecond(DateTime date, DateTime date2){
   var diff = date2.difference(date);
-    return diff.inMinutes;
+    return diff.inSeconds;
 
 }
 String getDiffrenceBetweenTwoDates(DateTime date2, DateTime date){
   var diff = date2.difference(date);
-    return getHoursAndMinutesFromDouble(getHoursAndMinutesToDouble(getHoursFromMinutes(diff.inMinutes))) ;
-
+    return getHoursFromMinutes(diff.inMinutes) ;
+}
+String getDiffrenceSecondTwoDates(DateTime date2, DateTime date){
+  var diff = date2.difference(date);
+    return getHoursAndMinutesFromSecond(diff.inSeconds) ;
 }
 String getHoursFromMinutes(int minutes) {
   var hours = (minutes / 60).floor();
   var minutesRemaining = minutes % 60;
-  return "$hours:$minutesRemaining";
+  return "${hours.toString().padLeft(2, '0')}:${minutesRemaining.toString().padLeft(2, '0')}";
 }
-
+getHoursAndMinutesFromSecond(int seconds) {
+  var hours = (seconds / 3600).floor();
+  var minutes = (seconds % 3600 / 60).floor();
+  var secondsRemaining = seconds % 3600 % 60;
+  return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${secondsRemaining.toString().padLeft(2, '0')}";
+}
 double getHoursAndMinutesToDouble(String time) {
-
   var timeSplit = time.split(":");
   var hours = int.parse(timeSplit[0]);
   var minutes = int.parse(timeSplit[1]);
@@ -440,11 +447,12 @@ double getHoursAndMinutesToDouble(String time) {
   return total;
 }
 
+
 String getHoursAndMinutesFromDouble(double time) {
   var hours = (time).floor();
   var minutes = ((time - hours) * 60).floor();
   return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
 }
  launch(String url) async {
-  if (!await launchUrl(Uri.parse('$url'))) throw 'Could not launch $url';
+  if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
 }
