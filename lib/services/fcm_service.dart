@@ -80,40 +80,73 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
     debugPrint("Notification Count: ${notificationCount + 1}");
     Map<String, String> payload = <String, String>{};
     if (message.data["payload"] != null) {
-      debugPrint("sdfcddrgdg ${jsonDecode(message.data["payload"]).toString()}");
+      debugPrint(
+          "sdfcddrgdg ${jsonDecode(message.data["payload"]).toString()}");
       payload["type"] = jsonDecode(message.data["payload"])["type"];
       payload["id"] = jsonDecode(message.data["payload"])["id"];
-      payload["action"] = jsonDecode(message.data["payload"])["action"]??"Open";
-    }
-    if("SHIFT_DETAILS"==jsonDecode(message.data["payload"])["type"]){
-      AwesomeNotifications().createNotification(
-          content: NotificationContent(
-            id: Random().nextInt(2147483647),
-            notificationLayout: AwesomeStringUtils.isNullOrEmpty(imageUrl)
-                ? NotificationLayout.Inbox
-                : NotificationLayout.BigPicture,
-            channelKey: 'basic_channel',
-            title: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_TITLE] ??
-                message.notification?.title,
-            body: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_BODY] ??
-                message.notification?.body,
-            payload: payload,
-            category: message.data["category"],
-            bigPicture: imageUrl,
-            wakeUpScreen: true,
-            fullScreenIntent: true,
-            criticalAlert: true,
-            showWhen: true,
-            displayOnForeground: true,
-            displayOnBackground: true,
-            locked: false,
-          ),
-          actionButtons: [
-            NotificationActionButton(
-              key: "Open",
-              label:payload["action"]??"Open",
+      payload["action"] =
+          jsonDecode(message.data["payload"])["action"] ?? "Open";
+      if ("SHIFT_DETAILS" ==
+          jsonDecode(message.data["payload"])["type"].toString()) {
+        AwesomeNotifications().createNotification(
+            content: NotificationContent(
+              id: Random().nextInt(2147483647),
+              notificationLayout: AwesomeStringUtils.isNullOrEmpty(imageUrl)
+                  ? NotificationLayout.Inbox
+                  : NotificationLayout.BigPicture,
+              channelKey: 'basic_channel',
+              title: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_TITLE] ??
+                  message.notification?.title,
+              body: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_BODY] ??
+                  message.notification?.body,
+              payload: payload,
+              category: message.data["category"],
+              bigPicture: imageUrl,
+              wakeUpScreen: true,
+              fullScreenIntent: true,
+              criticalAlert: true,
+              showWhen: true,
+              displayOnForeground: true,
+              displayOnBackground: true,
+              locked: false,
             ),
-          ]);
+            actionButtons: [
+              NotificationActionButton(
+                key: "Open",
+                label: payload["action"] ?? "Open",
+              ),
+            ]);
+      }
+      else {
+        AwesomeNotifications().createNotification(
+            content: NotificationContent(
+              id: Random().nextInt(2147483647),
+              notificationLayout: AwesomeStringUtils.isNullOrEmpty(imageUrl)
+                  ? NotificationLayout.Inbox
+                  : NotificationLayout.BigPicture,
+              channelKey: 'basic_channel',
+              title: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_TITLE] ??
+                  message.notification?.title,
+              body: message.data[NOTIFICATION_CONTENT]?[NOTIFICATION_BODY] ??
+                  message.notification?.body,
+              payload: payload,
+              category: message.data["category"],
+              bigPicture: imageUrl,
+              wakeUpScreen: true,
+              fullScreenIntent: true,
+              criticalAlert: true,
+              showWhen: true,
+              displayOnForeground: true,
+              displayOnBackground: true,
+              locked: false,
+            ),
+            actionButtons: [
+              NotificationActionButton(
+                key: "Open",
+                label: "View",
+              ),
+            ]);
+      }
     }else{
       AwesomeNotifications().createNotification(
           content: NotificationContent(
@@ -144,6 +177,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
             ),
           ]);
     }
+
 
 
     // if (!AwesomeStringUtils.isNullOrEmpty(message.notification?.title,
