@@ -220,7 +220,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
             ),
             ShiftDetailCard(
               label:  managerhomeBloc.dashList[currentStatus].approved,
-              hint: "Approved", height: 45.w, svgPath: 'assets/images/icon/check.svg',
+              hint: "Accepted", height: 45.w, svgPath: 'assets/images/icon/check.svg',
 
             ),
 
