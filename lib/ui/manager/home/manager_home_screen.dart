@@ -386,8 +386,8 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
               dotsCount: itemCount!,
               position: currentPage!,
               decorator: DotsDecorator(
-                color: Colors.white, // Inactive color
-                activeColor: HexColor("#04b654"),
+                color: Constants.colors[37], // Inactive color
+                activeColor: Constants.colors[36],
               ),
             ),
           ],

@@ -122,7 +122,8 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
   }
 
   Widget buildList(AsyncSnapshot<ManagerTimeSheetResponse> snapshot) {
-    return snapshot.data?.response?.data?.timeSheetInfo?.length==0? const NoDataWidget(
+    return snapshot.data?.response?.data?.timeSheetInfo?.length==0?
+    const NoDataWidget(
         tittle: Txt.empty,
         description: Txt.no_shifts_working_hrs,
         asset_image:
