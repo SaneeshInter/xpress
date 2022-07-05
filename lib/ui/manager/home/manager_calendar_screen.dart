@@ -127,7 +127,7 @@ class ManagerFindShiftCalendar extends StatelessWidget {
                                             BorderRadius.all(Radius.circular(5.0)),
                                           ),
                                           todayDecoration: const BoxDecoration(
-                                            color: Color(0xFF1CB34F),
+                                              color: Color(0xFFAACFE5),
                                             shape: BoxShape.rectangle,
                                             borderRadius:
                                             BorderRadius.all(Radius.circular(5.0)),
