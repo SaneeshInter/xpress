@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../utils/constants.dart';
+
 
 class ShiftStatusChip extends StatelessWidget {
   ShiftStatusChip(
@@ -27,9 +29,9 @@ String label;
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5.0),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(5.0),
           child: ColoredBox(
-            color:selected ? selectedColor : unselectedColor,
+            color:selected ? Constants.colors[15] : unselectedColor,
             child:  Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
               child: Text(label, style: TextStyle(color:selected ?textColor:black),),

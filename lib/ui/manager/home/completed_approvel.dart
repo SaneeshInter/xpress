@@ -22,6 +22,9 @@ class CompletedApprovelScreen extends StatefulWidget {
 }
 
 class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
+
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void didUpdateWidget(covariant CompletedApprovelScreen oldWidget) {
     // TODO: implement didUpdateWidget
@@ -65,6 +68,7 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [

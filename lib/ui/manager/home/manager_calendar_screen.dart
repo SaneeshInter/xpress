@@ -21,7 +21,7 @@ class ManagerFindShiftCalendar extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        // key: managercalendarBloc.scaffoldKey,
+        key: managercalendarBloc.scaffoldKey,
         backgroundColor: Constants.colors[9],
         //backgroundColor: Constants.colors[9],
         body: Stack(

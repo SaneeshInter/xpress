@@ -82,7 +82,9 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   Widget build(BuildContext context) {
 
     return Scaffold(
+      // key: scaffoldKey,
       backgroundColor: Constants.colors[9],
+
       body: ScrollConfiguration(
         behavior: MyBehavior(),
         child: RefreshIndicator(

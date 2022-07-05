@@ -20,7 +20,7 @@ class ApprovedTimeSheetScreen extends StatefulWidget {
   _ApprovedTimeSheetState createState() => _ApprovedTimeSheetState();
 }
 class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
-
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void didUpdateWidget(covariant ApprovedTimeSheetScreen oldWidget) {
     // TODO: implement didUpdateWidget
@@ -64,6 +64,7 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
     final FixedExtentScrollController itemController =
         FixedExtentScrollController();
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [

@@ -172,15 +172,18 @@ class _DashBoardWidgetState extends State<DashBoard> {
 
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
-          itemAnimationProperties: const ItemAnimationProperties(
-            duration: Duration(milliseconds: 200),
-            curve: Curves.ease,
-          ),
-          screenTransitionAnimation: const ScreenTransitionAnimation(
-            animateTabTransition: true,
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 200),
-          ),
+
+
+
+          // itemAnimationProperties: const ItemAnimationProperties(
+          //   duration: Duration(milliseconds: 200),
+          //   curve: Curves.ease,
+          // ),
+          // screenTransitionAnimation: const ScreenTransitionAnimation(
+          //   animateTabTransition: true,
+          //   curve: Curves.ease,
+          //   duration: Duration(milliseconds: 200),
+          // ),
           navBarStyle:
               NavBarStyle.style3, // Choose the nav bar style with this property.
         ),

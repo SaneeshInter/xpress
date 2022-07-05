@@ -99,21 +99,25 @@ getNotificationCount() async {
                 }
               },
               icon: Badge(
-                badgeContent: StreamBuilder(
-                    stream: FCM().notificationCount,
-                    builder: (context, snapshot) {
-                      print("dfdsf ${snapshot.connectionState}");
-                      if (snapshot.hasData) {
-                        return Text("${snapshot.data??"0"}",style: const TextStyle(color: white,fontSize: 10),);
-                      }else if (snapshot.hasError) {
-                        return Text("e");
-                      } else {
-                        return Text(
-                          "${notificationCount}",
-                          style: const TextStyle(color: white, fontSize: 10),
-                        );
-                      }
-                    }),
+                badgeContent: Text(
+                  "${notificationCount}",
+                  style: const TextStyle(color: white, fontSize: 10),
+                ),
+                // StreamBuilder(
+                //     stream: FCM().notificationCount,
+                //     builder: (context, snapshot) {
+                //       print("dfdsf ${snapshot.connectionState}");
+                //       if (snapshot.hasData) {
+                //         return Text("${snapshot.data??"0"}",style: const TextStyle(color: white,fontSize: 10),);
+                //       }else if (snapshot.hasError) {
+                //         return Text("e");
+                //       } else {
+                //         return Text(
+                //           "${notificationCount}",
+                //           style: const TextStyle(color: white, fontSize: 10),
+                //         );
+                //       }
+                //     }),
                 child: SvgPicture.asset(
                   'assets/images/icon/notification.svg',
                   width: 5.w,
@@ -145,8 +149,7 @@ getNotificationCount() async {
           screens: _widgetOptions,
           onItemSelected: (index) {
             _index = index;
-            print(index);
-            setState(() {});
+
           },
           items: _navBarsItems(),
           confineInSafeArea: true,
@@ -162,15 +165,15 @@ getNotificationCount() async {
 
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
-          itemAnimationProperties: const ItemAnimationProperties(
-            duration: Duration(milliseconds: 200),
-            curve: Curves.ease,
-          ),
-          screenTransitionAnimation: const ScreenTransitionAnimation(
-            animateTabTransition: true,
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 200),
-          ),
+          // itemAnimationProperties: const ItemAnimationProperties(
+          //   duration: Duration(milliseconds: 0),
+          //   curve: Curves.ease,
+          // ),
+          // screenTransitionAnimation: const ScreenTransitionAnimation(
+          //   animateTabTransition: true,
+          //   curve: Curves.ease,
+          //   duration: Duration(milliseconds: 0),
+          // ),
           navBarStyle: NavBarStyle
               .style3, // Choose the nav bar style with this property.
         ),
