@@ -44,14 +44,21 @@ class Response {
 
 class Data {
   List<ImportantUpdates>? importantUpdates;
+  List<Summary>? summary;
 
-  Data({this.importantUpdates});
+  Data({this.importantUpdates, this.summary});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['important_updates'] != null) {
       importantUpdates = <ImportantUpdates>[];
       json['important_updates'].forEach((v) {
         importantUpdates!.add(new ImportantUpdates.fromJson(v));
+      });
+    }
+    if (json['summary'] != null) {
+      summary = <Summary>[];
+      json['summary'].forEach((v) {
+        summary!.add(new Summary.fromJson(v));
       });
     }
   }
@@ -61,6 +68,9 @@ class Data {
     if (this.importantUpdates != null) {
       data['important_updates'] =
           this.importantUpdates!.map((v) => v.toJson()).toList();
+    }
+    if (this.summary != null) {
+      data['summary'] = this.summary!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -88,6 +98,47 @@ class ImportantUpdates {
   }
 }
 
+class Summary {
+  String? totalShiftCount;
+  String? pendingShiftDaily;
+  String? pendingShiftWeekly;
+  String? pendingShiftMonthly;
+  String? approvedShiftDaily;
+  String? approvedShiftWeekly;
+  String? approvedShiftMonthly;
+
+  Summary(
+      {this.totalShiftCount,
+        this.pendingShiftDaily,
+        this.pendingShiftWeekly,
+        this.pendingShiftMonthly,
+        this.approvedShiftDaily,
+        this.approvedShiftWeekly,
+        this.approvedShiftMonthly});
+
+  Summary.fromJson(Map<String, dynamic> json) {
+    totalShiftCount = json['total_shift_count'];
+    pendingShiftDaily = json['pending_shift_daily'];
+    pendingShiftWeekly = json['pending_shift_weekly'];
+    pendingShiftMonthly = json['pending_shift_monthly'];
+    approvedShiftDaily = json['approved_shift_daily'];
+    approvedShiftWeekly = json['approved_shift_weekly'];
+    approvedShiftMonthly = json['approved_shift_monthly'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['total_shift_count'] = this.totalShiftCount;
+    data['pending_shift_daily'] = this.pendingShiftDaily;
+    data['pending_shift_weekly'] = this.pendingShiftWeekly;
+    data['pending_shift_monthly'] = this.pendingShiftMonthly;
+    data['approved_shift_daily'] = this.approvedShiftDaily;
+    data['approved_shift_weekly'] = this.approvedShiftWeekly;
+    data['approved_shift_monthly'] = this.approvedShiftMonthly;
+    return data;
+  }
+}
+
 class Status {
   int? count;
   int? statusCode;
@@ -109,4 +160,3 @@ class Status {
     return data;
   }
 }
-

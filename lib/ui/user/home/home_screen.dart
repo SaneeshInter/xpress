@@ -404,7 +404,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                 ),
                               ),
                               horizontalList(snapshot),
-                              gridView(),
+                              // gridView(),
                               // shiftDetails(),
 
                             ],
@@ -436,91 +436,6 @@ class _HomeScreentate extends State<HomeScreen> {
     );
   }
 
-  Widget shiftDetails() {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SizedBox(
-                child: AutoSizeText(
-                  Txt.shift_status,
-                  maxLines: 1,
-                  style: TextStyle(
-                    color: Constants.colors[1],
-                    fontSize: 16.sp,
-                    fontFamily: "SFProMedium",
-                  ),
-                ),
-              ),
-            ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     ShiftStatusChip(
-            //       label: 'Daily',
-            //       selected: currentStatus == "Daily",
-            //       selectedColor: greenColor,
-            //       textColor: Colors.white,
-            //       onPressed: () {
-            //         currentStatus = "Daily";
-            //         setState(() {});
-            //       },
-            //     ),
-            //     ShiftStatusChip(
-            //       label: 'Weekly',
-            //       selected: currentStatus == "Weekly",
-            //       selectedColor: greenColor,
-            //       textColor: Colors.white,
-            //       onPressed: () {
-            //         currentStatus = "Weekly";
-            //         setState(() {});
-            //       },
-            //     ),
-            //     ShiftStatusChip(
-            //       label: 'Monthly',
-            //       selected: currentStatus == "Monthly",
-            //       selectedColor: greenColor,
-            //       textColor: Colors.white,
-            //       onPressed: () {
-            //         currentStatus = "Monthly";
-            //         setState(() {});
-            //       },
-            //     ),
-            //   ],
-            // )
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ShiftDetailCard(
-              label: "500",
-              hint: "Requested Shift", height: 45.w, svgPath: 'assets/images/icon/shift.svg',
-
-            ),
-            ShiftDetailCard(
-              label: "500",
-              hint: "Confirmed Shift", height: 45.w, svgPath: 'assets/images/icon/check.svg',
-
-            ),
-
-          ],
-        ),
-        ShiftDetailCard(
-          label: "1000",
-          hint: "Completed Shift", height: 45.w, svgPath: 'assets/images/icon/price-tag.svg',
-
-        ),
-      ]),
-    );
-  }
 
   Widget equalSizeButtons() {
     LatestShift late = homepageBloc.shiftDetails;
@@ -600,12 +515,7 @@ class _HomeScreentate extends State<HomeScreen> {
   Widget horizontalList(AsyncSnapshot<UserHomeResponse> snapshot) {
     return Column(
       children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: 35.w,
-          ),
-          child: buildList(snapshot),
-        ),
+        buildList(snapshot),
       ],
     );
   }
@@ -613,172 +523,225 @@ class _HomeScreentate extends State<HomeScreen> {
   Widget buildList(AsyncSnapshot<UserHomeResponse> snapshot) {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
       var itemcount = snapshot.data?.response?.data?.importantUpdates!.length;
-      return SizedBox(
-        height: 35.w,
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: ctrl,
-                padEnds: false,
-                onPageChanged: (page) {
-                  debugPrint("page");
+      var summury=snapshot.data?.response?.data?.summary?[0];
+      return Column(
+        children: [
+          SizedBox(
+            height: 35.w,
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView.builder(
+                    controller: ctrl,
+                    padEnds: false,
+                    onPageChanged: (page) {
+                      debugPrint("page");
 
-                  setState(() {
-                    homepageBloc.currentPage = page.toDouble();
-                  });
-                },
-                pageSnapping: true,
-                itemCount: itemcount,
-                itemBuilder: (BuildContext context, int index) {
-                  var list =
-                      snapshot.data?.response?.data?.importantUpdates![index];
-                  if (null != list) {
-                    var name = list.title!;
-                    var date = list.date!;
-                    var description = list.description!;
-                    return Card(
-                      elevation: 0.0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(13.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AutoSizeText(
-                              name,
-                              maxLines: 2,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontFamily: "SFProMedium",
-                              ),
+                      setState(() {
+                        homepageBloc.currentPage = page.toDouble();
+                      });
+                    },
+                    pageSnapping: true,
+                    itemCount: itemcount,
+                    itemBuilder: (BuildContext context, int index) {
+                      var list =
+                          snapshot.data?.response?.data?.importantUpdates![index];
+                      if (null != list) {
+                        var name = list.title!;
+                        var date = list.date!;
+                        var description = list.description!;
+                        return Card(
+                          elevation: 0.0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(13.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AutoSizeText(
+                                  name,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontFamily: "SFProMedium",
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: SizedBox(
+                                      width: screenHeight(context, dividedBy: 2.2),
+                                      child: AutoSizeText(
+                                        description,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
+                                        ),
+                                      )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: SizedBox(
+                                      width: screenHeight(context, dividedBy: 2.2),
+                                      child: AutoSizeText(
+                                        date,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
+                                        ),
+                                      )),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                              child: SizedBox(
-                                  width: screenHeight(context, dividedBy: 2.2),
-                                  child: AutoSizeText(
-                                    description,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 8.sp,
-                                    ),
-                                  )),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                              child: SizedBox(
-                                  width: screenHeight(context, dividedBy: 2.2),
-                                  child: AutoSizeText(
-                                    date,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 8.sp,
-                                    ),
-                                  )),
-                            ),
-                          ],
+                          ),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  ),
+                ),
+                DotsIndicator(
+                  dotsCount: itemcount!,
+                  position: homepageBloc.currentPage!,
+                  decorator: DotsDecorator(
+                    color: Constants.colors[37], // Inactive color
+                    activeColor: Constants.colors[36],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: SizedBox(
+                      child: AutoSizeText(
+                        Txt.shift_status,
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: Constants.colors[1],
+                          fontSize: 16.sp,
+                          fontFamily: "SFProMedium",
                         ),
                       ),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                },
+                    ),
+                  ),
+                ],
               ),
-            ),
-            DotsIndicator(
-              dotsCount: itemcount!,
-              position: homepageBloc.currentPage!,
-              decorator: DotsDecorator(
-                color: Constants.colors[37], // Inactive color
-                activeColor: Constants.colors[36],
+              const SizedBox(
+                height: 10,
               ),
-            ),
-          ],
-        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ShiftDetailCard(
+                    label: summury?.requestedCount.toString()??"0",
+                    hint: "Requested Shift", height: 45.w, svgPath: 'assets/images/icon/shift.svg',
+
+                  ),
+                  ShiftDetailCard(
+                    label:  summury?.approvedCount.toString()??"0",
+                    hint: "Confirmed Shift", height: 45.w, svgPath: 'assets/images/icon/check.svg',
+
+                  ),
+
+                ],
+              ),
+              ShiftDetailCard(
+                label:  summury?.completedCount.toString()??"0",
+                hint: "Completed Shift", height: 45.w, svgPath: 'assets/images/icon/price-tag.svg',
+
+              ),
+            ]),
+          )
+        ],
       );
     } else {
       return const SizedBox();
     }
   }
 
-  Widget gridView() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: GridView.count(
-        shrinkWrap: true,
-        childAspectRatio: 2,
-        primary: false,
-        crossAxisCount: 2,
-        children: [
-          GestureDetector(
-            onTap: () {
-              // widget.onTapMap;
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const AvailabilityListScreen(),
-              //   ),
-              // );
-              userController.jumpToTab(3);
-              // userController = PersistentTabController(initialIndex: 3);
-              // setState(() {});
-            },
-            child:  HomeCardItem(
-                label: Txt.my_availability,
-                asset: "assets/images/icon/availability.svg"),
-          ),
-          GestureDetector(
-            onTap: () {
-              // widget.onTapMap;
-              userController.jumpToTab(4);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const CompletedShiftScreen(),
-              //   ),
-              // );
-            },
-            child: const HomeCardItem(
-                label: Txt.submit_timesheets,
-                asset: "assets/images/icon/Page-1.svg"),
-          ),
-          GestureDetector(
-            onTap: () {
-              // widget.onTapMap;
-              userController.jumpToTab(1);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const FindShiftCalendar(),
-              //   ),
-              // );
-            },
-            child: const HomeCardItem(
-                label: Txt.find_shift, asset: "assets/images/icon/shift.svg"),
-          ),     GestureDetector(
-            onTap: () {
-              // widget.onTapMap;
-              userController.jumpToTab(2);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const FindShiftCalendar(),
-              //   ),
-              // );
-            },
-            child: const HomeCardItem(
-                label: Txt.my_booking, asset: "assets/images/icon/booking.svg"),
-          ),
-
-        ],
-      ),
-    );
-  }
+  // Widget gridView() {
+  //   return Container(
+  //     margin: const EdgeInsets.symmetric(vertical: 10.0),
+  //     child: GridView.count(
+  //       shrinkWrap: true,
+  //       childAspectRatio: 2,
+  //       primary: false,
+  //       crossAxisCount: 2,
+  //       children: [
+  //         GestureDetector(
+  //           onTap: () {
+  //             // widget.onTapMap;
+  //             // Navigator.push(
+  //             //   context,
+  //             //   MaterialPageRoute(
+  //             //     builder: (context) => const AvailabilityListScreen(),
+  //             //   ),
+  //             // );
+  //             userController.jumpToTab(3);
+  //             // userController = PersistentTabController(initialIndex: 3);
+  //             // setState(() {});
+  //           },
+  //           child:  HomeCardItem(
+  //               label: Txt.my_availability,
+  //               asset: "assets/images/icon/availability.svg"),
+  //         ),
+  //         GestureDetector(
+  //           onTap: () {
+  //             // widget.onTapMap;
+  //             userController.jumpToTab(4);
+  //             // Navigator.push(
+  //             //   context,
+  //             //   MaterialPageRoute(
+  //             //     builder: (context) => const CompletedShiftScreen(),
+  //             //   ),
+  //             // );
+  //           },
+  //           child: const HomeCardItem(
+  //               label: Txt.submit_timesheets,
+  //               asset: "assets/images/icon/Page-1.svg"),
+  //         ),
+  //         GestureDetector(
+  //           onTap: () {
+  //             // widget.onTapMap;
+  //             userController.jumpToTab(1);
+  //             // Navigator.push(
+  //             //   context,
+  //             //   MaterialPageRoute(
+  //             //     builder: (context) => const FindShiftCalendar(),
+  //             //   ),
+  //             // );
+  //           },
+  //           child: const HomeCardItem(
+  //               label: Txt.find_shift, asset: "assets/images/icon/shift.svg"),
+  //         ),     GestureDetector(
+  //           onTap: () {
+  //             // widget.onTapMap;
+  //             userController.jumpToTab(2);
+  //             // Navigator.push(
+  //             //   context,
+  //             //   MaterialPageRoute(
+  //             //     builder: (context) => const FindShiftCalendar(),
+  //             //   ),
+  //             // );
+  //           },
+  //           child: const HomeCardItem(
+  //               label: Txt.my_booking, asset: "assets/images/icon/booking.svg"),
+  //         ),
+  //
+  //       ],
+  //     ),
+  //   );
+  // }
 
   getDate(String s) {
     return;

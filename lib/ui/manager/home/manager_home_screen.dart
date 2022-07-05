@@ -36,7 +36,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   int pageCount = 0;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
-  String currentStatus = "Daily";
+  int currentStatus = 0;
   var token;
   double? currentPage = 0;
   late PageController pageController;
@@ -46,7 +46,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      getData();
+
     }
   }
   @override
@@ -80,7 +80,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
-    getData();
+
     return Scaffold(
       backgroundColor: Constants.colors[9],
       body: ScrollConfiguration(
@@ -114,8 +114,8 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
                         ),
                       ),
                       horizontalList(),
-                      // shiftDetails(),
-                      gridView(),
+
+
                       const SizedBox(
                         height: 30,
                       ),
@@ -150,7 +150,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   }
 
   Widget shiftDetails() {
-    return SizedBox(
+    return managerhomeBloc.dashList.isNotEmpty?SizedBox(
       width: double.infinity,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
@@ -175,31 +175,31 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
               children: [
                 ShiftStatusChip(
                   label: 'Daily',
-                  selected: currentStatus == "Daily",
+                  selected: currentStatus == 0,
                   selectedColor: greenColor,
                   textColor: white,
                   onPressed: () {
-                    currentStatus = "Daily";
+                    currentStatus = 0;
                     setState(() {});
                   },
                 ),
                 ShiftStatusChip(
                   label: 'Weekly',
-                  selected: currentStatus == "Weekly",
+                  selected: currentStatus == 1,
                   selectedColor: greenColor,
                   textColor: white,
                   onPressed: () {
-                    currentStatus = "Weekly";
+                    currentStatus = 1;
                     setState(() {});
                   },
                 ),
                 ShiftStatusChip(
                   label: 'Monthly',
-                  selected: currentStatus == "Monthly",
+                  selected: currentStatus == 2,
                   selectedColor: greenColor,
                   textColor: white,
                   onPressed: () {
-                    currentStatus = "Monthly";
+                    currentStatus = 2;
                     setState(() {});
                   },
                 ),
@@ -214,12 +214,12 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ShiftDetailCard(
-              label: "500",
+              label: managerhomeBloc.dashList[currentStatus].pending,
                 hint: "Pending", height: 45.w, svgPath: 'assets/images/icon/shift.svg',
 
             ),
             ShiftDetailCard(
-              label: "500",
+              label:  managerhomeBloc.dashList[currentStatus].approved,
               hint: "Approved", height: 45.w, svgPath: 'assets/images/icon/check.svg',
 
             ),
@@ -227,12 +227,12 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
           ],
         ),
         ShiftDetailCard(
-          label: "1000",
+          label:  managerhomeBloc.dashList[currentStatus].total,
           hint: "Total Shifts", height: 45.w, svgPath: 'assets/images/icon/price-tag.svg',
 
         ),
       ]),
-    );
+    ):SizedBox();
   }
 
   Widget equalSizeButtons() {
@@ -279,191 +279,191 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   }
 
   Widget horizontalList() {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: 35.w,
-      ),
-      child: StreamBuilder(
-          stream: managerhomeBloc.managerhomeStream,
-          builder: (BuildContext context,
-              AsyncSnapshot<ManagerHomeResponse> snapshot) {
-            print(snapshot.connectionState.toString());
-            if (snapshot.hasData) {
-              return buildList(snapshot);
-            } else if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            }
-            return SizedBox(
-                height: 35.w,
-                child: const Center(child: CircularProgressIndicator()));
-          }),
-    );
+    return StreamBuilder(
+        stream: managerhomeBloc.managerhomeStream,
+        builder: (BuildContext context,
+            AsyncSnapshot<ManagerHomeResponse> snapshot) {
+
+          if (snapshot.hasData) {
+            return buildList(snapshot);
+          } else if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+          return SizedBox(
+              height: 35.w,
+              child: const Center(child: CircularProgressIndicator()));
+        });
   }
 
   Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
       var itemCount = snapshot.data?.response?.data?.importantUpdates!.length;
-      return SizedBox(
-        height: 35.w,
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: ctrl,
-                padEnds: false,
-                onPageChanged: (page) {
-                  debugPrint("page $page");
-                  setState(() {
-                    currentPage = page.toDouble();
-                  });
-                },
-                pageSnapping: true,
-                itemCount: itemCount,
-                itemBuilder: (BuildContext context, int index) {
-                  var list =
-                      snapshot.data?.response?.data?.importantUpdates![index];
-                  if (null != list) {
-                    var name = list.title!;
-                    var date = list.date!;
-                    var description = list.description!;
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      elevation: 0.0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(13.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            AutoSizeText(
-                              name,
-                              maxLines: 2,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontFamily: "SFProMedium",
-                              ),
+      return Column(
+        children: [
+          SizedBox(
+            height: 35.w,
+            child: Column(
+              children: [
+                Expanded(
+                  child: PageView.builder(
+                    controller: ctrl,
+                    padEnds: false,
+                    onPageChanged: (page) {
+                      debugPrint("page $page");
+                      setState(() {
+                        currentPage = page.toDouble();
+                      });
+                    },
+                    pageSnapping: true,
+                    itemCount: itemCount,
+                    itemBuilder: (BuildContext context, int index) {
+                      var list =
+                          snapshot.data?.response?.data?.importantUpdates![index];
+                      if (null != list) {
+                        var name = list.title!;
+                        var date = list.date!;
+                        var description = list.description!;
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          elevation: 0.0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(13.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AutoSizeText(
+                                  name,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14.sp,
+                                    fontFamily: "SFProMedium",
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: SizedBox(
+                                      width: screenHeight(context, dividedBy: 2.2),
+                                      child: AutoSizeText(
+                                        description,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
+                                        ),
+                                      )),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                  child: SizedBox(
+                                      width: screenHeight(context, dividedBy: 2.2),
+                                      child: AutoSizeText(
+                                        date,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 8.sp,
+                                        ),
+                                      )),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                              child: SizedBox(
-                                  width: screenHeight(context, dividedBy: 2.2),
-                                  child: AutoSizeText(
-                                    description,
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 8.sp,
-                                    ),
-                                  )),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                              child: SizedBox(
-                                  width: screenHeight(context, dividedBy: 2.2),
-                                  child: AutoSizeText(
-                                    date,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 8.sp,
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                },
-              ),
+                          ),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  ),
+                ),
+                DotsIndicator(
+                  dotsCount: itemCount!,
+                  position: currentPage!,
+                  decorator: DotsDecorator(
+                    color: Constants.colors[37], // Inactive color
+                    activeColor: Constants.colors[36],
+                  ),
+                ),
+              ],
             ),
-            DotsIndicator(
-              dotsCount: itemCount!,
-              position: currentPage!,
-              decorator: DotsDecorator(
-                color: Constants.colors[37], // Inactive color
-                activeColor: Constants.colors[36],
-              ),
-            ),
-          ],
-        ),
+          ),
+          shiftDetails()
+        ],
       );
     } else {
       return const SizedBox();
     }
   }
 
-  Widget gridView() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: GridView.count(
-        shrinkWrap: true,
-        childAspectRatio: 2,
-        primary: false,
-        crossAxisCount: 2,
-        children: [
-          GestureDetector(
-              onTap: () {
-                debugPrint("ON TAP");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CreateShiftScreenUpdate(buttonTxt: "Create Shift",)),
-                );
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const CreateShiftScreenUpdate()),
-                // );
-              },
-              child: const HomeCardItem(
-                  label: Txt.create_shifts,
-                  asset: "assets/images/icon/shift.svg")),
-          GestureDetector(
-            onTap: () {
-              controller.jumpToTab(1);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const ManagerFindShiftCalendar()),
-              // );
-            },
-            child: const HomeCardItem(
-                label: Txt.view_booking,
-                asset: "assets/images/icon/booking.svg"),
-          ),
-          GestureDetector(
-            onTap: () {
-              controller.jumpToTab(3);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //       builder: (context) => const ApprovedTimeSheetScreen()),
-              // );
-            },
-            child: const HomeCardItem(
-                label: Txt.approve_timesheets,
-                asset: "assets/images/icon/availability.svg"),
-          ),
-          GestureDetector(
-            onTap: () {
-              controller.jumpToTab(3);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //       builder: (context) => const ApprovedTimeSheetScreen()),
-              // );
-            },
-            child: const HomeCardItem(
-                label: Txt.time_sheets,
-                asset: "assets/images/icon/availability.svg"),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget gridView() {
+  //   return Container(
+  //     margin: const EdgeInsets.symmetric(vertical: 10.0),
+  //     child: GridView.count(
+  //       shrinkWrap: true,
+  //       childAspectRatio: 2,
+  //       primary: false,
+  //       crossAxisCount: 2,
+  //       children: [
+  //         GestureDetector(
+  //             onTap: () {
+  //               debugPrint("ON TAP");
+  //               Navigator.push(
+  //                 context,
+  //                 MaterialPageRoute(
+  //                     builder: (context) => const CreateShiftScreenUpdate(buttonTxt: "Create Shift",)),
+  //               );
+  //               // Navigator.push(
+  //               //   context,
+  //               //   MaterialPageRoute(
+  //               //       builder: (context) => const CreateShiftScreenUpdate()),
+  //               // );
+  //             },
+  //             child: const HomeCardItem(
+  //                 label: Txt.create_shifts,
+  //                 asset: "assets/images/icon/shift.svg")),
+  //         GestureDetector(
+  //           onTap: () {
+  //             controller.jumpToTab(1);
+  //             // Navigator.push(
+  //             //   context,
+  //             //   MaterialPageRoute(builder: (context) => const ManagerFindShiftCalendar()),
+  //             // );
+  //           },
+  //           child: const HomeCardItem(
+  //               label: Txt.view_booking,
+  //               asset: "assets/images/icon/booking.svg"),
+  //         ),
+  //         GestureDetector(
+  //           onTap: () {
+  //             controller.jumpToTab(3);
+  //             // Navigator.push(
+  //             //   context,
+  //             //   MaterialPageRoute(
+  //             //       builder: (context) => const ApprovedTimeSheetScreen()),
+  //             // );
+  //           },
+  //           child: const HomeCardItem(
+  //               label: Txt.approve_timesheets,
+  //               asset: "assets/images/icon/availability.svg"),
+  //         ),
+  //         GestureDetector(
+  //           onTap: () {
+  //             controller.jumpToTab(3);
+  //             // Navigator.push(
+  //             //   context,
+  //             //   MaterialPageRoute(
+  //             //       builder: (context) => const ApprovedTimeSheetScreen()),
+  //             // );
+  //           },
+  //           child: const HomeCardItem(
+  //               label: Txt.time_sheets,
+  //               asset: "assets/images/icon/availability.svg"),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

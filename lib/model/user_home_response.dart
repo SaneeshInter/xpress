@@ -1,25 +1,21 @@
 class UserHomeResponse {
-
   Response? response;
-  UserHomeResponse({this.response});
-  UserHomeResponse.fromJson(Map<String, dynamic> json) {
 
+  UserHomeResponse({this.response});
+
+  UserHomeResponse.fromJson(Map<String, dynamic> json) {
     response = json['Response'] != null
         ? new Response.fromJson(json['Response'])
         : null;
-
   }
 
   Map<String, dynamic> toJson() {
-
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.response != null) {
       data['Response'] = this.response!.toJson();
     }
     return data;
-
   }
-
 }
 
 class Response {
@@ -47,10 +43,11 @@ class Response {
 }
 
 class Data {
-
   List<ImportantUpdates>? importantUpdates;
   List<LatestShift>? latestShift;
-  Data({this.importantUpdates, this.latestShift});
+  List<Summary>? summary;
+
+  Data({this.importantUpdates, this.latestShift, this.summary});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['important_updates'] != null) {
@@ -65,6 +62,12 @@ class Data {
         latestShift!.add(new LatestShift.fromJson(v));
       });
     }
+    if (json['summary'] != null) {
+      summary = <Summary>[];
+      json['summary'].forEach((v) {
+        summary!.add(new Summary.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -76,15 +79,18 @@ class Data {
     if (this.latestShift != null) {
       data['latest_shift'] = this.latestShift!.map((v) => v.toJson()).toList();
     }
+    if (this.summary != null) {
+      data['summary'] = this.summary!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
-
 }
 
 class ImportantUpdates {
   String? title;
   String? date;
   String? description;
+
   ImportantUpdates({this.title, this.date, this.description});
 
   ImportantUpdates.fromJson(Map<String, dynamic> json) {
@@ -108,7 +114,7 @@ class LatestShift {
   String? userType;
   int? userTypeId;
   String? category;
-  int? categoryId;
+  Null? categoryId;
   String? jobTitle;
   String? hospital;
   int? hospitalId;
@@ -208,16 +214,41 @@ class Allowances {
   }
 }
 
+class Summary {
+  String? requestedCount;
+  String? approvedCount;
+  String? completedCount;
+
+  Summary({this.requestedCount, this.approvedCount, this.completedCount});
+
+  Summary.fromJson(Map<String, dynamic> json) {
+    requestedCount = json['requested_count'];
+    approvedCount = json['approved_count'];
+    completedCount = json['completed_count'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['requested_count'] = this.requestedCount;
+    data['approved_count'] = this.approvedCount;
+    data['completed_count'] = this.completedCount;
+    return data;
+  }
+}
+
 class Status {
   int? count;
   int? statusCode;
   String? statusMessage;
+
   Status({this.count, this.statusCode, this.statusMessage});
+
   Status.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     statusCode = json['status_code'];
     statusMessage = json['status_message'];
   }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['count'] = this.count;
@@ -226,4 +257,3 @@ class Status {
     return data;
   }
 }
-
