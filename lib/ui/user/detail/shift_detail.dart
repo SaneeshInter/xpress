@@ -303,8 +303,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                   ),
                                                   CustomRow(
                                                     onPressed: () {
-                                                      sendingMails(
-                                                          hospitalDetail.email!);
+                                                      sendingMails('mailto:${hospitalDetail.email!}?subject=&body='
+                                                          );
                                                     },
                                                     label: hospitalDetail.email
                                                         .toString(),
@@ -320,7 +320,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     CustomRow(
                                                       onPressed: () {
                                                         dialCall(hospitalDetail
-                                                            .phone!);
+                                                            .phone??Txt.contactNumber);
                                                       },
                                                       label: hospitalDetail.phone
                                                           .toString(),
@@ -329,6 +329,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
+
                                                   const Padding(
                                                     padding: EdgeInsets.all(
                                                         12.0),
@@ -438,7 +439,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     usershiftdetailsBloc.usershiftdetailsStream.listen((event) {
       var hospitalDetail = event.response?.data?.hospitalDetails?[0]??HospitalDetails();
       if (null != hospitalDetail) {
-        usershiftdetailsBloc.hospitalNumber = hospitalDetail.phone??"";
+        usershiftdetailsBloc.hospitalNumber =  hospitalDetail.phone??Txt.contactNumber;
       }
     });
   }

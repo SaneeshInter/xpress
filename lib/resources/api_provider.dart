@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import '../model/login_response.dart';
-import '../model/user_get_shift_details.dart';
-import '../model/user_home_response.dart';
+
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
+import '../model/login_response.dart';
 import '../model/manager_get_clients.dart';
 import '../model/manager_get_time.dart';
 import '../model/manager_home_response.dart';
@@ -24,9 +24,11 @@ import '../model/user_cancel_jobrequest.dart';
 import '../model/user_complted_shift.dart';
 import '../model/user_documents_response.dart';
 import '../model/user_get_response.dart';
+import '../model/user_get_shift_details.dart';
 import '../model/user_get_timesheet.dart';
 import '../model/user_getschedule_by_month_year.dart';
 import '../model/user_getschedule_bydate.dart';
+import '../model/user_home_response.dart';
 import '../model/user_job_request.dart';
 import '../model/user_notification_model.dart';
 import '../model/user_profile_update.dart';
@@ -36,15 +38,14 @@ import '../model/user_view_request_response.dart';
 import '../model/user_working_hours.dart';
 import '../model/utility_respo.dart';
 import '../model/viewbooking_response.dart';
-import 'dart:developer' as developer;
 
 class ApiProvider {
   Client client = Client();
+
   // String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
   String BASE_URL = "http://www.xpresshealthapp.ie/api";
 
-  Future<LoginUserRespo?> loginUser(
-      String username, String password, String user_type,String device_id) async {
+  Future<LoginUserRespo?> loginUser(String username, String password, String user_type, String device_id) async {
     var uri = Uri.parse('$BASE_URL/account/login');
     try {
       final response = await client.post(uri,
@@ -95,7 +96,6 @@ class ApiProvider {
         return UserGetResponse();
       }
     } catch (e) {
-
       print(e.toString());
       return UserGetResponse();
     }
@@ -136,8 +136,7 @@ class ApiProvider {
     }
   }
 
-  Future<ProfileQuestionResponse> geProfileQuestions(
-      String token, String key, String value) async {
+  Future<ProfileQuestionResponse> geProfileQuestions(String token, String key, String value) async {
     try {
       var uri = Uri.parse(BASE_URL + '/account/update-questions');
       final response = await client.post(uri,
@@ -169,7 +168,7 @@ class ApiProvider {
   }
 
   Future<SliftListRepso> fetchShiftList(String date) async {
-    try{
+    try {
       print("date");
       print(date);
       var uri = Uri.parse(BASE_URL + '/account/login');
@@ -180,34 +179,15 @@ class ApiProvider {
       } else {
         return SliftListRepso();
       }
-    }catch(e) {
+    } catch (e) {
       print(e.toString());
       return SliftListRepso();
     }
-
   }
 
-
-
-
-
-  Future<ProfileUpdateRespo> ProfileUser(
-      String token,
-      String first_name,
-      String last_name,
-      String dob,
-      String gender,
-      String nationality,
-      String home_address,
-      String permission_to_work_in_ireland,
-      String visa_type,
-      String phone_number,
-      String email,
-      String pps_number,
-      String bank_iban,
-      String bank_bic) async {
-
-    try{
+  Future<ProfileUpdateRespo> ProfileUser(String token, String first_name, String last_name, String dob, String gender, String nationality, String home_address, String permission_to_work_in_ireland,
+      String visa_type, String phone_number, String email, String pps_number, String bank_iban, String bank_bic) async {
+    try {
       var uri = Uri.parse(BASE_URL + '/account/update-profile');
       final response = await client.post(uri,
           headers: <String, String>{
@@ -254,16 +234,14 @@ class ApiProvider {
       } else {
         return ProfileUpdateRespo();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ProfileUpdateRespo();
     }
-
   }
 
   Future<UserTimeSheetRespo> userGetTimesheet(String token) async {
-
-    try{
+    try {
       var uri = Uri.parse(BASE_URL + "/user/get-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -282,20 +260,16 @@ class ApiProvider {
       } else {
         return UserTimeSheetRespo();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserTimeSheetRespo();
     }
-
   }
-
 
 //new   approval
 
-
   Future<ManagerTimeSheetResponse> managerApprovel(String token) async {
-
-    try{
+    try {
       var uri = Uri.parse(BASE_URL + "/manager/get-completed-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -315,18 +289,14 @@ class ApiProvider {
       } else {
         return ManagerTimeSheetResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerTimeSheetResponse();
     }
-
   }
 
-
-  Future<UserTimeSheetDetailsRespo> userGetTimeDetails(
-      String token, String time_shhet_id) async {
-    try{
-
+  Future<UserTimeSheetDetailsRespo> userGetTimeDetails(String token, String time_shhet_id) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/user/get-time-sheet-details");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -349,19 +319,16 @@ class ApiProvider {
       } else {
         return UserTimeSheetDetailsRespo();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserTimeSheetDetailsRespo();
     }
-
   }
 
   ///////////////////// MANAGER API
 
-  Future<AcceptJobRequestResponse> AcceptJobRequest(
-      String token, String job_request_row_id) async {
-
-    try{
+  Future<AcceptJobRequestResponse> AcceptJobRequest(String token, String job_request_row_id) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/manager/accept-job-request");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -384,15 +351,13 @@ class ApiProvider {
       } else {
         return AcceptJobRequestResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return AcceptJobRequestResponse();
     }
-
   }
 
   Future<ManagerHomeResponse> getManagerHome(String token) async {
-
     try {
       var uri = Uri.parse(BASE_URL + "/home/get-manager-updates");
       final response = await client.post(uri,
@@ -412,18 +377,14 @@ class ApiProvider {
       } else {
         return ManagerHomeResponse();
       }
-
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerHomeResponse();
     }
-
   }
 
-  Future<ManagerViewRequestResponse> getManagerViewRequest(
-      String token, String shift_id) async {
-
-    try{
+  Future<ManagerViewRequestResponse> getManagerViewRequest(String token, String shift_id) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/manager/view-request");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -446,18 +407,14 @@ class ApiProvider {
       } else {
         return ManagerViewRequestResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerViewRequestResponse();
     }
-
   }
 
-  Future<RemoveManagerScheduleResponse> removeManager(
-      String token, String rowId) async {
-
-    try{
-
+  Future<RemoveManagerScheduleResponse> removeManager(String token, String rowId) async {
+    try {
       var uri = Uri.parse(BASE_URL + '/manager/remove-schedule');
       final response = await client.post(uri,
           headers: <String, String>{
@@ -480,17 +437,14 @@ class ApiProvider {
       } else {
         return RemoveManagerScheduleResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return RemoveManagerScheduleResponse();
     }
-
   }
 
-  Future<ManagerTimeDetailsResponse> timeDetails(
-      String token, String time_shhet_id) async {
-
-    try{
+  Future<ManagerTimeDetailsResponse> timeDetails(String token, String time_shhet_id) async {
+    try {
       var uri = Uri.parse(BASE_URL + '/manager/get-time-sheet-details');
       final response = await client.post(uri,
           headers: <String, String>{
@@ -514,17 +468,14 @@ class ApiProvider {
       } else {
         return ManagerTimeDetailsResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerTimeDetailsResponse();
     }
-
   }
 
   Future<ManagerTimeSheetResponse> managerTimeSheet(String token) async {
-
-    try
-    {
+    try {
       var uri = Uri.parse(BASE_URL + "/manager/get-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -543,16 +494,14 @@ class ApiProvider {
       } else {
         return ManagerTimeSheetResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerTimeSheetResponse();
     }
-
   }
 
   Future<ManagerGetClientsResponse> managerGetClients(String token) async {
-
-    try{
+    try {
       var uri = Uri.parse(BASE_URL + "/manager/get-clients");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -571,17 +520,14 @@ class ApiProvider {
       } else {
         return ManagerGetClientsResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerGetClientsResponse();
     }
-
   }
 
-  Future<ManagerUnitNameResponse> managerUnitName(
-      String token, String clients) async {
-
-    try{
+  Future<ManagerUnitNameResponse> managerUnitName(String token, String clients) async {
+    try {
       var uri = Uri.parse(BASE_URL + '/manager/get-unit-name');
       final response = await client.post(uri,
           headers: <String, String>{
@@ -604,20 +550,14 @@ class ApiProvider {
       } else {
         return ManagerUnitNameResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerUnitNameResponse();
     }
-
   }
 
-
-
-
-  Future<ManagerScheduleListResponse> fetchViewbooking(
-      String token, String date) async {
-
-    try{
+  Future<ManagerScheduleListResponse> fetchViewbooking(String token, String date) async {
+    try {
       print("View Booking");
 
       var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-date');
@@ -639,18 +579,14 @@ class ApiProvider {
       } else {
         return ManagerScheduleListResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerScheduleListResponse();
     }
-
   }
 
-
-  Future<UserShoiftCompletedResponse> fetchUserCompleteShift(
-      String token) async {
-
-    try{
+  Future<UserShoiftCompletedResponse> fetchUserCompleteShift(String token) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/user/get-completed-shifts");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -667,16 +603,14 @@ class ApiProvider {
       } else {
         return UserShoiftCompletedResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserShoiftCompletedResponse();
     }
-
   }
 
   Future<UserHomeResponse> getUserHome(String token) async {
-
-    try{
+    try {
       var uri = Uri.parse(BASE_URL + "/home/get-user-updates");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -695,11 +629,10 @@ class ApiProvider {
       } else {
         return UserHomeResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserHomeResponse();
     }
-
   }
 
   Future<ManagerShift> CreateShiftManager(
@@ -718,7 +651,6 @@ class ApiProvider {
     String shift,
     String allowances,
   ) async {
-
     try {
       var response;
       var uri = Uri.parse(BASE_URL + '/manager/add-schedule');
@@ -771,7 +703,7 @@ class ApiProvider {
       print(jsonEncode(<String, String>{
         "type": type,
         "row_id": row_id.toString(),
-        "category":"null",
+        "category": "null",
         "user_type": user_type,
         "job_title": job_title,
         "hospital": hospital,
@@ -793,16 +725,14 @@ class ApiProvider {
       } else {
         return ManagerShift();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerShift();
     }
-
   }
 
-  Future<GetAvailableUserByDate> fetchGetAvailableUserByDate(
-      String token, String date, String shifttype) async {
-    try{
+  Future<GetAvailableUserByDate> fetchGetAvailableUserByDate(String token, String date, String shifttype) async {
+    try {
       print("GetAvailableUserByDate  CALLING");
 
       var uri = Uri.parse(BASE_URL + '/manager/get-available-user-by-date');
@@ -824,18 +754,14 @@ class ApiProvider {
       } else {
         return GetAvailableUserByDate();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return GetAvailableUserByDate();
     }
-
   }
 
-  Future<UserGetScheduleByDate> getUserScheduleByDate(
-      String token, String date) async {
-
-    try
-    {
+  Future<UserGetScheduleByDate> getUserScheduleByDate(String token, String date) async {
+    try {
       var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-date');
       final response = await client.post(uri,
           headers: <String, String>{
@@ -858,18 +784,14 @@ class ApiProvider {
       } else {
         return UserGetScheduleByDate();
       }
-
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserGetScheduleByDate();
     }
-
   }
 
-  Future<UserGetScheduleByMonthYear> getUserScheduleByMonthYear(
-      String token, String month, String year) async {
-
-    try{
+  Future<UserGetScheduleByMonthYear> getUserScheduleByMonthYear(String token, String month, String year) async {
+    try {
       var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-month');
       final response = await client.post(uri,
           headers: <String, String>{
@@ -894,19 +816,14 @@ class ApiProvider {
       } else {
         return UserGetScheduleByMonthYear();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserGetScheduleByMonthYear();
     }
-
-
   }
 
-  Future<UserGetScheduleByYear> userScheduleByYears(
-      String token, String year) async {
-
-    try{
-
+  Future<UserGetScheduleByYear> userScheduleByYears(String token, String year) async {
+    try {
       var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-year');
 
       print(uri);
@@ -932,22 +849,14 @@ class ApiProvider {
       } else {
         return UserGetScheduleByYear();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserGetScheduleByYear();
     }
-
   }
 
-  Future<ManagerGetScheduleByYear?> managerScheduleByYears(
-      String token, String year) async {
-
-
-
-
-
-
-    try{
+  Future<ManagerGetScheduleByYear?> managerScheduleByYears(String token, String year) async {
+    try {
       var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-year');
       final response = await client.post(uri,
           headers: <String, String>{
@@ -970,18 +879,14 @@ class ApiProvider {
       } else {
         return ManagerGetScheduleByYear();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return ManagerGetScheduleByYear();
     }
-
   }
 
-  Future<UserJobRequestResponse> getUserJobRequest(
-      String token, String job_id) async {
-
-    try{
-
+  Future<UserJobRequestResponse> getUserJobRequest(String token, String job_id) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/user/job-request");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -994,7 +899,9 @@ class ApiProvider {
       debugPrint("API RESPONSE\n"
           "url: $uri \n"
           " token: $token\n"
-          "body:${jsonEncode(<String, String>{'job_id': job_id,}).toString()}\n"
+          "body:${jsonEncode(<String, String>{
+            'job_id': job_id,
+          }).toString()}\n"
           "response: ${response.body}");
       print(jsonEncode(<String, String>{
         'job_id': job_id,
@@ -1005,18 +912,15 @@ class ApiProvider {
       } else {
         return UserJobRequestResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserJobRequestResponse();
     }
-
   }
 
   Future<UserViewRequestResponse> getUserViewRequest(String token) async {
-    try{
-
+    try {
       var uri = Uri.parse("$BASE_URL/user/view-request");
-
 
       final response = await client.post(
         uri,
@@ -1033,20 +937,14 @@ class ApiProvider {
       } else {
         return UserViewRequestResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserViewRequestResponse();
     }
-
-
-
-
   }
 
-  Future<GetUserShiftDetailsResponse> getUserShiftDetails(
-      String token, String shift_id) async {
-
-    try{
+  Future<GetUserShiftDetailsResponse> getUserShiftDetails(String token, String shift_id) async {
+    try {
       var uri = Uri.parse("$BASE_URL/user/get-shift-details");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -1070,17 +968,14 @@ class ApiProvider {
       } else {
         return GetUserShiftDetailsResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return GetUserShiftDetailsResponse();
     }
-
   }
 
-  Future<UserCancelJobRequestResponse> canceljobrequest(
-      String token, String job_request_row_id) async {
-
-    try{
+  Future<UserCancelJobRequestResponse> canceljobrequest(String token, String job_request_row_id) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/user/cancel-request");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -1103,17 +998,15 @@ class ApiProvider {
       } else {
         return UserCancelJobRequestResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserCancelJobRequestResponse();
     }
-
   }
 
-  Future<AddUserAvailabilityResponse> getaddUserAvailability(
-      String token, String date, String availability) async {
+  Future<AddUserAvailabilityResponse> getaddUserAvailability(String token, String date, String availability) async {
     print("availability" + availability);
-    try{
+    try {
       var uri = Uri.parse(BASE_URL + "/user/add-availability");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -1138,17 +1031,14 @@ class ApiProvider {
       } else {
         return AddUserAvailabilityResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return AddUserAvailabilityResponse();
     }
-
   }
 
-  Future<UserAvailabilitydateResponse> getUserAvailability(
-      String token, String from_date, String to_date) async {
-
-    try{
+  Future<UserAvailabilitydateResponse> getUserAvailability(String token, String from_date, String to_date) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/user/get-available-user-between-date");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -1173,23 +1063,14 @@ class ApiProvider {
       } else {
         return UserAvailabilitydateResponse();
       }
-
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserAvailabilitydateResponse();
     }
-
   }
 
-  Future<UserWorkingHoursResponse> addUserWorkingHours(
-      String token,
-      String shift_id,
-      String start_time,
-      String end_time,
-      String working_hours) async {
-
-    try{
-
+  Future<UserWorkingHoursResponse> addUserWorkingHours(String token, String shift_id, String start_time, String end_time, String working_hours) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/user/add-working-hours");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -1218,19 +1099,14 @@ class ApiProvider {
       } else {
         return UserWorkingHoursResponse();
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserWorkingHoursResponse();
     }
-
   }
 
-  Future<UserDocumentsResponse> uploadUserDocuments(
-      String token, String files, String type, String expiry_date) async {
-
-    try{
-
-
+  Future<UserDocumentsResponse> uploadUserDocuments(String token, String files, String type, String expiry_date) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/account/upload-user-documents");
       final response = await client.post(uri,
           headers: <String, String>{
@@ -1257,24 +1133,19 @@ class ApiProvider {
       } else {
         return UserDocumentsResponse();
       }
-
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserDocumentsResponse();
     }
-
   }
 
   //////////////CATEGORIES
 
   Future<SliftListRepso> fetchConfirm() async {
-
-    try{
-
+    try {
       print("CONFIRMED");
 
-      var uri = Uri.parse(
-          'https://agasthyapix.yodser.com/api/categories.asmx/fillCategories');
+      var uri = Uri.parse('https://agasthyapix.yodser.com/api/categories.asmx/fillCategories');
       final response = await client.get(uri);
       print(response);
       if (response.statusCode == 200) {
@@ -1282,96 +1153,82 @@ class ApiProvider {
       } else {
         return SliftListRepso();
       }
-    }
-
-    catch(e){
+    } catch (e) {
       print(e.toString());
       return SliftListRepso();
     }
-
   }
 
   Future<UserNotificationModel> fetchNotification(token) async {
-    var uri = Uri.parse(
-        '$BASE_URL/user/get-notification-list');
-    final response = await client.get(uri,          headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'token': token,
-    },);
+    var uri = Uri.parse('$BASE_URL/user/get-notification-list');
+    final response = await client.get(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'token': token,
+      },
+    );
     debugPrint("dsfs ${uri} ${response.statusCode}   ${response.body}");
 
     if (response.statusCode == 200) {
-
-      UserNotificationModel userNotificationModel =
-          UserNotificationModel.fromJson(json.decode(response.body.toString()));
+      UserNotificationModel userNotificationModel = UserNotificationModel.fromJson(json.decode(response.body.toString()));
       print("sadasddsq2 ${userNotificationModel.response?.data?.items?.length}");
       return userNotificationModel;
     } else {
       return UserNotificationModel();
     }
-    try{
-
+    try {
       print("date");
-
-
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserNotificationModel();
     }
-    }
+  }
+
   Future<UserNotificationModel> fetchManagerNotification(token) async {
     var uri = Uri.parse('$BASE_URL/manager/get-notification-list');
-    final response = await client.get(uri,          headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'token': token,
-    },);
+    final response = await client.get(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'token': token,
+      },
+    );
     debugPrint("dsfs ${uri} ${response.statusCode}   ${response.body}");
 
     if (response.statusCode == 200) {
-      UserNotificationModel userNotificationModel =
-          UserNotificationModel.fromJson(json.decode(response.body.toString()));
+      UserNotificationModel userNotificationModel = UserNotificationModel.fromJson(json.decode(response.body.toString()));
       print("sadasddsq2 ${userNotificationModel.response?.data?.items?.length}");
       return userNotificationModel;
     } else {
       return UserNotificationModel();
     }
-    try{
-
+    try {
       print("date");
-
-
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return UserNotificationModel();
     }
-    }
+  }
 
-
-    Future<dynamic> updateFCMToken(
-      String token,String fcm,String user_type) async {
-    try{
-
+  Future<dynamic> updateFCMToken(String token, String fcm, String user_type) async {
+    try {
       var uri = Uri.parse(BASE_URL + "/account/add-device-token");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
-          body: jsonEncode(<String, String>{
-            "device_token": fcm,
-            'user_type': user_type
-          }));
+          body: jsonEncode(<String, String>{"device_token": fcm, 'user_type': user_type}));
 
       if (response.statusCode == 200) {
         return response.body;
       } else {
         return response.body;
       }
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return e.toString();
     }
-
   }
-
 }

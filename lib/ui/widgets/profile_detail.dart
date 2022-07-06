@@ -99,7 +99,7 @@ class ProfileDetailCard extends StatelessWidget {
                     if (email != null)
                       GestureDetector(
                         onTap: () {
-                          sendingMails(email);
+                          sendingMails('mailto:$email?subject=&body=');
                         },
                         child: ProfileDetailsRow(
                             label: Txt.email_dot + email,

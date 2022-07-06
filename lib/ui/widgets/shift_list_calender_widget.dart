@@ -69,7 +69,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
                 Text(
                  " ${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 13,
                       color: Colors.grey,
                       fontWeight: FontWeight.w400),
@@ -221,11 +221,14 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                           child: SvgPicture.asset("assets/images/icon/rank.svg",
                               width: 6.w, height: 6.w, fit: BoxFit.cover))),
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
-                CallButtons(
-                  onPressed: () {
-                    dialCall("86962876916");
-                  },
-                ),
+                // CallButtons(
+                //   onPressed: () {
+                //     dialCall();
+                //   },
+                // ),
+                GestureDetector(onTap: ()=>dialCall(Txt.contactNumber),child: Image.asset("assets/images/icon/callgif.gif",width: 45,height: 45,)),
+                GestureDetector(onTap: ()=>whatsappCall(),child: Image.asset("assets/images/icon/whatsapp.gif",width: 40,height: 40,)),
+
               ],
             ),
             SizedBox(height: screenHeight(context, dividedBy: 120)),

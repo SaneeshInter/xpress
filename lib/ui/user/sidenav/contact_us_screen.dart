@@ -11,6 +11,7 @@ import '../../../Constants/strings.dart';
 
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -74,7 +75,7 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
         backgroundColor: Constants.colors[9],
         body: SizedBox(
-          height: 35.h,
+          height: 45.h,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
@@ -99,7 +100,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        launch("mailto:info@xpresshealth.ie?subject=&body=");
+                        sendingMails("mailto:info@xpresshealth.ie?subject=&body=");
                       },
                       child: Row(children: [
                         const SizedBox(
@@ -132,7 +133,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: (){
-                        launch('tel:++35312118883');
+                        dialCall(Txt.contactNumber);
                       },
                       child: Row(children: [
                         const SizedBox(
@@ -165,7 +166,7 @@ class _ContactScreenState extends State<ContactScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: (){
-                        launch('https://goo.gl/maps/7Mrii3wE9T4JcHC68');
+                        launchLink('https://goo.gl/maps/7Mrii3wE9T4JcHC68');
                       },
                       child: Row(children: [
                         const SizedBox(

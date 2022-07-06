@@ -5,17 +5,11 @@ import '../../utils/constants.dart';
 class ExpandableGroup extends StatefulWidget {
 
   final bool isExpanded;
-
   final Widget header;
-
   final Widget items;
-
   final Widget? expandedIcon;
-
   final Widget? collapsedIcon;
-
   final EdgeInsets? headerEdgeInsets;
-
   final Color? headerBackgroundColor;
 
   const ExpandableGroup({Key? key,

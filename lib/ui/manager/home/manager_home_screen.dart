@@ -121,7 +121,10 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
                       const SizedBox(
                         height: 30,
                       ),
-                      equalSizeButtons()
+                      equalSizeButtons(),
+
+
+
                     ],
                   ),
                   SizedBox(
@@ -238,29 +241,54 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   }
 
   Widget equalSizeButtons() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: HomeButton(
-              onPressed: () => sendingMails("manager@health.in"),
-              label: Txt.send_mail,
-              asset: "assets/images/icon/email.svg",
-              textColors: Constants.colors[0],
-              color1: Constants.colors[3],
-              color2: Constants.colors[4]),
+    return Column(
+      children: [
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: HomeButton(
+                  onPressed: () => sendingMails("mailto:info@xpresshealth.ie?subject=&body="),
+                  label: Txt.send_mail,
+                  asset: "assets/images/icon/email.svg",
+                  textColors: Constants.colors[0],
+                  color1: Constants.colors[3],
+                  color2: Constants.colors[4]),
+            ),
+            SizedBox(width: screenHeight(context, dividedBy: 100)),
+            Expanded(
+              child: HomeButton(
+                  onPressed: () => dialCall(Txt.contactNumber),
+                  label: Txt.contact,
+                  asset: "assets/images/icon/phone.svg",
+                  textColors: Constants.colors[0],
+                  color1: Constants.colors[6],
+                  color2: Constants.colors[5]),
+            ),
+          ],
         ),
-        SizedBox(width: screenHeight(context, dividedBy: 100)),
-        Expanded(
-          child: HomeButton(
-              onPressed: () => dialCall("8606276916"),
-              label: Txt.contact,
-              asset: "assets/images/icon/phone.svg",
-              textColors: Constants.colors[0],
-              color1: Constants.colors[6],
-              color2: Constants.colors[5]),
+        const SizedBox(
+          height: 10,
         ),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: HomeButton(
+                  onPressed: () => whatsappCall(),
+                  label: Txt.whatsapp,
+                  asset: "assets/images/icon/whatsapp.svg",
+                  textColors: Constants.colors[0],
+                  color1: Constants.colors[3],
+                  color2: Constants.colors[4]),
+            ),
+            SizedBox(width: screenHeight(context, dividedBy: 100)),
+            const Expanded(
+              child: SizedBox(),
+            ),
+          ],
+        )
       ],
     );
+
   }
 
   Widget imageCard() {

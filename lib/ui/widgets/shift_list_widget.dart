@@ -119,11 +119,13 @@ class _HomePageCardState extends State<ShiftListWidget> {
                       decoration: BoxDecoration(shape: BoxShape.circle, color: Constants.colors[8]),
                       child: Center(child: SvgPicture.asset("assets/images/icon/rank.svg", width: 6.w, height: 6.w, fit: BoxFit.cover))),
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
-                CallButtons(
-                  onPressed: () {
-                    dialCall("86962876916");
-                  },
-                ),
+                GestureDetector(onTap: ()=>dialCall(Txt.contactNumber),child: Image.asset("assets/images/icon/premium_home_icon.png")),
+                GestureDetector(onTap: ()=>whatsappCall(),child: Image.asset("assets/images/icon/premium_home_icon.png")),
+                // CallButtons(
+                //   onPressed: () {
+                //     dialCall();
+                //   },
+                // ),
               ],
             ),
             SizedBox(height: screenHeight(context, dividedBy: 120)),

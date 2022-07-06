@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="New updates">
+      <change afterPath="$PROJECT_DIR$/assets/images/icon/callgif.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/icon/locationgif.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/icon/w2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/icon/whatsapp.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/icon/whatsapp.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/integration_test/app_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/xpress.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/xpress.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_email_sender/intermediates/annotations_typedef_file/debug/typedefs.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Constants/strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Constants/strings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/faq_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/faq_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/resources/api_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/api_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/manager_home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/manager_home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/common/side_menu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/common/side_menu.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/contact_us_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/contact_us_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/expandable_group.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/expandable_group.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/profile_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/profile_detail.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/shift_list_calender_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/shift_list_calender_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/shift_list_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/shift_list_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/network_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/network_utils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
@@ -769,7 +807,6 @@
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/intermediates/aar_main_jar/debug/classes.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/intermediates/aar_metadata/debug/aar-metadata.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/intermediates/annotation_processor_list/debug/annotationProcessors.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/connectivity_plus/intermediates/annotations_typedef_file/debug/typedefs.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/intermediates/compile_library_classes_jar/debug/classes.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/intermediates/compile_r_class_jar/debug/R.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/connectivity_plus/intermediates/compile_symbol_list/debug/R.txt" beforeDir="false" />
@@ -804,7 +841,6 @@
       <change beforePath="$PROJECT_DIR$/build/flutter_email_sender/intermediates/aar_main_jar/debug/classes.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_email_sender/intermediates/aar_metadata/debug/aar-metadata.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_email_sender/intermediates/annotation_processor_list/debug/annotationProcessors.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_email_sender/intermediates/annotations_typedef_file/debug/typedefs.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_email_sender/intermediates/compile_library_classes_jar/debug/classes.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_email_sender/intermediates/compile_r_class_jar/debug/R.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_email_sender/intermediates/compile_symbol_list/debug/R.txt" beforeDir="false" />
@@ -2369,11 +2405,21 @@
       <recent name="$PROJECT_DIR$/android/app" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in app_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/integration_test/app_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter Test.tests in app_test.dart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="true" />
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -2384,55 +2430,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650947288890</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Update my booking">
-      <created>1653474229170</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1653474229170</updated>
-    </task>
-    <task id="LOCAL-00029" summary="update issues in my booking">
-      <created>1653476902433</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1653476902433</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Update my booking issues">
-      <created>1653478339631</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1653478339631</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Update final build">
-      <created>1653486873054</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1653486873054</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Release build 25/2022">
-      <created>1653539740886</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1653539740886</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Update issue">
-      <created>1653558056285</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1653558056285</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Update issue">
-      <created>1653558514639</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1653558514639</updated>
     </task>
     <task id="LOCAL-00035" summary="Update issue">
       <created>1653569656059</created>
@@ -2728,7 +2725,56 @@
       <option name="project" value="LOCAL" />
       <updated>1656667870478</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="New updates">
+      <created>1656679889984</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1656679889984</updated>
+    </task>
+    <task id="LOCAL-00078" summary="New updates&#10;image">
+      <created>1656934855712</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1656934855713</updated>
+    </task>
+    <task id="LOCAL-00079" summary="New updates">
+      <created>1657002105673</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1657002105673</updated>
+    </task>
+    <task id="LOCAL-00080" summary="New updates">
+      <created>1657006467360</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1657006467360</updated>
+    </task>
+    <task id="LOCAL-00081" summary="New updates">
+      <created>1657010442489</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1657010442489</updated>
+    </task>
+    <task id="LOCAL-00082" summary="New updates">
+      <created>1657018523300</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1657018523300</updated>
+    </task>
+    <task id="LOCAL-00083" summary="New updates">
+      <created>1657019576520</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1657019576520</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -2767,7 +2813,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="name" />
     <MESSAGE value="Code optimized" />
     <MESSAGE value="1.Gradle propertise &#10;2.keystore jks&#10;3.key propertise" />
     <MESSAGE value="Jks keystore" />
@@ -2791,6 +2836,7 @@
     <MESSAGE value="1. Changes" />
     <MESSAGE value="Manager screen updates" />
     <MESSAGE value="1.shift detail manager - notification if not found" />
+    <MESSAGE value="New updates&#10;image" />
     <MESSAGE value="New updates" />
     <option name="LAST_COMMIT_MESSAGE" value="New updates" />
   </component>
@@ -2804,12 +2850,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/ui/user/home/home_screen.dart</url>
-          <line>530</line>
+          <line>445</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/ui/user/home/home_screen.dart</url>
-          <line>546</line>
+          <line>461</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
@@ -2824,7 +2870,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/blocs/user_shift_calendar.dart</url>
-          <line>63</line>
+          <line>65</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
@@ -2833,19 +2879,14 @@
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/ui/manager/home/manager_home_screen.dart</url>
-          <line>228</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/ui/manager/home/completed_approvel.dart</url>
-          <line>78</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/resources/api_provider.dart</url>
-          <line>898</line>
+          <line>882</line>
           <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/model/faq_model.dart</url>
+          <line>10</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/android/app/build.gradle</url>
