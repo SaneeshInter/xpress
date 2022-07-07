@@ -25,6 +25,7 @@ Future<bool> isConnectedToWiFi() async {
 Future<void> dialCall(String number) async =>await sendingMails('tel:$number');
 Future<void> launchLink(String url) async =>await sendingMails(url);
 Future<void> whatsappCall() async =>await sendingMails('https://wa.me/${Txt.contactWhatspp}');
+
 Future<void> navigateTo(double latitude, double longitude) async =>MapsLauncher.launchCoordinates(latitude, longitude);
 
 

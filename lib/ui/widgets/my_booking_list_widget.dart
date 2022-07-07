@@ -222,6 +222,7 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
         if (widget.items.status == "Accepted" ||
             widget.items.status == "Pending")
           if (widget.items.workingTimeStatus == 0)
+            if(afterWorkHours>0)
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -247,8 +248,7 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
                                   borderRadius: BorderRadius.circular(8)),
                               content: ActionAlertBox(
                                   tittle: "Cancel",
-                                  message:
-                                      "Are you sure you want to cancel the request?",
+                                  message:"Are you sure you want to cancel the request?",
                                   positiveText: "YES",
                                   negativeText: "NO",
                                   onPositvieClick: () {
@@ -266,26 +266,35 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
                   },
                   key: null,
                 ):
+
+
+              // CallButtons(
+              //     onPressed: () => dialCall(Txt.contactNumber),
+              // ),
+
+
               BookButton(
                 label: "Call for Cancel",
                 onPressed: () => dialCall(Txt.contactNumber),
                 key: null,
-              )
-                ,
-
+              ),
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
               ],
             ),
+
         if (widget.items.status == "Accepted" &&
             widget.items.workingTimeStatus == 0)
-          if(afterWorkHours<0) BookButton(
-            label: Txt.add_wrkng_hrs,
-            onPressed: () {
-              widget.onTapView(widget.items);
-              print("Cards booking");
-            },
-            key: null,
-          ),
+
+
+            if(afterWorkHours < 0)
+              BookButton(
+                label: Txt.add_wrkng_hrs,
+                onPressed: () {
+                  widget.onTapView(widget.items);
+                  print("Cards booking");
+                },
+                key: null,
+              ),
 
         //
         if (widget.items.status == "Completed" &&

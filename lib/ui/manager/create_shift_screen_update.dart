@@ -98,7 +98,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   void didUpdateWidget(covariant CreateShiftScreenUpdate oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
-
+bool visible=true;
   @override
   void initState() {
     super.initState();
@@ -112,6 +112,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
   @override
   Widget build(BuildContext context) {
+    visible=true;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
@@ -865,11 +866,11 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
         Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Visibility(
-            // visible: !visible,
+            visible: visible,
             child: Center(
                 child: Stack(
                   children: [
-                    LoginButton(
+      LoginButton(
                         onPressed: () async {
                           var validate = formKey.currentState?.validate();
                           if (null != validate) {
@@ -880,6 +881,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                               if (null == auth_tokn) {
                                 return;
                               }
+                              setState((){visible=false;});
 
                               debugPrint("managerBloc.typeId");
                               debugPrint(managerBloc.typeId.toString());

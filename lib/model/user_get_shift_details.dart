@@ -58,7 +58,7 @@ class Data {
     if (json['hospital_details'] != null) {
       hospitalDetails = <HospitalDetails>[];
       json['hospital_details'].forEach((v) {
-        hospitalDetails!.add(new HospitalDetails.fromJson(v));
+        hospitalDetails!.add( HospitalDetails.fromJson(v));
       });
     }
   }
