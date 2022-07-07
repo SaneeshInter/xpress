@@ -9,6 +9,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xpresshealthdev/utils/time_of_day_extensions.dart';
+
 import '../db/database.dart';
 import '../main.dart';
 import '../ui/Widgets/booking_alert_box.dart';
@@ -77,7 +78,8 @@ void showBookingAlert(
             insetPadding: EdgeInsets.symmetric(
               horizontal: screenWidth(context, dividedBy: 30),
             ),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             content: BookingAlertBox(
               date: date,
               key: null,
@@ -105,7 +107,8 @@ void showAddTimeSheet(
             insetPadding: EdgeInsets.symmetric(
               horizontal: screenWidth(context, dividedBy: 30),
             ),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             content: AddTimeSheetAlertBox(
               date: date,
               key: null,
@@ -134,7 +137,8 @@ void showAlertDialoge(
             insetPadding: EdgeInsets.symmetric(
               horizontal: screenWidth(context, dividedBy: 30),
             ),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             content: LoginAlertBox(
               title: title,
               message: message,
@@ -165,10 +169,16 @@ selectDate(BuildContext context, TextEditingController dateController) async {
   }
 }
 
-BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color? bgColor, var showShadow = false}) {
+BoxDecoration boxDecoration(
+    {double radius = 2,
+    Color color = Colors.transparent,
+    Color? bgColor,
+    var showShadow = false}) {
   return BoxDecoration(
     color: bgColor ?? Colors.white,
-    boxShadow: showShadow ? defaultBoxShadow(shadowColor: shadowColorGlobal) : [const BoxShadow(color: Colors.transparent)],
+    boxShadow: showShadow
+        ? defaultBoxShadow(shadowColor: shadowColorGlobal)
+        : [const BoxShadow(color: Colors.transparent)],
     border: Border.all(color: color),
     borderRadius: BorderRadius.all(Radius.circular(radius)),
   );
@@ -191,8 +201,8 @@ selectTime(BuildContext context, TextEditingController anycontroller) async {
   );
 
   if (timeOfDay != null) {
-
-    anycontroller.text = convert24hrTo12hr("${timeOfDay.hour}:${timeOfDay.minute}");
+    anycontroller.text =
+        convert24hrTo12hr("${timeOfDay.hour}:${timeOfDay.minute}");
     print("sefdsff  ${timeOfDay.format12Hour(context)}");
   }
 }
@@ -248,17 +258,16 @@ String convert12hrTo24hr(String date) {
 // }
 
 convert24hrTo12hr(String time) {
-  if(time.isEmpty) {
+  if (time.isEmpty) {
     return time;
   }
- try{
-   var time24 = DateFormat("HH:mm").parse(time);
-   var time12 = DateFormat("hh:mm a").format(time24);
-   return time12;
- }catch(e){
+  try {
+    var time24 = DateFormat("HH:mm").parse(time);
+    var time12 = DateFormat("hh:mm a").format(time24);
+    return time12;
+  } catch (e) {
     return time;
- }
-
+  }
 }
 
 void showActionAlert(
@@ -280,8 +289,14 @@ void showActionAlert(
             insetPadding: EdgeInsets.symmetric(
               horizontal: screenWidth(context, dividedBy: 30),
             ),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            content: ActionAlertBox(tittle: tittle, message: message, positiveText: "DELETE", onPositvieClick: () {}, onNegativeClick: () {})),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            content: ActionAlertBox(
+                tittle: tittle,
+                message: message,
+                positiveText: "DELETE",
+                onPositvieClick: () {},
+                onNegativeClick: () {})),
       );
     },
   );
@@ -320,26 +335,29 @@ Future<dynamic> getFile() async {
 
 Future<String?> getDeviceId() async {
   var deviceInfo = DeviceInfoPlugin();
-  if (Platform.isIOS) { // import 'dart:io'
+  if (Platform.isIOS) {
+    // import 'dart:io'
     var iosDeviceInfo = await deviceInfo.iosInfo;
     return iosDeviceInfo.identifierForVendor; // unique ID on iOS
-  } else if(Platform.isAndroid) {
+  } else if (Platform.isAndroid) {
     var androidDeviceInfo = await deviceInfo.androidInfo;
     return androidDeviceInfo.androidId; // unique ID on Android
   }
   return null;
-
 }
+
 // get extension of file
 String getExtension(String path) {
   var ext = path.split(".").last;
   return ext;
 }
+
 //get extension of url
 String getExtensionFromUrl(String url) {
   var ext = url.split(".").last;
   return ext;
 }
+
 late DateTime currentBackPressTime;
 
 Future<bool> onWillPopFunction() {
@@ -357,7 +375,7 @@ Future<void> logOut(BuildContext context) async {
   db.clearDb();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   await preferences.clear();
-  Future.delayed(Duration.zero, () async{
+  Future.delayed(Duration.zero, () async {
     // utility_bloc.dispose();
 
     _finishAccountCreation();
@@ -371,74 +389,85 @@ Future<void> logOut(BuildContext context) async {
     //     ModalRoute.withName('/')
     // );
   });
-
 }
+
 void _finishAccountCreation() {
-  Navigator.pushAndRemoveUntil (
+  Navigator.pushAndRemoveUntil(
     MyApp.navigatorKey.currentContext!,
-    MaterialPageRoute (builder: (BuildContext context) =>  SplashScreen()),
+    MaterialPageRoute(builder: (BuildContext context) => SplashScreen()),
     ModalRoute.withName('/'),
   );
 }
+
 DateTime getDateFromString(String date, String format) {
-try{
-  return DateFormat(format).parse(date);
-}catch(e){
-  return DateTime.now();
+  try {
+    return DateFormat(format).parse(date);
+  } catch (e) {
+    return DateTime.now();
+  }
 }
-}
+
 String getStringFromDate(DateTime date, String format) {
   return DateFormat(format).format(date);
 }
 
 String checkAndUpdateTimeDiffernce(String dateTo, String dateFrom) {
-
   if (dateTo.isNotEmpty && dateFrom.isNotEmpty) {
     DateTime date = DateFormat("HH:mm").parse(dateTo);
     DateTime date1 = DateFormat("HH:mm").parse(dateFrom);
 
     // print("Time :  ${ getDiffrenceBetweenDates(date,date1)}");
     return getDiffrenceBetweenDates(date, date1);
-  }else{
+  } else {
     return "";
   }
 }
 
-String getDiffrenceBetweenDates(DateTime date, DateTime date2){
+String getDiffrenceBetweenDates(DateTime date, DateTime date2) {
   ("${date.toString()}     ${date2.toString()}");
-  DateTime fromDate=date;
-  DateTime toDate=date2;
+  DateTime fromDate = date;
+  DateTime toDate = date2;
   var diff = date2.difference(date);
-  if(diff.inHours<0){
-    return getHoursAndMinutesToDouble(getHoursFromMinutes((toDate.add(const Duration(days:1)).difference(fromDate).inMinutes))).toStringAsFixed(2);
-  }else{
-    return getHoursAndMinutesToDouble(getHoursFromMinutes(diff.inMinutes)).toStringAsFixed(2) ;
+  if (diff.inHours < 0) {
+    return getHoursAndMinutesToDouble(getHoursFromMinutes((toDate
+            .add(const Duration(days: 1))
+            .difference(fromDate)
+            .inMinutes)))
+        .toStringAsFixed(2);
+  } else {
+    return getHoursAndMinutesToDouble(getHoursFromMinutes(diff.inMinutes))
+        .toStringAsFixed(2);
   }
 }
-int getDiffrenceInSecond(DateTime date, DateTime date2){
-  var diff = date2.difference(date);
-    return diff.inSeconds;
 
-}
-String getDiffrenceBetweenTwoDates(DateTime date2, DateTime date){
+int getDiffrenceInSecond(DateTime date, DateTime date2) {
   var diff = date2.difference(date);
-    return getHoursFromMinutes(diff.inMinutes) ;
+  return diff.inSeconds;
 }
-String getDiffrenceSecondTwoDates(DateTime date2, DateTime date){
+
+String getDiffrenceBetweenTwoDates(DateTime date2, DateTime date) {
   var diff = date2.difference(date);
-    return getHoursAndMinutesFromSecond(diff.inSeconds) ;
+  return getHoursFromMinutes(diff.inMinutes);
 }
+
+String getDiffrenceSecondTwoDates(DateTime date2, DateTime date) {
+  var diff = date2.difference(date);
+  return getHoursAndMinutesFromSecond(diff.inSeconds);
+}
+
 String getHoursFromMinutes(int minutes) {
   var hours = (minutes / 60).floor();
   var minutesRemaining = minutes % 60;
   return "${hours.toString().padLeft(2, '0')}:${minutesRemaining.toString().padLeft(2, '0')}";
 }
+
 getHoursAndMinutesFromSecond(int seconds) {
   var hours = (seconds / 3600).floor();
   var minutes = (seconds % 3600 / 60).floor();
   var secondsRemaining = seconds % 3600 % 60;
   return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${secondsRemaining.toString().padLeft(2, '0')}";
 }
+
 double getHoursAndMinutesToDouble(String time) {
   var timeSplit = time.split(":");
   var hours = int.parse(timeSplit[0]);
@@ -447,12 +476,50 @@ double getHoursAndMinutesToDouble(String time) {
   return total;
 }
 
-
 String getHoursAndMinutesFromDouble(double time) {
   var hours = (time).floor();
   var minutes = ((time - hours) * 60).floor();
   return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}";
 }
- launch(String url) async {
+
+launchq(String url) async {
   if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
+}
+
+Future<bool> launchUrl(Uri url) async {
+  if (Platform.isAndroid) {
+    return await _launchInAndroid(url);
+  } else if (Platform.isIOS) {
+    return await _launchInIOS(url);
+  } else {
+    return false;
+  }
+}
+
+_launchInAndroid(Uri url) async {
+  try {
+    return await launch(url.toString(),
+        forceSafariVC: false, forceWebView: false);
+  } catch (e) {
+    return false;
+  }
+}
+
+_launchInIOS(Uri url) async {
+  try {
+    return await launch(url.toString(),
+        forceSafariVC: false, forceWebView: false);
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<void> openMap(double latitude, double longitude) async {
+  String googleUrl =
+      'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+  if (await canLaunch(googleUrl)) {
+    await launch(googleUrl);
+  } else {
+    throw 'Could not open the map.';
+  }
 }

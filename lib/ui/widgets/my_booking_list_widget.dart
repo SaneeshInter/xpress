@@ -182,9 +182,10 @@ class _MyBookingState extends State<MyBookingListWidget> {
                             ),
                           ),
                         ),
-                        SizedBox(height: screenHeight(context, dividedBy: 80)),
+                        SizedBox(height: screenHeight(context, dividedBy: 30)),
                         if(widget.items.status == "Accepted" ||
-                            widget.items.status == "Pending") RemainingTimerWidget(date: getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"),),
+                            widget.items.status == "Pending")
+                          RemainingTimerWidget(date: getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"),),
                       ],),
                   ],
                 ),
