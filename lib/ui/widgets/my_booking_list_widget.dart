@@ -10,9 +10,11 @@ import '../../model/user_view_request_response.dart';
 import '../../ui/Widgets/buttons/view_button.dart';
 import '../../ui/user/detail/shift_detail.dart';
 import '../../utils/constants.dart';
+import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
 import 'action_alert_dialoge.dart';
 import 'buttons/book_button.dart';
+import 'buttons/call_button.dart';
 
 class MyBookingListWidget extends StatefulWidget {
   final Items items;
@@ -223,7 +225,8 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-              if(totalWorkHours>16)  BookButton(
+              totalWorkHours>16?
+                BookButton(
                   label: Txt.cancel_req,
                   onPressed: () {
                     showDialog(
@@ -262,7 +265,13 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
                     print("Cards booking");
                   },
                   key: null,
-                ),
+                ):
+              BookButton(
+                label: "Call for Cancel",
+                onPressed: () => dialCall(Txt.contactNumber),
+                key: null,
+              )
+                ,
 
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
               ],
