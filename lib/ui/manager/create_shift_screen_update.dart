@@ -28,8 +28,9 @@ import '../widgets/loading_widget.dart';
 
 class CreateShiftScreenUpdate extends StatefulWidget {
   final Items? shiftItem;
-final String buttonTxt;
-  const CreateShiftScreenUpdate({Key? key, this.shiftItem,this.buttonTxt="Edit Shift"}) : super(key: key);
+  final String buttonTxt;
+
+  const CreateShiftScreenUpdate({Key? key, this.shiftItem, this.buttonTxt = "Edit Shift"}) : super(key: key);
 
   @override
   _CreateShiftStateUpdate createState() => _CreateShiftStateUpdate();
@@ -64,9 +65,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
     managerBloc.getUserListByDate(managerBloc.token, date, shifttype);
   }
 
-
-   loadAllData(){
-
+  loadAllData() {
     managerBloc.row_id = -1;
     dropdownBloc.addItem();
     managerBloc.getDropDownValues();
@@ -77,11 +76,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   Future getToken() async {
     managerBloc.token = await TokenProvider().getToken();
 
-
-
     loadAllData();
     if (widget.shiftItem != null && null != managerBloc.token) {
-
       var item = widget.shiftItem;
 
       updateAllowances(context, item!);
@@ -89,8 +85,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       // WidgetsBinding.instance
       //     .addPostFrameCallback((_) => updateAllowances(context, item!));
     } else if (null != managerBloc.token) {
-      managerBloc.getManagerUnitName(
-          managerBloc.token, managerBloc.hospitalId.toString());
+      managerBloc.getManagerUnitName(managerBloc.token, managerBloc.hospitalId.toString());
     }
   }
 
@@ -98,21 +93,26 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   void didUpdateWidget(covariant CreateShiftScreenUpdate oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
-bool visible=true;
+
+  bool visible = true;
+
   @override
   void initState() {
+    visible = true;
     super.initState();
     observerResponse();
-    WidgetsBinding.instance.addPostFrameCallback((_) =>     getToken());
+    WidgetsBinding.instance.addPostFrameCallback((_) => getToken());
   }
-@override
+
+  @override
   void dispose() {
     managerBloc.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    visible=true;
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
@@ -133,18 +133,15 @@ bool visible=true;
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ClipRRect(
-                              borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
+                              borderRadius: const BorderRadius.all(Radius.circular(20)),
                               child: Container(
                                 color: Colors.white,
                                 child: Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 18, right: 18),
+                                    padding: const EdgeInsets.only(left: 18, right: 18),
                                     child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         const SizedBox(
                                           height: 25,
@@ -170,58 +167,35 @@ bool visible=true;
                                                   child: SizedBox(
                                                     width: 50.w,
                                                     child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .typeStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                              List<
-                                                                  ShiftTypeList>>
-                                                          snapshot) {
-                                                        if (null ==
-                                                            snapshot.data ||
-                                                            snapshot.data
-                                                                ?.length ==
-                                                                0) {
+                                                      stream: managerBloc.typeStream,
+                                                      builder: (context, AsyncSnapshot<List<ShiftTypeList>> snapshot) {
+                                                        if (null == snapshot.data || snapshot.data?.length == 0) {
                                                           return const SizedBox();
                                                         }
                                                         return DropdownButtonFormField(
-                                                          value: managerBloc
-                                                              .typeId,
-                                                          decoration:
-                                                          buildInputDecoration(
-                                                              Txt.type),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
+                                                          value: managerBloc.typeId,
+                                                          decoration: buildInputDecoration(Txt.type),
+                                                          items: snapshot.data?.map((item) {
                                                             return DropdownMenuItem(
                                                               value: item.rowId,
                                                               child: Padding(
                                                                 padding: const EdgeInsets.only(left: 4),
                                                                 child: Text(
                                                                   item.type!,
-                                                                  style:
-                                                                  TextStyle(
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    fontSize:
-                                                                    10.sp,
-                                                                    decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                                    color: Constants
-                                                                        .colors[29],
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 10.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
                                                                   ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
-                                                            print(
-                                                                "dkfjdgvj  ${value as int}");
+                                                          onChanged: (Object? value) {
+                                                            print("dkfjdgvj  ${value as int}");
 
-                                                            managerBloc.typeId =
-                                                                value;
+                                                            managerBloc.typeId = value;
                                                             setState(() {});
                                                           },
                                                         );
@@ -232,7 +206,6 @@ bool visible=true;
                                                 const SizedBox(
                                                   width: 10,
                                                 ),
-
                                               ],
                                             )
                                           ],
@@ -249,59 +222,36 @@ bool visible=true;
                                                   child: SizedBox(
                                                     width: 50.w,
                                                     child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .usertypeStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                              List<
-                                                                  UserTypeList>>
-                                                          snapshot) {
-                                                        if (null ==
-                                                            snapshot.data ||
-                                                            snapshot.data
-                                                                ?.length ==
-                                                                0) {
+                                                      stream: managerBloc.usertypeStream,
+                                                      builder: (context, AsyncSnapshot<List<UserTypeList>> snapshot) {
+                                                        if (null == snapshot.data || snapshot.data?.length == 0) {
                                                           return const SizedBox();
                                                         }
 
                                                         return DropdownButtonFormField(
                                                           isExpanded: true,
-                                                          value: managerBloc
-                                                              .usertypeId,
-                                                          decoration:
-                                                          buildInputDecoration(
-                                                              Txt.user_type),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
+                                                          value: managerBloc.usertypeId,
+                                                          decoration: buildInputDecoration(Txt.user_type),
+                                                          items: snapshot.data?.map((item) {
                                                             return DropdownMenuItem(
                                                               value: item.rowId,
                                                               child: Padding(
                                                                 padding: const EdgeInsets.only(left: 4),
                                                                 child: Text(
                                                                   item.type!,
-                                                                  style:
-                                                                  TextStyle(
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    fontSize:
-                                                                    10.sp,
-                                                                    decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                                    color: Constants
-                                                                        .colors[29],
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 10.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
                                                                   ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
+                                                          onChanged: (Object? value) {
                                                             if (value is int?) {
-                                                              managerBloc
-                                                                  .usertypeId =
-                                                              value!;
+                                                              managerBloc.usertypeId = value!;
                                                             }
                                                           },
                                                         );
@@ -317,72 +267,41 @@ bool visible=true;
                                                   child: SizedBox(
                                                     width: 50.w,
                                                     child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .hospitalStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                              List<
-                                                                  HospitalList>>
-                                                          snapshot) {
-                                                        if (null ==
-                                                            snapshot.data ||
-                                                            snapshot.data
-                                                                ?.length ==
-                                                                0) {
+                                                      stream: managerBloc.hospitalStream,
+                                                      builder: (context, AsyncSnapshot<List<HospitalList>> snapshot) {
+                                                        if (null == snapshot.data || snapshot.data?.length == 0) {
                                                           return const SizedBox();
                                                         }
 
                                                         return DropdownButtonFormField(
                                                           isExpanded: true,
-                                                          value: managerBloc
-                                                              .hospitalId,
-                                                          decoration:
-                                                          buildInputDecoration(
-                                                              Txt.client),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
+                                                          value: managerBloc.hospitalId,
+                                                          decoration: buildInputDecoration(Txt.client),
+                                                          items: snapshot.data?.map((item) {
                                                             return DropdownMenuItem(
                                                               value: item.rowId,
                                                               child: Padding(
                                                                 padding: const EdgeInsets.only(left: 4),
                                                                 child: Text(
                                                                   item.name!,
-                                                                  overflow:
-                                                                  TextOverflow
-                                                                      .clip,
-                                                                  style:
-                                                                  TextStyle(
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    fontSize:
-                                                                    8.sp,
-                                                                    decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                                    color: Constants
-                                                                        .colors[29],
+                                                                  overflow: TextOverflow.clip,
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 8.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
                                                                   ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
+                                                          onChanged: (Object? value) {
                                                             if (value is int?) {
-                                                              managerBloc
-                                                                  .hospitalId =
-                                                              value!;
+                                                              managerBloc.hospitalId = value!;
                                                               setState(() {
-                                                                managerBloc
-                                                                    .unitId = 1;
+                                                                managerBloc.unitId = 1;
                                                               });
-                                                              managerBloc.getManagerUnitName(
-                                                                  managerBloc
-                                                                      .token,
-                                                                  managerBloc
-                                                                      .hospitalId
-                                                                      .toString());
+                                                              managerBloc.getManagerUnitName(managerBloc.token, managerBloc.hospitalId.toString());
                                                             }
                                                           },
                                                         );
@@ -399,7 +318,6 @@ bool visible=true;
                                         ),
                                         SizedBox(
                                           width: 100.w,
-
                                         ),
                                         const SizedBox(
                                           height: 15,
@@ -433,64 +351,45 @@ bool visible=true;
                                                   child: SizedBox(
                                                     width: 50.w,
                                                     child: StreamBuilder(
-                                                      stream: managerBloc
-                                                          .shifttimeStream,
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                              List<
-                                                                  ShiftTimingList>>
-                                                          snapshot) {
-                                                        if (null ==
-                                                            snapshot.data ||
-                                                            snapshot.data
-                                                                ?.length ==
-                                                                0) {
+                                                      stream: managerBloc.shifttimeStream,
+                                                      builder: (context, AsyncSnapshot<List<ShiftTimingList>> snapshot) {
+                                                        if (null == snapshot.data || snapshot.data?.length == 0) {
                                                           return const SizedBox();
                                                         }
 
                                                         return DropdownButtonFormField(
-                                                          value: managerBloc
-                                                              .shiftTypeId,
-                                                          decoration:
-                                                          buildInputDecoration(
-                                                              Txt.shift_type),
-                                                          items: snapshot.data
-                                                              ?.map((item) {
+                                                          value: managerBloc.shiftTypeId,
+                                                          decoration: buildInputDecoration(Txt.shift_type),
+                                                          items: snapshot.data?.map((item) {
                                                             return DropdownMenuItem(
                                                               value: item.rowId,
                                                               child: Padding(
                                                                 padding: const EdgeInsets.only(left: 4),
                                                                 child: Text(
                                                                   item.shift!,
-                                                                  style:
-                                                                  TextStyle(
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                    fontSize:
-                                                                    10.sp,
-                                                                    decoration:
-                                                                    TextDecoration
-                                                                        .none,
-                                                                    color: Constants
-                                                                        .colors[29],
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w500,
+                                                                    fontSize: 10.sp,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Constants.colors[29],
                                                                   ),
                                                                 ),
                                                               ),
                                                             );
                                                           }).toList(),
-                                                          onChanged:
-                                                              (Object? value) {
-                                                            managerBloc
-                                                                .isShiftTypeChanged =
-                                                            true;
-                                                            if (value is int?) {ShiftTimingList shiftValue =
-                                                              getItemFromId(value!, snapshot.data);
+                                                          onChanged: (Object? value) {
+                                                            managerBloc.isShiftTypeChanged = true;
+                                                            if (value is int?) {
+                                                              ShiftTimingList shiftValue = getItemFromId(value!, snapshot.data);
                                                               managerBloc.shiftTypeId = shiftValue.rowId!;
                                                               var timeFrom = shiftValue.startTime!;
                                                               var timeTo = shiftValue.endTime!;
-                                                              dateFrom.text = convert24hrTo12hr(timeFrom,);
-                                                              dateTo.text = convert24hrTo12hr(timeTo,);
+                                                              dateFrom.text = convert24hrTo12hr(
+                                                                timeFrom,
+                                                              );
+                                                              dateTo.text = convert24hrTo12hr(
+                                                                timeTo,
+                                                              );
                                                             }
                                                           },
                                                         );
@@ -513,32 +412,18 @@ bool visible=true;
                                                           if (validDate(date))
                                                             return null;
                                                           else
-                                                            return Txt
-                                                                .select_date;
+                                                            return Txt.select_date;
                                                         },
                                                         onTapDate: () {
-                                                          selectDate(
-                                                              context, date);
+                                                          selectDate(context, date);
                                                           var dates = date.text;
-                                                          if (managerBloc
-                                                              .token !=
-                                                              null &&
-                                                              dates != "") {
-                                                            var shifttype =
-                                                                managerBloc
-                                                                    .shiftType;
-                                                            managerBloc
-                                                                .getUserListByDate(
-                                                                managerBloc
-                                                                    .token,
-                                                                dates,
-                                                                shifttype
-                                                                    .toString());
+                                                          if (managerBloc.token != null && dates != "") {
+                                                            var shifttype = managerBloc.shiftType;
+                                                            managerBloc.getUserListByDate(managerBloc.token, dates, shifttype.toString());
                                                           }
                                                         },
                                                         hintText: Txt.date,
-                                                        keyboadType:
-                                                        TextInputType.none,
+                                                        keyboadType: TextInputType.none,
                                                         isPwd: false),
                                                   ),
                                                 ),
@@ -564,8 +449,7 @@ bool visible=true;
                                                   },
                                                   onTapDate: () {},
                                                   hintText: Txt.price,
-                                                  keyboadType:
-                                                  TextInputType.number,
+                                                  keyboadType: TextInputType.number,
                                                   isPwd: false),
                                             ),
                                           ],
@@ -580,9 +464,7 @@ bool visible=true;
                                                 Expanded(
                                                   flex: 1,
                                                   child: Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(
-                                                        right: 2),
+                                                    padding: const EdgeInsets.only(right: 2),
                                                     child: TextInputFileds(
                                                         onChange: () {},
                                                         controlr: dateFrom,
@@ -590,16 +472,13 @@ bool visible=true;
                                                           if (validDate(dateTo))
                                                             return null;
                                                           else
-                                                            return Txt
-                                                                .select_time;
+                                                            return Txt.select_time;
                                                         },
                                                         onTapDate: () {
-                                                          selectTime(context,
-                                                              dateFrom);
+                                                          selectTime(context, dateFrom);
                                                         },
                                                         hintText: Txt.timeFrom,
-                                                        keyboadType:
-                                                        TextInputType.none,
+                                                        keyboadType: TextInputType.none,
                                                         isPwd: false),
                                                   ),
                                                 ),
@@ -615,18 +494,14 @@ bool visible=true;
                                                         if (validDate(dateTo))
                                                           return null;
                                                         else
-                                                          return Txt
-                                                              .select_time;
+                                                          return Txt.select_time;
                                                       },
                                                       onTapDate: () {
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                        selectTime(
-                                                            context, dateTo);
+                                                        FocusScope.of(context).unfocus();
+                                                        selectTime(context, dateTo);
                                                       },
                                                       hintText: Txt.timeTo,
-                                                      keyboadType:
-                                                      TextInputType.none,
+                                                      keyboadType: TextInputType.none,
                                                       isPwd: false),
                                                 ),
                                               ],
@@ -642,15 +517,13 @@ bool visible=true;
                                                 controlr: jobDescri,
                                                 onTapDate: () {},
                                                 validator: (jobDescri) {
-                                                  if (validDescription(
-                                                      jobDescri))
+                                                  if (validDescription(jobDescri))
                                                     return null;
                                                   else
                                                     return Txt.enter_job_descri;
                                                 },
                                                 hintText: Txt.jobDescri,
-                                                keyboadType: TextInputType
-                                                    .visiblePassword,
+                                                keyboadType: TextInputType.visiblePassword,
                                                 isPwd: false),
                                           ],
                                         ),
@@ -670,8 +543,7 @@ bool visible=true;
                                                 // },
                                                 onTapDate: () {},
                                                 hintText: Txt.po_code,
-                                                keyboadType:
-                                                TextInputType.visiblePassword,
+                                                keyboadType: TextInputType.visiblePassword,
                                                 isPwd: false),
                                           ],
                                         ),
@@ -695,11 +567,10 @@ bool visible=true;
                                             ElevatedButton(
                                               onPressed: () {
                                                 showModalBottomSheet(
-                                                    isScrollControlled:true,
+                                                    isScrollControlled: true,
                                                     context: context,
                                                     builder: (context) {
                                                       return AllowanceBottomSheet(
-
                                                         onSumbmit: () {},
                                                         onTapView: () {},
                                                         value: 1,
@@ -710,11 +581,7 @@ bool visible=true;
                                               // color: Colors.blueAccent,
                                               child: Text(
                                                 Txt.add_allowances,
-                                                style: TextStyle(
-                                                    fontSize: 10.sp,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                    letterSpacing: 0.6),
+                                                style: TextStyle(fontSize: 10.sp, color: Colors.white, fontWeight: FontWeight.w500, letterSpacing: 0.6),
                                               ),
                                             ),
                                           ],
@@ -731,8 +598,7 @@ bool visible=true;
                                               if (null == snapshot.data) {
                                                 return const SizedBox();
                                               }
-                                              return buildAllowanceList(
-                                                  snapshot, context);
+                                              return buildAllowanceList(snapshot, context);
                                             }),
                                         createShiftButton(),
                                         const SizedBox(
@@ -782,9 +648,7 @@ bool visible=true;
             color: Constants.colors[28],
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-            borderSide: BorderSide(color: Constants.colors[28], width: 1)),
+        focusedBorder: OutlineInputBorder(borderRadius: const BorderRadius.all(Radius.circular(8.0)), borderSide: BorderSide(color: Constants.colors[28], width: 1)),
         contentPadding: const EdgeInsets.all(3.0),
         labelText: type,
         labelStyle: TextStyle(fontSize: 10.sp));
@@ -814,31 +678,19 @@ bool visible=true;
                     flex: 1,
                     child: Text(
                       allowace!,
-                      style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
+                      style: TextStyle(color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
                     )),
                 Expanded(
                     flex: 1,
                     child: Text(
                       category!,
-                      style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
+                      style: TextStyle(color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
                     )),
                 Expanded(
                     flex: 1,
                     child: Text(
                       amount!,
-                      style: TextStyle(
-                          color: Constants.colors[1],
-                          fontSize: 14,
-                          fontFamily: "SFProMedium",
-                          fontWeight: FontWeight.w500),
+                      style: TextStyle(color: Constants.colors[1], fontSize: 14, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
                     )),
                 GestureDetector(
                   onTap: () {
@@ -868,45 +720,43 @@ bool visible=true;
           child: Visibility(
             visible: visible,
             child: Center(
-                child: Stack(
-                  children: [
-      LoginButton(
-                        onPressed: () async {
-                          var validate = formKey.currentState?.validate();
-                          if (null != validate) {
-                            if (validate) {
-                              final prefs = await SharedPreferences.getInstance();
-                              var auth_tokn =
-                              prefs.getString(SharedPrefKey.AUTH_TOKEN);
-                              if (null == auth_tokn) {
-                                return;
-                              }
-                              setState((){visible=false;});
-
-                              debugPrint("managerBloc.typeId");
-                              debugPrint(managerBloc.typeId.toString());
-                              managerBloc.createShiftManager(
-                                auth_tokn,
-                                managerBloc.row_id,
-                                managerBloc.typeId,
-                                managerBloc.categoryId,
-                                managerBloc.usertypeId,
-                                jobtitle.text,
-                                managerBloc.hospitalId,
-                                date.text,
-                                dateFrom.text,
-                                dateTo.text,
-                                jobDescri.text,
-                                price.text,
-                                managerBloc.shiftTypeId.toString(),
-                                managerBloc.unitId.toString(),
-                                poCode.text,);
-                            }
+                child: LoginButton(
+                    onPressed: () async {
+                      var validate = formKey.currentState?.validate();
+                      if (null != validate) {
+                        if (validate) {
+                          final prefs = await SharedPreferences.getInstance();
+                          var auth_tokn = prefs.getString(SharedPrefKey.AUTH_TOKEN);
+                          if (null == auth_tokn) {
+                            return;
                           }
-                        },
-                        label: widget.buttonTxt)
-                  ],
-                )),
+                          setState(() {
+                            visible = false;
+                          });
+
+                          debugPrint("managerBloc.typeId");
+                          debugPrint(managerBloc.typeId.toString());
+                          managerBloc.createShiftManager(
+                            auth_tokn,
+                            managerBloc.row_id,
+                            managerBloc.typeId,
+                            managerBloc.categoryId,
+                            managerBloc.usertypeId,
+                            jobtitle.text,
+                            managerBloc.hospitalId,
+                            date.text,
+                            dateFrom.text,
+                            dateTo.text,
+                            jobDescri.text,
+                            price.text,
+                            managerBloc.shiftTypeId.toString(),
+                            managerBloc.unitId.toString(),
+                            poCode.text,
+                          );
+                        }
+                      }
+                    },
+                    label: widget.buttonTxt)),
           ),
         ),
         const SizedBox(
@@ -921,9 +771,10 @@ bool visible=true;
       var message = event.response?.status?.statusMessage.toString();
       if (event.response?.status?.statusCode == 200) {
         Future.delayed(Duration.zero, () {
-          Navigator.pop(context);
+          if(mounted) {
+            Navigator.pop(context);
+          }
         });
-
 
         managerBloc.reset();
         Fluttertoast.showToast(
@@ -936,9 +787,7 @@ bool visible=true;
     });
 
     managerBloc.shifttimeStream.listen((event) {
-      if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 0
-      ) {
-
+      if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 0) {
         var shiftValue = event.first;
         managerBloc.shiftTypeId = shiftValue.rowId!;
         var timeFrom = shiftValue.startTime!;
@@ -950,15 +799,11 @@ bool visible=true;
   }
 
   getItemFromId(int value, List<ShiftTimingList>? data) {
-
     int? index = data?.indexWhere((element) => element.rowId == value);
     return data![index!];
   }
 
   updateAllowances(BuildContext context, Items item) {
-
-
-
     if (item != null) {
       jobtitle.text = item.jobTitle!;
       managerBloc.row_id = item.rowId!;
@@ -972,9 +817,9 @@ bool visible=true;
       category.text = item.category!;
       managerBloc.buttonText = "Edit Shift";
 
-      poCode.text=item.poCode!;
-      managerBloc.shiftTypeId=item.shiftTypeId!;
-    }else{
+      poCode.text = item.poCode!;
+      managerBloc.shiftTypeId = item.shiftTypeId!;
+    } else {
       managerBloc.buttonText = "Create Shift";
     }
 
@@ -1012,8 +857,7 @@ bool visible=true;
       setState(() {
         managerBloc.hospitalId = item.hospitalId!;
       });
-      managerBloc.getManagerUnitName(
-          managerBloc.token, item.hospitalId.toString());
+      managerBloc.getManagerUnitName(managerBloc.token, item.hospitalId.toString());
     }
     if (null != item.shiftTypeId) {
       setState(() {
