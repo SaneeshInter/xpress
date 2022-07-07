@@ -309,9 +309,9 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                     approveData[index].status = status;
                   },
                   textChange: (comment, index) {
-                    print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   ");
                     timesheetBloc.approveData[index].comment = comment;
                     approveData[index].comment = comment;
+                    approveData[index].status = timesheetBloc.approveData[index].status;
                   },
                 ),
               SizedBox(height: screenHeight(context, dividedBy: 100)),
@@ -382,6 +382,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                     print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   ");
                     timesheetBloc.approveData[index].comment = comment;
                     approveData[index].comment = comment;
+                    approveData[index].status = timesheetBloc.approveData[index].status;
                   },
                 ),
               SizedBox(height: screenHeight(context, dividedBy: 100)),
