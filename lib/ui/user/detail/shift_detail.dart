@@ -166,6 +166,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                               .latitude && ""!= hospitalDetail
                                                               .longitude)
                                                             {
+                                                              // openMap(double.parse(hospitalDetail.latitude!),double.parse(hospitalDetail.longitude!));
                                                               navigateTo(
                                                                   double.parse(
                                                                       hospitalDetail
