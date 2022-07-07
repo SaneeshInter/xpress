@@ -1,9 +1,7 @@
-import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/widgets/remaining_timer_widget.dart';
+import '../../ui/widgets/remaining_timer_widget.dart';
 
 import '../../Constants/strings.dart';
 import '../../model/user_view_request_response.dart';
@@ -14,7 +12,6 @@ import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
 import 'action_alert_dialoge.dart';
 import 'buttons/book_button.dart';
-import 'buttons/call_button.dart';
 
 class MyBookingListWidget extends StatefulWidget {
   final Items items;

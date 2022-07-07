@@ -304,10 +304,12 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                   },
                   key: null,
                   onCheckBoxClicked: (index, status) {
+                      print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   $status");
                     timesheetBloc.approveData[index].status = status;
                     approveData[index].status = status;
                   },
                   textChange: (comment, index) {
+                    print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   ");
                     timesheetBloc.approveData[index].comment = comment;
                     approveData[index].comment = comment;
                   },
@@ -372,10 +374,14 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                   },
                   key: null,
                   onCheckBoxClicked: (index, status) {
+                    print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   $status");
                     timesheetBloc.approveData[index].status = status;
+                    approveData[index].status = status;
                   },
                   textChange: (comment, index) {
+                    print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   ");
                     timesheetBloc.approveData[index].comment = comment;
+                    approveData[index].comment = comment;
                   },
                 ),
               SizedBox(height: screenHeight(context, dividedBy: 100)),
