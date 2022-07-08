@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
+import '../Constants/global.dart';
 import '../model/accept_job_request.dart';
 import '../model/get_available_user_by_date.dart';
 import '../model/login_response.dart';
@@ -43,10 +44,10 @@ class ApiProvider {
   Client client = Client();
 
   // String BASE_URL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
-  String BASE_URL = "http://www.xpresshealthapp.ie/api";
+
 
   Future<LoginUserRespo?> loginUser(String username, String password, String user_type, String device_id) async {
-    var uri = Uri.parse('$BASE_URL/account/login');
+    var uri = Uri.parse('${Global.baseUrl}/account/login');
     try {
       final response = await client.post(uri,
           headers: <String, String>{
@@ -81,7 +82,7 @@ class ApiProvider {
     try {
       print("token");
       print(token);
-      var uri = Uri.parse(BASE_URL + '/account/get-user-info');
+      var uri = Uri.parse('${Global.baseUrl}/account/get-user-info');
       print(uri);
       final response = await client.get(
         uri,
@@ -102,7 +103,7 @@ class ApiProvider {
   }
 
   Future<UtilityResop> fetchUtility() async {
-    // var uri = Uri.parse(BASE_URL + '/account/get-utilities');
+    // var uri = Uri.parse(Global.baseUrl + '/account/get-utilities');
     // final response = await client.get(
     //   uri,
     //   headers: <String, String>{
@@ -117,7 +118,7 @@ class ApiProvider {
     //   return UtilityResop();
     // }
     try {
-      var uri = Uri.parse(BASE_URL + '/account/get-utilities');
+      var uri = Uri.parse('${Global.baseUrl}/account/get-utilities');
       final response = await client.get(
         uri,
         headers: <String, String>{
@@ -138,7 +139,7 @@ class ApiProvider {
 
   Future<ProfileQuestionResponse> geProfileQuestions(String token, String key, String value) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/account/update-questions');
+      var uri = Uri.parse('${Global.baseUrl}/account/update-questions');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -149,7 +150,7 @@ class ApiProvider {
             'value': value,
           }));
 
-      print("Print Update questions" + token);
+      print("Print Update questions$token");
 
       print(jsonEncode(<String, String>{
         'key': key,
@@ -171,7 +172,7 @@ class ApiProvider {
     try {
       print("date");
       print(date);
-      var uri = Uri.parse(BASE_URL + '/account/login');
+      var uri = Uri.parse('${Global.baseUrl}/account/login');
       final response = await client.get(uri);
       print(response);
       if (response.statusCode == 200) {
@@ -188,7 +189,7 @@ class ApiProvider {
   Future<ProfileUpdateRespo> ProfileUser(String token, String first_name, String last_name, String dob, String gender, String nationality, String home_address, String permission_to_work_in_ireland,
       String visa_type, String phone_number, String email, String pps_number, String bank_iban, String bank_bic) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/account/update-profile');
+      var uri = Uri.parse('${Global.baseUrl}/account/update-profile');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -242,7 +243,7 @@ class ApiProvider {
 
   Future<UserTimeSheetRespo> userGetTimesheet(String token) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/user/get-time-sheet");
+      var uri = Uri.parse("${Global.baseUrl}/user/get-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -250,7 +251,7 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT User_Get_Timesheet" + token);
+      print("PRINT User_Get_Timesheet$token");
 
       print(jsonEncode(<String, String>{}).toString());
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
@@ -270,7 +271,7 @@ class ApiProvider {
 
   Future<ManagerTimeSheetResponse> managerApprovel(String token) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/manager/get-completed-time-sheet");
+      var uri = Uri.parse("${Global.baseUrl}/manager/get-completed-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -278,8 +279,8 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("Completed approvel" + token);
-      print("Completed approvel " + uri.toString());
+      print("Completed approvel$token");
+      print("Completed approvel $uri");
 
       print(jsonEncode(<String, String>{}).toString());
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
@@ -297,7 +298,7 @@ class ApiProvider {
 
   Future<UserTimeSheetDetailsRespo> userGetTimeDetails(String token, String time_shhet_id) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/user/get-time-sheet-details");
+      var uri = Uri.parse("${Global.baseUrl}/user/get-time-sheet-details");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -307,7 +308,7 @@ class ApiProvider {
             "time_shhet_id": time_shhet_id,
           }));
 
-      print("PRINT User_Get_Timesheet_Details" + token);
+      print("PRINT User_Get_Timesheet_Details$token");
 
       print(jsonEncode(<String, String>{
         "time_shhet_id": time_shhet_id,
@@ -329,7 +330,7 @@ class ApiProvider {
 
   Future<AcceptJobRequestResponse> AcceptJobRequest(String token, String job_request_row_id) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/manager/accept-job-request");
+      var uri = Uri.parse("${Global.baseUrl}/manager/accept-job-request");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -339,7 +340,7 @@ class ApiProvider {
             'job_request_row_id': job_request_row_id,
           }));
 
-      print("PRINT ACCEPT VIEW JOB REQUEST" + token);
+      print("PRINT ACCEPT VIEW JOB REQUEST$token");
 
       print(jsonEncode(<String, String>{
         'job_request_row_id': job_request_row_id,
@@ -359,7 +360,7 @@ class ApiProvider {
 
   Future<ManagerHomeResponse> getManagerHome(String token) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/home/get-manager-updates");
+      var uri = Uri.parse("${Global.baseUrl}/home/get-manager-updates");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -367,7 +368,7 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("Print ManagerHome ImportantUpdates " + token);
+      print("Print ManagerHome ImportantUpdates $token");
 
       print(jsonEncode(<String, String>{}).toString());
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
@@ -385,7 +386,7 @@ class ApiProvider {
 
   Future<ManagerViewRequestResponse> getManagerViewRequest(String token, String shift_id) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/manager/view-request");
+      var uri = Uri.parse("${Global.baseUrl}/manager/view-request");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -394,9 +395,9 @@ class ApiProvider {
           body: jsonEncode(<String, String>{
             'shift_id': shift_id,
           }));
-      print("PRINT VIEW REQUEST" + uri.toString());
-      print("PRINT VIEW REQUEST Id" + shift_id);
-      print("PRINT VIEW REQUEST" + token);
+      print("PRINT VIEW REQUEST$uri");
+      print("PRINT VIEW REQUEST Id$shift_id");
+      print("PRINT VIEW REQUEST$token");
       print(jsonEncode(<String, String>{
         'shift_id': shift_id,
       }).toString());
@@ -415,7 +416,7 @@ class ApiProvider {
 
   Future<RemoveManagerScheduleResponse> removeManager(String token, String rowId) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/manager/remove-schedule');
+      var uri = Uri.parse('${Global.baseUrl}/manager/remove-schedule');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -425,7 +426,7 @@ class ApiProvider {
             'row_id': rowId,
           }));
 
-      print("PRINT TOKEN" + token);
+      print("PRINT TOKEN$token");
 
       print(jsonEncode(<String, String>{
         'row_id': rowId,
@@ -445,7 +446,7 @@ class ApiProvider {
 
   Future<ManagerTimeDetailsResponse> timeDetails(String token, String time_shhet_id) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/manager/get-time-sheet-details');
+      var uri = Uri.parse('${Global.baseUrl}/manager/get-time-sheet-details');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -455,8 +456,8 @@ class ApiProvider {
             'time_shhet_id': time_shhet_id,
           }));
 
-      print("PRINT GET MANAGER TIME DETAILS" + token);
-      print("PRINT GET MANAGER TIME " + uri.toString());
+      print("PRINT GET MANAGER TIME DETAILS$token");
+      print("PRINT GET MANAGER TIME $uri");
 
       print(jsonEncode(<String, String>{
         'time_shhet_id': time_shhet_id,
@@ -476,7 +477,7 @@ class ApiProvider {
 
   Future<ManagerTimeSheetResponse> managerTimeSheet(String token) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/manager/get-time-sheet");
+      var uri = Uri.parse("${Global.baseUrl}/manager/get-time-sheet");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -484,7 +485,7 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT USERHOME RESPONSE" + token);
+      print("PRINT USERHOME RESPONSE$token");
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       print(jsonEncode(<String, String>{}).toString());
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
@@ -502,7 +503,7 @@ class ApiProvider {
 
   Future<ManagerGetClientsResponse> managerGetClients(String token) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/manager/get-clients");
+      var uri = Uri.parse("${Global.baseUrl}/manager/get-clients");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -510,7 +511,7 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT Manager get clients" + token);
+      print("PRINT Manager get clients$token");
 
       print(jsonEncode(<String, String>{}).toString());
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
@@ -528,7 +529,7 @@ class ApiProvider {
 
   Future<ManagerUnitNameResponse> managerUnitName(String token, String clients) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/manager/get-unit-name');
+      var uri = Uri.parse('${Global.baseUrl}/manager/get-unit-name');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -538,7 +539,7 @@ class ApiProvider {
             'client': clients,
           }));
 
-      print("PRINT unit Nmae" + token);
+      print("PRINT unit Nmae$token");
 
       print(jsonEncode(<String, String>{
         'client': clients,
@@ -560,7 +561,7 @@ class ApiProvider {
     try {
       print("View Booking");
 
-      var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-date');
+      var uri = Uri.parse('${Global.baseUrl}/manager/get-schedule-by-date');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -587,15 +588,15 @@ class ApiProvider {
 
   Future<UserShoiftCompletedResponse> fetchUserCompleteShift(String token) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/user/get-completed-shifts");
+      var uri = Uri.parse("${Global.baseUrl}/user/get-completed-shifts");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'token': token,
           },
           body: jsonEncode(<String, String>{}));
-      print("fetchUserCompleteShift" + uri.toString());
-      print("PRINT USERHOME RESPONSE" + token);
+      print("fetchUserCompleteShift$uri");
+      print("PRINT USERHOME RESPONSE$token");
       print(jsonEncode(<String, String>{}).toString());
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       if (response.statusCode == 200) {
@@ -611,7 +612,7 @@ class ApiProvider {
 
   Future<UserHomeResponse> getUserHome(String token) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/home/get-user-updates");
+      var uri = Uri.parse("${Global.baseUrl}/home/get-user-updates");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -619,7 +620,7 @@ class ApiProvider {
           },
           body: jsonEncode(<String, String>{}));
 
-      print("PRINT USERHOME RESPONSE" + token);
+      print("PRINT USERHOME RESPONSE$token");
 
       print(jsonEncode(<String, String>{}).toString());
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
@@ -653,9 +654,9 @@ class ApiProvider {
   ) async {
     try {
       var response;
-      var uri = Uri.parse(BASE_URL + '/manager/add-schedule');
+      var uri = Uri.parse('${Global.baseUrl}/manager/add-schedule');
       if (row_id != -1) {
-        uri = Uri.parse(BASE_URL + '/manager/edit-schedule');
+        uri = Uri.parse('${Global.baseUrl}/manager/edit-schedule');
         response = await client.post(uri,
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
@@ -735,7 +736,7 @@ class ApiProvider {
     try {
       print("GetAvailableUserByDate  CALLING");
 
-      var uri = Uri.parse(BASE_URL + '/manager/get-available-user-by-date');
+      var uri = Uri.parse('${Global.baseUrl}/manager/get-available-user-by-date');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -762,7 +763,7 @@ class ApiProvider {
 
   Future<UserGetScheduleByDate> getUserScheduleByDate(String token, String date) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-date');
+      var uri = Uri.parse('${Global.baseUrl}/user/get-schedule-by-date');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -772,7 +773,7 @@ class ApiProvider {
             'date': date,
           }));
 
-      print("PRINT DATE" + token);
+      print("PRINT DATE$token");
 
       print(jsonEncode(<String, String>{
         'date': date,
@@ -792,7 +793,7 @@ class ApiProvider {
 
   Future<UserGetScheduleByMonthYear> getUserScheduleByMonthYear(String token, String month, String year) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-month');
+      var uri = Uri.parse('${Global.baseUrl}/manager/get-schedule-by-month');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -803,7 +804,7 @@ class ApiProvider {
             'year': year,
           }));
 
-      print("PRINT MONTH YEAR" + token);
+      print("PRINT MONTH YEAR$token");
 
       print(jsonEncode(<String, String>{
         'month': month,
@@ -824,7 +825,7 @@ class ApiProvider {
 
   Future<UserGetScheduleByYear> userScheduleByYears(String token, String year) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/user/get-schedule-by-year');
+      var uri = Uri.parse('${Global.baseUrl}/user/get-schedule-by-year');
 
       print(uri);
 
@@ -837,7 +838,7 @@ class ApiProvider {
             'year': year,
           }));
 
-      print("PRINT  YEAR" + token);
+      print("PRINT  YEAR$token");
       print(jsonEncode(<String, String>{
         'year': year,
       }).toString());
@@ -857,7 +858,7 @@ class ApiProvider {
 
   Future<ManagerGetScheduleByYear?> managerScheduleByYears(String token, String year) async {
     try {
-      var uri = Uri.parse(BASE_URL + '/manager/get-schedule-by-year');
+      var uri = Uri.parse('${Global.baseUrl}/manager/get-schedule-by-year');
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -866,7 +867,7 @@ class ApiProvider {
           body: jsonEncode(<String, String>{
             'year': year,
           }));
-      print("PRINT  YEAR" + token);
+      print("PRINT  YEAR$token");
       print(jsonEncode(<String, String>{
         'year': year,
       }).toString());
@@ -887,7 +888,7 @@ class ApiProvider {
 
   Future<UserJobRequestResponse> getUserJobRequest(String token, String job_id) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/user/job-request");
+      var uri = Uri.parse("${Global.baseUrl}/user/job-request");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -920,7 +921,7 @@ class ApiProvider {
 
   Future<UserViewRequestResponse> getUserViewRequest(String token) async {
     try {
-      var uri = Uri.parse("$BASE_URL/user/view-request");
+      var uri = Uri.parse("${Global.baseUrl}/user/view-request");
 
       final response = await client.post(
         uri,
@@ -945,7 +946,7 @@ class ApiProvider {
 
   Future<GetUserShiftDetailsResponse> getUserShiftDetails(String token, String shift_id) async {
     try {
-      var uri = Uri.parse("$BASE_URL/user/get-shift-details");
+      var uri = Uri.parse("${Global.baseUrl}/user/get-shift-details");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -976,7 +977,7 @@ class ApiProvider {
 
   Future<UserCancelJobRequestResponse> canceljobrequest(String token, String job_request_row_id) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/user/cancel-request");
+      var uri = Uri.parse("${Global.baseUrl}/user/cancel-request");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -986,7 +987,7 @@ class ApiProvider {
             'job_request_row_id': job_request_row_id,
           }));
 
-      print("PRINT USER CANCEL JOB REQUEST" + token);
+      print("PRINT USER CANCEL JOB REQUEST$token");
 
       print(jsonEncode(<String, String>{
         'job_request_row_id': job_request_row_id,
@@ -1005,9 +1006,9 @@ class ApiProvider {
   }
 
   Future<AddUserAvailabilityResponse> getaddUserAvailability(String token, String date, String availability) async {
-    print("availability" + availability);
+    print("availability$availability");
     try {
-      var uri = Uri.parse(BASE_URL + "/user/add-availability");
+      var uri = Uri.parse("${Global.baseUrl}/user/add-availability");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -1018,7 +1019,7 @@ class ApiProvider {
             'availability': availability,
           }));
 
-      print("PRINT ADD USER AVAILABILTY" + token);
+      print("PRINT ADD USER AVAILABILTY$token");
 
       print(jsonEncode(<String, String>{
         'date': date,
@@ -1039,7 +1040,7 @@ class ApiProvider {
 
   Future<UserAvailabilitydateResponse> getUserAvailability(String token, String from_date, String to_date) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/user/get-available-user-between-date");
+      var uri = Uri.parse("${Global.baseUrl}/user/get-available-user-between-date");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -1050,7 +1051,7 @@ class ApiProvider {
             'to_date': to_date,
           }));
 
-      print("PRINT USER AVAILABILTY BETWEEN DATE" + token);
+      print("PRINT USER AVAILABILTY BETWEEN DATE$token");
 
       print(jsonEncode(<String, String>{
         'from_date': from_date,
@@ -1071,7 +1072,7 @@ class ApiProvider {
 
   Future<UserWorkingHoursResponse> addUserWorkingHours(String token, String shift_id, String start_time, String end_time, String working_hours) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/user/add-working-hours");
+      var uri = Uri.parse("${Global.baseUrl}/user/add-working-hours");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -1084,7 +1085,7 @@ class ApiProvider {
             'working_hours': working_hours,
           }));
 
-      print("ADD USER WORKING HOURS" + token);
+      print("ADD USER WORKING HOURS$token");
 
       print(jsonEncode(<String, String>{
         'shift_id': shift_id,
@@ -1107,7 +1108,7 @@ class ApiProvider {
 
   Future<UserDocumentsResponse> uploadUserDocuments(String token, String files, String type, String expiry_date) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/account/upload-user-documents");
+      var uri = Uri.parse("${Global.baseUrl}/account/upload-user-documents");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -1119,7 +1120,7 @@ class ApiProvider {
             'expiry_date': expiry_date,
           }));
 
-      print("UPLOAD USER DOCUMENTS" + token);
+      print("UPLOAD USER DOCUMENTS$token");
 
       print(jsonEncode(<String, String>{
         'files': files,
@@ -1160,7 +1161,7 @@ class ApiProvider {
   }
 
   Future<UserNotificationModel> fetchNotification(token) async {
-    var uri = Uri.parse('$BASE_URL/user/get-notification-list');
+    var uri = Uri.parse('${Global.baseUrl}/user/get-notification-list');
     final response = await client.get(
       uri,
       headers: <String, String>{
@@ -1186,7 +1187,7 @@ class ApiProvider {
   }
 
   Future<UserNotificationModel> fetchManagerNotification(token) async {
-    var uri = Uri.parse('$BASE_URL/manager/get-notification-list');
+    var uri = Uri.parse('${Global.baseUrl}/manager/get-notification-list');
     final response = await client.get(
       uri,
       headers: <String, String>{
@@ -1213,7 +1214,7 @@ class ApiProvider {
 
   Future<dynamic> updateFCMToken(String token, String fcm, String user_type) async {
     try {
-      var uri = Uri.parse(BASE_URL + "/account/add-device-token");
+      var uri = Uri.parse("${Global.baseUrl}/account/add-device-token");
       final response = await client.post(uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',

@@ -38,8 +38,8 @@ class CreateShiftmanagerBloc {
   var buttonText = "Create Shift";
   var token;
   bool isShiftTypeChanged = false;
- late AllowanceList selectedAllowance;
- late AllowanceCategoryList selectedAllowanceCategory;
+  late AllowanceList selectedAllowance;
+  late AllowanceCategoryList selectedAllowanceCategory;
   final _visibility = PublishSubject<bool>();
 
   Stream<bool> get visible => _visibility.stream;
@@ -263,11 +263,11 @@ class CreateShiftmanagerBloc {
 
   void addAllowances(int allowanceId, int allowanceCategroyId, String allowance, String allowanceCategroy, String amount) {
     Allowances allowances = Allowances(
-        allowance: allowance,
-        category: allowanceCategroy,
-        amount: amount,
-        allowanceId: allowanceId,
-        categoryId: allowanceCategroyId);
+        allowance: allowanceId.toString(),
+        category_name: allowanceCategroy,
+        price: amount,
+        allowance_name: allowance.toString(),
+        category: allowanceCategroyId.toString());
     allowanceList.add(allowances);
     _allowancesList.add(allowanceList);
   }
@@ -284,7 +284,7 @@ class CreateShiftmanagerBloc {
     if (!_allowancesList.isClosed) {
       print("allo.category");
       for (var allo in allowances) {
-        print(allo.category);
+        print(allo.category_name);
         allowanceList.add(allo);
       }
       _allowancesList.add(allowanceList);

@@ -1,32 +1,32 @@
 class Allowances {
+  String? category_name;
   String? category;
-  int? categoryId;
   String? allowance;
-  int? allowanceId;
-  String? amount;
+  String? allowance_name;
+  String? price;
 
   Allowances({
+    this.category_name,
     this.category,
-    this.categoryId,
     this.allowance,
-    this.allowanceId,
-    this.amount,
+    this.allowance_name,
+    this.price,
   });
 
   Allowances.fromJson(Map<String, dynamic> json)
-      : category = json['category'],
-        categoryId = json['categoryId'],
-        allowance = json['allowance'],
-        allowanceId = json['allowanceId'],
-        amount = json['amount'];
+      : category_name = json['category_name']??"",
+        category = json['category']??"",
+        allowance = json['allowance']??"",
+        allowance_name = json['allowance_name']??"",
+        price = json['amount'] ?? json['price']??"";
 
   Map<String, dynamic> toJson() {
     return {
+      'category_name': category_name,
       'category': category,
-      'categoryId': categoryId,
       'allowance': allowance,
-      'allowanceId': allowanceId,
-      'amount': amount,
+      'allowance_name': allowance_name,
+      'price': price,
     };
   }
 }

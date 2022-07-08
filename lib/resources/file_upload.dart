@@ -4,17 +4,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../Constants/global.dart';
 import '../model/manager_approve_timesheet_respo.dart';
 import '../model/manager_response.dart';
 import '../model/time_sheet_upload_respo.dart';
 import '../model/user_documents_response.dart';
 
 class ApiFileProvider {
-  String baseURL = "http://www.xpresshealthapp.ie/api";
+  // String baseURL = "http://www.xpresshealthapp.ie/api";
    // String baseURL = "https://intersmarthosting.in/DEV/ExpressHealth/api";
 
   Future<TimeSheetUploadRespo> asyncFileUpload(String token, String ids, File file) async {
-    var uri = Uri.parse('$baseURL/user/add-time-sheet');
+    var uri = Uri.parse('${Global.baseUrl}/user/add-time-sheet');
     //create multipart request for POST or PATCH method
     var request = http.MultipartRequest("POST", uri);
     var headers = <String, String>{
@@ -41,7 +42,7 @@ class ApiFileProvider {
   }
 
   Future<UserDocumentsResponse> uploadUserDocuments(String token, File files, String type, String expiryDate) async {
-    var uri = Uri.parse('$baseURL/account/upload-user-documents');
+    var uri = Uri.parse('${Global.baseUrl}/account/upload-user-documents');
     //create multipart request for POST or PATCH method
     var request = http.MultipartRequest("POST", uri);
     var headers = <String, String>{
@@ -100,10 +101,10 @@ class ApiFileProvider {
     debugPrint(
         "type :$type row_id : ${rowId}category :${category}user_type :${userType}job_title :${jobTitle}hospital :${hospital}time_from :${timeFrom}time_to :${timeTo}job_details :${jobDetails}price :${price}shift :${shift}allowances :${allowances}unit_name :$unitName");
 
-    var uri = Uri.parse('$baseURL/manager/add-schedule');
+    var uri = Uri.parse('${Global.baseUrl}/manager/add-schedule');
 
     if (rowId != -1) {
-      uri = Uri.parse('$baseURL/manager/edit-schedule');
+      uri = Uri.parse('${Global.baseUrl}/manager/edit-schedule');
     }
     var request = http.MultipartRequest("POST", uri);
 
@@ -154,7 +155,7 @@ class ApiFileProvider {
     String token,
     String data,
   ) async {
-    var uri = Uri.parse('$baseURL/manager/approve-timesheet');
+    var uri = Uri.parse('${Global.baseUrl}/manager/approve-timesheet');
     var request = http.MultipartRequest("POST", uri);
     var headers = <String, String>{
       "Accept": "application/json",

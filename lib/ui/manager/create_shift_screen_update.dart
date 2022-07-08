@@ -661,10 +661,10 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         var items = snapshot.data?[index];
-        String? allowace = items?.allowance.toString();
+        String? allowace = items?.allowance_name.toString();
         debugPrint(allowace);
-        String? category = items?.category.toString();
-        String? amount = items?.amount.toString();
+        String? category = items?.category_name.toString();
+        String? amount = items?.price.toString();
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
