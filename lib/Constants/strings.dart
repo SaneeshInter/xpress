@@ -64,6 +64,7 @@ class Txt {
 
   //*Confirm Password
   static const confirmPwd = "Confirm Password";
+  static const call_to_cancel = "Call to Cancel";
 
   //*Phone Number
   static const phnum = "Phone Number";

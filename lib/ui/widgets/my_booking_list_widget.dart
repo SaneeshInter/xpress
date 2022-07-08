@@ -272,7 +272,7 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
 
 
               BookButton(
-                label: "Call for Cancel",
+                label: Txt.call_to_cancel,
                 onPressed: () => dialCall(Txt.contactNumber),
                 key: null,
               ),
