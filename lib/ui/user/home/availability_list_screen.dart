@@ -34,7 +34,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   @override
   void dispose() {
     super.dispose();
-    availabilitybloc.dispose();
+    availabilityBloc.dispose();
   }
 
   @override
@@ -47,17 +47,17 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   }
 
   void init() {
-    availabilitybloc.startDate = DateTime.now();
+    availabilityBloc.startDate = DateTime.now();
     var today = DateTime.now();
-    availabilitybloc.endDate = today.add(const Duration(days: 29));
-    availabilitybloc.availability = Availability.sleepover;
+    availabilityBloc.endDate = today.add(const Duration(days: 29));
+    availabilityBloc.availability = Availability.sleepover;
   }
 
   Future getData() async {
-    availabilitybloc.token = await TokenProvider().getToken();
-    if (null != availabilitybloc.token) {
+    availabilityBloc.token = await TokenProvider().getToken();
+    if (null != availabilityBloc.token) {
       if (await isNetworkAvailable()) {
-        availabilitybloc.fetchUserAvailability();
+        availabilityBloc.fetchUserAvailability();
       } else {
         Future.delayed(Duration.zero, () {
           showInternetNotAvailable();
@@ -67,7 +67,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   }
 
   void observe() {
-    availabilitybloc.useravailabilitiy.listen((event) {
+    availabilityBloc.userAvailability.listen((event) {
       if (event.response != null) {
         if (event.response?.status?.statusCode == 200) {
           getData();
@@ -95,7 +95,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
         children: [
           RefreshIndicator(
             onRefresh: () async {
-              await availabilitybloc.fetchUserAvailability();
+              await availabilityBloc.fetchUserAvailability();
             },
             child: NotificationListener<OverscrollIndicatorNotification>(
               onNotification: (overScroll) {
@@ -120,7 +120,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                           ),
                         )),
                     StreamBuilder(
-                        stream: availabilitybloc.useravailabilitiydate,
+                        stream: availabilityBloc.userAvailabilityDate,
                         builder: (BuildContext context,
                             AsyncSnapshot<List<AvailabilityList>> snapshot) {
                           debugPrint("stream");
@@ -450,7 +450,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
             ),
           ),
           StreamBuilder(
-            stream: availabilitybloc.visible,
+            stream: availabilityBloc.visible,
             builder: (context, AsyncSnapshot<bool> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data!) {
@@ -469,8 +469,8 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
   }
 
   void updateShiftAvailabaity(String selectedShfit, String date) {
-    if (null != availabilitybloc.token) {
-      availabilitybloc.addUserAvailability(date, selectedShfit.toString());
+    if (null != availabilityBloc.token) {
+      availabilityBloc.addUserAvailability(date, selectedShfit.toString());
     }
   }
 }

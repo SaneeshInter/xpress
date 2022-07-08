@@ -20,9 +20,9 @@ import '../model/user_shifttiming_list.dart';
 import '../model/user_type_list.dart';
 import '../utils/utils.dart';
 
-class CreateShiftmanagerBloc {
+class CreateShiftManagerBloc {
 
-  var row_id = -1;
+  var rowId = -1;
   var typeId = 1;
   var categoryId = 1;
   var usertypeId = 2; //default
@@ -30,9 +30,9 @@ class CreateShiftmanagerBloc {
   var hospitalId = 1;
   var shiftTypeId = 1;
   var unitId = 1;
-  var allowanceCategroyId = 1;
+  var allowanceCategoryId = 1;
   var allowanceId = 1;
-  var allowanceCategroy = "Food Item";
+  var allowanceCategory = "Food Item";
   var allowance = "Break Fast";
   var shiftItem;
   var buttonText = "Create Shift";
@@ -47,21 +47,21 @@ class CreateShiftmanagerBloc {
   final _repo = Repository();
   final _db = Db();
   final _manager = PublishSubject<GetAvailableUserByDate>();
-  final _getmanager = PublishSubject<ManagerShift>();
+  final _getManager = PublishSubject<ManagerShift>();
 
-  final _managerclient = PublishSubject<List<HospitalListItem>>();
-  final _managerunit = PublishSubject<List<UnitItems>>();
+  final _managerClient = PublishSubject<List<HospitalListItem>>();
+  final _managerUnit = PublishSubject<List<UnitItems>>();
 
-  final _managerclients = PublishSubject<ManagerGetClientsResponse>();
-  final _managerunits = PublishSubject<ManagerUnitNameResponse>();
+  final _managerClients = PublishSubject<ManagerGetClientsResponse>();
+  final _managerUnits = PublishSubject<ManagerUnitNameResponse>();
 
-  Stream<List<HospitalListItem>> get managergetclientStream => _managerclient.stream;
+  Stream<List<HospitalListItem>> get managerGetClientStream => _managerClient.stream;
 
-  Stream<List<UnitItems>> get managerunitStream => _managerunit.stream;
+  Stream<List<UnitItems>> get managerUnitStream => _managerUnit.stream;
 
-  Stream<ManagerGetClientsResponse> get getclientsdtream => _managerclients.stream;
+  Stream<ManagerGetClientsResponse> get getClientsStream => _managerClients.stream;
 
-  Stream<ManagerUnitNameResponse> get managerunitnamestream => _managerunits.stream;
+  Stream<ManagerUnitNameResponse> get managerUnitNameStream => _managerUnits.stream;
 
   List<Allowances> allowanceList = [];
   final _allowancesList = PublishSubject<List<Allowances>>();
@@ -69,9 +69,9 @@ class CreateShiftmanagerBloc {
   Stream<List<Allowances>> get allowancesList => _allowancesList.stream;
 
   List<String> allowancesCategory = [];
-  final _typeAllowancesCategroy = PublishSubject<List<AllowanceCategoryList>>();
+  final _typeAllowancesCategory = PublishSubject<List<AllowanceCategoryList>>();
 
-  Stream<List<AllowanceCategoryList>> get typeAllowancesCategroys => _typeAllowancesCategroy.stream;
+  Stream<List<AllowanceCategoryList>> get typeAllowancesCategory => _typeAllowancesCategory.stream;
 
   List<String> allowances = [];
   final _typeAllowances = PublishSubject<List<AllowanceList>>();
@@ -104,18 +104,18 @@ class CreateShiftmanagerBloc {
 
   Stream<List<HospitalList>> get hospitalStream => _hospital.stream;
 
-  List<String> shifttype = [];
-  final _shifttype = PublishSubject<List<ShiftTypeList>>();
+  List<String> shiftTypes = [];
+  final _shiftType = PublishSubject<List<ShiftTypeList>>();
 
-  Stream<List<ShiftTypeList>> get shifttypeStream => _shifttype.stream;
+  Stream<List<ShiftTypeList>> get shiftTypeStream => _shiftType.stream;
 
-  List<String> shifttime = [];
-  final _shiftime = PublishSubject<List<ShiftTimingList>>();
+  List<String> shiftTime = [];
+  final _shiftTime = PublishSubject<List<ShiftTimingList>>();
 
-  Stream<List<ShiftTimingList>> get shifttimeStream => _shiftime.stream;
+  Stream<List<ShiftTimingList>> get shiftTimeStream => _shiftTime.stream;
 
   reset() {
-    row_id = -1;
+    rowId = -1;
     typeId = 1;
     categoryId = 1;
     usertypeId = 2; //default
@@ -123,9 +123,9 @@ class CreateShiftmanagerBloc {
     hospitalId = 1;
     shiftTypeId = 1;
     unitId = 1;
-    allowanceCategroyId = 1;
+    allowanceCategoryId = 1;
     allowanceId = 1;
-    allowanceCategroy = "Food Item";
+    allowanceCategory = "Food Item";
     allowance = "Break Fast";
     buttonText = "Create Shift";
     isShiftTypeChanged = false;
@@ -147,31 +147,31 @@ class CreateShiftmanagerBloc {
     shifttype.add(shifttype1);
 
     shifttype.add(shifttype2);
-    _shifttype.sink.add(shifttype);
+    _shiftType.sink.add(shifttype);
 
     _type.sink.add(typeList);
     _category.sink.add(category);
     _usertype.sink.add(usertype);
     _hospital.sink.add(hospitals);
-    _shiftime.sink.add(shifttiming);
+    _shiftTime.sink.add(shifttiming);
   }
 
   getModelDropDown() async {
-    _typeAllowancesCategroy.drain();
+    _typeAllowancesCategory.drain();
     var typeList = await _db.getAllowanceCategoryList();
     for (var list in typeList) {
-      print(list.category);
+      (list.category);
     }
     if(typeList.isNotEmpty)
       {
         selectedAllowanceCategory = typeList[0];
         allowanceId = 1;
-        allowanceCategroy = "Food Item";
+        allowanceCategory = "Food Item";
         managerBloc.typeAllowancesList.drain();
         managerBloc.getAllowanceList(selectedAllowanceCategory.rowId!);
-        allowanceCategroyId = selectedAllowanceCategory.rowId!;
-        allowanceCategroy = selectedAllowanceCategory.category!;
-        _typeAllowancesCategroy.add(typeList);
+        allowanceCategoryId = selectedAllowanceCategory.rowId!;
+        allowanceCategory = selectedAllowanceCategory.category!;
+        _typeAllowancesCategory.add(typeList);
       }
 
   }
@@ -186,7 +186,7 @@ class CreateShiftmanagerBloc {
 
   }
 
-  Stream<ManagerShift> get getmanagerStream => _getmanager.stream;
+  Stream<ManagerShift> get getManagerStream => _getManager.stream;
 
   createShiftManager(
     String token,
@@ -209,7 +209,7 @@ class CreateShiftmanagerBloc {
     var timeFrom = convert12hrTo24hr(time_from);
     var timeTo = convert12hrTo24hr(time_to);
     var json = jsonEncode(allowanceList.map((e) => e.toJson()).toList());
-    ManagerShift respo = await _repo.CreateShiftManager(
+    ManagerShift resp = await _repo.CreateShiftManager(
       token,
       rowId,
       type,
@@ -227,7 +227,7 @@ class CreateShiftmanagerBloc {
       unit_name,
         poCode
     );
-    _getmanager.sink.add(respo);
+    _getManager.sink.add(resp);
     _visibility.add(false);
   }
 
@@ -240,17 +240,17 @@ class CreateShiftmanagerBloc {
 
   getManagerClient( String token,) async {
     _visibility.add(true);
-    ManagerGetClientsResponse respo = await _repo.fetchManagerGetClients(token);
-    var list = respo.response?.data?.items;
-    _managerclient.sink.add(list!);
+    ManagerGetClientsResponse resp = await _repo.fetchManagerGetClients(token);
+    var list = resp.response?.data?.items;
+    _managerClient.sink.add(list!);
     _visibility.add(false);
   }
 
   getManagerUnitName(String token, String client) async {
     _visibility.add(true);
-    ManagerUnitNameResponse respo = await _repo.fetchManagerUnitName(token, client);
-    var list = respo.response?.data?.items;
-    _managerunit.sink.add(list!);
+    ManagerUnitNameResponse resp = await _repo.fetchManagerUnitName(token, client);
+    var list = resp.response?.data?.items;
+    _managerUnit.sink.add(list!);
     _visibility.add(false);
   }
 
@@ -261,19 +261,19 @@ class CreateShiftmanagerBloc {
     // _getmanager.close();
   }
 
-  void addAllowances(int allowanceId, int allowanceCategroyId, String allowance, String allowanceCategroy, String amount) {
+  void addAllowances(int allowanceId, int allowanceCategoryId, String allowance, String allowanceCategory, String amount) {
     Allowances allowances = Allowances(
         allowance: allowanceId.toString(),
-        category_name: allowanceCategroy,
+        category_name: allowanceCategory,
         price: amount,
         allowance_name: allowance.toString(),
-        category: allowanceCategroyId.toString());
+        category: allowanceCategoryId.toString());
     allowanceList.add(allowances);
     _allowancesList.add(allowanceList);
   }
 
   void deleteAllowance(int index) {
-    if (null != allowanceList) {
+    if (null!= allowanceList) {
       allowanceList.removeAt(index);
       _allowancesList.add(allowanceList);
     }
@@ -282,10 +282,10 @@ class CreateShiftmanagerBloc {
   void setAllowance(List<Allowances> allowances) {
     allowanceList.clear();
     if (!_allowancesList.isClosed) {
-      print("allo.category");
-      for (var allo in allowances) {
-        print(allo.category_name);
-        allowanceList.add(allo);
+
+      for (var allow in allowances) {
+        debugPrint(allow.category_name);
+        allowanceList.add(allow);
       }
       _allowancesList.add(allowanceList);
     }
@@ -300,4 +300,4 @@ extension TimeOfDayConverter on TimeOfDay {
   }
 }
 
-final managerBloc = CreateShiftmanagerBloc();
+final managerBloc = CreateShiftManagerBloc();

@@ -14,11 +14,11 @@ class ShiftListBloc {
   Stream<bool> get visible => _visibility.stream;
 
   final _shiftList = PublishSubject<SliftListRepso>();
-  final _scheduledate = PublishSubject<UserGetScheduleByDate>();
-  final _jobrequest = PublishSubject<UserJobRequestResponse>();
+  final _scheduleDate = PublishSubject<UserGetScheduleByDate>();
+  final _jobRequest = PublishSubject<UserJobRequestResponse>();
   Stream<SliftListRepso> get allShift => _shiftList.stream;
-  Stream<UserGetScheduleByDate> get shiftbydate => _scheduledate.stream;
-  Stream<UserJobRequestResponse> get jobrequest => _jobrequest.stream;
+  Stream<UserGetScheduleByDate> get shiftByDate => _scheduleDate.stream;
+  Stream<UserJobRequestResponse> get jobRequest => _jobRequest.stream;
   fetchAllList(String date) async {
     _visibility.add(true);
     SliftListRepso list = await _repo.fetchAllShift(date);
@@ -32,26 +32,26 @@ class ShiftListBloc {
       }
   }
 
-  fetchgetUserScheduleByDate(String date) async {
+  fetchGetUserScheduleByDate(String date) async {
     _visibility.add(true);
     UserGetScheduleByDate list =
         await _repo.fetchGetUserScheduleByDate(token, date);
-    _scheduledate.sink.add(list);
+    _scheduleDate.sink.add(list);
     _visibility.add(false);
   }
 
-  fetchuserJobRequest(String job_id) async {
+  fetchUserJobRequest(String job_id) async {
     _visibility.add(true);
     UserJobRequestResponse list =
         await _repo.fetchUserJobRequest(token, job_id);
-    _jobrequest.sink.add(list);
+    _jobRequest.sink.add(list);
     _visibility.add(false);
   }
 
   dispose() {
     _shiftList.close();
-    _scheduledate.close();
-    _jobrequest.close();
+    _scheduleDate.close();
+    _jobRequest.close();
   }
 }
 

@@ -37,10 +37,10 @@ class ProfileBloc {
 
   Stream<List<CountryList>> get countryStream => _country.stream;
 
-  List<String> visatype = [];
-  final _visatype = PublishSubject<List<VisaTypeList>>();
+  List<String> visaType = [];
+  final _visaType = PublishSubject<List<VisaTypeList>>();
 
-  Stream<List<VisaTypeList>> get visatypeStream => _visatype.stream;
+  Stream<List<VisaTypeList>> get visaTypeStream => _visaType.stream;
 
   final _updateProfile = PublishSubject<void>();
 
@@ -53,8 +53,8 @@ class ProfileBloc {
     var country = await _db.getGetCountryList();
     _country.add(country);
 
-    var visatypelist = await _db.getGetVisaTypeList();
-    _visatype.add(visatypelist);
+    var visaTypeList = await _db.getGetVisaTypeList();
+    _visaType.add(visaTypeList);
   }
 
   Stream<ProfileUpdateRespo> get profileStream => _profileUser.stream;
@@ -74,25 +74,25 @@ class ProfileBloc {
 
   ProfileUser(
     String token,
-    String first_name,
-    String last_name,
+    String firstName,
+    String lastName,
     String dob,
     String gender,
     String nationality,
-    String home_address,
-    String permission_to_work_in_ireland,
-    String visa_type,
-    String phone_number,
+    String homeAddress,
+    String permissionToWorkInIreland,
+    String visaType,
+    String phoneNumber,
     String email,
-    String pps_number,
-    String bank_iban,
-    String bank_bic,
+    String ppsNumber,
+    String bankIban,
+    String bankBic,
   ) async {
     _visibility.add(true);
-    ProfileUpdateRespo respo = await _repo.ProfileUser(token, first_name, last_name, dob, gender, nationality, home_address,
-        permission_to_work_in_ireland, visa_type, phone_number, email, pps_number, bank_iban, bank_bic);
+    ProfileUpdateRespo resp = await _repo.ProfileUser(token, firstName, lastName, dob, gender, nationality, homeAddress,
+        permissionToWorkInIreland, visaType, phoneNumber, email, ppsNumber, bankIban, bankBic);
     if (!_profileUser.isClosed) {
-      _profileUser.sink.add(respo);
+      _profileUser.sink.add(resp);
       _visibility.add(false);
     }
   }
@@ -101,16 +101,16 @@ class ProfileBloc {
     String token,
     File files,
     String type,
-    String expiry_date,
+    String expiryDate,
   ) async {
     _visibility.add(true);
-    UserDocumentsResponse respo = await _repo.uploadUserDoc(
+    UserDocumentsResponse resp = await _repo.uploadUserDoc(
       token,
       files,
       type,
-      expiry_date,
+      expiryDate,
     );
-    _documents.sink.add(respo);
+    _documents.sink.add(resp);
     _visibility.add(false);
   }
 
@@ -120,8 +120,8 @@ class ProfileBloc {
     String value,
   ) async {
     _visibility.add(true);
-    ProfileQuestionResponse respo = await _repo.fetchProfileQuestions(token, key, value);
-    _questions.sink.add(respo);
+    ProfileQuestionResponse resp = await _repo.fetchProfileQuestions(token, key, value);
+    _questions.sink.add(resp);
     _visibility.add(false);
   }
 

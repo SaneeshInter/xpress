@@ -1,51 +1,49 @@
 import 'package:rxdart/rxdart.dart';
-import '../resources/respository.dart';
 
 import '../model/accept_job_request.dart';
 import '../model/manager_view_request.dart';
-import '../model/shift_list_response.dart';
+import '../resources/respository.dart';
 
 class ManagerViewRequestBloc {
   final _repo = Repository();
-  final _managerviewrequest = PublishSubject<ManagerViewRequestResponse>();
+  final _managerViewRequest = PublishSubject<ManagerViewRequestResponse>();
   final _shiftAcceptJobRequest = PublishSubject<AcceptJobRequestResponse>();
 
-
   final _visibility = PublishSubject<bool>();
+
   Stream<bool> get visible => _visibility.stream;
 
+  Stream<ManagerViewRequestResponse> get managerViewRequest =>
+      _managerViewRequest.stream;
 
-  Stream<ManagerViewRequestResponse> get managerviewrequest =>
-      _managerviewrequest.stream;
-
-  Stream<AcceptJobRequestResponse> get acceptjobrequest =>
+  Stream<AcceptJobRequestResponse> get acceptJobRequest =>
       _shiftAcceptJobRequest.stream;
 
   //view booking
-  fetchManagerViewRequest(String token, String shift_id) async {
+  fetchManagerViewRequest(String token, String shiftId) async {
     _visibility.add(true);
-    ManagerViewRequestResponse respo =
-    await _repo.fetchManagerViewRequest(token, shift_id);
-    _managerviewrequest.sink.add(respo);
+    ManagerViewRequestResponse resp =
+        await _repo.fetchManagerViewRequest(token, shiftId);
+    _managerViewRequest.sink.add(resp);
     _visibility.add(false);
   }
 
-  //acceptjob
+  //acceptor
   fetchAcceptJobRequestResponse(
     String token,
-    String job_request_row_id,
+    String jobRequestRowId,
   ) async {
     _visibility.add(true);
     AcceptJobRequestResponse list =
-        await _repo.fetchAcceptJobRequestResponse(token, job_request_row_id);
+        await _repo.fetchAcceptJobRequestResponse(token, jobRequestRowId);
     _shiftAcceptJobRequest.sink.add(list);
     _visibility.add(false);
   }
 
   dispose() {
-    // _managerviewrequest.close();
+    // _managerViewRequest.close();
     // _shiftAcceptJobRequest.close();
   }
 }
 
-final managerviewrequestBloc = ManagerViewRequestBloc();
+final managerViewRequestBloc = ManagerViewRequestBloc();

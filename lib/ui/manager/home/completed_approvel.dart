@@ -38,10 +38,10 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
   }
 
   Future<void> getData() async {
-    compeletedApprovelBloc.token = await TokenProvider().getToken();
-    if (null != compeletedApprovelBloc.token) {
+    completedApprovalBloc.token = await TokenProvider().getToken();
+    if (null != completedApprovalBloc.token) {
       if (await isNetworkAvailable()) {
-        compeletedApprovelBloc.completedApprovel();
+        completedApprovalBloc.completedApproval();
       } else {
         showInternetNotAvailable();
       }
@@ -87,7 +87,7 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
                       child: Column(children: [
                         SizedBox(height: screenHeight(context, dividedBy: 60)),
                         StreamBuilder(
-                            stream: compeletedApprovelBloc.timesheet,
+                            stream: completedApprovalBloc.timesheet,
                             builder: (BuildContext context,
                                 AsyncSnapshot<ManagerTimeSheetResponse>
                                     snapshot) {
@@ -109,7 +109,7 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
           ),
           Center(
             child: StreamBuilder(
-              stream: compeletedApprovelBloc.visible,
+              stream: completedApprovalBloc.visible,
               builder: (context, AsyncSnapshot<bool> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!) {

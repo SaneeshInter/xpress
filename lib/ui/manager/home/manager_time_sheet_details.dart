@@ -51,13 +51,13 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
   }
 
   void observe() {
-    timesheetBloc.approvetimesheet.listen((event) {
+    timesheetBloc.approveTimeSheets.listen((event) {
       var message = event.response?.status?.statusMessage;
       if (mounted) {
         showMessageAndPop(message, context);
       }
     });
-    timesheetBloc.timesheetdetails.listen((event) {
+    timesheetBloc.timeSheetDetails.listen((event) {
       createApproveData(event);
     });
   }
@@ -199,7 +199,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                 Flexible(
                   fit: FlexFit.loose,
                   child: StreamBuilder(
-                      stream: timesheetBloc.timesheetdetails,
+                      stream: timesheetBloc.timeSheetDetails,
                       builder: (BuildContext context,
                           AsyncSnapshot<ManagerTimeDetailsResponse> snapshot) {
                         if (!snapshot.hasData ||

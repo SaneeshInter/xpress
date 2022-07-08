@@ -70,7 +70,7 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                   child: SizedBox(
                     width: 50.w,
                     child: StreamBuilder(
-                      stream: managerBloc.typeAllowancesCategroys,
+                      stream: managerBloc.typeAllowancesCategory,
                       builder: (context,
                           AsyncSnapshot<List<AllowanceCategoryList>> snapshot) {
                         return

@@ -12,47 +12,47 @@ import '../resources/respository.dart';
 class CompletedApprovelBloc{
 
   var token;
-  var time_shhet_id = "";
+  var timesheetId = "";
   List<ApproveData> approveData = [];
 
   final _repo = Repository();
-  final _shiftimeSheet = PublishSubject<ManagerTimeSheetResponse>();
-  final _shiftimeSheetDetails = PublishSubject<ManagerTimeDetailsResponse>();
-  final _approvetimesheet = PublishSubject<ManagerApproveResponse>();
+  final _shiftTimeSheet = PublishSubject<ManagerTimeSheetResponse>();
+  final _shiftTimeSheetDetails = PublishSubject<ManagerTimeDetailsResponse>();
+  final _approveTimesheet = PublishSubject<ManagerApproveResponse>();
 
   final _visibility = PublishSubject<bool>();
 
   Stream<bool> get visible => _visibility.stream;
 
-  Stream<ManagerTimeSheetResponse> get timesheet => _shiftimeSheet.stream;
+  Stream<ManagerTimeSheetResponse> get timesheet => _shiftTimeSheet.stream;
 
   Stream<ManagerTimeDetailsResponse> get timesheetdetails =>
-      _shiftimeSheetDetails.stream;
+      _shiftTimeSheetDetails.stream;
 
   Stream<ManagerApproveResponse> get approvetimesheet =>
-      _approvetimesheet.stream;
+      _approveTimesheet.stream;
 
 
 
 
-  completedApprovel() async {
+  completedApproval() async {
     _visibility.add(true);
     ManagerTimeSheetResponse list = await _repo.fetchcompletedApprovel(token);
-    _shiftimeSheet.sink.add(list);
+    _shiftTimeSheet.sink.add(list);
     _visibility.add(false);
   }
 
   fetchTimesheet() async {
     _visibility.add(true);
     ManagerTimeSheetResponse list = await _repo.fetchManagerTimesheet(token);
-    _shiftimeSheet.sink.add(list);
+    _shiftTimeSheet.sink.add(list);
     _visibility.add(false);
   }
   fetchTimesheetDetails() async {
     _visibility.add(true);
     ManagerTimeDetailsResponse list =
-    await _repo.fetchManagerTimesheetDetials(token, time_shhet_id);
-    _shiftimeSheetDetails.sink.add(list);
+    await _repo.fetchManagerTimesheetDetials(token, timesheetId);
+    _shiftTimeSheetDetails.sink.add(list);
     _visibility.add(false);
   }
 
@@ -62,17 +62,17 @@ class CompletedApprovelBloc{
     jsonEncode(approveData.map((e) => e.toJson()).toList()).toString();
     ManagerApproveResponse list =
     await _repo.fetchapproveTimeSheet(token, json);
-    _approvetimesheet.sink.add(list);
+    _approveTimesheet.sink.add(list);
     _visibility.add(false);
   }
 
   dispose() {
-    _shiftimeSheet.close();
-    _shiftimeSheetDetails.close();
-    _approvetimesheet.close();
+    _shiftTimeSheet.close();
+    _shiftTimeSheetDetails.close();
+    _approveTimesheet.close();
   }
 }
 
 
 
-final  compeletedApprovelBloc= CompletedApprovelBloc();
+final  completedApprovalBloc= CompletedApprovelBloc();

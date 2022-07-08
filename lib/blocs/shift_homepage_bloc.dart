@@ -21,25 +21,23 @@ class ShiftHomepageBloc {
   Stream<bool> get visible => _visibility.stream;
   final _userHome = PublishSubject<UserHomeResponse>();
 
-  Stream<UserHomeResponse> get userhomeStream => _userHome.stream;
+  Stream<UserHomeResponse> get userHomeStream => _userHome.stream;
 
   fetchUserHomepage(BuildContext context) async {
-    if (await isNetworkAvailable()) {
+    if (!await isNetworkAvailable()) {
+      showInternetNotAvailable(context);
+    }else{
       _visibility.add(true);
       UserHomeResponse list = await _repo.fetchUserHomeResponse(token);
-
-      if (list.response != null) {
-        if (!_userHome.isClosed) {
+      if (list.response != null&&!_userHome.isClosed) {
           _visibility.add(false);
           _userHome.sink.add(list);
         } else {
+        Future.delayed(Duration.zero,(){
           showInternetNotAvailable(context);
-        }
-      } else {
-        showInternetNotAvailable(context);
+        });
+
       }
-    }else{
-      showInternetNotAvailable(context);
     }
   }
   Future<void> showInternetNotAvailable(BuildContext context) async {
@@ -49,7 +47,10 @@ class ShiftHomepageBloc {
     );
 
     if (repo == 1) {
-      fetchUserHomepage(context);
+      Future.delayed(Duration.zero,(){
+        fetchUserHomepage(context);
+      });
+
     }
   }
 

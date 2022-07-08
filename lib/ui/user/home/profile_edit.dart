@@ -517,7 +517,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                         width: 50.w,
                                                         child: StreamBuilder(
                                                           stream: profileBloc
-                                                              .visatypeStream,
+                                                              .visaTypeStream,
                                                           builder: (context,
                                                               AsyncSnapshot<
                                                                       List<

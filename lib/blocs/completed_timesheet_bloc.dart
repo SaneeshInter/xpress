@@ -14,7 +14,7 @@ class CompletedShiftTimeSheetBloc {
   List<ApproveData> approveData = [];
 
   final _repo = Repository();
-  final _shiftimeSheet = PublishSubject<ManagerTimeSheetResponse>();
+  final _shiftimeSheets = PublishSubject<ManagerTimeSheetResponse>();
   final _shiftimeSheetDetails = PublishSubject<ManagerTimeDetailsResponse>();
   final _approvetimesheet = PublishSubject<ManagerApproveResponse>();
 
@@ -22,7 +22,7 @@ class CompletedShiftTimeSheetBloc {
 
   Stream<bool> get visible => _visibility.stream;
 
-  Stream<ManagerTimeSheetResponse> get timesheet => _shiftimeSheet.stream;
+  Stream<ManagerTimeSheetResponse> get timesheet => _shiftimeSheets.stream;
 
   Stream<ManagerTimeDetailsResponse> get timesheetdetails =>
       _shiftimeSheetDetails.stream;
@@ -33,9 +33,10 @@ class CompletedShiftTimeSheetBloc {
   fetchTimesheet() async {
     _visibility.add(true);
     ManagerTimeSheetResponse list = await _repo.fetchManagerTimesheet(token);
-    _shiftimeSheet.sink.add(list);
+    _shiftimeSheets.sink.add(list);
     _visibility.add(false);
   }
+
   fetchTimesheetDetails() async {
     _visibility.add(true);
     ManagerTimeDetailsResponse list =
@@ -55,7 +56,7 @@ class CompletedShiftTimeSheetBloc {
   }
 
   dispose() {
-    _shiftimeSheet.close();
+    _shiftimeSheets.close();
     _shiftimeSheetDetails.close();
     _approvetimesheet.close();
   }

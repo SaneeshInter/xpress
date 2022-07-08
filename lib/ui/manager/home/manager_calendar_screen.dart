@@ -53,7 +53,7 @@ class ManagerFindShiftCalendar extends StatelessWidget {
                                 ),
                               ),
                               child: StreamBuilder(
-                                stream: managercalendarBloc.managercalendar,
+                                stream: managercalendarBloc.managerCalendar,
                                 builder: (context, snapshot) {
                                   return StreamBuilder(
                                     stream: managercalendarBloc.visible,
