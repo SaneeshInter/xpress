@@ -39,11 +39,11 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
   Future<void> getDataa() async {
     token = await TokenProvider().getToken();
     time_shhet_id = widget.item?.timeSheetId.toString();
-    print(token);
+    debugPrint(token.toString());
     if (null != token) {
       usertimesheetBloc.userGetTimeSheetDetails(token, time_shhet_id!);
     } else {
-      print("TOKEN NOT FOUND");
+      debugPrint("TOKEN NOT FOUND");
     }
   }
 
@@ -209,7 +209,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                 onTapCall: () {},
                 onTapMap: () {},
                 onTapBooking: () {
-                  print("Tapped");
+                  debugPrint("Tapped");
                   showBookingAlert(context, date: Txt.show_timsheet);
                 },
                 key: null,

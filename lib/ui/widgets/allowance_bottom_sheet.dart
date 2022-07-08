@@ -90,12 +90,12 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
 
                                 underline: const SizedBox(),
                                 onChanged: (Object? newValue) {
-                                  print("value");
+                                  debugPrint("value");
                                   if (newValue is AllowanceCategoryList) {
                                     allowanceId = 1;
                                     allowanceCategroy = "Food Item";
-                                    print("value ");
-                                    print(newValue.category);
+                                    debugPrint("value ");
+                                    debugPrint(newValue.category.toString());
                                     managerBloc.selectedAllowanceCategory=newValue;
                                     managerBloc.typeAllowancesList.drain();
                                     managerBloc.getAllowanceList(newValue.rowId!);
@@ -144,12 +144,12 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                         //     );
                         //   }).toList(),
                         //   onChanged: (Object? value) {
-                        //     print("value");
+                        //     debugPrint("value");
                         //     if (value is AllowanceCategoryList) {
                         //       allowanceId = 1;
                         //       allowanceCategroy = "Food Item";
-                        //       print("value ");
-                        //       print(value.category);
+                        //       debugPrint("value ");
+                        //       debugPrint(value.category);
                         //       managerBloc.typeAllowancesList.drain();
                         //       managerBloc.getAllowanceList(value.rowId!);
                         //       allowanceCategroyId = value.rowId!;

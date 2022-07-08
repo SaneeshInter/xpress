@@ -74,12 +74,12 @@ class _ProfileState extends State<ProfileScreen> {
   void observe() {
     profileBloc.getProfileStream.listen(
       (event) async {
-        print("observe");
+        debugPrint("observe");
         var datatItem = event.response?.data?.items;
         if (null != datatItem && datatItem.isNotEmpty) {
           var items = datatItem[0];
           var firstname = items.firstName;
-          print(firstname);
+          debugPrint(firstname.toString());
           var lastName = items.lastName;
           var employeeNo = items.employeeNo;
           var userType = items.userType;

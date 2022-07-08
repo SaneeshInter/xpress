@@ -37,11 +37,11 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
   Future<void> getData() async {
     completedTimesheetBloc.token = await TokenProvider().getToken();
     completedTimesheetBloc.time_shhet_id = widget.item!.timeSheetId.toString();
-    print(completedTimesheetBloc.token);
+    debugPrint(completedTimesheetBloc.token.toString());
     if (null != completedTimesheetBloc.token) {
       completedTimesheetBloc.fetchTimesheetDetails();
     } else {
-      print("TOKEN NOT FOUND");
+      debugPrint("TOKEN NOT FOUND");
     }
   }
 

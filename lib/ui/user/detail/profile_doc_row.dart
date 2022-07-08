@@ -25,8 +25,8 @@ class _CustomRowState extends State<ProfileDocRow> {
 
   @override
   Widget build(BuildContext context) {
-    print("widget.url");
-    print(widget.url);
+    debugPrint("widget.url");
+    debugPrint(widget.url.toString());
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),

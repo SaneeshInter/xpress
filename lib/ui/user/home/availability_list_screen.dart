@@ -123,7 +123,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                         stream: availabilitybloc.useravailabilitiydate,
                         builder: (BuildContext context,
                             AsyncSnapshot<List<AvailabilityList>> snapshot) {
-                          print("stream");
+                          debugPrint("stream");
                           if (snapshot.hasData) {
                             return ListView.builder(
                               itemCount: snapshot.data!.length,
@@ -142,7 +142,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 //String to list of strings
                                 List<String> list = item.availability!.split(",");
                                 list.remove("0");
-                                print("list length: ${item.availability}  ${list.isEmpty} ${list.toString()} ");
+                                debugPrint("list length: ${item.availability}  ${list.isEmpty} ${list.toString()} ");
                                 if(list.isEmpty){
                                     list.add("6");
                                 }

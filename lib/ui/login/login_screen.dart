@@ -222,8 +222,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
 
                           String? deviceId = await getDeviceId();
-                          print("DEVICE Id : ");
-                          print(deviceId);
+                          debugPrint("DEVICE Id : ");
+                          debugPrint(deviceId.toString());
 
                           if (deviceId == null) {
                             return;

@@ -195,7 +195,7 @@ class ManagerFindShiftCalendar extends StatelessWidget {
                                               onTapView: () {},
                                               key: null,
                                               onTapEdit: (item) {
-                                                print(item);
+                                                debugPrint(item.toString());
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
@@ -209,7 +209,8 @@ class ManagerFindShiftCalendar extends StatelessWidget {
 
                                               },
                                               onTapDelete: (rowId) {
-                                                print({rowId});
+                                                debugPrint(
+                                                    rowId().toString());
 
                                                   // managercalendarBloc.visibility=true;
 

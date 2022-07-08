@@ -42,11 +42,11 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
   Future<void> getData() async {
     timesheetBloc.token = await TokenProvider().getToken();
     timesheetBloc.time_shhet_id = widget.item!.timeSheetId.toString();
-    print(timesheetBloc.token);
+    debugPrint(timesheetBloc.token.toString());
     if (null != timesheetBloc.token) {
       timesheetBloc.fetchTimesheetDetails();
     } else {
-      print("TOKEN NOT FOUND");
+      debugPrint("TOKEN NOT FOUND");
     }
   }
 
@@ -304,7 +304,7 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                   },
                   key: null,
                   onCheckBoxClicked: (index, status) {
-                      print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   $status");
+                      debugPrint("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   $status");
                     timesheetBloc.approveData[index].status = status;
                     approveData[index].status = status;
                   },
@@ -374,12 +374,12 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                   },
                   key: null,
                   onCheckBoxClicked: (index, status) {
-                    print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   $status");
+                    debugPrint("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   $status");
                     timesheetBloc.approveData[index].status = status;
                     approveData[index].status = status;
                   },
                   textChange: (comment, index) {
-                    print("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   ");
+                    debugPrint("dsjfkdsnjfk ${approveData[index].status} ${ timesheetBloc.approveData[index].status}   ");
                     timesheetBloc.approveData[index].comment = comment;
                     approveData[index].comment = comment;
                     approveData[index].status = timesheetBloc.approveData[index].status;

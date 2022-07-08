@@ -57,7 +57,7 @@ class BookingAlertBox extends StatelessWidget {
               onPressed: () {
 
                 pop(context);
-                print("Cards booking");
+                debugPrint("Cards booking");
               },
               key: null,
             ),

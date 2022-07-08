@@ -77,8 +77,8 @@ class _CompletedShiftState extends State<CompletedShift> {
       }
     });
     completeBloc.uploadStatus.listen((event) {
-      print("event");
-      print(event.response);
+      debugPrint("event");
+      debugPrint(event.response.toString());
       var message = event.response?.status?.statusMessage;
       setState(() {
         completeBloc.image = null;

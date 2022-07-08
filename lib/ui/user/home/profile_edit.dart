@@ -640,7 +640,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                                                 },
                                                 onTapDate: () {
                                                   _selectDate(context, date);
-                                                  print("values");
+                                                  debugPrint("values");
                                                 },
                                                 hintText: Txt.dob,
                                                 keyboadType:
@@ -854,7 +854,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
                         if (validate) {
                           if (null != profileBloc.token) {
                             if (mounted) {
-                              print("after validation");
+                              debugPrint("after validation");
                               if (_image != null) {
                                 if (date.text != "" ) {
                                   profileBloc.uploadUserDoc(profileBloc.token,
@@ -974,7 +974,7 @@ class _CreateShiftState extends State<ProfileEditScreen> {
   }
   void listner() {
     profileBloc.getProfileStream.listen((event) {
-      print("Profile Stream");
+      debugPrint("Profile Stream");
       if (null != event.response?.data?.items?[0]) {
         var item = event.response?.data?.items?[0];
         if (null != item) {
@@ -1038,7 +1038,7 @@ _selectDate(BuildContext context, TextEditingController dateController) async {
     fieldHintText: "dd-MM-yyyy",
   );
   if (newDate != null) {
-    print(newDate);
+    debugPrint(newDate.toString());
     var dates = DateFormat('dd-MM-yyyy').format(newDate);
     dateController.text = dates;
   }

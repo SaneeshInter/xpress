@@ -156,7 +156,7 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
                 onTapCall: () {},
                 onTapMap: () {},
                 onTapBooking: () {
-                  print("Tapped");
+                  debugPrint("Tapped");
                   showBookingAlert(context, date: Txt.show_timsheet);
                 },
                 key: null,
