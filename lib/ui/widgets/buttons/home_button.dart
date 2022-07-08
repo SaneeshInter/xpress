@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 
-class HomeButton extends StatefulWidget {
+class HomeButton extends StatelessWidget {
   final Function onPressed;
   final String label;
   final String asset;
@@ -12,7 +12,7 @@ class HomeButton extends StatefulWidget {
   final Color color1;
   final Color color2;
 
-  const HomeButton(
+   HomeButton(
       {Key? key,
       required this.onPressed,
       required this.label,
@@ -22,18 +22,14 @@ class HomeButton extends StatefulWidget {
       required this.color2})
       : super(key: key);
 
-  @override
-  _HomeButtonState createState() => _HomeButtonState();
-}
 
-class _HomeButtonState extends State<HomeButton> {
   bool tapped = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onPressed();
+        onPressed();
 
       },
       child: Container(
@@ -46,8 +42,8 @@ class _HomeButtonState extends State<HomeButton> {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [
-                  widget.color1,
-                  widget.color2,
+                  color1,
+                  color2,
                 ],
             ),
             color: Constants.colors[3],
@@ -57,23 +53,23 @@ class _HomeButtonState extends State<HomeButton> {
             CircleAvatar(
               minRadius: MediaQuery.of(context).size.width * 0.052,
               maxRadius: MediaQuery.of(context).size.width * 0.052,
-              backgroundColor: widget.color2,
+              backgroundColor: color2,
               child: SvgPicture.asset(
-                widget.asset,
+                asset,
                 width: MediaQuery.of(context).size.width * 0.04,
                 height: MediaQuery.of(context).size.width * 0.04,
-                color: widget.textColors,
+                color: textColors,
               ),
             ),
-            SizedBox(width: 6),
-            Container(
+            const SizedBox(width: 6),
+            SizedBox(
               width: screenWidth(context, dividedBy: 3.5),
               child: AutoSizeText.rich(
                 TextSpan(
-                  text: widget.label,
+                  text: label,
                   style: TextStyle(
                       fontSize: 16,
-                      color: widget.textColors,
+                      color: textColors,
                       fontFamily: "SFProMedium",
                       fontWeight: FontWeight.w600),
                 ),

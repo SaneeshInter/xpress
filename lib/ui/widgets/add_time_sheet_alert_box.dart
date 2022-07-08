@@ -10,7 +10,7 @@ class AddTimeSheetAlertBox extends StatelessWidget {
 
   AddTimeSheetAlertBox({Key? key, required this.date}) : super(key: key);
 
-  TextEditingController email = new TextEditingController();
+  TextEditingController email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class AddTimeSheetAlertBox extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                offset: Offset(-2, 2),
+                offset: const Offset(-2, 2),
                 blurRadius: 2,
                 spreadRadius: 2,
                 color: Constants.colors[7].withOpacity(0.15))
@@ -108,7 +108,7 @@ class AddTimeSheetAlertBox extends StatelessWidget {
     return Container(
       // height: 100,
 
-      padding: EdgeInsets.only(top: 0, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
       child: TextFormField(
         cursorWidth: 1.0,
         controller: controlr,
@@ -118,31 +118,31 @@ class AddTimeSheetAlertBox extends StatelessWidget {
         maxLines: 1,
         keyboardType: keyboadType,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(10),
+            contentPadding: const EdgeInsets.all(10),
             errorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: const BorderSide(color: Colors.grey, width: 1),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
                 fontFamily: 'SFProRegular',
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
                 color: Colors.grey),
             enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: const BorderSide(color: Colors.grey, width: 1),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              borderSide: const BorderSide(color: Colors.grey, width: 1),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
             hintText: hintText,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
                 fontFamily: 'SFProRegular',
                 fontWeight: FontWeight.normal,
                 fontSize: 16,
                 color: Colors.grey)),
-        style: TextStyle(
+        style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16,
             decoration: TextDecoration.none,

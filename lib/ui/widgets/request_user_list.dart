@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/Constants/AppColors.dart';
+import '../../Constants/AppColors.dart';
 import '../../Constants/strings.dart';
 
 import '../../model/manager_view_request.dart';

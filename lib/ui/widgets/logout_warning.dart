@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/utils/utils.dart';
+import '../../utils/utils.dart';
 
 
 class LogoutWarning extends StatelessWidget {

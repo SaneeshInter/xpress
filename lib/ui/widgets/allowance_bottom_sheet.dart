@@ -7,7 +7,6 @@ import '../../blocs/createshift_manager_bloc.dart';
 import '../../dbmodel/allowance_category_model.dart';
 import '../../dbmodel/allowance_mode.dart';
 import '../../utils/utils.dart';
-import '../../utils/validator.dart';
 import 'input_text.dart';
 
 class AllowanceBottomSheet extends StatefulWidget {
@@ -173,8 +172,8 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                       builder:
                           (context, AsyncSnapshot<List<AllowanceList>> snapshot) {
                         if (snapshot.hasData &&
-                            snapshot.data?.length != 0 &&
-                            snapshot.data?.length != 0) {
+                            snapshot.data!.isNotEmpty &&
+                            snapshot.data!.isNotEmpty) {
                           debugPrint(
                               "snapshot.data.length ${snapshot.data!.length} ${snapshot.data![0].allowance}");
                           return DecoratedBox(
@@ -265,10 +264,11 @@ class _AllowanceState extends State<AllowanceBottomSheet> {
                     controlr: allowanceprice,
                     onChange: () {},
                     validator: (val) {
-                      if (val.toString()!="" && (double.parse(val??"0")>0))
+                      if (val.toString()!="" && (double.parse(val??"0")>0)) {
                         return null;
-                      else
+                      } else {
                         return Txt.enter_price;
+                      }
                     },
                     onTapDate: () {},
                     hintText: Txt.price,

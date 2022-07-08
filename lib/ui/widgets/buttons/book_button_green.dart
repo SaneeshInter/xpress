@@ -4,29 +4,21 @@ import 'package:sizer/sizer.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 
-class BookButtonGreen extends StatefulWidget {
+class BookButtonGreen extends StatelessWidget {
   final Function onPressed;
   final String label;
 
-  const BookButtonGreen(
+   BookButtonGreen(
       {Key? key, required this.onPressed, required this.label})
       : super(key: key);
-
-  @override
-  _LoginButtonState createState() => _LoginButtonState();
-}
-
-class _LoginButtonState extends State<BookButtonGreen> {
   bool tapped = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onPressed();
-        setState(() {
-          tapped = true;
-        });
+        onPressed();
+
       },
       child: Container(
         alignment: Alignment.center,
@@ -44,7 +36,7 @@ class _LoginButtonState extends State<BookButtonGreen> {
             color: Constants.colors[4],
             borderRadius: BorderRadius.circular(8)),
         child: Text(
-          widget.label,
+          label,
           style: TextStyle(
               fontSize: 12.sp,
               color: Constants.colors[0],

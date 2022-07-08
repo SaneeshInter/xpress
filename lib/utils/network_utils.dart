@@ -24,12 +24,15 @@ Future<bool> isConnectedToWiFi() async {
 
 Future<void> dialCall(String number) async =>await sendingMails('tel:$number');
 Future<void> launchLink(String url) async =>await sendingMails(url);
-Future<void> whatsappCall() async =>await sendingMails('https://wa.me/${Txt.contactWhatspp}');
+// Future<void> whatsappCall() async =>await wathsApp('http://wa.me/353892661667');
+Future<void> whatsappCall() async =>await whatsApp('https://wa.me/${Txt.contactWhatspp}');
 
 Future<void> navigateTo(double latitude, double longitude) async =>MapsLauncher.launchCoordinates(latitude, longitude);
 
 
-sendingMails(String url) async {
+whatsApp(String url) async {
+  if (!await launch((url))) throw 'Could not launch $url';
+}sendingMails(String url) async {
   if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
 }
 // sendingMails(String url) async {
