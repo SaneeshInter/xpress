@@ -21,7 +21,6 @@ class ScreenArguments {
 
   ScreenArguments(this.type, this.imgUrl,this.expiry);
 }
-
 enum Availability { morning, day, afternoon, night, sleepover }
 
 Future<void> main() async {
