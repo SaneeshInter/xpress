@@ -9,17 +9,13 @@ import '../../../blocs/manager_home_bloc.dart';
 import '../../../model/manager_home_response.dart';
 import '../../../resources/token_provider.dart';
 import '../../../ui/widgets/loading_widget.dart';
-import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
-import '../../manager_dashboard_screen.dart';
-import '../../user/detail/home_card_item.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../../widgets/my_scroll_behavior.dart';
 import '../../widgets/shift_detail_card.dart';
 import '../../widgets/shift_status_chip.dart';
-import '../create_shift_screen_update.dart';
 
 class ManagerHomeScreen extends StatefulWidget {
   const ManagerHomeScreen({Key? key}) : super(key: key);
@@ -100,21 +96,9 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * .4,
-                          child: AutoSizeText(
-                            Txt.important_update,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Constants.colors[1],
-                              fontSize: 16.sp,
-                              fontFamily: "SFProMedium",
-                            ),
-                          ),
-                        ),
-                      ),
+
+
+
                       horizontalList(),
 
 
@@ -237,7 +221,7 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
 
         ),
       ]),
-    ):SizedBox();
+    ):const SizedBox();
   }
 
   Widget equalSizeButtons() {
@@ -315,7 +299,14 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
             AsyncSnapshot<ManagerHomeResponse> snapshot) {
 
           if (snapshot.hasData) {
-            return buildList(snapshot);
+            return  Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+
+                buildList(snapshot),
+              ],
+            );
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           }
@@ -328,98 +319,120 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
       var itemCount = snapshot.data?.response?.data?.importantUpdates!.length;
+      print("itemCount $itemCount");
       return Column(
         children: [
-          SizedBox(
-            height: 35.w,
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: ctrl,
-                    padEnds: false,
-                    onPageChanged: (page) {
-                      debugPrint("page $page");
-                      setState(() {
-                        currentPage = page.toDouble();
-                      });
-                    },
-                    pageSnapping: true,
-                    itemCount: itemCount,
-                    itemBuilder: (BuildContext context, int index) {
-                      var list =
-                          snapshot.data?.response?.data?.importantUpdates![index];
-                      if (null != list) {
-                        var name = list.title!;
-                        var date = list.date!;
-                        var description = list.description!;
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          elevation: 0.0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(13.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                AutoSizeText(
-                                  name,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontFamily: "SFProMedium",
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                  child: SizedBox(
-                                      width: screenHeight(context, dividedBy: 2.2),
-                                      child: AutoSizeText(
-                                        description,
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8.sp,
-                                        ),
-                                      )),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                  child: SizedBox(
-                                      width: screenHeight(context, dividedBy: 2.2),
-                                      child: AutoSizeText(
-                                        date,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8.sp,
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
+          itemCount!=0? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * .4,
+                  child: AutoSizeText(
+                    Txt.important_update,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Constants.colors[1],
+                      fontSize: 16.sp,
+                      fontFamily: "SFProMedium",
+                    ),
                   ),
                 ),
-                DotsIndicator(
-                  dotsCount: itemCount!,
-                  position: currentPage!,
-                  decorator: DotsDecorator(
-                    color: Constants.colors[37], // Inactive color
-                    activeColor: Constants.colors[36],
-                  ),
+              ),
+              SizedBox(
+                height: 35.w,
+                child: Column(
+                  children: [
+
+                    Expanded(
+                      child: PageView.builder(
+                        controller: ctrl,
+                        padEnds: false,
+                        onPageChanged: (page) {
+                          debugPrint("page $page");
+                          setState(() {
+                            currentPage = page.toDouble();
+                          });
+                        },
+                        pageSnapping: true,
+                        itemCount: itemCount,
+                        itemBuilder: (BuildContext context, int index) {
+                          var list =
+                              snapshot.data?.response?.data?.importantUpdates![index];
+                          if (null != list) {
+                            var name = list.title!;
+                            var date = list.date!;
+                            var description = list.description!;
+                            return Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              elevation: 0.0,
+                              child: Padding(
+                                padding: const EdgeInsets.all(13.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    AutoSizeText(
+                                      name,
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14.sp,
+                                        fontFamily: "SFProMedium",
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                      child: SizedBox(
+                                          width: screenHeight(context, dividedBy: 2.2),
+                                          child: AutoSizeText(
+                                            description,
+                                            maxLines: 2,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 8.sp,
+                                            ),
+                                          )),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                      child: SizedBox(
+                                          width: screenHeight(context, dividedBy: 2.2),
+                                          child: AutoSizeText(
+                                            date,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 8.sp,
+                                            ),
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else {
+                            return const SizedBox();
+                          }
+                        },
+                      ),
+                    ),
+                    itemCount!=0? DotsIndicator(
+                      dotsCount: itemCount??1,
+                      position: currentPage!,
+                      decorator: DotsDecorator(
+                        color: Constants.colors[37], // Inactive color
+                        activeColor: Constants.colors[36],
+                      ),
+                    ):const SizedBox(),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            ],
+          ):const SizedBox(),
           shiftDetails()
         ],
       );

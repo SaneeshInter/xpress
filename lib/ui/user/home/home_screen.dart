@@ -388,22 +388,8 @@ class _HomeScreentate extends State<HomeScreen> {
                                   ],
                                 ),
                               imageCard(),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width * .4,
-                                  child: AutoSizeText(
-                                    Txt.important_update,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16.sp,
-                                      fontFamily: "SFProMedium",
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              horizontalList(snapshot),
+                               horizontalList(snapshot)
+
                               // gridView(),
                               // shiftDetails(),
 
@@ -526,94 +512,117 @@ class _HomeScreentate extends State<HomeScreen> {
       var summury=snapshot.data?.response?.data?.summary?[0];
       return Column(
         children: [
-          SizedBox(
-            height: 35.w,
-            child: Column(
-              children: [
-                Expanded(
-                  child: PageView.builder(
-                    controller: ctrl,
-                    padEnds: false,
-                    onPageChanged: (page) {
-                      debugPrint("page");
-
-                      setState(() {
-                        homepageBloc.currentPage = page.toDouble();
-                      });
-                    },
-                    pageSnapping: true,
-                    itemCount: itemcount,
-                    itemBuilder: (BuildContext context, int index) {
-                      var list =
-                          snapshot.data?.response?.data?.importantUpdates![index];
-                      if (null != list) {
-                        var name = list.title!;
-                        var date = list.date!;
-                        var description = list.description!;
-                        return Card(
-                          elevation: 0.0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(13.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                AutoSizeText(
-                                  name,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.sp,
-                                    fontFamily: "SFProMedium",
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                  child: SizedBox(
-                                      width: screenHeight(context, dividedBy: 2.2),
-                                      child: AutoSizeText(
-                                        description,
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8.sp,
-                                        ),
-                                      )),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                  child: SizedBox(
-                                      width: screenHeight(context, dividedBy: 2.2),
-                                      child: AutoSizeText(
-                                        date,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 8.sp,
-                                        ),
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
+          itemcount!=0?Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * .4,
+                child: AutoSizeText(
+                  Txt.important_update,
+                  maxLines: 1,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.sp,
+                    fontFamily: "SFProMedium",
                   ),
                 ),
-                DotsIndicator(
-                  dotsCount: itemcount!,
-                  position: homepageBloc.currentPage!,
-                  decorator: DotsDecorator(
-                    color: Constants.colors[37], // Inactive color
-                    activeColor: Constants.colors[36],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            SizedBox(
+              height: 35.w,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      controller: ctrl,
+                      padEnds: false,
+                      onPageChanged: (page) {
+                        debugPrint("page");
+
+                        setState(() {
+                          homepageBloc.currentPage = page.toDouble();
+                        });
+                      },
+                      pageSnapping: true,
+                      itemCount: itemcount,
+                      itemBuilder: (BuildContext context, int index) {
+                        var list =
+                        snapshot.data?.response?.data?.importantUpdates![index];
+                        if (null != list) {
+                          var name = list.title!;
+                          var date = list.date!;
+                          var description = list.description!;
+                          return Card(
+                            elevation: 0.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(13.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AutoSizeText(
+                                    name,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.sp,
+                                      fontFamily: "SFProMedium",
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                    child: SizedBox(
+                                        width: screenHeight(context, dividedBy: 2.2),
+                                        child: AutoSizeText(
+                                          description,
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 8.sp,
+                                          ),
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                    child: SizedBox(
+                                        width: screenHeight(context, dividedBy: 2.2),
+                                        child: AutoSizeText(
+                                          date,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 8.sp,
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                    ),
+                  ),
+                  itemcount!=0?  DotsIndicator(
+                    dotsCount: itemcount!,
+                    position: homepageBloc.currentPage!,
+                    decorator: DotsDecorator(
+                      color: Constants.colors[37], // Inactive color
+                      activeColor: Constants.colors[36],
+                    ),
+                  ):const SizedBox(),
+                ],
+              ),
+            ),
+          ],):const SizedBox(),
+
           SizedBox(
             width: double.infinity,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
