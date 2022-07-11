@@ -5,14 +5,14 @@ import 'package:sizer/sizer.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 
-class DrawableButton extends StatefulWidget {
+class DrawableButton extends StatelessWidget {
   final Function onPressed;
   final String label;
   final String asset;
   final Color textColors;
   final Color backgroundColor;
 
-  const DrawableButton(
+   DrawableButton(
       {Key? key,
       required this.onPressed,
       required this.label,
@@ -21,21 +21,15 @@ class DrawableButton extends StatefulWidget {
       required this.asset})
       : super(key: key);
 
-  @override
-  _DrawableState createState() => _DrawableState();
-}
 
-class _DrawableState extends State<DrawableButton> {
   bool tapped = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onPressed();
-        setState(() {
-          tapped = true;
-        });
+        onPressed();
+
       },
       child: Container(
         alignment: Alignment.center,
@@ -46,7 +40,7 @@ class _DrawableState extends State<DrawableButton> {
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [widget.backgroundColor, widget.backgroundColor]),
+                colors: [backgroundColor, backgroundColor]),
             color: Constants.colors[3],
             borderRadius: BorderRadius.circular(5)),
         child: Row(
@@ -54,19 +48,19 @@ class _DrawableState extends State<DrawableButton> {
             Padding(
               padding: const EdgeInsets.fromLTRB(3, 2, 5, 2),
               child: SvgPicture.asset(
-                widget.asset,
+                asset,
                 height: screenWidth(context, dividedBy: 30),
                 width: screenWidth(context, dividedBy: 30),
-                color: widget.textColors,
+                color: textColors,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(3.0),
               child: AutoSizeText(
-                widget.label,
+                label,
                 style: TextStyle(
                     fontSize: 8.sp,
-                    color: widget.textColors,
+                    color: textColors,
                     fontFamily: "SFProMedium",
                     fontWeight: FontWeight.w400),
               ),

@@ -1,10 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 
-class SubmitButton extends StatefulWidget {
+class SubmitButton extends StatelessWidget {
   final Function onPressed;
   final String label;
 
@@ -22,20 +21,11 @@ class SubmitButton extends StatefulWidget {
       : super(key: key);
 
   @override
-  _SubmitButtonState createState() => _SubmitButtonState();
-}
-
-class _SubmitButtonState extends State<SubmitButton> {
-  bool tapped = false;
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onPressed();
-        setState(() {
-          tapped = true;
-        });
+        onPressed();
+
       },
       child: Container(
         alignment: Alignment.center,
@@ -47,8 +37,8 @@ class _SubmitButtonState extends State<SubmitButton> {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [
-                  widget.color1,
-                  widget.color2,
+                  color1,
+                  color2,
                 ]),
             color: Constants.colors[3],
             borderRadius: BorderRadius.circular(10)),
@@ -56,10 +46,10 @@ class _SubmitButtonState extends State<SubmitButton> {
           alignment: Alignment.center,
           child: AutoSizeText.rich(
             TextSpan(
-              text: widget.label,
+              text: label,
               style: TextStyle(
                   fontSize: 16,
-                  color: widget.textColors,
+                  color: textColors,
                   fontFamily: "SFProMedium",
                   fontWeight: FontWeight.w600),
             ),

@@ -3,9 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/services/fcm_service.dart';
-import 'package:xpresshealthdev/ui/manager/home/manager_notification_screen.dart';
-import 'package:xpresshealthdev/ui/user/sidenav/notification_screen.dart';
+import '../../services/fcm_service.dart';
+import '../../ui/manager/home/manager_notification_screen.dart';
+import '../../ui/user/sidenav/notification_screen.dart';
 import '../ui/error/ConnectionFailedScreen.dart';
 import '../ui/error/ErrorScreen.dart';
 import '../ui/splash/splash_screen.dart';
@@ -21,7 +21,6 @@ class ScreenArguments {
 
   ScreenArguments(this.type, this.imgUrl,this.expiry);
 }
-
 enum Availability { morning, day, afternoon, night, sleepover }
 
 Future<void> main() async {

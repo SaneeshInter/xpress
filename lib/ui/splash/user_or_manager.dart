@@ -9,32 +9,18 @@ import '../../ui/Login/login_screen.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 
-class UserOrManager extends StatefulWidget {
-  @override
-  _UserOrManagerScreenState createState() => _UserOrManagerScreenState();
-}
 
-class _UserOrManagerScreenState extends State<UserOrManager> {
+class UserOrManager extends StatelessWidget {
+   UserOrManager({Key? key}) : super(key: key);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   ToastMsg toastMsg = ToastMsg();
 
   bool isLoading = false;
-  TextEditingController email = TextEditingController();
-  TextEditingController pwd = TextEditingController();
+  // TextEditingController email = TextEditingController();
+  // TextEditingController pwd = TextEditingController();
   bool visible = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +28,7 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
       children: [
         Scaffold(
           key: _scaffoldKey,
-          body: Container(
+          body: DecoratedBox(
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/icon/Bg1.png"),
@@ -57,8 +43,8 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         logoImage(),
-                        userButton(),
-                        managerButton(),
+                        userButton(context),
+                        managerButton(context),
                         SizedBox(
                           height: screenWidth(context, dividedBy: 6),
                         ),
@@ -82,59 +68,62 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
     );
   }
 
-  Widget managerButton() {
+  Widget managerButton(BuildContext context) {
     return Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Center(
               child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 35, right: 35),
-            child: Stack(
-              children: [
-                Visibility(
-                  visible: !visible,
-                  child: Container(
-                    color: Colors.transparent,
-                    height: commonButtonHeight(context),
-                    width: screenWidth(context, dividedBy: 1),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        await prefs.setBool('user', false);
-                        debugPrint('Button Clicked');
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          onPrimary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              side: const BorderSide(
-                                  color: Colors.white, width: 2.0))),
-                      child: Text('Manager', style: TextStyle(fontSize: 12.sp)),
+                padding: const EdgeInsets.only(top: 10, left: 35, right: 35),
+                child: Stack(
+                  children: [
+                    Visibility(
+                      visible: !visible,
+                      child: Container(
+                        color: Colors.transparent,
+                        height: commonButtonHeight(context),
+                        width: screenWidth(context, dividedBy: 1),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setBool('user', false);
+                            Future.delayed(Duration.zero,(){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.transparent,
+                              onPrimary: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  side: const BorderSide(
+                                      color: Colors.white, width: 2.0))),
+                          child: Text('Manager', style: TextStyle(fontSize: 12.sp)),
+                        ),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      child: Visibility(
+                          visible: visible,
+                          child: Center(
+                            child: Container(
+                                margin: const EdgeInsets.only(top: 0, bottom: 0),
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Constants.colors[3]),
+                                )),
+                          )),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Visibility(
-                      visible: visible,
-                      child: Center(
-                        child: Container(
-                            margin: const EdgeInsets.only(top: 0, bottom: 0),
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Constants.colors[3]),
-                            )),
-                      )),
-                ),
-              ],
-            ),
-          )),
+              )),
         ),
         const SizedBox(
           height: 5,
@@ -143,59 +132,63 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
     );
   }
 
-  Widget userButton() {
+  Widget userButton(BuildContext context) {
     return Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Center(
               child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 35, right: 35),
-            child: Stack(
-              children: [
-                Visibility(
-                  visible: !visible,
-                  child: SizedBox(
-                    height: commonButtonHeight(context),
-                    width: screenWidth(context, dividedBy: 1),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        await prefs.setBool('user', true);
-                        debugPrint('Button Clicked');
+                padding: const EdgeInsets.only(top: 10, left: 35, right: 35),
+                child: Stack(
+                  children: [
+                    Visibility(
+                      visible: !visible,
+                      child: SizedBox(
+                        height: commonButtonHeight(context),
+                        width: screenWidth(context, dividedBy: 1),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setBool('user', true);
+                            debugPrint('Button Clicked');
+                            Future.delayed(Duration.zero,(){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
+                            });
 
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Constants.colors[10],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              side: const BorderSide(
-                                  color: Colors.white, width: 2.0))),
-                      child: Text(Txt.user, style: TextStyle(fontSize: 12.sp)),
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              onPrimary: Constants.colors[10],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  side: const BorderSide(
+                                      color: Colors.white, width: 2.0))),
+                          child: Text(Txt.user, style: TextStyle(fontSize: 12.sp)),
+                        ),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      child: Visibility(
+                          visible: visible,
+                          child: Center(
+                            child: Container(
+                                margin: const EdgeInsets.only(top: 0, bottom: 0),
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Constants.colors[3]),
+                                )),
+                          )),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Visibility(
-                      visible: visible,
-                      child: Center(
-                        child: Container(
-                            margin: const EdgeInsets.only(top: 0, bottom: 0),
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Constants.colors[3]),
-                            )),
-                      )),
-                ),
-              ],
-            ),
-          )),
+              )),
         ),
         const SizedBox(
           height: 5,
@@ -211,35 +204,35 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
           padding: const EdgeInsets.only(top: 5),
           child: Center(
               child: Padding(
-            padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
-            child: Stack(
-              children: [
-                Visibility(
-                  visible: true,
-                  child: Container(
-                      alignment: Alignment.center,
-                      height: 40.h,
-                      width: 65.w,
-                      child: SvgPicture.asset(
-                        'assets/images/icon/whitelogo.svg',
-                      )),
+                padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
+                child: Stack(
+                  children: [
+                    Visibility(
+                      visible: true,
+                      child: Container(
+                          alignment: Alignment.center,
+                          height: 40.h,
+                          width: 65.w,
+                          child: SvgPicture.asset(
+                            'assets/images/icon/whitelogo.svg',
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      child: Visibility(
+                          visible: visible,
+                          child: Center(
+                            child: Container(
+                                margin: const EdgeInsets.only(top: 0, bottom: 0),
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Constants.colors[3]),
+                                )),
+                          )),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Visibility(
-                      visible: visible,
-                      child: Center(
-                        child: Container(
-                            margin: const EdgeInsets.only(top: 0, bottom: 0),
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Constants.colors[3]),
-                            )),
-                      )),
-                ),
-              ],
-            ),
-          )),
+              )),
         ),
         const SizedBox(
           height: 5,
@@ -248,3 +241,6 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
     );
   }
 }
+
+
+

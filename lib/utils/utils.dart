@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xpresshealthdev/utils/time_of_day_extensions.dart';
+import '../../utils/time_of_day_extensions.dart';
 
 import '../db/database.dart';
 import '../main.dart';

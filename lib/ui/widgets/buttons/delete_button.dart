@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
-class DeleteButton extends StatefulWidget {
+
+
+class DeleteButton extends StatelessWidget {
   final Function onPressed;
   final String label;
-  const DeleteButton({Key? key, required this.onPressed, required this.label}) : super(key: key);
+   DeleteButton({Key? key, required this.onPressed, required this.label}) : super(key: key);
 
-  @override
-  _DeleteButtonState createState() => _DeleteButtonState();
-}
 
-class _DeleteButtonState extends State<DeleteButton> {
   bool tapped = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onPressed();
-        setState(() {
-          tapped = true;
-        });
+        onPressed();
+
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -37,7 +33,7 @@ class _DeleteButtonState extends State<DeleteButton> {
             color: Constants.colors[0],
             borderRadius: BorderRadius.circular(5)),
         child: Text(
-          widget.label,
+          label,
           style: TextStyle(
               fontSize: 8.5.sp,
               color: tapped == false ?

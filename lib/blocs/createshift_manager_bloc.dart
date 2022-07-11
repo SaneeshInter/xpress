@@ -190,11 +190,11 @@ class CreateShiftmanagerBloc {
 
   createShiftManager(
     String token,
-    int row_id,
+    int rowId,
     int type,
     int category,
-    int user_type,
-    String job_title,
+    int userType,
+    String jobTitle,
     int hospital,
     String date,
     String time_from,
@@ -211,11 +211,11 @@ class CreateShiftmanagerBloc {
     var json = jsonEncode(allowanceList.map((e) => e.toJson()).toList());
     ManagerShift respo = await _repo.CreateShiftManager(
       token,
-      row_id,
+      rowId,
       type,
       category,
-      user_type,
-      job_title,
+      userType,
+      jobTitle,
       hospital,
       date,
       timeFrom,

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/widgets/screen_case.dart';
+import '../../ui/widgets/screen_case.dart';
 import '../../services/fcm_service.dart';
 import '../../utils/utils.dart';
 import '../manager/home/shift_detail_manager.dart';

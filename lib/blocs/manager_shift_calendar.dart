@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:xpresshealthdev/ui/widgets/toast.dart';
+import '../../ui/widgets/toast.dart';
 import '../Constants/strings.dart';
 import '../eventutil/eventutil.dart';
 import '../resources/respository.dart';
