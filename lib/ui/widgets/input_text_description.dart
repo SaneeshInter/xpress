@@ -29,8 +29,9 @@ class _BuildButtonState extends State<TextInputFiledDescription> {
   Widget build(BuildContext context) {
     return GestureDetector(
         child: SizedBox(
-      height: 8.h,
+     // height: 8.h,
       width: screenWidth(context, dividedBy: 1),
+
       child: TextFormField(
         cursorWidth: 1.0,
         onTap: () {
@@ -38,13 +39,19 @@ class _BuildButtonState extends State<TextInputFiledDescription> {
         },
         controller: widget.controlr,
         validator: widget.validator,
-        textAlign: TextAlign.justify,
+        // textAlign: TextAlign.justify,
         obscureText: widget.isPwd,
         maxLines: 10,
+        minLines: 2,
+        textInputAction: TextInputAction.next,
         keyboardType: widget.keyboadType,
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(8),
             errorBorder:  OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              borderSide: BorderSide(color: Constants.colors[28], width: 1),
+            ),
+            border:  OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),

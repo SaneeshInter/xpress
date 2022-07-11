@@ -30,7 +30,7 @@ class _BuildButtonState extends State<TextInputFileds> {
   Widget build(BuildContext context) {
     return GestureDetector(
         child: SizedBox(
-      height: 7.3.h,
+      // height: 7.3.h,
       width: screenWidth(context, dividedBy: 1),
       child: TextFormField(
         cursorWidth: 1.0,
@@ -49,6 +49,10 @@ class _BuildButtonState extends State<TextInputFileds> {
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 8),
             errorBorder:  OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              borderSide: BorderSide(color: Constants.colors[28], width: 1),
+            ),
+            border: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),

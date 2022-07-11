@@ -286,7 +286,7 @@ class Txt {
   static const view_timesheets="View Timesheets" ;
   static const timesheet_updated = "Timesheet Updated";
   static const approve = 'APPROVE';
-  static const enter_job_descri = "enter job decscription";
+  static const enter_job_descri = "Enter job decscription";
   static const enter_post_code = "enter post code";
 
 
@@ -298,7 +298,7 @@ class Txt {
   static const user_type ="User Type";
   static const client="Client";
   static const unit_name =  "Unit Name";
-  static const enter_job = 'enter job title';
+  static const enter_job = 'Enter job title';
   static const shift_type =    "Shift Type";
 
 

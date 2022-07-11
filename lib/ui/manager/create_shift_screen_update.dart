@@ -345,6 +345,8 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                         Column(
                                           children: [
                                             Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Expanded(
                                                   flex: 1,
@@ -404,7 +406,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                   flex: 1,
                                                   child: SizedBox(
                                                     width: 50.w,
-                                                    height: 5.3.h,
+                                                   // height: 5.3.h,
                                                     child: TextInputFileds(
                                                         onChange: () {},
                                                         controlr: date,
