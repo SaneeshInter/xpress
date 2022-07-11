@@ -37,8 +37,8 @@ class ShiftListCalenderWidget extends StatefulWidget {
 class _HomePageCardState extends State<ShiftListCalenderWidget> {
   @override
   Widget build(BuildContext context) {
-    print("widget.items.if_requested");
-    print(widget.items.if_requested);
+    debugPrint("widget.items.if_requested");
+    debugPrint(widget.items.if_requested.toString());
     return GestureDetector(
       onTap: () {
         widget.onTapView(widget.items);
@@ -130,7 +130,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                     label: Txt.request_now,
                     onPressed: () {
                       widget.onTapBook(widget.items);
-                      print("Tapped");
+                      debugPrint("Tapped");
                     },
                     key: null,
                   ):
@@ -139,7 +139,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   isEnabled: true,
                     onPressed: () {
 
-                      print("Tapped");
+                      debugPrint("Tapped");
                     },
                     key: null,
                   ):
@@ -148,7 +148,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   isEnabled: true,
                   onPressed: () {
 
-                    print("Tapped");
+                    debugPrint("Tapped");
                   },
                   key: null,
                 ):
@@ -157,7 +157,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                     isEnabled: true,
                     onPressed: () {
                       // widget.onTapBook(widget.items);
-                      print("Tapped");
+                      debugPrint("Tapped");
                     },
                     key: null,
                   ):
@@ -166,7 +166,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   isEnabled: true,
                   onPressed: () {
                     // widget.onTapBook(widget.items);
-                    print("Tapped");
+                    debugPrint("Tapped");
                   },
                   key: null,
                 ):
@@ -175,7 +175,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   isEnabled: true,
                   onPressed: () {
                     // widget.onTapBook(widget.items);
-                    print("Tapped");
+                    debugPrint("Tapped");
                   },
                   key: null,
                 ):
@@ -184,7 +184,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   isEnabled: true,
                   onPressed: () {
                     // widget.onTapBook(widget.items);
-                    print("Tapped");
+                    debugPrint("Tapped");
                   },
                   key: null,
                 ):
@@ -193,7 +193,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   isEnabled: true,
                   onPressed: () {
                     // widget.onTapBook(widget.items);
-                    print("Tapped");
+                    debugPrint("Tapped");
                   },
                   key: null,
                 ):
@@ -202,7 +202,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   isEnabled: true,
                   onPressed: () {
                     // widget.onTapBook(widget.items);
-                    print("Tapped");
+                    debugPrint("Tapped");
                   },
                   key: null,
                 ):

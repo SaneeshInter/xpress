@@ -102,7 +102,7 @@ class _UserOrManagerScreenState extends State<UserOrManager> {
                       onPressed: () async {
                         final prefs = await SharedPreferences.getInstance();
                         await prefs.setBool('user', false);
-                        print('Button Clicked');
+                        debugPrint('Button Clicked');
                         Navigator.push(
                             context,
                             MaterialPageRoute(

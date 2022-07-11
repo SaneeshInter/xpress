@@ -167,8 +167,8 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     completeBloc.allShift.listen((event) {
       var data = event.response?.data;
       if (data?.items != null) {
-        print("data?.items?.length");
-        print(data?.items?.length);
+        debugPrint("data?.items?.length");
+        debugPrint(data?.items?.length.toString());
         if (data?.items?.length != 0) {
           setState(() {
             completeBloc.buttonVisibility = true;
@@ -323,13 +323,13 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                     onCheckBoxClicked: (rowId, isSelect) {
                       // debugPrint(rowId);
                       // debugPrint(isSelect);
-                      print("dfs ${rowId} $isSelect");
+                      debugPrint("dfs ${rowId} $isSelect");
                       if (isSelect) {
                         completeBloc.list.add(rowId.toString());
-                        print("dfs ${completeBloc.list.length} $isSelect");
+                        debugPrint("dfs ${completeBloc.list.length} $isSelect");
                       } else {
                         completeBloc.list.remove(rowId.toString());
-                        print("dfs ${completeBloc.list.length} $isSelect");
+                        debugPrint("dfs ${completeBloc.list.length} $isSelect");
                       }
                     },
                   ),
@@ -343,7 +343,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
               label: Txt.upload_timesheets,
               onPressed: () {
                 String shiftid = "";
-                print("dfs ${completeBloc.list.length} completeBloc.list");
+                debugPrint("dfs ${completeBloc.list.length} completeBloc.list");
                 for (var item in completeBloc.list) {
 
                   shiftid = "$shiftid$item,";

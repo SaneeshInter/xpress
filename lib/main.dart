@@ -40,7 +40,9 @@ class MyApp extends StatelessWidget {
 
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
+   
         navigatorKey: navigatorKey,
+
         title: 'xpress health',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -57,6 +59,7 @@ class MyApp extends StatelessWidget {
           '/ManagerNotificationScreen': (context) => const ManagerNotificationScreen(),
         },
       );
+      
     });
   }
 }

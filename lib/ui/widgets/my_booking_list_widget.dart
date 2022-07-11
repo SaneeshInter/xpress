@@ -260,7 +260,7 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
                       },
                     );
 
-                    print("Cards booking");
+                    debugPrint("Cards booking");
                   },
                   key: null,
                 ):
@@ -289,7 +289,7 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
                 label: Txt.add_wrkng_hrs,
                 onPressed: () {
                   widget.onTapView(widget.items);
-                  print("Cards booking");
+                  debugPrint("Cards booking");
                 },
                 key: null,
               ),
@@ -301,7 +301,7 @@ int afterWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${
             label: Txt.add_wrkng_hrs,
             onPressed: () {
               widget.onTapView(widget.items);
-              print("Cards booking");
+              debugPrint("Cards booking");
             },
             key: null,
           ),

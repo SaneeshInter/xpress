@@ -45,7 +45,7 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
     FCM().notificationCount.listen((event) {
       getNotificationCount();
     }).onError((error) {
-      print("vxvcxbcfvb $error");
+      debugPrint("error $error");
     });
     getNotificationCount();
   }
@@ -106,7 +106,7 @@ getNotificationCount() async {
                 // StreamBuilder(
                 //     stream: FCM().notificationCount,
                 //     builder: (context, snapshot) {
-                //       print("dfdsf ${snapshot.connectionState}");
+                //       debugPrint("dfdsf ${snapshot.connectionState}");
                 //       if (snapshot.hasData) {
                 //         return Text("${snapshot.data??"0"}",style: const TextStyle(color: white,fontSize: 10),);
                 //       }else if (snapshot.hasError) {

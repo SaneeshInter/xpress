@@ -166,7 +166,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
           ),
           onItemSelected: (index) {
             _selectedIndex=index;
-            print(index);
+            debugPrint(index.toString());
             setState(() {});
           },
 

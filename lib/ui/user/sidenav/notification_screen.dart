@@ -109,7 +109,7 @@ class _NotificationState extends State<NotificationScreen> {
                           AsyncSnapshot<UserNotificationModel> snapshot) {
                         if (snapshot.hasData) {
                           // return Text("fed");
-                          print("asdsdf ${snapshot.data?.response?.data?.items?.length}");
+                          debugPrint("asdsdf ${snapshot.data?.response?.data?.items?.length}");
 
                           return buildList(snapshot);
                         } else if (snapshot.hasError) {
@@ -162,7 +162,7 @@ class _NotificationState extends State<NotificationScreen> {
               var name = "Shift Reminder";
               var description = "Your shift at Beneavin Manor is in  1 hour";
 
-              print("asdsdf ${snapshot.data?.response?.data?.items?.length}");
+              debugPrint("asdsdf ${snapshot.data?.response?.data?.items?.length}");
               var notification = snapshot.data?.response?.data?.items?[index];
               // if (notification != null) {
                 name = notification?.notificationTypeName??" ";

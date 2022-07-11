@@ -43,7 +43,7 @@ class _AvailabilityState extends State<AvailabilityListWidget> {
     if (!isClicked) {
       selectedValue = widget.item.availability!;
     }
-    print(isClicked);
+    debugPrint(isClicked.toString());
     return Container(
       width: 55.w,
       height: 55.w,

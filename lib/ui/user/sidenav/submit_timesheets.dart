@@ -85,8 +85,8 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
       }
     });
     completeBloc.uploadStatus.listen((event) {
-      print("event");
-      print(event.response);
+      debugPrint("event");
+      debugPrint(event.response.toString());
       var message = event.response?.status?.statusMessage;
       setState(() {
         _image = null;
@@ -237,8 +237,8 @@ class _CompletedShiftState extends State<SubmitTimeShift> {
               onTapBooking: () {},
               items: items,
               onCheckBoxClicked: (rowId, isSelect) {
-                print(rowId);
-                print(isSelect);
+                debugPrint(rowId.toString());
+                debugPrint(isSelect.toString());
                 if (isSelect) {
                   list.add(rowId.toString());
                 } else {

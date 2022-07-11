@@ -152,8 +152,8 @@ class _DatePickerState extends State<DatePicker> {
                   onSelectedItemChanged: (x) {
                     setState(() {
                       itemSelected = x;
-                      print("selected");
-                      print(x);
+                      debugPrint("selected");
+                      debugPrint(x.toString());
 
                       DateTime _date = widget.startDate.add(Duration(days: x));
                       DateTime date =
@@ -163,6 +163,7 @@ class _DatePickerState extends State<DatePicker> {
                       }
                     });
                   },
+                  itemExtent: widget.width,
                   children: List.generate(
                       widget.daysCount,
                       (x) => RotatedBox(
@@ -182,7 +183,7 @@ class _DatePickerState extends State<DatePicker> {
 
                                     // check if this date needs to be deactivated for only DeactivatedDates
                                     if (widget.inactiveDates != null) {
-//            print("Inside Inactive dates.");
+//            debugPrint("Inside Inactive dates.");
                                       for (DateTime inactiveDate
                                           in widget.inactiveDates!) {
                                         if (_compareDate(date, inactiveDate)) {
@@ -251,7 +252,6 @@ class _DatePickerState extends State<DatePicker> {
                                       },
                                     );
                                   })))),
-                  itemExtent: widget.width,
                 )),
           ),
         ],
@@ -311,7 +311,7 @@ class DatePickerController {
   /// Calculate the number of pixels that needs to be scrolled to go to the
   /// date provided in the argument
   double _calculateDateOffset(DateTime date) {
-    final startDate = new DateTime(
+    final startDate = DateTime(
         _datePickerState!.widget.startDate.year,
         _datePickerState!.widget.startDate.month,
         _datePickerState!.widget.startDate.day);

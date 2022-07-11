@@ -155,7 +155,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
                     onTap: () async {
                       Navigator.pop(context);
                       final response;
-                      print("type $type");
+                      debugPrint("type $type");
                       if(type == 'signature'){
                         response = await getImage(ImageSource.gallery);
                       }else{
@@ -197,7 +197,7 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
   void observe() {
     profileBloc.userdocuments.listen((event) {
       debugPrint("event");
-      print(event.response);
+      debugPrint(event.response.toString());
       var message = event.response?.status?.statusMessage;
       if (mounted) {
         setState(() {
@@ -223,9 +223,9 @@ class _UploadDocumentsState extends State<UploadDocumentsScreen> {
     type = args.type;
     imageUri = args.imgUrl;
     date.text = args.expiry;
-    print("type");
-    print(type);
-    print(imageUri);
+    debugPrint("type");
+    debugPrint(type);
+    debugPrint(imageUri.toString());
     final FixedExtentScrollController itemController =
     FixedExtentScrollController();
     return Scaffold(

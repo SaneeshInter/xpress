@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../Constants/app_defaults.dart';
 import '../../../utils/constants.dart';
-import '../../widgets/buttons/drawable_button.dart';
 
 class ProfileDetailsRow extends StatefulWidget {
   final String label;

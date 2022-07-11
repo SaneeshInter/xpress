@@ -82,7 +82,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                       var data = snapshot.data?.response?.data;
 
                       var hospitalDetail = data?.hospitalDetails?[0]??HospitalDetails();
-                      print('1212312ssss ${hospitalDetail.longitude} ${hospitalDetail.longitude}');
+                      debugPrint('1212312ssss ${hospitalDetail.longitude} ${hospitalDetail.longitude}');
 
                       var shiftDetails = data?.shiftDetails![0];
                       return Column(

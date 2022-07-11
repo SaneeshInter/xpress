@@ -56,7 +56,7 @@ class FeactureAlertBox extends StatelessWidget {
               label: Txt.implntn_pending,
               onPressed: () {
                 pop(context);
-                print("Cards booking");
+                debugPrint("Cards booking");
               },
               key: null,
             ),

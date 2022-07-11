@@ -193,7 +193,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                             );
                                                           }).toList(),
                                                           onChanged: (Object? value) {
-                                                            print("dkfjdgvj  ${value as int}");
+                                                            debugPrint("dkfjdgvj  ${value as int}");
 
                                                             managerBloc.typeId = value;
                                                             setState(() {});

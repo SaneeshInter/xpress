@@ -77,30 +77,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
-        .copyWith(statusBarBrightness: Brightness.dark));
-    return Scaffold(
-      backgroundColor: Constants.colors[3],
-      body: Container(
-        height: 100.h,
-        width: 100.w,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/icon/Bg1.png"),
-                fit: BoxFit.cover)),
-        child: Center(
-          child: SvgPicture.asset(
-            "assets/images/icon/whitelogo.svg",
-            width:  71.5.w,
-          ),
-        ),
-      ),
-    );
-  }
-
   void observe() {
     utility_bloc.utilStream.listen((event) {
       debugPrint(event.toString());
@@ -112,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
           if (null != countryList) {
             for (var item in countryList) {
               var obj =
-                  CountryList(rowId: item.rowId, countryName: item.countryName);
+              CountryList(rowId: item.rowId, countryName: item.countryName);
               db.insertCountryList(obj);
             }
           }
@@ -183,7 +159,7 @@ class _SplashScreenState extends State<SplashScreen> {
           if (null != loctionsList) {
             for (var item in loctionsList) {
               var obj =
-                  LoctionsList(rowId: item.rowId, location: item.location);
+              LoctionsList(rowId: item.rowId, location: item.location);
               db.insertLoctionsList(obj);
             }
           }
@@ -229,4 +205,28 @@ class _SplashScreenState extends State<SplashScreen> {
       getData();
     });
   }
+  @override
+  Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
+        .copyWith(statusBarBrightness: Brightness.dark));
+    return Scaffold(
+      backgroundColor: Constants.colors[3],
+      body: Container(
+        height: 100.h,
+        width: 100.w,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/icon/Bg1.png"),
+                fit: BoxFit.cover)),
+        child: Center(
+          child: SvgPicture.asset(
+            "assets/images/icon/whitelogo.svg",
+            width:  71.5.w,
+          ),
+        ),
+      ),
+    );
+  }
+
 }
