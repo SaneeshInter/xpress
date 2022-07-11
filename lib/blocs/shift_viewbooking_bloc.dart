@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../model/remove_manager_schedule.dart';
@@ -16,11 +17,11 @@ class ShiftViewBookingBloc {
 
   Stream<ManagerScheduleListResponse> get allShifts => _shiftViewBooking.stream;
 
-  Stream<RemoveManagerScheduleResponse> get removeshift =>
+  Stream<RemoveManagerScheduleResponse> get removeShift =>
       _removeManagerSchedule.stream;
 
   //get manager schedule by date
-  fetchViewbooking(String token, String date) async {
+  fetchViewBooking(String token, String date) async {
     _visibility.add(true);
     ManagerScheduleListResponse list =
         await _repo.fetchViewbooking(token, date);
@@ -29,11 +30,11 @@ class ShiftViewBookingBloc {
   }
 
   //remove manager schedule
-  fetchRemoveManager(String token, String rowid) async {
+  fetchRemoveManager(String token, String rowId) async {
     _visibility.add(true);
-    print(rowid);
+    debugPrint(rowId);
     RemoveManagerScheduleResponse list =
-        await _repo.fetchRemoveManager(token, rowid);
+        await _repo.fetchRemoveManager(token, rowId);
     _removeManagerSchedule.sink.add(list);
     _visibility.add(false);
   }
@@ -44,4 +45,4 @@ class ShiftViewBookingBloc {
   }
 }
 
-final viewbookingBloc = ShiftViewBookingBloc();
+final viewBookingBloc = ShiftViewBookingBloc();

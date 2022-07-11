@@ -6,21 +6,21 @@ import '../resources/respository.dart';
 
 class LoginBloc {
   final _repo = Repository();
-  final _loginbloc = PublishSubject<LoginUserRespo>();
+  final _loginBloc = PublishSubject<LoginUserRespo>();
   final _visibility = PublishSubject<bool>();
   Stream<bool> get visible => _visibility.stream;
-  Stream<LoginUserRespo> get loginStream => _loginbloc.stream;
-  fetchLogin(String username,String  password,String user_type,String device_id) async {
+  Stream<LoginUserRespo> get loginStream => _loginBloc.stream;
+  fetchLogin(String username,String  password,String userType,String deviceId) async {
     _visibility.add(true);
 
-    LoginUserRespo? respo = await _repo.fetchLogin(username, password,user_type, device_id);
-    if(null!=respo)
+    LoginUserRespo? repo = await _repo.fetchLogin(username, password,userType, deviceId);
+    if(null!=repo)
       {
         _visibility.add(false);
-        _loginbloc.sink.add(respo);
+        _loginBloc.sink.add(repo);
       }else{
       _visibility.add(false);
-      _loginbloc.sink.add(LoginUserRespo());
+      _loginBloc.sink.add(LoginUserRespo());
 
     }
   }

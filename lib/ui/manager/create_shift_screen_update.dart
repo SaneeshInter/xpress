@@ -66,7 +66,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   loadAllData() {
-    managerBloc.row_id = -1;
+    managerBloc.rowId = -1;
     dropdownBloc.addItem();
     managerBloc.getDropDownValues();
     managerBloc.getModelDropDown();
@@ -353,7 +353,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                   child: SizedBox(
                                                     width: 50.w,
                                                     child: StreamBuilder(
-                                                      stream: managerBloc.shifttimeStream,
+                                                      stream: managerBloc.shiftTimeStream,
                                                       builder: (context, AsyncSnapshot<List<ShiftTimingList>> snapshot) {
                                                         if (null == snapshot.data || snapshot.data?.length == 0) {
                                                           return const SizedBox();
@@ -740,7 +740,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                           debugPrint(managerBloc.typeId.toString());
                           managerBloc.createShiftManager(
                             auth_tokn,
-                            managerBloc.row_id,
+                            managerBloc.rowId,
                             managerBloc.typeId,
                             managerBloc.categoryId,
                             managerBloc.usertypeId,
@@ -769,7 +769,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   }
 
   void observerResponse() {
-    managerBloc.getmanagerStream.listen((event) {
+    managerBloc.getManagerStream.listen((event) {
       var message = event.response?.status?.statusMessage.toString();
       if (event.response?.status?.statusCode == 200) {
         Future.delayed(Duration.zero, () {
@@ -788,7 +788,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
       }
     });
 
-    managerBloc.shifttimeStream.listen((event) {
+    managerBloc.shiftTimeStream.listen((event) {
       if (!managerBloc.isShiftTypeChanged && managerBloc.shiftTypeId == 0) {
         var shiftValue = event.first;
         managerBloc.shiftTypeId = shiftValue.rowId!;
@@ -808,7 +808,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   updateAllowances(BuildContext context, Items item) {
     if (item != null) {
       jobtitle.text = item.jobTitle!;
-      managerBloc.row_id = item.rowId!;
+      managerBloc.rowId = item.rowId!;
       date.text = item.date!;
       dateTo.text = convert24hrTo12hr(item.timeTo!);
       if (item.price != null) {

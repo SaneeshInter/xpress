@@ -42,7 +42,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   @override
   void dispose() {
     super.dispose();
-    managerviewrequestBloc.dispose();
+    managerViewRequestBloc.dispose();
   }
 
   Future getData() async {
@@ -52,7 +52,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
       debugPrint("token inn deta");
       debugPrint(token);
       debugPrint(widget.shiftId);
-      managerviewrequestBloc.fetchManagerViewRequest(token!, widget.shiftId);
+      managerViewRequestBloc.fetchManagerViewRequest(token!, widget.shiftId);
     } else {
       showInternetNotAvailable();
     }
@@ -68,7 +68,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
         child: Stack(
           children: [
             StreamBuilder(
-                stream: managerviewrequestBloc.managerviewrequest,
+                stream: managerViewRequestBloc.managerViewRequest,
                 builder: (context, AsyncSnapshot<ManagerViewRequestResponse> snapshot) {
                   if (snapshot.data?.response?.data != null) {
                     var data = snapshot.data?.response?.data;
@@ -257,7 +257,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
               width: 100.w,
               height: 70.h,
               child: StreamBuilder(
-                stream: managerviewrequestBloc.visible,
+                stream: managerViewRequestBloc.visible,
                 builder: (context, AsyncSnapshot<bool> snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data!) {
@@ -278,7 +278,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   }
 
   void acceptJobRequest(JobRequestDetails item) {
-    managerviewrequestBloc.fetchAcceptJobRequestResponse(token!, item.rowId.toString());
+    managerViewRequestBloc.fetchAcceptJobRequestResponse(token!, item.rowId.toString());
   }
 
   Future<void> showInternetNotAvailable() async {
@@ -293,7 +293,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   }
 
   void observe() {
-    managerviewrequestBloc.acceptjobrequest.listen((event) {
+    managerViewRequestBloc.acceptJobRequest.listen((event) {
       var message = event.response?.status?.statusMessage;
       showAlertDialoge(context, title: Txt.accepted, message: message!);
       getData();

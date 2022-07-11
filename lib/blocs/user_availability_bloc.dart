@@ -14,7 +14,7 @@ class UserAvailiability {
   var endDate;
   bool visibility = false;
   double viewportFraction = 0.8;
-  Availability? availability = null;
+  Availability? availability;
   double? pageOffset = 0;
 
   final _repo = Repository();
@@ -23,20 +23,20 @@ class UserAvailiability {
 
   Stream<bool> get visible => _visibility.stream;
 
-  final _useravailability = PublishSubject<AddUserAvailabilityResponse>();
-  final _useravailabilitydate = PublishSubject<List<AvailabilityList>>();
+  final _userAvailability = PublishSubject<AddUserAvailabilityResponse>();
+  final _userAvailabilityDate = PublishSubject<List<AvailabilityList>>();
 
-  Stream<AddUserAvailabilityResponse> get useravailabilitiy =>
-      _useravailability.stream;
+  Stream<AddUserAvailabilityResponse> get userAvailability =>
+      _userAvailability.stream;
 
-  Stream<List<AvailabilityList>> get useravailabilitiydate =>
-      _useravailabilitydate.stream;
+  Stream<List<AvailabilityList>> get userAvailabilityDate =>
+      _userAvailabilityDate.stream;
 
   addUserAvailability(String date, String availability) async {
     _visibility.add(true);
     AddUserAvailabilityResponse list =
         await _repo.addUserAvailability(token!, date, availability);
-    _useravailability.sink.add(list);
+    _userAvailability.sink.add(list);
     _visibility.add(false);
   }
 
@@ -53,35 +53,36 @@ class UserAvailiability {
     UserAvailabilitydateResponse availabilityList =
         await _repo.UserAvailability(
             token!, startDate.toString(), endDate.toString());
-    List<AvailabilityList> availableMokeList = [];
-    List<DateTime> datelist = getDaysInBetween(startDate, endDate);
-    for (var dates in datelist) {
+    List<AvailabilityList> availableMakeList = [];
+    List<DateTime> dateList = getDaysInBetween(startDate, endDate);
+    for (var dates in dateList) {
       AvailabilityList item = AvailabilityList();
       item.date = formatDate(dates);
       item.availability = "0";
-      availableMokeList.add(item);
+      availableMakeList.add(item);
     }
     List<AvailabilityList>? listItem =
         availabilityList.response?.data!.availabilityList;
-    var finalList = getDataList(availableMokeList, listItem);
+    var finalList = getDataList(availableMakeList, listItem);
 
-    _useravailabilitydate.add(finalList);
+    _userAvailabilityDate.add(finalList);
     _visibility.add(false);
   }
 
   dispose() {
-    _useravailability.close();
-    _useravailabilitydate.close();
+    _userAvailability.close();
+    _userAvailabilityDate.close();
   }
 
   List<AvailabilityList> getDataList(List<AvailabilityList> datelist,
       List<AvailabilityList>? availabilityList) {
     if (null != availabilityList) {
-      for (var avalilability in availabilityList) {
+      for (var availability in availabilityList) {
         var itemPosition = datelist
-            .indexWhere((element) => compareValue(element, avalilability));
-        if (itemPosition != -1)
-          datelist[itemPosition].availability = avalilability.availability;
+            .indexWhere((element) => compareValue(element, availability));
+        if (itemPosition != -1) {
+          datelist[itemPosition].availability = availability.availability;
+        }
       }
     }
     return datelist;
@@ -93,4 +94,4 @@ class UserAvailiability {
   }
 }
 
-final availabilitybloc = UserAvailiability();
+final availabilityBloc = UserAvailiability();

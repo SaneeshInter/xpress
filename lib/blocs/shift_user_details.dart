@@ -6,22 +6,22 @@ class GetUserShiftDetailsBloc {
   String hospitalNumber = "";
   String? token;
   final _repo = Repository();
-  final _usershiftdetails = PublishSubject<GetUserShiftDetailsResponse>();
+  final _userShiftDetails = PublishSubject<GetUserShiftDetailsResponse>();
   final _visibility = PublishSubject<bool>();
   Stream<bool> get visible => _visibility.stream;
-  Stream<GetUserShiftDetailsResponse> get usershiftdetailsStream =>
-      _usershiftdetails.stream;
-  fetchGetUserShiftDetailsResponse(String shift_id) async {
+  Stream<GetUserShiftDetailsResponse> get userShiftDetailsStream =>
+      _userShiftDetails.stream;
+  fetchGetUserShiftDetailsResponse(String shiftId) async {
     _visibility.add(true);
-    GetUserShiftDetailsResponse respo =
-        await _repo.fetchGetUserShiftDetailsResponse(token!, shift_id);
-    _usershiftdetails.sink.add(respo);
+    GetUserShiftDetailsResponse resp =
+        await _repo.fetchGetUserShiftDetailsResponse(token!, shiftId);
+    _userShiftDetails.sink.add(resp);
     _visibility.add(false);
   }
 
   dispose() {
-    _usershiftdetails.close();
+    _userShiftDetails.close();
   }
 }
 
-final usershiftdetailsBloc = GetUserShiftDetailsBloc();
+final userShiftDetailsBloc = GetUserShiftDetailsBloc();

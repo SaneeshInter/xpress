@@ -10,7 +10,7 @@ import '../utils/utils.dart';
 class ShiftConfirmedBloc {
   int devicePixelRatio = 4;
   int perPageItem = 4;
-  String working_hours = "0";
+  String workingHour = "0";
   int pageCount = 0;
   int selectedIndex = 0;
   int lastPageItemLength = 0;
@@ -25,54 +25,54 @@ class ShiftConfirmedBloc {
 
   Stream<String> get workTime => workingHours.stream;
 
-  final _usercanceljob = PublishSubject<UserCancelJobRequestResponse>();
-  final _userworkinghours = PublishSubject<UserWorkingHoursResponse>();
-  final _viewrequest = PublishSubject<UserViewRequestResponse>();
+  final _userCancelJob = PublishSubject<UserCancelJobRequestResponse>();
+  final _userWorkingHours = PublishSubject<UserWorkingHoursResponse>();
+  final _viewRequest = PublishSubject<UserViewRequestResponse>();
 
-  Stream<UserViewRequestResponse> get viewrequest => _viewrequest.stream;
+  Stream<UserViewRequestResponse> get viewRequest => _viewRequest.stream;
 
-  Stream<UserCancelJobRequestResponse> get usercanceljobrequest => _usercanceljob.stream;
+  Stream<UserCancelJobRequestResponse> get userCancelJobRequest => _userCancelJob.stream;
 
-  Stream<UserWorkingHoursResponse> get userworkinghours => _userworkinghours.stream;
+  Stream<UserWorkingHoursResponse> get userWorkingHours => _userWorkingHours.stream;
 
   fetchUserViewRequest(String token) async {
     _visibility.add(true);
     UserViewRequestResponse list = await _repo.fetchUserViewRequestResponse(token);
-    if (!_viewrequest.isClosed) {
-      _viewrequest.sink.add(list);
+    if (!_viewRequest.isClosed) {
+      _viewRequest.sink.add(list);
       _visibility.add(false);
     }
   }
 
-  userCancelJob(String token, String job_request_row_id) async {
+  userCancelJob(String token, String jobRequestRowId) async {
     _visibility.add(true);
-    UserCancelJobRequestResponse list = await _repo.cancelJobRequest(token, job_request_row_id);
-    if (!_usercanceljob.isClosed) {
+    UserCancelJobRequestResponse list = await _repo.cancelJobRequest(token, jobRequestRowId);
+    if (!_userCancelJob.isClosed) {
       _visibility.add(false);
-      _usercanceljob.sink.add(list);
+      _userCancelJob.sink.add(list);
     }
   }
 
-  fetchUserWorkingHours(String token, String shift_id, String start_time, String end_time, String working_hours) async {
+  fetchUserWorkingHours(String token, String shiftId, String startTime, String endTime, String workingHours) async {
 
     _visibility.add(true);
-    var timeFrom = convert12hrTo24hr(start_time);
-    var timeTo = convert12hrTo24hr(end_time);
-    UserWorkingHoursResponse list = await _repo.AddUserWorking(token, shift_id, timeFrom, timeTo, working_hours);
-    if (!_userworkinghours.isClosed) {
+    var timeFrom = convert12hrTo24hr(startTime);
+    var timeTo = convert12hrTo24hr(endTime);
+    UserWorkingHoursResponse list = await _repo.AddUserWorking(token, shiftId, timeFrom, timeTo, workingHours);
+    if (!_userWorkingHours.isClosed) {
       _visibility.add(false);
-      _userworkinghours.sink.add(list);
+      _userWorkingHours.sink.add(list);
     }
 
   }
 
-  Future<void> checkAndUpdateTimeDiffernce(String dateTo, String dateFrom) async {
+  Future<void> checkAndUpdateTimeDifference(String dateTo, String dateFrom) async {
 
     if (dateTo.isNotEmpty && dateFrom.isNotEmpty) {
       DateTime date = DateFormat.jm().parse(dateFrom);
       DateTime date1 = DateFormat.jm().parse(dateTo);
-      working_hours = getDiffrenceBetweenDates(date,date1);
-      workingHours.add(working_hours);
+      workingHour = getDiffrenceBetweenDates(date,date1);
+      workingHours.add(workingHour);
       // if (dateFrom.compareTo(dateTo) < 0) {
       //   var time1 = DateFormat("HH:mm").format(date);
       //   var time2 = DateFormat("HH:mm").format(date1);

@@ -40,7 +40,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
   }
 
   void requestShift() {
-    bloc.fetchuserJobRequest(widget.shift_id.toString());
+    bloc.fetchUserJobRequest(widget.shift_id.toString());
   }
 
   @override
@@ -51,8 +51,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
   Future getDataz() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
     bloc.token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
-    usershiftdetailsBloc.token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
-    usershiftdetailsBloc.fetchGetUserShiftDetailsResponse(widget.shift_id);
+    userShiftDetailsBloc.token = shdPre.getString(SharedPrefKey.AUTH_TOKEN);
+    userShiftDetailsBloc.fetchGetUserShiftDetailsResponse(widget.shift_id);
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -75,7 +75,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
           children: [
             SingleChildScrollView(
               child: StreamBuilder(
-                  stream: usershiftdetailsBloc.usershiftdetailsStream,
+                  stream: userShiftDetailsBloc.userShiftDetailsStream,
                   builder: (context,
                       AsyncSnapshot<GetUserShiftDetailsResponse> snapshot) {
                     if (snapshot.data?.response?.data != null) {
@@ -387,7 +387,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                             padding:
                                                 const EdgeInsets.only(left: 15.0),
                                             child: CallButtons(onPressed: () {
-                                              dialCall(usershiftdetailsBloc
+                                              dialCall(userShiftDetailsBloc
                                                   .hospitalNumber);
                                             }),
                                           ),
@@ -413,7 +413,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                   }),
             ),
             StreamBuilder(
-              stream: usershiftdetailsBloc.visible,
+              stream: userShiftDetailsBloc.visible,
               builder: (context, AsyncSnapshot<bool> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!) {
@@ -433,16 +433,16 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
   }
 
   void observe() {
-    bloc.jobrequest.listen((event) {
+    bloc.jobRequest.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataz();
       //Fluttertoast.showToast(msg: '$message');
     });
 
-    usershiftdetailsBloc.usershiftdetailsStream.listen((event) {
+    userShiftDetailsBloc.userShiftDetailsStream.listen((event) {
       var hospitalDetail = event.response?.data?.hospitalDetails?[0]??HospitalDetails();
       if (null != hospitalDetail) {
-        usershiftdetailsBloc.hospitalNumber =  hospitalDetail.phone??Txt.contactNumber;
+        userShiftDetailsBloc.hospitalNumber =  hospitalDetail.phone??Txt.contactNumber;
       }
     });
   }

@@ -83,7 +83,7 @@ class _HomeScreentate extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: StreamBuilder<UserHomeResponse>(
-                      stream: homepageBloc.userhomeStream,
+                      stream: homepageBloc.userHomeStream,
                       builder:
                           (context, AsyncSnapshot<UserHomeResponse> snapshot) {
                         var data = snapshot.data?.response?.data;

@@ -2,17 +2,17 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../ui/widgets/toast.dart';
+
 import '../Constants/strings.dart';
 import '../eventutil/eventutil.dart';
-import '../resources/respository.dart';
-
 import '../model/common/manager_shift.dart';
 import '../model/manager_shift_calendar_respo.dart';
 import '../model/remove_manager_schedule.dart';
+import '../resources/respository.dart';
 import '../resources/token_provider.dart';
 import '../ui/error/ConnectionFailedScreen.dart';
 import '../ui/error/ErrorScreen.dart';
@@ -30,6 +30,7 @@ class ManagerShiftCalendarBloc {
   var itemSelected = 0;
   var token;
   final _visibility = PublishSubject<bool>();
+
   Stream<bool> get visible => _visibility.stream;
   late PageController pageController;
   DateTime focusDay = DateTime.now();
@@ -38,15 +39,18 @@ class ManagerShiftCalendarBloc {
   DateTime focusedDay = DateTime.now();
   DateTime selectedCalenderDay = DateTime.now();
   final _repo = Repository();
-  final _getshiftcalendar = PublishSubject<ManagerGetScheduleByYear>();
+  final _getShiftCalendar = PublishSubject<ManagerGetScheduleByYear>();
   final _filterItems = PublishSubject<List<Items>>();
-  List<Item>? itemlListALl = [];
+  List<Item>? itemListALl = [];
   List<Items>? eventListByDate = [];
-  Stream<ManagerGetScheduleByYear> get managercalendar => _getshiftcalendar.stream;
-  final _removeManagerSchedule =
-  PublishSubject<RemoveManagerScheduleResponse>();
 
-  Stream<RemoveManagerScheduleResponse> get removeshift => _removeManagerSchedule.stream;
+  Stream<ManagerGetScheduleByYear> get managerCalendar =>
+      _getShiftCalendar.stream;
+  final _removeManagerSchedule =
+      PublishSubject<RemoveManagerScheduleResponse>();
+
+  Stream<RemoveManagerScheduleResponse> get removeShift =>
+      _removeManagerSchedule.stream;
 
   Stream<List<Items>> get filtered => _filterItems.stream;
 
@@ -55,38 +59,39 @@ class ManagerShiftCalendarBloc {
     hashCode: getHashCode,
   );
 
-  Future deleteShift(rowId,context) async {
-    print("hereejwaebdjhbes 2 $rowId");
+  Future deleteShift(rowId, context) async {
+    debugPrint("deleteShift 2 $rowId");
     String? token = await TokenProvider().getToken();
-    managercalendarBloc.fetchRemoveManager(token!, rowId.toString(),context);
+    managercalendarBloc.fetchRemoveManager(token!, rowId.toString(), context);
   }
 
-  void update(CalendarFormat f){
+  void update(CalendarFormat f) {
     format = f;
     _visibility.sink.add(false);
   }
 
   void onDaySelected(DateTime selectedDay, DateTime selected) {
-
     focusedDay = selected;
-      selectedCalenderDay = selected;
-      debugPrint("selectedDay");
-      debugPrint(selectedDay.toString());
-      filterItemByDates(selectedDay);
-      _visibility.sink.add(false);
+    selectedCalenderDay = selected;
+    debugPrint("selectedDay");
+    debugPrint(selectedDay.toString());
+    filterItemByDates(selectedDay);
+    _visibility.sink.add(false);
   }
 
   Future getData(BuildContext context) async {
     token = await TokenProvider().getToken();
     if (null != token) {
       if (await isNetworkAvailable()) {
+        _visibility.sink.add(false);
 
-          _visibility.sink.add(false);
-
-       await managerGetScheduleByYear(token, "2022");
-          _visibility.sink.add(false);
+        await managerGetScheduleByYear(token, "2022");
+        _visibility.sink.add(false);
       } else {
+        Future.delayed(Duration.zero,(){
         showInternetNotAvailable(context);
+        });
+
       }
     }
   }
@@ -99,22 +104,21 @@ class ManagerShiftCalendarBloc {
   }
 
   void observe(BuildContext context) {
-    removeshift.listen((event) {
+    removeShift.listen((event) {
       debugPrint(event.response?.status?.statusCode.toString());
 
       _visibility.sink.add(false);
-
 
       var message = event.response?.status?.statusMessage;
 
       if (event.response?.status?.statusCode == 200) {
         getData(context);
         Fluttertoast.showToast(msg: '$message');
-      }else{
+      } else {
         showAlertDialoge(context, title: Txt.failed, message: message!);
       }
     });
-    managercalendar.listen((event) {
+    managerCalendar.listen((event) {
       if (null != event.response?.data) {
         var itemList = event.response?.data?.item;
         final Set<DateTime> selectedDay = LinkedHashSet<DateTime>(
@@ -122,17 +126,16 @@ class ManagerShiftCalendarBloc {
           hashCode: getHashCode,
         );
         for (var item in itemList!) {
-          if(item.items!.isNotEmpty){
+          if (item.items!.isNotEmpty) {
             selectedDay.add(DateTime.parse(item.date.toString()));
           }
         }
 
         selectedDays.clear();
-          selectedDays.addAll(selectedDay);
+        selectedDays.addAll(selectedDay);
 
         onDaySelected(selectedCalenderDay, selectedCalenderDay);
       } else {
-
         _visibility.sink.add(false);
 
         showError(context);
@@ -153,7 +156,6 @@ class ManagerShiftCalendarBloc {
   }
 
   void initState(BuildContext context) {
-
     observe(context);
     getData(context);
     pageController = PageController(initialPage: 0);
@@ -163,8 +165,8 @@ class ManagerShiftCalendarBloc {
   List<Event> getEventsForDay(DateTime day) {
     List<Event> eventList = [];
 
-    if (null != itemlListALl) {
-      var itemList = managercalendarBloc.itemlListALl?.where((element) {
+    if (null != itemListALl) {
+      var itemList = managercalendarBloc.itemListALl?.where((element) {
         DateTime itemDay = DateTime.parse(element.date.toString());
         return isSameDay(itemDay, day);
       });
@@ -183,21 +185,21 @@ class ManagerShiftCalendarBloc {
 
   managerGetScheduleByYear(String token, String year) async {
     _visibility.sink.add(true);
-    ManagerGetScheduleByYear? respo =await _repo.fetchmanagerscheduleyear(token, year);
-    itemlListALl = respo?.response?.data?.item;
-    if (!_getshiftcalendar.isClosed) {
+    ManagerGetScheduleByYear? respo =
+        await _repo.fetchmanagerscheduleyear(token, year);
+    itemListALl = respo?.response?.data?.item;
+    if (!_getShiftCalendar.isClosed) {
       _visibility.sink.add(false);
-      _getshiftcalendar.sink.add(respo!);
+      _getShiftCalendar.sink.add(respo!);
     }
-
   }
 
   dispose() {
-    _getshiftcalendar.close();
+    _getShiftCalendar.close();
   }
 
   filterItemByDates(DateTime selectedDay) {
-    var itemList = itemlListALl!.where((element) {
+    var itemList = itemListALl!.where((element) {
       DateTime itemDay = DateTime.parse(element.date.toString());
       return isSameDay(itemDay, selectedDay);
     });
@@ -208,13 +210,13 @@ class ManagerShiftCalendarBloc {
     }
   }
 
-  fetchRemoveManager(String token, String rowid,BuildContext context) async {
-    print("hereejwaebdjhbes 3 $rowid");
+  fetchRemoveManager(String token, String rowid, BuildContext context) async {
     debugPrint(rowid);
     RemoveManagerScheduleResponse list =
-    await _repo.fetchRemoveManager(token, rowid);
+        await _repo.fetchRemoveManager(token, rowid);
 
     _removeManagerSchedule.sink.add(list);
   }
 }
+
 final managercalendarBloc = ManagerShiftCalendarBloc();

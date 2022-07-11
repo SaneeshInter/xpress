@@ -64,10 +64,10 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
     pageController = PageController(initialPage: 0);
     confirmBloc.pageCount = 3;
     dateFrom.addListener(() {
-      confirmBloc.checkAndUpdateTimeDiffernce(dateTo.text, dateFrom.text);
+      confirmBloc.checkAndUpdateTimeDifference(dateTo.text, dateFrom.text);
     });
     dateTo.addListener(() {
-      confirmBloc.checkAndUpdateTimeDiffernce(dateTo.text, dateFrom.text);
+      confirmBloc.checkAndUpdateTimeDifference(dateTo.text, dateFrom.text);
     });
   }
 
@@ -95,12 +95,12 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
   void observe() {
     confirmBloc.workTime.listen((event) {});
 
-    confirmBloc.usercanceljobrequest.listen((event) {
+    confirmBloc.userCancelJobRequest.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataitems();
       Fluttertoast.showToast(msg: '$message');
     });
-    confirmBloc.userworkinghours.listen((event) {
+    confirmBloc.userWorkingHours.listen((event) {
       String? message = event.response?.status?.statusMessage;
       getDataitems();
       Fluttertoast.showToast(msg: '$message');
@@ -170,7 +170,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
             body: Stack(
               children: [
                 StreamBuilder(
-                    stream: confirmBloc.viewrequest,
+                    stream: confirmBloc.viewRequest,
                     builder: (BuildContext context,
                         AsyncSnapshot<UserViewRequestResponse> snapshot) {
                       if (snapshot.hasData) {
@@ -438,11 +438,11 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
       item.shiftId.toString(),
       dateFrom.text,
       dateTo.text,
-      confirmBloc.working_hours.toString(),
+      confirmBloc.workingHour.toString(),
     );
     dateFrom.text = "";
     dateTo.text = "";
-    confirmBloc.working_hours = "0";
+    confirmBloc.workingHour = "0";
     Navigator.pop(context);
   }
 

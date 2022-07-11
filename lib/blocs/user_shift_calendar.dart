@@ -96,7 +96,7 @@ class ShiftCalendarBloc {
 
   void requestShift(Items items) {
     Items data = items;
-    bloc.fetchuserJobRequest(data.rowId.toString());
+    bloc.fetchUserJobRequest(data.rowId.toString());
   }
 
   Future getData(BuildContext context) async {
@@ -137,7 +137,7 @@ class ShiftCalendarBloc {
       if (null != itemList) {
         for (var item in itemList) {
           if (item.items!.isNotEmpty) {
-            print("Date:${item.date.toString()} - ${item.items!.length}");
+            debugPrint("Date:${item.date.toString()} - ${item.items!.length}");
             selectedDay.add(DateTime.parse(item.date.toString()));
           }
         }
@@ -147,7 +147,7 @@ class ShiftCalendarBloc {
       }
     });
 
-    bloc.jobrequest.listen((event) {
+    bloc.jobRequest.listen((event) {
       getData(context);
       String? message = event.response?.status?.statusMessage;
       Fluttertoast.showToast(msg: '$message');
