@@ -7,7 +7,7 @@ import '../../model/manager_view_request.dart';
 import '../../utils/utils.dart';
 import 'buttons/view_button.dart';
 
-class RequestuserListWidget extends StatefulWidget {
+class RequestuserListWidget extends StatelessWidget {
   final Function onTapBooking;
   final Function onTapMap;
   final Function onTapCall;
@@ -23,11 +23,7 @@ class RequestuserListWidget extends StatefulWidget {
     required this.onTapMap,
   }) : super(key: key);
 
-  @override
-  _RequestuserListState createState() => _RequestuserListState();
-}
 
-class _RequestuserListState extends State<RequestuserListWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,7 +50,7 @@ class _RequestuserListState extends State<RequestuserListWidget> {
                     backgroundColor: appColorPrimary,
                     radius: 28,
                     child: Text(
-                        (widget.item.userName!.length>1)? widget.item.userName!.substring(0, 1):"A",
+                        (item.userName!.length>1)? item.userName!.substring(0, 1):"A",
                       style: TextStyle(
                           fontSize: 18.sp,
                           color: Colors.white,
@@ -68,14 +64,14 @@ class _RequestuserListState extends State<RequestuserListWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.item.userName!,
+                          item.userName!,
                           style: TextStyle(
                               fontSize: 10.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.w500),
                         ),
                         Text(
-                          widget.item.status!,
+                          item.status!,
                           style: TextStyle(
                               fontSize: 10.sp,
                               color: Colors.black,
@@ -85,7 +81,7 @@ class _RequestuserListState extends State<RequestuserListWidget> {
                         Row(
                           children: [
                             Text(
-                              "${Txt.date}: ${getStringFromDate(getDateFromString(widget.item.date!,"yyyy-MM-dd HH:mm"),"dd-MM-yyyy hh:mm a")}",
+                              "${Txt.date}: ${getStringFromDate(getDateFromString(item.date!,"yyyy-MM-dd HH:mm"),"dd-MM-yyyy hh:mm a")}",
 
                               style: TextStyle(
                                   fontSize: 10.sp,
@@ -102,12 +98,12 @@ class _RequestuserListState extends State<RequestuserListWidget> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      if (widget.item.status != "Rejected" &&
-                          widget.item.status != "Accepted")
+                      if (item.status != "Rejected" &&
+                          item.status != "Accepted")
                         ViewButton(
                           label:Txt.accept,
                           onPressed: () {
-                            widget.onTapBooking(widget.item);
+                            onTapBooking(item);
                           },
                           key: null,
                         ),

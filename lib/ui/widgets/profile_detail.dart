@@ -73,7 +73,7 @@ class ProfileDetailCard extends StatelessWidget {
                         // ),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Divider(
                       thickness: 0.5,
                       endIndent: 7,
@@ -85,17 +85,17 @@ class ProfileDetailCard extends StatelessWidget {
                       ProfileDetailsRow(
                           label: Txt.gender_dot + gender,
                           asset: "assets/images/icon/sex.svg"),
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                     if (dob != null)
                       ProfileDetailsRow(
                           label: Txt.d_o_b + dob,
                           asset: "assets/images/icon/confetti.svg"),
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                     if (homeAddress != null)
                       ProfileDetailsRow(
                           label: Txt.address_dot + homeAddress,
                           asset: "assets/images/icon/Pin.svg"),
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                     if (email != null)
                       GestureDetector(
                         onTap: () {
@@ -105,7 +105,7 @@ class ProfileDetailCard extends StatelessWidget {
                             label: Txt.email_dot + email,
                             asset: "assets/images/icon/email.svg"),
                       ),
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                     if (phoneNumber != null)
                       GestureDetector(
                         onTap: () {
@@ -115,17 +115,17 @@ class ProfileDetailCard extends StatelessWidget {
                             label: Txt.phone_number_dot + phoneNumber,
                             asset: "assets/images/icon/phone.svg"),
                       ),
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                     if (ppsNumber != null)
                       ProfileDetailsRow(
                           label: Txt.pps_number_dot + ppsNumber,
                           asset: "assets/images/icon/passport.svg"),
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                     if (bankIban != null)
                       ProfileDetailsRow(
                           label: Txt.bank_detail + bankIban,
                           asset: "assets/images/icon/bank.svg"),
-                    SizedBox(width: 15.0),
+                    const SizedBox(width: 15.0),
                   ],
                 ),
               ),

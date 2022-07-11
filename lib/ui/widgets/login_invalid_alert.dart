@@ -5,7 +5,7 @@ import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import 'buttons/book_button.dart';
 
-class LoginAlertBox extends StatefulWidget {
+class LoginAlertBox extends StatelessWidget {
   final String title;
   final String message;
 
@@ -15,11 +15,7 @@ class LoginAlertBox extends StatefulWidget {
     required this.message,
   }) : super(key: key);
 
-  @override
-  State<LoginAlertBox> createState() => _LoginAlertBoxState();
-}
 
-class _LoginAlertBoxState extends State<LoginAlertBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +28,7 @@ class _LoginAlertBoxState extends State<LoginAlertBox> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                offset: Offset(-2, 2),
+                offset: const Offset(-2, 2),
                 blurRadius: 2,
                 spreadRadius: 2,
                 color: Constants.colors[7].withOpacity(0.15))
@@ -44,7 +40,7 @@ class _LoginAlertBoxState extends State<LoginAlertBox> {
           children: [
             SizedBox(height: screenHeight(context, dividedBy: 40)),
             Text(
-              widget.title,
+              title,
               style: TextStyle(
                   fontSize: 17,
                   color: Constants.colors[3],
@@ -52,7 +48,7 @@ class _LoginAlertBoxState extends State<LoginAlertBox> {
             ),
             SizedBox(height: screenHeight(context, dividedBy: 70)),
             Text(
-              widget.message,
+              message,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 14,

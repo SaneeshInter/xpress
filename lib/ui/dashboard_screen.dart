@@ -1,8 +1,5 @@
-import 'dart:math';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:badges/badges.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,8 +11,6 @@ import '../../ui/widgets/double_back_to_close.dart';
 import '../Constants/AppColors.dart';
 import '../Constants/sharedPrefKeys.dart';
 import '../Constants/strings.dart';
-import '../services/fcm_service.dart';
-import '../ui/user/common/app_bar.dart';
 import '../ui/user/common/side_menu.dart';
 import '../ui/user/home/availability_list_screen.dart';
 import '../ui/user/home/completed_shift_screen.dart';
@@ -36,7 +31,6 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardWidgetState extends State<DashBoard> {
   int notificationCount = 0;
-  String _firebaseAppToken = '';
   int pageIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override

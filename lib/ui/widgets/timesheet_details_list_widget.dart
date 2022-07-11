@@ -32,7 +32,7 @@ class TimeSheetDetailsListWidget extends StatefulWidget {
 class _NotificationState extends State<TimeSheetDetailsListWidget> {
   bool isChecked = false;
   bool isCheckedReject = false;
-  TextEditingController jobDescri = new TextEditingController();
+  TextEditingController jobDescri = TextEditingController();
 
   @override
   void initState() {

@@ -5,9 +5,7 @@ import '../../ui/user/detail/profile_doc_row.dart';
 import '../../ui/user/detail/profile_question_row.dart';
 
 import '../../Constants/strings.dart';
-import '../../main.dart';
 import '../../resources/token_provider.dart';
-import '../user/home/my_booking_screen.dart';
 
 class ProfileDocumentsCard extends StatefulWidget {
   Items items;

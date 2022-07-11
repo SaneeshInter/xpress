@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../Constants/strings.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
-import '../Widgets/buttons/view_button.dart';
 import 'buttons/book_button.dart';
 
 class BookingAlertBox extends StatelessWidget {

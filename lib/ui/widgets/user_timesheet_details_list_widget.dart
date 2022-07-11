@@ -7,7 +7,7 @@ import '../../model/user_time_sheet_details_respo.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 
-class UserTimeSheetDetailsListWidget extends StatefulWidget {
+class UserTimeSheetDetailsListWidget extends StatelessWidget {
   final TimeSheetDetails items;
   final Function onTapBooking;
   final Function onTapMap;
@@ -16,7 +16,7 @@ class UserTimeSheetDetailsListWidget extends StatefulWidget {
   final Function onCheckBoxClicked;
   final Function onRejectCheckBoxClicked;
 
-  const UserTimeSheetDetailsListWidget({
+   UserTimeSheetDetailsListWidget({
     Key? key,
     required this.items,
     required this.onTapView,
@@ -27,14 +27,10 @@ class UserTimeSheetDetailsListWidget extends StatefulWidget {
     required this.onRejectCheckBoxClicked,
   }) : super(key: key);
 
-  @override
-  _NotificationState createState() => _NotificationState();
-}
 
-class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
   bool isChecked = false;
   bool isCheckedReject = false;
-  TextEditingController jobDescri = new TextEditingController();
+  TextEditingController jobDescri = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +52,7 @@ class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
                 Row(
                   children: [
                     AutoSizeText(
-                      widget.items.jobTitle!,
+                      items.jobTitle!,
                       textAlign: TextAlign.start,
                       maxLines: 3,
                       style: TextStyle(
@@ -75,7 +71,7 @@ class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
                     Padding(
                       padding: const EdgeInsets.only(top: 1.0),
                       child: Text(
-                        "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
+                        "${Txt.date}: ${getStringFromDate(getDateFromString(items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],
@@ -86,9 +82,9 @@ class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
                       padding: const EdgeInsets.only(top: 3.0),
                       child: Text(
                         Txt.from +
-                          convert24hrTo12hr(widget.items.timeFrom!)   +
+                          convert24hrTo12hr(items.timeFrom!)   +
                             Txt.to +
-                          convert24hrTo12hr( widget.items.timeTo!) ,
+                          convert24hrTo12hr( items.timeTo!) ,
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],
@@ -98,9 +94,9 @@ class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
                   ],
                 ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
-                if (null != widget.items.userType)
+                if (null != items.userType)
                   Text(
-                    widget.items.userType!,
+                    items.userType!,
                     style: TextStyle(
                         fontSize: 11.sp,
                         color: Constants.colors[3],
@@ -115,14 +111,3 @@ class _NotificationState extends State<UserTimeSheetDetailsListWidget> {
   }
 }
 
-Color getColor(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return Colors.blue;
-  }
-  return Constants.colors[3];
-}

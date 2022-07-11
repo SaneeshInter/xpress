@@ -4,7 +4,7 @@ import '../../utils/constants.dart';
 
 import '../../utils/utils.dart';
 
-class TextInputFileds extends StatefulWidget {
+class TextInputFileds extends StatelessWidget {
   String hintText;
   dynamic validator;
   TextEditingController controlr;
@@ -23,10 +23,6 @@ class TextInputFileds extends StatefulWidget {
       required this.onTapDate}) : super(key: key);
 
   @override
-  _BuildButtonState createState() => _BuildButtonState();
-}
-class _BuildButtonState extends State<TextInputFileds> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
         child: SizedBox(
@@ -35,17 +31,17 @@ class _BuildButtonState extends State<TextInputFileds> {
       child: TextFormField(
         cursorWidth: 1.0,
         onTap: () {
-          widget.onTapDate();
+          onTapDate();
         },
-        controller: widget.controlr,
-        validator: widget.validator,
+        controller: controlr,
+        validator: validator,
         textAlign: TextAlign.justify,
-        obscureText: widget.isPwd,
+        obscureText: isPwd,
         maxLines: 1,
         onChanged: (value) {
 
         },
-        keyboardType: widget.keyboadType,
+        keyboardType: keyboadType,
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 8),
             errorBorder:  OutlineInputBorder(
@@ -69,7 +65,7 @@ class _BuildButtonState extends State<TextInputFileds> {
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
-            hintText: widget.hintText,
+            hintText: hintText,
             hintStyle: TextStyle(
                 fontFamily: 'SFProRegular',
                 fontWeight: FontWeight.normal,

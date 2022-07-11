@@ -17,6 +17,7 @@ import '../ui/splash/splash_screen.dart';
 import '../ui/widgets/action_alert_dialoge.dart';
 import '../ui/widgets/add_time_sheet_alert_box.dart';
 import '../ui/widgets/login_invalid_alert.dart';
+import 'constants.dart';
 
 void showMessageAndPop(String? message, BuildContext context) {
   Navigator.pop(context);
@@ -522,4 +523,15 @@ Future<void> openMap(double latitude, double longitude) async {
   } else {
     throw 'Could not open the map.';
   }
+}
+Color getColor(Set<MaterialState> states) {
+  const Set<MaterialState> interactiveStates = <MaterialState>{
+    MaterialState.pressed,
+    MaterialState.hovered,
+    MaterialState.focused,
+  };
+  if (states.any(interactiveStates.contains)) {
+    return Colors.blue;
+  }
+  return Constants.colors[3];
 }

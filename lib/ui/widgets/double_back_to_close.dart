@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'toast.dart';
 
-class DoubleBack extends StatefulWidget {
+class DoubleBack extends StatelessWidget {
   final Widget child;
   final BuildContext context;
   final String message;
@@ -14,7 +14,7 @@ class DoubleBack extends StatefulWidget {
   final double backgroundRadius;
   final int index;
 
-  const DoubleBack({
+   DoubleBack({
     Key? key,
     required this.child,
     this.message = "Press back again to exit",
@@ -26,11 +26,7 @@ class DoubleBack extends StatefulWidget {
     required this.index, required this.context,
   }) : super(key: key);
 
-  @override
-  _DoubleBackState createState() => _DoubleBackState();
-}
 
-class _DoubleBackState extends State<DoubleBack> {
   bool tapped = false;
   bool get _isAndroid => Theme.of(context).platform == TargetPlatform.android;
 
@@ -39,8 +35,8 @@ class _DoubleBackState extends State<DoubleBack> {
     if (_isAndroid) {
       return WillPopScope(
         onWillPop: () async {
-          debugPrint("onWillPop ${widget.index} ${Navigator.canPop(context)}");
-         if(widget.index==0&&!Navigator.canPop(context)){
+          debugPrint("onWillPop ${index} ${Navigator.canPop(context)}");
+         if(index==0&&!Navigator.canPop(context)){
              if (tapped) {
                return true;
              }
@@ -48,22 +44,22 @@ class _DoubleBackState extends State<DoubleBack> {
                tapped = true;
                Timer(
                  Duration(
-                   seconds: widget.waitForSecondBackPress,
+                   seconds: waitForSecondBackPress,
                  ),
                  resetBackTimeout,
                );
 
-               if (widget.onFirstBackPress != null) {
-                 widget.onFirstBackPress!(context);
+               if (onFirstBackPress != null) {
+                 onFirstBackPress!(context);
                } else {
                  Toast.show(
-                   widget.message,
+                   message,
                    context,
-                   duration: widget.waitForSecondBackPress,
+                   duration: waitForSecondBackPress,
                    gravity: Toast.bottom,
-                   textStyle: widget.textStyle,
-                   backgroundColor: widget.background,
-                   backgroundRadius: widget.backgroundRadius,
+                   textStyle: textStyle,
+                   backgroundColor: background,
+                   backgroundRadius: backgroundRadius,
                  );
                }
 
@@ -73,10 +69,10 @@ class _DoubleBackState extends State<DoubleBack> {
             return true;
          }
         },
-        child: widget.child,
+        child: child,
       );
     } else {
-      return widget.child;
+      return child;
     }
   }
 

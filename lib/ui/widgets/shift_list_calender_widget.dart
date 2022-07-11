@@ -10,7 +10,7 @@ import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
 import 'buttons/book_button.dart';
 
-class ShiftListCalenderWidget extends StatefulWidget {
+class ShiftListCalenderWidget extends StatelessWidget {
   final Items items;
   final String token;
   final Function onTapEdit;
@@ -30,18 +30,14 @@ class ShiftListCalenderWidget extends StatefulWidget {
     required this.onTapBook,
   }) : super(key: key);
 
-  @override
-  _HomePageCardState createState() => _HomePageCardState();
-}
 
-class _HomePageCardState extends State<ShiftListCalenderWidget> {
   @override
   Widget build(BuildContext context) {
     debugPrint("widget.items.if_requested");
-    debugPrint(widget.items.if_requested.toString());
+    debugPrint(items.if_requested.toString());
     return GestureDetector(
       onTap: () {
-        widget.onTapView(widget.items);
+        onTapView(items);
       },
       child: Container(
         width: screenWidth(context, dividedBy: 1),
@@ -57,9 +53,9 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
           children: [
             Row(children: [
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                if (null != widget.items.hospital)
+                if (null != items.hospital)
                   AutoSizeText(
-                    widget.items.hospital!,
+                    items.hospital!,
                     maxLines: 1,
                     style: TextStyle(
                         fontSize: 11.sp,
@@ -68,36 +64,36 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
                 Text(
-                 " ${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
+                 " ${Txt.date}: ${getStringFromDate(getDateFromString(items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                   style: const TextStyle(
                       fontSize: 13,
                       color: Colors.grey,
                       fontWeight: FontWeight.w400),
                 ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
-              (widget.items.timeFrom.toString().isEmpty &&
-                    widget.items.timeTo.toString().isEmpty)?
-                Text(""):  Text(
+              (items.timeFrom.toString().isEmpty &&
+                    items.timeTo.toString().isEmpty)?
+                const Text(""):  Text(
                 Txt.from +
-                    convert24hrTo12hr( widget.items.timeFrom.toString().trim())   +
+                    convert24hrTo12hr( items.timeFrom.toString().trim())   +
                     Txt.to +
-                    convert24hrTo12hr(widget.items.timeTo.toString().trim()) ,
+                    convert24hrTo12hr(items.timeTo.toString().trim()) ,
                 style: const TextStyle(
                     fontSize: 13,
                     color: Colors.grey,
                     fontWeight: FontWeight.w400),
               ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
-                if (null != widget.items.type)
+                if (null != items.type)
                   Text(
-                    "" + widget.items.type!,
+                    items.type!,
                     style: TextStyle(
                         fontSize: 13,
                         color: Constants.colors[3],
                         fontWeight: FontWeight.w500),
                   ),
               ]),
-              Spacer(),
+              const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -108,10 +104,10 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                       SizedBox(
                         width: screenWidth(context, dividedBy: 40),
                       ),
-                      if (null != widget.items.price &&
-                          widget.items.type == "Premium")
+                      if (null != items.price &&
+                          items.type == "Premium")
                         Text(
-                          "\€" + widget.items.price.toString(),
+                          "\€${items.price}",
                           style: TextStyle(
                               fontSize: 20,
                               color: Constants.colors[3],
@@ -126,15 +122,15 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
             SizedBox(height: screenHeight(context, dividedBy: 120)),
             Row(
               children: [
-                (widget.items.if_requested! == -1)? BookButton(
+                (items.if_requested! == -1)? BookButton(
                     label: Txt.request_now,
                     onPressed: () {
-                      widget.onTapBook(widget.items);
+                      onTapBook(items);
                       debugPrint("Tapped");
                     },
                     key: null,
                   ):
-                (widget.items.if_requested! == 0)? BookButton(
+                (items.if_requested! == 0)? BookButton(
                     label: Txt.requested,
                   isEnabled: true,
                     onPressed: () {
@@ -143,7 +139,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                     },
                     key: null,
                   ):
-                (widget.items.if_requested! == 1)?BookButton(
+                (items.if_requested! == 1)?BookButton(
                   label: Txt.accepted,
                   isEnabled: true,
                   onPressed: () {
@@ -152,7 +148,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   },
                   key: null,
                 ):
-                (widget.items.if_requested! == 2)? BookButton(
+                (items.if_requested! == 2)? BookButton(
                     label: Txt.rejected,
                     isEnabled: true,
                     onPressed: () {
@@ -161,7 +157,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                     },
                     key: null,
                   ):
-                (widget.items.if_requested! == 3)?BookButton(
+                (items.if_requested! == 3)?BookButton(
                   label: Txt.cancelled,
                   isEnabled: true,
                   onPressed: () {
@@ -170,7 +166,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   },
                   key: null,
                 ):
-                (widget.items.if_requested! == 4)?BookButton(
+                (items.if_requested! == 4)?BookButton(
                   label: Txt.cancelled,
                   isEnabled: true,
                   onPressed: () {
@@ -179,7 +175,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   },
                   key: null,
                 ):
-                (widget.items.if_requested! == 5)?BookButton(
+                (items.if_requested! == 5)?BookButton(
                   label: Txt.rejected,
                   isEnabled: true,
                   onPressed: () {
@@ -188,7 +184,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   },
                   key: null,
                 ):
-                (widget.items.if_requested! == 6)?BookButton(
+                (items.if_requested! == 6)?BookButton(
                   label: Txt.past,
                   isEnabled: true,
                   onPressed: () {
@@ -197,7 +193,7 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   },
                   key: null,
                 ):
-                (widget.items.if_requested! == 7)?BookButton(
+                (items.if_requested! == 7)?BookButton(
                   label: Txt.not_attended,
                   isEnabled: true,
                   onPressed: () {
@@ -207,11 +203,11 @@ class _HomePageCardState extends State<ShiftListCalenderWidget> {
                   key: null,
                 ):
                 SizedBox(
-                  child: Text("${widget.items.if_requested!}"),
+                  child: Text("${items.if_requested!}"),
                 ),
                 SizedBox(width: screenWidth(context, dividedBy: 40)),
                 Spacer(),
-                if (widget.items.type == "Premium")
+                if (items.type == "Premium")
                   Container(
                       width: 7.w,
                       height: 7.w,

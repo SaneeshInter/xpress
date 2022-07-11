@@ -15,7 +15,7 @@ import '../Widgets/buttons/view_button.dart';
 import '../manager/home/shift_detail_manager.dart';
 import 'buttons/delete_button.dart';
 
-class ManagerListCalenderWidget extends StatefulWidget {
+class ManagerListCalenderWidget extends StatelessWidget {
   final Items items;
   final Function onTapEdit;
   final Function onTapDelete;
@@ -33,11 +33,7 @@ class ManagerListCalenderWidget extends StatefulWidget {
     required this.onTapBook,
   }) : super(key: key);
 
-  @override
-  _HomePageCardStates createState() => _HomePageCardStates();
-}
 
-class _HomePageCardStates extends State<ManagerListCalenderWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -74,7 +70,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                               position: const BadgePosition(bottom: 10, start: 30),
                               badgeColor: Colors.green,
                               badgeContent: Text(
-                                widget.items.requested_count.toString(),
+                                items.requested_count.toString(),
                                 style: const TextStyle(
                                   fontSize: 10,
                                   color: Colors.white,
@@ -104,7 +100,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                           MaterialPageRoute(
                               builder: (context) =>
                                   ShiftDetailManagerScreen(
-                                    shiftId: widget.items.rowId.toString(),
+                                    shiftId: items.rowId.toString(),
                                   )),
                         );
                       },
@@ -122,7 +118,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                       children: [
                         AutoSizeText(
                           softWrap:true,
-                          Txt.at + widget.items.hospital!,
+                          Txt.at + items.hospital!,
                           textAlign: TextAlign.start,
                           maxLines: 3,
                           style: TextStyle(
@@ -141,7 +137,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1.0),
                               child: Text(
-                                "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
+                                "${Txt.date}: ${getStringFromDate(getDateFromString(items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                                 style: TextStyle(
                                     fontSize: 9.sp,
                                     color: Constants.colors[13],
@@ -153,9 +149,9 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                               padding: const EdgeInsets.only(top: 3.0),
                               child: Text(
                                 Txt.from +
-                                    convert24hrTo12hr(widget.items.timeFrom!) +
+                                    convert24hrTo12hr(items.timeFrom!) +
                                     Txt.to +
-                                    convert24hrTo12hr( widget.items.timeTo!),
+                                    convert24hrTo12hr( items.timeTo!),
                                 style: TextStyle(
                                     fontSize: 9.sp,
                                     color: Constants.colors[13],
@@ -166,9 +162,9 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                         ),
                         SizedBox(
                             height: screenHeight(context, dividedBy: 120)),
-                        if (null != widget.items.userType)
+                        if (null != items.userType)
                           Text(
-                            widget.items.userType!,
+                            items.userType!,
                             style: TextStyle(
                                 fontSize: 11.sp,
                                 color: Constants.colors[3],
@@ -181,7 +177,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                       BuildButton(
                         label: Txt.edit,
                         onPressed: () {
-                          widget.onTapEdit(widget.items);
+                          onTapEdit(items);
                         },
                         key: null,
                       ),
@@ -212,7 +208,7 @@ class _HomePageCardStates extends State<ManagerListCalenderWidget> {
                                         positiveText: "YES",
                                         negativeText: "NO",
                                         onPositvieClick: () {
-                                          widget.onTapDelete(widget.items.rowId);
+                                          onTapDelete(items.rowId);
                                           Navigator.of(context).pop(true);
                                         },
                                         onNegativeClick: () {

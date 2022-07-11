@@ -7,7 +7,7 @@ import '../../utils/utils.dart';
 import 'buttons/build_button.dart';
 import 'buttons/view_button.dart';
 
-class TimeSheetApproveListWidget extends StatefulWidget {
+class TimeSheetApproveListWidget extends StatelessWidget {
   final TimeSheetInfo items;
   final Function onTapBooking;
   final Function onTapMap;
@@ -23,10 +23,7 @@ class TimeSheetApproveListWidget extends StatefulWidget {
     required this.onTapMap,
   }) : super(key: key);
 
-  @override
-  _TimeSheetApproveState createState() => _TimeSheetApproveState();
-}
-class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +43,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
             Row(children: [
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(
-                  widget.items.firstName!,
+                  items.firstName!,
                   style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.black,
@@ -56,7 +53,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 Row(
                   children: [
                     Text(
-                      "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd HH:mm:ss"),"dd-MM-yyyy hh:mm a")}",
+                      "${Txt.date}: ${getStringFromDate(getDateFromString(items.date!,"yyyy-MM-dd HH:mm:ss"),"dd-MM-yyyy hh:mm a")}",
                       style: TextStyle(
                           fontSize: 10.sp,
                           color: Colors.grey,
@@ -72,7 +69,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   ViewButton(
-                    label: widget.items.userType!,
+                    label: items.userType!,
                     onPressed: () {},
                     key: null,
                   )
@@ -86,7 +83,7 @@ class _TimeSheetApproveState extends State<TimeSheetApproveListWidget> {
                 BuildButton(
                   label: Txt.view_timesheets,
                   onPressed: () {
-                    widget.onTapView(widget.items);
+                    onTapView(items);
                   },
                   key: null,
                 ),

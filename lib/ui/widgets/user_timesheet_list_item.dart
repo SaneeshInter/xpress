@@ -3,11 +3,10 @@ import 'package:sizer/sizer.dart';
 import '../../Constants/strings.dart';
 
 import '../../model/user_get_timesheet.dart';
-import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import '../Widgets/buttons/view_button.dart';
 
-class UserTimeSheetListWidget extends StatefulWidget {
+class UserTimeSheetListWidget extends StatelessWidget {
   final TimeSheetInfo items;
   final Function onTapBooking;
   final Function onTapMap;
@@ -15,7 +14,7 @@ class UserTimeSheetListWidget extends StatefulWidget {
   final Function onTapView;
   final Function onCheckBoxClicked;
 
-  const UserTimeSheetListWidget({
+   UserTimeSheetListWidget({
     Key? key,
     required this.items,
     required this.onTapView,
@@ -25,18 +24,13 @@ class UserTimeSheetListWidget extends StatefulWidget {
     required this.onCheckBoxClicked,
   }) : super(key: key);
 
-  @override
-  _TimeSheetListState createState() => _TimeSheetListState();
-}
-
-class _TimeSheetListState extends State<UserTimeSheetListWidget> {
   bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onTapView(widget.items);
+        onTapView(items);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -55,7 +49,7 @@ class _TimeSheetListState extends State<UserTimeSheetListWidget> {
               Row(children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
-                    widget.items.firstName! + " " +widget.items.lastName!,
+                    "${items.firstName!} ${items.lastName!}",
                     style: TextStyle(
                         fontSize: 12.sp,
                         color: Colors.black,
@@ -65,7 +59,7 @@ class _TimeSheetListState extends State<UserTimeSheetListWidget> {
                   Row(
                     children: [
                       Text(
-                        "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
+                        "${Txt.date}: ${getStringFromDate(getDateFromString(items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                         style: TextStyle(
                             fontSize: 10.sp,
                             color: Colors.grey,
@@ -76,12 +70,12 @@ class _TimeSheetListState extends State<UserTimeSheetListWidget> {
                   ),
                   SizedBox(height: screenHeight(context, dividedBy: 120)),
                 ]),
-                Spacer(),
+                const Spacer(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     ViewButton(
-                      label: widget.items.userType!,
+                      label: items.userType!,
                       onPressed: () {},
                       key: null,
                     )
@@ -97,14 +91,3 @@ class _TimeSheetListState extends State<UserTimeSheetListWidget> {
   }
 }
 
-Color getColor(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return Colors.blue;
-  }
-  return Constants.colors[3];
-}

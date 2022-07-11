@@ -8,7 +8,7 @@ import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import '../user/detail/shift_detail.dart';
 
-class CompletedBookingWidget extends StatefulWidget {
+class CompletedBookingWidget extends StatelessWidget {
   final Items items;
   final Function onTapBooking;
   final Function onTapMap;
@@ -24,16 +24,12 @@ class CompletedBookingWidget extends StatefulWidget {
     required this.onTapMap,
   }) : super(key: key);
 
-  @override
-  _TimeSheetListState createState() => _TimeSheetListState();
-}
 
-class _TimeSheetListState extends State<CompletedBookingWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onTapView(widget.items);
+        onTapView(items);
 
       },
       child: Container(
@@ -52,7 +48,7 @@ class _TimeSheetListState extends State<CompletedBookingWidget> {
                 Row(
                   children: [
                     AutoSizeText(
-                    Txt.at + widget.items.hospital!,
+                    Txt.at + items.hospital!,
                       textAlign: TextAlign.start,
                       maxLines: 3,
                       style: TextStyle(
@@ -71,7 +67,7 @@ class _TimeSheetListState extends State<CompletedBookingWidget> {
                     Padding(
                       padding: const EdgeInsets.only(top: 1.0),
                       child: Text(
-                        "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
+                        "${Txt.date}: ${getStringFromDate(getDateFromString(items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],
@@ -82,9 +78,9 @@ class _TimeSheetListState extends State<CompletedBookingWidget> {
                       padding: const EdgeInsets.only(top: 3.0),
                       child: Text(
                         Txt.from +
-                           convert24hrTo12hr(widget.items.timeFrom!)  +
+                           convert24hrTo12hr(items.timeFrom!)  +
                           Txt.to+
-                            convert24hrTo12hr (widget.items.timeTo!),
+                            convert24hrTo12hr (items.timeTo!),
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],
@@ -94,9 +90,9 @@ class _TimeSheetListState extends State<CompletedBookingWidget> {
                   ],
                 ),
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
-                if (null != widget.items.userType)
+                if (null != items.userType)
                   Text(
-                    widget.items.userType!,
+                    items.userType!,
                     style: TextStyle(
                         fontSize: 11.sp,
                         color: Constants.colors[3],
@@ -113,14 +109,4 @@ class _TimeSheetListState extends State<CompletedBookingWidget> {
   }
 }
 
-Color getColor(Set<MaterialState> states) {
-  const Set<MaterialState> interactiveStates = <MaterialState>{
-    MaterialState.pressed,
-    MaterialState.hovered,
-    MaterialState.focused,
-  };
-  if (states.any(interactiveStates.contains)) {
-    return Colors.blue;
-  }
-  return Constants.colors[3];
-}
+

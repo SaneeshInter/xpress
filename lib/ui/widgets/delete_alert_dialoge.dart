@@ -29,15 +29,15 @@ class ActionDeleteAlertBox extends StatelessWidget {
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       child: Container(
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           color: context.cardColor,
           shape: BoxShape.rectangle,
           borderRadius: radius(8),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 color: Colors.black26,
                 blurRadius: 10.0,
-                offset: const Offset(0.0, 10.0)),
+                offset: Offset(0.0, 10.0)),
           ],
         ),
         width: MediaQuery.of(context).size.width,
@@ -45,11 +45,11 @@ class ActionDeleteAlertBox extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(8), topRight: Radius.circular(8)),
               child: Image(
                   width: MediaQuery.of(context).size.width,
-                  image: AssetImage(
+                  image: const AssetImage(
                       'images/widgets/materialWidgets/mwDialogAlertPanelWidgets/widget_delete.jpg'),
                   height: 120,
                   fit: BoxFit.cover),
@@ -70,14 +70,14 @@ class ActionDeleteAlertBox extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: boxDecoration(
                           color: Colors.blueAccent,
                           radius: 8,
                           bgColor: context.scaffoldBackgroundColor),
                       child: Center(
                         child: RichText(
-                          text: TextSpan(
+                          text: const TextSpan(
                             children: [
                               WidgetSpan(
                                   child: Padding(
@@ -101,21 +101,21 @@ class ActionDeleteAlertBox extends StatelessWidget {
                   16.width,
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration:
                           boxDecoration(bgColor: Colors.blueAccent, radius: 8),
                       child: Center(
                         child: RichText(
                           text: TextSpan(
                             children: [
-                              WidgetSpan(
+                              const WidgetSpan(
                                   child: Padding(
                                       padding: EdgeInsets.only(right: 8.0),
                                       child: Icon(Icons.delete,
                                           color: Colors.white, size: 18))),
                               TextSpan(
                                   text: positiveText,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16.0,
                                     color: Colors.white,
                                   )),
