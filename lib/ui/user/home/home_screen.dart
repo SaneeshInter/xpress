@@ -89,7 +89,8 @@ class _HomeScreentate extends State<HomeScreen> {
                         var data = snapshot.data?.response?.data;
                         homepageBloc.shiftDetails = null;
                         if (data != null) {
-                          if (data.latestShift!.isNotEmpty) {
+                          if (data.latestShift !=null && data.latestShift!.length != 0) {
+
                             homepageBloc.shiftDetails = data.latestShift![0];
                           }
                           return Column(
