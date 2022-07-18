@@ -209,13 +209,16 @@ class ManagerFindShiftCalendar extends StatelessWidget {
 
                                               },
                                               onTapDelete: (rowId) {
-                                                debugPrint(
-                                                    rowId().toString());
+                                                // debugPrint(
+                                                //     rowId().toString());
 
-                                                  // managercalendarBloc.visibility=true;
+                                               //   managercalendarBloc.visibility=true;
 
                                                 managercalendarBloc
                                                     .deleteShift(rowId,context);
+
+
+
                                               },
                                               onTapBook: () {},
                                               onTapViewMap: () {},
