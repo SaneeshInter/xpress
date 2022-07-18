@@ -175,7 +175,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                                           .latitude!),
                                                                   double.parse(
                                                                       hospitalDetail
-                                                                          .longitude!));
+                                                                          .longitude!),hospitalDetail.hospitalName
+                                                                  .toString());
                                                             }else{
                                                             Fluttertoast.showToast(msg: 'Location not found');
                                                           }

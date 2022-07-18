@@ -18,6 +18,7 @@ import '../../model/schedule_hospital_list.dart';
 import '../../model/user_shifttiming_list.dart';
 import '../../model/user_type_list.dart';
 import '../../model/visa_type_list.dart';
+import '../../services/update_checker_service.dart';
 import '../../ui/dashboard_screen.dart';
 import '../../ui/manager_dashboard_screen.dart';
 import '../../ui/splash/user_or_manager.dart';
@@ -58,6 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     observe();
     getData();
 

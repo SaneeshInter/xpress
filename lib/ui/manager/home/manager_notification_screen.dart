@@ -161,6 +161,7 @@ class _NotificationState extends State<ManagerNotificationScreen> {
           endTime: description,
           price: notification?.shiftId.toString()??"",
           startTime: notification?.hospitalImage??"", type: 'MANAGER',
+          date: notification?.date??"",
         );
       },
     ):Center(

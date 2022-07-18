@@ -197,7 +197,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
 
 Widget buttonList(BuildContext context, MyBookingListWidget widget) {
 int totalWorkHours = int.parse(getDiffrenceBetweenTwoDates(getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"), DateTime.now()).split(':')[0]);
-double afterWorkHours =getHoursAndMinutesToDouble(getDiffrenceBetweenTwoDates(getDateFromString('${widget.items.date!} ${widget.items.timeTo}',"yyyy-MM-dd HH:mm"), DateTime.now()));
+double afterWorkHours = getHoursAndMinutesToDouble(getDiffrenceBetweenTwoDates(getDateFromString('${widget.items.date!} ${widget.items.timeTo}',"yyyy-MM-dd HH:mm"), DateTime.now()));
 
 debugPrint("widget.items.workingTimeStatus  $afterWorkHours");
   debugPrint(widget.items.workingTimeStatus.toString());

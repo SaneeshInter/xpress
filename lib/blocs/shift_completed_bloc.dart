@@ -27,6 +27,7 @@ class ShiftCompletedBloc {
       _shiftComplete.sink.add(list);
       _visibility.add(false);
     }
+
   }
 
   dispose() {

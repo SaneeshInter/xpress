@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/services/update_checker_service.dart';
 import '../../services/fcm_service.dart';
 import '../../ui/manager/home/manager_notification_screen.dart';
 import '../../ui/user/sidenav/notification_screen.dart';
@@ -28,6 +29,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations( [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
    FCM().init();
+  UpdateCheckerService().init();
   runApp(const MyApp());
 }
 

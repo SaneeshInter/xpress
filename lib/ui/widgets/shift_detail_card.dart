@@ -16,6 +16,7 @@ class ShiftDetailCard extends StatelessWidget {
     this.svgColor = redColor,
     this.labelColor = Colors.black,
     this.hintColor = Colors.grey,
+
   }) : super(key: key);
   String label;
   String hint;

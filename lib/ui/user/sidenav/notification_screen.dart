@@ -175,6 +175,8 @@ class _NotificationState extends State<NotificationScreen> {
                 type: "USER",
                 price: notification?.shiftId.toString()??"",
                 startTime: notification?.hospitalImage??"",
+                date:
+                notification?.date??"",
               );
             },
           ):Center(

@@ -3,6 +3,10 @@ class Txt {
   static const contactNumber="+35312118883";
   static const contactWhatspp="+353892661667";
   static const whatsapp="Whatsapp";
+  static const uploaddocs="Upload Document";
+  static const uploadtimesheet="Select Timesheet";
+  static const completed_timesheets="Completed Timesheets";
+  static const add_working_hrs="Add Working Hours";
 //* Email
   static const email = "Email";
 

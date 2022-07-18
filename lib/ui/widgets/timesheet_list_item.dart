@@ -7,7 +7,7 @@ import '../../model/user_complted_shift.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 
-class TimeSheetListWidget extends StatelessWidget {
+class TimeSheetListWidget extends StatefulWidget {
   final Items items;
   final Function onTapBooking;
   final Function onTapMap;
@@ -15,7 +15,7 @@ class TimeSheetListWidget extends StatelessWidget {
   final Function onTapView;
   final Function onCheckBoxClicked;
 
-   TimeSheetListWidget({
+  const TimeSheetListWidget({
     Key? key,
     required this.items,
     required this.onTapView,
@@ -25,7 +25,11 @@ class TimeSheetListWidget extends StatelessWidget {
     required this.onCheckBoxClicked,
   }) : super(key: key);
 
+  @override
+  _TimeSheetListState createState() => _TimeSheetListState();
+}
 
+class _TimeSheetListState extends State<TimeSheetListWidget> {
   bool isChecked = false;
 
   @override
@@ -50,9 +54,12 @@ class TimeSheetListWidget extends StatelessWidget {
                 fillColor: MaterialStateProperty.resolveWith(getColor),
                 value: isChecked,
                 onChanged: (bool? value) {
-                    isChecked = value!;
 
-                  onCheckBoxClicked(items.rowId.toString(), value);
+                  setState(() {
+                    isChecked = value!;
+                  });
+
+                  widget.onCheckBoxClicked(widget.items.rowId.toString(), value);
                 },
               ),
             ),
@@ -60,7 +67,7 @@ class TimeSheetListWidget extends StatelessWidget {
               Row(
                 children: [
                   AutoSizeText(
-                    Txt.at+ items.hospital!,
+                    Txt.at+ widget.items.hospital!,
                     textAlign: TextAlign.start,
                     maxLines: 3,
                     style: TextStyle(
@@ -79,7 +86,7 @@ class TimeSheetListWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 1.0),
                     child: Text(
-                      "${Txt.date}: ${getStringFromDate(getDateFromString(items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
+                      "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
                       style: TextStyle(
 
 
@@ -99,9 +106,9 @@ class TimeSheetListWidget extends StatelessWidget {
 
                     child: Text(
                       Txt.from+
-                         convert24hrTo12hr(items.timeFrom!)  +
+                          convert24hrTo12hr(widget.items.timeFrom!)  +
                           Txt.to+
-                       convert24hrTo12hr(  items.timeTo!) ,
+                          convert24hrTo12hr(  widget.items.timeTo!) ,
                       style: TextStyle(
                           fontSize: 9.sp,
                           color: Constants.colors[13],
@@ -111,16 +118,16 @@ class TimeSheetListWidget extends StatelessWidget {
                 ],
               ),
               SizedBox(height: screenHeight(context, dividedBy: 120)),
-              if (null != items.userType)
+              if (null != widget.items.userType)
                 Text(
-                  items.userType!,
+                  widget.items.userType!,
                   style: TextStyle(
                       fontSize: 11.sp,
                       color: Constants.colors[3],
                       fontWeight: FontWeight.w500),
                 ),
             ]),
-            const Spacer(),
+            Spacer(),
           ]),
           SizedBox(height: screenHeight(context, dividedBy: 120)),
         ],
@@ -129,3 +136,14 @@ class TimeSheetListWidget extends StatelessWidget {
   }
 }
 
+Color getColor(Set<MaterialState> states) {
+  const Set<MaterialState> interactiveStates = <MaterialState>{
+    MaterialState.pressed,
+    MaterialState.hovered,
+    MaterialState.focused,
+  };
+  if (states.any(interactiveStates.contains)) {
+    return Colors.blue;
+  }
+  return Constants.colors[3];
+}

@@ -17,23 +17,22 @@ import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
 
-class MyBookingScreen extends StatefulWidget {
-  const MyBookingScreen({Key? key}) : super(key: key);
+class ConfirmedListWidget extends StatefulWidget {
+  const ConfirmedListWidget({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
+class _HomeState extends State<ConfirmedListWidget> with WidgetsBindingObserver {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  late PageController pageController;
   TextEditingController dateFrom = TextEditingController();
   TextEditingController dateTo = TextEditingController();
   bool visible = false;
 
   @override
-  void didUpdateWidget(covariant MyBookingScreen oldWidget) {
+  void didUpdateWidget(covariant ConfirmedListWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
   }
 
@@ -44,7 +43,6 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    confirmBloc.dispose();
     super.dispose();
   }
 
@@ -61,8 +59,6 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
     super.initState();
     observe();
     getDataitems();
-    pageController = PageController(initialPage: 0);
-    confirmBloc.pageCount = 3;
     dateFrom.addListener(() {
       confirmBloc.checkAndUpdateTimeDifference(dateTo.text, dateFrom.text);
     });
@@ -114,102 +110,42 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
         debugPrint("onWillPop");
         return false;
       },
-      child: DefaultTabController(
-        length:3,
-        child: Scaffold(
-            // key: scaffoldKey,
-            backgroundColor: Constants.colors[9],
-            // floatingActionButton: FloatingActionButton.extended(
-            //   onPressed: () {
-            //     getDataitems();
-            //   },
-            //   label: const Text(Txt.refresh),
-            //   icon: const Icon(Icons.refresh),
-            //   backgroundColor: Colors.green,
-            // ),
-            appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(65),
-              child: Container(
-                color: Constants.colors[0],
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TabBar(
-                      isScrollable: true,
-                      unselectedLabelColor: Colors.black,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelColor: Colors.black,
-                      tabs: [
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(Txt.requested_shift),
-                          ),
-                        ),
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(Txt.confirmed_shift),
-                          ),
-                        ),
-                        // Tab(
-                        //   child: Align(
-                        //     alignment: Alignment.center,
-                        //     child: Text(Txt.completed_shift),
-                        //   ),
-                        // ),
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(Txt.history_shift),
-                          ),
-                        ),
-                      ]),
-                ),
-              ),
-            ),
-            body: Stack(
-              children: [
-                StreamBuilder(
-                    stream: confirmBloc.viewRequest,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<UserViewRequestResponse> snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data?.response?.data?.items?.length != 0) {
-                          return TabBarView(children: [
-                            bookingList(0, snapshot),
-                            bookingList(1, snapshot),
-                            // bookingList(2, snapshot),
-                            bookingList(-1, snapshot),
-                          ]);
-                        }
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
-                      return const SizedBox();
-                    }),
-                StreamBuilder(
-                  stream: confirmBloc.visible,
-                  builder: (context, AsyncSnapshot<bool> snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data!) {
-                        return const Center(child: LoadingWidget());
-                      } else {
-                        return const SizedBox();
-                      }
-                    } else {
-                      return const SizedBox();
-                    }
-                  },
-                ),
-              ],
-            )),
+      child: Stack(
+        children: [
+          StreamBuilder(
+              stream: confirmBloc.viewRequest,
+              builder: (BuildContext context,
+                  AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data?.response?.data?.items?.length != 0) {
+                    return bookingList(snapshot);
+                  }
+                } else if (snapshot.hasError) {
+                  return Text(snapshot.error.toString());
+                }
+                return const SizedBox();
+              }),
+          StreamBuilder(
+            stream: confirmBloc.visible,
+            builder: (context, AsyncSnapshot<bool> snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data!) {
+                  return const Center(child: LoadingWidget());
+                } else {
+                  return const SizedBox();
+                }
+              } else {
+                return const SizedBox();
+              }
+            },
+          ),
+        ],
       ),
     );
   }
 
-  Widget bookingList(
-      int position, AsyncSnapshot<UserViewRequestResponse> snapshot) {
-    return Column(children: [buildList(snapshot, position)]);
+  Widget bookingList( AsyncSnapshot<UserViewRequestResponse> snapshot) {
+    return Column(children: [buildList(snapshot)]);
   }
 
   showTimeUpdateAlert(BuildContext context, Items item) {
@@ -287,7 +223,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                       padding: const EdgeInsets.only(right: 2),
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             Txt.start_time,
@@ -305,10 +241,11 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                               controlr: dateFrom,
                                               onChange: (text) {},
                                               validator: (dateTo) {
-                                                if (validDate(dateTo))
+                                                if (validDate(dateTo)) {
                                                   return null;
-                                                else
+                                                } else {
                                                   return Txt.select_time;
+                                                }
                                               },
                                               onTapDate: () {
                                                 selectTime(context, dateFrom);
@@ -327,7 +264,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                     flex: 1,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           Txt.end_time,
@@ -344,10 +281,11 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                                         TextInputFileds(
                                           controlr: dateTo,
                                           validator: (dateTo) {
-                                            if (validDate(dateTo))
+                                            if (validDate(dateTo)) {
                                               return null;
-                                            else
+                                            } else {
                                               return Txt.select_time;
+                                            }
                                           },
                                           onTapDate: () {
                                             FocusScope.of(context).unfocus();
@@ -370,38 +308,38 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                           const SizedBox(
                             height: 5,
                           ),
-                            StreamBuilder(
-                              stream: confirmBloc.workTime,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<dynamic> snapshot) {
-                                if(!snapshot.hasData)
-                                  {
-                                    return const SizedBox();
-                                  }
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 16.0, bottom: 16.0),
-                                  child: Text(
-                                    Txt.working_hours + snapshot.data.toString(),
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: Constants.colors[22],
-                                      fontSize: 11.sp,
-                                      fontFamily: "SFProMedium",
-                                    ),
+                          StreamBuilder(
+                            stream: confirmBloc.workTime,
+                            builder: (BuildContext context,
+                                AsyncSnapshot<dynamic> snapshot) {
+                              if(!snapshot.hasData)
+                              {
+                                return const SizedBox();
+                              }
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 16.0, bottom: 16.0),
+                                child: Text(
+                                  Txt.working_hours + snapshot.data.toString(),
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: Constants.colors[22],
+                                    fontSize: 11.sp,
+                                    fontFamily: "SFProMedium",
                                   ),
-                                );
-                              },
-                            ),
+                                ),
+                              );
+                            },
+                          ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 15.0, bottom: 15.0),
+                            const EdgeInsets.only(left: 15.0, bottom: 15.0),
                             child: SizedBox(
                               width: 20.w,
                               child: SubmitButton(
                                   onPressed: () {
                                     var validate =
-                                        formKey.currentState?.validate();
+                                    formKey.currentState?.validate();
                                     if (null != validate) {
                                       if (validate) {
                                         if (mounted) {
@@ -432,7 +370,6 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
   }
 
   void updateAndExit(Items item, BuildContext context) {
-
     confirmBloc.fetchUserWorkingHours(
       confirmBloc.token,
       item.shiftId.toString(),
@@ -447,196 +384,117 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
   }
 
   Widget buildList(
-      AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
-    var allList = getFilterList(snapshot, position);
-    List<DateItems> list = [];
-    if (position == 0) {
-      list = allList.requested;
-    }
-
-    if (position == 1) {
-      list = allList.confirmed;
-    }
-
-    if (position == 2) {
-      list = allList.completed;
-    }
-    if (position == -1) {
-      list = allList.history;
-    }
-
-    // if (list.isNotEmpty) {
-      return Expanded(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            getDataitems();
+      AsyncSnapshot<UserViewRequestResponse> snapshot) {
+    var allList = getFilterList(snapshot);
+    List<DateItems> list = allList.confirmed;
+    return Expanded(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          getDataitems();
+        },
+        child: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overScroll) {
+            overScroll.disallowIndicator();
+            return false;
           },
-          child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (overScroll) {
-              overScroll.disallowIndicator();
-              return false;
-            },
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child:list.isNotEmpty?
-              ListView.builder(
-                itemCount: list.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int ind) {
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child:list.isNotEmpty?
+            ListView.builder(
+              itemCount: list.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int ind) {
 
-                  return Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6),
-                        child: Text(getStringFromDate(getDateFromString(list[ind].date,"yyyy-MM-dd"),"EEE dd MMMM yyyy"),style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,fontFamily: 'SFProBold',color: Constants.colors[25]),),
-                      ),
-                      ListView.builder(
-                        itemCount: list[ind].list.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          var items = list[ind].list[index];
-                          return Column(
-                            children: [
-                              MyBookingListWidget(
-                                items: items,
-                                position: 12,
-                                onTapView: (item) {
-                                  showTimeUpdateAlert(context, item);
-                                },
-                                onTapCancel: (item) {
-                                  cancelJob(items);
-                                },
-                                onTapCall: () {},
-                                onTapMap: () {},
-                                onTapBooking: () {},
-                                key: null,
-                              ),
-                            ],
-                          );
-                        },
-                      )
-                    ],
-                  );
-                },
-              )
-
-                  : SizedBox(
-                width: 100.w,
-                    child: Column(
-                children: [
-                    20.height,
-
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
-                        100.width,
-                        16.height,
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 32),
-                          child: Text(Txt.no_shift,
-                              style: primaryTextStyle(size: 15),
-                              textAlign: TextAlign.center),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6),
+                      child: Text(getStringFromDate(getDateFromString(list[ind].date,"yyyy-MM-dd"),"EEE dd MMMM yyyy"),style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,fontFamily: 'SFProBold',color: Constants.colors[25]),),
                     ),
-                    100.height,
-                    Image.asset('assets/images/error/empty_task.png', height: 250),
-                    const SizedBox(height: 250,)
+                    ListView.builder(
+                      itemCount: list[ind].list.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        var items = list[ind].list[index];
+                        return Column(
+                          children: [
+                            MyBookingListWidget(
+                              items: items,
+                              position: 12,
+                              onTapView: (item) {
+                                showTimeUpdateAlert(context, item);
+                              },
+                              onTapCancel: (item) {
+                                cancelJob(items);
+                              },
+                              onTapCall: () {},
+                              onTapMap: () {},
+                              onTapBooking: () {},
+                              key: null,
+                            ),
+                          ],
+                        );
+                      },
+                    )
+                  ],
+                );
+              },
+            )
+
+                : SizedBox(
+              width: 100.w,
+              child: Column(
+                children: [
+                  20.height,
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
+                      100.width,
+                      16.height,
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Text(Txt.no_shift,
+                            style: primaryTextStyle(size: 15),
+                            textAlign: TextAlign.center),
+                      ),
+                    ],
+                  ),
+                  100.height,
+                  Image.asset('assets/images/error/empty_task.png', height: 250),
+                  const SizedBox(height: 250,)
                 ],
               ),
-                  ),
             ),
           ),
         ),
-      );
-    // } else {
-    //   return Column(
-    //     children: [
-    //       20.height,
-    //       Column(
-    //         mainAxisAlignment: MainAxisAlignment.start,
-    //         children: [
-    //           Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
-    //           85.width,
-    //           16.height,
-    //           Container(
-    //             padding: const EdgeInsets.symmetric(horizontal: 32),
-    //             child: Text(Txt.no_shift,
-    //                 style: primaryTextStyle(size: 15),
-    //                 textAlign: TextAlign.center),
-    //           ),
-    //         ],
-    //       ),
-    //       100.height,
-    //       Image.asset('assets/images/error/empty_task.png', height: 250),
-    //     ],
-    //   );
-    // }
+      ),
+    );
   }
 }
 
-FilterBookingList getFilterList(
-    AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
+FilterBookingList getFilterList(AsyncSnapshot<UserViewRequestResponse> snapshot) {
   FilterBookingList list = FilterBookingList();
   List<Items>? allList = snapshot.data?.response?.data?.items;
   if (null != allList) {
     for (var item in allList) {
-
-      if(list.history.any((element) => element.date==item.date.toString())){
-        list.history[list.history.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-      }else{
-        list.history.add(DateItems(item.date.toString(), [item]));
-      }
-      // list.history.list.add(item);
-      // debugPrint("item.status");
-      // debugPrint(item.status);
-
-
-
+      double afterWorkHours = getHoursAndMinutesToDouble(getDiffrenceBetweenTwoDates(getDateFromString('${item.date!} ${item.timeTo}',"yyyy-MM-dd HH:mm"), DateTime.now()));
 
       if (item.status == Txt.accepted) {
+        if (item.status == "Accepted" && item.workingTimeStatus == 0 &&afterWorkHours < 0)
         if(list.confirmed.any((element) => element.date==item.date.toString())){
           list.confirmed[list.confirmed.indexWhere((element) => element.date==item.date.toString())].list.add(item);
         }else{
           list.confirmed.add(DateItems(item.date.toString(), [item]));
         }
-        // list.confirmed.list.add(item);
-      }
-      if (item.status == Txt.pending) {
-        if(list.requested.any((element) => element.date==item.date.toString())){
-          list.requested[list.requested.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-        }else{
-          list.requested.add(DateItems(item.date.toString(), [item]));
-        }
-        // list.requested.list.add(item);
-      }
-      if (item.status == Txt.rejected) {
-        if(list.reject.any((element) => element.date==item.date.toString())){
-          list.reject[list.reject.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-        }else{
-          list.reject.add(DateItems(item.date.toString(), [item]));
-        }
-        // list.reject.list.add(item);
-      }
-      if (item.status == Txt.completed && item.workingTimeStatus == 0) {
-        if(list.completed.any((element) => element.date==item.date.toString())){
-          list.completed[list.completed.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-        }else{
-          list.completed.add(DateItems(item.date.toString(), [item]));
-        }
-        // list.completed.list.add(item);
       }
     }
   }
-  list.history.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
-  list.completed.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
-  list.reject.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
-  list.requested.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
-  list.confirmed.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
+   list.confirmed.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
   return list;
 }

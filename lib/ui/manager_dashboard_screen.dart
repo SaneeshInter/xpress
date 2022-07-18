@@ -10,6 +10,7 @@ import '../../ui/widgets/double_back_to_close.dart';
 import '../../ui/widgets/logout_warning.dart';
 
 import '../Constants/AppColors.dart';
+import '../Constants/global.dart';
 import '../Constants/sharedPrefKeys.dart';
 import '../Constants/strings.dart';
 import '../ui/manager/home/approved_timesheet_screen.dart';
@@ -79,6 +80,8 @@ getNotificationCount() async {
                     fit: BoxFit.contain,
                     height: 8.w,
                   )),
+              Global.baseUrl=="http://www.xpresshealthapp.ie/beta/api"?const Text("Beta",style: TextStyle(color: color_primary_black,fontSize: 12),):const SizedBox()
+
             ],
           ),
           centerTitle: true,

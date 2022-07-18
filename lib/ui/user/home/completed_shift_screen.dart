@@ -39,16 +39,17 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     if (null != completeBloc.token) {
       if (await isNetworkAvailable()) {
         completeBloc.fetchcomplete();
+
       } else {
         showInternetNotAvailable();
       }
     }
+
   }
 
   @override
   void dispose() {
     super.dispose();
-    completeBloc.dispose();
   }
 
   Future<void> showInternetNotAvailable() async {
@@ -194,9 +195,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      // key: _scaffoldKey,
-
-
+      key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
       body: Stack(
         children: [
@@ -210,7 +209,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                   return false;
                 },
               child: SingleChildScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Container(
                     padding: EdgeInsets.symmetric(
                         horizontal: screenWidth(context, dividedBy: 35)),
@@ -343,7 +342,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
               label: Txt.upload_timesheets,
               onPressed: () {
                 String shiftid = "";
-                debugPrint("dfs ${completeBloc.list.length} completeBloc.list");
+                print("dfs ${completeBloc.list.length} completeBloc.list");
                 for (var item in completeBloc.list) {
 
                   shiftid = "$shiftid$item,";

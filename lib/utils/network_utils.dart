@@ -1,8 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:maps_launcher/maps_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Constants/strings.dart';
+import 'maps_launcher.dart';
 
 /// returns true if network is available
 Future<bool> isNetworkAvailable() async {
@@ -27,7 +27,7 @@ Future<void> launchLink(String url) async =>await sendingMails(url);
 // Future<void> whatsappCall() async =>await wathsApp('http://wa.me/353892661667');
 Future<void> whatsappCall() async =>await whatsApp('https://wa.me/${Txt.contactWhatspp}');
 
-Future<void> navigateTo(double latitude, double longitude) async =>MapsLauncher.launchCoordinates(latitude, longitude);
+Future<void> navigateTo(double latitude, double longitude,String place) async =>MapsLauncher.launchCoordinates(latitude, longitude,place);
 
 
 whatsApp(String url) async {

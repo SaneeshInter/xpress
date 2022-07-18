@@ -76,6 +76,7 @@ class Items {
   int? shiftId;
   String? shiftTitle;
   String? hospitalImage;
+  String? date;
 
   Items(
       {this.rowId,
@@ -87,7 +88,9 @@ class Items {
         this.managerName,
         this.shiftId,
         this.shiftTitle,
-        this.hospitalImage});
+        this.hospitalImage,
+        this.date
+      });
 
   Items.fromJson(Map<String, dynamic> json) {
     rowId = json['row_id'];
@@ -100,6 +103,7 @@ class Items {
     shiftId = json['shift_id'];
     shiftTitle = json['shift_title'];
     hospitalImage = json['hospital_image'];
+    date = json['date'];
   }
 
   Map<String, dynamic> toJson() {
@@ -114,6 +118,7 @@ class Items {
     data['shift_id'] = this.shiftId;
     data['shift_title'] = this.shiftTitle;
     data['hospital_image'] = this.hospitalImage;
+    data['date'] = this.date;
     return data;
   }
 }

@@ -6,9 +6,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+
+import 'package:xpresshealthdev/ui/user/home/time_sheet_tav_view.dart';
 import '../../ui/widgets/double_back_to_close.dart';
 
 import '../Constants/AppColors.dart';
+import '../Constants/global.dart';
 import '../Constants/sharedPrefKeys.dart';
 import '../Constants/strings.dart';
 import '../ui/user/common/side_menu.dart';
@@ -58,7 +61,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
     const FindShiftCalendar(),
     const MyBookingScreen(),
     const AvailabilityListScreen(),
-    const CompletedShiftScreen(),
+    const TimeSheetTabView(),
   ];
 
   void _onItemTapped(int index) {
@@ -110,6 +113,7 @@ class _DashBoardWidgetState extends State<DashBoard> {
                     fit: BoxFit.contain,
                     height: 8.w,
                   )),
+              Global.baseUrl=="http://www.xpresshealthapp.ie/beta/api"?const Text("Beta",style: TextStyle(color: color_primary_black,fontSize: 12),):const SizedBox()
             ],
           ),
           centerTitle: true,
