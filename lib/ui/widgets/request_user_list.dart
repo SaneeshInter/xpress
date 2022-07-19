@@ -99,7 +99,9 @@ class RequestuserListWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (item.status != "Rejected" &&
-                          item.status != "Accepted")
+                          item.status != "Accepted"
+                  //  && item.status != "Completed"
+                      )
                         ViewButton(
                           label:Txt.accept,
                           onPressed: () {

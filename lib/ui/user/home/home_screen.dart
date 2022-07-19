@@ -11,10 +11,8 @@ import '../../../Constants/strings.dart';
 import '../../../blocs/shift_homepage_bloc.dart';
 import '../../../model/user_home_response.dart';
 import '../../../resources/token_provider.dart';
-import '../../../ui/user/detail/home_card_item.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
-import '../../dashboard_screen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../../widgets/loading_widget.dart';
@@ -22,7 +20,6 @@ import '../../widgets/my_scroll_behavior.dart';
 import '../../widgets/shift_detail_card.dart';
 
 import '../detail/shift_detail.dart';
-import 'my_booking_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -351,7 +348,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                   ),
                                                 ),
                                               ),
-                                             
+
                                               Container(
                                                   alignment:
                                                       Alignment.centerRight,

@@ -13,9 +13,8 @@ class TimeSheetTabView extends StatefulWidget {
   State<TimeSheetTabView> createState() => _TimeSheetTabViewState();
 }
 
-class _TimeSheetTabViewState extends State<TimeSheetTabView>with SingleTickerProviderStateMixin {
+class _TimeSheetTabViewState extends State<TimeSheetTabView> with SingleTickerProviderStateMixin {
   late final TabController _tabController = TabController(length: 2, vsync: this);
-
 
   @override
   Widget build(BuildContext context) {
@@ -25,33 +24,26 @@ class _TimeSheetTabViewState extends State<TimeSheetTabView>with SingleTickerPro
         preferredSize: const Size.fromHeight(65),
         child: Container(
           color: Constants.colors[0],
-          child: TabBar(
-              unselectedLabelColor: Colors.black,
-              indicatorSize: TabBarIndicatorSize.tab,
-              labelColor: Colors.black,
-              controller: _tabController,
-              tabs: const [
-                Tab(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child:Text(Txt.add_working_hrs),
-                  ),
-                ),
-                Tab(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(Txt.completed_timesheets),
-                  ),
-                ),
-              ]),
+          child: TabBar(unselectedLabelColor: Colors.black, indicatorSize: TabBarIndicatorSize.tab, labelColor: Colors.black, controller: _tabController, tabs: const [
+            Tab(
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(Txt.add_working_hrs),
+              ),
+            ),
+            Tab(
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(Txt.completed_timesheets),
+              ),
+            ),
+          ]),
         ),
       ),
-      body: TabBarView(
-          controller: _tabController,
-          children: const [
-            ConfirmedListWidget(),
-            CompletedShiftScreen(),
-          ]),
+      body: TabBarView(controller: _tabController, children: const [
+        ConfirmedListWidget(),
+        CompletedShiftScreen(),
+      ]),
     );
   }
 }
