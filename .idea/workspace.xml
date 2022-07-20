@@ -13,48 +13,26 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="updates">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+    <list default="true" id="9857d224-d805-44de-907c-ed91424f5762" name="Default Changelist" comment="Latest changes">
+      <change afterPath="$PROJECT_DIR$/lib/model/notification_model.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/xpress.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/xpress.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/fluttertoast/intermediates/annotations_typedef_file/debug/typedefs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/update_checker_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/nb_utils/intermediates/annotations_typedef_file/debug/typedefs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/time_sheet_tav_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/shared_preferences_android/intermediates/annotations_typedef_file/debug/typedefs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/manager/confirmed_list_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/sqflite/intermediates/annotations_typedef_file/debug/typedefs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/maps_launcher.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/url_launcher_android/intermediates/annotations_typedef_file/debug/typedefs.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/xpress/health/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/com/xpress/health/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Constants/global.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Constants/global.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Constants/strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Constants/strings.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/shift_completed_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/blocs/shift_completed_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/filter_booking_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/filter_booking_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/user_notification_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/user_notification_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager/home/manager_notification_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager/home/manager_notification_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/manager_dashboard_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/manager_dashboard_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/splash/splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/splash/splash_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/detail/shift_detail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/completed_shift_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/user_home_response.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/user_home_response.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/resources/api_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/api_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/home_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/contact_us_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/contact_us_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/user/sidenav/notification_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/user/sidenav/notification_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/my_booking_list_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/my_booking_list_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/buttons/login_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/buttons/login_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/input_text.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/input_text.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/ui/widgets/notification_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/notification_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/shift_detail_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/shift_detail_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/widgets/timesheet_list_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/widgets/timesheet_list_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils/network_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/network_utils.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/ephemeral/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/constants.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/widget_test.dart" afterDir="false" />
     </list>
     <list id="974fbbd4-a10d-4709-af50-1de5b539c69f" name="local" comment="local">
       <change afterPath="$PROJECT_DIR$/assets/images/icon/Group 250.svg" afterDir="false" />
@@ -2361,9 +2339,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
-  </component>
   <component name="ProjectId" id="28Jv1ZOQZBKnxhL2gBazVoSEFDt" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -2434,34 +2409,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1650947288890</updated>
-    </task>
-    <task id="LOCAL-00051" summary="1.manager calendar - pixel issue&#10;2.create update screen- pixel issue">
-      <created>1655807297306</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1655807297306</updated>
-    </task>
-    <task id="LOCAL-00052" summary="1.allowance bottom sheet">
-      <created>1655808881080</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1655808881080</updated>
-    </task>
-    <task id="LOCAL-00053" summary="1.CREATE UPDATE SCREEN">
-      <created>1655817142838</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1655817142838</updated>
-    </task>
-    <task id="LOCAL-00054" summary="Ui changes">
-      <created>1655875349684</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1655875349684</updated>
     </task>
     <task id="LOCAL-00055" summary="1.Removed unit name and category from create_shift_screen_update.dart">
       <created>1655881459521</created>
@@ -2778,7 +2725,35 @@
       <option name="project" value="LOCAL" />
       <updated>1657707771834</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="Latest changes">
+      <created>1658125894560</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1658125894561</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Manager calendar screen- Debugprint commented -{to delete shift enable}">
+      <created>1658131726877</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1658131726877</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Manager calendar screen- Debugprint commented -{to delete shift enable}">
+      <created>1658133614277</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1658133614277</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Latest changes">
+      <created>1658220518378</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1658220518386</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -2805,7 +2780,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Jks keystore" />
     <MESSAGE value="1.User home screen (timeformat)&#10;2.utilits" />
     <MESSAGE value="1.Logout alert changes" />
     <MESSAGE value="1.user submit timesheet" />
@@ -2816,7 +2790,6 @@
     <MESSAGE value="Ui changes" />
     <MESSAGE value="1.Removed unit name and category from create_shift_screen_update.dart" />
     <MESSAGE value="added validation for pocode in create_shift_screen_update.dart" />
-    <MESSAGE value="Latest changes" />
     <MESSAGE value="User homescreen - My booking card" />
     <MESSAGE value="1.user home screen-cateogry has been commited" />
     <MESSAGE value="1.Updataes" />
@@ -2830,7 +2803,9 @@
     <MESSAGE value="New updates" />
     <MESSAGE value="contact screen&#10;faq screen&#10;whatsapp button&#10;dial number updation" />
     <MESSAGE value="updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="updates" />
+    <MESSAGE value="Manager calendar screen- Debugprint commented -{to delete shift enable}" />
+    <MESSAGE value="Latest changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Latest changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2857,7 +2832,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/resources/api_provider.dart</url>
-          <line>882</line>
+          <line>883</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
@@ -2874,11 +2849,6 @@
           <url>file://$PROJECT_DIR$/lib/ui/user/home/my_booking_screen.dart</url>
           <line>116</line>
           <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/android/app/build.gradle</url>
-          <line>55</line>
-          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

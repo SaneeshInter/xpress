@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/Constants/AppColors.dart';
+import 'package:xpresshealthdev/utils/constants.dart';
 import '../../Constants/strings.dart';
 import '../../ui/widgets/screen_case.dart';
 import '../../services/fcm_service.dart';
@@ -55,7 +57,7 @@ class NotificationWidget extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: Colors.white,
+            color:Constants.colors[0],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

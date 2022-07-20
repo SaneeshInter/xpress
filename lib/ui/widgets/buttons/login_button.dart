@@ -42,6 +42,7 @@ class LoginButton extends StatelessWidget {
               fontFamily: "SFProMedium",
               fontWeight: FontWeight.w400),
         ),
+
       ),
     );
   }

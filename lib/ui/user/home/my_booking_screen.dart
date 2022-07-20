@@ -491,7 +491,10 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
 
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6),
-                        child: Text(getStringFromDate(getDateFromString(list[ind].date,"yyyy-MM-dd"),"EEE dd MMMM yyyy"),style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,fontFamily: 'SFProBold',color: Constants.colors[25]),),
+                        child: Text(
+                          getStringFromDate(
+                            getDateFromString(list[ind].date,"yyyy-MM-dd"),"EEE dd MMMM yyyy"),
+                          style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,fontFamily: 'SFProBold',color: Constants.colors[25]),),
                       ),
                       ListView.builder(
                         itemCount: list[ind].list.length,

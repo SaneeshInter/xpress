@@ -35,7 +35,8 @@ class TextInputFileds extends StatelessWidget {
         },
         controller: controlr,
         validator: validator,
-        textAlign: TextAlign.justify,
+        textAlign: TextAlign.justify
+        ,
         obscureText: isPwd,
         maxLines: 1,
         onChanged: (value) {

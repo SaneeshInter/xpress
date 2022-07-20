@@ -218,13 +218,15 @@ class Summary {
   String? requestedCount;
   String? approvedCount;
   String? completedCount;
+  String? status;
 
-  Summary({this.requestedCount, this.approvedCount, this.completedCount});
+  Summary({this.requestedCount, this.approvedCount, this.completedCount,this.status});
 
   Summary.fromJson(Map<String, dynamic> json) {
     requestedCount = json['requested_count'];
     approvedCount = json['approved_count'];
     completedCount = json['completed_count'];
+    status = json['status'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -232,6 +234,7 @@ class Summary {
     data['requested_count'] = this.requestedCount;
     data['approved_count'] = this.approvedCount;
     data['completed_count'] = this.completedCount;
+    data['status'] = this.status;
     return data;
   }
 }

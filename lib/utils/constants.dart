@@ -5,7 +5,7 @@ class Constants{
   static List<Color> colors = [
     Color(0xFFFFFFFF),//0
     Color(0xFF000000),
-    Color(0xFFd4e6e2),
+    Color(0xFFd4e6e2),//2
     Color(0xFF009540),//3
     Color(0xFF05bA53),
     Color(0xFF4ABBFF),//5
@@ -40,7 +40,7 @@ class Constants{
     Color(0xFF04B852),//34
     Color(0xFF0586D0),
     Color(0xFF006AB4),//36
-    Color(0xFFAACFE5),
+    Color(0xFFAACFE5),//37
     Color(0xFF009942),
     Color(0xFFCAD6D5),//39
 

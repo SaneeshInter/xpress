@@ -508,6 +508,9 @@ class _HomeScreentate extends State<HomeScreen> {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
       var itemcount = snapshot.data?.response?.data?.importantUpdates!.length;
       var summury=snapshot.data?.response?.data?.summary?[0];
+      if(summury?.status=="9"){
+        logOut(context);
+      }
       return Column(
         children: [
           itemcount!=0?Column(

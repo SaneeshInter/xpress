@@ -79,23 +79,24 @@ class ApiProvider {
   }
 
   Future<UserGetResponse> getUserInfo(String token) async {
+    print("token");
+    print(token);
+    var uri = Uri.parse('${Global.baseUrl}/account/get-user-info');
+    print(uri);
+    final response = await client.get(
+      uri,
+      headers: <String, String>{
+        'Token': token,
+      },
+    );
+    developer.log("${response.body}    :- ${response.statusCode}");
+    if (response.statusCode == 200) {
+      return UserGetResponse.fromJson(json.decode(response.body));
+    } else {
+      return UserGetResponse();
+    }
     try {
-      print("token");
-      print(token);
-      var uri = Uri.parse('${Global.baseUrl}/account/get-user-info');
-      print(uri);
-      final response = await client.get(
-        uri,
-        headers: <String, String>{
-          'Token': token,
-        },
-      );
-      developer.log("${response.body}    :- ${response.statusCode}");
-      if (response.statusCode == 200) {
-        return UserGetResponse.fromJson(json.decode(response.body));
-      } else {
-        return UserGetResponse();
-      }
+
     } catch (e) {
       print(e.toString());
       return UserGetResponse();

@@ -8,6 +8,7 @@ import '../../../Constants/sharedPrefKeys.dart';
 import '../../../Constants/strings.dart';
 import '../../../blocs/shift_notification_bloc.dart';
 import '../../../main.dart';
+import '../../../model/notification_model.dart';
 import '../../../model/shift_list_response.dart';
 import '../../../model/user_notification_model.dart';
 import '../../../utils/colors_util.dart';
@@ -46,12 +47,12 @@ class _NotificationState extends State<NotificationScreen> {
 
   clearNotification() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
-    shdPre.setInt(SharedPrefKey.USER_NOTIFICATION_COUNT,0);
+    shdPre.setInt(SharedPrefKey.USER_NOTIFICATION_COUNT, 0);
   }
+
   @override
   Widget build(BuildContext context) {
-    final FixedExtentScrollController itemController =
-        FixedExtentScrollController();
+    final FixedExtentScrollController itemController = FixedExtentScrollController();
     return Scaffold(
       // key: _scaffoldKey,
       // drawer: Drawer(
@@ -81,14 +82,11 @@ class _NotificationState extends State<NotificationScreen> {
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
           Txt.notify,
-          style: TextStyle(
-              fontSize: 17,
-              color: Constants.colors[1],
-              fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: 17, color: Constants.colors[1], fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
       ),
-      backgroundColor: Constants.colors[2],
+      backgroundColor: Constants.colors[9],
       body: RefreshIndicator(
         onRefresh: () => notificationBloc.fetchNotification(),
         child: NotificationListener<OverscrollIndicatorNotification>(
@@ -99,14 +97,12 @@ class _NotificationState extends State<NotificationScreen> {
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, dividedBy: 35)),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth(context, dividedBy: 35)),
                 child: Column(children: [
                   SizedBox(height: screenHeight(context, dividedBy: 60)),
                   StreamBuilder(
                       stream: notificationBloc.allShift,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<UserNotificationModel> snapshot) {
+                      builder: (BuildContext context, AsyncSnapshot<UserNotificationModel> snapshot) {
                         if (snapshot.hasData) {
                           // return Text("fed");
                           debugPrint("asdsdf ${snapshot.data?.response?.data?.items?.length}");
@@ -115,36 +111,30 @@ class _NotificationState extends State<NotificationScreen> {
                         } else if (snapshot.hasError) {
                           return Center(
                             child: Column(children: [
-                              SizedBox(
-                                  height: screenHeight(context, dividedBy: 60)),
+                              SizedBox(height: screenHeight(context, dividedBy: 60)),
                               Column(
                                 children: [
                                   20.height,
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(Txt.notify,
-                                          style: boldTextStyle(size: 20)),
+                                      Text(Txt.notify, style: boldTextStyle(size: 20)),
                                       85.width,
                                       16.height,
                                       Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 32),
-                                        child: Text(Txt.no_notify,
-                                            style: primaryTextStyle(size: 15),
-                                            textAlign: TextAlign.center),
+                                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                                        child: Text(Txt.no_notify, style: primaryTextStyle(size: 15), textAlign: TextAlign.center),
                                       ),
                                     ],
                                   ),
                                   150.height,
-                                  Image.asset('assets/images/icon/bell.png',
-                                      height: 250),
+                                  Image.asset('assets/images/icon/bell.png', height: 250),
                                 ],
                               ),
                             ]),
                           );
                         }
-                        return  const LoadingWidget();
+                        return const LoadingWidget();
                       })
                 ])),
           ),
@@ -154,60 +144,84 @@ class _NotificationState extends State<NotificationScreen> {
   }
 
   Widget buildList(AsyncSnapshot<UserNotificationModel> snapshot) {
-    return (snapshot.data?.response?.data?.items?.length ?? 0)!=0?  ListView.builder(
-            itemCount: snapshot.data?.response?.data?.items?.length ?? 0,
-            shrinkWrap: true,
+    List<NotificationModel> list = [];
+    if (snapshot.data?.response?.data?.items?.length != 0) {
+      for (var item in snapshot.data!.response!.data!.items!) {
+        if (list.any((element) => element.date == item.date.toString())) {
+          list[list.indexWhere((element) => element.date == item.date.toString())]
+              .list
+              .add(NotificationItemModel(title: item.notificationTypeName.toString(), image: item.hospitalImage.toString(), subtitle: item.shiftTitle.toString(),
+            date: item.date.toString(), shiftid: item.shiftId.toString(),));
+        } else {
+          list.add(NotificationModel(
+              date: item.date.toString(),
+              list: [NotificationItemModel(title: item.notificationTypeName.toString(), image: item.hospitalImage.toString(), subtitle: item.shiftTitle.toString(),
+                date: item.date.toString(), shiftid: item.shiftId.toString(),)]));
+        }
+      };
+    }
+
+    return (snapshot.data?.response?.data?.items?.length ?? 0) != 0
+        ? ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              var name = "Shift Reminder";
-              var description = "Your shift at Beneavin Manor is in  1 hour";
-
-              debugPrint("asdsdf ${snapshot.data?.response?.data?.items?.length}");
-              var notification = snapshot.data?.response?.data?.items?[index];
-              // if (notification != null) {
-                name = notification?.notificationTypeName??" ";
-              description = notification?.shiftTitle??"";
-              // }
-
-              return NotificationWidget(
-                name: name,
-                endTime: description,
-                type: "USER",
-                price: notification?.shiftId.toString()??"",
-                startTime: notification?.hospitalImage??"",
-                date:
-                notification?.date??"",
+            shrinkWrap: true,
+            itemCount: list.length,
+            itemBuilder: (BuildContext context, int ind) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6),
+                    child: Text(
+                      getStringFromDate(
+                          getDateFromString(list[ind].date,"yyyy-MM-dd"),"EEE dd MMMM yyyy"),
+                      style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,fontFamily: 'SFProBold',color:  Colors.grey),
+                      //  list[ind].date
+                    ),
+                  ),
+                  ListView.builder(
+                    itemCount: list[ind].list.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      NotificationItemModel data= list[ind].list[index];
+                      return NotificationWidget(
+                        name: data.title,
+                        endTime: data.subtitle,
+                        type: "USER",
+                        price: data.shiftid,
+                        startTime: data.image,
+                        date: data.date,
+                      );
+                    },
+                  ),
+                ],
               );
             },
-          ):Center(
-      child: Column(children: [
-        SizedBox(
-            height: screenHeight(context, dividedBy: 60)),
-        Column(
-          children: [
-            20.height,
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(Txt.notify,
-                    style: boldTextStyle(size: 20)),
-                85.width,
-                16.height,
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 32),
-                  child: Text(Txt.no_notify,
-                      style: primaryTextStyle(size: 15),
-                      textAlign: TextAlign.center),
-                ),
-              ],
-            ),
-            150.height,
-            Image.asset('assets/images/icon/bell.png',
-                height: 250),
-          ],
-        ),
-      ]),
-    );
+          )
+        : Center(
+            child: Column(children: [
+              SizedBox(height: screenHeight(context, dividedBy: 60)),
+              Column(
+                children: [
+                  20.height,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(Txt.notify, style: boldTextStyle(size: 20)),
+                      85.width,
+                      16.height,
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Text(Txt.no_notify, style: primaryTextStyle(size: 15), textAlign: TextAlign.center),
+                      ),
+                    ],
+                  ),
+                  150.height,
+                  Image.asset('assets/images/icon/bell.png', height: 250),
+                ],
+              ),
+            ]),
+          );
   }
 }
