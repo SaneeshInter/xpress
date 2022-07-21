@@ -6,8 +6,9 @@ import '../../../utils/utils.dart';
 class LoginButton extends StatelessWidget {
   final Function onPressed;
   final String label;
+  final bool isEnabled;
 
-   LoginButton({Key? key, required this.onPressed, required this.label})
+   LoginButton({Key? key, required this.onPressed, required this.label,this.isEnabled=false})
       : super(key: key);
 
 
@@ -29,10 +30,10 @@ class LoginButton extends StatelessWidget {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [
-                  Constants.colors[3],
-                  Constants.colors[4],
+                  isEnabled? Constants.colors[3]:Colors.grey,
+                  isEnabled? Constants.colors[4]:Colors.grey,
                 ]),
-            color: Constants.colors[4],
+            color:isEnabled? Constants.colors[4]:Colors.grey,
             borderRadius: BorderRadius.circular(8)),
         child: Text(
           label,

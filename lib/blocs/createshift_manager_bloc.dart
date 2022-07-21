@@ -209,6 +209,7 @@ class CreateShiftManagerBloc {
     var timeFrom = convert12hrTo24hr(time_from);
     var timeTo = convert12hrTo24hr(time_to);
     var json = jsonEncode(allowanceList.map((e) => e.toJson()).toList());
+    debugPrint("aaaa\n\n$json");
     ManagerShift resp = await _repo.CreateShiftManager(
       token,
       rowId,

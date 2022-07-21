@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../services/fcm_service.dart';
@@ -10,11 +11,13 @@ import '../../Constants/strings.dart';
 import '../../blocs/login_bloc.dart';
 import '../../ui/manager_dashboard_screen.dart';
 import '../../utils/constants.dart';
+import '../../utils/network_utils.dart';
 import '../../utils/utils.dart';
 import '../../utils/validator.dart';
 import '../dashboard_screen.dart';
 import '../widgets/buttons/login_button.dart';
 import '../widgets/input_text.dart';
+import '../widgets/labeled_checkbox.dart';
 import '../widgets/loading_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -27,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController email = TextEditingController();
   TextEditingController pwd = TextEditingController();
+  bool isChecked = false;
 
   @override
   void initState() {
@@ -60,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   alignment: Alignment.center,
                   width: 90.w,
-                  height: 70.h,
+                  height: 75.h,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -143,13 +147,89 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
-                                          height: 2.h,
+
+                                        Row(
+                                          //  mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 6.0),
+                                              //  alignment: Alignment.topLeft,
+                                              //transformAlignment: Alignment.topLeft,
+                                              child: Checkbox(
+                                                checkColor: Colors.white,
+                                                fillColor: MaterialStateProperty.resolveWith(getColor),
+                                                value: isChecked,
+                                                onChanged: (bool? value) {
+                                                  setState(() {
+                                                    isChecked = value!;
+                                                  });
+
+                                                  //  widget.onCheckBoxClicked(widget.items.rowId.toString(), value);
+                                                },
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: (){
+                                                launchLink('https://www.xpresshealth.ie/');
+                                              },
+                                              child: Expanded(
+                                                  child: RichText(
+                                                text: TextSpan(
+                                                  text: "I Agree the ",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 9.sp,
+                                                    decoration: TextDecoration.none,
+                                                    color: Constants.colors[29],
+                                                  ),
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+
+                                                      text: 'Terms of Service',
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 9.sp,
+                                                        decoration: TextDecoration.underline,
+                                                        color: Colors.blue,
+                                                        decorationStyle: TextDecorationStyle.solid,
+                                                        // fontStyle: FontStyle.italic,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                        text: ' and ',
+                                                        style: TextStyle(
+                                                          fontWeight: FontWeight.w400,
+                                                          fontSize: 9.sp,
+                                                          decoration: TextDecoration.none,
+                                                          color: Constants.colors[29],
+                                                        )),
+                                                    TextSpan(
+                                                        text: 'Privacy Policy',
+                                                        style: TextStyle(
+                                                          fontWeight: FontWeight.w400,
+                                                          fontSize: 9.sp,
+                                                          decoration: TextDecoration.underline,
+                                                          decorationStyle: TextDecorationStyle.solid,
+                                                          // fontStyle: FontStyle.italic,
+                                                          color: Colors.blue,
+                                                        )),
+                                                  ],
+                                                ),
+                                              )
+                                                  // Text("By tapping Agree to our Terms of Service and Privacy Policy",
+                                                  //   style: TextStyle(
+                                                  //     fontWeight: FontWeight.w400,
+                                                  //     fontSize: 9.sp,
+                                                  //     decoration: TextDecoration.none,
+                                                  //     color: Constants.colors[29],),
+                                                  // ),
+                                                  ),
+                                            ),
+                                          ],
                                         ),
+
                                         signUpBtn(),
-                                        SizedBox(
-                                          height: 2.h,
-                                        ),
+
                                         // Platform.isIOS ? AppleSignInButton(
                                         // //style: ButtonStyle.black,
                                         // type: ButtonType.continueButton,
@@ -170,7 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 25, top: 0),
+                  padding: EdgeInsets.only(bottom: 10, top: 0),
                   child: Text(
                     Txt.powered_by,
                     style: TextStyle(color: Colors.black, fontSize: 12, fontFamily: "SFProMedium"),
@@ -205,31 +285,39 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.only(top: 5),
           child: Center(
               child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+            padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
             child: Stack(
               children: [
                 LoginButton(
+                    isEnabled: isChecked,
                     onPressed: () async {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      var validate = formKey.currentState?.validate();
-                      if (null != validate) {
-                        if (validate) {
-                          SharedPreferences shdPre = await SharedPreferences.getInstance();
-                          bool isuser = shdPre.getBool("user")!;
-                          var userType = "1";
-                          if (isuser) {
-                            userType = "0";
+
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        var validate = formKey.currentState?.validate();
+                        if (null != validate) {
+                          if (validate) {
+                            if (isChecked) {
+                            SharedPreferences shdPre = await SharedPreferences.getInstance();
+                            bool isuser = shdPre.getBool("user")!;
+                            var userType = "1";
+                            if (isuser) {
+                              userType = "0";
+                            }
+
+                            String? deviceId = await getDeviceId();
+                            debugPrint("DEVICE Id : ");
+                            debugPrint(deviceId.toString());
+
+                            if (deviceId == null) {
+                              return;
+                            }
+
+                            loginBloc.fetchLogin(email.text, pwd.text, userType, deviceId);
                           }
-
-                          String? deviceId = await getDeviceId();
-                          debugPrint("DEVICE Id : ");
-                          debugPrint(deviceId.toString());
-
-                          if (deviceId == null) {
-                            return;
-                          }
-
-                          loginBloc.fetchLogin(email.text, pwd.text, userType, deviceId);
+                            else {
+                              showAlertDialoge(context,
+                                  title: "ALERT", message: "Tap Agree to Login in");
+                            }
                         }
                       }
                     },
@@ -237,9 +325,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           )),
-        ),
-        const SizedBox(
-          height: 5,
         ),
       ],
     );

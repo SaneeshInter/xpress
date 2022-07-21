@@ -241,9 +241,11 @@ class Txt {
 
   static const upload_timesheets = "Upload Timesheets";
   static const alert = "Alert";
+  static const alert_msg = "ALERT";
   static const select_shift = "Select Shift";
 
   static const request = "Request";
+  static const tick = "Agree to continue";
 
   static const refresh = "Refresh";
 
