@@ -168,12 +168,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 },
                                               ),
                                             ),
-                                            GestureDetector(
-                                              onTap: (){
-                                                launchLink('https://www.xpresshealth.ie/');
-                                              },
-                                              child: Expanded(
-                                                  child: RichText(
+                                            Expanded(
+                                              child: GestureDetector(
+                                                onTap: (){
+                                                  launchLink('https://www.xpresshealth.ie/');
+                                                },
+                                                child: RichText(
                                                 text: TextSpan(
                                                   text: "I Agree the ",
                                                   style: TextStyle(
@@ -215,15 +215,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         )),
                                                   ],
                                                 ),
-                                              )
-                                                  // Text("By tapping Agree to our Terms of Service and Privacy Policy",
-                                                  //   style: TextStyle(
-                                                  //     fontWeight: FontWeight.w400,
-                                                  //     fontSize: 9.sp,
-                                                  //     decoration: TextDecoration.none,
-                                                  //     color: Constants.colors[29],),
-                                                  // ),
-                                                  ),
+                                              ),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -316,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                             else {
                               showAlertDialoge(context,
-                                  title: "ALERT", message: "Tap Agree to Login in");
+                                  title: "Important", message: Txt.agree);
                             }
                         }
                       }

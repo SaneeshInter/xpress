@@ -40,7 +40,7 @@ class LoginAlertBox extends StatelessWidget {
           children: [
             SizedBox(height: screenHeight(context, dividedBy: 40)),
             Text(
-              Txt.alert,
+            title,
               style: TextStyle(
                   fontSize: 17,
                   color: Constants.colors[3],

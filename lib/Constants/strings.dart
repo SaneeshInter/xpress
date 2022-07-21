@@ -243,6 +243,7 @@ class Txt {
   static const alert = "Alert";
   static const alert_msg = "ALERT";
   static const select_shift = "Select Shift";
+  static const agree = "Agree Terms and Conditions to Login";
 
   static const request = "Request";
   static const tick = "Agree to continue";
