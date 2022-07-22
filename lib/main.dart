@@ -46,9 +46,12 @@ class MyApp extends StatelessWidget {
 
         title: 'xpress health',
         debugShowCheckedModeBanner: false,
+
+
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+
         initialRoute: '/',
         routes: {
           '/': (context) => SplashScreen(),

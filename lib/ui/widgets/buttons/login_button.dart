@@ -8,7 +8,7 @@ class LoginButton extends StatelessWidget {
   final String label;
   final bool isEnabled;
 
-   LoginButton({Key? key, required this.onPressed, required this.label,this.isEnabled=false})
+   LoginButton({Key? key, required this.onPressed, required this.label,this.isEnabled=true})
       : super(key: key);
 
 
@@ -34,6 +34,7 @@ class LoginButton extends StatelessWidget {
                   isEnabled? Constants.colors[4]:Colors.grey,
                 ]),
             color:isEnabled? Constants.colors[4]:Colors.grey,
+            //Constants.colors[3],Constants.colors[4]]),color: Constants.colors[4]
             borderRadius: BorderRadius.circular(8)),
         child: Text(
           label,
