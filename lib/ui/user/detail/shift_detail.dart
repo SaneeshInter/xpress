@@ -321,18 +321,18 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                           hospitalDetail.phone &&
                                                       hospitalDetail
                                                           .phone!.isNotEmpty)
-                                                    CustomRow(
-                                                      onPressed: () {
-                                                        dialCall(hospitalDetail
-                                                            .phone??Txt.contactNumber);
-                                                      },
-                                                      label: hospitalDetail.phone
-                                                          .toString(),
-                                                      asset:
-                                                          "assets/images/icon/price-tag.svg",
-                                                      textColors: Colors.black,
-                                                      size: 9.sp,
-                                                    ),
+                                                    // CustomRow(
+                                                    //   onPressed: () {
+                                                    //     dialCall(hospitalDetail
+                                                    //         .phone??Txt.contactNumber);
+                                                    //   },
+                                                    //   label: hospitalDetail.phone
+                                                    //       .toString(),
+                                                    //   asset:
+                                                    //       "assets/images/icon/price-tag.svg",
+                                                    //   textColors: Colors.black,
+                                                    //   size: 9.sp,
+                                                    // ),
 
                                                   const Padding(
                                                     padding: EdgeInsets.all(

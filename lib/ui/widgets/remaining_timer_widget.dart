@@ -25,7 +25,12 @@ class _RemainingTimerWidgetState extends State<RemainingTimerWidget> {
   void initState() {
     hours = getDiffrenceSecondTwoDates(widget.date, DateTime.now());
     totalMinutes=getDiffrenceInSecond( DateTime.now(),widget.date);
-    _timer= Timer.periodic(const Duration(seconds: 1), (timer) {
+
+
+
+    _timer= Timer.periodic(const Duration(seconds: 1), (timer)
+
+    {
       hours = getDiffrenceSecondTwoDates(widget.date, DateTime.now());
       totalMinutes=getDiffrenceInSecond( DateTime.now(),widget.date);
       if(totalMinutes<=0){
@@ -33,7 +38,9 @@ class _RemainingTimerWidgetState extends State<RemainingTimerWidget> {
         _timer.cancel();
       }
       if(mounted){
-        setState(() {});
+        setState(() {
+
+        });
       }else{
         timer.cancel();
         _timer.cancel();
@@ -43,6 +50,9 @@ class _RemainingTimerWidgetState extends State<RemainingTimerWidget> {
 
     super.initState();
   }
+
+
+
   @override
   void dispose() {
     _timer.cancel();
