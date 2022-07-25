@@ -77,7 +77,7 @@ class ShiftCalendarBloc {
       if (itemList!.isNotEmpty) {
         var listItem = itemList.first;
         for (var item in listItem.items!) {
-          eventList.add(Event(item.jobTitle!));
+          eventList.add(Event(item.jobTitle??""));
         }
       }
     }

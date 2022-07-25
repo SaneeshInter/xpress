@@ -1,6 +1,6 @@
 class Txt {
 
-  static const contactNumber="+35312118883";
+  static const contactNumber= "+35312118883";
   static const contactWhatspp="+353892661667";
   static const whatsapp="Whatsapp";
   static const uploaddocs="Upload Document";

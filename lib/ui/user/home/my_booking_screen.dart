@@ -16,6 +16,7 @@ import '../../Widgets/my_booking_list_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
+late TabController bookingController;
 
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({Key? key}) : super(key: key);
@@ -24,10 +25,9 @@ class MyBookingScreen extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
+class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,TickerProviderStateMixin {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  late PageController pageController;
   TextEditingController dateFrom = TextEditingController();
   TextEditingController dateTo = TextEditingController();
   bool visible = false;
@@ -57,11 +57,12 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    bookingController = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     observe();
     getDataitems();
-    pageController = PageController(initialPage: 0);
+
     confirmBloc.pageCount = 3;
     dateFrom.addListener(() {
       confirmBloc.checkAndUpdateTimeDifference(dateTo.text, dateFrom.text);
@@ -115,6 +116,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
         return false;
       },
       child: DefaultTabController(
+
         length:3,
         child: Scaffold(
             // key: scaffoldKey,
@@ -131,9 +133,10 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
               preferredSize: const Size.fromHeight(65),
               child: Container(
                 color: Constants.colors[0],
-                child: const Padding(
+                child:  Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TabBar(
+                    controller: bookingController,
                       isScrollable: true,
                       unselectedLabelColor: Colors.black,
                       indicatorSize: TabBarIndicatorSize.tab,
@@ -175,7 +178,9 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver {
                         AsyncSnapshot<UserViewRequestResponse> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data?.response?.data?.items?.length != 0) {
-                          return TabBarView(children: [
+                          return TabBarView(
+                            controller: bookingController,
+                              children: [
                             bookingList(0, snapshot),
                             bookingList(1, snapshot),
                             // bookingList(2, snapshot),

@@ -317,22 +317,20 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     textColors: Colors.black,
                                                     size: 9.sp,
                                                   ),
-                                                  if (null !=
-                                                          hospitalDetail.phone &&
-                                                      hospitalDetail
-                                                          .phone!.isNotEmpty)
-                                                    // CustomRow(
-                                                    //   onPressed: () {
-                                                    //     dialCall(hospitalDetail
-                                                    //         .phone??Txt.contactNumber);
-                                                    //   },
-                                                    //   label: hospitalDetail.phone
-                                                    //       .toString(),
-                                                    //   asset:
-                                                    //       "assets/images/icon/price-tag.svg",
-                                                    //   textColors: Colors.black,
-                                                    //   size: 9.sp,
-                                                    // ),
+                                                  // if (null !=
+                                                  //         hospitalDetail.phone &&
+                                                  //     hospitalDetail
+                                                  //         .phone!.isNotEmpty)
+                                                    CustomRow(
+                                                      onPressed: () {
+                                                        dialCall(Txt.contactNumber);
+                                                      },
+                                                      label: Txt.contactNumber,
+                                                      asset:
+                                                          "assets/images/icon/price-tag.svg",
+                                                      textColors: Colors.black,
+                                                      size: 9.sp,
+                                                    ),
 
                                                   const Padding(
                                                     padding: EdgeInsets.all(
@@ -388,8 +386,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                             padding:
                                                 const EdgeInsets.only(left: 15.0),
                                             child: CallButtons(onPressed: () {
-                                              dialCall(userShiftDetailsBloc
-                                                  .hospitalNumber);
+                                              dialCall(Txt.contactNumber);
                                             }),
                                           ),
                                         )
@@ -405,6 +402,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                         ],
                       );
                     } else {
+
                       return const  NoDataWidget(
                           tittle: Txt.notfound,
                           description: Txt.noshift,
