@@ -97,6 +97,14 @@ class Items {
   String? ecsExpiry;
   String? pidLink;
   String? pidExpiry;
+  String? elderAbuseLink;
+  String? elderAbuseExpiry;
+  String? cprCertificationLink;
+  String? cprCertificationExpiry;
+  String? nonDisclosureLink;
+  String? nonDisclosureExpiry;
+  String? workPermitLink;
+  String? workPermitExpiry;
   int? permissionToWorkInIreland;
   int? doYouDrive;
   int? haveYouGotCovid19Vaccination;
@@ -143,6 +151,14 @@ class Items {
         this.ecsLink,
         this.ecsExpiry,
         this.pidExpiry,
+        this.elderAbuseLink,
+        this.elderAbuseExpiry,
+        this.cprCertificationLink,
+        this.cprCertificationExpiry,
+        this.nonDisclosureLink,
+        this.nonDisclosureExpiry,
+        this.workPermitLink,
+        this.workPermitExpiry,
         this.permissionToWorkInIreland,
         this.doYouDrive,
         this.haveYouGotCovid19Vaccination,
@@ -189,6 +205,14 @@ class Items {
     ecsExpiry = json['ecs_expiry'];
     pidLink = json['pid_link'];
     pidExpiry = json['pid_expiry'];
+    elderAbuseLink = json['elder_abuse_link'];
+    elderAbuseExpiry = json['elder_abuse_expiry'];
+    cprCertificationLink = json['cpr_certification_link'];
+    cprCertificationExpiry = json['cpr_certification_expiry'];
+    nonDisclosureLink = json['non_disclosure_link'];
+    nonDisclosureExpiry = json['non_disclosure_expiry'];
+    workPermitLink = json['work_permit_link'];
+    workPermitExpiry = json['work_permit_expiry'];
     permissionToWorkInIreland = json['permission_to_work_in_ireland'];
     doYouDrive = json['do_you_drive'];
     haveYouGotCovid19Vaccination = json['have_you_got_covid19_vaccination'];
@@ -238,6 +262,14 @@ class Items {
     data['ecs_expiry'] = this.ecsExpiry;
     data['pid_link'] = this.pidLink;
     data['pid_expiry'] = this.pidExpiry;
+    data['elder_abuse_link'] = this.elderAbuseLink;
+    data['elder_abuse_expiry'] = this.elderAbuseExpiry;
+    data['cpr_certification_link'] = this.cprCertificationLink;
+    data['cpr_certification_expiry'] = this.cprCertificationExpiry;
+    data['non_disclosure_link'] = this.nonDisclosureLink;
+    data['non_disclosure_expiry'] = this.nonDisclosureExpiry;
+    data['work_permit_link'] = this.workPermitLink;
+    data['work_permit_expiry'] = this.workPermitExpiry;
     data['permission_to_work_in_ireland'] = this.permissionToWorkInIreland;
     data['do_you_drive'] = this.doYouDrive;
     data['have_you_got_covid19_vaccination'] =

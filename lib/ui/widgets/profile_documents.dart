@@ -200,6 +200,58 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             ),
             const SizedBox(height: 10),
             InkWell(
+              onTap: () {
+                getImage( "pid", widget.items.pidLink!,
+                    widget.items.pidExpiry);
+              },
+              child: ProfileDocRow(
+                label:'Elder abuse/Safeguarding' ,
+                asset: "assets/images/icon/check.svg",
+                image: widget.items.elderAbuseLink!,
+                url: widget.items.elderAbuseLink!,
+              ),
+            ),
+            const SizedBox(height: 10),
+            InkWell(
+              onTap: () {
+                getImage( "pid", widget.items.pidLink!,
+                    widget.items.pidExpiry);
+              },
+              child: ProfileDocRow(
+                label:'CPR/BLS Certification ' ,
+                asset: "assets/images/icon/check.svg",
+                image: widget.items.cprCertificationLink!,
+                url: widget.items.cprCertificationLink!,
+              ),
+            ),
+            const SizedBox(height: 10),
+           InkWell(
+              onTap: () {
+                getImage( "pid", widget.items.pidLink!,
+                    widget.items.pidExpiry);
+              },
+              child: ProfileDocRow(
+                label:'Work Permit' ,
+                asset: "assets/images/icon/check.svg",
+                image: widget.items.workPermitLink!,
+                url: widget.items.workPermitLink!,
+              ),
+            ),
+            const SizedBox(height: 10),
+            InkWell(
+              onTap: () {
+                getImage( "pid", widget.items.pidLink!,
+                    widget.items.pidExpiry);
+              },
+              child: ProfileDocRow(
+                label:'Non Disclosure' ,
+                asset: "assets/images/icon/check.svg",
+                image: widget.items.nonDisclosureLink!,
+                url: widget.items.nonDisclosureLink!,
+              ),
+            ),
+            const SizedBox(height: 10),
+            InkWell(
               onTap: () {},
               child: ProfileQuestionRow(
                 label: Txt.drive + doYouDrive,

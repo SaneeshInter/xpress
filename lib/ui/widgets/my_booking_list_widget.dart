@@ -79,7 +79,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                             width: 70.w,
                             child: AutoSizeText.rich(
                               TextSpan(
-                                text: widget.items.jobTitle,
+                                text:'${widget.items.userType??""} Shift',
                                 style: TextStyle(
                                     fontSize: 12.sp,
                                     color: Colors.black,
@@ -102,10 +102,10 @@ class _MyBookingState extends State<MyBookingListWidget> {
                           Text(
                             Txt.from +
                                 convert24hrTo12hr(
-                                  widget.items.timeFrom!,
+                                  widget.items.timeFrom??"00:00",
                                 ) +
                                 Txt.to +
-                                convert24hrTo12hr(widget.items.timeTo!),
+                                convert24hrTo12hr(widget.items.timeTo??"00:00"),
                             style: TextStyle(
                                 fontSize: 9.sp,
                                 color: Constants.colors[13],
@@ -114,7 +114,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                           SizedBox(height: screenHeight(context, dividedBy: 180)),
                           AutoSizeText.rich(
                             TextSpan(
-                              text: Txt.at + widget.items.hospital!,
+                              text:  "${Txt.at}${widget.items.hospital?? ""}" ,
                               style: TextStyle(
                                   fontSize: 10.sp,
                                   color: Constants.colors[4],

@@ -175,7 +175,7 @@ class ManagerShiftCalendarBloc {
         var listItem = itemList.first;
         eventList.clear();
         for (var item in listItem.items!) {
-          eventList.add(Event(item.jobTitle!));
+          eventList.add(Event(item.jobTitle ?? ""));
         }
       }
     }

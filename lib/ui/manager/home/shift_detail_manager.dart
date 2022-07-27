@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_html/flutter_html.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../../Constants/strings.dart';
@@ -7,9 +9,8 @@ import '../../../../utils/constants.dart';
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../blocs/manager_view_detail.dart';
 import '../../../model/manager_view_request.dart';
-import '../../../ui/user/detail/shift_rows.dart';
 import '../../../ui/widgets/loading_widget.dart';
-import '../../../utils/network_utils.dart';
+import '../../../utils/network_utils.dart' as network;
 import '../../../utils/utils.dart';
 import '../../bloc/no_data_screen.dart';
 import '../../error/ConnectionFailedScreen.dart';
@@ -175,12 +176,63 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                       ),
                                                     ),
                                                     if (null != shiftDetails)
-                                                      CustomRowz(
-                                                        onPressed: () {},
-                                                        label: Txt.job_details_dot + shiftDetails.jobDetails.toString(),
-                                                        asset: "assets/images/icon/check.svg",
-                                                        textColors: Colors.black,
+                                                      // Html(
+                                                      //   data: Txt.job_details_dot +
+                                                      //       shiftDetails.jobDetails
+                                                      //           .toString(),
+                                                      // ),
+                                                    data!.shiftDetails![0].allowances!.isNotEmpty?
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: ListView.builder(
+                                                        physics: const NeverScrollableScrollPhysics(),
+                                                        itemCount: data.shiftDetails![0].allowances!.length,
+                                                        shrinkWrap: true,
+                                                        itemBuilder: (BuildContext context, int index) {
+                                                          var val = data.shiftDetails![0].allowances![index];
+                                                          return index==0?Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding: const EdgeInsets.all(8.0),
+                                                                child: Row(
+                                                                  children: const [
+                                                                    Expanded(flex: 2, child: Text("Category",style: TextStyle(fontWeight: FontWeight.bold,color: black),)),
+                                                                    Expanded(flex: 2, child: Text(" Allowance",style: TextStyle(fontWeight: FontWeight.bold,color: black),)),
+                                                                    Expanded(flex: 1, child: Text("Price",textAlign: TextAlign.end,style: TextStyle(fontWeight: FontWeight.bold,color: black),)),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Divider(),
+                                                              Padding(
+                                                                padding: const EdgeInsets.all(8.0),
+                                                                child: Row(
+                                                                  children: [
+                                                                    Expanded(flex: 2, child: Text(val.category_name ?? "")),
+                                                                    Expanded(flex: 2, child: Text(val.allowance_name ?? "")),
+                                                                    Expanded(flex: 1, child: Text(val.price ?? "",textAlign: TextAlign.end,)),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ): Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: Row(
+                                                              children: [
+                                                                Expanded(flex: 2, child: Text(val.category_name ?? "")),
+                                                                Expanded(flex: 2, child: Text(val.allowance_name ?? "")),
+                                                                Expanded(flex: 1, child: Text(val.price ?? "",textAlign: TextAlign.end,)),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
                                                       ),
+                                                    ):SizedBox(),
+                                                      // CustomRowz(
+                                                      //   onPressed: () {},
+                                                      //   label: Txt.job_details_dot + shiftDetails!.jobDetails.toString(),
+                                                      //   asset: "assets/images/icon/check.svg",
+                                                      //   textColors: Colors.black,
+                                                      // ),
                                                     SizedBox(
                                                       height: 3.h,
                                                     ),

@@ -41,7 +41,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = false;
   TextEditingController location = TextEditingController();
-  TextEditingController jobtitle = TextEditingController();
+  TextEditingController jobtitle = TextEditingController(text: "");
   TextEditingController jobDescri = TextEditingController();
   TextEditingController date = TextEditingController();
   TextEditingController dateFrom = TextEditingController();
@@ -49,7 +49,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
   TextEditingController price = TextEditingController();
   TextEditingController poCode = TextEditingController();
   TextEditingController allowanceprice = TextEditingController();
-  TextEditingController job_title = TextEditingController();
+  TextEditingController job_title = TextEditingController(text: "");
   TextEditingController resourceType = TextEditingController();
   TextEditingController type = TextEditingController();
   TextEditingController user_type = TextEditingController();
@@ -322,23 +322,23 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                         const SizedBox(
                                           height: 15,
                                         ),
-                                        Column(
-                                          children: [
-                                            TextInputFileds(
-                                                onChange: () {},
-                                                controlr: jobtitle,
-                                                validator: (jobtitle) {
-                                                  if (validJob(jobtitle))
-                                                    return null;
-                                                  else
-                                                    return Txt.enter_job;
-                                                },
-                                                hintText: Txt.jobtitle,
-                                                keyboadType: TextInputType.text,
-                                                isPwd: false,
-                                                onTapDate: () {}),
-                                          ],
-                                        ),
+                                        // Column(
+                                        //   children: [
+                                        //     TextInputFileds(
+                                        //         onChange: () {},
+                                        //         controlr: jobtitle,
+                                        //         validator: (jobtitle) {
+                                        //           if (validJob(jobtitle))
+                                        //             return null;
+                                        //           else
+                                        //             return Txt.enter_job;
+                                        //         },
+                                        //         hintText: Txt.jobtitle,
+                                        //         keyboadType: TextInputType.text,
+                                        //         isPwd: false,
+                                        //         onTapDate: () {}),
+                                        //   ],
+                                        // ),
                                         const SizedBox(
                                           height: 15,
                                         ),
@@ -807,7 +807,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
   updateAllowances(BuildContext context, Items item) {
     if (item != null) {
-      jobtitle.text = item.jobTitle!;
+      jobtitle.text = item.jobTitle??"";
       managerBloc.rowId = item.rowId!;
       date.text = item.date!;
       dateTo.text = convert24hrTo12hr(item.timeTo!);

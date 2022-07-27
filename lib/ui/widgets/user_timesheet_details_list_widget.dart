@@ -52,7 +52,7 @@ class UserTimeSheetDetailsListWidget extends StatelessWidget {
                 Row(
                   children: [
                     AutoSizeText(
-                      items.jobTitle!,
+                      items.jobTitle??"",
                       textAlign: TextAlign.start,
                       maxLines: 3,
                       style: TextStyle(
@@ -71,7 +71,7 @@ class UserTimeSheetDetailsListWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 1.0),
                       child: Text(
-                        "${Txt.date}: ${getStringFromDate(getDateFromString(items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
+                        "${Txt.date}: ${getStringFromDate(getDateFromString(items.date??"00:00","yyyy-MM-dd"),"dd-MM-yyyy")}",
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],
@@ -82,9 +82,9 @@ class UserTimeSheetDetailsListWidget extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 3.0),
                       child: Text(
                         Txt.from +
-                          convert24hrTo12hr(items.timeFrom!)   +
+                          convert24hrTo12hr(items.timeFrom??"00:00")   +
                             Txt.to +
-                          convert24hrTo12hr( items.timeTo!) ,
+                          convert24hrTo12hr( items.timeTo??"00:00") ,
                         style: TextStyle(
                             fontSize: 9.sp,
                             color: Constants.colors[13],
@@ -96,7 +96,7 @@ class UserTimeSheetDetailsListWidget extends StatelessWidget {
                 SizedBox(height: screenHeight(context, dividedBy: 120)),
                 if (null != items.userType)
                   Text(
-                    items.userType!,
+                    items.userType??"",
                     style: TextStyle(
                         fontSize: 11.sp,
                         color: Constants.colors[3],

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
@@ -23,9 +24,7 @@ class ShiftDetailScreen extends StatefulWidget {
   final String shift_id;
   final bool isCompleted;
 
-  const ShiftDetailScreen(
-      {Key? key, required this.shift_id, required this.isCompleted})
-      : super(key: key);
+  const ShiftDetailScreen({Key? key, required this.shift_id, required this.isCompleted}) : super(key: key);
 
   @override
   State<ShiftDetailScreen> createState() => _ShiftDetailScreenState();
@@ -76,12 +75,11 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
             SingleChildScrollView(
               child: StreamBuilder(
                   stream: userShiftDetailsBloc.userShiftDetailsStream,
-                  builder: (context,
-                      AsyncSnapshot<GetUserShiftDetailsResponse> snapshot) {
+                  builder: (context, AsyncSnapshot<GetUserShiftDetailsResponse> snapshot) {
                     if (snapshot.data?.response?.data != null) {
                       var data = snapshot.data?.response?.data;
 
-                      var hospitalDetail = data?.hospitalDetails?[0]??HospitalDetails();
+                      var hospitalDetail = data?.hospitalDetails?[0] ?? HospitalDetails();
                       debugPrint('1212312ssss ${hospitalDetail.longitude} ${hospitalDetail.longitude}');
 
                       var shiftDetails = data?.shiftDetails![0];
@@ -89,29 +87,24 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width,
-                            padding:
-                                const EdgeInsets.only(left: 5, right: 5, top: 10),
+                            padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
                             child: Column(
                               children: [
                                 if (null != hospitalDetail)
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
+                                    padding: const EdgeInsets.only(left: 10, right: 10),
                                     child: ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10)),
+                                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                                       child: Stack(
                                         alignment: Alignment.bottomCenter,
                                         children: [
                                           SizedBox(
-                                            width:
-                                                MediaQuery.of(context).size.width,
+                                            width: MediaQuery.of(context).size.width,
                                             height: 30.h,
                                             child: SizedBox.fromSize(
                                               size: const Size.fromRadius(10),
                                               // Image radius
-                                              child:CachedNetworkImage(
+                                              child: CachedNetworkImage(
                                                 imageUrl: hospitalDetail.photo!,
                                                 imageBuilder: (context, imageProvider) => Container(
                                                   decoration: BoxDecoration(
@@ -131,25 +124,19 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                             child: Container(
                                               color: Colors.black,
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
+                                                padding: const EdgeInsets.all(8.0),
                                                 child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
                                                   children: [
                                                     if (null != shiftDetails)
                                                       Expanded(
                                                         flex: 1,
-                                                        child: Text(
-                                                            shiftDetails.date
-                                                                .toString(),
+                                                        child: Text(shiftDetails.date.toString(),
                                                             style: TextStyle(
                                                               fontSize: 9.sp,
                                                               color: Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight.bold,
-                                                              fontFamily:
-                                                                  "SFProMedium",
+                                                              fontWeight: FontWeight.bold,
+                                                              fontFamily: "SFProMedium",
                                                             )),
                                                       ),
                                                     Expanded(
@@ -162,61 +149,32 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                           // hospitalDetail
                                                           //         .longitude =
                                                           //     "77.4977";
-                                                          if(null!=hospitalDetail
-                                                              .latitude && null!= hospitalDetail
-                                                              .longitude && "" != hospitalDetail
-                                                              .latitude && ""!= hospitalDetail
-                                                              .longitude)
-                                                            {
-                                                              // openMap(double.parse(hospitalDetail.latitude!),double.parse(hospitalDetail.longitude!));
-                                                              navigateTo(
-                                                                  double.parse(
-                                                                      hospitalDetail
-                                                                          .latitude!),
-                                                                  double.parse(
-                                                                      hospitalDetail
-                                                                          .longitude!),hospitalDetail.hospitalName
-                                                                  .toString());
-                                                            }else{
+                                                          if (null != hospitalDetail.latitude && null != hospitalDetail.longitude && "" != hospitalDetail.latitude && "" != hospitalDetail.longitude) {
+                                                            // openMap(double.parse(hospitalDetail.latitude!),double.parse(hospitalDetail.longitude!));
+                                                            navigateTo(double.parse(hospitalDetail.latitude!), double.parse(hospitalDetail.longitude!), hospitalDetail.hospitalName.toString());
+                                                          } else {
                                                             Fluttertoast.showToast(msg: 'Location not found');
                                                           }
-
                                                         },
                                                         child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
+                                                          mainAxisAlignment: MainAxisAlignment.end,
                                                           children: [
                                                             Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right: 8.0),
-                                                              child: SvgPicture
-                                                                  .asset(
+                                                              padding: const EdgeInsets.only(right: 8.0),
+                                                              child: SvgPicture.asset(
                                                                 "assets/images/icon/google_map.svg",
                                                                 height: 4.w,
                                                                 width: 4.w,
                                                               ),
                                                             ),
                                                             Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right: 8.0),
-                                                              child: Text(
-                                                                  Txt.view_map,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        9.sp,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontFamily:
-                                                                        "SFProMedium",
+                                                              padding: const EdgeInsets.only(right: 8.0),
+                                                              child: Text(Txt.view_map,
+                                                                  style: TextStyle(
+                                                                    fontSize: 9.sp,
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    fontFamily: "SFProMedium",
                                                                   )),
                                                             ),
                                                           ],
@@ -234,8 +192,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                   ),
                                 if (null != hospitalDetail)
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
+                                    padding: const EdgeInsets.only(left: 10, right: 10),
                                     child: Container(
                                       decoration: const BoxDecoration(
                                         color: Colors.white,
@@ -249,71 +206,44 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                         child: Column(
                                           children: [
                                             Stack(children: [
-
                                               Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 14, top: 10),
-
+                                                    padding: const EdgeInsets.only(left: 14, top: 10),
                                                     child: Text(
-                                                      hospitalDetail.hospitalName
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16.sp,
-                                                          fontFamily:
-                                                              "SFProMedium",
-                                                          fontWeight:
-                                                              FontWeight.w700),
+                                                      hospitalDetail.hospitalName.toString(),
+                                                      style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: "SFProMedium", fontWeight: FontWeight.w700),
                                                     ),
                                                   ),
                                                   CustomRow(
                                                     onPressed: () {},
-                                                    label: Txt.address_dot +
-                                                        hospitalDetail.address
-                                                            .toString(),
-                                                    asset:
-                                                        "assets/images/icon/location.svg",
+                                                    label: Txt.address_dot + hospitalDetail.address.toString(),
+                                                    asset: "assets/images/icon/location.svg",
                                                     textColors: Colors.black,
                                                     size: 9.sp,
                                                   ),
                                                   if (null != shiftDetails)
                                                     CustomRow(
                                                       onPressed: () {},
-                                                      label:Txt.from +
-                                                          convert24hrTo12hr( shiftDetails.timeFrom
-                                                              .toString())  +
-                                                          Txt.to+
-                                                          convert24hrTo12hr ( shiftDetails.timeTo
-                                                              .toString()),
-                                                      asset:
-                                                          "assets/images/icon/time.svg",
+                                                      label: Txt.from + convert24hrTo12hr(shiftDetails.timeFrom.toString()) + Txt.to + convert24hrTo12hr(shiftDetails.timeTo.toString()),
+                                                      asset: "assets/images/icon/time.svg",
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
                                                   CustomRow(
                                                     onPressed: () {},
-                                                    label: hospitalDetail
-                                                        .hospitalName
-                                                        .toString(),
-                                                    asset:
-                                                        "assets/images/icon/ward.svg",
+                                                    label: hospitalDetail.hospitalName.toString(),
+                                                    asset: "assets/images/icon/ward.svg",
                                                     textColors: Colors.black,
                                                     size: 9.sp,
                                                   ),
                                                   CustomRow(
                                                     onPressed: () {
-                                                      sendingMails('mailto:${hospitalDetail.email!}?subject=&body='
-                                                          );
+                                                      sendingMails('mailto:${hospitalDetail.email!}?subject=&body=');
                                                     },
-                                                    label: hospitalDetail.email
-                                                        .toString(),
-                                                    asset:
-                                                        "assets/images/icon/email.svg",
+                                                    label: hospitalDetail.email.toString(),
+                                                    asset: "assets/images/icon/email.svg",
                                                     textColors: Colors.black,
                                                     size: 9.sp,
                                                   ),
@@ -321,38 +251,88 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                   //         hospitalDetail.phone &&
                                                   //     hospitalDetail
                                                   //         .phone!.isNotEmpty)
-                                                    CustomRow(
-                                                      onPressed: () {
-                                                        dialCall(Txt.contactNumber);
-                                                      },
-                                                      label: Txt.contactNumber,
-                                                      asset:
-                                                          "assets/images/icon/price-tag.svg",
-                                                      textColors: Colors.black,
-                                                      size: 9.sp,
-                                                    ),
-
+                                                  CustomRow(
+                                                    onPressed: () {
+                                                      dialCall(Txt.contactNumber);
+                                                    },
+                                                    label: Txt.contactNumber,
+                                                    asset: "assets/images/icon/price-tag.svg",
+                                                    textColors: Colors.black,
+                                                    size: 9.sp,
+                                                  ),
                                                   const Padding(
-                                                    padding: EdgeInsets.all(
-                                                        12.0),
+                                                    padding: EdgeInsets.all(12.0),
                                                     child: Divider(
                                                       thickness: 1,
                                                       indent: 12,
                                                       endIndent: 12,
                                                     ),
                                                   ),
+
+
                                                   if (null != shiftDetails)
-                                                    CustomRowz(
-                                                      onPressed: () {},
-                                                      label:Txt.job_details_dot +
-                                                          shiftDetails.jobDetails
-                                                              .toString(),
-                                                      asset: "",
-                                                      textColors: Colors.black,
-                                                    ),
+                                                    // Html(
+                                                    //   data: Txt.job_details_dot + shiftDetails.jobDetails.toString(),
+                                                    // ),
+                                                  // CustomRowz(
+                                                  //   onPressed: () {},
+                                                  //   label:Txt.job_details_dot +
+                                                  //       shiftDetails.jobDetails
+                                                  //           .toString(),
+                                                  //   asset: "",
+                                                  //   textColors: Colors.black,
+                                                  // ),
                                                   SizedBox(
                                                     height: 3.h,
                                                   ),
+
+                                                  data!.shiftDetails![0].allowances!.isNotEmpty?
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: ListView.builder(
+                                                      physics: const NeverScrollableScrollPhysics(),
+                                                      itemCount: data.shiftDetails![0].allowances!.length,
+                                                      shrinkWrap: true,
+                                                      itemBuilder: (BuildContext context, int index) {
+                                                        var val = data.shiftDetails![0].allowances![index];
+                                                        return index==0?Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: Row(
+                                                                children: const [
+                                                                  Expanded(flex: 2, child: Text("Category",style: TextStyle(fontWeight: FontWeight.bold,color: black),)),
+                                                                  Expanded(flex: 2, child: Text(" Allowance",style: TextStyle(fontWeight: FontWeight.bold,color: black),)),
+                                                                  Expanded(flex: 1, child: Text("Price",textAlign: TextAlign.end,style: TextStyle(fontWeight: FontWeight.bold,color: black),)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Divider(),
+                                                            Padding(
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: Row(
+                                                                children: [
+                                                                  Expanded(flex: 2, child: Text(val.category_name ?? "")),
+                                                                  Expanded(flex: 2, child: Text(val.allowance_name ?? "")),
+                                                                  Expanded(flex: 1, child: Text(val.price ?? "",textAlign: TextAlign.end,)),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ): Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: Row(
+                                                            children: [
+                                                              Expanded(flex: 2, child: Text(val.category_name ?? "")),
+                                                              Expanded(flex: 2, child: Text(val.allowance_name ?? "")),
+                                                              Expanded(flex: 1, child: Text(val.price ?? "",textAlign: TextAlign.end,)),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ):SizedBox(),
+
                                                 ],
                                               ),
                                             ]),
@@ -383,8 +363,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                         Expanded(
                                           flex: 1,
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 15.0),
+                                            padding: const EdgeInsets.only(left: 15.0),
                                             child: CallButtons(onPressed: () {
                                               dialCall(Txt.contactNumber);
                                             }),
@@ -402,12 +381,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                         ],
                       );
                     } else {
-
-                      return const  NoDataWidget(
-                          tittle: Txt.notfound,
-                          description: Txt.noshift,
-                          asset_image:
-                          "assets/images/error/empty_task.png");
+                      return const NoDataWidget(tittle: Txt.notfound, description: Txt.noshift, asset_image: "assets/images/error/empty_task.png");
                     }
                   }),
             ),
@@ -420,7 +394,8 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                   } else {
                     return const SizedBox();
                   }
-                } else {
+                }
+                else {
                   return const SizedBox();
                 }
               },
@@ -439,9 +414,9 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
     });
 
     userShiftDetailsBloc.userShiftDetailsStream.listen((event) {
-      var hospitalDetail = event.response?.data?.hospitalDetails?[0]??HospitalDetails();
+      var hospitalDetail = event.response?.data?.hospitalDetails?[0] ?? HospitalDetails();
       if (null != hospitalDetail) {
-        userShiftDetailsBloc.hospitalNumber =  hospitalDetail.phone??Txt.contactNumber;
+        userShiftDetailsBloc.hospitalNumber = hospitalDetail.phone ?? Txt.contactNumber;
       }
     });
   }

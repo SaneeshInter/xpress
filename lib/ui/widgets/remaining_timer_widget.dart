@@ -18,28 +18,22 @@ class RemainingTimerWidget extends StatefulWidget {
 }
 
 class _RemainingTimerWidgetState extends State<RemainingTimerWidget> {
-  String hours = '00:00:00';
-  int totalMinutes=0;
+  String hours = '00:00:00:00';
+  int totalSec=0;
   late Timer _timer;
   @override
   void initState() {
     hours = getDiffrenceSecondTwoDates(widget.date, DateTime.now());
-    totalMinutes=getDiffrenceInSecond( DateTime.now(),widget.date);
-
-
-
-    _timer= Timer.periodic(const Duration(seconds: 1), (timer)
-
-    {
+    totalSec=getDiffrenceInSecond( DateTime.now(),widget.date);
+    _timer= Timer.periodic(const Duration(seconds: 1), (timer){
       hours = getDiffrenceSecondTwoDates(widget.date, DateTime.now());
-      totalMinutes=getDiffrenceInSecond( DateTime.now(),widget.date);
-      if(totalMinutes<=0){
+      totalSec=getDiffrenceInSecond( DateTime.now(),widget.date);
+      if(totalSec<=0){
         timer.cancel();
         _timer.cancel();
       }
       if(mounted){
         setState(() {
-
         });
       }else{
         timer.cancel();
@@ -47,7 +41,6 @@ class _RemainingTimerWidgetState extends State<RemainingTimerWidget> {
       }
     });
       setState(() {});
-
     super.initState();
   }
 
@@ -60,7 +53,7 @@ class _RemainingTimerWidgetState extends State<RemainingTimerWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    return totalMinutes>0 ?Container(
+    return totalSec>0 ?Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -79,7 +72,7 @@ class _RemainingTimerWidgetState extends State<RemainingTimerWidget> {
             children: [
               const Icon(Icons.hourglass_bottom,color: white,size: 15,),
               AutoSizeText(
-                '${hours.split(":")[0]}:${hours.split(":")[1]}:${hours.split(":")[2]} ',
+                '${hours.split(":")[0]}:${hours.split(":")[1]}:${hours.split(":")[2]}:${hours.split(":")[3]} ',
                 style: TextStyle(
                     fontSize: 8.sp,
                     letterSpacing: 2,

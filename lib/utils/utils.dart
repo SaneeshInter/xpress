@@ -463,10 +463,11 @@ String getHoursFromMinutes(int minutes) {
 }
 
 getHoursAndMinutesFromSecond(int seconds) {
-  var hours = (seconds / 3600).floor();
+  var day=(seconds/86400).floor();
+  var hours = (seconds%86400/3600).floor();
   var minutes = (seconds % 3600 / 60).floor();
   var secondsRemaining = seconds % 3600 % 60;
-  return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${secondsRemaining.toString().padLeft(2, '0')}";
+  return "${day.toString().padLeft(2, '0')}:${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${secondsRemaining.toString().padLeft(2, '0')}";
 }
 
 double getHoursAndMinutesToDouble(String time) {
