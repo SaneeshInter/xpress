@@ -354,11 +354,11 @@ class _HomeScreentate extends State<HomeScreen> {
                 debugPrint("HomeButton");
                 LatestShift late = homepageBloc.shiftDetails;
                 final Event event = Event(
-                  title: late.jobTitle!,
-                  description: late.jobDetails!,
-                  location: late.hospital!,
-                  startDate: DateTime.parse(late.date!),
-                  endDate: DateTime.parse(late.date!),
+                  title: late.userType??"",
+                  description: late.jobDetails??"",
+                  location: late.hospital??"",
+                  startDate: DateTime.parse(late.date??"00:00"),
+                  endDate: DateTime.parse(late.date??"00:00"),
                   iosParams: const IOSParams(
                     reminder: Duration(/* Ex. hours:1 */), // on iOS, you can set alarm notification after your event.
                   ),
