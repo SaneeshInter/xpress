@@ -4,9 +4,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/blocs/shift_confirmed_bloc.dart';
 
 import '../../../Constants/AppColors.dart';
 import '../../../Constants/strings.dart';
@@ -15,14 +13,12 @@ import '../../../model/user_home_response.dart';
 import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
-import '../../Widgets/my_booking_list_widget.dart';
 import '../../dashboard_screen.dart';
 import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/buttons/home_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/my_scroll_behavior.dart';
 import '../../widgets/shift_detail_card.dart';
-
 import '../detail/shift_detail.dart';
 import 'my_booking_screen.dart';
 
@@ -354,11 +350,11 @@ class _HomeScreentate extends State<HomeScreen> {
                 debugPrint("HomeButton");
                 LatestShift late = homepageBloc.shiftDetails;
                 final Event event = Event(
-                  title: late.userType??"",
-                  description: late.jobDetails??"",
-                  location: late.hospital??"",
-                  startDate: DateTime.parse(late.date??"00:00"),
-                  endDate: DateTime.parse(late.date??"00:00"),
+                  title: late.userType ?? "",
+                  description: late.jobDetails ?? "",
+                  location: late.hospital ?? "",
+                  startDate: DateTime.parse(late.date ?? "00:00"),
+                  endDate: DateTime.parse(late.date ?? "00:00"),
                   iosParams: const IOSParams(
                     reminder: Duration(/* Ex. hours:1 */), // on iOS, you can set alarm notification after your event.
                   ),
@@ -382,11 +378,10 @@ class _HomeScreentate extends State<HomeScreen> {
 
   Widget imageCard() {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         userController.jumpToTab(1);
 
         setState(() {});
-
       },
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -560,12 +555,10 @@ class _HomeScreentate extends State<HomeScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-
-                     userController.jumpToTab(2);
-                     bookingController.animateTo(0);
-                     setState(() {});
-                    // confirmBloc.selectedIndex=2;
-
+                      userController.jumpToTab(2);
+                      bookingController.animateTo(0);
+                      setState(() {});
+                      // confirmBloc.selectedIndex=2;
                     },
                     child: ShiftDetailCard(
                       label: summury?.requestedCount.toString() ?? "0",
@@ -575,9 +568,9 @@ class _HomeScreentate extends State<HomeScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
-                     userController.jumpToTab(2);
-                     bookingController.animateTo(1);
+                    onTap: () {
+                      userController.jumpToTab(2);
+                      bookingController.animateTo(1);
                       setState(() {});
                       // confirmBloc.selectedIndex=2;
                     },
@@ -591,9 +584,9 @@ class _HomeScreentate extends State<HomeScreen> {
                 ],
               ),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   userController.jumpToTab(2);
-                  bookingController.animateTo(2,duration: const Duration(seconds: 0));
+                  bookingController.animateTo(2, duration: const Duration(seconds: 0));
                   setState(() {});
                   // confirmBloc.selectedIndex=2;
                 },

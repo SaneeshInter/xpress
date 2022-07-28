@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
@@ -271,9 +271,13 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
 
 
                                                   if (null != shiftDetails)
-                                                    // Html(
-                                                    //   data: Txt.job_details_dot + shiftDetails.jobDetails.toString(),
-                                                    // ),
+                                                    Html(
+                                                      data: Txt.job_details_dot + shiftDetails.jobDetails.toString(),
+                                                      onLinkTap: (url, context, attributes, element) {
+                                                        launchLink(url!);
+                                                      },
+
+                                                    ),
                                                   // CustomRowz(
                                                   //   onPressed: () {},
                                                   //   label:Txt.job_details_dot +
@@ -313,7 +317,11 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                               child: Row(
                                                                 children: [
                                                                   Expanded(flex: 2, child: Text(val.category_name ?? "")),
-                                                                  Expanded(flex: 2, child: Text(val.allowance_name ?? "")),
+
+
+
+
+                                                                    Expanded(flex: 2, child: Text(val.allowance_name ?? "")),
                                                                   Expanded(flex: 1, child: Text(val.price ?? "",textAlign: TextAlign.end,)),
                                                                 ],
                                                               ),

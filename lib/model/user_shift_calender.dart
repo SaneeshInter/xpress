@@ -101,6 +101,7 @@ class Items {
   String? jobTitle;
   String? hospital;
   int? hospitalId;
+  String? hospitalAddress;
   String? date;
   String? timeFrom;
   String? timeTo;
@@ -120,6 +121,7 @@ class Items {
         this.jobTitle,
         this.hospital,
         this.hospitalId,
+        this.hospitalAddress,
         this.date,
         this.timeFrom,
         this.timeTo,
@@ -139,6 +141,7 @@ class Items {
     jobTitle = json['job_title'];
     hospital = json['hospital'];
     hospitalId = json['hospital_id'];
+    hospitalAddress = json['hospital_address'];
     date = json['date'];
     timeFrom = json['time_from'];
     timeTo = json['time_to'];
@@ -165,6 +168,7 @@ class Items {
     data['job_title'] = this.jobTitle;
     data['hospital'] = this.hospital;
     data['hospital_id'] = this.hospitalId;
+    data['hospital_address'] = this.hospitalAddress;
     data['date'] = this.date;
     data['time_from'] = this.timeFrom;
     data['time_to'] = this.timeTo;

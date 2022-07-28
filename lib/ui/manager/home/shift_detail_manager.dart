@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -176,11 +176,11 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                       ),
                                                     ),
                                                     if (null != shiftDetails)
-                                                      // Html(
-                                                      //   data: Txt.job_details_dot +
-                                                      //       shiftDetails.jobDetails
-                                                      //           .toString(),
-                                                      // ),
+                                                      Html(
+                                                        data: Txt.job_details_dot +
+                                                            shiftDetails.jobDetails
+                                                                .toString(),
+                                                      ),
                                                     data!.shiftDetails![0].allowances!.isNotEmpty?
                                                     Padding(
                                                       padding: const EdgeInsets.all(8.0),
