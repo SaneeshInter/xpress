@@ -17,6 +17,12 @@ import '../../../utils/utils.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/completed_shift_list.dart';
 import '../../widgets/loading_widget.dart';
+
+
+
+
+
+
 import '../detail/shift_detail.dart';
 
 class CompletedShift extends StatefulWidget {

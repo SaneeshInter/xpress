@@ -180,8 +180,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                           ),
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 30)),
-                        if(widget.items.status == "Accepted" ||
-                            widget.items.status == "Pending")
+                        if(widget.items.status == "Accepted")
                           RemainingTimerWidget(date: getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"),),
                       ],),
                   ],
@@ -225,7 +224,7 @@ debugPrint("widget.items.workingTimeStatus  $afterWorkHours");
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-              totalWorkHours>16?
+              totalWorkHours>24?
                 BookButton(
                   label: Txt.cancel_req,
                   onPressed: () {

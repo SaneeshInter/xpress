@@ -90,17 +90,18 @@ class NotificationWidget extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight(context, dividedBy: 120)),
                   Text(
-                    endTime,
-                    style: TextStyle(fontSize: 10.sp, color: Colors.grey, fontWeight: FontWeight.w400),
-                  ),
+                    date.toString()!="null"?getStringFromDate(getDateFromString(date,"yyyy-MM-dd HH:mm:ss"),"hh:mm a dd-MM-yyyy"):"",
+                    style: TextStyle(fontSize: 10.sp, color: Colors.grey, fontWeight: FontWeight.w400),),
+
                   SizedBox(height: screenHeight(context, dividedBy: 120)),
                   Row(
 
                     children: [
                       Text(
-                       date.toString()!="null"?getStringFromDate(getDateFromString(date,"yyyy-MM-dd HH:mm:ss"),"hh:mm a dd-MM-yyyy"):"",
+                       //date.toString()!="null"?getStringFromDate(getDateFromString(date,"yyyy-MM-dd HH:mm:ss"),"hh:mm a dd-MM-yyyy"):"",
                         // date,
-                        style: TextStyle(fontSize: 9.sp, color: Colors.grey, fontWeight: FontWeight.w400),textAlign: TextAlign.right,
+                        endTime,
+                        style: TextStyle(fontSize: 10.sp, color: Colors.grey, fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),

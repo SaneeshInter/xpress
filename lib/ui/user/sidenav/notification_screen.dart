@@ -187,11 +187,12 @@ class _NotificationState extends State<NotificationScreen> {
                       NotificationItemModel data= list[ind].list[index];
                       return NotificationWidget(
                         name: data.title,
-                        endTime: data.subtitle,
+                        date: data.date,
+                        endTime: "",
                         type: "USER",
                         price: data.shiftid,
                         startTime: data.image,
-                        date: data.date,
+
                       );
                     },
                   ),

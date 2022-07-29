@@ -270,9 +270,9 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                   ),
 
 
-                                                  if (null != shiftDetails)
+                                                  if ("null" != shiftDetails?.jobDetails.toString())
                                                     Html(
-                                                      data: Txt.job_details_dot + shiftDetails.jobDetails.toString(),
+                                                      data: Txt.job_details_dot + (shiftDetails?.jobDetails??"").toString(),
                                                       onLinkTap: (url, context, attributes, element) {
                                                         launchLink(url!);
                                                       },
@@ -290,15 +290,15 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     height: 3.h,
                                                   ),
 
-                                                  data!.shiftDetails![0].allowances!.isNotEmpty?
+                                                  data?.shiftDetails?[0].allowances !=null?
                                                   Padding(
                                                     padding: const EdgeInsets.all(8.0),
                                                     child: ListView.builder(
                                                       physics: const NeverScrollableScrollPhysics(),
-                                                      itemCount: data.shiftDetails![0].allowances!.length,
+                                                      itemCount: data?.shiftDetails?[0].allowances!.length,
                                                       shrinkWrap: true,
                                                       itemBuilder: (BuildContext context, int index) {
-                                                        var val = data.shiftDetails![0].allowances![index];
+                                                        var val = data?.shiftDetails?[0].allowances![index];
                                                         return index==0?Column(
                                                           children: [
                                                             Padding(
@@ -316,13 +316,13 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                               padding: const EdgeInsets.all(8.0),
                                                               child: Row(
                                                                 children: [
-                                                                  Expanded(flex: 2, child: Text(val.category_name ?? "")),
+                                                                  Expanded(flex: 2, child: Text(val?.category_name ?? "")),
 
 
 
 
-                                                                    Expanded(flex: 2, child: Text(val.allowance_name ?? "")),
-                                                                  Expanded(flex: 1, child: Text(val.price ?? "",textAlign: TextAlign.end,)),
+                                                                    Expanded(flex: 2, child: Text(val?.allowance_name ?? "")),
+                                                                  Expanded(flex: 1, child: Text(val?.price ?? "",textAlign: TextAlign.end,)),
                                                                 ],
                                                               ),
                                                             ),
@@ -331,9 +331,9 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                           padding: const EdgeInsets.all(8.0),
                                                           child: Row(
                                                             children: [
-                                                              Expanded(flex: 2, child: Text(val.category_name ?? "")),
-                                                              Expanded(flex: 2, child: Text(val.allowance_name ?? "")),
-                                                              Expanded(flex: 1, child: Text(val.price ?? "",textAlign: TextAlign.end,)),
+                                                              Expanded(flex: 2, child: Text(val?.category_name ?? "")),
+                                                              Expanded(flex: 2, child: Text(val?.allowance_name ?? "")),
+                                                              Expanded(flex: 1, child: Text(val?.price ?? "",textAlign: TextAlign.end,)),
                                                             ],
                                                           ),
                                                         );

@@ -131,7 +131,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
                                 List<String> slot = [
-                                  "morning",
+                                  "Morning",
                                   "Day",
                                   "Afternoon",
                                   "Night",

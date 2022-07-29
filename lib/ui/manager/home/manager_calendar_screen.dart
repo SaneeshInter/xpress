@@ -42,7 +42,8 @@ class ManagerFindShiftCalendar extends StatelessWidget {
                                 right: 10.0,
                                 top: 10.0,
                                 bottom: 10.0),
-                            child: DecoratedBox(
+                            child:
+                            DecoratedBox(
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.only(
@@ -53,107 +54,107 @@ class ManagerFindShiftCalendar extends StatelessWidget {
                                 ),
                               ),
                               child: StreamBuilder(
-                                stream: managercalendarBloc.managerCalendar,
-                                builder: (context, snapshot) {
-                                  return StreamBuilder(
-                                    stream: managercalendarBloc.visible,
-                                    builder: (context, snapshot) {
-                                      return TableCalendar(
-                                        focusedDay: managercalendarBloc.focusedDay,
-                                        firstDay: DateTime(2022),
-                                        lastDay: DateTime(2050),
-                                        calendarFormat: managercalendarBloc.format,
-                                        onFormatChanged: (CalendarFormat format) {
-                                            managercalendarBloc.update(format);
-                                        },
-                                        onDaySelected:
-                                        managercalendarBloc.onDaySelected,
-                                        selectedDayPredicate: (day) {
+                                  stream: managercalendarBloc.managerCalendar,
+                                  builder: (context, snapshot) {
+                                    return StreamBuilder(
+                                        stream: managercalendarBloc.visible,
+                                        builder: (context, snapshot) {
+                                          return TableCalendar(
+                                            focusedDay: managercalendarBloc.focusedDay,
+                                            firstDay: DateTime(2022),
+                                            lastDay: DateTime(2050),
+                                            calendarFormat: managercalendarBloc.format,
+                                            onFormatChanged: (CalendarFormat format) {
+                                              managercalendarBloc.update(format);
+                                            },
+                                            onDaySelected:
+                                            managercalendarBloc.onDaySelected,
+                                            selectedDayPredicate: (day) {
 
-                                          return managercalendarBloc.selectedDays
-                                              .contains(day);
-                                        },
-                                        calendarBuilders: CalendarBuilders(
-                                            markerBuilder: (BuildContext context,
-                                                DateTime datetime, List<Event> list) {
-                                              if (list.isNotEmpty) {
-                                                return Stack(
-                                                  children: [
-                                                    Align(
-                                                      alignment: Alignment.topCenter,
-                                                      child: Container(
-                                                          color: Colors.transparent,
-                                                          child: Padding(
-                                                            padding:
-                                                            const EdgeInsets.symmetric(
-                                                                horizontal: 4),
-                                                            child: Text(
-                                                              "${list.length} Shift",
-                                                              style: TextStyle(
-                                                                  fontSize: 7.sp,
-                                                                  color:
-                                                                  Constants.colors[38],
-                                                                  fontWeight:
-                                                                  FontWeight.w600),
-                                                            ),
-                                                          )),
-                                                    ),
-                                                  ],
-                                                );
-                                              }
-                                            }),
-                                        eventLoader:
-                                        managercalendarBloc.getEventsForDay,
-                                        startingDayOfWeek: StartingDayOfWeek.sunday,
-                                        daysOfWeekVisible: true,
-                                        headerStyle: const HeaderStyle(
-                                          formatButtonVisible: false,
-                                          titleCentered: true,
-                                        ),
-                                        calendarStyle: CalendarStyle(
-                                          isTodayHighlighted: true,
-                                          markerSize: 4,
-                                          cellMargin: const EdgeInsets.all(11),
-                                          canMarkersOverflow: false,
-                                          markersAutoAligned: true,
-                                          disabledDecoration: const BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            borderRadius:
-                                            BorderRadius.all(Radius.circular(5.0)),
-                                          ),
-                                          holidayDecoration: const BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            borderRadius:
-                                            BorderRadius.all(Radius.circular(5.0)),
-                                          ),
-                                          todayDecoration: const BoxDecoration(
-                                              color: Color(0xFFAACFE5),
-                                            shape: BoxShape.rectangle,
-                                            borderRadius:
-                                            BorderRadius.all(Radius.circular(5.0)),
-                                          ),
-                                          defaultDecoration: const BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            borderRadius:
-                                            BorderRadius.all(Radius.circular(5.0)),
-                                          ),
-                                          selectedDecoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Constants.colors[4],
-                                                  Constants.colors[3],
-                                                ]),
-                                            shape: BoxShape.rectangle,
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(5.0)),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  );
-                                }
+                                              return managercalendarBloc.selectedDays
+                                                  .contains(day);
+                                            },
+                                            calendarBuilders: CalendarBuilders(
+                                                markerBuilder: (BuildContext context,
+                                                    DateTime datetime, List<Event> list) {
+                                                  if (list.isNotEmpty) {
+                                                    return Stack(
+                                                      children: [
+                                                        Align(
+                                                          alignment: Alignment.topCenter,
+                                                          child: Container(
+                                                              color: Colors.transparent,
+                                                              child: Padding(
+                                                                padding:
+                                                                const EdgeInsets.symmetric(
+                                                                    horizontal: 4),
+                                                                child: Text(
+                                                                  "${list.length} Shift",
+                                                                  style: TextStyle(
+                                                                      fontSize: 7.sp,
+                                                                      color:
+                                                                      Constants.colors[38],
+                                                                      fontWeight:
+                                                                      FontWeight.w600),
+                                                                ),
+                                                              )),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  }
+                                                }),
+                                            eventLoader:
+                                            managercalendarBloc.getEventsForDay,
+                                            startingDayOfWeek: StartingDayOfWeek.sunday,
+                                            daysOfWeekVisible: true,
+                                            headerStyle: const HeaderStyle(
+                                              formatButtonVisible: false,
+                                              titleCentered: true,
+                                            ),
+                                            calendarStyle: CalendarStyle(
+                                              isTodayHighlighted: true,
+                                              markerSize: 4,
+                                              cellMargin: const EdgeInsets.all(11),
+                                              canMarkersOverflow: false,
+                                              markersAutoAligned: true,
+                                              disabledDecoration: const BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(5.0)),
+                                              ),
+                                              holidayDecoration: const BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(5.0)),
+                                              ),
+                                              todayDecoration: const BoxDecoration(
+                                                color: Color(0xFFAACFE5),
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(5.0)),
+                                              ),
+                                              defaultDecoration: const BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                BorderRadius.all(Radius.circular(5.0)),
+                                              ),
+                                              selectedDecoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                    colors: [
+                                                      Constants.colors[4],
+                                                      Constants.colors[3],
+                                                    ]),
+                                                shape: BoxShape.rectangle,
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(5.0)),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                    );
+                                  }
                               ),
                             ),
                           ),

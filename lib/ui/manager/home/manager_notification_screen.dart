@@ -158,10 +158,11 @@ class _NotificationState extends State<ManagerNotificationScreen> {
 
         return NotificationWidget(
           name: name,
-          endTime: description,
+          date: notification?.date??"",
+          endTime: "",
           price: notification?.shiftId.toString()??"",
           startTime: notification?.hospitalImage??"", type: 'MANAGER',
-          date: notification?.date??"",
+
         );
       },
     ):Center(

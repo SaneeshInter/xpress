@@ -1,9 +1,9 @@
 class Global{
  // TODO: Live Server
-// static String baseUrl = "http://www.xpresshealthapp.ie/api";
+ static String baseUrl = "http://www.xpresshealthapp.ie/api";
 
  // TODO: Test Server
- static String baseUrl = "http://www.xpresshealthapp.ie/beta/api";
+//static String baseUrl = "http://www.xpresshealthapp.ie/beta/api";
  // TODO: PlayStore Id
  static String playStoreId = "com.xpress.health";
  // TODO: Apple Store Id
