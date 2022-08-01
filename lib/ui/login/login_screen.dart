@@ -418,9 +418,11 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           FCM().getFCMToken();
         } else {
+          if (!mounted) return;
           showAlertDialoge(context, title: Txt.login_failed, message: message!);
         }
       } else {
+        if (!mounted) return;
         showAlertDialoge(context, title: Txt.login_failed, message: Txt.someting_went_wrong);
       }
     });

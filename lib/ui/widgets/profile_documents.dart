@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../blocs/profile_update_bloc.dart';
-import '../../model/user_get_response.dart';
-import '../../ui/user/detail/profile_doc_row.dart';
-import '../../ui/user/detail/profile_question_row.dart';
 
 import '../../Constants/strings.dart';
+import '../../blocs/profile_update_bloc.dart';
+import '../../model/user_get_response.dart';
 import '../../resources/token_provider.dart';
+import '../../ui/user/detail/profile_doc_row.dart';
+import '../../ui/user/detail/profile_question_row.dart';
 
 class ProfileDocumentsCard extends StatefulWidget {
   Items items;
   Function onRefresh;
 
-  ProfileDocumentsCard({Key? key, required this.items, required this.onRefresh})
-      : super(key: key);
+  ProfileDocumentsCard({Key? key, required this.items, required this.onRefresh}) : super(key: key);
 
   @override
   State<ProfileDocumentsCard> createState() => _ProfileDocumentsCardState();
@@ -42,7 +41,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
     super.didUpdateWidget(oldWidget);
   }
 
-  Future getImage( var type, var imagefile, var expiry) async {
+  Future getImage(var type, var imagefile, var expiry) async {
     // Navigator.pushNamed(
     //   context,
     //   '/upload_screen',
@@ -67,8 +66,6 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
   }
 
   void observe() {
-
-
     profileBloc.getProfileQuestions.listen((event) {
       debugPrint("Listen refresh");
       widget.onRefresh();
@@ -123,11 +120,10 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             InkWell(
               onTap: () {
                 // getImage( "profilepic",
-                getImage( "signature",
-                    widget.items.signatureSrc!, "");
+                getImage("signature", widget.items.signatureSrc!, "");
               },
               child: ProfileDocRow(
-                label:Txt.signature ,
+                label: Txt.signature,
                 asset: "assets/images/icon/check.svg",
                 image: signaturePic,
                 url: widget.items.signatureSrc!,
@@ -136,11 +132,10 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "phd", widget.items.phdLink!,
-                    widget.items.phdExpiry);
+                getImage("phd", widget.items.phdLink!, widget.items.phdExpiry);
               },
               child: ProfileDocRow(
-                label:Txt.p_h_d ,
+                label: Txt.p_h_d,
                 asset: "assets/images/icon/check.svg",
                 image: phpdocument,
                 url: widget.items.phdLink!,
@@ -149,8 +144,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "qqqi", widget.items.qqqiLink!,
-                    widget.items.qqqiExpiry);
+                getImage("qqqi", widget.items.qqqiLink!, widget.items.qqqiExpiry);
               },
               child: ProfileDocRow(
                 label: Txt.level,
@@ -162,8 +156,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "ipcc", widget.items.ipccLink!,
-                    widget.items.ipccExpiry);
+                getImage("ipcc", widget.items.ipccLink!, widget.items.ipccExpiry);
               },
               child: ProfileDocRow(
                 label: Txt.infection,
@@ -175,8 +168,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "ecs", widget.items.ecsLink!,
-                    widget.items.ecsExpiry);
+                getImage("ecs", widget.items.ecsLink!, widget.items.ecsExpiry);
               },
               child: ProfileDocRow(
                 label: Txt.employe,
@@ -188,11 +180,10 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "pid", widget.items.pidLink!,
-                    widget.items.pidExpiry);
+                getImage("pid", widget.items.pidLink!, widget.items.pidExpiry);
               },
               child: ProfileDocRow(
-                label:Txt.pass_id ,
+                label: Txt.pass_id,
                 asset: "assets/images/icon/check.svg",
                 image: piddocument,
                 url: widget.items.pidLink!,
@@ -201,52 +192,48 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "pid", widget.items.pidLink!,
-                    widget.items.pidExpiry);
+                getImage("pid", widget.items.pidLink!, widget.items.pidExpiry);
               },
               child: ProfileDocRow(
-                label:'Elder abuse/Safeguarding' ,
+                label: 'Elder abuse/Safeguarding',
                 asset: "assets/images/icon/check.svg",
-                image: widget.items.elderAbuseLink!,
-                url: widget.items.elderAbuseLink!,
+                // image: widget.items.elderAbuseLink!,
+                url: widget.items.elderAbuseLink!, image: '',
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "pid", widget.items.pidLink!,
-                    widget.items.pidExpiry);
+                getImage("pid", widget.items.pidLink!, widget.items.pidExpiry);
               },
               child: ProfileDocRow(
-                label:'CPR/BLS Certification ' ,
+                label: Txt.cpr_bls,
                 asset: "assets/images/icon/check.svg",
-                image: widget.items.cprCertificationLink!,
+                image: "",
                 url: widget.items.cprCertificationLink!,
               ),
             ),
             const SizedBox(height: 10),
-           InkWell(
+            InkWell(
               onTap: () {
-                getImage( "pid", widget.items.pidLink!,
-                    widget.items.pidExpiry);
+                getImage("pid", widget.items.pidLink!, widget.items.pidExpiry);
               },
               child: ProfileDocRow(
-                label:'Work Permit' ,
+                label: Txt.work_permit,
                 asset: "assets/images/icon/check.svg",
-                image: widget.items.workPermitLink!,
+                image: "",
                 url: widget.items.workPermitLink!,
               ),
             ),
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                getImage( "pid", widget.items.pidLink!,
-                    widget.items.pidExpiry);
+                getImage("pid", widget.items.pidLink!, widget.items.pidExpiry);
               },
               child: ProfileDocRow(
-                label:'Non Disclosure' ,
+                label: Txt.non_disclosure,
                 asset: "assets/images/icon/check.svg",
-                image: widget.items.nonDisclosureLink!,
+                image: "",
                 url: widget.items.nonDisclosureLink!,
               ),
             ),
@@ -264,9 +251,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                     status = 1;
                   }
 
-
-                  profileBloc.profileQuestions(
-                      token, "drive", status.toString());
+                  profileBloc.profileQuestions(token, "drive", status.toString());
                 },
               ),
             ),
@@ -274,8 +259,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             InkWell(
               onTap: () {},
               child: ProfileQuestionRow(
-                label: Txt.ireland +
-                    permissionToWorkInIreland,
+                label: Txt.ireland + permissionToWorkInIreland,
                 asset: "assets/images/icon/check.svg",
                 status: widget.items.permissionToWorkInIreland!,
                 onChanged: (value) {
@@ -285,9 +269,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                     status = 1;
                   }
 
-
-                  profileBloc.profileQuestions(
-                      token, "work_ireland", status.toString());
+                  profileBloc.profileQuestions(token, "work_ireland", status.toString());
                 },
               ),
             ),
@@ -295,8 +277,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             InkWell(
               onTap: () {},
               child: ProfileQuestionRow(
-                label:Txt.covid+
-                    haveYouGotCovid19Vaccination,
+                label: Txt.covid + haveYouGotCovid19Vaccination,
                 asset: "assets/images/icon/check.svg",
                 status: widget.items.haveYouGotCovid19Vaccination!,
                 onChanged: (value) {
@@ -306,10 +287,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                     status = 1;
                   }
 
-
-
-                  profileBloc.profileQuestions(
-                      token, "covid_vaccine", status.toString());
+                  profileBloc.profileQuestions(token, "covid_vaccine", status.toString());
                 },
               ),
             ),
@@ -317,8 +295,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             InkWell(
               onTap: () {},
               child: ProfileQuestionRow(
-                label:Txt.garda_vetting+
-                    doYouConsentGardaVettingToBeCompleted,
+                label: Txt.garda_vetting + doYouConsentGardaVettingToBeCompleted,
                 asset: "assets/images/icon/check.svg",
                 status: widget.items.doYouConsentGardaVettingToBeCompleted!,
                 onChanged: (value) {
@@ -327,8 +304,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                   if (isVal) {
                     status = 1;
                   }
-                  profileBloc.profileQuestions(
-                      token, "garda_vetting", status.toString());
+                  profileBloc.profileQuestions(token, "garda_vetting", status.toString());
                 },
               ),
             ),
@@ -336,7 +312,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             InkWell(
               onTap: () {},
               child: ProfileQuestionRow(
-                label:  Txt.tuberculosis+ tuberculosisVaccination,
+                label: Txt.tuberculosis + tuberculosisVaccination,
                 asset: "assets/images/icon/check.svg",
                 status: widget.items.tuberculosisVaccination!,
                 onChanged: (value) {
@@ -345,8 +321,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                   if (isVal) {
                     status = 1;
                   }
-                  profileBloc.profileQuestions(
-                      token, "tuberculosis", status.toString());
+                  profileBloc.profileQuestions(token, "tuberculosis", status.toString());
                 },
               ),
             ),
@@ -354,7 +329,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             InkWell(
               onTap: () {},
               child: ProfileQuestionRow(
-                label:Txt.hepatits + hepatitisBAntibody,
+                label: Txt.hepatits + hepatitisBAntibody,
                 asset: "assets/images/icon/check.svg",
                 status: widget.items.hepatitisBAntibody!,
                 onChanged: (value) {
@@ -363,8 +338,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                   if (isVal) {
                     status = 1;
                   }
-                  profileBloc.profileQuestions(
-                      token, "hepatitis", status.toString());
+                  profileBloc.profileQuestions(token, "hepatitis", status.toString());
                 },
               ),
             ),
@@ -372,7 +346,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
             InkWell(
               onTap: () {},
               child: ProfileQuestionRow(
-                label:Txt.id_card + idCardReceived,
+                label: Txt.id_card + idCardReceived,
                 asset: "assets/images/icon/check.svg",
                 status: widget.items.idCardReceived!,
                 onChanged: (value) {
@@ -381,8 +355,7 @@ class _ProfileDocumentsCardState extends State<ProfileDocumentsCard> {
                   if (isVal) {
                     status = 1;
                   }
-                  profileBloc.profileQuestions(
-                      token, "id_card", status.toString());
+                  profileBloc.profileQuestions(token, "id_card", status.toString());
                 },
               ),
             ),
