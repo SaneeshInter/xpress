@@ -80,6 +80,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
       }
     });
   }
+
   void showInternetNotAvailable() {
     Navigator.pushNamed(context, '/nw_error').then((_) {
       getData();
@@ -109,7 +110,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 4),
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                         child: AutoSizeText(
                           Txt.availability,
                           maxLines: 1,
@@ -121,8 +122,7 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                         )),
                     StreamBuilder(
                         stream: availabilityBloc.userAvailabilityDate,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<AvailabilityList>> snapshot) {
+                        builder: (BuildContext context, AsyncSnapshot<List<AvailabilityList>> snapshot) {
                           debugPrint("stream");
                           if (snapshot.hasData) {
                             return ListView.builder(
@@ -143,8 +143,8 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 List<String> list = item.availability!.split(",");
                                 list.remove("0");
                                 debugPrint("list length: ${item.availability}  ${list.isEmpty} ${list.toString()} ");
-                                if(list.isEmpty){
-                                    list.add("6");
+                                if (list.isEmpty) {
+                                  list.add("6");
                                 }
                                 List<bool> listOfSlot = [];
                                 for (var i = 1; i <= slot.length; i++) {
@@ -177,23 +177,26 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                 //       Availability.sleepover;
                                 // }
                                 return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 4.0, right: 4.0),
+                                  padding: const EdgeInsets.only(left: 4.0, right: 4.0),
                                   child: Card(
                                     elevation: 0,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Row(
                                               children: [
-                                                const Icon(Icons.calendar_month,color: greenColor,),const SizedBox(width: 10,),
+                                                const Icon(
+                                                  Icons.calendar_month,
+                                                  color: greenColor,
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
                                                 AutoSizeText(
-                                                  getStringFromDate(getDateFromString(item.date.toString(), "yyyy-MM-dd"),"dd-MMM-yyyy (EEEE)")
-                                                  ,
+                                                  getStringFromDate(getDateFromString(item.date.toString(), "yyyy-MM-dd"), "dd-MMM-yyyy (EEEE)"),
                                                   maxLines: 1,
                                                   style: TextStyle(
                                                     color: Constants.colors[1],
@@ -207,46 +210,37 @@ class _AvailabilityState extends State<AvailabilityListScreen> {
                                           height: 1,
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 4),
+                                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                                           child: SizedBox(
                                             height: 80,
                                             child: ListView.builder(
                                               itemCount: slot.length,
                                               scrollDirection: Axis.horizontal,
                                               shrinkWrap: true,
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (BuildContext context,
-                                                  int position) {
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              itemBuilder: (BuildContext context, int position) {
                                                 return LabeledCheckbox(
                                                   label: slot[position],
-                                                  padding:
-                                                      const EdgeInsets.all(0),
+                                                  padding: const EdgeInsets.all(0),
                                                   value: listOfSlot[position],
                                                   onChanged: (bool newValue) {
-                                                    listOfSlot[position] =newValue;
-                                                    if(position==5){
-                                                      updateShiftAvailabaity("6",
-                                                          item.date.toString());
-                                                    }else{
+                                                    listOfSlot[position] = newValue;
+                                                    if (position == 5) {
+                                                      updateShiftAvailabaity("6", item.date.toString());
+                                                    } else {
                                                       String value = "";
-                                                      for (int i = 0; i < slot.length;
-                                                      i++) {
+                                                      for (int i = 0; i < slot.length; i++) {
                                                         if (listOfSlot[i]) {
-                                                          if(i!=5){
+                                                          if (i != 5) {
                                                             value += "${i + 1},";
                                                             list.add({i + 1}.toString());
                                                           }
                                                         }
                                                       }
-                                                      updateShiftAvailabaity(value!=""?value:"6",
-                                                          item.date.toString());
-
+                                                      updateShiftAvailabaity(value != "" ? value : "6", item.date.toString());
                                                     }
 
-                                                    setState(() {
-
-                                                    });
+                                                    setState(() {});
                                                   },
                                                 );
                                               },
