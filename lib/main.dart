@@ -25,11 +25,10 @@ class ScreenArguments {
 enum Availability { morning, day, afternoon, night, sleepover }
 
 Future<void> main() async {
-
-  WidgetsFlutterBinding.ensureInitialized();
+ await   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations( [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
-   FCM().init();
+   await FCM().init();
   UpdateCheckerService().init();
   runApp(const MyApp());
 }

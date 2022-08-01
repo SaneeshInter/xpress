@@ -33,7 +33,7 @@ class UserTimeSheetListWidget extends StatelessWidget {
         onTapView(items);
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(2.0),
         child: Container(
           width: screenWidth(context, dividedBy: 1),
           padding: EdgeInsets.symmetric(
@@ -49,7 +49,7 @@ class UserTimeSheetListWidget extends StatelessWidget {
               Row(children: [
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
-                    "${items.firstName!} ${items.lastName!}",
+                    "${items.firstName?.toUpperCase()} ${items.lastName?.toUpperCase()}",
                     style: TextStyle(
                         fontSize: 12.sp,
                         color: Colors.black,

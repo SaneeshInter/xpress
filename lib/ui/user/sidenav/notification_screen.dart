@@ -7,17 +7,13 @@ import 'package:sizer/sizer.dart';
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../Constants/strings.dart';
 import '../../../blocs/shift_notification_bloc.dart';
-import '../../../main.dart';
 import '../../../model/notification_model.dart';
-import '../../../model/shift_list_response.dart';
 import '../../../model/user_notification_model.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/notification_widget.dart';
-import '../../widgets/screen_case.dart';
-import '../detail/shift_detail.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -148,17 +144,26 @@ class _NotificationState extends State<NotificationScreen> {
     if (snapshot.data?.response?.data?.items?.length != 0) {
       for (var item in snapshot.data!.response!.data!.items!) {
         if (list.any((element) => element.date == item.date.toString())) {
-          list[list.indexWhere((element) => element.date == item.date.toString())]
-              .list
-              .add(NotificationItemModel(title: item.notificationTypeName.toString(), image: item.hospitalImage.toString(), subtitle: item.shiftTitle.toString(),
-            date: item.date.toString(), shiftid: item.shiftId.toString(),));
+          list[list.indexWhere((element) => element.date == item.date.toString())].list.add(NotificationItemModel(
+                title: item.notificationTypeName.toString(),
+                image: item.hospitalImage.toString(),
+                subtitle: item.shiftTitle.toString(),
+                date: item.date.toString(),
+                shiftid: item.shiftId.toString(),
+              ));
         } else {
-          list.add(NotificationModel(
+          list.add(NotificationModel(date: item.date.toString(), list: [
+            NotificationItemModel(
+              title: item.notificationTypeName.toString(),
+              image: item.hospitalImage.toString(),
+              subtitle: item.shiftTitle.toString(),
               date: item.date.toString(),
-              list: [NotificationItemModel(title: item.notificationTypeName.toString(), image: item.hospitalImage.toString(), subtitle: item.shiftTitle.toString(),
-                date: item.date.toString(), shiftid: item.shiftId.toString(),)]));
+              shiftid: item.shiftId.toString(),
+            )
+          ]));
         }
-      };
+      }
+      ;
     }
 
     return (snapshot.data?.response?.data?.items?.length ?? 0) != 0
@@ -171,11 +176,10 @@ class _NotificationState extends State<NotificationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     child: Text(
-                      getStringFromDate(
-                          getDateFromString(list[ind].date,"yyyy-MM-dd"),"EEE dd MMMM yyyy"),
-                      style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,fontFamily: 'SFProBold',color:  Colors.grey),
+                      getStringFromDate(getDateFromString(list[ind].date, "yyyy-MM-dd"), "EEE dd MMMM yyyy"),
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, fontFamily: 'SFProBold', color: Colors.grey),
                       //  list[ind].date
                     ),
                   ),
@@ -184,7 +188,7 @@ class _NotificationState extends State<NotificationScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      NotificationItemModel data= list[ind].list[index];
+                      NotificationItemModel data = list[ind].list[index];
                       return NotificationWidget(
                         name: data.title,
                         date: data.date,
@@ -192,7 +196,6 @@ class _NotificationState extends State<NotificationScreen> {
                         type: "USER",
                         price: data.shiftid,
                         startTime: data.image,
-
                       );
                     },
                   ),

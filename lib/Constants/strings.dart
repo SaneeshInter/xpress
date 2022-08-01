@@ -7,6 +7,9 @@ class Txt {
   static const uploadtimesheet="Select Timesheet";
   static const completed_timesheets="Completed Timesheets";
   static const add_working_hrs="Add Working Hours";
+  static const cpr_bls='CPR/BLS Certification ';
+  static const work_permit='Work Permit ';
+  static const non_disclosure='Non Disclosure';
 //* Email
   static const email = "Email";
 
