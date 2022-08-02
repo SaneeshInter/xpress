@@ -28,13 +28,13 @@ class _TimeSheetTabViewState extends State<TimeSheetTabView> with SingleTickerPr
             Tab(
               child: Align(
                 alignment: Alignment.center,
-                child: Text(Txt.add_working_hrs),
+                child: Text(Txt.add_working_hrs,style: TextStyle(fontSize: 13),),
               ),
             ),
             Tab(
               child: Align(
                 alignment: Alignment.center,
-                child: Text(Txt.completed_timesheets),
+                child: Text(Txt.completed_timesheets,style: TextStyle(fontSize: 13),),
               ),
             ),
           ]),
