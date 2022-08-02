@@ -139,6 +139,7 @@ class Txt {
   static const someting_went_wrong = "Something went wrong on server side ";
   static const powered_by = "Powered By Xpress Health ";
   static const requested_shift = "Requested Shift ";
+  static const upcoming_shift = "Upcoming Shift ";
   static const completed_shift = "Completed Shift ";
   static const confirmed_shift = "Confirmed Shift ";
   static const history_shift = "History";

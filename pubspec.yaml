@@ -76,6 +76,7 @@ dependencies:
   package_info_plus: ^1.4.2
   html: ^0.15.0
   flutter_html: ^3.0.0-alpha.5
+  flutter_linkify: ^5.0.2
 dev_dependencies:
   integration_test:
     sdk: flutter

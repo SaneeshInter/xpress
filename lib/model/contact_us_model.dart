@@ -24,7 +24,7 @@ List<ContactUsModel> list = [
         dialCall('+35312118883');
       },
       icon: Icons.phone,
-      subTitle: '+353 12118883 (Press 2)'),
+      subTitle: '+353 12118883'),
   ContactUsModel(
       title: 'HR Team (Mon-Fri)',
       onTap: () {
@@ -38,7 +38,7 @@ List<ContactUsModel> list = [
         dialCall('+353 12118883');
       },
       icon: Icons.phone,
-      subTitle: '+353 12118883 (Press 16)'),
+      subTitle: '+353 12118883'),
   ContactUsModel(
       title: 'Payroll Team (Mon-Fri)',
       onTap: () {
@@ -52,7 +52,7 @@ List<ContactUsModel> list = [
         dialCall('+35312118883');
       },
       icon: Icons.phone,
-      subTitle: '+353 12118883 (Press 17)'),
+      subTitle: '+353 12118883'),
   ContactUsModel(
       title: 'App technical support (24/7)',
       onTap: () {
@@ -66,7 +66,7 @@ List<ContactUsModel> list = [
         dialCall('+353 12118883');
       },
       icon: Icons.phone,
-      subTitle: '+353 12118883 (Press 18)'),
+      subTitle: '+353 12118883'),
   ContactUsModel(
       title: 'Report Medical Negligence or Behaviour',
       onTap: () {

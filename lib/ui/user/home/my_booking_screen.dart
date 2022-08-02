@@ -16,6 +16,7 @@ import '../../Widgets/my_booking_list_widget.dart';
 import '../../error/ConnectionFailedScreen.dart';
 import '../../widgets/input_text.dart';
 import '../../widgets/loading_widget.dart';
+
 late TabController bookingController;
 
 class MyBookingScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class MyBookingScreen extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,TickerProviderStateMixin {
+class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver, TickerProviderStateMixin {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController dateFrom = TextEditingController();
@@ -57,13 +58,13 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
 
   @override
   void initState() {
-    bookingController = TabController(length: 3, vsync: this);
+    bookingController = TabController(length: 4, vsync: this);
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     observe();
     getDataitems();
 
-    confirmBloc.pageCount = 3;
+    confirmBloc.pageCount = 4;
     dateFrom.addListener(() {
       confirmBloc.checkAndUpdateTimeDifference(dateTo.text, dateFrom.text);
     });
@@ -116,8 +117,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
         return false;
       },
       child: DefaultTabController(
-
-        length:3,
+        length: 4,
         child: Scaffold(
             // key: scaffoldKey,
             backgroundColor: Constants.colors[9],
@@ -133,40 +133,34 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
               preferredSize: const Size.fromHeight(65),
               child: Container(
                 color: Constants.colors[0],
-                child:  Padding(
+                child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: TabBar(
-                    controller: bookingController,
-                      isScrollable: true,
-                      unselectedLabelColor: Colors.black,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelColor: Colors.black,
-                      tabs: [
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(Txt.requested_shift),
-                          ),
-                        ),
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(Txt.confirmed_shift),
-                          ),
-                        ),
-                        // Tab(
-                        //   child: Align(
-                        //     alignment: Alignment.center,
-                        //     child: Text(Txt.completed_shift),
-                        //   ),
-                        // ),
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(Txt.history_shift),
-                          ),
-                        ),
-                      ]),
+                  child: TabBar(controller: bookingController, isScrollable: true, unselectedLabelColor: Colors.black, indicatorSize: TabBarIndicatorSize.tab, labelColor: Colors.black, tabs: [
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(Txt.requested_shift),
+                      ),
+                    ),
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(Txt.upcoming_shift),
+                      ),
+                    ),
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(Txt.confirmed_shift),
+                      ),
+                    ),
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(Txt.history_shift),
+                      ),
+                    ),
+                  ]),
                 ),
               ),
             ),
@@ -174,14 +168,12 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
               children: [
                 StreamBuilder(
                     stream: confirmBloc.viewRequest,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<UserViewRequestResponse> snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot<UserViewRequestResponse> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data?.response?.data?.items?.length != 0) {
-                          return TabBarView(
-                            controller: bookingController,
-                              children: [
+                          return TabBarView(controller: bookingController, children: [
                             bookingList(0, snapshot),
+                            bookingList(3, snapshot),
                             bookingList(1, snapshot),
                             // bookingList(2, snapshot),
                             bookingList(-1, snapshot),
@@ -212,8 +204,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
     );
   }
 
-  Widget bookingList(
-      int position, AsyncSnapshot<UserViewRequestResponse> snapshot) {
+  Widget bookingList(int position, AsyncSnapshot<UserViewRequestResponse> snapshot) {
     return Column(children: [buildList(snapshot, position)]);
   }
 
@@ -236,9 +227,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
+                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               height: 11.w,
@@ -282,8 +271,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
                           Form(
                             key: formKey,
                             child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 8.0, right: 8.0, top: 8.0),
+                              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                               child: Row(
                                 children: [
                                   Expanded(
@@ -291,8 +279,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 2),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             Txt.start_time,
@@ -310,10 +297,11 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
                                               controlr: dateFrom,
                                               onChange: (text) {},
                                               validator: (dateTo) {
-                                                if (validDate(dateTo))
+                                                if (validDate(dateTo)) {
                                                   return null;
-                                                else
+                                                } else {
                                                   return Txt.select_time;
+                                                }
                                               },
                                               onTapDate: () {
                                                 selectTime(context, dateFrom);
@@ -331,8 +319,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
                                   Expanded(
                                     flex: 1,
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           Txt.end_time,
@@ -349,10 +336,11 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
                                         TextInputFileds(
                                           controlr: dateTo,
                                           validator: (dateTo) {
-                                            if (validDate(dateTo))
+                                            if (validDate(dateTo)) {
                                               return null;
-                                            else
+                                            } else {
                                               return Txt.select_time;
+                                            }
                                           },
                                           onTapDate: () {
                                             FocusScope.of(context).unfocus();
@@ -375,38 +363,33 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
                           const SizedBox(
                             height: 5,
                           ),
-                            StreamBuilder(
-                              stream: confirmBloc.workTime,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<dynamic> snapshot) {
-                                if(!snapshot.hasData)
-                                  {
-                                    return const SizedBox();
-                                  }
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 16.0, bottom: 16.0),
-                                  child: Text(
-                                    Txt.working_hours + snapshot.data.toString(),
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      color: Constants.colors[22],
-                                      fontSize: 11.sp,
-                                      fontFamily: "SFProMedium",
-                                    ),
+                          StreamBuilder(
+                            stream: confirmBloc.workTime,
+                            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                              if (!snapshot.hasData) {
+                                return const SizedBox();
+                              }
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
+                                child: Text(
+                                  Txt.working_hours + snapshot.data.toString(),
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: Constants.colors[22],
+                                    fontSize: 11.sp,
+                                    fontFamily: "SFProMedium",
                                   ),
-                                );
-                              },
-                            ),
+                                ),
+                              );
+                            },
+                          ),
                           Padding(
-                            padding:
-                                const EdgeInsets.only(left: 15.0, bottom: 15.0),
+                            padding: const EdgeInsets.only(left: 15.0, bottom: 15.0),
                             child: SizedBox(
                               width: 20.w,
                               child: SubmitButton(
                                   onPressed: () {
-                                    var validate =
-                                        formKey.currentState?.validate();
+                                    var validate = formKey.currentState?.validate();
                                     if (null != validate) {
                                       if (validate) {
                                         if (mounted) {
@@ -437,7 +420,6 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
   }
 
   void updateAndExit(Items item, BuildContext context) {
-
     confirmBloc.fetchUserWorkingHours(
       confirmBloc.token,
       item.shiftId.toString(),
@@ -451,8 +433,7 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
     Navigator.pop(context);
   }
 
-  Widget buildList(
-      AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
+  Widget buildList(AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
     var allList = getFilterList(snapshot, position);
     List<DateItems> list = [];
     if (position == 0) {
@@ -461,6 +442,9 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
 
     if (position == 1) {
       list = allList.confirmed;
+    }
+    if (position == 3) {
+      list = allList.upcoming;
     }
 
     if (position == 2) {
@@ -471,97 +455,99 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
     }
 
     // if (list.isNotEmpty) {
-      return Expanded(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            getDataitems();
+    return Expanded(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          getDataitems();
+        },
+        child: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overScroll) {
+            overScroll.disallowIndicator();
+            return false;
           },
-          child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: (overScroll) {
-              overScroll.disallowIndicator();
-              return false;
-            },
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child:list.isNotEmpty?
-              ListView.builder(
-                itemCount: list.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int ind) {
-
-                  return Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 6),
-                        child: Text(
-                          getStringFromDate(
-                            getDateFromString(list[ind].date,"yyyy-MM-dd"),"EEE dd MMMM yyyy"),
-                          style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,fontFamily: 'SFProBold',color: Constants.colors[25]),),
-                      ),
-                      ListView.builder(
-                        itemCount: list[ind].list.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          var items = list[ind].list[index];
-                          return Column(
-                            children: [
-                              MyBookingListWidget(
-                                items: items,
-                                position: 12,
-                                onTapView: (item) {
-                                  showTimeUpdateAlert(context, item);
-                                },
-                                onTapCancel: (item) {
-                                  cancelJob(items);
-                                },
-                                onTapCall: () {},
-                                onTapMap: () {},
-                                onTapBooking: () {},
-                                key: null,
-                              ),
-                            ],
-                          );
-                        },
-                      )
-                    ],
-                  );
-                },
-              )
-
-                  : SizedBox(
-                width: 100.w,
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: list.isNotEmpty
+                ? ListView.builder(
+                    itemCount: list.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int ind) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                            child: Text(
+                              getDateFromString(list[ind].date, "yyyy-MM-dd").isToday
+                                  ? "Today"
+                                  : getDateFromString(list[ind].date, "yyyy-MM-dd").isTomorrow
+                                      ? "Tomorrow"
+                                      : getDateFromString(list[ind].date, "yyyy-MM-dd").isYesterday
+                                          ? "Yesterday"
+                                          : getStringFromDate(getDateFromString(list[ind].date, "yyyy-MM-dd"), "EEE dd MMMM yyyy"),
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'SFProBold', color: Constants.colors[25]),
+                            ),
+                          ),
+                          ListView.builder(
+                            itemCount: list[ind].list.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              var items = list[ind].list[index];
+                              return Column(
+                                children: [
+                                  MyBookingListWidget(
+                                    items: items,
+                                    position: 12,
+                                    onTapView: (item) {
+                                      showTimeUpdateAlert(context, item);
+                                    },
+                                    onTapCancel: (item) {
+                                      cancelJob(items);
+                                    },
+                                    onTapCall: () {},
+                                    onTapMap: () {},
+                                    onTapBooking: () {},
+                                    key: null,
+                                  ),
+                                ],
+                              );
+                            },
+                          )
+                        ],
+                      );
+                    },
+                  )
+                : SizedBox(
+                    width: 100.w,
                     child: Column(
-                children: [
-                    20.height,
-
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
-                        100.width,
-                        16.height,
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 32),
-                          child: Text(Txt.no_shift,
-                              style: primaryTextStyle(size: 15),
-                              textAlign: TextAlign.center),
+                        20.height,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(Txt.empty_shifts, style: boldTextStyle(size: 20)),
+                            100.width,
+                            16.height,
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 32),
+                              child: Text(Txt.no_shift, style: primaryTextStyle(size: 15), textAlign: TextAlign.center),
+                            ),
+                          ],
                         ),
+                        100.height,
+                        Image.asset('assets/images/error/empty_task.png', height: 250),
+                        const SizedBox(
+                          height: 250,
+                        )
                       ],
                     ),
-                    100.height,
-                    Image.asset('assets/images/error/empty_task.png', height: 250),
-                    const SizedBox(height: 250,)
-                ],
-              ),
                   ),
-            ),
           ),
         ),
-      );
+      ),
+    );
     // } else {
     //   return Column(
     //     children: [
@@ -588,63 +574,71 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver ,Tic
   }
 }
 
-FilterBookingList getFilterList(
-    AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
+FilterBookingList getFilterList(AsyncSnapshot<UserViewRequestResponse> snapshot, int position) {
   FilterBookingList list = FilterBookingList();
   List<Items>? allList = snapshot.data?.response?.data?.items;
   if (null != allList) {
     for (var item in allList) {
-
-      if(list.history.any((element) => element.date==item.date.toString())){
-        list.history[list.history.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-      }else{
+      if (list.history.any((element) => element.date == item.date.toString())) {
+        list.history[list.history.indexWhere((element) => element.date == item.date.toString())].list.add(item);
+      } else {
         list.history.add(DateItems(item.date.toString(), [item]));
       }
       // list.history.list.add(item);
       // debugPrint("item.status");
       // debugPrint(item.status);
 
-
-
-
       if (item.status == Txt.accepted) {
-        if(list.confirmed.any((element) => element.date==item.date.toString())){
-          list.confirmed[list.confirmed.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-        }else{
+        if (getDateFromString(item.date.toString(), "yyyy-MM-dd").isAfter(DateTime.now()) || getDateFromString(item.date.toString(), "yyyy-MM-dd").isToday) {
+          int totalSec = getDiffrenceInSecond(DateTime.now(), getDateFromString('${item.date!} ${item.timeFrom}', "yyyy-MM-dd HH:mm"));
+          if (totalSec > 0) {
+            if (list.upcoming.any((element) => element.date == item.date.toString())) {
+              list.upcoming[list.upcoming.indexWhere((element) => element.date == item.date.toString())].list.add(item);
+            } else {
+              list.upcoming.add(DateItems(item.date.toString(), [item]));
+            }
+          }
+        }
+      }
+      if (item.status == Txt.accepted) {
+        if (list.confirmed.any((element) => element.date == item.date.toString())) {
+          list.confirmed[list.confirmed.indexWhere((element) => element.date == item.date.toString())].list.add(item);
+        } else {
           list.confirmed.add(DateItems(item.date.toString(), [item]));
         }
         // list.confirmed.list.add(item);
       }
       if (item.status == Txt.pending) {
-        if(list.requested.any((element) => element.date==item.date.toString())){
-          list.requested[list.requested.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-        }else{
+        if (list.requested.any((element) => element.date == item.date.toString())) {
+          list.requested[list.requested.indexWhere((element) => element.date == item.date.toString())].list.add(item);
+        } else {
           list.requested.add(DateItems(item.date.toString(), [item]));
         }
         // list.requested.list.add(item);
       }
       if (item.status == Txt.rejected) {
-        if(list.reject.any((element) => element.date==item.date.toString())){
-          list.reject[list.reject.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-        }else{
+        if (list.reject.any((element) => element.date == item.date.toString())) {
+          list.reject[list.reject.indexWhere((element) => element.date == item.date.toString())].list.add(item);
+        } else {
           list.reject.add(DateItems(item.date.toString(), [item]));
         }
         // list.reject.list.add(item);
       }
       if (item.status == Txt.completed && item.workingTimeStatus == 0) {
-        if(list.completed.any((element) => element.date==item.date.toString())){
-          list.completed[list.completed.indexWhere((element) => element.date==item.date.toString())].list.add(item);
-        }else{
+        if (list.completed.any((element) => element.date == item.date.toString())) {
+          list.completed[list.completed.indexWhere((element) => element.date == item.date.toString())].list.add(item);
+        } else {
           list.completed.add(DateItems(item.date.toString(), [item]));
         }
         // list.completed.list.add(item);
       }
     }
   }
-  list.history.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
-  list.completed.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
-  list.reject.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
-  list.requested.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
-  list.confirmed.sort((b,a)=>getDateFromString(a.date,"yyyy-MM-dd").compareTo(getDateFromString(b.date,"yyyy-MM-dd")));
+  list.history.sort((b, a) => getDateFromString(a.date, "yyyy-MM-dd").compareTo(getDateFromString(b.date, "yyyy-MM-dd")));
+  list.completed.sort((b, a) => getDateFromString(a.date, "yyyy-MM-dd").compareTo(getDateFromString(b.date, "yyyy-MM-dd")));
+  list.reject.sort((b, a) => getDateFromString(a.date, "yyyy-MM-dd").compareTo(getDateFromString(b.date, "yyyy-MM-dd")));
+  list.requested.sort((b, a) => getDateFromString(a.date, "yyyy-MM-dd").compareTo(getDateFromString(b.date, "yyyy-MM-dd")));
+  list.confirmed.sort((b, a) => getDateFromString(a.date, "yyyy-MM-dd").compareTo(getDateFromString(b.date, "yyyy-MM-dd")));
+  list.upcoming.sort((a, b) => getDateFromString(a.date, "yyyy-MM-dd").compareTo(getDateFromString(b.date, "yyyy-MM-dd")));
   return list;
 }

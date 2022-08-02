@@ -177,7 +177,13 @@ class _NotificationState extends State<NotificationScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                    child: Text(
+                    child: Text(getDateFromString(list[ind].date, "yyyy-MM-dd").isToday
+                        ? "Today"
+                        : getDateFromString(list[ind].date, "yyyy-MM-dd").isTomorrow
+                        ? "Tomorrow"
+                        : getDateFromString(list[ind].date, "yyyy-MM-dd").isYesterday
+                        ? "Yesterday"
+                        :
                       getStringFromDate(getDateFromString(list[ind].date, "yyyy-MM-dd"), "EEE dd MMMM yyyy"),
                       style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, fontFamily: 'SFProBold', color: Colors.grey),
                       //  list[ind].date

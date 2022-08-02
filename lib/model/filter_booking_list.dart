@@ -13,6 +13,7 @@ class FilterBookingList {
    List<DateItems> reject =[];
    List<DateItems> completed  =[];
    List<DateItems> history =[];
+   List<DateItems> upcoming =[];
 }
 class DateItems{
   String date;

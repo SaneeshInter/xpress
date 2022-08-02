@@ -4,10 +4,13 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:linkify/linkify.dart';
 
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Constants/strings.dart';
 import '../../../model/faq_model.dart';
@@ -15,6 +18,7 @@ import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/expandable_group.dart';
+
 
 
 class FaqsShitsScreen extends StatefulWidget {
@@ -100,7 +104,8 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
           overScroll.disallowIndicator();
           return false;
         },
-        child: ListView.builder(
+        child:
+        ListView.builder(
           shrinkWrap: true,
           physics: const AlwaysScrollableScrollPhysics(),
           itemCount: data.length,
@@ -120,7 +125,20 @@ class _FaqsShitsScreenState extends State<FaqsShitsScreen> {
                         fontWeight: FontWeight.bold)),
                 items: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(data[index].answer,textAlign: TextAlign.justify,),
+                  child: SelectableLinkify(
+                    onOpen: (link) async {
+                      if (await canLaunch(link.url)) {
+                        await launch(link.url);
+                      } else {
+                        throw 'Could not launch $link';
+                      }
+                    },
+                    text: data[index].answer,
+
+
+                  
+                    linkStyle: TextStyle(color: Colors.blue),
+                  ),
                 ),
 
                 headerEdgeInsets: const EdgeInsets.only(left: 16.0, right: 16.0)

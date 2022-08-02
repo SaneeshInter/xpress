@@ -16,7 +16,7 @@ class ContactUsWidget extends StatelessWidget {
       onTap: () => onTap(),
       title: Text(
         subTitle,
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Constants.colors[6]),
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, ),
       ),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(30),
@@ -34,7 +34,7 @@ class ContactUsWidget extends StatelessWidget {
       ),
       subtitle: Text(
         title,
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+        style:  TextStyle(fontSize: 12, fontWeight: FontWeight.normal,color: Constants.colors[6] ),
       ),
     );
   }

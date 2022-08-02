@@ -44,12 +44,16 @@ class ContactScreen extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return ContactUsWidget(
               onTap: list[index].onTap,
-              title: list[index].title,
+              title: list[index].subTitle,
               icon: list[index].icon,
-              subTitle: list[index].subTitle,
+              subTitle: list[index].title,
+
             );
+
           },
-        )
+
+        ),
+
     );
   }
 }
