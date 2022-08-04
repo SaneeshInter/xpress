@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:xpresshealthdev/ui/widgets/contact_us_widget.dart';
+import '/ui/widgets/contact_us_widget.dart';
 import '../../../Constants/strings.dart';
 import '../../../model/contact_us_model.dart';
-import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
-import '../../../utils/utils.dart';
 class ContactScreen extends StatelessWidget {
   const ContactScreen({Key? key}) : super(key: key);
   @override
@@ -26,7 +24,6 @@ class ContactScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-
           ),
           bottomOpacity: 0.0,
           elevation: 0.0,
@@ -41,50 +38,51 @@ class ContactScreen extends StatelessWidget {
         ),
         backgroundColor: Constants.colors[9],
         body: ListView.builder(
+          physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
           itemCount: list.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.all(4.0),
               child: Card(
+                shape:RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.white70, width: 1),
+              borderRadius: BorderRadius.circular(15),
+            ),
                 elevation: 0,
-                child: Column(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
 
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(list[index].title),
-                    ),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: list[index].contact.length,
-                      itemBuilder: (BuildContext context, int index1) {
-                      return Column(
-                        children: [
-                          ContactUsWidget(
-                            onTap: list[index].contact[index1].onTap,
-                            subTitle: list[index].contact[index1].subTitle,
-                            icon: list[index].contact[index1].icon,
-
-                            title: "",
-
-                          ),
-
-                        ],
-                      );
-                    },),
-
-                  ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(list[index].title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                      ),
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: list[index].contact.length,
+                        itemBuilder: (BuildContext context, int index1) {
+                        return Column(
+                          children: [
+                            ContactUsWidget(
+                              onTap: list[index].contact[index1].onTap,
+                              subTitle: list[index].contact[index1].subTitle,
+                              icon: list[index].contact[index1].icon,
+                              title: "",
+                            ),
+                          ],
+                        );
+                      },),
+                    ],
+                  ),
                 ),
               ),
             );
-
           },
-
         ),
-
     );
   }
 }

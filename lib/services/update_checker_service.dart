@@ -185,17 +185,17 @@ class NewVersion {
   void showUpdateDialog({
     required BuildContext context,
     required VersionStatus versionStatus,
-    String dialogTitle = 'Update Available',
+    String dialogTitle = 'Update Info',
     String? dialogText,
-    String updateButtonText = 'Update',
+    String updateButtonText = 'UPDATE',
     bool allowDismissal = true,
-    String dismissButtonText = 'Maybe Later',
+    String dismissButtonText = ' LATER',
     VoidCallback? dismissAction,
   }) async {
     final dialogTitleWidget = Text(dialogTitle);
     final dialogTextWidget = Text(
       dialogText ??
-          'You can now update this app from ${versionStatus.localVersion} to ${versionStatus.storeVersion}',
+          'New version is available. Please update application ${versionStatus.localVersion} to ${versionStatus.storeVersion}',
     );
 
     final updateButtonTextWidget = Text(updateButtonText);

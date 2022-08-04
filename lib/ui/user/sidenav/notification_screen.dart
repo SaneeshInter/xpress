@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
 
@@ -143,16 +144,18 @@ class _NotificationState extends State<NotificationScreen> {
     List<NotificationModel> list = [];
     if (snapshot.data?.response?.data?.items?.length != 0) {
       for (var item in snapshot.data!.response!.data!.items!) {
-        if (list.any((element) => element.date == item.date.toString())) {
-          list[list.indexWhere((element) => element.date == item.date.toString())].list.add(NotificationItemModel(
+        if (list.any((element) => DateFormat('yyyy-MM-dd').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(element.date.toString() !="null"?element.date:"2000-01-01 01:44:01")) ==DateFormat('yyyy-MM-dd').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(item.date.toString()!="null"?item.date.toString():"2000-01-01 01:44:01")))) {
+          print("Notification Date: ${item.date}");
+          list[list.indexWhere((element) => DateFormat('yyyy-MM-dd').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(element.date.toString() !="null"?element.date:"2000-01-01 01:44:01")) ==DateFormat('yyyy-MM-dd').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(item.date.toString()!="null"?item.date.toString():"2000-01-01 01:44:01")) )].list.add(NotificationItemModel(
                 title: item.notificationTypeName.toString(),
                 image: item.hospitalImage.toString(),
                 subtitle: item.shiftTitle.toString(),
                 date: item.date.toString(),
                 shiftid: item.shiftId.toString(),
               ));
+
         } else {
-          list.add(NotificationModel(date: item.date.toString(), list: [
+          list.add(NotificationModel(date: item.date.toString()!="null"?item.date.toString():"2000-01-01 01:44:01", list: [
             NotificationItemModel(
               title: item.notificationTypeName.toString(),
               image: item.hospitalImage.toString(),
@@ -162,6 +165,7 @@ class _NotificationState extends State<NotificationScreen> {
             )
           ]));
         }
+        list.sort((b,a)=>DateFormat('yyyy-MM-dd').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(a.date !="null"?a.date:"2000-01-01 01:44:01")).compareTo(DateFormat('yyyy-MM-dd').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(b.date !="null"?b.date:"2000-01-01 01:44:01"))));
       }
       ;
     }

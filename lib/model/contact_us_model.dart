@@ -19,7 +19,7 @@ class ContactUsModel {
 }
 
 List<MainContactModel> list = [
-  MainContactModel(title: "Bookings Team".toUpperCase(), contact: [
+  MainContactModel(title: "Bookings Team", contact: [
     ContactUsModel(
         title: '',
         onTap: () {
@@ -36,15 +36,15 @@ List<MainContactModel> list = [
         subTitle: '+353 12118883'),
   ]),
   MainContactModel(
-    title: 'HR Team'.toUpperCase(),
+    title: 'HR Team',
     contact: [
       ContactUsModel(
           title: '',
           onTap: () {
-            sendingMails("hr@xpresshealth");
+            sendingMails("mailto:hr@xpresshealth.ie?subject=&body=");
           },
           icon: Icons.email,
-          subTitle: 'hr@xpresshealth'),
+          subTitle: 'hr@xpresshealth.ie'),
       ContactUsModel(
           title: '',
           onTap: () {
@@ -54,14 +54,15 @@ List<MainContactModel> list = [
           subTitle: '+353 12118883'),
     ],
   ),
-  MainContactModel(title: 'Payroll Team'.toUpperCase(), contact: [
+  MainContactModel(title: 'Payroll Team', contact: [
     ContactUsModel(
         title: '',
         onTap: () {
-          sendingMails("payroll@xpresshealth");
+
+          sendingMails("mailto:payroll@xpresshealth.ie?subject=&body=");
         },
         icon: Icons.email,
-        subTitle: 'payroll@xpresshealth'),
+        subTitle: 'payroll@xpresshealth.ie'),
     ContactUsModel(
         title: '',
         onTap: () {
@@ -71,12 +72,13 @@ List<MainContactModel> list = [
         subTitle: '+353 12118883'),
   ]),
   MainContactModel(
-    title: 'App technical support'.toUpperCase(),
+    title: 'App technical support',
     contact: [
       ContactUsModel(
           title: '',
           onTap: () {
-            sendingMails("app@xpresshealth.ie");
+            sendingMails("mailto:app@xpresshealth.ie?subject=&body=");
+
           },
           icon: Icons.email,
           subTitle: 'app@xpresshealth.ie'),
@@ -89,23 +91,32 @@ List<MainContactModel> list = [
           subTitle: '+353 12118883'),
     ],
   ),
-  MainContactModel(title: 'Report Medical Negligence or Behaviour'.toUpperCase(), contact: [
+  MainContactModel(title: 'Report Medical Negligence or Behaviour', contact: [
     ContactUsModel(
         title: '',
         onTap: () {
-          sendingMails("Victor@xpresshealth.ie");
+          sendingMails("mailto:Victor@xpresshealth.ie?subject=&body=");
+
         },
         icon: Icons.email,
         subTitle: 'Victor@xpresshealth.ie'),
+
+  ]),
+
+
+
+
+
+
+  MainContactModel(title: "Management office", contact: [
     ContactUsModel(
         title: 'Management office',
         onTap: () {
-          sendingMails("CPhilip@xpresshealth.ie");
+          sendingMails("mailto:CPhilip@xpresshealth.ie?subject=&body=");
+
         },
         icon: Icons.email,
         subTitle: 'CPhilip@xpresshealth.ie'),
-  ]),
-  MainContactModel(title: "Address".toUpperCase(), contact: [
     ContactUsModel(
         title: '',
         onTap: () {
