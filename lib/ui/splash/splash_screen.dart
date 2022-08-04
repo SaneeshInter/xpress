@@ -18,7 +18,6 @@ import '../../model/schedule_hospital_list.dart';
 import '../../model/user_shifttiming_list.dart';
 import '../../model/user_type_list.dart';
 import '../../model/visa_type_list.dart';
-import '../../services/update_checker_service.dart';
 import '../../ui/dashboard_screen.dart';
 import '../../ui/manager_dashboard_screen.dart';
 import '../../ui/splash/user_or_manager.dart';
@@ -59,12 +58,24 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-
-    observe();
-    getData();
-
+    init();
   }
+void init()async{
+  SharedPreferences shdPre = await SharedPreferences.getInstance();
+  bool isLoggedIn = shdPre.getString(SharedPrefKey.AUTH_TOKEN) != null;
+  var loginType = shdPre.getInt(SharedPrefKey.USER_TYPE);
 
+  if (isLoggedIn && loginType != null) {
+    if (loginType == 1) {
+      observe();
+      getData();
+    }else{
+      changeScreen();
+    }
+    }else{
+    changeScreen();
+  }
+}
   @override
   void dispose() {
     super.dispose();

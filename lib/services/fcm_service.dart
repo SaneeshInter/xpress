@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xpresshealthdev/ui/user/home/completed_shift_screen.dart';
 import '/main.dart';
 
 import '../Constants/sharedPrefKeys.dart';
@@ -84,8 +85,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
           "sdfcddrgdg ${jsonDecode(message.data["payload"]).toString()}");
       payload["type"] = jsonDecode(message.data["payload"])["type"];
       payload["id"] = jsonDecode(message.data["payload"])["id"];
-      payload["action"] =
-          jsonDecode(message.data["payload"])["action"] ?? "Open";
+      payload["action"] = jsonDecode(message.data["payload"])["action"] ?? "Open";
       if ("SHIFT_DETAILS" ==
           jsonDecode(message.data["payload"])["type"].toString()) {
         AwesomeNotifications().createNotification(
@@ -143,7 +143,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
             actionButtons: [
               NotificationActionButton(
                 key: "Open",
-                label: "View",
+                label: payload["action"] ?? "Open",
               ),
             ]);
       }
@@ -173,7 +173,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
           actionButtons: [
             NotificationActionButton(
               key: "Open",
-              label: "View",
+              label: payload["action"] ?? "Open",
             ),
           ]);
     }
@@ -277,6 +277,15 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
             MaterialPageRoute(
                 builder: (globalContext) =>ScreenCase(title: 'Shift Detail', child: ShiftDetailManagerScreen(
                   shiftId: id,
+                ),)
+              ),
+          );
+          break;
+          case 'UPLOAD_TIME_SHEET':
+          Navigator.push(
+            MyApp.navigatorKey.currentContext!,
+            MaterialPageRoute(
+                builder: (globalContext) =>ScreenCase(title: 'Upload Time Sheet', child: CompletedShiftScreen(
                 ),)
               ),
           );

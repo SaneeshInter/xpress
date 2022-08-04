@@ -9,6 +9,7 @@ import '../../../Constants/strings.dart';
 import '../../../model/contact_us_model.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/utils.dart';
 class ContactScreen extends StatelessWidget {
   const ContactScreen({Key? key}) : super(key: key);
   @override
@@ -40,14 +41,44 @@ class ContactScreen extends StatelessWidget {
         ),
         backgroundColor: Constants.colors[9],
         body: ListView.builder(
+          shrinkWrap: true,
           itemCount: list.length,
           itemBuilder: (BuildContext context, int index) {
-            return ContactUsWidget(
-              onTap: list[index].onTap,
-              title: list[index].subTitle,
-              icon: list[index].icon,
-              subTitle: list[index].title,
+            return Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                elevation: 0,
+                child: Column(
 
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(list[index].title),
+                    ),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: list[index].contact.length,
+                      itemBuilder: (BuildContext context, int index1) {
+                      return Column(
+                        children: [
+                          ContactUsWidget(
+                            onTap: list[index].contact[index1].onTap,
+                            subTitle: list[index].contact[index1].subTitle,
+                            icon: list[index].contact[index1].icon,
+
+                            title: "",
+
+                          ),
+
+                        ],
+                      );
+                    },),
+
+                  ],
+                ),
+              ),
             );
 
           },

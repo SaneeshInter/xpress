@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:xpresshealthdev/resources/token_provider.dart';
 
 import '../Constants/global.dart';
 import '../model/accept_job_request.dart';
@@ -124,7 +125,9 @@ class ApiProvider {
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-        },
+          'token':'${await TokenProvider().getToken()}',
+
+      },
       );
       developer.log("\n\n\nURI: $uri\nUserType: \nUser: \nResponse: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
       if (response.statusCode == 200) {

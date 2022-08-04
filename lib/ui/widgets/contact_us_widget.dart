@@ -13,10 +13,11 @@ class ContactUsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+
       onTap: () => onTap(),
       title: Text(
         subTitle,
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, ),
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: Constants.colors[6]),
       ),
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(30),
@@ -32,10 +33,7 @@ class ContactUsWidget extends StatelessWidget {
           ),
         ),
       ),
-      subtitle: Text(
-        title,
-        style:  TextStyle(fontSize: 12, fontWeight: FontWeight.normal,color: Constants.colors[6] ),
-      ),
+
     );
   }
 }

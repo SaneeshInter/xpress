@@ -319,9 +319,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                         SizedBox(
                                           width: 100.w,
                                         ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
+
                                         // Column(
                                         //   children: [
                                         //     TextInputFileds(
@@ -340,7 +338,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                         //   ],
                                         // ),
                                         const SizedBox(
-                                          height: 15,
+                                          height: 5,
                                         ),
                                         Column(
                                           children: [

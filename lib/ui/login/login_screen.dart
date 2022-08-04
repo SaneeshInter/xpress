@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
 import '../../services/fcm_service.dart';
 
 import '../../Constants/sharedPrefKeys.dart';
@@ -412,7 +413,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (!mounted) return;
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const ManagerDashBoard()),
+              MaterialPageRoute(builder: (context) =>  SplashScreen()),
               ModalRoute.withName('/'),
             );
           }
