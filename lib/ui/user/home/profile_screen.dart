@@ -14,7 +14,6 @@ import '../../../ui/user/home/profile_edit.dart';
 import '../../../utils/colors_util.dart';
 import '../../../utils/constants.dart';
 import '../../error/ConnectionFailedScreen.dart';
-import '../../widgets/buttons/drawable_button.dart';
 import '../../widgets/loading_widget.dart';
 import '../../widgets/my_scroll_behavior.dart';
 import '../../widgets/profile_detail.dart';
@@ -90,7 +89,7 @@ class _ProfileState extends State<ProfileScreen> {
           prefs.setString(SharedPrefKey.EMPLOYEE_NO, employeeNo!);
           prefs.setString(SharedPrefKey.USER_TYPE_NAME, userType!);
           prefs.setString(SharedPrefKey.PROFILE_SRC, profileSrc!);
-        }else{
+        } else {
           showInternetNotAvailable();
         }
       },
@@ -121,10 +120,7 @@ class _ProfileState extends State<ProfileScreen> {
         backgroundColor: HexColor("#ffffff"),
         title: AutoSizeText(
           Txt.profile,
-          style: TextStyle(
-              fontSize: 17,
-              color: Constants.colors[1],
-              fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: 17, color: Constants.colors[1], fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
       ),
@@ -145,206 +141,158 @@ class _ProfileState extends State<ProfileScreen> {
                   padding: const EdgeInsets.all(10.0),
                   child: StreamBuilder<UserGetResponse>(
                       stream: profileBloc.getProfileStream,
-                      builder:
-                          (context, AsyncSnapshot<UserGetResponse> snapshot) {
+                      builder: (context, AsyncSnapshot<UserGetResponse> snapshot) {
                         if (snapshot.hasData) {
-
-                            var data = snapshot.data?.response?.data;
-                            String? firstName = data?.items?[0].firstName;
-                            String? lastName = data?.items?[0].lastName;
-                            String? employeeNo = data?.items?[0].employeeNo;
-                            String? profileImage = "";
-                            profileImage = data?.items?[0].profileSrc;
-                            String? categroy = data?.items?[0].userType;
-                            String? hourlyRate =
-                                data?.items?[0].hourlyRate.toString();
-                            Items? item = data?.items?[0];
-                            String? fullName = "$firstName $lastName";
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (null != data)
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Constants.colors[31],
-                                              Constants.colors[32],
-                                            ]),
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    padding: const EdgeInsets.all(
-                                      AppDefaults.padding,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.12,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.22),
-                                                child: AspectRatio(
-                                                  aspectRatio: 1 / 1,
-                                                  child: Stack(
-                                                    children: [
-                                                      if (profileImage == "" ||
-                                                          null == profileImage)
-                                                        Image.asset(
-                                                          'assets/images/icon/man_ava.png',
-                                                          fit: BoxFit.fill,
-                                                        ),
-                                                      if (profileImage != "" &&
-                                                          null != profileImage)
-                                                        Image.network(
-                                                          profileImage,
-                                                          fit: BoxFit.fill,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.22,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.22,
-                                                        ),
-                                                    ],
-                                                  ),
+                          var data = snapshot.data?.response?.data;
+                          String? firstName = data?.items?[0].firstName;
+                          String? lastName = data?.items?[0].lastName;
+                          String? employeeNo = data?.items?[0].employeeNo;
+                          String? profileImage = "";
+                          profileImage = data?.items?[0].profileSrc;
+                          String? categroy = data?.items?[0].userType;
+                          String? hourlyRate = data?.items?[0].hourlyRate.toString();
+                          Items? item = data?.items?[0];
+                          String? fullName = "$firstName $lastName";
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (null != data)
+                                Container(
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+                                        Constants.colors[31],
+                                        Constants.colors[32],
+                                      ]),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  padding: const EdgeInsets.all(
+                                    AppDefaults.padding,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context).size.width * 0.12,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.22),
+                                              child: AspectRatio(
+                                                aspectRatio: 1 / 1,
+                                                child: Stack(
+                                                  children: [
+                                                    if (profileImage == "" || null == profileImage)
+                                                      Image.asset(
+                                                        'assets/images/icon/man_ava.png',
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    if (profileImage != "" && null != profileImage)
+                                                      Image.network(
+                                                        profileImage,
+                                                        fit: BoxFit.fill,
+                                                        width: MediaQuery.of(context).size.width * 0.22,
+                                                        height: MediaQuery.of(context).size.width * 0.22,
+                                                      ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
-                                            const SizedBox(
-                                                width: AppDefaults.margin),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                if (fullName != null)
-                                                  Text(
-                                                    fullName,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 16.sp,
-                                                        fontFamily:
-                                                            "SFProMedium",
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                const SizedBox(height: 5),
-                                                if (null != categroy)
-                                                  Text(
-                                                    categroy,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 11.sp,
-                                                        fontFamily: "S",
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
-                                                const SizedBox(height: 5),
-                                                if (employeeNo != null)
-                                                  Text(
-                                                    Txt.emp_no + employeeNo,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 10.sp,
-                                                        fontFamily: "S",
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
-                                              ],
-                                            ),
-                                            const Spacer(),
-                                            // Column(
-                                            //   children: [
-                                            //     if (hourlyRate != null)
-                                            //       Text(
-                                            //         " ${hourlyRate == "null" ? "0" : hourlyRate}${Txt.hr}",
-                                            //         style: TextStyle(
-                                            //             fontSize: 14.sp,
-                                            //             color: Constants
-                                            //                 .colors[33],
-                                            //             fontWeight:
-                                            //                 FontWeight.w400),
-                                            //       ),
-                                            //     SizedBox(
-                                            //       height: 2.h,
-                                            //     ),
-                                            //     // DrawableButton(
-                                            //     //   onPressed: () {
-                                            //     //     Navigator.push(
-                                            //     //
-                                            //     //       context,
-                                            //     //       MaterialPageRoute(
-                                            //     //           builder: (context) =>
-                                            //     //               const ProfileEditScreen()),
-                                            //     //     );
-                                            //     //   },
-                                            //     //   label: Txt.edit,
-                                            //     //   asset:
-                                            //     //       "assets/images/icon/edit.svg",
-                                            //     //   backgroundColor:
-                                            //     //       Constants.colors[4],
-                                            //     //   textColors:
-                                            //     //       Constants.colors[0],
-                                            //     // ),
-                                            //   ],
-                                            // ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                            height: AppDefaults.margin),
-                                        // Actions
-                                      ],
-                                    ),
-                                  ),
-                                const SizedBox(height: 10),
-                                if (null != item)
-                                  ProfileDetailCard(
-                                    items: item,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ProfileEditScreen()),
-                                      ).then((value) => getData());
-                                    },
-                                  ),
-                                Column(
-                                  children: [
-                                    if (null != item)
-                                      ProfileDocumentsCard(
-                                        items: item,
-                                        onRefresh: () {
-                                          debugPrint("Refresh item");
-                                          getData();
-                                        },
+                                          ),
+                                          const SizedBox(width: AppDefaults.margin),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              if (fullName != null)
+                                                Text(
+                                                  fullName,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(color: Colors.white, fontSize: 16.sp, fontFamily: "SFProMedium", fontWeight: FontWeight.w500),
+                                                ),
+                                              const SizedBox(height: 5),
+                                              if (null != categroy)
+                                                Text(
+                                                  categroy,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(color: Colors.white, fontSize: 11.sp, fontFamily: "S", fontWeight: FontWeight.w400),
+                                                ),
+                                              const SizedBox(height: 5),
+                                              if (employeeNo != null)
+                                                Text(
+                                                  Txt.emp_no + employeeNo,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(color: Colors.white, fontSize: 10.sp, fontFamily: "S", fontWeight: FontWeight.w400),
+                                                ),
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          // Column(
+                                          //   children: [
+                                          //     if (hourlyRate != null)
+                                          //       Text(
+                                          //         " ${hourlyRate == "null" ? "0" : hourlyRate}${Txt.hr}",
+                                          //         style: TextStyle(
+                                          //             fontSize: 14.sp,
+                                          //             color: Constants
+                                          //                 .colors[33],
+                                          //             fontWeight:
+                                          //                 FontWeight.w400),
+                                          //       ),
+                                          //     SizedBox(
+                                          //       height: 2.h,
+                                          //     ),
+                                          //     // DrawableButton(
+                                          //     //   onPressed: () {
+                                          //     //     Navigator.push(
+                                          //     //
+                                          //     //       context,
+                                          //     //       MaterialPageRoute(
+                                          //     //           builder: (context) =>
+                                          //     //               const ProfileEditScreen()),
+                                          //     //     );
+                                          //     //   },
+                                          //     //   label: Txt.edit,
+                                          //     //   asset:
+                                          //     //       "assets/images/icon/edit.svg",
+                                          //     //   backgroundColor:
+                                          //     //       Constants.colors[4],
+                                          //     //   textColors:
+                                          //     //       Constants.colors[0],
+                                          //     // ),
+                                          //   ],
+                                          // ),
+                                        ],
                                       ),
-                                  ],
+                                      const SizedBox(height: AppDefaults.margin),
+                                      // Actions
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            );
-
+                              const SizedBox(height: 10),
+                              if (null != item)
+                                ProfileDetailCard(
+                                  items: item,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const ProfileEditScreen()),
+                                    ).then((value) => getData());
+                                  },
+                                ),
+                              Column(
+                                children: [
+                                  if (null != item)
+                                    ProfileDocumentsCard(
+                                      items: item,
+                                      onRefresh: () {
+                                        debugPrint("Refresh item");
+                                        getData();
+                                      },
+                                    ),
+                                ],
+                              ),
+                            ],
+                          );
                         } else {
-                          return  SizedBox(
+                          return SizedBox(
                             width: 100.w,
                             height: 100.h,
                           );
@@ -372,6 +320,4 @@ class _ProfileState extends State<ProfileScreen> {
       ),
     );
   }
-
 }
-

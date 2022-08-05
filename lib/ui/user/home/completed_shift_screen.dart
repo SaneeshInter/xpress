@@ -7,11 +7,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:sizer/sizer.dart';
-import '../../../blocs/shift_completed_bloc.dart';
-import '../../../ui/bloc/no_data_screen.dart';
+
 import '../../../Constants/strings.dart';
+import '../../../blocs/shift_completed_bloc.dart';
 import '../../../model/user_complted_shift.dart';
 import '../../../resources/token_provider.dart';
+import '../../../ui/bloc/no_data_screen.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../Widgets/buttons/build_button.dart';
@@ -39,12 +40,10 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
     if (null != completeBloc.token) {
       if (await isNetworkAvailable()) {
         completeBloc.fetchcomplete();
-
       } else {
         showInternetNotAvailable();
       }
     }
-
   }
 
   @override
@@ -98,9 +97,9 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
         backgroundColor: Colors.white,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.0),
-              topRight: Radius.circular(10.0),
-            )),
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+        )),
         context: context,
         builder: (BuildContext bc) {
           return SizedBox(
@@ -111,11 +110,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                 children: <Widget>[
                   const Padding(
                     padding: EdgeInsets.only(top: 14.0),
-                    child: Text("Select source",
-                        style: TextStyle(
-                            fontSize: 18,
-
-                            color: Colors.black)),
+                    child: Text("Select source", style: TextStyle(fontSize: 18, color: Colors.black)),
                   ),
                   const Spacer(),
                   ListTile(
@@ -157,6 +152,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
           );
         });
   }
+
   @override
   void initState() {
     super.initState();
@@ -193,7 +189,6 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Constants.colors[9],
@@ -204,31 +199,26 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
               getData();
             },
             child: NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (overScroll) {
-                  overScroll.disallowIndicator();
-                  return false;
-                },
+              onNotification: (overScroll) {
+                overScroll.disallowIndicator();
+                return false;
+              },
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth(context, dividedBy: 35)),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth(context, dividedBy: 35)),
                     child: Column(children: [
                       StreamBuilder(
                           stream: completeBloc.allShift,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot<UserShoiftCompletedResponse> snapshot) {
                             if (snapshot.hasError) {
                               return Text(snapshot.error.toString());
                             }
-                            if (!snapshot.hasData ||
-                                null == snapshot.data?.response?.data?.items ||
-                                snapshot.data?.response?.data?.items?.length == 0) {
-                              return const NoDataWidget(
-                                  tittle: Txt.empty,
-                                  description: Txt.no_shifts_working_hrs,
-                                  asset_image:
-                                      "assets/images/error/empty_task.png");
+                            if (!snapshot.hasData || null == snapshot.data?.response?.data?.items || snapshot.data?.response?.data?.items?.length == 0) {
+
+
+                              return
+                                const NoDataWidget(tittle: Txt.empty, description: Txt.no_shifts_working_hrs, asset_image: "assets/images/error/empty_task.png");
                             }
                             return buildList(snapshot);
                           }),
@@ -269,10 +259,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
       child: Column(
         children: [
           SizedBox(height: screenHeight(context, dividedBy: 60)),
-          Container(
-              child: completeBloc.image != null
-                  ? Image.file(File(completeBloc.image.path))
-                  : const SizedBox()),
+          Container(child: completeBloc.image != null ? Image.file(File(completeBloc.image.path)) : const SizedBox()),
           const SizedBox(
             height: 20,
           ),
@@ -284,7 +271,7 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
               strokeWidth: 1,
               child: GestureDetector(
                 onTap: () {
-                  funcBottomSheet(context,"Image");
+                  funcBottomSheet(context, "Image");
                 },
                 child: Container(
                   color: Colors.white,
@@ -344,21 +331,17 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
                 String shiftid = "";
                 print("dfs ${completeBloc.list.length} completeBloc.list");
                 for (var item in completeBloc.list) {
-
                   shiftid = "$shiftid$item,";
                 }
                 debugPrint(shiftid);
                 if (completeBloc.image != null) {
                   if (shiftid.isNotEmpty) {
-                    completeBloc.uploadTimeSheet(
-                        shiftid, File(completeBloc.image.path));
+                    completeBloc.uploadTimeSheet(shiftid, File(completeBloc.image.path));
                   } else {
-                    showAlertDialoge(context,
-                        title: Txt.alert, message: Txt.select_shift);
+                    showAlertDialoge(context, title: Txt.alert, message: Txt.select_shift);
                   }
                 } else {
-                  showAlertDialoge(context,
-                      title: Txt.alert, message: Txt.uplod_timesht);
+                  showAlertDialoge(context, title: Txt.alert, message: Txt.uplod_timesht);
                 }
               },
               key: null,
