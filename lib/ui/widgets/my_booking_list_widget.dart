@@ -217,7 +217,48 @@ debugPrint("widget.items.workingTimeStatus  $afterWorkHours");
   } else {
     return Row(
       children: [
-        if (widget.items.status == "Accepted" ||
+        if(widget.items.status == "Pending")
+          BookButton(
+            label: Txt.cancel_req,
+            onPressed: () {
+              showDialog(
+                context: context,
+                barrierColor: Colors.transparent,
+                builder: (BuildContext context) {
+                  Future.delayed(const Duration(seconds: 2), () {
+                    // Navigator.of(context).pop(true);
+                  });
+                  return Center(
+                    child: AlertDialog(
+                        elevation: 0,
+                        backgroundColor: Colors.transparent,
+                        insetPadding: EdgeInsets.symmetric(
+                          horizontal: screenWidth(context, dividedBy: 30),
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        content: ActionAlertBox(
+                            tittle: "Cancel",
+                            message: "Are you sure you want to cancel the request?",
+                            positiveText: "YES",
+                            negativeText: "NO",
+                            onPositvieClick: () {
+                              widget.onTapCancel(widget.items);
+                              Navigator.of(context).pop(true);
+                            },
+                            onNegativeClick: () {
+                              Navigator.of(context).pop(true);
+                            })),
+                  );
+                },
+              );
+
+              debugPrint("Cards booking");
+            },
+            key: null,
+          )
+
+        else if (widget.items.status == "Accepted" ||
             widget.items.status == "Pending")
           if (widget.items.workingTimeStatus == 0)
             if(afterWorkHours>0)

@@ -272,6 +272,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
                                                         if (null == snapshot.data || snapshot.data?.length == 0) {
                                                           return const SizedBox();
                                                         }
+                                                        print('qw3eww ${snapshot.data!.length}');
 
                                                         return DropdownButtonFormField(
                                                           isExpanded: true,
@@ -656,7 +657,7 @@ class _CreateShiftStateUpdate extends State<CreateShiftScreenUpdate> {
 
   Widget buildAllowanceList(AsyncSnapshot<List<Allowances>> snapshot, BuildContext context) {
     return ListView.builder(
-      itemCount: snapshot.data?.length,
+      itemCount: snapshot.data?.length??0,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {

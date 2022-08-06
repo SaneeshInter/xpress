@@ -132,7 +132,7 @@ class _CompletedApprovelScreenState extends State<CompletedApprovelScreen> {
     return snapshot.data?.response?.data?.timeSheetInfo?.length!=0?
 
     ListView.builder(
-      itemCount: snapshot.data?.response?.data?.timeSheetInfo?.length,
+      itemCount: snapshot.data?.response?.data?.timeSheetInfo?.length??0,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {

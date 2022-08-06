@@ -24,7 +24,7 @@ class ManagerHomeScreen extends StatefulWidget {
   _HomeScreentate createState() => _HomeScreentate();
 }
 
-class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserver{
+class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserver {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   bool visibility = false;
   int devicePixelRatio = 3;
@@ -39,12 +39,12 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   final PageController ctrl = PageController(
     viewportFraction: .7,
   );
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-
-    }
+    if (state == AppLifecycleState.resumed) {}
   }
+
   @override
   void didUpdateWidget(covariant ManagerHomeScreen oldWidget) {
     WidgetsBinding.instance.removeObserver(this);
@@ -76,7 +76,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       // key: scaffoldKey,
       backgroundColor: Constants.colors[9],
@@ -96,19 +95,11 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
-
-
                       horizontalList(),
-
-
                       const SizedBox(
                         height: 30,
                       ),
                       equalSizeButtons(),
-
-
-
                     ],
                   ),
                   SizedBox(
@@ -139,89 +130,93 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   }
 
   Widget shiftDetails() {
-    return managerhomeBloc.dashList.isNotEmpty?SizedBox(
-      width: double.infinity,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SizedBox(
-                child: AutoSizeText(
-                  Txt.shift_status,
-                  maxLines: 1,
-                  style: TextStyle(
-                    color: Constants.colors[1],
-                    fontSize: 16.sp,
-                    fontFamily: "SFProMedium",
+    return managerhomeBloc.dashList.isNotEmpty
+        ? SizedBox(
+            width: double.infinity,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: SizedBox(
+                      child: AutoSizeText(
+                        Txt.shift_status,
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: Constants.colors[1],
+                          fontSize: 16.sp,
+                          fontFamily: "SFProMedium",
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ShiftStatusChip(
+                        label: 'Daily',
+                        selected: currentStatus == 0,
+                        selectedColor: greenColor,
+                        textColor: white,
+                        onPressed: () {
+                          currentStatus = 0;
+                          setState(() {});
+                        },
+                      ),
+                      ShiftStatusChip(
+                        label: 'Weekly',
+                        selected: currentStatus == 1,
+                        selectedColor: greenColor,
+                        textColor: white,
+                        onPressed: () {
+                          currentStatus = 1;
+                          setState(() {});
+                        },
+                      ),
+                      ShiftStatusChip(
+                        label: 'Monthly',
+                        selected: currentStatus == 2,
+                        selectedColor: greenColor,
+                        textColor: white,
+                        onPressed: () {
+                          currentStatus = 2;
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  )
+                ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ShiftStatusChip(
-                  label: 'Daily',
-                  selected: currentStatus == 0,
-                  selectedColor: greenColor,
-                  textColor: white,
-                  onPressed: () {
-                    currentStatus = 0;
-                    setState(() {});
-                  },
-                ),
-                ShiftStatusChip(
-                  label: 'Weekly',
-                  selected: currentStatus == 1,
-                  selectedColor: greenColor,
-                  textColor: white,
-                  onPressed: () {
-                    currentStatus = 1;
-                    setState(() {});
-                  },
-                ),
-                ShiftStatusChip(
-                  label: 'Monthly',
-                  selected: currentStatus == 2,
-                  selectedColor: greenColor,
-                  textColor: white,
-                  onPressed: () {
-                    currentStatus = 2;
-                    setState(() {});
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ShiftDetailCard(
-              label: managerhomeBloc.dashList[currentStatus].pending,
-                hint: "Pending", height: 45.w, svgPath: 'assets/images/icon/shift.svg',
-
-            ),
-            ShiftDetailCard(
-              label:  managerhomeBloc.dashList[currentStatus].approved,
-              hint: "Accepted", height: 45.w, svgPath: 'assets/images/icon/check.svg',
-
-            ),
-
-          ],
-        ),
-        ShiftDetailCard(
-          label:  managerhomeBloc.dashList[currentStatus].total,
-          hint: "Total Shifts", height: 45.w, svgPath: 'assets/images/icon/price-tag.svg',
-
-        ),
-      ]),
-    ):const SizedBox();
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ShiftDetailCard(
+                    label: managerhomeBloc.dashList[currentStatus].pending,
+                    hint: "Pending",
+                    height: 45.w,
+                    svgPath: 'assets/images/icon/shift.svg',
+                  ),
+                  ShiftDetailCard(
+                    label: managerhomeBloc.dashList[currentStatus].approved,
+                    hint: "Accepted",
+                    height: 45.w,
+                    svgPath: 'assets/images/icon/check.svg',
+                  ),
+                ],
+              ),
+              ShiftDetailCard(
+                label: managerhomeBloc.dashList[currentStatus].total,
+                hint: "Total Shifts",
+                height: 45.w,
+                svgPath: 'assets/images/icon/price-tag.svg',
+              ),
+            ]),
+          )
+        : const SizedBox();
   }
 
   Widget equalSizeButtons() {
@@ -272,7 +267,6 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
         )
       ],
     );
-
   }
 
   Widget imageCard() {
@@ -295,144 +289,140 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
   Widget horizontalList() {
     return StreamBuilder(
         stream: managerhomeBloc.managerhomeStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<ManagerHomeResponse> snapshot) {
-
+        builder: (BuildContext context, AsyncSnapshot<ManagerHomeResponse> snapshot) {
           if (snapshot.hasData) {
-            return  Column(
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-
                 buildList(snapshot),
               ],
             );
           } else if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           }
-          return SizedBox(
-              height: 35.w,
-              child: const Center(child: CircularProgressIndicator()));
+          return SizedBox(height: 35.w, child: const Center(child: CircularProgressIndicator()));
         });
   }
 
   Widget buildList(AsyncSnapshot<ManagerHomeResponse> snapshot) {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
-      var itemCount = snapshot.data?.response?.data?.importantUpdates!.length;
+      var itemCount = snapshot.data?.response?.data?.importantUpdates?.length??0;
       print("itemCount $itemCount");
       return Column(
         children: [
-          itemCount!=0? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * .4,
-                  child: AutoSizeText(
-                    Txt.important_update,
-                    maxLines: 1,
-                    style: TextStyle(
-                      color: Constants.colors[1],
-                      fontSize: 16.sp,
-                      fontFamily: "SFProMedium",
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 35.w,
-                child: Column(
+          itemCount != 0
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                    Expanded(
-                      child: PageView.builder(
-                        controller: ctrl,
-                        padEnds: false,
-                        onPageChanged: (page) {
-                          debugPrint("page $page");
-                          setState(() {
-                            currentPage = page.toDouble();
-                          });
-                        },
-                        pageSnapping: true,
-                        itemCount: itemCount,
-                        itemBuilder: (BuildContext context, int index) {
-                          var list =
-                              snapshot.data?.response?.data?.importantUpdates![index];
-                          if (null != list) {
-                            var name = list.title!;
-                            var date = list.date!;
-                            var description = list.description!;
-                            return Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              elevation: 0.0,
-                              child: Padding(
-                                padding: const EdgeInsets.all(13.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    AutoSizeText(
-                                      name,
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14.sp,
-                                        fontFamily: "SFProMedium",
-                                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * .4,
+                        child: AutoSizeText(
+                          Txt.important_update,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Constants.colors[1],
+                            fontSize: 16.sp,
+                            fontFamily: "SFProMedium",
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 35.w,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: PageView.builder(
+                              controller: ctrl,
+                              padEnds: false,
+                              onPageChanged: (page) {
+                                debugPrint("page $page");
+                                setState(() {
+                                  currentPage = page.toDouble();
+                                });
+                              },
+                              pageSnapping: true,
+                              itemCount: itemCount,
+                              itemBuilder: (BuildContext context, int index) {
+                                var list = snapshot.data?.response?.data?.importantUpdates![index];
+                                if (null != list) {
+                                  var name = list.title!;
+                                  var date = list.date!;
+                                  var description = list.description!;
+                                  return Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                      child: SizedBox(
-                                          width: screenHeight(context, dividedBy: 2.2),
-                                          child: AutoSizeText(
-                                            description,
+                                    elevation: 0.0,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(13.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          AutoSizeText(
+                                            name,
                                             maxLines: 2,
                                             style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 8.sp,
+                                              color: Colors.black,
+                                              fontSize: 14.sp,
+                                              fontFamily: "SFProMedium",
                                             ),
-                                          )),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                            child: SizedBox(
+                                                width: screenHeight(context, dividedBy: 2.2),
+                                                child: AutoSizeText(
+                                                  description,
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 8.sp,
+                                                  ),
+                                                )),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                                            child: SizedBox(
+                                                width: screenHeight(context, dividedBy: 2.2),
+                                                child: AutoSizeText(
+                                                  date,
+                                                  maxLines: 1,
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 8.sp,
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
-                                      child: SizedBox(
-                                          width: screenHeight(context, dividedBy: 2.2),
-                                          child: AutoSizeText(
-                                            date,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 8.sp,
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
-                        },
+                                  );
+                                } else {
+                                  return const SizedBox();
+                                }
+                              },
+                            ),
+                          ),
+                          itemCount != 0
+                              ? DotsIndicator(
+                                  dotsCount: itemCount ,
+                                  position: currentPage!,
+                                  decorator: DotsDecorator(
+                                    color: Constants.colors[37], // Inactive color
+                                    activeColor: Constants.colors[36],
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ],
                       ),
                     ),
-                    itemCount!=0? DotsIndicator(
-                      dotsCount: itemCount??1,
-                      position: currentPage!,
-                      decorator: DotsDecorator(
-                        color: Constants.colors[37], // Inactive color
-                        activeColor: Constants.colors[36],
-                      ),
-                    ):const SizedBox(),
                   ],
-                ),
-              ),
-            ],
-          ):const SizedBox(),
+                )
+              : const SizedBox(),
           shiftDetails()
         ],
       );
@@ -441,72 +431,72 @@ class _HomeScreentate extends State<ManagerHomeScreen> with WidgetsBindingObserv
     }
   }
 
-  // Widget gridView() {
-  //   return Container(
-  //     margin: const EdgeInsets.symmetric(vertical: 10.0),
-  //     child: GridView.count(
-  //       shrinkWrap: true,
-  //       childAspectRatio: 2,
-  //       primary: false,
-  //       crossAxisCount: 2,
-  //       children: [
-  //         GestureDetector(
-  //             onTap: () {
-  //               debugPrint("ON TAP");
-  //               Navigator.push(
-  //                 context,
-  //                 MaterialPageRoute(
-  //                     builder: (context) => const CreateShiftScreenUpdate(buttonTxt: "Create Shift",)),
-  //               );
-  //               // Navigator.push(
-  //               //   context,
-  //               //   MaterialPageRoute(
-  //               //       builder: (context) => const CreateShiftScreenUpdate()),
-  //               // );
-  //             },
-  //             child: const HomeCardItem(
-  //                 label: Txt.create_shifts,
-  //                 asset: "assets/images/icon/shift.svg")),
-  //         GestureDetector(
-  //           onTap: () {
-  //             controller.jumpToTab(1);
-  //             // Navigator.push(
-  //             //   context,
-  //             //   MaterialPageRoute(builder: (context) => const ManagerFindShiftCalendar()),
-  //             // );
-  //           },
-  //           child: const HomeCardItem(
-  //               label: Txt.view_booking,
-  //               asset: "assets/images/icon/booking.svg"),
-  //         ),
-  //         GestureDetector(
-  //           onTap: () {
-  //             controller.jumpToTab(3);
-  //             // Navigator.push(
-  //             //   context,
-  //             //   MaterialPageRoute(
-  //             //       builder: (context) => const ApprovedTimeSheetScreen()),
-  //             // );
-  //           },
-  //           child: const HomeCardItem(
-  //               label: Txt.approve_timesheets,
-  //               asset: "assets/images/icon/availability.svg"),
-  //         ),
-  //         GestureDetector(
-  //           onTap: () {
-  //             controller.jumpToTab(3);
-  //             // Navigator.push(
-  //             //   context,
-  //             //   MaterialPageRoute(
-  //             //       builder: (context) => const ApprovedTimeSheetScreen()),
-  //             // );
-  //           },
-  //           child: const HomeCardItem(
-  //               label: Txt.time_sheets,
-  //               asset: "assets/images/icon/availability.svg"),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+// Widget gridView() {
+//   return Container(
+//     margin: const EdgeInsets.symmetric(vertical: 10.0),
+//     child: GridView.count(
+//       shrinkWrap: true,
+//       childAspectRatio: 2,
+//       primary: false,
+//       crossAxisCount: 2,
+//       children: [
+//         GestureDetector(
+//             onTap: () {
+//               debugPrint("ON TAP");
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                     builder: (context) => const CreateShiftScreenUpdate(buttonTxt: "Create Shift",)),
+//               );
+//               // Navigator.push(
+//               //   context,
+//               //   MaterialPageRoute(
+//               //       builder: (context) => const CreateShiftScreenUpdate()),
+//               // );
+//             },
+//             child: const HomeCardItem(
+//                 label: Txt.create_shifts,
+//                 asset: "assets/images/icon/shift.svg")),
+//         GestureDetector(
+//           onTap: () {
+//             controller.jumpToTab(1);
+//             // Navigator.push(
+//             //   context,
+//             //   MaterialPageRoute(builder: (context) => const ManagerFindShiftCalendar()),
+//             // );
+//           },
+//           child: const HomeCardItem(
+//               label: Txt.view_booking,
+//               asset: "assets/images/icon/booking.svg"),
+//         ),
+//         GestureDetector(
+//           onTap: () {
+//             controller.jumpToTab(3);
+//             // Navigator.push(
+//             //   context,
+//             //   MaterialPageRoute(
+//             //       builder: (context) => const ApprovedTimeSheetScreen()),
+//             // );
+//           },
+//           child: const HomeCardItem(
+//               label: Txt.approve_timesheets,
+//               asset: "assets/images/icon/availability.svg"),
+//         ),
+//         GestureDetector(
+//           onTap: () {
+//             controller.jumpToTab(3);
+//             // Navigator.push(
+//             //   context,
+//             //   MaterialPageRoute(
+//             //       builder: (context) => const ApprovedTimeSheetScreen()),
+//             // );
+//           },
+//           child: const HomeCardItem(
+//               label: Txt.time_sheets,
+//               asset: "assets/images/icon/availability.svg"),
+//         ),
+//       ],
+//     ),
+//   );
+// }
 }

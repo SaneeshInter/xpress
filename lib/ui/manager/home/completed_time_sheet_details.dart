@@ -57,7 +57,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
 
   @override
   Widget build(BuildContext context) {
-    String? imageUrl = widget.item?.timeSheetLink;
+    String? imageUrl = widget.item?.timeSheetLink??"";
     return Scaffold(
       backgroundColor: Constants.colors[9],
       floatingActionButton: FloatingActionButton.extended(
@@ -105,7 +105,7 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
                               Center(
                                 child: SizedBox(
                                     height: 60.h,
-                                    child: imageUrl != null
+                                    child: imageUrl != ""
                                         ? InteractiveViewer(
                                             child: CachedNetworkImage(
                                               imageUrl: imageUrl,

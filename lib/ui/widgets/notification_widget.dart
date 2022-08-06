@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:xpresshealthdev/Constants/AppColors.dart';
+import 'package:xpresshealthdev/ui/user/home/completed_shift_screen.dart';
 import 'package:xpresshealthdev/utils/constants.dart';
 import '../../Constants/strings.dart';
 import '../../ui/widgets/screen_case.dart';
@@ -28,17 +29,29 @@ class NotificationWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           if (type == 'USER') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (globalContext) => ScreenCase(
-                        title: 'Shift Detail',
-                        child: ShiftDetailScreen(
-                          shift_id: price,
-                          isCompleted: true,
-                        ),
-                      )),
-            );
+           if(name.contains("Timesheet")){
+             Navigator.push(
+               context,
+               MaterialPageRoute(
+                   builder: (globalContext) => ScreenCase(
+                     title: 'Timesheet Upload',
+                     child: const CompletedShiftScreen(
+                     ),
+                   )),
+             );
+           }else{
+             Navigator.push(
+               context,
+               MaterialPageRoute(
+                   builder: (globalContext) => ScreenCase(
+                     title: 'Shift Detail',
+                     child: ShiftDetailScreen(
+                       shift_id: price,
+                       isCompleted: true,
+                     ),
+                   )),
+             );
+           }
           } else {
             Navigator.push(
               context,

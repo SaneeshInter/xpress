@@ -135,7 +135,6 @@ class CreateShiftManagerBloc {
     var usertype = await _db.getUserTypeList();
     var category = await _db.getCategory();
     var hospitals = await _db.getHospitalList();
-
     var shifttiming = await _db.getShiftTimingList();
     List<ShiftTypeList> typeList = [];
 

@@ -177,7 +177,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
                                                           AutoSizeText(
-                                                            getDateString(homepageBloc.shiftDetails!.date!, "d"),
+                                                            homepageBloc.shiftDetails.date != null ? getDateString(homepageBloc.shiftDetails.date!, "d") : "",
                                                             textAlign: TextAlign.center,
                                                             minFontSize: 0,
                                                             stepGranularity: 0.2,
@@ -206,7 +206,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
                                                       AutoSizeText(
-                                                        homepageBloc.shiftDetails!.hospital!,
+                                                        homepageBloc.shiftDetails?.hospital ?? "",
                                                         textAlign: TextAlign.left,
                                                         maxLines: 1,
                                                         style: TextStyle(color: Constants.colors[11], fontSize: 16.sp, fontFamily: "SFProMedium", fontWeight: FontWeight.w600),
@@ -230,7 +230,7 @@ class _HomeScreentate extends State<HomeScreen> {
                                                         children: [
                                                           DrawableButton(
                                                             onPressed: () {},
-                                                            label: homepageBloc.shiftDetails!.type!,
+                                                            label: homepageBloc.shiftDetails?.type ?? "",
                                                             asset: "assets/images/icon/swipe-to-right.svg",
                                                             backgroundColor: Constants.colors[2],
                                                             textColors: Constants.colors[4],

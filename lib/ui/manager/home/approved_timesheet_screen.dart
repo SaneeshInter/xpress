@@ -129,10 +129,12 @@ class _ApprovedTimeSheetState extends State<ApprovedTimeSheetScreen> {
         description: Txt.no_shifts_working_hrs,
         asset_image:
         "assets/images/error/empty_task.png"):ListView.builder(
-      itemCount: snapshot.data?.response?.data?.timeSheetInfo?.length,
+      itemCount: snapshot.data?.response?.data?.timeSheetInfo?.length??0,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
+
+        
         TimeSheetInfo? timeSheetInfo =
             snapshot.data?.response?.data?.timeSheetInfo![index];
 

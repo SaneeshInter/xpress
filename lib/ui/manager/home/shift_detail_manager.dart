@@ -186,7 +186,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                       padding: const EdgeInsets.all(8.0),
                                                       child: ListView.builder(
                                                         physics: const NeverScrollableScrollPhysics(),
-                                                        itemCount: data.shiftDetails![0].allowances!.length,
+                                                        itemCount: data.shiftDetails![0].allowances?.length??0,
                                                         shrinkWrap: true,
                                                         itemBuilder: (BuildContext context, int index) {
                                                           var val = data.shiftDetails![0].allowances![index];
@@ -265,7 +265,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                 height: 10,
                               ),
                               ListView.builder(
-                                itemCount: snapshot.data!.response!.data!.jobRequestDetails!.length,
+                                itemCount: snapshot.data?.response?.data?.jobRequestDetails?.length??0,
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (BuildContext context, int index) {
