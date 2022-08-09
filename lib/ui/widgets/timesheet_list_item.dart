@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../Constants/strings.dart';
 import '../../model/user_complted_shift.dart';
-
 import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 
@@ -36,9 +36,7 @@ class _TimeSheetListState extends State<TimeSheetListWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: screenWidth(context, dividedBy: 1),
-      padding: EdgeInsets.symmetric(
-          horizontal: screenWidth(context, dividedBy: 25),
-          vertical: screenHeight(context, dividedBy: 70)),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth(context, dividedBy: 25), vertical: screenHeight(context, dividedBy: 70)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -54,7 +52,6 @@ class _TimeSheetListState extends State<TimeSheetListWidget> {
                 fillColor: MaterialStateProperty.resolveWith(getColor),
                 value: isChecked,
                 onChanged: (bool? value) {
-
                   setState(() {
                     isChecked = value!;
                   });
@@ -67,14 +64,12 @@ class _TimeSheetListState extends State<TimeSheetListWidget> {
               Row(
                 children: [
                   AutoSizeText(
-                    Txt.at+ widget.items.hospital!,
-                    textAlign: TextAlign.start,
-                    maxLines: 3,
-                    style: TextStyle(
-                        color: Constants.colors[14],
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: "SFProBold"),
+
+                    "${Txt.at}${widget.items.hospital ?? ""}",
+                    maxLines: 4,
+                    // textAlign: TextAlign.justify,
+                    // overflow: TextOverflow.visible,
+                    style: TextStyle(color: Constants.colors[14], fontSize: 12.sp, fontWeight: FontWeight.w700, fontFamily: "SFProBold"),
                   ),
                 ],
               ),
@@ -86,45 +81,26 @@ class _TimeSheetListState extends State<TimeSheetListWidget> {
                   Padding(
                     padding: const EdgeInsets.only(top: 1.0),
                     child: Text(
-                      "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!,"yyyy-MM-dd"),"dd-MM-yyyy")}",
-                      style: TextStyle(
-
-
-
-
-
-
-                          fontSize: 9.sp,
-                          color: Constants.colors[13],
-                          fontWeight: FontWeight.w400),
+                      "${Txt.date}: ${getStringFromDate(getDateFromString(widget.items.date!, "yyyy-MM-dd"), "dd-MM-yyyy")}",
+                      style: TextStyle(fontSize: 9.sp, color: Constants.colors[13], fontWeight: FontWeight.w400),
                     ),
                   ),
+                  widget.items.timeFrom!=null
+                   ?
                   Padding(
                     padding: const EdgeInsets.only(top: 3.0),
-
-
-
                     child: Text(
-                      Txt.from+
-                          convert24hrTo12hr(widget.items.timeFrom!)  +
-                          Txt.to+
-                          convert24hrTo12hr(  widget.items.timeTo!) ,
-                      style: TextStyle(
-                          fontSize: 9.sp,
-                          color: Constants.colors[13],
-                          fontWeight: FontWeight.w400),
+                      Txt.from + convert24hrTo12hr(widget.items.timeFrom??"00:00") + Txt.to + convert24hrTo12hr(widget.items.timeTo??"00:00"),
+                      style: TextStyle(fontSize: 9.sp, color: Constants.colors[13], fontWeight: FontWeight.w400),
                     ),
-                  ),
+                  ):SizedBox(),
                 ],
               ),
               SizedBox(height: screenHeight(context, dividedBy: 120)),
               if (null != widget.items.userType)
                 Text(
-                  widget.items.userType!,
-                  style: TextStyle(
-                      fontSize: 11.sp,
-                      color: Constants.colors[3],
-                      fontWeight: FontWeight.w500),
+                  widget.items.userType??"",
+                  style: TextStyle(fontSize: 11.sp, color: Constants.colors[3], fontWeight: FontWeight.w500),
                 ),
             ]),
             Spacer(),

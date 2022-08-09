@@ -407,7 +407,7 @@ class _HomeScreentate extends State<HomeScreen> {
 
   Widget buildList(AsyncSnapshot<UserHomeResponse> snapshot) {
     if (null != snapshot.data?.response?.data?.importantUpdates) {
-      var itemcount = snapshot.data?.response?.data?.importantUpdates!.length;
+      var itemcount = snapshot.data?.response?.data?.importantUpdates?.length??0;
       var summury = snapshot.data?.response?.data?.summary?[0];
       if (summury?.status == "9") {
         logOut(context);
@@ -511,7 +511,7 @@ class _HomeScreentate extends State<HomeScreen> {
                           ),
                           itemcount != 0
                               ? DotsIndicator(
-                                  dotsCount: itemcount!,
+                                  dotsCount: itemcount,
                                   position: homepageBloc.currentPage!,
                                   decorator: DotsDecorator(
                                     color: Constants.colors[37], // Inactive color
@@ -576,7 +576,7 @@ class _HomeScreentate extends State<HomeScreen> {
                     },
                     child: ShiftDetailCard(
                       label: summury?.approvedCount.toString() ?? "0",
-                      hint: "Confirmed Shift",
+                      hint: "Upcoming shifts",
                       height: 45.w,
                       svgPath: 'assets/images/icon/check.svg',
                     ),
@@ -592,7 +592,7 @@ class _HomeScreentate extends State<HomeScreen> {
                 },
                 child: ShiftDetailCard(
                   label: summury?.completedCount.toString() ?? "0",
-                  hint: "Completed Shift",
+                  hint: "Completed Shift ",
                   height: 45.w,
                   svgPath: 'assets/images/icon/price-tag.svg',
                 ),

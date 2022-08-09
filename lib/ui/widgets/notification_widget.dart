@@ -89,7 +89,7 @@ class NotificationWidget extends StatelessWidget {
                       ),
                     ),
                     placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    errorWidget: (context, url, error) => const Icon(Icons.notifications),
                   ),
                 ),
                 const Spacer(

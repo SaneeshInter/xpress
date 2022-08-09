@@ -347,7 +347,7 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
   void observe() {
     managerViewRequestBloc.acceptJobRequest.listen((event) {
       var message = event.response?.status?.statusMessage;
-      showAlertDialoge(context, title: Txt.accepted, message: message!);
+      showAlertDialoge(context, title:"STATUS" , message: message!);
       getData();
     });
   }

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -185,12 +186,20 @@ class _ProfileState extends State<ProfileScreen> {
                                                         fit: BoxFit.fill,
                                                       ),
                                                     if (profileImage != "" && null != profileImage)
-                                                      Image.network(
-                                                        profileImage,
+                                                      CachedNetworkImage(
+                                                        imageUrl: profileImage,
                                                         fit: BoxFit.fill,
-                                                        width: MediaQuery.of(context).size.width * 0.22,
-                                                        height: MediaQuery.of(context).size.width * 0.22,
+                                                        width: MediaQuery.of(context).size.width * 22,
+                                                        height: MediaQuery.of(context).size.width * 22,
+                                                        placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
                                                       ),
+
+                                                    // Image.network(
+                                                    //   profileImage,
+                                                    //   fit: BoxFit.fill,
+                                                    //   width: MediaQuery.of(context).size.width * 0.22,
+                                                    //   height: MediaQuery.of(context).size.width * 0.22,
+                                                    // ),
                                                   ],
                                                 ),
                                               ),

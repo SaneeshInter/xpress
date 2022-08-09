@@ -169,7 +169,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                           child: Padding(
                             padding: const EdgeInsets.all(3.0),
                             child: AutoSizeText(
-                              widget.items.status!,
+                              widget.items.status??"",
                               style: TextStyle(
                                   fontSize: 8.sp,
                                   color: Constants
@@ -181,7 +181,7 @@ class _MyBookingState extends State<MyBookingListWidget> {
                         ),
                         SizedBox(height: screenHeight(context, dividedBy: 30)),
                         if(widget.items.status == "Accepted")
-                          RemainingTimerWidget(date: getDateFromString('${widget.items.date!} ${widget.items.timeFrom}',"yyyy-MM-dd HH:mm"),),
+                          RemainingTimerWidget(date: getDateFromString('${widget.items.date??"00:00"} ${widget.items.timeFrom??"00:00"}',"yyyy-MM-dd HH:mm"),),
                       ],),
                   ],
                 ),

@@ -42,7 +42,7 @@ class LoginAlertBox extends StatelessWidget {
             Text(
             title,
               style: TextStyle(
-                  fontSize: 17,
+                  fontSize: 15,
                   color: Constants.colors[3],
                   fontWeight: FontWeight.w700),
             ),

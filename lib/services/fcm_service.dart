@@ -236,7 +236,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
         // Channel groups are only visual and are not required
         channelGroups: [
           NotificationChannelGroup(
-              channelGroupkey: 'basic_channel_group',
+              channelGroupKey: 'basic_channel_group',
               channelGroupName: 'Basic group')
         ],
         debug: false);
@@ -249,16 +249,33 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
+    AwesomeNotifications().setListeners(
+      onActionReceivedMethod: (ReceivedAction receivedAction) async{
+        debugPrint("Action: \n${receivedAction.toMap().toString()}\n");
+        debugPrint("Action2: \n${receivedAction.payload?["id"].toString()}\n");
+        print("qqqqqqqq on Action");
+        onclick(receivedAction.payload?["type"].toString() ?? "",
+            receivedAction.payload?["id"].toString() ?? "");
+      },
+      onNotificationCreatedMethod: (ReceivedNotification receivedNotification)async{
 
+      },
+      onNotificationDisplayedMethod: (ReceivedNotification receivedNotification)async{
+
+      },
+      onDismissActionReceivedMethod: (ReceivedAction receivedAction)async{
+
+      },
+    );
     ////Notification Listener
-    AwesomeNotifications().actionStream.listen((ReceivedAction receivedAction) {
-      debugPrint("Action: \n${receivedAction.toMap().toString()}\n");
-      debugPrint("Action2: \n${receivedAction.payload?["id"].toString()}\n");
-      print("qqqqqqqq on Action");
-      onclick(receivedAction.payload?["type"].toString() ?? "",
-          receivedAction.payload?["id"].toString() ?? "");
-      return;
-    });
+    // AwesomeNotifications().actionStream.listen((ReceivedAction receivedAction) {
+    //   debugPrint("Action: \n${receivedAction.toMap().toString()}\n");
+    //   debugPrint("Action2: \n${receivedAction.payload?["id"].toString()}\n");
+    //   print("qqqqqqqq on Action");
+    //   onclick(receivedAction.payload?["type"].toString() ?? "",
+    //       receivedAction.payload?["id"].toString() ?? "");
+    //   return;
+    // });
   }
 
   void onclick(String action, String id) {
@@ -419,14 +436,32 @@ showNotification(RemoteMessage message) async {
           ),
         ]);
   }
-  AwesomeNotifications().actionStream.listen((ReceivedAction receivedAction) {
-    debugPrint("Action: \n${receivedAction.toMap().toString()}\n");
-    debugPrint("Action2: \n${receivedAction.payload?["id"].toString()}\n");
-    print("qqqqqqqq on Action");
-    onclick(receivedAction.payload?["type"].toString() ?? "",
-        receivedAction.payload?["id"].toString() ?? "");
-    return;
-  });
+  AwesomeNotifications().setListeners(
+    onActionReceivedMethod: (ReceivedAction receivedAction) async{
+      debugPrint("Action: \n${receivedAction.toMap().toString()}\n");
+      debugPrint("Action2: \n${receivedAction.payload?["id"].toString()}\n");
+      print("qqqqqqqq on Action");
+      onclick(receivedAction.payload?["type"].toString() ?? "",
+          receivedAction.payload?["id"].toString() ?? "");
+    },
+    onNotificationCreatedMethod: (ReceivedNotification receivedNotification)async{
+
+    },
+    onNotificationDisplayedMethod: (ReceivedNotification receivedNotification)async{
+
+    },
+    onDismissActionReceivedMethod: (ReceivedAction receivedAction)async{
+
+    },
+  );
+  // AwesomeNotifications.listen((ReceivedAction receivedAction) {
+  //   debugPrint("Action: \n${receivedAction.toMap().toString()}\n");
+  //   debugPrint("Action2: \n${receivedAction.payload?["id"].toString()}\n");
+  //   print("qqqqqqqq on Action");
+  //   onclick(receivedAction.payload?["type"].toString() ?? "",
+  //       receivedAction.payload?["id"].toString() ?? "");
+  //   return;
+  // });
 }
 void onclick(String action, String id) {
   print("qqqqqqqq on click");

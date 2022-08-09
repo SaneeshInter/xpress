@@ -43,7 +43,7 @@ class CompletedBookingWidget extends StatelessWidget {
                 Row(
                   children: [
                     AutoSizeText(
-                      Txt.at + items.hospital!,
+                      "${Txt.at}${items.hospital??""}",
                       textAlign: TextAlign.start,
                       maxLines: 3,
                       style: TextStyle(color: Constants.colors[14], fontSize: 12.sp, fontWeight: FontWeight.w700, fontFamily: "SFProBold"),

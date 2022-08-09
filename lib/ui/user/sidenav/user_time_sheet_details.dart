@@ -107,6 +107,7 @@ class _CreateShiftState extends State<UserTimeSheetDetails> {
                     children: [
                       Center(
                         child: Container(
+
                             child: imageUrl != null
                                 ?
                             CachedNetworkImage(

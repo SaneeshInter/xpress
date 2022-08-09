@@ -1,21 +1,21 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import '../../../Constants/strings.dart';
 
 import '../../../Constants/app_defaults.dart';
 import '../../../Constants/sharedPrefKeys.dart';
+import '../../../Constants/strings.dart';
 import '../../../db/database.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/utils.dart';
 import '../../splash/user_or_manager.dart';
-
 import '../../widgets/logout_warning.dart';
 import '../home/profile_screen.dart';
 import '../sidenav/completed_shifts.dart';
-
 import '../sidenav/contact_us_screen.dart';
 import '../sidenav/faqs_screen.dart';
 import '../sidenav/notification_screen.dart';
@@ -38,7 +38,6 @@ class _SideMenuState extends State<SideMenu> {
 
   @override
   void initState() {
-
     super.initState();
     setProfileHeader();
   }
@@ -65,18 +64,14 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Constants.colors[34],
-              Constants.colors[35],
-            ]),
+        gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
+          Constants.colors[34],
+          Constants.colors[35],
+        ]),
       ),
       child: Padding(
         padding: const EdgeInsets.only(left: 16),
         child: ListView(
-
           padding: EdgeInsets.zero,
           children: [
             Column(
@@ -89,15 +84,9 @@ class _SideMenuState extends State<SideMenu> {
                       Row(
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.12,
+                            width: MediaQuery.of(context).size.width * 0.14,
                             child: ClipRRect(
-                              borderRadius:
-                              BorderRadius.circular(
-                                  MediaQuery.of(
-                                      context)
-                                      .size
-                                      .width *
-                                      0.22),
+                              borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.22),
                               child: AspectRatio(
                                 aspectRatio: 1 / 1,
                                 child: Stack(
@@ -108,19 +97,17 @@ class _SideMenuState extends State<SideMenu> {
                                         fit: BoxFit.fill,
                                       ),
                                     if (profileImage != "")
-                                      Image.network(
-                                        profileImage,
+                                      CachedNetworkImage(imageUrl:profileImage,
                                         fit: BoxFit.fill,
-                                        width: MediaQuery.of(
-                                            context)
-                                            .size
-                                            .width *
-                                            0.22,
-                                        height: MediaQuery.of(
-                                            context)
-                                            .size
-                                            .width *
-                                            0.22,
+                                        width: MediaQuery.of(context).size.width * 22,
+                                        height: MediaQuery.of(context).size.width * 22,
+                                        // child: Image.network(
+                                        //   profileImage,
+                                        //   fit: BoxFit.fill,
+                                        //   width: MediaQuery.of(context).size.width * 10,
+                                        //   height: MediaQuery.of(context).size.width * 10,
+                                        // ),
+                                        placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
                                       ),
                                   ],
                                 ),
@@ -134,36 +121,24 @@ class _SideMenuState extends State<SideMenu> {
                             children: [
                               SizedBox(
                                 width: 45.w,
-                                child: Text(
+                                child: AutoSizeText(
                                   name,
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.sp,
-                                      fontFamily: "SFProMedium",
-                                      fontWeight: FontWeight.w700),
+                                  style: TextStyle(color: Colors.white, fontSize: 16.sp, fontFamily: "SFProMedium", fontWeight: FontWeight.w700),
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              Text(
+                              AutoSizeText(
                                 type,
                                 textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11.sp,
-                                    fontFamily: "S",
-                                    fontWeight: FontWeight.w400),
+                                style: TextStyle(color: Colors.white, fontSize: 11.sp, fontFamily: "S", fontWeight: FontWeight.w400),
                               ),
                               const SizedBox(height: 5),
-                              Text(
-                               Txt.emp_no + empNo,
+                              AutoSizeText(
+                                Txt.emp_no + empNo,
                                 textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12.sp,
-                                    fontFamily: "S",
-                                    fontWeight: FontWeight.w400),
+                                style: TextStyle(color: Colors.white, fontSize: 12.sp, fontFamily: "S", fontWeight: FontWeight.w400),
                               ),
                             ],
                           ),
@@ -176,15 +151,14 @@ class _SideMenuState extends State<SideMenu> {
               ],
             ),
             Divider(
-              endIndent:20 ,
+              endIndent: 20,
               indent: 20,
               thickness: 0.05,
               color: Constants.colors[0],
             ),
-
             ListTile(
               title: const Text(
-               Txt.home,
+                Txt.home,
                 style: TextStyle(color: Colors.white),
               ),
               leading: SizedBox(
@@ -197,13 +171,11 @@ class _SideMenuState extends State<SideMenu> {
               ),
               onTap: () {
                 Navigator.pop(context);
-
               },
             ),
             ListTile(
-
               title: const Text(
-                Txt.my_profile  ,
+                Txt.my_profile,
                 style: TextStyle(color: Colors.white),
               ),
               leading: SizedBox(
@@ -222,11 +194,8 @@ class _SideMenuState extends State<SideMenu> {
                   withNavBar: true,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 );
-
-
               },
             ),
-
             ListTile(
               title: const Text(
                 Txt.submtd_timsht,
@@ -241,7 +210,6 @@ class _SideMenuState extends State<SideMenu> {
                 ),
               ),
               onTap: () {
-
                 Navigator.pop(context);
                 pushNewScreen(
                   context,
@@ -251,16 +219,18 @@ class _SideMenuState extends State<SideMenu> {
                 );
               },
             ),
-
             ListTile(
               title: const Text(
-               Txt.notify ,
+                Txt.notify,
                 style: TextStyle(color: Colors.white),
               ),
               leading: SizedBox(
                 width: 5.w,
                 height: 5.w,
-                child: SvgPicture.asset('assets/images/icon/notification.svg', color: Colors.white,),
+                child: SvgPicture.asset(
+                  'assets/images/icon/notification.svg',
+                  color: Colors.white,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -297,13 +267,16 @@ class _SideMenuState extends State<SideMenu> {
             ),
             ListTile(
               title: const Text(
-               Txt.faqs,
+                Txt.faqs,
                 style: TextStyle(color: Colors.white),
               ),
               leading: Container(
                 width: 5.w,
                 height: 5.w,
-                child: SvgPicture.asset('assets/images/icon/conversation.svg', color: Colors.white,),
+                child: SvgPicture.asset(
+                  'assets/images/icon/conversation.svg',
+                  color: Colors.white,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -315,16 +288,18 @@ class _SideMenuState extends State<SideMenu> {
                 );
               },
             ),
-
             ListTile(
               title: const Text(
-               Txt.contact_us ,
+                Txt.contact_us,
                 style: TextStyle(color: Colors.white),
               ),
               leading: SizedBox(
                 width: 5.w,
                 height: 5.w,
-                child:  SvgPicture.asset('assets/images/icon/contact-book.svg', color: Colors.white,),
+                child: SvgPicture.asset(
+                  'assets/images/icon/contact-book.svg',
+                  color: Colors.white,
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -338,7 +313,7 @@ class _SideMenuState extends State<SideMenu> {
             ),
             ListTile(
               title: const Text(
-               Txt.log_out,
+                Txt.log_out,
                 style: TextStyle(color: Colors.white),
               ),
               leading: SizedBox(
@@ -350,13 +325,19 @@ class _SideMenuState extends State<SideMenu> {
                 ),
               ),
               onTap: () async {
-                showDialog( builder: (BuildContext context) { return  const LogoutWarning(); }, context: context);
-
+                showDialog(
+                    builder: (BuildContext context) {
+                      return const LogoutWarning();
+                    },
+                    context: context);
               },
             ),
+
           ],
         ),
+
       ),
+      
     );
   }
 
@@ -365,17 +346,15 @@ class _SideMenuState extends State<SideMenu> {
     db.clearDb();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
-    Future.delayed(Duration.zero, () async{
-
+    Future.delayed(Duration.zero, () async {
       Navigator.pop(context);
       Navigator.pushAndRemoveUntil<dynamic>(
         context,
         MaterialPageRoute<dynamic>(
           builder: (BuildContext context) => UserOrManager(),
         ),
-            (route) => false,
+        (route) => false,
       );
     });
-
   }
 }

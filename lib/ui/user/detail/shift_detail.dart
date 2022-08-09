@@ -349,7 +349,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                       ),
                                     ),
                                   ),
-                                if (!widget.isCompleted)
+                                //if (!widget.isCompleted)
                                   Padding(
                                     padding: const EdgeInsets.all(25.0),
                                     child: Row(

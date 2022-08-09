@@ -1,3 +1,5 @@
+import 'package:xpresshealthdev/model/user_complted_shift.dart';
+
 class Txt {
 
   static const contactNumber= "+35312118883";
@@ -293,6 +295,7 @@ class Txt {
   static const job_details_dot =    " Job Details: ";
   static const users_request = "Users Request";
   static const accept ="Accept";
+  static const status ="Status";
   static const reject ="Reject";
   static const view_timesheets="View Timesheets" ;
   static const timesheet_updated = "Timesheet Updated";

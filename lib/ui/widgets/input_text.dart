@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../utils/constants.dart';
 
+import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 
 class TextInputFileds extends StatelessWidget {
@@ -12,15 +12,9 @@ class TextInputFileds extends StatelessWidget {
   bool isPwd;
   Function onTapDate;
   Function onChange;
-  TextInputFileds(
-      {Key? key,
-      required this.hintText,
-      this.validator,
-      required this.controlr,
-      required this.keyboadType,
-      required this.isPwd,
-      required this.onChange,
-      required this.onTapDate}) : super(key: key);
+
+  TextInputFileds({Key? key, required this.hintText, this.validator, required this.controlr, required this.keyboadType, required this.isPwd, required this.onChange, required this.onTapDate})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +29,14 @@ class TextInputFileds extends StatelessWidget {
         },
         controller: controlr,
         validator: validator,
-        textAlign: TextAlign.justify
-        ,
+        textAlign: TextAlign.justify,
         obscureText: isPwd,
         maxLines: 1,
-        onChanged: (value) {
-
-        },
+        onChanged: (value) {},
         keyboardType: keyboadType,
         decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 8),
-            errorBorder:  OutlineInputBorder(
+            contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+            errorBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
@@ -53,30 +44,23 @@ class TextInputFileds extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
-            labelStyle: TextStyle(
-                fontFamily: 'SFProRegular',
-                fontWeight: FontWeight.w500,
-                fontSize: 10.sp,
-              color: Colors.grey),
-            enabledBorder:  OutlineInputBorder(
+            labelStyle: TextStyle(fontFamily: 'SFProRegular', fontWeight: FontWeight.w500, fontSize: 10.sp, color: Colors.grey),
+            enabledBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
-            focusedBorder:  OutlineInputBorder(
+            focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Constants.colors[28], width: 1),
             ),
             hintText: hintText,
-            hintStyle: TextStyle(
-                fontFamily: 'SFProRegular',
-                fontWeight: FontWeight.normal,
-                fontSize: 10.sp,
-                color: Constants.colors[29])),
+            hintStyle: TextStyle(fontFamily: 'SFProRegular', fontWeight: FontWeight.normal, fontSize: 10.sp, color: Constants.colors[29])),
         style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 10.sp,
-            decoration: TextDecoration.none,
-          color: Constants.colors[29],),
+          fontWeight: FontWeight.w500,
+          fontSize: 10.sp,
+          decoration: TextDecoration.none,
+          color: Constants.colors[29],
+        ),
       ),
     ));
   }
