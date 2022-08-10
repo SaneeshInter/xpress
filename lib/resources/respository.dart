@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../model/account_logout.dart';
 import '../model/login_response.dart';
 import '../model/user_get_response.dart';
 import '../model/user_get_shift_details.dart';
@@ -181,6 +182,10 @@ class Repository {
 
   Future<ManagerTimeSheetResponse> fetchcompletedApprovel(String token ) =>
       apiProvider.managerApprovel(token);
+
+
+  Future<AccountLogOutResponse> fetchAccountLogout(String token ,String user_type) =>
+      apiProvider.accountLogout(token,user_type);
 
 
 

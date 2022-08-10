@@ -337,7 +337,8 @@ class _CreateShiftState extends State<ManagerTimeSheetDetails>
                           color: Constants.colors[3],
                           borderRadius: BorderRadius.circular(5)),
                       child: Text(
-                        "PROCESSED",
+                        "APPROVE",
+                        //"PROCESSED",
                         style: TextStyle(
                             fontSize: 12.5.sp,
                             color: Constants.colors[0],

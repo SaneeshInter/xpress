@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -9,9 +10,13 @@ import 'package:sizer/sizer.dart';
 import '../../../Constants/app_defaults.dart';
 import '../../../Constants/sharedPrefKeys.dart';
 import '../../../Constants/strings.dart';
+import '../../../blocs/account_logout_bloc.dart';
 import '../../../db/database.dart';
+import '../../../resources/token_provider.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/network_utils.dart';
 import '../../../utils/utils.dart';
+import '../../error/ConnectionFailedScreen.dart';
 import '../../splash/user_or_manager.dart';
 import '../../widgets/logout_warning.dart';
 import '../home/profile_screen.dart';
@@ -35,12 +40,39 @@ class _SideMenuState extends State<SideMenu> {
   String profileImage = "";
   String empNo = "";
   String type = "";
+  String token="";
+  String user_type="";
+
 
   @override
   void initState() {
     super.initState();
     setProfileHeader();
+
+    observe();
+
   }
+
+  Future logoutFromServer() async {
+   token = await TokenProvider().getToken()??"";
+    accountlogouttBloc.fetchAcccountLogOut( token,  user_type);
+  }
+
+
+  void observe() {
+    accountlogouttBloc.accountLogoutStream.listen((event) {
+
+     if (event.response?.status?.statusCode ==200)
+       logOut(context);
+
+
+
+
+    });
+  }
+
+
+
 
   Future<void> setProfileHeader() async {
     SharedPreferences shdPre = await SharedPreferences.getInstance();
@@ -325,9 +357,52 @@ class _SideMenuState extends State<SideMenu> {
                 ),
               ),
               onTap: () async {
+
+                // accountlogouttBloc.fetchAcccountLogOut(token, user_type);
+                 print("USERTYPE AND TOKEN LOGUT");
                 showDialog(
                     builder: (BuildContext context) {
-                      return const LogoutWarning();
+                      return  AlertDialog(
+                        title: Text(
+                          "Logout",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        content: Text(
+                          "Are you sure, Do you want to logout !",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: Colors.black,),
+                        ),
+                        actions: [
+                          TextButton(
+                            child: Text(
+                              'No',
+                              style: TextStyle(
+                                  fontSize: 10.sp,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: Text(
+                              'Yes',
+                              style: TextStyle(
+                                  fontSize: 10.sp,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            onPressed: () async{
+                              await logoutFromServer();
+                            },
+                          ),
+                        ],
+                      );
                     },
                     context: context);
               },
