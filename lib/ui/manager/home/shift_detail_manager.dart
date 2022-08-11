@@ -167,6 +167,15 @@ class _CreateShiftState extends State<ShiftDetailManagerScreen> {
                                                       textColors: Colors.black,
                                                       size: 9.sp,
                                                     ),
+                                                    if (null != shiftDetails)
+                                                      CustomRow(
+                                                        onPressed: () {},
+                                                        label:Txt.post_code + (shiftDetails.poCode??"").toString(),
+                                                        //shiftDetails.poCode.toString(),
+                                                        asset: "assets/images/icon/price-tag.svg",
+                                                        textColors: Colors.black,
+                                                        size: 9.sp,
+                                                      ),
                                                     const Padding(
                                                       padding: EdgeInsets.all(12.0),
                                                       child: Divider(

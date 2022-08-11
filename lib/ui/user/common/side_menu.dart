@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -274,6 +275,9 @@ class _SideMenuState extends State<SideMenu> {
                 );
               },
             ),
+
+
+
             ListTile(
               title: const Text(
                 Txt.completed_shifts,
@@ -407,6 +411,7 @@ class _SideMenuState extends State<SideMenu> {
                     context: context);
               },
             ),
+
 
           ],
         ),

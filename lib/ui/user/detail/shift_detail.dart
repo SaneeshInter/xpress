@@ -216,6 +216,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                       style: TextStyle(color: Colors.black, fontSize: 16.sp, fontFamily: "SFProMedium", fontWeight: FontWeight.w700),
                                                     ),
                                                   ),
+
                                                   CustomRow(
                                                     onPressed: () {},
                                                     label: Txt.address_dot + hospitalDetail.address.toString(),
@@ -250,7 +251,7 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                   // if (null !=
                                                   //         hospitalDetail.phone &&
                                                   //     hospitalDetail
-                                                  //         .phone!.isNotEmpty)
+                                                  //         .phone!.isNotEmpty)z
                                                   CustomRow(
                                                     onPressed: () {
                                                       dialCall(Txt.contactNumber);
@@ -260,6 +261,15 @@ class _ShiftDetailScreenState extends State<ShiftDetailScreen> {
                                                     textColors: Colors.black,
                                                     size: 9.sp,
                                                   ),
+                                                  if (null != shiftDetails)
+                                                    CustomRow(
+                                                      onPressed: () {},
+                                                      label:Txt.post_code + (shiftDetails.poCode??"").toString(),
+                                                      //shiftDetails.poCode.toString(),
+                                                      asset: "assets/images/icon/price-tag.svg",
+                                                      textColors: Colors.black,
+                                                      size: 9.sp,
+                                                    ),
                                                   const Padding(
                                                     padding: EdgeInsets.all(12.0),
                                                     child: Divider(

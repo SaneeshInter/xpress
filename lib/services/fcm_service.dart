@@ -52,7 +52,7 @@ Stream<int> get notificationCount => _userNotificationCounter.stream;
   }
 
   void setToken(String? token) async {
-    debugPrint('FCM Token: $token');
+    debugPrint('FCM Token Initial : $token');
 
     fcmToken = token!;
     String auth = await TokenProvider().getToken() ?? "";

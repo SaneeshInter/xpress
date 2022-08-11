@@ -60,14 +60,14 @@ class _CreateShiftState extends State<CompletedTimeSheetDetails>
     String? imageUrl = widget.item?.timeSheetLink??"";
     return Scaffold(
       backgroundColor: Constants.colors[9],
-      floatingActionButton: FloatingActionButton.extended(
-        
-        onPressed: () {
-          completedTimesheetBloc.approveTimeSheet();
-        },
-        label: const Text(Txt.approve),
-        backgroundColor: Colors.green,
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //
+      //   onPressed: () {
+      //     completedTimesheetBloc.approveTimeSheet();
+      //   },
+      //   label: const Text(Txt.approve),
+      //   backgroundColor: Colors.green,
+      // ),
       body: Stack(
         children: [
           NestedScrollView(

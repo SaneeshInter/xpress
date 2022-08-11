@@ -7,6 +7,7 @@ import 'package:xpresshealthdev/resources/token_provider.dart';
 
 import '../Constants/global.dart';
 import '../model/accept_job_request.dart';
+import '../model/account_logout.dart';
 import '../model/get_available_user_by_date.dart';
 import '../model/login_response.dart';
 import '../model/manager_get_clients.dart';
@@ -447,6 +448,44 @@ class ApiProvider {
       return RemoveManagerScheduleResponse();
     }
   }
+  //ACCOUNT LOGOUT
+
+  Future<AccountLogOutResponse> accountLogout(String token, String user_type) async {
+    try {
+      var uri = Uri.parse('${Global.baseUrl}/account/logout');
+      final response = await client.post(uri,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'token': token,
+          },
+          body: jsonEncode(<String, String>{
+            'user_type': user_type,
+          }));
+
+      print("PRINT AccountLogOutResponse$token");
+      print("PRINTAccountLogOutResponse  $uri");
+
+      print(jsonEncode(<String, String>{
+        'user_type': user_type,
+      }).toString());
+      developer.log("\n\n\nURI: $uri\nUserType: \nUser: $token\n body: ${response.body}\nStatusCode: ${response.statusCode}\n\n\n");
+
+      if (response.statusCode == 200) {
+        return AccountLogOutResponse.fromJson(json.decode(response.body));
+      } else {
+        return AccountLogOutResponse();
+      }
+    } catch (e) {
+      print(e.toString());
+      return AccountLogOutResponse();
+    }
+  }
+
+
+
+
+
+
 
   Future<ManagerTimeDetailsResponse> timeDetails(String token, String time_shhet_id) async {
     try {

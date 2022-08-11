@@ -293,9 +293,10 @@ class Txt {
   static const am_to = 'AM To';
   static const pm =  "PM ";
   static const job_details_dot =    " Job Details: ";
+  static const post_code =    "poCode :";
   static const users_request = "Users Request";
   static const accept ="Accept";
-  static const status ="Status";
+  static const status ="STATUS";
   static const reject ="Reject";
   static const view_timesheets="View Timesheets" ;
   static const timesheet_updated = "Timesheet Updated";

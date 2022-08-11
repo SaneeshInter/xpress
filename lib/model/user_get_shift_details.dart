@@ -92,6 +92,7 @@ class ShiftDetails {
   String? date;
   String? timeFrom;
   String? timeTo;
+  String? poCode;
   String? jobDetails;
   int? price;
   List<Allowances>? allowances;
@@ -111,6 +112,7 @@ class ShiftDetails {
         this.date,
         this.timeFrom,
         this.timeTo,
+        this.poCode,
         this.jobDetails,
         this.price,
         this.allowances,
@@ -135,6 +137,7 @@ class ShiftDetails {
     date = json['date'];
     timeFrom = json['time_from'];
     timeTo = json['time_to'];
+    poCode = json['po_code'];
     jobDetails = json['job_details'];
     price = json['price'];
     if (json['allowances'] != null) {
@@ -161,6 +164,7 @@ class ShiftDetails {
     data['date'] = this.date;
     data['time_from'] = this.timeFrom;
     data['time_to'] = this.timeTo;
+    data['po_code'] = this.poCode;
     data['job_details'] = this.jobDetails;
     data['price'] = this.price;
     if (this.allowances != null) {
