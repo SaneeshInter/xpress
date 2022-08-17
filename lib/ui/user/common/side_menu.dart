@@ -64,6 +64,7 @@ class _SideMenuState extends State<SideMenu> {
     accountlogouttBloc.accountLogoutStream.listen((event) {
 
      if (event.response?.status?.statusCode ==200)
+       if(mounted)
        logOut(context);
 
 

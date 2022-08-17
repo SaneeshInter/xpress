@@ -180,18 +180,18 @@ class _ProfileState extends State<ProfileScreen> {
                                                 aspectRatio: 1 / 1,
                                                 child: Stack(
                                                   children: [
-                                                    if (profileImage == "" || null == profileImage)
+                                                    if (profileImage == '' || null == profileImage)
                                                       Image.asset(
                                                         'assets/images/icon/man_ava.png',
                                                         fit: BoxFit.fill,
                                                       ),
-                                                    if (profileImage != "" && null != profileImage)
+                                                    if (profileImage != '' && null != profileImage)
                                                       CachedNetworkImage(
                                                         imageUrl: profileImage,
                                                         fit: BoxFit.fill,
                                                         width: MediaQuery.of(context).size.width * 22,
                                                         height: MediaQuery.of(context).size.width * 22,
-                                                        placeholder: (context, url) => Image.asset("assets/images/icon/loading_bar.gif"),
+                                                        placeholder: (context, url) => Image.asset('assets/images/icon/loading_bar.gif'),
                                                       ),
 
                                                     // Image.network(

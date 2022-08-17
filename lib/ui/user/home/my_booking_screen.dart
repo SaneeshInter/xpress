@@ -134,8 +134,8 @@ class _HomeState extends State<MyBookingScreen> with WidgetsBindingObserver, Tic
               child: Container(
                 color: Constants.colors[0],
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TabBar(controller: bookingController, isScrollable: true, unselectedLabelColor: Colors.black, indicatorSize: TabBarIndicatorSize.tab, labelColor: Colors.black, tabs: [
+                  padding: const EdgeInsets.all(8.0),
+                  child: TabBar(controller: bookingController, isScrollable: true, unselectedLabelColor: Colors.black, indicatorSize: TabBarIndicatorSize.tab, labelColor: Colors.black, tabs: const [
                     Tab(
                       child: Align(
                         alignment: Alignment.center,
@@ -608,12 +608,15 @@ FilterBookingList getFilterList(AsyncSnapshot<UserViewRequestResponse> snapshot,
         }
         // list.confirmed.list.add(item);
       }
+
       if (item.status == Txt.pending) {
-        if (list.requested.any((element) => element.date == item.date.toString())) {
-          list.requested[list.requested.indexWhere((element) => element.date == item.date.toString())].list.add(item);
-        } else {
-          list.requested.add(DateItems(item.date.toString(), [item]));
-        }
+        if (getDateFromString(item.date.toString(), 'yyyy-MM-dd').difference(DateTime.now()).inDays>=0){
+          if (list.requested.any((element) => element.date == item.date.toString())) {
+            list.requested[list.requested.indexWhere((element) => element.date == item.date.toString())].list.add(item);
+          } else {
+            list.requested.add(DateItems(item.date.toString(), [item]));
+          }
+      }
         // list.requested.list.add(item);
       }
       if (item.status == Txt.rejected) {
