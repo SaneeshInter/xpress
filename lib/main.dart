@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/services/fcm_local_service.dart';
 import 'package:xpresshealthdev/services/update_checker_service.dart';
 import '../../services/fcm_service.dart';
 import '../../ui/manager/home/manager_notification_screen.dart';
@@ -29,7 +30,7 @@ Future<void> main() async {
   await   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
   FirebaseMessaging.onBackgroundMessage(backgroundListen);
-  FCM().init();
+  FCMLocal().fcmInitialize();
   SystemChrome.setPreferredOrientations( [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   UpdateCheckerService().init();
   runApp(const MyApp());

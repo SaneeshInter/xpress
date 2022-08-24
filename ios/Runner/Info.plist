@@ -52,6 +52,8 @@
 	<string>$(PRODUCT_NAME) Used to update profile picture and documents </string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
+		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/services/fcm_local_service.dart';
 import 'package:xpresshealthdev/ui/splash/splash_screen.dart';
 import '../../services/fcm_service.dart';
 
@@ -417,7 +418,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ModalRoute.withName('/'),
             );
           }
-          FCM().getFCMToken();
+          FCMLocal().getFCMToken();
         } else {
           if (!mounted) return;
           showAlertDialoge(context, title: Txt.login_failed, message: message!);

@@ -21,7 +21,7 @@ Future<void> init()async{
 }
 
 advancedStatusCheck(NewVersion newVersion) async {
-  final status = await newVersion.getVersionStatus();
+    final status = await newVersion.getVersionStatus();
   if (status != null) {
     debugPrint(status.releaseNotes);
     debugPrint(status.appStoreLink);
@@ -169,7 +169,7 @@ class NewVersion {
           .replaceAll('knowledge"', '');
       final parsed = json.decode(param);
       final data =  parsed['data'];
-
+print('xcfdszccc ${data}');
       storeVersion = data[1][2][140][0][0][0];
 
     }

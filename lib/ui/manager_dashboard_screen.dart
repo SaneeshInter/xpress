@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:xpresshealthdev/services/fcm_local_service.dart';
 import '../../services/fcm_service.dart';
 import '../../ui/widgets/double_back_to_close.dart';
 import '../../ui/widgets/logout_warning.dart';
@@ -43,7 +44,7 @@ class _ManagerDashBoardWidgetState extends State<ManagerDashBoard> {
   void initState() {
     super.initState();
     controller = PersistentTabController(initialIndex: 0);
-    FCM().notificationCount.listen((event) {
+    FCMLocal().notificationCount.listen((event) {
       getNotificationCount();
     }).onError((error) {
       debugPrint("error $error");

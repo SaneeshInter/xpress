@@ -30,6 +30,7 @@ class CompletedShiftScreen extends StatefulWidget {
 class _CompletedShiftState extends State<CompletedShiftScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+
   @override
   void didUpdateWidget(covariant CompletedShiftScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -171,9 +172,9 @@ class _CompletedShiftState extends State<CompletedShiftScreen> {
             completeBloc.buttonVisibility = true;
           });
         } else {
-          setState(() {
-            completeBloc.buttonVisibility = false;
-          });
+          if(mounted) {
+            setState(() => completeBloc.buttonVisibility = false);
+          }
         }
       }
     });

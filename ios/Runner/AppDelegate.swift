@@ -9,7 +9,11 @@ import Firebase
   ) -> Bool {
       FirebaseApp.configure()
       self.window.makeSecure()
+      if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self as UNUserNotificationCenterDelegate
+          }
     GeneratedPluginRegistrant.register(with: self)
+    
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
     override func applicationWillResignActive(

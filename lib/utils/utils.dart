@@ -424,6 +424,9 @@ String checkAndUpdateTimeDiffernce(String dateTo, String dateFrom) {
   }
 }
 
+
+
+
 String getDiffrenceBetweenDates(DateTime date, DateTime date2) {
   ("${date.toString()}     ${date2.toString()}");
   DateTime fromDate = date;
@@ -441,6 +444,9 @@ String getDiffrenceBetweenDates(DateTime date, DateTime date2) {
   }
 }
 
+
+
+
 int getDiffrenceInSecond(DateTime date, DateTime date2) {
   var diff = date2.difference(date);
   return diff.inSeconds;
@@ -457,6 +463,7 @@ String getDiffrenceSecondTwoDates(DateTime date2, DateTime date) {
 }
 
 String getHoursFromMinutes(int minutes) {
+
   var hours = (minutes / 60).floor();
   var minutesRemaining = minutes % 60;
   return "${hours.toString().padLeft(2, '0')}:${minutesRemaining.toString().padLeft(2, '0')}";
