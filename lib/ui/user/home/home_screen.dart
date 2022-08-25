@@ -440,7 +440,7 @@ class _HomeScreentate extends State<HomeScreen> {
                           Expanded(
                             child: PageView.builder(
                               controller: ctrl,
-                              padEnds: false,
+                              padEnds: false, 
                               onPageChanged: (page) {
                                 debugPrint("page");
 

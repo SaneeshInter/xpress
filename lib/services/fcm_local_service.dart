@@ -70,11 +70,16 @@ class FCMLocal {
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
+      defaultPresentBadge: false,
+      defaultPresentAlert: true,
+      defaultPresentSound: true
+
     );
 
     const InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
+
     );
 
     flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelected);
@@ -100,7 +105,7 @@ Future<void> showNotification(RemoteMessage message) async {
     requestSoundPermission: true,
     defaultPresentSound: true,
     defaultPresentAlert: true,
-    defaultPresentBadge: true,
+    defaultPresentBadge: false,
   );
 
   const InitializationSettings initializationSettings = InitializationSettings(
@@ -124,6 +129,7 @@ Future<void> showNotification(RemoteMessage message) async {
   print("dsdsfdfsffdf ${message.data['payload']}");
 
   flutterLocalNotificationsPlugin.show(
+
       notification.hashCode,
       notification?.title ?? "",
       notification?.body ?? "",
@@ -131,7 +137,7 @@ Future<void> showNotification(RemoteMessage message) async {
           android: AndroidNotificationDetails(channel.id, channel.name,
               enableVibration: true, enableLights: true, playSound: true, channelShowBadge: true, colorized: true, importance: Importance.max, showProgress: true),
           iOS: const IOSNotificationDetails(
-            presentSound: true,presentAlert: true,presentBadge: true
+            presentSound: true,presentAlert: true,presentBadge: true,
 
           )),
 
