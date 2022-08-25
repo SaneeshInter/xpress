@@ -173,10 +173,6 @@ U
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 ;
 .firebaserc,3/6/368d8a929a4bff0376a597a4de99b28a56e8efc3
-e
-5macos/Flutter/ephemeral/flutter_export_environment.sh,d/4/d4e6e50cfe666666604b687ae77e547146f3d411
-b
-2macos/Flutter/ephemeral/Flutter-Generated.xcconfig,2/7/27b1bc28753c357f7bc45442c78f4ef1ce7accc1
 L
 lib/utils/maps_launcher.dart,a/9/a994255f9385fd16e00dcdc785176bb5f1b7ba12
 Y
@@ -479,12 +475,6 @@ e
 5lib/ui/manager/home/completed_time_sheet_details.dart,9/2/92c1a80873f9a20e08633f13b357f74afda1732c
 S
 #lib/model/manager_view_request.dart,8/6/865b4ad401ce1619e347017b60888d2c3dc858df
-M
-.flutter-plugins-dependencies,c/3/c35774685cffc620de767cda8fa01675e8685378
-9
-	.packages,9/b/9b4bbe3dd58bdfaf2455c8d7f1db8e23fcd9bc95
-@
-.flutter-plugins,c/0/c0b6f935ef14af8fe1d6391eeee68e16ee6087eb
 L
 .idea/libraries/Dart_SDK.xml,a/9/a9cc79449f536988c9a3fd2c84e3dfda3be04f09
 O
@@ -499,8 +489,6 @@ M
 lib/model/account_logout.dart,f/2/f2a9c9c287dfb4f21cc019fe4cb8c2750e5b146b
 ]
 -lib/ui/manager/home/shift_detail_manager.dart,d/1/d1f2dac3c22e8ee84a1ee2f4b5ffa01c46cd6b33
-E
-analysis_options.yaml,9/5/9573dd68c24611034c89c926cde7e71d100ed7ab
 Y
 )lib/model/user_view_request_response.dart,c/d/cd9a320c016b9938ae2056df13e1351738ece9ae
 W
@@ -525,8 +513,6 @@ S
 #lib/blocs/shift_confirmed_bloc.dart,3/3/33b5af3884fc528ae1bd43cd041c2514322e1a74
 a
 1lib/ui/widgets/manager/confirmed_list_widget.dart,f/f/ff78988c7c77e24ef9049349c3c764aa2ef56b2c
-Q
-!lib/ui/user/home/home_screen.dart,6/7/67e951b929020d578e56b175efb4b2c8faa7516b
 W
 'lib/ui/user/detail/profile_doc_row.dart,9/7/97e3a7a2c11e178d6fc1c4041fe5595626b06eb6
 [
@@ -549,3 +535,51 @@ K
 lib/ui/user/faq_screen.dart,5/b/5bfce00aacdaef1cd215ac30b0dc09cfe117de8e
 O
 lib/resources/api_provider.dart,9/b/9b3995585cb13836029a65950eb6614eed11d5fe
+T
+$lib/ui/user/detail/shift_detail.dart,2/2/220eee2ca75bc3521b7f8c32871fcfaeae06fcea
+Z
+*lib/ui/user/sidenav/contact_us_screen.dart,b/7/b7d51687999d8e841a34f05191807cc96cd16033
+U
+%lib/ui/widgets/contact_us_widget.dart,a/f/af432902c46869b88b77fa0697308d28110b808f
+I
+lib/firebase_options.dart,0/f/0f4c3391435ed7c33948e13687a0bd929288bdb6
+O
+lib/Constants/app_defaults.dart,0/1/01e7e6417effcf34e71a7e169d1fbfd3e4ec539e
+D
+lib/utils/utils.dart,7/8/78fd49e1497a28ffb1b3427c12cd1de5760d935c
+L
+ios/Runner/AppDelegate.swift,8/4/84700e47abd691450c7da01b0aa772b1d41e4838
+D
+test/login_test.dart,8/c/8cd9db06bbc335c5ebb387162135b0c7371f94c2
+X
+(lib/services/update_checker_service.dart,2/e/2e04128806abb6782c6722235f75168ad06ac3f2
+T
+$ios/Runner.xcodeproj/project.pbxproj,1/c/1cac92320f17044ec005b6a831fa994f54fba1bc
+I
+lib/Constants/global.dart,2/a/2a1233afe1fff27d8e846853550cfa8850b55403
+E
+ios/Runner/Info.plist,7/0/7076b60f5e64ebfddc934ae3c4a7a7b87e461a6f
+X
+(android/app/src/main/AndroidManifest.xml,e/f/ef79bfd51db69a15dbf5807c05bb249bdccb0556
+m
+=android/app/src/main/kotlin/com/xpress/health/MainActivity.kt,e/f/efd8f4b4d02a74024ab96157e5e44efd452c4a5b
+T
+$lib/ui/manager_dashboard_screen.dart,2/b/2b4fed885d6392aab298f67fbfc564824c1dc8be
+\
+,lib/ui/user/home/completed_shift_screen.dart,9/7/977d8aef41f99b755ac5928a2c575e3f65d5d8fd
+\
+,lib/ui/user/sidenav/notification_screen.dart,e/9/e9c5247d6def0baef747fb49e580ced83cfa99c0
+N
+lib/ui/login/login_screen.dart,0/f/0f34e6a62dd34516659e0d3f4693a34572014195
+H
+android/app/build.gradle,5/9/594ba479000e0bb5513707b709ad1cd52da9063a
+M
+lib/services/fcm_service.dart,2/4/2489b1d67e614b812994e5549e283a9c03e05d82
+<
+pubspec.yaml,e/8/e8e045469170189f1d6ef12576bd01af132b1018
+<
+pubspec.lock,c/1/c1c78778a0cef1e5344166792d1d823fdcb8b109
+e
+5macos/Flutter/ephemeral/flutter_export_environment.sh,d/4/d4e6e50cfe666666604b687ae77e547146f3d411
+b
+2macos/Flutter/ephemeral/Flutter-Generated.xcconfig,2/7/27b1bc28753c357f7bc45442c78f4ef1ce7accc1
