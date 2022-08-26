@@ -30,17 +30,11 @@ class FCMLocal {
 
     await firebaseMessaging.requestPermission();
     initialise();
-
     firebaseMessaging.subscribeToTopic("all_device");
-
     firebaseMessaging.setAutoInitEnabled(true);
-
     firebaseMessaging.getInitialMessage().then((RemoteMessage? value) => navigate(value?.data['payload'] ?? ""));
-
     FirebaseMessaging.onMessage.listen(foregroundListen);
-    //
     // FirebaseMessaging.onBackgroundMessage(backgroundListen);
-
     FirebaseMessaging.onMessageOpenedApp.listen(onMessageOpen);
   }
 
@@ -65,7 +59,6 @@ class FCMLocal {
   void initialise() {
     getFCMToken();
     const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-
     const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -81,12 +74,8 @@ class FCMLocal {
       iOS: initializationSettingsIOS,
 
     );
-
     flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelected);
   }
-
-
-
 }
 
 Future<void> backgroundListen(RemoteMessage message) => showNotification(message);
@@ -95,25 +84,6 @@ Future<void> foregroundListen(RemoteMessage message) async {
   showNotification(message);
 }
 Future<void> showNotification(RemoteMessage message) async {
-  // FirebaseMessaging.onMessageOpenedApp.listen(onMessageOpen);
-
-  const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-
-  const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(
-    requestAlertPermission: true,
-    requestBadgePermission: true,
-    requestSoundPermission: true,
-    defaultPresentSound: true,
-    defaultPresentAlert: true,
-    defaultPresentBadge: false,
-  );
-
-  const InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsIOS,
-  );
-
-  flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: onSelected);
   const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'Xpress_Health', // id
     'Xpress Health', // title
@@ -126,10 +96,9 @@ Future<void> showNotification(RemoteMessage message) async {
   );
 
   RemoteNotification? notification = message.notification;
-  print("dsdsfdfsffdf ${message.data['payload']}");
+  print("Premium Shift Alert Notification ${message.data['payload']}");
 
   flutterLocalNotificationsPlugin.show(
-
       notification.hashCode,
       notification?.title ?? "",
       notification?.body ?? "",
@@ -146,14 +115,14 @@ Future<void> showNotification(RemoteMessage message) async {
 
 
 void onSelected(String? payload) {
-  print('dsdsfdfsffdf $payload ');
+  print('Premium Shift Alert 2 $payload ');
   if (payload != null) navigate(payload);
 }
 Future<void> navigate(String query) async {
   if (query.isNotEmpty) {
     Map valueMap = jsonDecode(query);
 
-    print("qqqqqqqq on click $query");
+    print(" OnClick$query");
     Future.delayed(const Duration(seconds: 0), () {
       switch (valueMap["type"].toString()) {
         case 'SHIFT_DETAILS':
