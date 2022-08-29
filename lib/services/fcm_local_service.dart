@@ -95,6 +95,7 @@ Future<void> showNotification(RemoteMessage message) async {
     enableVibration: true,
   );
 
+
   RemoteNotification? notification = message.notification;
   print("Premium Shift Alert Notification ${message.data['payload']}");
 
@@ -109,6 +110,7 @@ Future<void> showNotification(RemoteMessage message) async {
             presentSound: true,presentAlert: true,presentBadge: true,
 
           )),
+
 
       payload: message.data['payload'],);
 }

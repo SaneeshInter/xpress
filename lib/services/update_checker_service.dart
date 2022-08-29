@@ -5,6 +5,7 @@ import '../main.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io' show Platform;
+import 'dart:developer' as developer;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +142,7 @@ class NewVersion {
     final document = parse(response.body);
 
     String storeVersion = '0.0.0';
-
+    developer.log('qqqqqq ${uri.toString()}\n${response.body}');
     final additionalInfoElements = document.getElementsByClassName('hAyfc');
     if (additionalInfoElements.isNotEmpty) {
       final versionElement = additionalInfoElements.firstWhere(
